@@ -1,10 +1,46 @@
 {
   "openai/gpt-oss-20b": {
     "probes": [
-      {"extra_body": {}, "usable": false, "note": "first leaderboard request at default effort: finish=length tokens=4096 latency=86s, empty content (manual check)"},
-      {"extra_body": {"reasoning_effort": "low"}, "usable": true, "note": "finish=stop tokens=130 latency=14s (manual check)"}
+      {
+        "extra_body": {},
+        "usable": false,
+        "note": "first leaderboard request at default effort: finish=length tokens=4096 latency=86s, empty content (manual check)"
+      },
+      {
+        "extra_body": {
+          "reasoning_effort": "low"
+        },
+        "usable": true,
+        "note": "finish=stop tokens=130 latency=14s (manual check)"
+      }
     ],
-    "extra_body": {"reasoning_effort": "low"},
+    "extra_body": {
+      "reasoning_effort": "low"
+    },
     "label": "openai/gpt-oss-20b"
+  },
+  "nvidia/nemotron-3-ultra-550b-a55b": {
+    "probes": [
+      {
+        "extra_body": {},
+        "usable": false,
+        "note": "invalid (no JSON object with a 'bid' field found); finish=length tokens=4096 latency=83s"
+      },
+      {
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "usable": true,
+        "note": "finish=stop tokens=33 latency=4s"
+      }
+    ],
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "label": "nvidia/nemotron-3-ultra-550b-a55b (no-think)"
   }
 }
