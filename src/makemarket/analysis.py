@@ -5,6 +5,9 @@ same state* (same public information and the player's own fill history).
 * ``spread_ratio``: quoted spread / Bayes-optimal spread at that state.
 * ``regret``: E[PnL | posterior] of the Bayes quote minus that of the player's
   quote (>= 0 up to tick effects); this is exactly the training reward basis.
+* ``flow_shift``: mean (mid - public mean) in rounds that follow a round where
+  the player was lifted (sold), minus the same after being hit (bought). A
+  dealer that learns from order flow shifts up after being lifted (> 0).
 """
 
 from __future__ import annotations
@@ -39,6 +42,8 @@ def episode_diagnostics(ep: dict) -> list[dict]:
             flows.append((q, m_pub, r["traded_side"], r["qty"]))
         else:
             row.update(mid=np.nan, spread=np.nan, ev=0.0, regret=ref_ev, mid_error=np.nan)
+        prev = ep["rounds"][t - 1]["traded_side"] if t > 0 else None
+        row["prev_side"] = prev
         out.append(row)
     return out
 
@@ -50,7 +55,12 @@ def player_diagnostics(eps: list[dict]) -> dict:
     regret = np.array([d["regret"] for d in rows], float)
     n_rounds = max(d["t"] for d in rows) + 1
     by_round = [float(np.mean([d["regret"] for d in rows if d["t"] == t])) for t in range(n_rounds)]
+    def shift(side):
+        v = [d["mid"] - d["m_pub"] for d in rows if d["prev_side"] == side and np.isfinite(d["mid"])]
+        return float(np.mean(v)) if v else np.nan
+
     return {
+        "flow_shift": shift("sold") - shift("bought"),
         "mid_error": float(np.nanmean(mid_err)),
         "median_spread_ratio": float(np.nanmedian(ratio)),
         "regret_per_round": float(regret.mean()),
