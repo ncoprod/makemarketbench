@@ -150,6 +150,30 @@ def make_reward_fns():
 
 
 # ----------------------------------------------------------------------- training
+def _config(cls, **kw):
+    """Build a TRL config, tolerating renamed/removed fields across TRL versions."""
+    import inspect
+
+    params = inspect.signature(cls.__init__).parameters
+    if "max_seq_length" in kw and "max_seq_length" not in params and "max_length" in params:
+        kw["max_length"] = kw.pop("max_seq_length")
+    dropped = [k for k in kw if k not in params]
+    for k in dropped:
+        kw.pop(k)
+    if dropped:
+        print(f"[config] {cls.__name__}: ignoring unsupported fields {dropped}")
+    return cls(**kw)
+
+
+def _trainer(cls, tokenizer, **kw):
+    """Pass the tokenizer as processing_class (new TRL) or tokenizer (old TRL)."""
+    import inspect
+
+    params = inspect.signature(cls.__init__).parameters
+    key = "processing_class" if "processing_class" in params else "tokenizer"
+    return cls(**{key: tokenizer}, **kw)
+
+
 def render(tokenizer, messages) -> str:
     return tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True,
                                          enable_thinking=False)
@@ -174,25 +198,25 @@ def train(args) -> None:
     if args.sft_steps > 0:
         sft_rows = [{"text": render(tokenizer, r["messages"]) + sft_target(r) + tokenizer.eos_token}
                     for r in rows[: args.sft_steps * args.sft_batch]]
-        sft = SFTTrainer(model=model, tokenizer=tokenizer, train_dataset=Dataset.from_list(sft_rows),
-                         args=SFTConfig(output_dir=str(WORK / "sft"), max_steps=args.sft_steps,
-                                        per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
-                                        logging_steps=10, save_strategy="no", report_to="none",
-                                        dataset_text_field="text", max_seq_length=args.max_seq_len))
+        sft = _trainer(SFTTrainer, tokenizer, model=model, train_dataset=Dataset.from_list(sft_rows),
+                       args=_config(SFTConfig, output_dir=str(WORK / "sft"), max_steps=args.sft_steps,
+                                    per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
+                                    logging_steps=10, save_strategy="no", report_to="none",
+                                    dataset_text_field="text", max_seq_length=args.max_seq_len))
         sft.train()
 
     grpo_rows = [{"prompt": render(tokenizer, r["messages"]), "game": r["game"], "values": r["values"],
                   "probs": r["probs"], "m_pub": r["m_pub"], "ref_quote": r["ref_quote"]}
                  for r in rows[args.sft_steps * args.sft_batch:]]
-    cfg = GRPOConfig(
-        output_dir=str(WORK / "grpo"), learning_rate=args.lr, max_steps=args.grpo_steps,
+    cfg = _config(
+        GRPOConfig, output_dir=str(WORK / "grpo"), learning_rate=args.lr, max_steps=args.grpo_steps,
         per_device_train_batch_size=args.num_generations, gradient_accumulation_steps=1,
         num_generations=args.num_generations, max_prompt_length=args.max_seq_len - args.max_completion,
         max_completion_length=args.max_completion, temperature=1.0, logging_steps=5,
         save_steps=100, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
         optim="adamw_8bit")
-    trainer = GRPOTrainer(model=model, processing_class=tokenizer, reward_funcs=make_reward_fns(),
-                          args=cfg, train_dataset=Dataset.from_list(grpo_rows))
+    trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
+                       args=cfg, train_dataset=Dataset.from_list(grpo_rows))
     trainer.train()
     model.save_pretrained(str(WORK / "lora_adapter"))
     tokenizer.save_pretrained(str(WORK / "lora_adapter"))
