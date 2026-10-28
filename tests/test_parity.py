@@ -77,3 +77,16 @@ def test_stream_exercises_foreign_cancels():
     a = get_backend("py").OrderBook().replay(*stream_lists(s))
     n_cancel = int((s["op"] == 3).sum())
     assert 0 < a["cancels_ok"] < n_cancel
+
+
+@pytest.mark.parametrize("width,p_cancel", [(300, 0.45), (2, 0.1)])
+def test_replay_parity_deep_and_shallow_books(width, p_cancel):
+    """Deep books (many levels, many resting orders -> index rehash and
+    backward-shift deletions) and very shallow ones (heavy crossing)."""
+    s = random_stream(60000, seed=width, width=width, p_cancel=p_cancel)
+    py, cpp = get_backend("py").OrderBook(), get_backend("cpp").OrderBook()
+    a, b = py.replay(*stream_lists(s)), cpp.replay(*stream_lists(s))
+    assert a == dict(b)
+    assert py.order_count() == cpp.order_count()
+    for side in (BUY, SELL):
+        assert py.depth(side, 10_000) == [tuple(x) for x in cpp.depth(side, 10_000)]
