@@ -93,12 +93,13 @@ def markdown_table(rows: list[dict]) -> str:
     for r in rows:
         def f(x, nd=1):
             return "n/a" if x is None else f"{x:.{nd}f}"
+        cov = "n/a" if r["coverage"] is None else f"{100 * r['coverage']:.0f}%"
         lines.append(
             f"| {r['player']} | {r['episodes']} | {r['pct_of_bayes']:.0f} "
             f"[{r['pct_of_bayes_ci'][0]:.0f}, {r['pct_of_bayes_ci'][1]:.0f}] | "
             f"{r['epnl']:.1f} [{r['epnl_ci'][0]:.1f}, {r['epnl_ci'][1]:.1f}] | {r['realized_pnl']:.1f} | "
             f"{r['noise_edge']:.1f} | {r['adverse_cost']:.1f} | {f(r['spread'])} | "
-            f"{'n/a' if r['coverage'] is None else f'{100 * r['coverage']:.0f}%'} | {r['mean_size']:.1f} | "
+            f"{cov} | {r['mean_size']:.1f} | "
             f"{r['abs_final_position']:.1f} | {100 * r['format_error_rate']:.0f}% | {100 * r['fail_rate']:.0f}% |"
         )
     return "\n".join(lines)
