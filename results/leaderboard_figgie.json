@@ -1,0 +1,41 @@
+{
+  "game": "figgie",
+  "rows": [
+    {
+      "player": "hand-bayes",
+      "episodes": 200,
+      "trading_gain": 4.966666666666666,
+      "trading_gain_ci": [
+        -2.34045833333333,
+        12.131749999999998
+      ],
+      "score": 2.1,
+      "seat0_trades": 6.99,
+      "format_error_rate": 0.0
+    },
+    {
+      "player": "naive",
+      "episodes": 200,
+      "trading_gain": 0.8183333333333332,
+      "trading_gain_ci": [
+        -4.985249999999998,
+        6.333374999999998
+      ],
+      "score": -2.0483333333333333,
+      "seat0_trades": 5.69,
+      "format_error_rate": 0.0
+    },
+    {
+      "player": "noise",
+      "episodes": 200,
+      "trading_gain": -6.4783333333333335,
+      "trading_gain_ci": [
+        -12.143541666666666,
+        -0.7482916666666672
+      ],
+      "score": -9.345,
+      "seat0_trades": 4.19,
+      "format_error_rate": 0.0
+    }
+  ]
+}

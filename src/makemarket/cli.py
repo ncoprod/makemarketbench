@@ -83,6 +83,45 @@ def cmd_score(args) -> None:
     print(md)
 
 
+def cmd_figgie(args) -> None:
+    import numpy as np
+
+    from .figgie_eval import SEAT0, LLMSeat, run_table
+    from .scoring import bootstrap_ci
+
+    seeds = parse_seeds(args.seeds)
+    raw = RESULTS / "raw" / "figgie"
+    for name in args.player or []:
+        run_table(SEAT0[name], seeds, raw / f"{slug(name)}.jsonl")
+    for model in args.llm or []:
+        from .llm import ChatClient, LLMConfig, Throttle
+
+        extra = json.loads(args.extra_body) if args.extra_body else {}
+        cfg = LLMConfig(model=model, base_url=args.base_url, api_key_env=args.api_key_env,
+                        temperature=args.temperature, max_tokens=args.max_tokens, extra_body=extra,
+                        label=args.label)
+        client = ChatClient(cfg, cache_dir=args.cache_dir, throttle=Throttle(1))
+        run_table(lambda c=client: LLMSeat(c), seeds, raw / f"{slug(cfg.name)}.jsonl")
+    rows = []
+    for f in sorted(raw.glob("*.jsonl")):
+        eps = [json.loads(x) for x in f.read_text().splitlines() if x.strip()]
+        eps = [e for e in eps if e["seed"] in set(seeds)]
+        if not eps:
+            continue
+        g = np.array([e["trading_gain"] for e in eps])
+        lo, hi = bootstrap_ci(g)
+        fe = sum(e["format_errors"] for e in eps) / max(sum(e["rounds"] for e in eps), 1)
+        rows.append({"player": eps[0]["player"], "episodes": len(eps), "trading_gain": float(g.mean()),
+                     "trading_gain_ci": [lo, hi], "score": float(np.mean([e["score"] for e in eps])),
+                     "seat0_trades": float(np.mean([e["seat0_trades"] for e in eps])),
+                     "format_error_rate": fe})
+    rows.sort(key=lambda r: -r["trading_gain"])
+    (RESULTS / "leaderboard_figgie.json").write_text(json.dumps({"game": "figgie", "rows": rows}, indent=2) + "\n")
+    for r in rows:
+        print(f"{r['player']:30s} n={r['episodes']:3d} gain {r['trading_gain']:+6.2f} "
+              f"[{r['trading_gain_ci'][0]:+.2f}, {r['trading_gain_ci'][1]:+.2f}] trades {r['seat0_trades']:.1f}")
+
+
 def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser(prog="mmb")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -108,6 +147,18 @@ def main(argv: list[str] | None = None) -> None:
     s.add_argument("--seeds", default="0-49")
     s.add_argument("--min-episodes", type=int, default=1)
     s.set_defaults(fn=cmd_score)
+    fg = sub.add_parser("figgie", help="Figgie-lite table: seat 0 vs three hand-Bayes bots")
+    fg.add_argument("--seeds", default="0-199")
+    fg.add_argument("--player", nargs="*", choices=["hand-bayes", "naive", "noise"])
+    fg.add_argument("--llm", nargs="*")
+    fg.add_argument("--label", default=None)
+    fg.add_argument("--base-url", default="https://integrate.api.nvidia.com/v1")
+    fg.add_argument("--api-key-env", default="NVIDIA_API_KEY")
+    fg.add_argument("--temperature", type=float, default=0.3)
+    fg.add_argument("--max-tokens", type=int, default=4096)
+    fg.add_argument("--extra-body", default=None)
+    fg.add_argument("--cache-dir", default="cache/llm")
+    fg.set_defaults(fn=cmd_figgie)
     args = ap.parse_args(argv)
     args.fn(args)
 
