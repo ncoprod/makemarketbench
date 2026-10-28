@@ -88,9 +88,23 @@ whole hand, drawn from these templates:
 The exact posterior comes from enumerating the rank multisets of the unseen
 cards, and is checked against brute force in the tests. Noise s = 6.
 
-**Game 3 (Figgie-style multi-agent table)** is not implemented. The order
-book already supports multiple owners with owner-checked cancellation, which
-is what such a table needs.
+**Game 3: Figgie-lite (multi-agent).** This is a simplified Figgie with four
+players and four suit order books in the shared engine.
+
+- The deck has 40 cards: one suit has 12, two have 10 and one has 8. The goal
+  suit is the same colour as the 12-card suit.
+- Everyone antes 50 and is dealt 10 cards.
+- There are 4 rounds of one-card bids and asks. Quotes rest for the round and
+  owners cancel their own orders at the end of it.
+- At settlement, goal-suit cards pay 10 each, and the rest of the 200-chip pot
+  goes to whoever holds the most goal cards.
+
+The evaluated player sits in seat 0 against three *hand-Bayes* bots. Each bot
+computes the exact layout posterior from its hand and values cards by Monte
+Carlo. The metric is the **trading gain**: final score minus the score with no
+trades, which removes most of the luck of the deal. This game is
+game-theoretic, so the bots are a strong heuristic rather than an optimum, and
+the outcome is very noisy: a single card can swing a 100-chip bonus.
 
 ## Reference dealer and baselines
 
@@ -227,8 +241,9 @@ Any OpenAI-compatible server works, for example Ollama
 - **Endpoint drift.** NIM model versions, quantisation and rate limits can
   change. Answers are cached by request hash, and raw transcripts are
   committed so the numbers can be audited.
-- **No Game 3.** The Figgie-style multi-agent table was not built in this
-  iteration.
+- **Game 3 is a sandbox.** Figgie-lite has no exact reference: the bots
+  ignore the information in other players' trades. The trading-gain metric is
+  very noisy, and only one LLM was run on it.
 
 ## Related work
 
