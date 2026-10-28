@@ -87,20 +87,22 @@ def summarize(player_eps: dict[str, list[dict]], reference: str = "bayes") -> li
 
 def markdown_table(rows: list[dict]) -> str:
     head = ("| Player | N | % of Bayes [95% CI] | E[PnL] [95% CI] | Realized PnL | Noise edge | "
-            "Adverse cost | Spread | Spread / optimal | Mid error | Flow shift | V in quote | Size | abs(final pos) | "
+            "Adverse cost | Spread | Spread / optimal | Regret/round [95% CI] | Mid error | Flow shift | V in quote | Size | abs(final pos) | "
             "Format err | No quote |")
-    sep = "|" + "---|" * 16
+    sep = "|" + "---|" * 17
     lines = [head, sep]
     for r in rows:
         def f(x, nd=1):
             return "n/a" if x is None else f"{x:.{nd}f}"
+        reg = (f"{r['regret_per_round']:.2f} [{r['regret_per_round_ci'][0]:.2f}, {r['regret_per_round_ci'][1]:.2f}]"
+               if "regret_per_round" in r else "n/a")
         cov = "n/a" if r["coverage"] is None else f"{100 * r['coverage']:.0f}%"
         lines.append(
             f"| {r['player']} | {r['episodes']} | {r['pct_of_bayes']:.0f} "
             f"[{r['pct_of_bayes_ci'][0]:.0f}, {r['pct_of_bayes_ci'][1]:.0f}] | "
             f"{r['epnl']:.1f} [{r['epnl_ci'][0]:.1f}, {r['epnl_ci'][1]:.1f}] | {r['realized_pnl']:.1f} | "
             f"{r['noise_edge']:.1f} | {r['adverse_cost']:.1f} | {f(r['spread'])} | "
-            f"{f(r.get('median_spread_ratio'), 2)} | {f(r.get('mid_error'), 2)} | {f(r.get('flow_shift'), 2)} | "
+            f"{f(r.get('median_spread_ratio'), 2)} | {reg} | {f(r.get('mid_error'), 2)} | {f(r.get('flow_shift'), 2)} | "
             f"{cov} | {r['mean_size']:.1f} | "
             f"{r['abs_final_position']:.1f} | {100 * r['format_error_rate']:.0f}% | {100 * r['fail_rate']:.0f}% |"
         )

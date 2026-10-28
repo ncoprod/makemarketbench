@@ -59,7 +59,16 @@ def player_diagnostics(eps: list[dict]) -> dict:
         v = [d["mid"] - d["m_pub"] for d in rows if d["prev_side"] == side and np.isfinite(d["mid"])]
         return float(np.mean(v)) if v else np.nan
 
+    from .scoring import bootstrap_ci
+
+    # episode-level clustering for the CI: resample episodes, not rounds
+    n_r = max(d["t"] for d in rows) + 1
+    per_ep = regret.reshape(-1, n_r).mean(1) if len(regret) % n_r == 0 else regret
+    ev = np.array([d["ev"] for d in rows], float)
+    ref_ev = np.array([d["ref_ev"] for d in rows], float)
     return {
+        "regret_per_round_ci": list(bootstrap_ci(per_ep)),
+        "posterior_edge_pct": float(100 * ev.sum() / ref_ev.sum()),
         "flow_shift": shift("sold") - shift("bought"),
         "mid_error": float(np.nanmean(mid_err)),
         "median_spread_ratio": float(np.nanmedian(ratio)),
