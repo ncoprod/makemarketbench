@@ -12,7 +12,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-MODEL=${MODEL:-mlx-community/Qwen3-1.7B-4bit}
+MODEL=${MODEL:-mlx-community/Qwen3-1.7B-4bit}  # or a local directory with the same files
 TAG=${TAG:-qwen3-1.7b}
 PORT=${PORT:-8081}
 ITERS=${ITERS:-600}
@@ -58,7 +58,7 @@ for stage in $(seq "$FIRST" "$LAST"); do
     1) [ -f train/data/train.jsonl ] || $PY train/make_sft_data.py --episodes 800
        .venv/bin/mlx_lm.lora --model "$MODEL" --train --data train/data --mask-prompt \
          --iters "$ITERS" --batch-size "$BATCH" --learning-rate "$LR" --num-layers "$LAYERS" \
-         --max-seq-length 1280 --grad-checkpoint --steps-per-report 10 --steps-per-eval 100 \
+         --max-seq-length 1024 --steps-per-report 10 --steps-per-eval 100 \
          --val-batches 20 --save-every 100 --adapter-path "$RUNS/$TAG-sft" --seed 0 ;;
     2) evaluate "$TAG-sft" "$RUNS/$TAG-sft" ;;
     3) serve "$RUNS/$TAG-sft"
@@ -68,7 +68,7 @@ for stage in $(seq "$FIRST" "$LAST"); do
        mkdir -p "$RUNS/$TAG-dagger"
        .venv/bin/mlx_lm.lora --model "$MODEL" --train --data train/data_dagger --mask-prompt \
          --iters "$DAGGER_ITERS" --batch-size "$BATCH" --learning-rate "$LR" --num-layers "$LAYERS" \
-         --max-seq-length 1280 --grad-checkpoint --steps-per-report 10 --steps-per-eval 100 \
+         --max-seq-length 1024 --steps-per-report 10 --steps-per-eval 100 \
          --val-batches 20 --save-every 100 --resume-adapter-file "$RUNS/$TAG-sft/adapters.safetensors" \
          --adapter-path "$RUNS/$TAG-dagger" --seed 1 ;;
     4) evaluate "$TAG-dagger" "$RUNS/$TAG-dagger" ;;
