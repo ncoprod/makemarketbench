@@ -11,30 +11,34 @@
   "python": "3.13.17",
   "results": {
     "cpp_pybind_batch": {
-      "seconds": 0.18649200000800192,
-      "events_per_sec": 5362160.306914465,
+      "seconds": 0.12898720800876617,
+      "events_per_sec": 7752706.76400747,
       "checksum": 6638620577960879557
     },
     "cpp_pybind_per_call": {
-      "seconds": 0.34972008399199694,
-      "events_per_sec": 2859429.7147168824,
+      "seconds": 0.3470222919713706,
+      "events_per_sec": 2881659.2568713143,
       "fills": 451456
     },
     "python_batch": {
-      "seconds": 0.7970979580422863,
-      "events_per_sec": 1254550.9493664387,
+      "seconds": 0.823658249923028,
+      "events_per_sec": 1214095.7734514908,
       "checksum": 6638620577960879557
     },
     "python_per_call": {
-      "seconds": 0.6072903339518234,
-      "events_per_sec": 1646658.845189738,
+      "seconds": 0.650361374951899,
+      "events_per_sec": 1537606.6883952946,
       "fills": 451456
     },
     "cpp_native": {
-      "seconds": 0.099476,
-      "events_per_sec": 10052697.0,
+      "seconds": 0.049486,
+      "events_per_sec": 20207599.5,
       "checksum": 6638620577960879557
+    },
+    "cpp_native_v1_map_list": {
+      "seconds": 0.113725,
+      "events_per_sec": 8793141.3
     }
   },
-  "speedup_native_vs_python_batch": 8.012984251517818
+  "speedup_native_vs_python_batch": 16.644156039315455
 }

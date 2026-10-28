@@ -86,6 +86,8 @@ def main() -> None:
         nat = json.loads(out)
         res["cpp_native"] = {"seconds": nat["best_seconds"], "events_per_sec": nat["events_per_sec"],
                              "checksum": nat["checksum"]}
+        res["cpp_native_v1_map_list"] = {"seconds": nat["v1_best_seconds"],
+                                         "events_per_sec": nat["v1_events_per_sec"]}
 
     for k, v in res.items():
         if "checksum" in v:
