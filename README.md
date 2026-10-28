@@ -187,6 +187,45 @@ _Filled in from the result files once all runs finish._
 
 ## Training a small model
 
+**Target.** Qwen3-1.7B, 4-bit (`mlx-community/Qwen3-1.7B-4bit`), LoRA, in
+non-thinking mode, with the same prompts and parser as the API harness.
+Training seeds are 10,000 and up (DAgger: 30,000 and up). Evaluation uses the
+held-out leaderboard seeds 0-49.
+
+**Local run (MLX, M1 Pro 16 GB).** `train/mlx_pipeline.sh` runs the stages
+in order:
+
+1. **Base:** evaluate the untuned model.
+2. **SFT:** behaviour cloning of the Bayes reference. Each target is a short
+   rationale ("Public E[V] = ..., after my fills E[V] = ... (sd ...)")
+   followed by the reference quote as JSON. The data has 9,600 decisions from
+   800 episodes per game (`train/make_sft_data.py`), and the loss is on the
+   answer tokens only.
+3. **DAgger:** the SFT model plays 100 new training episodes per game. The
+   reference labels every state the model actually visits, including the
+   model's own fills. Training resumes on these on-policy labels mixed with
+   4,000 original examples.
+
+**GPU path (Kaggle, GPU run pending).** `train/grpo_unsloth_kaggle.py`
+(Unsloth + TRL `GRPOTrainer`, Qwen3-1.7B 4-bit QLoRA) does a short SFT warm
+start and then GRPO. The reward is
+
+    format reward + clip((EV(sampled quote) - EV(Bayes quote)) / max(EV(Bayes quote), 1), -2, 0.5)
+
+where EV is the expected one-round PnL under the exact posterior at that
+state. The dealer is risk-neutral and the episode score is a sum over rounds,
+so this per-decision reward decomposes the episode score relative to the
+Bayes player, with no Monte Carlo noise.
+
+`python train/build_kaggle_kernel.py` writes a self-contained kernel in
+`train/kaggle/`: the pure-Python engine is embedded, so no compiler is needed,
+and `kernel-metadata.json` sets GPU and internet. Push it with
+`kaggle kernels push -p train/kaggle`. It saves the LoRA adapter, evaluates
+seeds 0-49 with the same prompts and parser, and writes raw episodes that
+`mmb score` reads. The kernel is dry-run tested on CPU only. **No GPU numbers
+are reported here.** `train/serve_vllm.sh` serves the resulting adapter with
+vLLM for evaluation through the standard harness.
+
 <!-- TABLE:training -->
 _Pending._
 <!-- /TABLE:training -->
