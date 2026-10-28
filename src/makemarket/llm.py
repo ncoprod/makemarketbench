@@ -139,15 +139,16 @@ class LLMQuoter:
     """Dealer backed by a chat model. One repair retry on an invalid answer;
     after two invalid answers the round is played with no quote."""
 
-    def __init__(self, client: ChatClient) -> None:
+    def __init__(self, client: ChatClient, hint: bool = False) -> None:
         self.client = client
+        self.hint = hint  # ablation: include the public posterior mean/sd in the prompt
         self.name = client.cfg.name
 
     def reset(self, episode_seed: int) -> None:
         pass
 
     def quote(self, obs: Observation):
-        msgs = messages_for(obs)
+        msgs = messages_for(obs, self.hint)
         max_size = obs.game.params.max_size
         attempts = []
         for attempt in range(2):

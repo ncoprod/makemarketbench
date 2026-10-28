@@ -42,3 +42,11 @@ def test_prompt_renders_history():
     assert "Round 3 of 6" in text and "Die #2" in text
     sp = system_prompt(g)
     assert "30%" in sp and "Normal(0, 4^2)" in sp
+
+
+def test_hint_ablation_adds_posterior_moments():
+    g = make_game("dice")
+    ep = g.episode(1)
+    obs = Observation(g, 1, 6, ep.reveals[:2], [], 0, 0.0, ep.public_beliefs[1], 0.0)
+    assert "Hint" not in user_prompt(obs)
+    assert f"E[V] = {ep.public_beliefs[1].mean:.2f}" in user_prompt(obs, hint=True)

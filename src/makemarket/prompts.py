@@ -33,7 +33,7 @@ def _fmt_quote(q) -> str:
     return f"bid {q.bid:.1f} x {q.bid_size}, ask {q.ask:.1f} x {q.ask_size}"
 
 
-def user_prompt(obs: Observation) -> str:
+def user_prompt(obs: Observation, hint: bool = False) -> str:
     lines = [f"Round {obs.t + 1} of {obs.n_rounds}.", "", "Public information so far:"]
     info = [(i, r) for i, r in enumerate(obs.reveals) if r]
     if info:
@@ -57,11 +57,15 @@ def user_prompt(obs: Observation) -> str:
         lines.append("- None yet.")
     pos = obs.position
     side = " (long)" if pos > 0 else " (short)" if pos < 0 else ""
-    lines += ["", f"Current position: {pos:+d}{side}. Cash: {obs.cash:+.1f}.", "",
-              f"Post your quote for round {obs.t + 1}."]
+    lines += ["", f"Current position: {pos:+d}{side}. Cash: {obs.cash:+.1f}."]
+    if hint:  # ablation: hand the model the exact public posterior moments
+        b = obs.public_belief
+        lines += ["", f"(Hint: given only the public information, E[V] = {b.mean:.2f} and "
+                      f"sd(V) = {b.sd:.2f}. This ignores what your own fills reveal.)"]
+    lines += ["", f"Post your quote for round {obs.t + 1}."]
     return "\n".join(lines)
 
 
-def messages_for(obs: Observation) -> list[dict]:
+def messages_for(obs: Observation, hint: bool = False) -> list[dict]:
     return [{"role": "system", "content": system_prompt(obs.game)},
-            {"role": "user", "content": user_prompt(obs)}]
+            {"role": "user", "content": user_prompt(obs, hint)}]

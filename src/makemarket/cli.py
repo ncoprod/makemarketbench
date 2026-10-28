@@ -54,7 +54,7 @@ def cmd_eval(args) -> None:
                         temperature=args.temperature, max_tokens=args.max_tokens,
                         extra_body=extra, label=args.label)
         client = ChatClient(cfg, cache_dir=args.cache_dir, throttle=Throttle(args.workers))
-        eps = run_player(game, lambda c=client: LLMQuoter(c), seeds, raw / f"{slug(cfg.name)}.jsonl",
+        eps = run_player(game, lambda c=client: LLMQuoter(c, hint=args.hint), seeds, raw / f"{slug(cfg.name)}.jsonl",
                          workers=args.workers, backend=args.backend)
         print(f"{cfg.name}: {len(eps)} episodes")
 
@@ -98,6 +98,8 @@ def main(argv: list[str] | None = None) -> None:
     e.add_argument("--max-tokens", type=int, default=4096)
     e.add_argument("--extra-body", default=None, help="JSON merged into the request body")
     e.add_argument("--workers", type=int, default=2, help="max concurrent requests")
+    e.add_argument("--hint", action="store_true",
+                   help="ablation: show the public posterior mean/sd in the prompt (use with --label)")
     e.add_argument("--cache-dir", default="cache/llm")
     e.add_argument("--backend", default=None, help="engine backend: cpp, py or auto")
     e.set_defaults(fn=cmd_eval)
