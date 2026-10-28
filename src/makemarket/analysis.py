@@ -8,6 +8,9 @@ same state* (same public information and the player's own fill history).
 * ``flow_shift``: mean (mid - public mean) in rounds that follow a round where
   the player was lifted (sold), minus the same after being hit (bought). A
   dealer that learns from order flow shifts up after being lifted (> 0).
+  Descriptive only: for dealers whose quotes do not track the public mean,
+  persistent mispricing correlates with fills and confounds this number, so it
+  is not reported in the leaderboard tables.
 """
 
 from __future__ import annotations

@@ -21,13 +21,13 @@ def leaderboard(game: str) -> str:
     path = ROOT / "results" / f"leaderboard_{game}.json"
     rows = json.loads(path.read_text())["rows"]
     out = ["| Dealer | N | % of Bayes edge [95% CI] | E[PnL] / episode [95% CI] | Regret / round | "
-           "Spread / optimal | Mid error | Flow shift | Adverse cost | Invalid answers |",
-           "|---|---|---|---|---|---|---|---|---|---|"]
+           "Spread / optimal | Mid error | Adverse cost | Invalid answers |",
+           "|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         out.append(
             f"| {r['player']} | {r['episodes']} | {fmt_ci(r['pct_of_bayes'], r['pct_of_bayes_ci'])} | "
             f"{fmt_ci(r['epnl'], r['epnl_ci'], 1)} | {r['regret_per_round']:.2f} | "
-            f"{r['median_spread_ratio']:.2f} | {r['mid_error']:.2f} | {r['flow_shift']:+.2f} | "
+            f"{r['median_spread_ratio']:.2f} | {r['mid_error']:.2f} | "
             f"{r['adverse_cost']:.1f} | {100 * r['format_error_rate']:.0f}% |")
     return "\n".join(out)
 
@@ -76,9 +76,9 @@ def main() -> None:
     tables = {"dice": lambda: leaderboard("dice"), "cards": lambda: leaderboard("cards"),
               "engine": engine, "training": training}
     for name, fn in tables.items():
-        pat = re.compile(rf"(<!-- TABLE:{name} -->\n).*?(\n<!-- /TABLE:{name} -->)", re.DOTALL)
+        pat = re.compile(rf"(<!-- TABLE:{name} -->\n)(?:.*?\n)?(<!-- /TABLE:{name} -->)", re.DOTALL)
         if pat.search(text):
-            text = pat.sub(lambda m, fn=fn: m.group(1) + fn() + m.group(2), text)
+            text = pat.sub(lambda m, fn=fn: m.group(1) + fn() + "\n" + m.group(2), text)
     readme.write_text(text)
     print("README tables updated")
 

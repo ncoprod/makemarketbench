@@ -126,7 +126,6 @@ engine is reported as well.
 | Regret / round | Expected PnL of the reference quote minus the dealer's quote, under the exact posterior at the dealer's own state. CI is clustered by episode. |
 | Spread / optimal | Median ratio of the quoted spread to the reference spread at the same state |
 | Mid error | Mean absolute distance between the quote midpoint and the posterior mean |
-| Flow shift | Midpoint shift after being lifted minus after being hit. The reference moves up after it is lifted; a dealer that ignores fills scores ≈ 0. |
 | V in quote, size, abs(final position), realised PnL sd | Calibration and inventory-risk descriptors (in `results/leaderboard_*.md`) |
 | Invalid answers | Share of rounds whose first answer failed parsing or validation. After one failed repair retry the round is played with no quote. |
 
@@ -142,6 +141,14 @@ in `results/raw/<game>/*.jsonl`.
 ### Game 1: dice
 
 <!-- TABLE:dice -->
+| Dealer | N | % of Bayes edge [95% CI] | E[PnL] / episode [95% CI] | Regret / round | Spread / optimal | Mid error | Adverse cost | Invalid answers |
+|---|---|---|---|---|---|---|---|---|
+| bayes | 50 | 100 [100, 100] | 14.0 [11.4, 16.2] | 0.00 | 1.00 | 0.16 | 4.2 | 0% |
+| bayes-public | 50 | 64 [44, 83] | 8.9 [6.1, 11.3] | 0.48 | 1.03 | 0.91 | 6.0 | 0% |
+| mean-sd | 50 | 57 [42, 72] | 8.0 [5.9, 9.7] | 0.67 | 0.98 | 0.92 | 4.7 | 0% |
+| fixed-prior | 50 | 27 [-9, 57] | 3.8 [-1.2, 8.1] | 1.37 | 1.19 | 1.88 | 4.7 | 0% |
+| random | 50 | -41 [-97, -1] | -5.7 [-12.5, -0.1] | 2.76 | 1.22 | 2.59 | 11.2 | 0% |
+| openai/gpt-oss-20b | 50 | -146 [-221, -91] | -20.4 [-27.5, -13.9] | 5.28 | 0.22 | 3.26 | 23.4 | 8% |
 <!-- /TABLE:dice -->
 
 ![dice leaderboard](docs/figures/leaderboard_dice.png)
@@ -149,6 +156,13 @@ in `results/raw/<game>/*.jsonl`.
 ### Game 2: cards
 
 <!-- TABLE:cards -->
+| Dealer | N | % of Bayes edge [95% CI] | E[PnL] / episode [95% CI] | Regret / round | Spread / optimal | Mid error | Adverse cost | Invalid answers |
+|---|---|---|---|---|---|---|---|---|
+| bayes | 50 | 100 [100, 100] | 20.0 [17.2, 22.5] | 0.00 | 1.00 | 0.28 | 4.8 | 0% |
+| bayes-public | 50 | 80 [62, 96] | 16.1 [12.1, 19.3] | 0.52 | 1.02 | 1.25 | 6.0 | 0% |
+| mean-sd | 50 | 63 [49, 75] | 12.6 [9.5, 15.1] | 1.08 | 0.90 | 1.17 | 5.2 | 0% |
+| fixed-prior | 50 | 10 [-26, 38] | 2.0 [-4.7, 8.1] | 2.67 | 1.32 | 3.86 | 7.0 | 0% |
+| random | 50 | -45 [-93, -11] | -9.1 [-16.6, -2.3] | 5.18 | 1.37 | 4.88 | 14.9 | 0% |
 <!-- /TABLE:cards -->
 
 ![cards leaderboard](docs/figures/leaderboard_cards.png)
@@ -160,11 +174,20 @@ _Filled in from the result files once all runs finish._
 ## Training a small model
 
 <!-- TABLE:training -->
+_Pending._
 <!-- /TABLE:training -->
 
 ## Engine
 
 <!-- TABLE:engine -->
+| Implementation | Events / s | Time for 1M events |
+|---|---|---|
+| C++ engine, native loop (flat pool-based book) | 20.21 M | 49 ms |
+| C++ v1 layout, native loop (std::map + std::list) | 8.79 M | 114 ms |
+| C++ via pybind11, one call per stream (`replay`) | 7.75 M | 129 ms |
+| C++ via pybind11, one Python call per event | 2.88 M | 347 ms |
+| Pure-Python reference, one call per event | 1.54 M | 650 ms |
+| Pure-Python reference, `replay` loop with checksum | 1.21 M | 824 ms |
 <!-- /TABLE:engine -->
 
 ## Reproduce
