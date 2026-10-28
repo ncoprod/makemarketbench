@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install (builds the C++ extension via scikit-build-core)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -v ".[dev]"
+      - name: Lint
+        run: ruff check src tests scripts train
+      - name: Check the C++ extension is used
+        run: python -c "from makemarket.engine import cpp_available; assert cpp_available()"
+      - name: Python tests (incl. C++/Python parity)
+        run: pytest -q
+      - name: Native C++ tests
+        run: |
+          cmake -S . -B build/native -DMMB_BUILD_NATIVE=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/native -j 2
+          ctest --test-dir build/native --output-on-failure
+      - name: Kaggle kernel dry run (no model)
+        run: |
+          python train/build_kaggle_kernel.py
+          MMB_WORK=build/kaggle_dry python train/kaggle/grpo_unsloth_kaggle.py --dry-run
