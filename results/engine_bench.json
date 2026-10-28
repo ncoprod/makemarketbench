@@ -1,0 +1,40 @@
+{
+  "events": 1000000,
+  "fills": 451456,
+  "event_mix": {
+    "gtc": 0.499754,
+    "ioc": 0.149951,
+    "market": 0.0497,
+    "cancel": 0.300595
+  },
+  "machine": "arm64 macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "results": {
+    "cpp_pybind_batch": {
+      "seconds": 0.18649200000800192,
+      "events_per_sec": 5362160.306914465,
+      "checksum": 6638620577960879557
+    },
+    "cpp_pybind_per_call": {
+      "seconds": 0.34972008399199694,
+      "events_per_sec": 2859429.7147168824,
+      "fills": 451456
+    },
+    "python_batch": {
+      "seconds": 0.7970979580422863,
+      "events_per_sec": 1254550.9493664387,
+      "checksum": 6638620577960879557
+    },
+    "python_per_call": {
+      "seconds": 0.6072903339518234,
+      "events_per_sec": 1646658.845189738,
+      "fills": 451456
+    },
+    "cpp_native": {
+      "seconds": 0.099476,
+      "events_per_sec": 10052697.0,
+      "checksum": 6638620577960879557
+    }
+  },
+  "speedup_native_vs_python_batch": 8.012984251517818
+}
