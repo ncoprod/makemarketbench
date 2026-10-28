@@ -1,0 +1,10 @@
+{
+  "openai/gpt-oss-20b": {
+    "probes": [
+      {"extra_body": {}, "usable": false, "note": "first leaderboard request at default effort: finish=length tokens=4096 latency=86s, empty content (manual check)"},
+      {"extra_body": {"reasoning_effort": "low"}, "usable": true, "note": "finish=stop tokens=130 latency=14s (manual check)"}
+    ],
+    "extra_body": {"reasoning_effort": "low"},
+    "label": "openai/gpt-oss-20b"
+  }
+}

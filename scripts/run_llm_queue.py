@@ -12,38 +12,52 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from pathlib import Path
 
 from makemarket.cli import parse_seeds, slug
 from makemarket.evaluate import run_player
 from makemarket.games import make_game
 from makemarket.llm import ChatClient, LLMConfig, LLMQuoter, Throttle
 
-# (model id, extra request body). Reasoning effort is set to "low" where the
-# endpoint supports it, to keep latency and rate-limit usage manageable.
+# Each model gets a list of request variants, tried in order on a real quoting
+# prompt; the first variant that returns a valid quote within the 4096-token
+# budget is used for the whole run (recorded in results/llm_protocol.json).
+# Reasoning models that run out of budget with thinking enabled fall back to
+# their non-thinking mode, labelled "(no-think)".
+NO_THINK = {"chat_template_kwargs": {"enable_thinking": False}}
 MODELS = [
-    ("openai/gpt-oss-20b", {"reasoning_effort": "low"}),
-    ("nvidia/nemotron-3-ultra-550b-a55b", {}),
-    ("minimaxai/minimax-m3.1-flash", {}),
-    ("nvidia/nemotron-3.5-bolt-e4b", {}),
-    ("nvidia/nemotron-3.5-lightning-30b-a3b", {}),
-    ("deepseek-ai/deepseek-v4.1-flash", {}),
-    ("z-ai/glm-5.3-flash", {}),
+    ("openai/gpt-oss-20b", [({"reasoning_effort": "low"}, "")]),
+    ("nvidia/nemotron-3-ultra-550b-a55b", [({}, ""), (NO_THINK, " (no-think)")]),
+    ("minimaxai/minimax-m3.1-flash", [({}, ""), (NO_THINK, " (no-think)")]),
+    ("nvidia/nemotron-3.5-bolt-e4b", [({}, "")]),
+    ("nvidia/nemotron-3.5-lightning-30b-a3b", [({}, ""), (NO_THINK, " (no-think)")]),
+    ("deepseek-ai/deepseek-v4.1-flash", [({}, ""), (NO_THINK, " (no-think)")]),
+    ("z-ai/glm-5.3-flash", [({}, ""), (NO_THINK, " (no-think)")]),
 ]
+PROTOCOL = Path("results/llm_protocol.json")
 
 
-def probe(model: str, extra: dict) -> str | None:
-    import os
+def probe(model: str, extra: dict) -> tuple[bool, str]:
+    """One real quoting request (dice, seed 0, round 3). Returns (usable, note)."""
+    from makemarket.llm import ChatClient, LLMConfig, parse_quote
+    from makemarket.market import Observation
+    from makemarket.prompts import messages_for
 
-    from openai import OpenAI
-
-    c = OpenAI(base_url="https://integrate.api.nvidia.com/v1", api_key=os.environ["NVIDIA_API_KEY"],
-               timeout=120, max_retries=1)
+    g = make_game("dice")
+    ep = g.episode(0)
+    obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
+    c = ChatClient(LLMConfig(model=model, extra_body=extra), cache_dir="cache/probe", max_retries=2)
     try:
-        c.chat.completions.create(model=model, messages=[{"role": "user", "content": "Say OK."}],
-                                  max_tokens=512, extra_body=extra or None)
-        return None
+        out = c.chat(messages_for(obs))
     except Exception as e:
-        return f"{type(e).__name__}: {str(e)[:120]}"
+        return False, f"error: {str(e)[:120]}"
+    note = (f"finish={out['finish_reason']} tokens={out['completion_tokens']} "
+            f"latency={out.get('latency', 0):.0f}s")
+    try:
+        parse_quote(out["content"], g.params.max_size)
+    except ValueError as e:
+        return False, f"invalid ({e}); {note}"
+    return True, note
 
 
 def main() -> None:
@@ -56,25 +70,32 @@ def main() -> None:
     seeds = parse_seeds(args.seeds)
     models = [m for m in MODELS if args.models is None or m[0] in args.models]
     throttle = Throttle(args.workers)
-    status = {}
+    protocol = json.loads(PROTOCOL.read_text()) if PROTOCOL.exists() else {}
     for game_name in args.games:
         game = make_game(game_name)
-        for model, extra in models:
-            if status.get(model, "").startswith("skip"):
-                continue
-            err = probe(model, extra)
-            if err:
-                status[model] = f"skip ({err})"
-                print(f"[queue] {model}: unreachable, skipping: {err}", flush=True)
+        for model, variants in models:
+            entry = protocol.get(model)
+            if entry is None:
+                entry = {"probes": []}
+                for extra, suffix in variants:
+                    ok, note = probe(model, extra)
+                    entry["probes"].append({"extra_body": extra, "usable": ok, "note": note})
+                    print(f"[queue] probe {model} {extra}: {ok} {note}", flush=True)
+                    if ok:
+                        entry.update(extra_body=extra, label=model + suffix)
+                        break
+                protocol[model] = entry
+                PROTOCOL.write_text(json.dumps(protocol, indent=2) + "\n")
+            if "label" not in entry:
+                print(f"[queue] {model}: no usable variant, skipping", flush=True)
                 continue
             t0 = time.time()
-            client = ChatClient(LLMConfig(model=model, extra_body=extra), throttle=throttle)
+            cfg = LLMConfig(model=model, extra_body=entry["extra_body"], label=entry["label"])
+            client = ChatClient(cfg, throttle=throttle)
             eps = run_player(game, lambda c=client: LLMQuoter(c), seeds,
-                             f"results/raw/{game_name}/{slug(model)}.jsonl", workers=args.workers,
+                             f"results/raw/{game_name}/{slug(cfg.name)}.jsonl", workers=args.workers,
                              log=lambda s: print(s, flush=True))
-            status[model] = f"ok {game_name}: {len(eps)} episodes"
-            print(f"[queue] {game_name} {model}: {len(eps)} episodes in {time.time() - t0:.0f}s", flush=True)
-    print(json.dumps(status, indent=2), flush=True)
+            print(f"[queue] {game_name} {cfg.name}: {len(eps)} episodes in {time.time() - t0:.0f}s", flush=True)
 
 
 if __name__ == "__main__":
