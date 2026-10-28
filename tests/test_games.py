@@ -135,3 +135,15 @@ def test_belief_reweight_keeps_normalisation():
     b = Belief(np.arange(5), np.ones(5) / 5)
     b2 = b.reweight(np.array([0, 1, 2, 3, 4.0]))
     assert b2.probs.sum() == pytest.approx(1.0) and b2.probs[0] == 0
+
+
+def test_diagnostics_reference_has_zero_regret():
+    from makemarket.analysis import player_diagnostics
+    from makemarket.evaluate import episode_to_dict
+
+    g = make_game("cards")
+    eps = [episode_to_dict(play_episode(g, s, BayesQuoter())) for s in range(4)]
+    d = player_diagnostics(eps)
+    assert abs(d["regret_per_round"]) < 1e-9 and d["median_spread_ratio"] == pytest.approx(1.0)
+    eps = [episode_to_dict(play_episode(g, s, BASELINES["mean-sd"]())) for s in range(4)]
+    assert player_diagnostics(eps)["regret_per_round"] > 0

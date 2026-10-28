@@ -87,8 +87,9 @@ def summarize(player_eps: dict[str, list[dict]], reference: str = "bayes") -> li
 
 def markdown_table(rows: list[dict]) -> str:
     head = ("| Player | N | % of Bayes [95% CI] | E[PnL] [95% CI] | Realized PnL | Noise edge | "
-            "Adverse cost | Spread | V in quote | Size | abs(final pos) | Format err | No quote |")
-    sep = "|" + "---|" * 13
+            "Adverse cost | Spread | Spread / optimal | Mid error | V in quote | Size | abs(final pos) | "
+            "Format err | No quote |")
+    sep = "|" + "---|" * 15
     lines = [head, sep]
     for r in rows:
         def f(x, nd=1):
@@ -99,6 +100,7 @@ def markdown_table(rows: list[dict]) -> str:
             f"[{r['pct_of_bayes_ci'][0]:.0f}, {r['pct_of_bayes_ci'][1]:.0f}] | "
             f"{r['epnl']:.1f} [{r['epnl_ci'][0]:.1f}, {r['epnl_ci'][1]:.1f}] | {r['realized_pnl']:.1f} | "
             f"{r['noise_edge']:.1f} | {r['adverse_cost']:.1f} | {f(r['spread'])} | "
+            f"{f(r.get('median_spread_ratio'), 2)} | {f(r.get('mid_error'), 2)} | "
             f"{cov} | {r['mean_size']:.1f} | "
             f"{r['abs_final_position']:.1f} | {100 * r['format_error_rate']:.0f}% | {100 * r['fail_rate']:.0f}% |"
         )

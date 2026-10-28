@@ -1,0 +1,58 @@
+"""State-level diagnostics: compare each quote with the Bayes reference *at the
+same state* (same public information and the player's own fill history).
+
+* ``mid_error``: |quote mid - Bayes posterior mean|, an inference-error proxy.
+* ``spread_ratio``: quoted spread / Bayes-optimal spread at that state.
+* ``regret``: E[PnL | posterior] of the Bayes quote minus that of the player's
+  quote (>= 0 up to tick effects); this is exactly the training reward basis.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+
+from .games import make_game
+from .games.base import Quote, flow_likelihood, round_expectations
+from .players import best_quote
+
+
+def episode_diagnostics(ep: dict) -> list[dict]:
+    game = make_game(ep["game"])
+    p = game.params
+    e = game.episode(ep["seed"])
+    out = []
+    flows = []  # (quote, m_pub, side, qty) of previous rounds
+    for t, r in enumerate(ep["rounds"]):
+        b = e.public_beliefs[t]
+        m_pub = b.mean
+        for q, m, side, qty in flows:
+            b = b.reweight(flow_likelihood(b.values, q, m, p, side, qty))
+        ref_q, _ = best_quote(b, m_pub, p)
+        ref_ev = round_expectations(ref_q, b, m_pub, p)["expected_pnl"]
+        row = {"t": t, "post_mean": b.mean, "post_sd": b.sd, "m_pub": m_pub, "ref_ev": ref_ev,
+               "ref_spread": ref_q.ask - ref_q.bid if ref_q.bid_size and ref_q.ask_size else np.nan}
+        if r["quote"] is not None:
+            q = Quote(**r["quote"])
+            ev = round_expectations(q, b, m_pub, p)["expected_pnl"]
+            row.update(mid=(q.bid + q.ask) / 2, spread=q.ask - q.bid, ev=ev, regret=ref_ev - ev,
+                       mid_error=abs((q.bid + q.ask) / 2 - b.mean))
+            flows.append((q, m_pub, r["traded_side"], r["qty"]))
+        else:
+            row.update(mid=np.nan, spread=np.nan, ev=0.0, regret=ref_ev, mid_error=np.nan)
+        out.append(row)
+    return out
+
+
+def player_diagnostics(eps: list[dict]) -> dict:
+    rows = [d for ep in eps for d in episode_diagnostics(ep)]
+    mid_err = np.array([d["mid_error"] for d in rows], float)
+    ratio = np.array([d["spread"] / d["ref_spread"] for d in rows], float)
+    regret = np.array([d["regret"] for d in rows], float)
+    n_rounds = max(d["t"] for d in rows) + 1
+    by_round = [float(np.mean([d["regret"] for d in rows if d["t"] == t])) for t in range(n_rounds)]
+    return {
+        "mid_error": float(np.nanmean(mid_err)),
+        "median_spread_ratio": float(np.nanmedian(ratio)),
+        "regret_per_round": float(regret.mean()),
+        "regret_by_round": by_round,
+    }

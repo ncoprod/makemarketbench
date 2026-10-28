@@ -71,7 +71,11 @@ def cmd_score(args) -> None:
             eps[rows[0]["player"]] = rows
     if "bayes" not in eps:
         sys.exit("run `mmb eval --player bayes` first")
+    from .analysis import player_diagnostics
+
     rows = [r for r in summarize(eps) if r["episodes"] >= args.min_episodes]
+    for r in rows:
+        r.update(player_diagnostics(eps[r["player"]]))
     out = RESULTS / f"leaderboard_{args.game}.json"
     out.write_text(json.dumps({"game": args.game, "seeds": sorted(seeds), "rows": rows}, indent=2) + "\n")
     md = markdown_table(rows)
