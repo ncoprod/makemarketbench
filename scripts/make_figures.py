@@ -26,7 +26,7 @@ BASELINES = {"bayes", "bayes-public", "mean-sd", "fixed-prior", "random"}
 def kind(player: str) -> str:
     if player in BASELINES:
         return "baseline"
-    if "sft" in player or "grpo" in player:
+    if any(k in player for k in ("sft", "dagger", "grpo")):
         return "trained"
     return "llm"
 
