@@ -85,14 +85,18 @@ class OrderBook:
             prices.pop(pos)
         return qty
 
-    def cancel(self, id: int) -> bool:
-        loc = self._index.pop(id, None)
+    def cancel(self, id: int, owner: int) -> bool:
+        """Cancel on behalf of ``owner``; False if not live or owned by someone else."""
+        loc = self._index.get(id)
         if loc is None:
             return False
         side, price = loc
         book = self._bids if side == BUY else self._asks
         prices = self._bid_prices if side == BUY else self._ask_prices
         level = book[price]
+        if level[id][0] != owner:
+            return False
+        del self._index[id]
         del level[id]
         if not level:
             del book[price]
@@ -105,7 +109,7 @@ class OrderBook:
             for level in book.values():
                 ids.extend(oid for oid, (o, _) in level.items() if o == owner)
         for oid in ids:
-            self.cancel(oid)
+            self.cancel(oid, owner)
         return len(ids)
 
     # ----------------------------------------------------------------- queries
@@ -156,7 +160,7 @@ class OrderBook:
             elif o == 2:
                 fills = self._submit(id[i], owner[i], side[i], None, qty[i], True)
             elif o == 3:
-                cancels_ok += self.cancel(id[i])
+                cancels_ok += self.cancel(id[i], owner[i])
                 continue
             else:
                 raise ValueError("replay: bad op code")

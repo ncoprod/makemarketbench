@@ -46,8 +46,10 @@ static void test_cancel_and_errors() {
     OrderBook b;
     b.submit_limit(1, 1, Side::Buy, 99, 5, TIF::GTC);
     b.submit_limit(2, 1, Side::Buy, 99, 5, TIF::GTC);
-    CHECK(b.cancel(1));
-    CHECK(!b.cancel(1));
+    CHECK(!b.cancel(1, 2));  // wrong owner
+    CHECK(b.has_order(1));
+    CHECK(b.cancel(1, 1));
+    CHECK(!b.cancel(1, 1));
     CHECK(b.volume_at(Side::Buy, 99) == 5);
     bool threw = false;
     try { b.submit_limit(2, 1, Side::Buy, 98, 1, TIF::GTC); } catch (const std::invalid_argument&) { threw = true; }

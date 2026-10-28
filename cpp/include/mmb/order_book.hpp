@@ -42,8 +42,9 @@ public:
                                    int64_t qty, TIF tif);
     // Submit a market order (IOC, no price limit).
     std::vector<Fill> submit_market(uint64_t id, int32_t owner, Side side, int64_t qty);
-    // Cancel a resting order. Returns false if the id is not live.
-    bool cancel(uint64_t id);
+    // Cancel a resting order on behalf of `owner`. Returns false if the id is not
+    // live or belongs to another owner (agents cannot cancel each other's orders).
+    bool cancel(uint64_t id, int32_t owner);
     // Cancel all resting orders of an owner. Returns number cancelled.
     std::size_t cancel_owner(int32_t owner);
 
@@ -109,12 +110,13 @@ public:
         for (const auto& f : fills) ledger.apply(f);
         return fills;
     }
+    bool cancel(uint64_t id, int32_t owner) { return book.cancel(id, owner); }
     OrderBook book;
     Ledger ledger;
 };
 
 // Replay a stream of operations (used by the benchmarks and parity tests).
-// op: 0 = limit GTC, 1 = limit IOC, 2 = market, 3 = cancel.
+// op: 0 = limit GTC, 1 = limit IOC, 2 = market, 3 = cancel (by owner[i]).
 struct ReplayStats {
     uint64_t fills = 0;
     int64_t volume = 0;

@@ -65,3 +65,6 @@ class Exchange:
         for f in fills:
             self.ledger.apply(f)
         return fills
+
+    def cancel(self, id: int, owner: int) -> bool:
+        return self.book.cancel(id, owner)

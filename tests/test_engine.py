@@ -45,7 +45,8 @@ def test_depth_and_cancel(mod):
     for i, p in enumerate([99, 98, 99, 97]):
         b.submit_limit(i + 1, 1, BUY, p, 2)
     assert b.depth(BUY, 2) == [(99, 4), (98, 2)]
-    assert b.cancel(1) and not b.cancel(1)
+    assert not b.cancel(1, 2)  # another owner cannot cancel
+    assert b.cancel(1, 1) and not b.cancel(1, 1)
     assert b.depth(BUY, 5) == [(99, 2), (98, 2), (97, 2)]
 
 
@@ -56,3 +57,11 @@ def test_exchange_ledger(backend):
     ex.limit(8, BUY, 105, 3, ioc=True)
     assert ex.ledger.position(7) == -3 and ex.ledger.cash(7) == 300
     assert ex.ledger.position(8) == 3 and ex.ledger.mark(8, 110) == 30
+
+
+@pytest.mark.parametrize("backend", BACKENDS)
+def test_exchange_cancel_checks_owner(backend):
+    ex = Exchange(backend)
+    ex.limit(1, BUY, 100, 2)
+    assert not ex.cancel(1, owner=2)
+    assert ex.cancel(1, owner=1)

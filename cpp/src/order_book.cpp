@@ -62,10 +62,11 @@ std::vector<Fill> OrderBook::submit_market(uint64_t id, int32_t owner, Side side
     return submit_impl(id, owner, side, std::nullopt, qty, TIF::IOC);
 }
 
-bool OrderBook::cancel(uint64_t id) {
+bool OrderBook::cancel(uint64_t id, int32_t owner) {
     auto it = index_.find(id);
     if (it == index_.end()) return false;
     const Loc loc = it->second;
+    if (loc.it->owner != owner) return false;
     index_.erase(it);
     if (loc.side == Side::Buy) {
         auto lvl = bids_.find(loc.price);
@@ -83,7 +84,7 @@ std::size_t OrderBook::cancel_owner(int32_t owner) {
     std::vector<uint64_t> ids;
     for (const auto& [oid, loc] : index_)
         if (loc.it->owner == owner) ids.push_back(oid);
-    for (auto oid : ids) cancel(oid);
+    for (auto oid : ids) cancel(oid, owner);
     return ids.size();
 }
 
@@ -173,7 +174,7 @@ ReplayStats replay(OrderBook& book, const std::vector<int8_t>& op, const std::ve
             case 1: fills = book.submit_limit(id[i], owner[i], s, price[i], qty[i], TIF::IOC); break;
             case 2: fills = book.submit_market(id[i], owner[i], s, qty[i]); break;
             case 3:
-                st.cancels_ok += book.cancel(id[i]) ? 1 : 0;
+                st.cancels_ok += book.cancel(id[i], owner[i]) ? 1 : 0;
                 continue;
             default: throw std::invalid_argument("replay: bad op code");
         }

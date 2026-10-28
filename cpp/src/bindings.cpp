@@ -43,7 +43,8 @@ PYBIND11_MODULE(_engine, m) {
                 return fills_to_list(b.submit_market(id, owner, to_side(side), qty));
             },
             py::arg("id"), py::arg("owner"), py::arg("side"), py::arg("qty"))
-        .def("cancel", &OrderBook::cancel)
+        .def("cancel", &OrderBook::cancel, py::arg("id"), py::arg("owner"),
+             "Cancel a resting order; false if not live or owned by someone else.")
         .def("cancel_owner", &OrderBook::cancel_owner)
         .def("best_bid", &OrderBook::best_bid)
         .def("best_ask", &OrderBook::best_ask)
@@ -71,7 +72,7 @@ PYBIND11_MODULE(_engine, m) {
                 d["checksum"] = st.checksum;
                 return d;
             },
-            "Replay an operation stream natively (op: 0=GTC, 1=IOC, 2=market, 3=cancel).");
+            "Replay an operation stream natively (op: 0=GTC, 1=IOC, 2=market, 3=cancel by owner).");
 
     py::class_<Ledger>(m, "Ledger")
         .def(py::init<>())
