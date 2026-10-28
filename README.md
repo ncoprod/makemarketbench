@@ -211,7 +211,55 @@ Any OpenAI-compatible server works, for example Ollama
 
 ## Limitations
 
+- **Small samples and wide intervals.** 50 episodes per dealer and game is
+  what the shared free API budget allowed. The percentage CIs are wide
+  because episode PnL depends on V. Regret per round is a lower-variance
+  comparison of the same decisions.
+- **Myopic reference.** The Bayes dealer is optimal one round at a time. It
+  is not a full POMDP solution and ignores the information value of a quote.
+  A dealer can, in principle, beat it slightly.
+- **Stylised counterparties.** There is one arrival per round, the informed
+  trader knows V exactly, and noise traders are Gaussian around the public
+  mean. The rules are given to the model in full, so the benchmark tests
+  reasoning within a known model, not model discovery.
+- **Risk neutrality.** The score is expected PnL. Inventory is reported but
+  not penalised.
+- **Endpoint drift.** NIM model versions, quantisation and rate limits can
+  change. Answers are cached by request hash, and raw transcripts are
+  committed so the numbers can be audited.
+- **No Game 3.** The Figgie-style multi-agent table was not built in this
+  iteration.
+
 ## Related work
+
+- Glosten and Milgrom (1985), *Bid, ask and transaction prices in a
+  specialist market with heterogeneously informed traders*, and Kyle (1985),
+  *Continuous auctions and insider trading*: the adverse-selection model
+  behind the games.
+- Avellaneda and Stoikov (2008), *High-frequency trading in a limit order
+  book*: inventory-aware market making, which is out of scope here.
+- MARKET-BENCH ([arXiv:2512.12264](https://arxiv.org/abs/2512.12264)):
+  LLMs writing backtesters from strategy descriptions. It scores code and
+  PnL, not quoting.
+- Cattle Trade ([arXiv:2605.14537](https://arxiv.org/abs/2605.14537)): an
+  LLM bluffing and trading card game.
+- LiveTradeBench ([arXiv:2511.03628](https://arxiv.org/abs/2511.03628)) and
+  *LLM Trading: Analysis of LLM Agent Behavior in Experimental Asset Markets*
+  ([arXiv:2502.15800](https://arxiv.org/abs/2502.15800)): LLM agents in live
+  and experimental markets.
+- *When AI Trading Agents Compete: Adverse Selection of Meta-Orders by
+  RL-Based Market Making* ([arXiv:2510.27334](https://arxiv.org/abs/2510.27334)):
+  an RL market maker under adverse selection, without LLMs.
+- Figgie sandboxes for bots:
+  [0xDub/figgie-auto](https://github.com/0xDub/figgie-auto) and
+  [CornellDataScience/FiggieBot](https://github.com/CornellDataScience/FiggieBot).
+  OMakeMeAMarket is a market-making practice game for humans.
+- DeepSeekMath / GRPO ([arXiv:2402.03300](https://arxiv.org/abs/2402.03300))
+  and DAgger (Ross et al., 2011) for the training recipes.
+
+When this was written (October 2026) we found no benchmark that asks LLMs to
+quote two-sided markets against informed flow and scores them against a
+Bayes-optimal dealer.
 
 ## Citation
 
