@@ -79,7 +79,24 @@
       "mean_size": 4.415,
       "abs_final_position": 3.68,
       "format_error_rate": 0.0,
-      "fail_rate": 0.0
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        0.0,
+        0.0
+      ],
+      "posterior_edge_pct": 100.0,
+      "flow_shift": 2.1373635161713267,
+      "mid_error": 0.28357655401954596,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 0.0,
+      "regret_by_round": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
     },
     {
       "player": "bayes-public",
@@ -107,7 +124,24 @@
       "mean_size": 4.34,
       "abs_final_position": 3.96,
       "format_error_rate": 0.0,
-      "fail_rate": 0.0
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        0.35198367227356553,
+        0.7039620953302009
+      ],
+      "posterior_edge_pct": 84.14989146519773,
+      "flow_shift": -0.027965893571116132,
+      "mid_error": 1.2502820992727308,
+      "median_spread_ratio": 1.0209567698046964,
+      "regret_per_round": 0.5195277679248513,
+      "regret_by_round": [
+        0.0,
+        0.6019772661465346,
+        0.767152878825557,
+        0.6422925924233871,
+        0.6861468506673937,
+        0.41959701948623573
+      ]
     },
     {
       "player": "mean-sd",
@@ -135,7 +169,24 @@
       "mean_size": 3.0,
       "abs_final_position": 3.82,
       "format_error_rate": 0.0,
-      "fail_rate": 0.0
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        0.9327530982612912,
+        1.2369947783583244
+      ],
+      "posterior_edge_pct": 66.7196818805773,
+      "flow_shift": -0.003427892490049836,
+      "mid_error": 1.1740552471703674,
+      "median_spread_ratio": 0.8990455991516436,
+      "regret_per_round": 1.0777391284041133,
+      "regret_by_round": [
+        0.08492754664207712,
+        0.6160993773538138,
+        1.1311503786560941,
+        1.2636941713221002,
+        1.5879789078620907,
+        1.7825843885885035
+      ]
     },
     {
       "player": "fixed-prior",
@@ -163,7 +214,24 @@
       "mean_size": 3.0,
       "abs_final_position": 4.82,
       "format_error_rate": 0.0,
-      "fail_rate": 0.0
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        2.108843139543858,
+        3.269926773630222
+      ],
+      "posterior_edge_pct": 17.85674545463808,
+      "flow_shift": -10.443592870689562,
+      "mid_error": 3.8584877593331353,
+      "median_spread_ratio": 1.3223140495867767,
+      "regret_per_round": 2.667376628029324,
+      "regret_by_round": [
+        0.08492754664207712,
+        1.362995992981424,
+        2.7438569403708417,
+        3.2303191649931278,
+        4.072144413025286,
+        4.510015710163187
+      ]
     },
     {
       "player": "random",
@@ -191,7 +259,24 @@
       "mean_size": 4.8133333333333335,
       "abs_final_position": 4.74,
       "format_error_rate": 0.0,
-      "fail_rate": 0.0
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        4.305102858615029,
+        6.1580633640231115
+      ],
+      "posterior_edge_pct": -53.27228549532695,
+      "flow_shift": -8.310309460314484,
+      "mid_error": 4.884205090973231,
+      "median_spread_ratio": 1.3669221209610605,
+      "regret_per_round": 5.179723637705084,
+      "regret_by_round": [
+        1.793608940838657,
+        4.42825502923638,
+        5.064633999492765,
+        5.715230075117294,
+        5.901530408404686,
+        8.175083373140724
+      ]
     }
   ]
 }
