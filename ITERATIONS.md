@@ -696,3 +696,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   in runtime JSON but its console-only precision warning is a UI observation.
 - No held-out evaluation runs in either feasibility probe. Both are training
   infrastructure trials, not evidence of policy improvement or exhaustion.
+
+### Preserve data partition when staging GPU training
+
+- A staged SFT adapter must skip SFT execution without resetting the registered
+  SFT state count: that count also defines the disjoint GRPO training partition.
+  Remove the argument mutation and test the execution condition directly.
+- `--grpo-steps 0` now saves the SFT adapter and returns, enabling bounded SFT
+  stages before a later GRPO session. This avoids TRL interpreting zero maximum
+  steps as a request to run its default number of epochs.
+- Verification: 13 CPU training checks passed in 3.38 seconds; Ruff passed.
+  No active immutable Kaggle source changes and no new quality trial starts.

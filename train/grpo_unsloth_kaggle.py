@@ -230,8 +230,6 @@ def train(args, report_runtime) -> None:
         model = PeftModel.from_pretrained(model, str(adapters[0].parent), is_trainable=True)
         model.enable_input_require_grads()
         model.gradient_checkpointing_enable()
-        if not args.resume:
-            args.sft_steps = 0
         print(f"[warm start] PEFT adapter: {adapters[0]}", flush=True)
     else:
         model = FastLanguageModel.get_peft_model(
@@ -250,7 +248,7 @@ def train(args, report_runtime) -> None:
     rows = build_prompt_set(args.episodes, args.games)
     print(f"prompt set: {len(rows)} states")
 
-    if args.sft_steps > 0 and not args.resume:
+    if args.sft_steps > 0 and not args.resume and not adapters:
         sft_rows = [{"text": render(tokenizer, r["messages"]) + sft_target(r) + tokenizer.eos_token}
                     for r in rows[: args.sft_steps * args.sft_batch]]
         sft = _trainer(SFTTrainer, tokenizer, model=model, train_dataset=Dataset.from_list(sft_rows),
@@ -275,6 +273,9 @@ def train(args, report_runtime) -> None:
             report_runtime("warmstart_evaluation", 0)
             evaluate(model, tokenizer, args, label=args.label + "-warmstart")
             FastLanguageModel.for_training(model)
+
+    if args.grpo_steps == 0:
+        return
 
     grpo_rows = [{"prompt": render(tokenizer, r["messages"]), "game": r["game"], "values": r["values"],
                   "probs": r["probs"], "m_pub": r["m_pub"], "ref_quote": r["ref_quote"]}
@@ -408,7 +409,7 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device-map", default="sequential", help="balanced splits a large model across GPUs")
     ap.add_argument("--offload-layers", choices=["auto"], help="stream layers from host RAM when GPU loading fails")
-    ap.add_argument("--grpo-steps", type=int, default=300)
+    ap.add_argument("--grpo-steps", type=int, default=300, help="zero saves the SFT adapter without GRPO")
     ap.add_argument("--num-generations", type=int, default=8)
     ap.add_argument("--max-completion", type=int, default=96)
     ap.add_argument("--max-seq-len", type=int, default=1280)
