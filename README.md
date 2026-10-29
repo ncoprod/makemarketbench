@@ -239,7 +239,8 @@ These are from seeds 0-49. Every number comes from `results/leaderboard_*.json`.
    `nemotron-3-ultra-550b` started deriving the optimal quote analytically,
    with normal tail integrals and size trade-offs. On its probe and on 9 of
    its first 10 benchmark requests, it hit the 4096-token cap before
-   answering, after 60-180 s each. `minimax-m3.1-flash` hit the cap in both
+   answering, after 60-180 s each
+   (`results/aborted/nemotron-3-ultra-thinking.json`). `minimax-m3.1-flash` hit the cap in both
    modes. Under a fixed token budget, reasoning that never ends in a quote is
    worth zero.
 5. **A 1.7B model distilled from the Bayes dealer beats every untuned LLM.**
