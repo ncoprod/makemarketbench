@@ -1361,3 +1361,10 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Correct the one escaping error and compile the generated source locally
   before any retry. Recheck quota and use the identical frozen adapter and
   seed partitions. This is an implementation failure, not a policy outcome.
+
+- Serial retry version 2 compiles locally before submission and is accepted
+  with private input metadata verified. Its fresh admission check covers
+  15,045.364986 seconds against 15,088.960270 seconds remaining. The corrected
+  builder and submitted source are retained in
+  `results/training/kaggle_staged_sft_serial.json`; the failed version remains
+  separate. Status polling resumes every 610 seconds.
