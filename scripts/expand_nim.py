@@ -18,7 +18,7 @@ from makemarket.games import make_game
 from makemarket.llm import ChatClient, LLMConfig, LLMQuoter, Throttle, parse_quote
 from makemarket.market import Observation
 from makemarket.prompts import messages_for
-from makemarket.provenance import receipt
+from makemarket.provenance import file_sha256, receipt
 
 OUT = Path("results/expansion")
 MODELS = [
@@ -33,6 +33,9 @@ MODELS = [
     ("nvidia/nemotron-3-ultra-550b-a55b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
     ("nvidia/nemotron-3.5-bolt-e4b", {}, 4096, ""),
     ("nvidia/nemotron-3.5-lightning-30b-a3b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
+]
+# Explicit --models batches handle these, avoiding writes shared with the default batch.
+SUPPLEMENT = [
     ("mistralai/mistral-7b-instruct-v0.3", {}, 4096, ""),
     ("nv-mistralai/mistral-nemo-12b-instruct", {}, 4096, ""),
     ("meta/llama-3.2-11b-vision-instruct", {}, 4096, "text-only"),
@@ -48,7 +51,10 @@ def main() -> None:
                     help="retry GLM at low effort and DeepSeek with thinking disabled")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    models = list(MODELS)
+    models = list(MODELS + SUPPLEMENT if args.models else MODELS)
+    batch = receipt({"args": vars(args)}, "NIM immutable deployment revision not exposed")
+    batch["source_sha256"] = {str(p): file_sha256(p) for p in
+                              [Path(__file__), *sorted(Path("src/makemarket").rglob("*.py"))]}
     filename = "protocol-supplement.json" if args.models else "protocol.json"
     if args.reduced_reasoning:
         filename = "protocol-reasoning.json"
@@ -70,9 +76,10 @@ def main() -> None:
         except Exception as exc:
             discovery.write_text(json.dumps({"error": f"{type(exc).__name__}: {exc}"}) + "\n")
     catalog = json.loads(discovery.read_text()).get("data", {}).get("data", [])
-    for model in catalog:
-        if "qwen3.8" in model["id"].lower():
-            models.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
+    if not args.models and not args.reduced_reasoning:
+        for model in catalog:
+            if "qwen3.8" in model["id"].lower():
+                models.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
     g = make_game("dice")
     ep = g.episode(0)
     obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
@@ -81,7 +88,7 @@ def main() -> None:
             continue
         label = model + (f" ({suffix})" if suffix else "")
         cfg = LLMConfig(model=model, label=label, timeout=600, max_tokens=tokens, extra_body=extra)
-        provenance = receipt(dataclasses.asdict(cfg), "NIM immutable deployment revision not exposed")
+        provenance = {**batch, "config": {**dataclasses.asdict(cfg), "batch": vars(args)}}
         client = ChatClient(cfg, cache_dir="cache/expansion", throttle=Throttle(1), max_retries=3)
         entry = protocol.get(label)
         if entry is None:
@@ -112,6 +119,7 @@ def main() -> None:
                 entry[name] = {"episodes": len(eps), "wall_seconds": time.time() - started}
             except Exception as exc:
                 entry[name] = {"error": f"{type(exc).__name__}: {exc}"}
+            entry[name]["provenance"] = provenance
             path.write_text(json.dumps(protocol, indent=2) + "\n")
             print(f"[eval] {label} {name}: {entry[name]}", flush=True)
 

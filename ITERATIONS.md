@@ -380,3 +380,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   are unchanged. The submitted CUDA version 1 is unchanged.
 - End-to-end check: a six-episode Bayes run prints `5/6`; resuming the same run
   skips all six and prints no new-episode progress.
+
+### API batch provenance and disjoint cohorts
+
+- Freeze source commit and file hashes once when each sequential worker starts;
+  retain served model/fingerprint and token metadata already present in caches.
+  Remote immutable deployment revisions are unavailable and remain labelled so.
+- Separate the explicit three-model supplement from the default batch, avoiding
+  simultaneous writes to the same cohorts. Commands are in the README.
+- The resumed default worker started before this patch and saved seven complete
+  GPT-OSS-20B dice episodes. Restart it with the existing cache/raw episodes;
+  completed episodes are skipped. No aggregate test score was inspected.
+- Verification: Ruff passes; 16 parsing/training tests pass (seven recurrence
+  cases excluded from this metadata-only check). The first test command used a
+  nonexistent filename and ran no tests; the corrected command passed.

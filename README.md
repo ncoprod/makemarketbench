@@ -206,6 +206,9 @@ For the shared resource limits, use the lock wrapper:
 mmb eval --game cards --seeds 200-399 --player bayes bayes-public mean-sd fixed-prior random \
   --results-dir runs/final
 bash scripts/with_resource.sh nim python scripts/expand_nim.py
+bash scripts/with_resource.sh nim python scripts/expand_nim.py --models \
+  mistralai/mistral-7b-instruct-v0.3 nv-mistralai/mistral-nemo-12b-instruct \
+  meta/llama-3.2-11b-vision-instruct
 pip install mlx-lm transformers
 python train/make_sft_data.py
 bash scripts/with_resource.sh heavy-ml python train/mlx_train.py \

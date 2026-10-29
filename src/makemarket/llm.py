@@ -157,6 +157,7 @@ class LLMQuoter:
             out = self.client.chat(msgs)
             text = out["content"]
             attempts.append({k: out.get(k) for k in ("content", "finish_reason", "completion_tokens",
+                                                     "prompt_tokens", "served_model", "system_fingerprint",
                                                      "latency", "cached")})
             try:
                 q = parse_quote(text, max_size)
