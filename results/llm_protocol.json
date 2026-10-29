@@ -71,5 +71,29 @@
     ],
     "extra_body": {},
     "label": "nvidia/nemotron-3.5-bolt-e4b"
+  },
+  "nvidia/nemotron-3.5-lightning-30b-a3b": {
+    "probes": [
+      {
+        "extra_body": {},
+        "usable": false,
+        "note": "invalid (no JSON object with a 'bid' field found); finish=length tokens=4096 latency=67s"
+      },
+      {
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "usable": true,
+        "note": "finish=stop tokens=39 latency=1s"
+      }
+    ],
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "label": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)"
   }
 }

@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-10-29T04:26:53+00:00",
+  "endpoint": "https://integrate.api.nvidia.com/v1",
+  "models": [
+    {
+      "model": "moonshotai/kimi-k2.6",
+      "status": 404,
+      "note": "NotFoundError",
+      "latency_s": 0.3
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "status": 404,
+      "note": "NotFoundError",
+      "latency_s": 0.1
+    },
+    {
+      "model": "mistralai/mistral-large-2-instruct",
+      "status": 404,
+      "note": "NotFoundError",
+      "latency_s": 0.2
+    },
+    {
+      "model": "google/gemma-3-12b-it",
+      "status": 404,
+      "note": "NotFoundError",
+      "latency_s": 0.2
+    },
+    {
+      "model": "google/gemma-3-4b-it",
+      "status": 404,
+      "note": "NotFoundError",
+      "latency_s": 0.6
+    },
+    {
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "status": 200,
+      "note": "finish=length",
+      "latency_s": 0.5
+    },
+    {
+      "model": "deepseek-ai/deepseek-v4.1-flash",
+      "status": null,
+      "note": "APITimeoutError",
+      "latency_s": 120.0
+    },
+    {
+      "model": "z-ai/glm-5.3-flash",
+      "status": 200,
+      "note": "finish=length",
+      "latency_s": 112.2
+    }
+  ]
+}
