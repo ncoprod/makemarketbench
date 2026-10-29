@@ -1413,3 +1413,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   allocation boundaries. Retain exact maintenance source in the ledger.
   No extra kernel is admitted while the active-run allowance consumes the
   remaining quota. Latest completed audit/ablation CI remains green.
+
+### T17 full-run progress: full validation before iteration 200
+
+- The full 480-example validation pass scheduled before iteration 200 completes
+  in 1,259.6607853330024 seconds. Validation loss falls from
+  2.1129567623138428 to 0.4035864770412445.
+- Inspect the upstream trainer's convention: it validates before the next
+  training microbatch, displays 200, and passes callback iteration 199. These
+  weights have 199 consumed microbatches and 99 optimizer updates; preserve
+  those exact values rather than relabelling the callback as 200.
+- The sampled physical-footprint peak remains 6,712,983,552 bytes under the
+  unchanged 7 GiB guard. Preserve training/guard snapshots and the current
+  best-adapter hash in `results/training/qwen35_uniform_validation199.json`.
+- Command: `.venv/bin/python runs/retain_mlx_step200.py`; its complete source is
+  embedded in that receipt. The registered recipe continues toward 800
+  microbatches with validation early stopping. This is training progress and
+  full-validation memory evidence, not episode-level PnL.
