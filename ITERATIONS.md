@@ -294,3 +294,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Verification: `pytest -q tests/test_games.py` passed 13 tests, including a
   no-quote episode checked with `json.dumps(..., allow_nan=False)`. This is an
   export fix, not a model-quality iteration.
+
+### Reboot recovery receipts
+
+- The Qwen3-1.7B frozen test was paused after 57 complete dice episodes to yield
+  the heavy-ML lock for the short registered memory probe. No scores were
+  inspected and neither weights nor decoding changed; only missing episodes
+  will resume. [Yield receipt](results/training/qwen17_evaluation_yield.json).
+- The memory probe's subset is audited against the original training and
+  validation files, with exact selected row indices and hashes:
+  [subset audit](results/training/qwen35_memory_data.json).
+- The physical-memory guard now persists samples while running. Its small
+  process self-check exceeded the intentionally tiny 0.001-GiB limit and exited
+  137, as intended: [receipt](results/training/memory_guard_selftest.json).
+- The remote full kernel finished its SFT warm start (150 steps). This interim
+  UI observation is transcribed at the console's printed precision and is not
+  a validation or final policy result:
+  [progress](results/training/kaggle_live_progress.json).

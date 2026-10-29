@@ -1,0 +1,41 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "action": "audit existing deterministic memory-smoke subset"
+    },
+    "model_revision": null,
+    "git_commit": "022efc7aeb5496f56db736401633b9003a283cff",
+    "uncommitted_diff_sha256": "42afe3da1aa66439c65ab325cfe303e2cc715ef25a4e946c32622514f8134e20",
+    "started_at": "2026-10-29T13:08:13.820791+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "selection": "two longest JSONL records by character count, stable descending sort for train; first two for valid",
+  "splits": {
+    "train": {
+      "source": "train/data/train.jsonl",
+      "source_sha256": "b24b28867e8deb8df39903c045a9615350198391d789059fcb9db150e1c04bb9",
+      "subset_sha256": "928913238d9e3b1b855be86aadc89aad4d0b615dd2ad29bfe46103434ecb0198",
+      "zero_based_source_rows": [
+        8791,
+        3708
+      ]
+    },
+    "valid": {
+      "source": "train/data/valid.jsonl",
+      "source_sha256": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62",
+      "subset_sha256": "358532518e017aa8bfdae5de5dac6d9f067705eaf562f6349a0bf0fe11216855",
+      "zero_based_source_rows": [
+        0,
+        1
+      ]
+    }
+  }
+}

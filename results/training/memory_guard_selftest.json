@@ -1,0 +1,32 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/with_memory_guard.py --max-gib 0.001 --result runs/memory_guard_durable_test.json .venv/bin/python -c 'import time; time.sleep(20)'",
+    "config": {
+      "result": "runs/memory_guard_durable_test.json",
+      "max_gib": 0.001,
+      "command": [
+        ".venv/bin/python",
+        "-c",
+        "import time; time.sleep(20)"
+      ]
+    },
+    "model_revision": null,
+    "git_commit": "022efc7aeb5496f56db736401633b9003a283cff",
+    "uncommitted_diff_sha256": "42afe3da1aa66439c65ab325cfe303e2cc715ef25a4e946c32622514f8134e20",
+    "started_at": "2026-10-29T13:08:00.474823+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "41a2bd36ae6deafe8b81942ece393723daf167fb091fc888e81d15202552f404",
+  "status": "physical_memory_limit",
+  "sampled_footprint_peak_bytes_approx": 9388032.0,
+  "child_pid": 57491,
+  "wall_seconds": 1.2157725419999679,
+  "returncode": -9
+}

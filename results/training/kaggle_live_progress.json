@@ -1,0 +1,36 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "action": "read private Kaggle Logs through native accessibility UI"
+    },
+    "model_revision": null,
+    "git_commit": "022efc7aeb5496f56db736401633b9003a283cff",
+    "uncommitted_diff_sha256": "42afe3da1aa66439c65ab325cfe303e2cc715ef25a4e946c32622514f8134e20",
+    "started_at": "2026-10-29T13:08:13.992946+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+  "version": 1,
+  "timestamp_note": "Transcribed after the UI observation; provenance.started_at records transcription time. Elapsed and trainer values are copied at displayed precision.",
+  "url": "https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3",
+  "privacy_displayed": "Private",
+  "accelerator_displayed": "GPU T4 x2",
+  "elapsed_seconds_displayed": 10021.1,
+  "last_training_log_elapsed_seconds_displayed": 7060.2,
+  "sft_summary_displayed": {
+    "train_runtime": "6777",
+    "train_samples_per_second": "0.354",
+    "train_steps_per_second": "0.022",
+    "train_loss": "0.2319",
+    "epoch": "2"
+  },
+  "note": "SFT warm start finished; no GRPO completion or held-out score observed. Final downloaded logs supersede this interim UI observation."
+}

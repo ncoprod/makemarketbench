@@ -25,6 +25,7 @@ def main():
               "status": "running", "sampled_footprint_peak_bytes_approx": 0}
     started = time.monotonic()
     child = subprocess.Popen(args.command)
+    record["child_pid"] = child.pid
     try:
         while child.poll() is None:
             output = subprocess.check_output(
@@ -34,6 +35,8 @@ def main():
                 size = float(match[1]) * 1024 ** "BKMG".index(match[2])
                 record["sampled_footprint_peak_bytes_approx"] = max(
                     size, record["sampled_footprint_peak_bytes_approx"])
+                record["wall_seconds"] = time.monotonic() - started
+                Path(args.result).write_text(json.dumps(record, indent=2) + "\n")
                 if size > args.max_gib * 1024**3:
                     record["status"] = "physical_memory_limit"
                     child.kill()
