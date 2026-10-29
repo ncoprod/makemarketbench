@@ -249,7 +249,7 @@ def train(args, report_runtime) -> None:
     rows = build_prompt_set(args.episodes, args.games)
     print(f"prompt set: {len(rows)} states")
 
-    if args.sft_steps > 0 and not args.resume and not adapters:
+    if args.sft_steps > 0 and not args.resume and (not adapters or args.sft_resume):
         def example(row):
             return {"prompt": render(tokenizer, row["messages"]),
                     "completion": sft_target(row) + tokenizer.eos_token}

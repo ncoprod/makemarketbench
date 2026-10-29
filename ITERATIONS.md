@@ -795,3 +795,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   200–399, six rounds each. Preserve both raw files and their hashes in
   `results/expansion/lightning_cohorts.json`; aggregation remains deferred.
   The sequential NIM worker continues with Ultra, thinking disabled.
+
+### Keep explicit SFT checkpoint resumes executable
+
+- Inspection before any wall-cap continuation found that loading a compatible
+  adapter also skipped SFT, even with an explicit `--sft-resume` checkpoint.
+  Let an explicit optimizer-state resume take precedence over the warm-adapter
+  skip. Retain the exact SFT data partition and total update budget.
+- This change affects future resumptions only. The active newest-family run
+  starts from the base model, and the two original batch snapshots are immutable.
