@@ -502,3 +502,13 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   requests and other overhead remain excluded, so the sum is not batch runtime.
 - Result and exact per-attempt metadata: `results/expansion/latency_partial.json`.
   No model configuration or PnL calculation changed.
+
+### Future CUDA runtime persistence
+
+- Diagnosis: a hard session timeout may bypass Python's final report.
+- Change: future builds atomically persist elapsed time, phase/step and peak
+  allocated/reserved memory at trainer log callbacks as well as shutdown.
+  Include CUDA and additional training-stack package versions. Current private
+  kernel snapshots are unchanged; these hooks have not yet executed on CUDA.
+- Verification: Ruff, five CPU training/export checks and the reward dry run
+  pass. CUDA callback execution remains to be verified on a future resume.

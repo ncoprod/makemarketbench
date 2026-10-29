@@ -188,14 +188,23 @@ def execution(args) -> dict:
             "embedded_package_sha256": hashlib.sha256(base64.b64decode(PAYLOAD)).hexdigest()}
 
 
-def train(args) -> None:
+def train(args, report_runtime) -> None:
     from unsloth import FastLanguageModel  # noqa: I001  (must be imported before trl)
     from datasets import Dataset
     from trl import GRPOConfig, GRPOTrainer, SFTConfig, SFTTrainer
+    from transformers import TrainerCallback
     import torch
 
     torch.manual_seed(0)
     torch.cuda.reset_peak_memory_stats()
+    report_runtime("loading", 0)
+
+    class RuntimeCallback(TrainerCallback):
+        def __init__(self, phase):
+            self.phase = phase
+
+        def on_log(self, args, state, control, **kwargs):
+            report_runtime(self.phase, state.global_step)
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
@@ -230,6 +239,7 @@ def train(args) -> None:
         if not adapters:
             raise ValueError("--eval-only requires a compatible saved adapter")
         FastLanguageModel.for_inference(model)
+        report_runtime("evaluation", 0)
         evaluate(model, tokenizer, args)
         return
 
@@ -240,6 +250,7 @@ def train(args) -> None:
         sft_rows = [{"text": render(tokenizer, r["messages"]) + sft_target(r) + tokenizer.eos_token}
                     for r in rows[: args.sft_steps * args.sft_batch]]
         sft = _trainer(SFTTrainer, tokenizer, model=model, train_dataset=Dataset.from_list(sft_rows),
+                       callbacks=[RuntimeCallback("sft")],
                        args=_config(SFTConfig, output_dir=str(WORK / "sft"), max_steps=args.sft_steps,
                                     per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
                                     logging_steps=10, save_strategy="steps", save_steps=50,
@@ -256,6 +267,7 @@ def train(args) -> None:
         tokenizer.save_pretrained(str(WORK / "warmstart_adapter"))
         if not args.train_only:
             FastLanguageModel.for_inference(model)
+            report_runtime("warmstart_evaluation", 0)
             evaluate(model, tokenizer, args, label=args.label + "-warmstart")
             FastLanguageModel.for_training(model)
 
@@ -270,6 +282,7 @@ def train(args) -> None:
         save_steps=100, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
         optim="adamw_8bit", seed=0, data_seed=0)
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
+                       callbacks=[RuntimeCallback("grpo")],
                        args=cfg, train_dataset=Dataset.from_list(grpo_rows))
     (WORK / "grpo_config.json").write_text(json.dumps(
         {**execution(args), "trainer_config": trainer.args.to_dict()}, indent=2) + "\n")
@@ -278,6 +291,7 @@ def train(args) -> None:
     tokenizer.save_pretrained(str(WORK / "lora_adapter"))
     if not args.train_only:
         FastLanguageModel.for_inference(model)
+        report_runtime("evaluation", 0)
         evaluate(model, tokenizer, args)
 
 
@@ -399,6 +413,24 @@ def main() -> None:
         raise SystemExit("GPU training is meant for Kaggle/CUDA; use --dry-run locally")
     started = time.time()
     record = {**execution(args), "status": "running"}
+
+    def report_runtime(phase=None, step=None):
+        record["wall_seconds"] = time.time() - started
+        if phase is not None:
+            record.update(phase=phase, phase_step=step)
+        torch = sys.modules.get("torch")
+        if torch is not None and torch.cuda.is_available():
+            record["peak_allocated_bytes"] = torch.cuda.max_memory_allocated()
+            record["peak_reserved_bytes"] = torch.cuda.max_memory_reserved()
+            record["memory_by_gpu"] = [
+                {"device": i, "peak_allocated_bytes": torch.cuda.max_memory_allocated(i),
+                 "peak_reserved_bytes": torch.cuda.max_memory_reserved(i)}
+                for i in range(torch.cuda.device_count())]
+        temporary = WORK / "runtime.json.tmp"
+        temporary.write_text(json.dumps(record, indent=2) + "\n")
+        temporary.replace(WORK / "runtime.json")
+
+    report_runtime()
     try:
         subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
         import torch
@@ -406,23 +438,17 @@ def main() -> None:
         if not torch.cuda.is_available():
             raise RuntimeError("Kaggle did not allocate a CUDA GPU")
         record["gpus"] = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
+        record["cuda_version"] = torch.version.cuda
         record["versions"] = {p: importlib.metadata.version(p)
-                              for p in ("torch", "unsloth", "trl", "transformers", "peft")}
-        train(args)
+                              for p in ("torch", "unsloth", "unsloth_zoo", "trl", "transformers", "peft",
+                                        "bitsandbytes", "datasets", "accelerate", "triton")}
+        train(args, report_runtime)
         record["status"] = "completed"
     except Exception as exc:
         record.update(status="failed", error=f"{type(exc).__name__}: {exc}")
         raise
     finally:
-        record["wall_seconds"] = time.time() - started
-        if "torch" in sys.modules and torch.cuda.is_available():
-            record["peak_allocated_bytes"] = torch.cuda.max_memory_allocated()
-            record["peak_reserved_bytes"] = torch.cuda.max_memory_reserved()
-            record["memory_by_gpu"] = [
-                {"device": i, "peak_allocated_bytes": torch.cuda.max_memory_allocated(i),
-                 "peak_reserved_bytes": torch.cuda.max_memory_reserved(i)}
-                for i in range(torch.cuda.device_count())]
-        (WORK / "runtime.json").write_text(json.dumps(record, indent=2) + "\n")
+        report_runtime()
 
 
 if __name__ == "__main__":
