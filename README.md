@@ -158,11 +158,16 @@ in `results/raw/<game>/*.jsonl`.
 | Dealer | N | % of Bayes edge [95% CI] | E[PnL] / episode [95% CI] | Regret / round | Spread / optimal | Mid error | Adverse cost | Invalid answers |
 |---|---|---|---|---|---|---|---|---|
 | bayes | 50 | 100 [100, 100] | 14.0 [11.4, 16.2] | 0.00 | 1.00 | 0.16 | 4.2 | 0% |
+| qwen3-1.7b-sft | 50 | 68 [38, 89] | 9.5 [4.8, 13.3] | 0.53 | 1.00 | 0.87 | 6.1 | 0% |
 | bayes-public | 50 | 64 [44, 83] | 8.9 [6.1, 11.3] | 0.48 | 1.03 | 0.91 | 6.0 | 0% |
 | mean-sd | 50 | 57 [42, 72] | 8.0 [5.9, 9.7] | 0.67 | 0.98 | 0.92 | 4.7 | 0% |
 | fixed-prior | 50 | 27 [-9, 57] | 3.8 [-1.2, 8.1] | 1.37 | 1.19 | 1.88 | 4.7 | 0% |
+| nvidia/nemotron-3-ultra-550b-a55b (no-think) | 50 | -41 [-107, 9] | -5.7 [-13.6, 1.4] | 2.88 | 0.67 | 1.90 | 15.7 | 0% |
 | random | 50 | -41 [-97, -1] | -5.7 [-12.5, -0.1] | 2.76 | 1.22 | 2.59 | 11.2 | 0% |
+| openai/gpt-oss-20b +hint | 50 | -109 [-169, -66] | -15.2 [-21.5, -9.9] | 4.40 | 0.22 | 2.81 | 22.0 | 2% |
 | openai/gpt-oss-20b | 50 | -146 [-221, -91] | -20.4 [-27.5, -13.9] | 5.28 | 0.22 | 3.26 | 23.4 | 8% |
+| nvidia/nemotron-3.5-bolt-e4b | 50 | -459 [-612, -368] | -64.1 [-72.9, -56.2] | 11.93 | 0.12 | 3.96 | 50.1 | 0% |
+| qwen3-1.7b-base | 50 | -1728 [-2151, -1455] | -241.3 [-255.7, -226.1] | 41.27 | 0.12 | 24.00 | 124.3 | 0% |
 <!-- /TABLE:dice -->
 
 ![dice leaderboard](docs/figures/leaderboard_dice.png)
@@ -177,6 +182,8 @@ in `results/raw/<game>/*.jsonl`.
 | mean-sd | 50 | 63 [49, 75] | 12.6 [9.5, 15.1] | 1.08 | 0.90 | 1.17 | 5.2 | 0% |
 | fixed-prior | 50 | 10 [-26, 38] | 2.0 [-4.7, 8.1] | 2.67 | 1.32 | 3.86 | 7.0 | 0% |
 | random | 50 | -45 [-93, -11] | -9.1 [-16.6, -2.3] | 5.18 | 1.37 | 4.88 | 14.9 | 0% |
+| qwen3-1.7b-sft | 50 | -80 [-161, -15] | -16.1 [-30.0, -3.2] | 5.01 | 1.00 | 4.09 | 21.6 | 0% |
+| qwen3-1.7b-base | 50 | -648 [-781, -558] | -129.8 [-139.0, -121.0] | 24.43 | 0.08 | 33.19 | 60.2 | 22% |
 <!-- /TABLE:cards -->
 
 ![cards leaderboard](docs/figures/leaderboard_cards.png)
@@ -227,7 +234,12 @@ are reported here.** `train/serve_vllm.sh` serves the resulting adapter with
 vLLM for evaluation through the standard harness.
 
 <!-- TABLE:training -->
-_Pending._
+| Model | Game | N | % of Bayes edge [95% CI] | E[PnL] / episode [95% CI] | Regret / round | Invalid answers |
+|---|---|---|---|---|---|---|
+| qwen3-1.7b-base | dice | 50 | -1728 [-2151, -1455] | -241.3 [-255.7, -226.1] | 41.27 | 0% |
+| qwen3-1.7b-sft | dice | 50 | 68 [38, 89] | 9.5 [4.8, 13.3] | 0.53 | 0% |
+| qwen3-1.7b-base | cards | 50 | -648 [-781, -558] | -129.8 [-139.0, -121.0] | 24.43 | 22% |
+| qwen3-1.7b-sft | cards | 50 | -80 [-161, -15] | -16.1 [-30.0, -3.2] | 5.01 | 0% |
 <!-- /TABLE:training -->
 
 ## Engine

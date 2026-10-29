@@ -47,26 +47,30 @@ def leaderboard_figure(game: str) -> None:
         return
     rows = json.loads(path.read_text())["rows"]
     rows = sorted(rows, key=lambda r: r["pct_of_bayes"])
-    fig, ax = plt.subplots(figsize=(7.5, 0.42 * len(rows) + 1.2), facecolor=SURFACE)
+    fig, ax = plt.subplots(figsize=(8.5, 0.42 * len(rows) + 1.4), facecolor=SURFACE)
     y = np.arange(len(rows))
     colors = {"baseline": BASE, "llm": LLM, "trained": TRAINED}
+    lo_lim = -250.0  # very negative dealers are drawn to the edge and labelled
     for i, r in enumerate(rows):
         c = colors[kind(r["player"])]
         lo, hi = r["pct_of_bayes_ci"]
-        ax.barh(i, r["pct_of_bayes"], height=0.55, color=c)
+        v = r["pct_of_bayes"]
+        ax.barh(i, max(v, lo_lim), height=0.55, color=c)
         if r["player"] != "bayes":
-            ax.plot([lo, hi], [i, i], color=INK, linewidth=1.2)
-        ax.text(max(r["pct_of_bayes"], hi if r["player"] != "bayes" else 0, 0) + 3, i,
-                f"{r['pct_of_bayes']:.0f}%", va="center", fontsize=8.5, color=INK)
+            ax.plot([max(lo, lo_lim), max(hi, lo_lim)], [i, i], color=INK, linewidth=1.2)
+        label = f"{v:.0f}%" + (" (off scale)" if v < lo_lim else "")
+        ax.text(max(v, hi if r["player"] != "bayes" else v, 0) + 4, i, label, va="center",
+                fontsize=8.5, color=INK)
+    ax.set_xlim(lo_lim * 1.04, 175)
     ax.axvline(0, color=MUTED, linewidth=0.8)
     ax.set_yticks(y, [f"{r['player']} (n={r['episodes']})" for r in rows], color=INK)
     ax.set_xlabel("Expected PnL as % of the Bayes reference (paired bootstrap 95% CI)", color=MUTED, fontsize=9)
-    ax.set_title(f"{game}: edge captured relative to the Bayes reference", color=INK, fontsize=11, loc="left")
+    ax.set_title(f"{game}: % of the Bayes reference's expected PnL", color=INK, fontsize=11, loc="left")
     style(ax)
     from matplotlib.patches import Patch
 
     present = {kind(r["player"]) for r in rows}
-    names = {"baseline": "reference / baselines", "llm": "API LLMs", "trained": "fine-tuned local"}
+    names = {"baseline": "reference / baselines", "llm": "LLMs (untuned)", "trained": "fine-tuned local"}
     ax.legend(handles=[Patch(color=colors[k], label=names[k]) for k in ("baseline", "llm", "trained") if k in present],
               frameon=False, fontsize=8, loc="upper left")
     fig.tight_layout()
