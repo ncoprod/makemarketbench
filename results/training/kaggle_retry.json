@@ -255,6 +255,17 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T10:38:39.042372+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "console_observation": {
@@ -282,5 +293,32 @@
       "Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass."
     ],
     "note": "Observation proves allocation and SFT execution, not completion of GRPO. Peak VRAM and final runtime remain unmeasured."
+  },
+  "sft_progress_observations": [
+    {
+      "at": "2026-10-29T10:48:19.397432+00:00",
+      "method": "Authenticated native Chrome accessibility view of the private kernel Logs tab",
+      "run_elapsed_seconds": 1783.4,
+      "logged_updates": [
+        {
+          "run_seconds": 930.9,
+          "completed_optimizer_updates": 10,
+          "loss_printed": "1.865",
+          "epoch_printed": "0.1333"
+        },
+        {
+          "run_seconds": 1372.3,
+          "completed_optimizer_updates": 20,
+          "loss_printed": "0.7851",
+          "epoch_printed": "0.2667"
+        }
+      ],
+      "note": "Running SFT only; printed losses are not policy evaluations or final training results."
+    }
+  ],
+  "live_log_retrieval_attempt": {
+    "method": "Official Kaggle SDK GetKernelSessionLogsStream",
+    "error": "HTTP 404 Not Found: https://api.kaggle.com/v1/kernels.KernelsApiService/GetKernelSessionLogsStream",
+    "note": "SDK live-log endpoint unavailable. This is a monitoring failure, not a GPU training failure; native UI logs and the 610-second CLI status monitor remain usable."
   }
 }

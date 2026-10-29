@@ -34,5 +34,41 @@
     "usable": false,
     "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
     "probe_wall_seconds": 922.9031600952148
+  },
+  "deepseek-ai/deepseek-v4.1-flash (long-timeout)": {
+    "model": "deepseek-ai/deepseek-v4.1-flash",
+    "label": "deepseek-ai/deepseek-v4.1-flash (long-timeout)",
+    "timeout_seconds": 600,
+    "max_tokens": 8192,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "deepseek-ai/deepseek-v4.1-flash",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 8192,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "deepseek-ai/deepseek-v4.1-flash (long-timeout)"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "cc880f978253ebd4bea21bf4eb7ec2dae878453e",
+      "uncommitted_diff_sha256": null,
+      "started_at": "2026-10-29T10:28:13.991941+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+    "probe_wall_seconds": 923.3275508880615
   }
 }

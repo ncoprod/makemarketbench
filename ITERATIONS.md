@@ -125,7 +125,8 @@ do not invent missing provenance. Historical adapter configs are preserved.
   verified before calls. Each batch holds its own slot; total requests remain
   bounded by the two shared mutexes. GLM then failed after three requests with
   HTTP 504 in 922.903 seconds, despite the 600-second client timeout; no score
-  is assigned. DeepSeek retry is running. No new policy score is claimed yet.
+  is assigned. DeepSeek also failed after three HTTP 504 responses in 923.328
+  seconds. Ultra with thinking is the next probe. No new policy score is claimed.
 - Evidence: [catalogue](results/expansion/models.json), ignored
   `runs/nim_expansion.log` / `runs/nim_supplement.log`; protocol JSON after each probe.
 

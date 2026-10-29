@@ -121,7 +121,8 @@ are rejected. The initial submission failed with HTTP 401
 ([exact failure](results/training/kaggle_attempt.json)). Official OAuth login
 restored CLI access: the private checkpoint dataset is ready and the kernel
 was accepted with a T4 requested, internet enabled and remote privacy verified
-([retry receipt](results/training/kaggle_retry.json)). Runtime and VRAM remain
+([retry receipt](results/training/kaggle_retry.json)). The console confirms SFT
+execution on one allocated T4; GRPO completion is pending. Runtime and VRAM remain
 unmeasured until outputs are retrieved. The local reward trial is explicitly
 labelled RLOO-style.
 
@@ -129,7 +130,9 @@ NIM expansion retries GLM and DeepSeek with longer timeouts, enables Ultra
 thinking, discovers Qwen3.8 availability and probes additional Qwen, Llama and
 Mistral models. Calls run sequentially under a shared NIM slot; responses are
 cached. Availability, failures and completed cohorts will be reported alongside
-the new results. The original [request protocol](results/llm_protocol.json) and
+the new results. Both long-timeout retries ended in HTTP 504 after three requests
+([failure receipts](results/expansion/protocol.json)); no scores are assigned.
+The original [request protocol](results/llm_protocol.json) and
 [endpoint failures](results/endpoint_check.json) remain available.
 
 ## Engine performance and correctness
