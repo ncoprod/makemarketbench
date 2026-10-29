@@ -17,7 +17,7 @@
       "mlx-lm": "0.32.2"
     }
   },
-  "status": "queued_under_heavy_ml_lock",
+  "status": "completed",
   "hypothesis": "Default MLX free-cache limit equals its much larger memory limit. Repeated allocations may retain unused Metal buffers across shapes; bound that cache without changing active tensors or loss.",
   "change": {
     "mlx_free_cache_limit_bytes": 268435456,
@@ -80,5 +80,10 @@
   ],
   "wrapper_pid": 23301,
   "conditional_full_launcher_pid": 23302,
-  "launch_commit": "2d9666827e33b8eacab7da911ede350df7af9ce0"
+  "launch_commit": "2d9666827e33b8eacab7da911ede350df7af9ce0",
+  "completed_at": "2026-10-29T21:30:10.937961+00:00",
+  "runtime_file": "results/training/qwen35_cache_smoke.json",
+  "guard_file": "results/training/qwen35_cache_memory_guard.json",
+  "weight_check": "results/training/qwen35_cache_probe_verification.json",
+  "full_training": "Restarted from unchanged step-zero adapter by the conditional launcher; probe updates discarded."
 }

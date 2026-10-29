@@ -129,8 +129,11 @@ an optimizer update under the guard, and its saved weights changed
 [weight check](results/training/qwen35_answer_probe_verification.json)). The full
 800-iteration run passed the full validation check, then crossed its memory
 guard before its first training report
-([failure](results/training/qwen35_sft_answer_attempt1.json)). A probe with a
-bounded MLX free-cache limit is queued. These infrastructure checks are not policy
+([failure](results/training/qwen35_sft_answer_attempt1.json)). An eight-microbatch probe with a
+256 MiB MLX free-cache limit completes four updates under the same guard
+([runtime](results/training/qwen35_cache_smoke.json),
+[weight check](results/training/qwen35_cache_probe_verification.json));
+the full run has restarted from unchanged initial weights. These infrastructure checks are not policy
 improvements ([trial log](ITERATIONS.md)).
 
 The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL

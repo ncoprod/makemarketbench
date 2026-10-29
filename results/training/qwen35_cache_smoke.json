@@ -1,0 +1,119 @@
+{
+  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --resume train/runs/qwen3.5-4b-sft-interrupted/best.safetensors --data runs/qwen35_memory_data --out train/runs/qwen35-cache-smoke --result results/training/qwen35_cache_smoke.json --iters 8 --answer-head-tokens 128",
+  "config": {
+    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "data": "runs/qwen35_memory_data",
+    "out": "train/runs/qwen35-cache-smoke",
+    "result": "results/training/qwen35_cache_smoke.json",
+    "resume": "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+    "iters": 8,
+    "lr": 0.0001,
+    "batch_size": 1,
+    "accumulation": 2,
+    "layers": 16,
+    "seed": 3,
+    "answer_head_tokens": 128
+  },
+  "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "git_commit": "2d9666827e33b8eacab7da911ede350df7af9ce0",
+  "uncommitted_diff_sha256": "e6ca629873743de5ec701b3f10e4979916af4beef13e10da9c71c3c4450034f8",
+  "started_at": "2026-10-29T21:15:27.786265+00:00",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "versions": {
+    "numpy": "2.5.4",
+    "openai": "3.40.0",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2"
+  },
+  "optimizer_restarted": true,
+  "data_sha256": {
+    "train": "928913238d9e3b1b855be86aadc89aad4d0b615dd2ad29bfe46103434ecb0198",
+    "valid": "358532518e017aa8bfdae5de5dac6d9f067705eaf562f6349a0bf0fe11216855"
+  },
+  "source_sha256": "feff702d6161581fe40c4500e6b91d46ac598066f158b6d4f3f51e05a2e535c6",
+  "status": "completed",
+  "mlx_cache_limit_bytes": 268435456,
+  "previous_mlx_cache_limit_bytes": 16320875724,
+  "recurrence_training": {
+    "chunk_size": 64,
+    "source_sha256": "adb61ebaff874e1b38a091efc35a6aa549248e951770633b2d4d3079ed3ae68b",
+    "implementation": "parallel scalar/unmasked; checkpointed sequential otherwise",
+    "port_sha256": "e561e9fb23b8074f332ae931bd9b97bf96f5fbcb3959f9109d058e2d5604cac8"
+  },
+  "trainer_config": {
+    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "train": true,
+    "fine_tune_type": "lora",
+    "optimizer": "adam",
+    "optimizer_config": {
+      "adam": {},
+      "adamw": {},
+      "muon": {},
+      "sgd": {},
+      "adafactor": {}
+    },
+    "data": "runs/qwen35_memory_data",
+    "seed": 3,
+    "num_layers": 16,
+    "batch_size": 1,
+    "iters": 8,
+    "val_batches": -1,
+    "learning_rate": 0.0001,
+    "steps_per_report": 10,
+    "steps_per_eval": 200,
+    "resume_adapter_file": "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+    "adapter_path": "train/runs/qwen35-cache-smoke",
+    "save_every": 100,
+    "test": false,
+    "test_batches": 500,
+    "max_seq_length": 1536,
+    "config": null,
+    "grad_checkpoint": true,
+    "grad_accumulation_steps": 2,
+    "clear_cache_threshold": 0,
+    "lr_schedule": null,
+    "lora_parameters": {
+      "rank": 8,
+      "dropout": 0.0,
+      "scale": 20.0
+    },
+    "mask_prompt": true,
+    "report_to": null,
+    "project_name": null,
+    "trust_remote_code": false
+  },
+  "validation": [
+    {
+      "iteration": 0,
+      "val_loss": 2.064978837966919,
+      "val_time": 4.397239916997933
+    },
+    {
+      "iteration": 7,
+      "val_loss": 0.8276111483573914,
+      "val_time": 5.13793704100317
+    }
+  ],
+  "best_validation_loss": 0.8276111483573914,
+  "best_step": 7,
+  "completed_iterations": 8,
+  "optimizer_updates": 4,
+  "peak_memory_bytes": 4058164994,
+  "active_memory_bytes": 2464927358,
+  "cache_memory_bytes": 71968780,
+  "wall_seconds": 172.9254369170012,
+  "training": [
+    {
+      "iteration": 8,
+      "train_loss": 0.6753771901130676,
+      "learning_rate": 9.999999747378752e-05,
+      "iterations_per_second": 0.06361720103402484,
+      "tokens_per_second": 3.5116694970781714,
+      "trained_tokens": 552,
+      "peak_memory": 4.058164994
+    }
+  ],
+  "best_adapter_sha256": "c9348988ae34ad6db9dbffdd94f17183223323ba7929479e4e347ed51b3bbfbf"
+}

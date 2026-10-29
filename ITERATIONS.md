@@ -1120,3 +1120,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   source hash, settings, and conservative quota reservation are in
   `results/training/kaggle_staged_final.json`. The status monitor sleeps
   610 seconds between checks. Both frozen adapter identities are unchanged.
+
+### T13 cache-bounded probe passed; full training restarted
+
+- Eight microbatches / four optimizer updates complete in 172.9254369170012
+  seconds. Sampled approximate physical peak is 6,607,077,376 bytes, below the
+  unchanged 7 GiB guard; MLX allocator peak is 4,058,164,994 bytes. The prior
+  default free-cache limit was 16,320,875,724 bytes, now bounded to 268,435,456.
+- All 248 adapter tensors change after four updates. Retain runtime, guard,
+  complete log and weight-check source in `qwen35_cache_*` results. These are
+  infrastructure measurements on the longest training examples, not policy PnL
+  or a controlled throughput comparison with the earlier two-microbatch probe.
+- The conditional launcher restarts full training from the unchanged step-zero
+  adapter, discarding probe updates. Full training is not yet verified complete.
+- The complete local suite passes 104 tests with no skips; exact producing
+  commit, command, output and hash are in `results/verification.json`.
