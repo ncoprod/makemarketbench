@@ -1254,3 +1254,11 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The routed-cohort addition initially fails CI on import ordering. Correct
   that single lint error; lint and all 110 local tests pass, with exact command
   and output in `results/verification.json` and `results/verification.log`.
+- Queue the remaining registered local stages after full SFT and its complete
+  100-episode validation in both games: collect 150 DAgger episodes per game,
+  audit token lengths, train for up to 800 microbatches, validate, then run the
+  24-group dice RLOO recipe and validate. Freeze the winner before fresh test.
+  Every heavy stage takes the shared lock. DAgger retains answer-only projection
+  and fixed training shapes, with the same 7 GiB guard; stop if its audited
+  inputs exceed the fixed shape. The exact queued launcher is retained in
+  `results/training/qwen35_followup_plan.json`; no follow-up outcome is claimed.
