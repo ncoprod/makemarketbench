@@ -148,7 +148,9 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - CUDA recipe: `unsloth/Qwen3.5-4B`, revision
   `3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636`; no 1.7B adapter is loaded into 4B.
 - Execution started after T2 released the heavy-ML mutex. Initial full teacher
-  validation is running; no training or policy result is claimed yet.
+  validation completed before the first update: loss 2.1129567623138428 in
+  1,884.2940601250157 seconds, MLX allocator peak 4,012,511,272 bytes. This is
+  an untrained adapter baseline, not a policy result; optimisation is running.
   Exact command and start receipt: `results/training/qwen35_sft.json`.
 
 ### E1 — engine baseline/profile (in progress)
@@ -236,8 +238,9 @@ do not invent missing provenance. Historical adapter configs are preserved.
   selected for final testing or evidence of policy quality.
 - Commands: `python train/build_kaggle_kernel.py --smoke`;
   `kaggle kernels push -p runs/kaggle_smoke --accelerator NvidiaTeslaT4`.
-- Result: pending; `results/training/kaggle_smoke.json`. The existing full
-  kernel continues unchanged. Runtime and VRAM must come from retrieved outputs.
+- Result: private version 1 accepted, T4 and internet enabled; remote privacy
+  verified in [the receipt](results/training/kaggle_smoke.json). The existing
+  full kernel continues unchanged. Runtime and VRAM await retrieved outputs.
 
 Selection registered before T4–T6 validation: maximise the smaller of the two
 validation margins, `min(dice_percent_of_Bayes - 80, cards_percent_of_Bayes)`;

@@ -1,0 +1,48 @@
+{
+  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --out train/runs/qwen3.5-4b-sft --result results/training/qwen35_sft.json",
+  "config": {
+    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "data": "train/data",
+    "out": "train/runs/qwen3.5-4b-sft",
+    "result": "results/training/qwen35_sft.json",
+    "resume": null,
+    "iters": 800,
+    "lr": 0.0001,
+    "batch_size": 1,
+    "accumulation": 2,
+    "layers": 16,
+    "seed": 3
+  },
+  "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "git_commit": "063118e4cae0c7efeb04aeb19480cd4ff058f081",
+  "uncommitted_diff_sha256": "614c3c79a0a1a60f9aff5509796d958cd9a7a49cc181fe58df8e0388f22127de",
+  "started_at": "2026-10-29T10:19:38.517245+00:00",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "versions": {
+    "numpy": "2.5.4",
+    "openai": "3.40.0",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2"
+  },
+  "data_sha256": {
+    "train": "b24b28867e8deb8df39903c045a9615350198391d789059fcb9db150e1c04bb9",
+    "valid": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
+  },
+  "source_sha256": "5ff6193246471393718d9fce31f05eeab99c8d04dcb8e3dacc3f36af140d708b",
+  "status": "running",
+  "validation": [
+    {
+      "iteration": 0,
+      "val_loss": 2.1129567623138428,
+      "val_time": 1884.2940601250157
+    }
+  ],
+  "best_validation_loss": 2.1129567623138428,
+  "best_step": 0,
+  "completed_iterations": 0,
+  "optimizer_updates": 0,
+  "peak_memory_bytes": 4012511272,
+  "wall_seconds": 1893.3195571249817
+}

@@ -1,0 +1,92 @@
+{
+  "started_at": "2026-10-29T10:52:00.503998+00:00",
+  "command": [
+    "/Users/nico/.local/bin/kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "runs/kaggle_smoke",
+    "--accelerator",
+    "NvidiaTeslaT4"
+  ],
+  "build_command": ".venv/bin/python train/build_kaggle_kernel.py --smoke",
+  "source_commit": "f33ce01d9469c832965526eb9ba4c18c9d2fe4ee",
+  "kernel_sha256": "e875c4c8cc2aca8ba2f02aefd111013cc0144865a5b4fea8c70e2a62db06368b",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+    "title": "MakeMarketBench GRPO Qwen3 smoke",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": []
+  },
+  "evaluation_seeds": [
+    80000
+  ],
+  "trial_kind": "infrastructure smoke; not a final candidate",
+  "gpu_runtime_seconds": null,
+  "peak_vram_bytes": null,
+  "exit_code": 0,
+  "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3-smoke\n",
+  "status": "submitted",
+  "remote_verification": {
+    "command": [
+      "/Users/nico/.local/bin/kaggle",
+      "kernels",
+      "pull",
+      "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+      "-m",
+      "-p",
+      "runs/kaggle_smoke_remote"
+    ],
+    "exit_code": 0,
+    "output": "Source code and metadata downloaded to runs/kaggle_smoke_remote\n"
+  },
+  "remote_metadata": {
+    "id": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+    "id_no": 141492643,
+    "title": "MakeMarketBench GRPO Qwen3 smoke",
+    "code_file": "makemarketbench-grpo-qwen3-smoke.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_tpu": false,
+    "enable_internet": true,
+    "keywords": [],
+    "dataset_sources": [],
+    "kernel_sources": [],
+    "competition_sources": [],
+    "model_sources": [],
+    "docker_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
+    "machine_shape": "NvidiaTeslaT4"
+  },
+  "model": "unsloth/Qwen3.5-4B",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "training_episode_seeds": [
+    20000,
+    20001,
+    20002,
+    20003
+  ],
+  "overrides": {
+    "sft_steps": 0,
+    "grpo_steps": 1,
+    "num_generations": 2,
+    "episodes": 4,
+    "games": [
+      "dice"
+    ],
+    "eval_episodes": 1,
+    "eval_seed": 80000,
+    "label": "qwen3.5-4b-grpo-smoke"
+  }
+}
