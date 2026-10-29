@@ -138,12 +138,15 @@ session saves adapters before separate Kaggle evaluations, avoiding evaluation
 delaying GRPO ([trial log](ITERATIONS.md)). The local reward trial is explicitly
 labelled RLOO-style.
 
-NIM expansion retries GLM and DeepSeek with longer timeouts, enables Ultra
-thinking, discovers Qwen3.8 availability and probes additional Qwen, Llama and
-Mistral models. Calls run sequentially under a shared NIM slot; responses are
-cached. Availability, failures and completed cohorts will be reported alongside
-the new results. Both long-timeout retries ended in HTTP 504 after three requests
-([failure receipts](results/expansion/protocol.json)); no scores are assigned.
+NIM expansion probes additional Llama and Mistral models; its
+[endpoint catalogue](results/expansion/models.json) lists no Qwen models.
+Calls run sequentially under a shared NIM slot; responses are cached.
+Long-timeout GLM, DeepSeek and Ultra-thinking probes ended in HTTP 504 after
+three requests ([failure receipts](results/expansion/protocol.json)). GLM at
+low effort and DeepSeek with thinking disabled also failed the same way
+([separate retry receipts](results/expansion/protocol-reasoning.json)).
+No scores are assigned to unavailable endpoints. Responsive cohorts remain
+pending.
 The original [request protocol](results/llm_protocol.json) and
 [endpoint failures](results/endpoint_check.json) remain available.
 

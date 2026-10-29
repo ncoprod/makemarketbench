@@ -574,3 +574,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - [Recovery checkpoint](results/recovery_checkpoint.json) records each snapshot's
   prefix hash and producer commits. Resumers skip these seeds; later appends
   change the full-file hash without invalidating this historical snapshot.
+
+### DeepSeek non-thinking availability result
+
+- The registered DeepSeek-v4.1-Flash retry with `enable_thinking: false` also
+  failed after three HTTP 504 responses, taking 921.8056712150574 seconds.
+  [Exact configuration/error](results/expansion/protocol-reasoning.json).
+  No score or negative-quality conclusion is assigned to this endpoint.
+- The reduced-reasoning worker exited and released its slot. Remaining API
+  workers continue waiting for the shared slots; no concurrency limit changed.
