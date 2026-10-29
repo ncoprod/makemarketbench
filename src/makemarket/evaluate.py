@@ -44,7 +44,7 @@ def load_results(path: str | Path) -> list[dict]:
 
 
 def run_player(game, make_player, seeds: list[int], out_path: str | Path, workers: int = 1,
-               backend: str | None = None, log=print) -> list[dict]:
+               backend: str | None = None, log=print, provenance: dict | None = None) -> list[dict]:
     """Play ``seeds`` with fresh players from ``make_player()``; resumable (seeds
     already present in ``out_path`` are skipped). Returns all episode dicts."""
     out_path = Path(out_path)
@@ -56,6 +56,8 @@ def run_player(game, make_player, seeds: list[int], out_path: str | Path, worker
 
     def work(seed: int) -> dict:
         res = episode_to_dict(play_episode(game, seed, make_player(), backend))
+        if provenance is not None:
+            res["provenance"] = provenance
         with lock, open(out_path, "a") as fh:
             fh.write(json.dumps(res) + "\n")
         return res
