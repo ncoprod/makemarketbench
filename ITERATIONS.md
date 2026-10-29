@@ -545,3 +545,11 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Verification: CPU evaluation/export and cached repair isolation checks pass
   ([receipt](results/training/cuda_cache_verification.json)).
   No GPU runtime improvement is claimed before a future CUDA measurement.
+
+### Clarify reward-training state distribution
+
+- Source review confirms that both reward scripts use contexts collected along
+  Bayes-teacher trajectories. Their sampled completions come from the learned
+  policy, but subsequent training states are not its own trajectories. Document
+  this limitation explicitly; DAgger separately collects on-policy contexts.
+  No experiment or outcome changes.

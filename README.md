@@ -239,6 +239,10 @@ Historical samples are small and already influenced development. Greedy local
 evaluation and stochastic API sampling have different decoding policies.
 Endpoint deployments can drift even when model names do not; cached transcripts
 preserve the responses actually scored. Figgie-lite is an exploratory sandbox.
+The reward trials sample new quotes on states visited by the Bayes teacher;
+their training contexts do not follow the learned policy's own fills. DAgger
+collects those on-policy states. This state-distribution gap can limit transfer
+from GRPO or RLOO training rewards to complete-game performance.
 
 Code and synthetic data are MIT, copyright Nicolas Coquelet. See
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for exact model and dependency
