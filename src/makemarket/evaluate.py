@@ -6,6 +6,7 @@ import json
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from functools import partial
 from pathlib import Path
 
 from .market import EpisodeResult, play_episode
@@ -44,9 +45,11 @@ def load_results(path: str | Path) -> list[dict]:
 
 
 def run_player(game, make_player, seeds: list[int], out_path: str | Path, workers: int = 1,
-               backend: str | None = None, log=print, provenance: dict | None = None) -> list[dict]:
+               backend: str | None = None, log=None, provenance: dict | None = None) -> list[dict]:
     """Play ``seeds`` with fresh players from ``make_player()``; resumable (seeds
     already present in ``out_path`` are skipped). Returns all episode dicts."""
+    if log is None:
+        log = partial(print, flush=True)
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     done = {d["seed"] for d in load_results(out_path)}
@@ -67,6 +70,8 @@ def run_player(game, make_player, seeds: list[int], out_path: str | Path, worker
         for s in todo:
             work(s)
             n_done += 1
+            if n_done % 5 == 0:
+                log(f"[{out_path.stem}] {n_done}/{len(todo)} episodes, {time.time() - t0:.0f}s")
     else:
         with ThreadPoolExecutor(workers) as pool:
             futs = {pool.submit(work, s): s for s in todo}

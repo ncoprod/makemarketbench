@@ -372,3 +372,11 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   printed. Exact failures and recovery are in
   [the submission receipt](results/training/kaggle_retry.json). This is a
   monitoring/authentication failure, not evidence that remote training failed.
+
+### Evaluation observability
+
+- Sequential evaluation now prints flushed progress every five new complete
+  episodes, matching the existing threaded cadence. Quotes, seeds and scoring
+  are unchanged. The submitted CUDA version 1 is unchanged.
+- End-to-end check: a six-episode Bayes run prints `5/6`; resuming the same run
+  skips all six and prints no new-episode progress.
