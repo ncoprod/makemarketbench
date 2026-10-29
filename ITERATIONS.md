@@ -1486,3 +1486,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   that exact failure. Direct browser selection still fails with the native
   pipe error. Exact timestamps of the two earlier CUA calls were not persisted;
   replace an approximate timestamp with the surrounding clock-read bounds.
+
+### GPT-OSS completes the fresh dice cohort
+
+- GPT-OSS-20B, low reasoning effort, completes all 200 dice episodes on seeds
+  200–399. All seven decoding/endpoint settings agree across resumed rows.
+  The canonical hidden values, public reveals and six round indices also pass.
+- Commands: `python scripts/check_cohort_games.py results/expansion/raw/dice/openai_gpt-oss-20b.jsonl --out results/expansion/gpt_dice_game_check.json`
+  and `python runs/retain_gpt_dice.py`. Exact source and hashes are retained in
+  `results/expansion/gpt_dice_cohort.json`. Cards remains in progress; no new
+  aggregate score is opened or counted as a complete two-game API comparison.
+- The comparability command initially accepted only directories and found no
+  files for a single-file input. Allow explicit files as well as directories;
+  the real 200-episode cohort and Ruff now pass. Preserve this failed command
+  as a utility-interface failure, not a policy-quality iteration.

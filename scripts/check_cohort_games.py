@@ -21,7 +21,10 @@ def main():
                          'hidden value and public reveals match canonical seeded game'],
               'interpretation': 'Structural comparability only; no model scores inspected.'}
     games = {name: make_game(name) for name in ('dice', 'cards')}
-    for path in sorted({p for root in args.inputs for p in Path(root).rglob('*.jsonl')}):
+    paths = set()
+    for source in map(Path, args.inputs):
+        paths.update([source] if source.is_file() else source.rglob('*.jsonl'))
+    for path in sorted(paths):
         data = path.read_bytes()
         rows = [json.loads(line) for line in data.splitlines() if line.strip()]
         if sorted(r['seed'] for r in rows) != list(range(200, 400)):

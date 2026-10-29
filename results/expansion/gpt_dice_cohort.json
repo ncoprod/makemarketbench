@@ -1,0 +1,109 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_gpt_dice.py",
+    "config": {
+      "purpose": "retain complete GPT-OSS dice cohort without aggregate inspection"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "516bf36b4b238bbc228145af43d09ede9eedbccf",
+    "uncommitted_diff_sha256": "74e7bb1a5d776b064857472e0c65ed39556561e1b9d1e7cdf37ba97cd8d82f7b",
+    "started_at": "2026-10-29T23:52:02.401272+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "5b7b837b498cce137283fc9d2bbb465996ded86a02c02caec9cc5bca7b341b1e",
+  "calculation_source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nraw = Path('results/expansion/raw/dice/openai_gpt-oss-20b.jsonl')\nrows = [json.loads(line) for line in raw.read_text().splitlines()]\nassert sorted(row['seed'] for row in rows) == list(range(200, 400))\nassert all(len(row['rounds']) == 6 for row in rows)\nsettings = ['model', 'base_url', 'temperature', 'max_tokens', 'timeout', 'extra_body', 'label']\nconfig = {key: rows[0]['provenance']['config'][key] for key in settings}\nassert all({key: row['provenance']['config'][key] for key in settings} == config for row in rows)\nprotocol = json.loads(Path('results/expansion/protocol.json').read_text())['openai/gpt-oss-20b']\nrecord = {'provenance': receipt({'purpose': 'retain complete GPT-OSS dice cohort without aggregate inspection'}, 'NIM immutable deployment revision not exposed'),\n          'source_sha256': file_sha256(__file__), 'calculation_source': Path(__file__).read_text(),\n          'raw_file': str(raw), 'raw_sha256': file_sha256(raw), 'episodes': len(rows), 'seeds': [200, 399], 'config': config,\n          'producer_commits': sorted({row['provenance']['git_commit'] for row in rows}),\n          'canonical_game_check': 'results/expansion/gpt_dice_game_check.json',\n          'canonical_game_check_sha256': file_sha256('results/expansion/gpt_dice_game_check.json'),\n          'latest_resume_evaluation': protocol['dice'],\n          'runtime_note': 'Latest evaluation wall time is a resumed attempt, not the duration of all prior saved episodes.',\n          'status': 'dice_complete_cards_pending', 'interpretation': 'Counts and canonical games verified; aggregate scores remain sealed.'}\nPath('results/expansion/gpt_dice_cohort.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint('Complete GPT-OSS dice cohort retained; cards and corrected scoring remain pending.')\n",
+  "raw_file": "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl",
+  "raw_sha256": "b8edf08ef06cfb3933de570f646edda2c9eb78b2b28241385542830d5af16250",
+  "episodes": 200,
+  "seeds": [
+    200,
+    399
+  ],
+  "config": {
+    "model": "openai/gpt-oss-20b",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "temperature": 0.3,
+    "max_tokens": 4096,
+    "timeout": 600,
+    "extra_body": {
+      "reasoning_effort": "low"
+    },
+    "label": "openai/gpt-oss-20b"
+  },
+  "producer_commits": [
+    "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+    "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+    "c907b50a31d2af12a7711cefe4521728af2b9cac"
+  ],
+  "canonical_game_check": "results/expansion/gpt_dice_game_check.json",
+  "canonical_game_check_sha256": "eca33fbbbc91f5ac316f9e302f8b8d80256db1a8cd05cf0572739f2546b6bcfb",
+  "latest_resume_evaluation": {
+    "episodes": 200,
+    "wall_seconds": 10916.339583873749,
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "openai/gpt-oss-20b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {
+          "reasoning_effort": "low"
+        },
+        "label": "openai/gpt-oss-20b",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": null,
+          "reduced_reasoning": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+      "uncommitted_diff_sha256": "b2f87133f29ccc61a0d3d3b46b3afd01c8e1d2a126f6aeb8836a50f579ead7d3",
+      "started_at": "2026-10-29T17:40:06.533453+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "dbf5ba1e81e8ea4e44a5bea934ec136bde7e513fc2bf1f7af6f18e8cebe000ec",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "2c18ad32ba29ae96042e43b5de782c8a79259cd330c8100ca2975a102cfa0ff0",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+        "src/makemarket/market.py": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    }
+  },
+  "runtime_note": "Latest evaluation wall time is a resumed attempt, not the duration of all prior saved episodes.",
+  "status": "dice_complete_cards_pending",
+  "interpretation": "Counts and canonical games verified; aggregate scores remain sealed."
+}

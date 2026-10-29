@@ -1,0 +1,46 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/check_cohort_games.py results/expansion/raw/dice/openai_gpt-oss-20b.jsonl --out results/expansion/gpt_dice_game_check.json",
+    "config": {
+      "inputs": [
+        "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl"
+      ],
+      "out": "results/expansion/gpt_dice_game_check.json"
+    },
+    "model_revision": null,
+    "git_commit": "516bf36b4b238bbc228145af43d09ede9eedbccf",
+    "uncommitted_diff_sha256": "900f69c8252091afeabf609937cc05f8635519f7208497e1bce889631ddae092",
+    "started_at": "2026-10-29T23:51:36.125334+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "cohorts": {
+    "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "openai/gpt-oss-20b",
+      "sha256": "b8edf08ef06cfb3933de570f646edda2c9eb78b2b28241385542830d5af16250"
+    }
+  },
+  "incomplete_cohorts": [],
+  "source_sha256": "dc9c3fc3fc88db7c2cfedd241ca851ad76ce09c4a0a8192a7246c1ccb1111625",
+  "game_source_sha256": {
+    "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+    "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+    "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+    "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+    "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc"
+  },
+  "checks": [
+    "200 distinct seeds 200-399",
+    "six rounds per episode",
+    "hidden value and public reveals match canonical seeded game"
+  ],
+  "interpretation": "Structural comparability only; no model scores inspected."
+}
