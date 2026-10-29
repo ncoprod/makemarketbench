@@ -1098,3 +1098,21 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   followed only on success by the original full 800-microbatch recipe from
   step-zero weights. `qwen35_cache_probe_plan.json` retains settings and host
   diagnostics. The foreign live heavy-ML owner has the mutex; wait normally.
+
+### T10 staged CUDA validation completed
+
+- Both frozen adapters complete 100 unique episodes per game, validation seeds
+  80,000–80,099. Pair wall time is 6,555.098810173 seconds; both exit codes are
+  zero. Preserve raw episodes, runtime, source and full log under
+  `results/kaggle/staged-validation-v1/`, with hashes in
+  `kaggle_staged_validation_completion.json`.
+- SFT dice: 86.16444508138923% of Bayes, descriptive 95% CI
+  [77.15045957210653, 94.2791714178511]. Cards expected PnL: 2.6100787313559777,
+  CI [-3.6356169405684278, 8.270299340381493].
+- GRPO dice: 76.76487646171897%, CI
+  [64.72015836780598, 86.65049749516886]. Cards expected PnL: 7.568413040676241,
+  CI [1.955406324895731, 12.777514395329854]. This is a tradeoff, not evidence
+  that one method dominates both games. No test score informed this diagnosis.
+- Queue the already registered frozen SFT/GRPO test pair, 200–399, with batched
+  inference only after its train-state parity guard passes. Use a two-hour
+  evaluation cap, reserving remaining quota for the newest-family pipeline.

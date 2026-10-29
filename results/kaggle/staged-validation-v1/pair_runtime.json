@@ -1,0 +1,15 @@
+{
+  "wall_seconds": 6555.098810173,
+  "budget_seconds": 10800,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ],
+  "source_commit": "3cdb5a0aa108aae04138f7cfb1dfe0a667696548",
+  "seed": 0,
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636"
+}

@@ -42,7 +42,9 @@ def main() -> None:
     stage.add_argument("--qwen38-continue", action="store_true", help="resume retained newest-family optimizer states")
     stage.add_argument("--qwen38-evaluate", action="store_true", help="evaluate saved newest-family adapters")
     ap.add_argument("--evaluation-split", choices=["validation", "test"], default="validation")
+    ap.add_argument("--evaluation-budget-seconds", type=int, default=10800)
     args = ap.parse_args()
+    assert 0 < args.evaluation_budget_seconds <= 43200
     out = (ROOT / "runs" / "kaggle_qwen38_continue" if args.qwen38_continue else
            ROOT / "runs" / "kaggle_qwen38_train" if args.qwen38_train else
            ROOT / "runs" / "kaggle_qwen38_evaluate" if args.qwen38_evaluate else
@@ -90,7 +92,7 @@ subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=
 core = Path("/kaggle/working/evaluate_core.py")
 core.write_text({src!r})
 workers = []
-deadline = started + 10800
+deadline = started + {args.evaluation_budget_seconds}
 for gpu, (directory, label) in enumerate([
     ("warmstart_adapter", "{family}-sft"),
     ("lora_adapter", "{family}-grpo"),
@@ -123,7 +125,7 @@ finally:
             worker.kill()
         worker.wait()
     Path("/kaggle/working/pair_runtime.json").write_text(json.dumps({{
-        "wall_seconds": time.monotonic() - started, "budget_seconds": 10800,
+        "wall_seconds": time.monotonic() - started, "budget_seconds": {args.evaluation_budget_seconds},
         "exit_codes": [worker.returncode for worker in workers],
         "command": [sys.executable, *sys.argv], "source_commit": {commit!r},
         "seed": 0, "model_revision": {revision!r}, "evaluation_seed": {seed},

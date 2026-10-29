@@ -150,8 +150,10 @@ The separate training-only run completed **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training GPU
 ([downloaded runtime](results/kaggle/staged-v1/runtime.json),
 [checkpoint histories and configs](results/training/kaggle_staged_completion.json)).
-It saved both adapters before separate Kaggle evaluations; policy quality is
-pending. The original combined run continues. The local reward trial is explicitly
+It saved both adapters before separate Kaggle evaluations. In the completed
+100-episode validation cohorts, SFT performs better on dice and GRPO on cards
+([all raw validation results](results/training/kaggle_staged_validation_completion.json));
+held-out policy quality remains pending. The original combined run continues. The local reward trial is explicitly
 labelled RLOO-style.
 
 The newest general-purpose open Qwen family is Qwen3.8. Its smallest model is

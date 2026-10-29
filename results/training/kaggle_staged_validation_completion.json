@@ -1,0 +1,83 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_staged_validation.py",
+    "config": {
+      "purpose": "retain complete staged GPU validation"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "2d9666827e33b8eacab7da911ede350df7af9ce0",
+    "uncommitted_diff_sha256": "61bdb91d4a1b8b5e4822da51bb775bba5ae55f066b5d4dc211203c6ee9afbd54",
+    "started_at": "2026-10-29T21:21:38.638023+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged",
+  "version": 1,
+  "download_receipt": "results/training/kaggle_staged_validation.json",
+  "runtime_file": "results/kaggle/staged-validation-v1/pair_runtime.json",
+  "cohorts": {
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": {
+      "episodes": 100,
+      "sha256": "21ed02f550c4c6f9774b75d9cd90545a68076ec5ffbc333dd66bd01def4767ec"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": {
+      "episodes": 100,
+      "sha256": "62492014c6c08c21534a39b751c0349fd5effedbdcf10ba40f5c716b7f1db405"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": {
+      "episodes": 100,
+      "sha256": "f22129415516968ddea8e54678f5316afd29013e4bcf6e7510574483329b9883"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": {
+      "episodes": 100,
+      "sha256": "6aeaebc0d538a98fd77cbf08ab1a0363f831e411f7c7cacd13c255cb9aef1cad"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/cards/qwen3.5-4b-staged-sft.jsonl": {
+      "episodes": 100,
+      "sha256": "4c61c4d47b2e086470d928b352ff0c81778670eece7be8aebdc1b18a8104d375"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/cards/bayes.jsonl": {
+      "episodes": 100,
+      "sha256": "cc400e41be606400d30f450d933cbfa993376a3d7a726a08d1caa220940a5d7a"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": {
+      "episodes": 100,
+      "sha256": "6665d2cedc71b041cc87eed65f4ae52ed2e0755cb8744dbcdeb9814d8b4c7834"
+    },
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/dice/bayes.jsonl": {
+      "episodes": 100,
+      "sha256": "32b345756da52083a4842d4dff55fd1671313c9e51b8be48b449c51b0de871bb"
+    }
+  },
+  "files_sha256": {
+    "results/kaggle/staged-validation-v1/evaluate_core.py": "032fb7ef8a9f2f25eb92879205d0cebcd78f41da290192ddd8fddf0ee1d5bc32",
+    "results/kaggle/staged-validation-v1/makemarketbench-grpo-qwen3-validate-staged.log": "9d0364f46e1537b4e18b5935cff3fea337b921ea9c259c7fa94fb7b96d87be5a",
+    "results/kaggle/staged-validation-v1/pair_runtime.json": "3c4d5e85083a8162e1b4bfa4721237a72a8dd782def0289ec6823f0e0c386014",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/leaderboard_cards.json": "3a30971a951574f75ffc0fd31f929434a7b9bf90a7cd4d2ad0e0d8bf39510e93",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/leaderboard_cards.md": "a6c1c98fbc6b3da332e8ce279f9cf0f60ec42c463390e2069b00e160a6696ebe",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/leaderboard_dice.json": "1b7577cf112fc96a006f92f4f5c069672bcbf892436be73ad2eeef1cfe981965",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/leaderboard_dice.md": "5f52a14277ff2f98daaf0e63675a1c89fb9022d63509594eb54e036ce2a2e407",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": "21ed02f550c4c6f9774b75d9cd90545a68076ec5ffbc333dd66bd01def4767ec",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": "62492014c6c08c21534a39b751c0349fd5effedbdcf10ba40f5c716b7f1db405",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": "f22129415516968ddea8e54678f5316afd29013e4bcf6e7510574483329b9883",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": "6aeaebc0d538a98fd77cbf08ab1a0363f831e411f7c7cacd13c255cb9aef1cad",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/runtime.json": "93574100742668026ac082877d408567ee56c74d649f36a573cbe464457bd132",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/leaderboard_cards.json": "16d9c3ea5dc392adb4bdec2fa4f8e79353711fd87081db393904c311e3e6f8f7",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/leaderboard_cards.md": "26eb847cd7418b982e0e292d084bd6c7b58d45855d9d15c5489ec9b9cbfe82a4",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/leaderboard_dice.json": "b10e49d10752335963819d6213d916526069cd6501ced3d4622d24b9028b4a19",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/leaderboard_dice.md": "0dc5fe28f0f07cd3c2d2e05e381b67148e7b1c3655eeedc0c3a83410692c87a4",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/cards/bayes.jsonl": "cc400e41be606400d30f450d933cbfa993376a3d7a726a08d1caa220940a5d7a",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/cards/qwen3.5-4b-staged-sft.jsonl": "4c61c4d47b2e086470d928b352ff0c81778670eece7be8aebdc1b18a8104d375",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/dice/bayes.jsonl": "32b345756da52083a4842d4dff55fd1671313c9e51b8be48b449c51b0de871bb",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": "6665d2cedc71b041cc87eed65f4ae52ed2e0755cb8744dbcdeb9814d8b4c7834",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/runtime.json": "584fd6bae7e5cc0bf5488bb89955280a41fed319d6b39e12bfa65920f8665e35"
+  },
+  "interpretation": "Validation only; no held-out scores inspected or selected here.",
+  "calculation_source": "import json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nsource = Path('runs/kaggle_validation_output')\nout = Path('results/kaggle/staged-validation-v1')\nshutil.copytree(source,out,dirs_exist_ok=True)\nfiles = {str(p):file_sha256(p) for p in sorted(out.rglob('*')) if p.is_file()}\ncohorts = {}\nfor path in out.rglob('*.jsonl'):\n rows=[json.loads(line) for line in path.read_text().splitlines()]\n assert sorted(r['seed'] for r in rows)==list(range(80000,80100))\n assert all(len(r['rounds'])==6 for r in rows)\n cohorts[str(path)]={'episodes':len(rows),'sha256':files[str(path)]}\npair=json.loads((out/'pair_runtime.json').read_text())\nassert pair['exit_codes']==[0,0]\nr={'provenance':receipt({'purpose':'retain complete staged GPU validation'},pair['model_revision']),\n   'kernel':'nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged','version':1,\n   'download_receipt':'results/training/kaggle_staged_validation.json',\n   'runtime_file':str(out/'pair_runtime.json'),'cohorts':cohorts,'files_sha256':files,\n   'interpretation':'Validation only; no held-out scores inspected or selected here.',\n   'calculation_source':Path(__file__).read_text()}\nPath('results/training/kaggle_staged_validation_completion.json').write_text(json.dumps(r,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');b=json.loads(p.read_text())\nfor session in b['sessions']:\n if session['kernel']==r['kernel']:\n  session.update(status='completed_outputs_retrieved',version=1,script_wall_seconds=pair['wall_seconds'],\n                 observed_complete_at=json.loads(Path(r['download_receipt']).read_text())['polls'][-1]['at'],\n                 result_file=r['runtime_file'],allocation_end_at=None,\n                 allocation_end_note='Exact release time unavailable; observed completion is an upper bound.')\np.write_text(json.dumps(b,indent=2)+'\\n')\np=Path('README.md');s=p.read_text().replace('It saved both adapters before separate Kaggle evaluations; policy quality is\\npending.', 'It saved both adapters before separate Kaggle evaluations. In the completed\\n100-episode validation cohorts, SFT performs better on dice and GRPO on cards\\n([all raw validation results](results/training/kaggle_staged_validation_completion.json));\\nheld-out policy quality remains pending.');p.write_text(s)\n"
+}

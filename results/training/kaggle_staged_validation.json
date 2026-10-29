@@ -150,6 +150,39 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T20:56:05.804257+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:06:21.041553+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:16:32.056805+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.COMPLETE\""
     }
   ],
   "planned_max_hours": 3,
@@ -167,7 +200,7 @@
     "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged\n",
     "error": ""
   },
-  "status": "submitted",
+  "status": "outputs_retrieved",
   "privacy_check": {
     "command": [
       "kaggle",
@@ -202,5 +235,21 @@
     "model_sources": [],
     "docker_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
     "machine_shape": "NvidiaTeslaT4"
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged",
+      "-p",
+      "runs/kaggle_validation_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to runs/kaggle_validation_output\n\nOutput file downloaded to runs/kaggle_validation_output/evaluate_core.py\nDownloading pair_runtime.json to runs/kaggle_validation_output\n\nOutput file downloaded to runs/kaggle_validation_output/pair_runtime.json\nDownloading leaderboard_cards.json to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/leaderboard_cards.json\nDownloading leaderboard_cards.md to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/leaderboard_cards.md\nDownloading leaderboard_dice.json to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/leaderboard_dice.md\nDownloading bayes.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/cards\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl\nDownloading qwen3.5-4b-staged-grpo.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/cards\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl\nDownloading bayes.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/dice\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl\nDownloading qwen3.5-4b-staged-grpo.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/dice\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl\nDownloading runtime.json to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-grpo/runtime.json\nDownloading leaderboard_cards.json to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/leaderboard_cards.json\nDownloading leaderboard_cards.md to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/leaderboard_cards.md\nDownloading leaderboard_dice.json to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/leaderboard_dice.md\nDownloading bayes.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/cards\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/cards/bayes.jsonl\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/cards\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/cards/qwen3.5-4b-staged-sft.jsonl\nDownloading bayes.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/dice\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/dice/bayes.jsonl\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/dice\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\nDownloading runtime.json to runs/kaggle_validation_output/qwen3.5-4b-staged-sft\n\nOutput file downloaded to runs/kaggle_validation_output/qwen3.5-4b-staged-sft/runtime.json\nKernel log downloaded to runs/kaggle_validation_output/makemarketbench-grpo-qwen3-validate-staged.log \n\n  0%|          | 0.00/58.8k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 58.8k/58.8k [00:00<00:00, 5.87MB/s]\n\n  0%|          | 0.00/312 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 312/312 [00:00<00:00, 1.63MB/s]\n\n  0%|          | 0.00/5.21k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.21k/5.21k [00:00<00:00, 20.5MB/s]\n\n  0%|          | 0.00/585 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 585/585 [00:00<00:00, 3.55MB/s]\n\n  0%|          | 0.00/5.20k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.20k/5.20k [00:00<00:00, 15.7MB/s]\n\n  0%|          | 0.00/584 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 584/584 [00:00<00:00, 2.72MB/s]\n\n  0%|          | 0.00/386k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 386k/386k [00:00<00:00, 1.52MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 386k/386k [00:00<00:00, 1.52MB/s]\n\n  0%|          | 0.00/469k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 469k/469k [00:00<00:00, 1.17MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 469k/469k [00:00<00:00, 1.17MB/s]\n\n  0%|          | 0.00/375k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 375k/375k [00:00<00:00, 1.10MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 375k/375k [00:00<00:00, 1.10MB/s]\n\n  0%|          | 0.00/457k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 457k/457k [00:00<00:00, 3.03MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 457k/457k [00:00<00:00, 3.02MB/s]\n\n  0%|          | 0.00/2.34k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.34k/2.34k [00:00<00:00, 12.0MB/s]\n\n  0%|          | 0.00/5.18k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.18k/5.18k [00:00<00:00, 10.6MB/s]\n\n  0%|          | 0.00/586 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 586/586 [00:00<00:00, 2.93MB/s]\n\n  0%|          | 0.00/5.21k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.21k/5.21k [00:00<00:00, 19.6MB/s]\n\n  0%|          | 0.00/584 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 584/584 [00:00<00:00, 3.17MB/s]\n\n  0%|          | 0.00/386k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 386k/386k [00:00<00:00, 3.33MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 386k/386k [00:00<00:00, 3.31MB/s]\n\n  0%|          | 0.00/470k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 470k/470k [00:00<00:00, 1.25MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 470k/470k [00:00<00:00, 1.25MB/s]\n\n  0%|          | 0.00/375k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 375k/375k [00:00<00:00, 1.08MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 375k/375k [00:00<00:00, 1.08MB/s]\n\n  0%|          | 0.00/458k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 458k/458k [00:00<00:00, 1.18MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 458k/458k [00:00<00:00, 1.18MB/s]\n\n  0%|          | 0.00/2.34k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.34k/2.34k [00:00<00:00, 10.6MB/s]"
   }
 }
