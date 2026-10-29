@@ -83,11 +83,13 @@ for gpu, (directory, label) in enumerate([
 ]):
     adapters = list(Path("/kaggle/input").rglob(directory + "/adapter_config.json"))
     assert len(adapters) == 1, (directory, adapters)
+    work = Path("/kaggle/working") / label
+    work.mkdir(exist_ok=True)
     env = {{**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu),
-           "MMB_WORK": "/kaggle/working/" + label}}
+           "MMB_WORK": str(work)}}
     command = [sys.executable, str(core), "--eval-only", "--adapter", str(adapters[0].parent),
                "--label", label, "--eval-seed", "80000", "--eval-episodes", "100"]
-    workers.append(subprocess.Popen(command, env=env))
+    workers.append(subprocess.Popen(command, env=env, cwd=work))
 deadline = started + 10800
 try:
     codes = [worker.wait(timeout=max(1, deadline - time.monotonic())) for worker in workers]

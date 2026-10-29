@@ -814,3 +814,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Account debit remains authoritative. Unknown per-session allocation start/end
   is kept unknown, rather than substituting unreliable `last_run_time` metadata
   or treating downloaded script duration as billed session duration.
+
+### Isolate paired validation compiler caches
+
+- Give each evaluation worker its own working directory as well as its own
+  visible T4 and result directory. Unsloth generates Python/compiler cache
+  files relative to the working directory; two workers must not write the same
+  generated modules concurrently. Shared dependency installation remains serial.
+- Rebuild and compile-check the prepared validation launcher. No policy, seeds,
+  training recipe or active immutable source changes.

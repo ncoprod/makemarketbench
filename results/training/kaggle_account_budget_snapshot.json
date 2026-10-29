@@ -1,55 +1,20 @@
 {
-  "recorded_at": "2026-10-29T18:28:11.381457+00:00",
+  "recorded_at": "2026-10-29T18:55:16.491208+00:00",
   "quota_method": "official SDK GetAcceleratorQuotaStatistics",
-  "kernels": [
-    {
-      "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
-      "version": 1,
-      "last_run_time": "2026-10-26T18:28:26.717000",
-      "private": true,
-      "accelerator": "NvidiaTeslaT4"
-    },
-    {
-      "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
-      "version": 1,
-      "last_run_time": "2026-10-26T18:28:44.505000",
-      "private": true,
-      "accelerator": "NvidiaTeslaT4"
-    },
-    {
-      "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
-      "version": 1,
-      "last_run_time": "2026-10-26T18:28:47.924000",
-      "private": true,
-      "accelerator": "NvidiaTeslaT4"
-    },
-    {
-      "ref": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
-      "version": 3,
-      "last_run_time": "2026-10-26T18:28:53.696000",
-      "private": true,
-      "accelerator": "NvidiaTeslaT4"
-    }
-  ],
   "provenance": {
-    "command": "/Users/nico/.local/share/uv/tools/kaggle/bin/python runs/inspect_kaggle_account.py",
-    "config": {
-      "method": "official SDK quota and kernel metadata",
-      "seed": null
-    },
+    "command": [
+      "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+      "scripts/kaggle_quota.py"
+    ],
+    "seed": null,
     "model_revision": null,
-    "git_commit": "87b169018749d18b1d95633d6ac5ddcc47d2ae98",
-    "uncommitted_diff_sha256": "136d46a0255a13cf189d21a1deb71650e5395dfff4ad79cb835670af8d4d2735",
-    "started_at": "2026-10-29T18:28:11.489115+00:00",
-    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
-    "python": "3.13.17",
-    "versions": {}
+    "git_commit": "42cf4aaa0cd54dc4a88f05d437661fa445d9ac9f",
+    "source_sha256": "7047ac1e8b7c5d48e899f428a4a551c4e0f858cea461960f1e29cc3849684946"
   },
-  "source_sha256": "694c2ce528405b748a5f5872b9d36bba753aa5110ff5773a1efd0f7dd02c113c",
   "quota": {
     "refresh_at": "2026-10-31T00:00:00",
-    "gpu_seconds_used": 49274.879657,
-    "gpu_seconds_reserved": 26825.345344,
+    "gpu_seconds_used": 53392.397156,
+    "gpu_seconds_reserved": 25203.770063,
     "gpu_seconds_total": 108000.0
   }
 }
