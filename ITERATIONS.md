@@ -226,6 +226,19 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Result: pending; `results/training/qwen35_rloo.json` and
   `results/validation/qwen35-rloo/leaderboard_{dice,cards}.json`.
 
+### T7 — CUDA GRPO compatibility smoke (registered)
+
+- Hypothesis: exercise GRPO before the full SFT job reaches it, so a trainer or
+  memory defect is found without waiting for the long warm start.
+- Change: separate private kernel, same pinned model, no SFT, one GRPO update
+  with two completions on dice training states; one validation episode before
+  and after on seed 80,000. This is an infrastructure trial, not a candidate
+  selected for final testing or evidence of policy quality.
+- Commands: `python train/build_kaggle_kernel.py --smoke`;
+  `kaggle kernels push -p runs/kaggle_smoke --accelerator NvidiaTeslaT4`.
+- Result: pending; `results/training/kaggle_smoke.json`. The existing full
+  kernel continues unchanged. Runtime and VRAM must come from retrieved outputs.
+
 Selection registered before T4–T6 validation: maximise the smaller of the two
 validation margins, `min(dice_percent_of_Bayes - 80, cards_percent_of_Bayes)`;
 ties choose the earlier trial. Report every trial. Freeze the selected adapter
