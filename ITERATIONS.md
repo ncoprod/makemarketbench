@@ -1328,3 +1328,23 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   remaining quota before admitting it; prioritize the registered dice SFT route,
   since the registered cards GRPO route is already complete. This infrastructure
   safeguard is not a substantive policy nonimprovement.
+
+### Frozen SFT serial fallback admitted within the remaining quota
+
+- Do not change weights, decoding limits or selection rules. Split all 200 dice
+  seeds into two disjoint 100-episode serial workers, one per T4. This preserves
+  the registered dice SFT route while its cards GRPO route is already complete.
+- The downloaded validation log measured the first 100 serial SFT dice episodes
+  finishing at script timestamp 3,257.641215616 seconds. Request 3,350 seconds
+  for this session, with a 3,300-second parent cap; retain partial outputs if a
+  cohort takes longer rather than weakening the 200-episode criterion.
+- Official quota before submission leaves 16,446.531049 seconds. The new session
+  plus the original session's full remaining requested limit and continued
+  interactive allocation through that deadline total 16,396.543836 seconds.
+  Do not admit any further run until completed jobs release that allowance and
+  a fresh quota snapshot establishes sufficient headroom.
+- Command: `python runs/submit_staged_sft_serial.py`; its entire builder and
+  submitted source, exact CLI commands, frozen adapter hash, admission
+  arithmetic and private remote metadata are retained in
+  `results/training/kaggle_staged_sft_serial.json`. The kernel is private and
+  accepted. Status polling is every 610 seconds. Execution remains pending.
