@@ -1,0 +1,925 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "method": "GET",
+      "url": "https://huggingface.co/api/models?author=Qwen&sort=createdAt&direction=-1&limit=100&full=true&cardData=true",
+      "purpose": "verify newest official Qwen family and available sizes for updated Kaggle directive"
+    },
+    "model_revision": null,
+    "git_commit": "55460634447c32813c8a81801eef1abbac810272",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-29T15:36:02.134226+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "fetched_at": "2026-10-29T15:36:02.251051+00:00",
+  "models": [
+    {
+      "id": "Qwen/Qwen-Image-2.1-Turbo",
+      "sha": "fc13ba1986fcb905854dc8de2f52eee395f49b5b",
+      "createdAt": "2026-10-09T04:50:01.000Z",
+      "lastModified": "2026-10-12T09:45:49.000Z",
+      "pipeline_tag": "text-to-image",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-2.1-PE-I2I",
+      "sha": "72927bc08afc99b7888ceb7d7d51a12db3700bbd",
+      "createdAt": "2026-09-20T08:46:47.000Z",
+      "lastModified": "2026-09-20T11:59:48.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-2.1-PE-T2I",
+      "sha": "f3ed7985c788ad75b3ab7223e0c4c51e2a43545b",
+      "createdAt": "2026-09-20T08:45:29.000Z",
+      "lastModified": "2026-09-20T11:59:46.000Z",
+      "pipeline_tag": "text-to-image",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-2.1",
+      "sha": "d26bb61231c349cf6b7896fa83353113880e1ba3",
+      "createdAt": "2026-09-14T03:47:26.000Z",
+      "lastModified": "2026-09-30T02:14:09.000Z",
+      "pipeline_tag": "text-to-image",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Drive-1.0-4B",
+      "sha": "28484089a7cc8c335cf5089fb0745cf7c49b6eaa",
+      "createdAt": "2026-08-27T08:14:27.000Z",
+      "lastModified": "2026-09-02T06:31:52.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.8-Flash-Next-FP8",
+      "sha": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+      "createdAt": "2026-08-24T08:25:23.000Z",
+      "lastModified": "2026-08-31T08:19:15.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.8-Flash-Next",
+      "sha": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+      "createdAt": "2026-08-24T08:24:59.000Z",
+      "lastModified": "2026-08-27T05:03:36.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.8-27B-FP8",
+      "sha": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+      "createdAt": "2026-08-13T08:01:58.000Z",
+      "lastModified": "2026-08-14T14:44:41.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.8-2.4T-A95B",
+      "sha": "207bd685a7e3696cfaff12ded7c6a7ea0f88c996",
+      "createdAt": "2026-08-08T01:50:52.000Z",
+      "lastModified": "2026-08-12T10:24:04.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.8-2.4T-A95B-FP8",
+      "sha": "d2dc35658bcf77e66643428cb52e774cc3b5bd29",
+      "createdAt": "2026-08-08T01:49:49.000Z",
+      "lastModified": "2026-08-12T10:23:42.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.8-27B",
+      "sha": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "createdAt": "2026-08-05T08:22:59.000Z",
+      "lastModified": "2026-08-14T15:00:01.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+      "sha": "c07281df297b9905d24a508279258cccf987a064",
+      "createdAt": "2026-06-26T08:42:01.000Z",
+      "lastModified": "2026-06-26T08:42:38.000Z",
+      "pipeline_tag": "token-classification",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-ASR-0.6B-hf",
+      "sha": "7f1569a48a89f3e3f4dc3a5c9d28bddd903bc76c",
+      "createdAt": "2026-06-26T08:39:00.000Z",
+      "lastModified": "2026-07-22T11:58:47.000Z",
+      "pipeline_tag": "automatic-speech-recognition",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-ASR-1.7B-hf",
+      "sha": "bcd2b5b7f32b480ab5790554cfa8347f246a14f3",
+      "createdAt": "2026-06-26T08:34:21.000Z",
+      "lastModified": "2026-07-22T11:58:31.000Z",
+      "pipeline_tag": "automatic-speech-recognition",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-AgentWorld-35B-A3B",
+      "sha": "60d2b0434a53d2e62a7c00a489586815d94ebffb",
+      "createdAt": "2026-06-22T14:49:37.000Z",
+      "lastModified": "2026-06-25T07:24:16.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-Bench",
+      "sha": "1b77ff83564ac4e4e8140769eacff7ff73f35f3c",
+      "createdAt": "2026-05-21T04:15:56.000Z",
+      "lastModified": "2026-05-28T08:07:27.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-35B-A3B-Base-W128K-L0_100",
+      "sha": "c960d05effbd7e5e5839886ddbe221a6144e8d86",
+      "createdAt": "2026-04-27T03:39:47.000Z",
+      "lastModified": "2026-05-13T09:43:12.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-35B-A3B-Base-W32K-L0_50",
+      "sha": "6af81a5a1b16ac821e5a9267fb461493ccfe2770",
+      "createdAt": "2026-04-27T03:39:46.000Z",
+      "lastModified": "2026-05-13T12:19:14.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3-30B-A3B-Base-W128K-L0_100",
+      "sha": "4ec13070d3b7e41a8536ec36de3a28209c032b25",
+      "createdAt": "2026-04-27T03:39:45.000Z",
+      "lastModified": "2026-05-13T12:18:52.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3-30B-A3B-Base-W32K-L0_50",
+      "sha": "efd0026557c5dcd91509652a3073689faa24abb8",
+      "createdAt": "2026-04-27T03:39:44.000Z",
+      "lastModified": "2026-05-13T12:18:56.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-27B-W80K-L0_100",
+      "sha": "82852e98c9b33d02194e92dd514b12fafd09ed25",
+      "createdAt": "2026-04-27T03:39:43.000Z",
+      "lastModified": "2026-05-13T09:44:26.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-27B-W80K-L0_50",
+      "sha": "13d4221569f7ca5d3c1e605e3e3dc95117e4807c",
+      "createdAt": "2026-04-27T03:39:42.000Z",
+      "lastModified": "2026-05-13T12:19:02.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-9B-Base-W64K-L0_100",
+      "sha": "82761c1ce15887d3da629340cb9c1826bc71dc21",
+      "createdAt": "2026-04-27T03:39:41.000Z",
+      "lastModified": "2026-05-13T12:19:17.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-9B-Base-W64K-L0_50",
+      "sha": "7bb2370d360e566b2d8acb8b3d15a0b2b88f52a8",
+      "createdAt": "2026-04-27T03:39:40.000Z",
+      "lastModified": "2026-05-13T12:19:20.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_100",
+      "sha": "027267657257a8d490296286e8fab41e1c1a1a3d",
+      "createdAt": "2026-04-27T03:39:40.000Z",
+      "lastModified": "2026-05-13T12:19:05.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+      "sha": "132ea3697b591df9ee46d738aa1d528e3c6082f7",
+      "createdAt": "2026-04-27T03:39:39.000Z",
+      "lastModified": "2026-05-13T12:19:08.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3-8B-Base-W64K-L0_100",
+      "sha": "f308c1df7c9746544f0af047fd00d6cf374627bd",
+      "createdAt": "2026-04-27T03:39:38.000Z",
+      "lastModified": "2026-05-13T12:19:23.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3-8B-Base-W64K-L0_50",
+      "sha": "9b7d647127c303dd371e5dbd992236bd9799b171",
+      "createdAt": "2026-04-27T03:39:37.000Z",
+      "lastModified": "2026-05-13T12:19:26.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3-1.7B-Base-W32K-L0_100",
+      "sha": "2756a49850d1d0288a18e561783deae0d810791e",
+      "createdAt": "2026-04-27T03:39:36.000Z",
+      "lastModified": "2026-05-13T12:18:47.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/SAE-Res-Qwen3-1.7B-Base-W32K-L0_50",
+      "sha": "ce1a79d9c5163932d65c417380e53230e1086370",
+      "createdAt": "2026-04-27T03:39:35.000Z",
+      "lastModified": "2026-05-13T12:18:50.000Z",
+      "pipeline_tag": null,
+      "license": "other",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.6-27B-FP8",
+      "sha": "e89b16ebf1988b3d6befa7de50abc2d76f26eb09",
+      "createdAt": "2026-04-21T07:51:33.000Z",
+      "lastModified": "2026-04-24T02:39:18.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.6-27B",
+      "sha": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
+      "createdAt": "2026-04-21T07:50:43.000Z",
+      "lastModified": "2026-04-24T02:39:16.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.6-35B-A3B-FP8",
+      "sha": "95a723d08a9490559dae23d0cff1d9466213d989",
+      "createdAt": "2026-04-15T06:05:13.000Z",
+      "lastModified": "2026-04-24T02:39:23.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.6-35B-A3B",
+      "sha": "995ad96eacd98c81ed38be0c5b274b04031597b0",
+      "createdAt": "2026-04-15T05:59:19.000Z",
+      "lastModified": "2026-04-24T02:53:42.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-35B-A3B-GPTQ-Int4",
+      "sha": "3af5ca2972faf6de1fd6f4efc4d8d319ca751e8b",
+      "createdAt": "2026-03-03T07:18:32.000Z",
+      "lastModified": "2026-04-24T02:38:59.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-27B-GPTQ-Int4",
+      "sha": "8f0c09f227ae570e79617c6d9172b59df9c16081",
+      "createdAt": "2026-03-03T07:08:41.000Z",
+      "lastModified": "2026-04-24T02:38:57.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-397B-A17B-GPTQ-Int4",
+      "sha": "df333de344e06b492063d1ca04e2d4ee878f7595",
+      "createdAt": "2026-03-03T06:25:36.000Z",
+      "lastModified": "2026-04-24T05:52:53.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-122B-A10B-GPTQ-Int4",
+      "sha": "30cd92cba9707a9aba09d1e490ed4b66b78e9606",
+      "createdAt": "2026-03-03T06:08:00.000Z",
+      "lastModified": "2026-04-24T05:56:30.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-0.8B-Base",
+      "sha": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "createdAt": "2026-02-28T23:57:45.000Z",
+      "lastModified": "2026-04-23T11:14:09.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-2B-Base",
+      "sha": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+      "createdAt": "2026-02-28T23:57:23.000Z",
+      "lastModified": "2026-04-23T11:13:46.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-0.8B",
+      "sha": "2fc06364715b967f1860aea9cf38778875588b17",
+      "createdAt": "2026-02-28T23:57:01.000Z",
+      "lastModified": "2026-03-02T11:26:58.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-2B",
+      "sha": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "createdAt": "2026-02-28T23:56:16.000Z",
+      "lastModified": "2026-03-02T11:26:29.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-4B",
+      "sha": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "createdAt": "2026-02-27T14:45:03.000Z",
+      "lastModified": "2026-03-02T00:52:52.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-4B-Base",
+      "sha": "1001bb4d826a52d1f399e183466143f4da7b741b",
+      "createdAt": "2026-02-27T13:20:09.000Z",
+      "lastModified": "2026-04-23T11:13:30.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-9B",
+      "sha": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "createdAt": "2026-02-27T12:58:26.000Z",
+      "lastModified": "2026-03-02T00:51:43.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-9B-Base",
+      "sha": "68c46c4b3498877f3ef123c856ecfde50c39f404",
+      "createdAt": "2026-02-26T16:20:10.000Z",
+      "lastModified": "2026-04-23T12:04:39.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-35B-A3B-FP8",
+      "sha": "9d1823d2dee688a6b25e77009dc727688c44936e",
+      "createdAt": "2026-02-25T13:34:21.000Z",
+      "lastModified": "2026-04-24T02:38:49.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-27B-FP8",
+      "sha": "97f5941bf617e31c5e237364a8602ce3f03a551a",
+      "createdAt": "2026-02-25T13:20:07.000Z",
+      "lastModified": "2026-04-24T02:38:46.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-122B-A10B-FP8",
+      "sha": "a099dee70ccfcd8d5dda56aaa0b60cb8ecadabc9",
+      "createdAt": "2026-02-25T13:01:23.000Z",
+      "lastModified": "2026-04-24T05:56:01.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-122B-A10B",
+      "sha": "dc4d348443bc740c68e2d77492492c11606384d5",
+      "createdAt": "2026-02-24T09:43:37.000Z",
+      "lastModified": "2026-04-24T03:55:23.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-35B-A3B-Base",
+      "sha": "0f0813072d2358973511097385626f21fcb6d422",
+      "createdAt": "2026-02-24T09:42:42.000Z",
+      "lastModified": "2026-04-23T11:21:45.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-27B",
+      "sha": "fc05daec18b0a78c049392ed2e771dde82bdf654",
+      "createdAt": "2026-02-24T09:41:56.000Z",
+      "lastModified": "2026-04-24T02:54:49.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-35B-A3B",
+      "sha": "59d61f3ce65a6d9863b86d2e96597125219dc754",
+      "createdAt": "2026-02-24T09:39:25.000Z",
+      "lastModified": "2026-04-24T02:38:38.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-397B-A17B-FP8",
+      "sha": "ea5b4f81096f3901c91dea97f81324302495781d",
+      "createdAt": "2026-02-18T13:01:57.000Z",
+      "lastModified": "2026-04-24T05:50:39.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3.5-397B-A17B",
+      "sha": "8472618112abcbd45acbcdc58436aff4233c23f7",
+      "createdAt": "2026-02-16T04:55:12.000Z",
+      "lastModified": "2026-04-24T05:51:23.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/WebWorld-32B",
+      "sha": "e7fceedc8713450842f9bc9b122c1759c40bcc5b",
+      "createdAt": "2026-02-13T14:14:13.000Z",
+      "lastModified": "2026-05-08T12:11:35.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/WebWorld-14B",
+      "sha": "0212f4ed8a4bcd3e299d902f0dbf48b2255611d4",
+      "createdAt": "2026-02-13T14:14:04.000Z",
+      "lastModified": "2026-05-08T12:11:59.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/WebWorld-8B",
+      "sha": "26c65891f0a59c9b1dcc435eaadcc08ce6102a94",
+      "createdAt": "2026-02-13T14:13:39.000Z",
+      "lastModified": "2026-05-08T12:10:29.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-Coder-Next-GGUF",
+      "sha": "b82fb7382639d97b38fa7672e526c760c2fb358e",
+      "createdAt": "2026-02-02T05:40:51.000Z",
+      "lastModified": "2026-02-04T04:26:16.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-Coder-Next-Base",
+      "sha": "1b6df59d5f75ab51edb9ad8cb3ea69c5d0aedd57",
+      "createdAt": "2026-02-01T12:42:15.000Z",
+      "lastModified": "2026-02-03T14:14:04.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-Coder-Next-FP8",
+      "sha": "da6e2ed27304dd39abadd9c82ef50e8de67bdd4c",
+      "createdAt": "2026-02-01T12:22:41.000Z",
+      "lastModified": "2026-02-03T14:13:28.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-Coder-Next",
+      "sha": "a7fbcb5c0e12d62a448eaa0e260346bf5dcc0feb",
+      "createdAt": "2026-01-30T15:08:18.000Z",
+      "lastModified": "2026-02-03T16:16:38.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-ForcedAligner-0.6B",
+      "sha": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
+      "createdAt": "2026-01-28T03:29:54.000Z",
+      "lastModified": "2026-01-30T03:00:55.000Z",
+      "pipeline_tag": "automatic-speech-recognition",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-ASR-1.7B",
+      "sha": "7278e1e70fe206f11671096ffdd38061171dd6e5",
+      "createdAt": "2026-01-28T03:22:40.000Z",
+      "lastModified": "2026-01-30T03:00:12.000Z",
+      "pipeline_tag": "automatic-speech-recognition",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-ASR-0.6B",
+      "sha": "5eb144179a02acc5e5ba31e748d22b0cf3e303b0",
+      "createdAt": "2026-01-28T03:15:39.000Z",
+      "lastModified": "2026-01-30T03:00:21.000Z",
+      "pipeline_tag": "automatic-speech-recognition",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+      "sha": "5d83992436eae1d760afd27aff78a71d676296fc",
+      "createdAt": "2026-01-21T08:58:06.000Z",
+      "lastModified": "2026-01-29T08:01:19.000Z",
+      "pipeline_tag": "text-to-speech",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice",
+      "sha": "85e237c12c027371202489a0ec509ded67b5e4b5",
+      "createdAt": "2026-01-21T08:57:38.000Z",
+      "lastModified": "2026-01-29T08:01:51.000Z",
+      "pipeline_tag": "text-to-speech",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "sha": "fd4b254389122332181a7c3db7f27e918eec64e3",
+      "createdAt": "2026-01-21T08:57:11.000Z",
+      "lastModified": "2026-01-23T05:25:33.000Z",
+      "pipeline_tag": null,
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+      "sha": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+      "createdAt": "2026-01-21T08:56:49.000Z",
+      "lastModified": "2026-01-29T08:00:54.000Z",
+      "pipeline_tag": "text-to-speech",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-TTS-Tokenizer-12Hz",
+      "sha": "7dd38ad4e9bad454aae9cd937d0cd577604fe229",
+      "createdAt": "2026-01-21T08:56:20.000Z",
+      "lastModified": "2026-01-29T08:01:28.000Z",
+      "pipeline_tag": "audio-to-audio",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+      "sha": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+      "createdAt": "2026-01-21T08:55:55.000Z",
+      "lastModified": "2026-01-29T08:04:19.000Z",
+      "pipeline_tag": "text-to-speech",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-Reranker-8B",
+      "sha": "b212dc8c91a8164aef1ea2de9c1a867611e75c04",
+      "createdAt": "2026-01-07T03:11:53.000Z",
+      "lastModified": "2026-04-16T08:55:43.000Z",
+      "pipeline_tag": "text-ranking",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-Reranker-2B",
+      "sha": "4bd860ac4f15ad1897a214615cccc700f8f71818",
+      "createdAt": "2026-01-07T03:10:13.000Z",
+      "lastModified": "2026-04-16T08:55:33.000Z",
+      "pipeline_tag": "text-ranking",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-Embedding-2B",
+      "sha": "9f2f7e710d6d81056aa5c0a4f04764fec6bb7bda",
+      "createdAt": "2026-01-07T03:03:25.000Z",
+      "lastModified": "2026-04-16T08:54:25.000Z",
+      "pipeline_tag": "sentence-similarity",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-Embedding-8B",
+      "sha": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+      "createdAt": "2026-01-07T03:02:55.000Z",
+      "lastModified": "2026-04-16T08:55:18.000Z",
+      "pipeline_tag": "sentence-similarity",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-2512",
+      "sha": "25468b98e3276ca6700de15c6628e51b7de54a26",
+      "createdAt": "2025-12-30T02:29:01.000Z",
+      "lastModified": "2025-12-31T09:47:56.000Z",
+      "pipeline_tag": "text-to-image",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-Layered",
+      "sha": "8f0ca708dfff6ba1dd5f2d85d78f8c108a040bcf",
+      "createdAt": "2025-12-17T06:02:34.000Z",
+      "lastModified": "2025-12-19T09:11:18.000Z",
+      "pipeline_tag": "image-text-to-image",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-Edit-2511",
+      "sha": "6f3ccc0b56e431dc6a0c2b2039706d7d26f22cb9",
+      "createdAt": "2025-12-17T05:55:58.000Z",
+      "lastModified": "2025-12-23T13:13:52.000Z",
+      "pipeline_tag": "image-to-image",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-Next-80B-A3B-Thinking-GGUF",
+      "sha": "de5795cd9a4f5538d1dd5c9823fdd73eacfae3fe",
+      "createdAt": "2025-12-03T06:54:24.000Z",
+      "lastModified": "2025-12-03T08:24:52.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-Next-80B-A3B-Instruct-GGUF",
+      "sha": "4c8630cf7af926a9c5095cb4bbbbc65d36e20f77",
+      "createdAt": "2025-12-03T06:32:59.000Z",
+      "lastModified": "2025-12-03T08:26:07.000Z",
+      "pipeline_tag": "text-generation",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-235B-A22B-Thinking-GGUF",
+      "sha": "e3423a389728d101f209c908b79b68367fdfa062",
+      "createdAt": "2025-10-31T09:57:20.000Z",
+      "lastModified": "2025-11-01T03:18:19.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-30B-A3B-Thinking-GGUF",
+      "sha": "681477a4711f4bcefa0233abeb16a02abc74c14a",
+      "createdAt": "2025-10-31T09:25:01.000Z",
+      "lastModified": "2025-11-01T03:19:00.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-235B-A22B-Instruct-GGUF",
+      "sha": "cbf7709dad5de4632836beb8969d51f1eff0f48b",
+      "createdAt": "2025-10-31T08:39:08.000Z",
+      "lastModified": "2025-11-01T03:17:04.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF",
+      "sha": "f54435e6cc31258f04b0969105c3f6badb197931",
+      "createdAt": "2025-10-31T06:37:10.000Z",
+      "lastModified": "2025-11-01T03:19:27.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-2B-Thinking-GGUF",
+      "sha": "76646427920e08bd278e46af11c5db8532e6a657",
+      "createdAt": "2025-10-31T03:17:15.000Z",
+      "lastModified": "2025-11-01T03:22:14.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-4B-Thinking-GGUF",
+      "sha": "a55c03cbb1dad5a0c678efa066a8dbccf5a8d30e",
+      "createdAt": "2025-10-31T03:16:48.000Z",
+      "lastModified": "2025-11-01T03:23:09.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-8B-Thinking-GGUF",
+      "sha": "bca5838231f8cc1303cf8810afffcfbdc41bc75a",
+      "createdAt": "2025-10-31T03:16:22.000Z",
+      "lastModified": "2025-11-01T03:23:55.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-32B-Thinking-GGUF",
+      "sha": "a612b3102374e69a892162730ad904b69961f806",
+      "createdAt": "2025-10-31T03:16:02.000Z",
+      "lastModified": "2025-11-01T03:24:46.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-32B-Instruct-GGUF",
+      "sha": "e3e1fe0c76de7ee58ea65db420c643adfe2e457c",
+      "createdAt": "2025-10-31T02:54:27.000Z",
+      "lastModified": "2025-11-01T03:20:18.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-8B-Instruct-GGUF",
+      "sha": "f982a07559d4a2f6c8744d840bf6fccab30eea96",
+      "createdAt": "2025-10-31T02:50:31.000Z",
+      "lastModified": "2025-11-01T03:21:00.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-4B-Instruct-GGUF",
+      "sha": "1cd86afb9a95c410a6038ab3b40d8b578c892266",
+      "createdAt": "2025-10-31T02:50:15.000Z",
+      "lastModified": "2025-11-01T02:28:10.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-2B-Instruct-GGUF",
+      "sha": "52d6c8ffea26cc873ac5ad116f8631268d7eb503",
+      "createdAt": "2025-10-31T02:49:56.000Z",
+      "lastModified": "2025-11-01T03:21:20.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-2B-Thinking-FP8",
+      "sha": "bc71e10812c1bba5532bd2eca46a4166f3b7fffd",
+      "createdAt": "2025-10-20T07:51:14.000Z",
+      "lastModified": "2025-11-26T13:18:22.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-2B-Thinking",
+      "sha": "33e0ad94c327808ebc7d3bbc97e78e600f1eeecd",
+      "createdAt": "2025-10-19T14:44:12.000Z",
+      "lastModified": "2025-10-20T19:15:08.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-2B-Instruct-FP8",
+      "sha": "46485250d8854c0a9be4f1adbc67ca47e5bb6fa5",
+      "createdAt": "2025-10-19T13:14:41.000Z",
+      "lastModified": "2025-10-20T19:26:45.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-2B-Instruct",
+      "sha": "89644892e4d85e24eaac8bacfd4f463576704203",
+      "createdAt": "2025-10-19T13:13:24.000Z",
+      "lastModified": "2025-10-23T11:30:44.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-32B-Instruct-FP8",
+      "sha": "4bf2c2f39c37c0fede78bede4056e1f18cdf8109",
+      "createdAt": "2025-10-19T13:01:30.000Z",
+      "lastModified": "2025-10-22T03:06:29.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-32B-Thinking-FP8",
+      "sha": "3eee143c9b355ba456390568e5970e2e60f5582b",
+      "createdAt": "2025-10-19T12:39:10.000Z",
+      "lastModified": "2025-11-26T13:18:23.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-32B-Thinking",
+      "sha": "7edd10ffd1196091948fb245ff63e406ccb2d4d1",
+      "createdAt": "2025-10-19T12:38:38.000Z",
+      "lastModified": "2025-10-21T18:23:29.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    },
+    {
+      "id": "Qwen/Qwen3-VL-32B-Instruct",
+      "sha": "0cfaf48183f594c314753d30a4c4974bc75f3ccb",
+      "createdAt": "2025-10-19T12:30:41.000Z",
+      "lastModified": "2025-10-21T18:26:34.000Z",
+      "pipeline_tag": "image-text-to-text",
+      "license": "apache-2.0",
+      "safetensors": null
+    }
+  ]
+}

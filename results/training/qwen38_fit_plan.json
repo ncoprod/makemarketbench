@@ -1,0 +1,36 @@
+{
+  "registered_at": "2026-10-29T17:23:46.442275+00:00",
+  "provenance": {
+    "command": ".venv/bin/python runs/prepare_new_directive.py",
+    "git_commit": "55460634447c32813c8a81801eef1abbac810272",
+    "seed": 0,
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299"
+  },
+  "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+  "base_model": "Qwen/Qwen3.8-27B",
+  "licence": "Apache-2.0",
+  "trial_kind": "infrastructure feasibility; no held-out quality evaluation",
+  "weight_bytes": 22344833801,
+  "weight_gib": 20.81024814490229,
+  "memory_arithmetic": "Checkpoint is 20.81 GiB versus approximately 29.12 GiB aggregate T4 x2. Roughly 8.31 GiB remains before adapters, optimizer, activations, CUDA contexts, sharding imbalance and dtype changes. This is not proof of fit. If all 5,546,347,760 unquantized F16 parameters become F32, an additional 10.33 GiB would exceed aggregate capacity before activations.",
+  "config": {
+    "device_map": "balanced",
+    "max_seq_len": 1024,
+    "sft_steps": 1,
+    "sft_batch": 1,
+    "sft_accumulation": 1,
+    "grpo_steps": 1,
+    "num_generations": 2,
+    "max_completion": 96,
+    "lora_rank": 8,
+    "train_only": true,
+    "episodes": 4,
+    "games": [
+      "dice",
+      "cards"
+    ]
+  },
+  "budget_cap_hours": 1,
+  "next_if_pass": "Register full SFT then GRPO on newest family; size/seed comparisons use validation only.",
+  "next_if_fail": "Retain exact CUDA error and measured memory; one focused fit repair if supported, otherwise newest demonstrated feasible family."
+}

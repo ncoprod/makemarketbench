@@ -138,6 +138,18 @@ session saves adapters before separate Kaggle evaluations, avoiding evaluation
 delaying GRPO ([trial log](ITERATIONS.md)). The local reward trial is explicitly
 labelled RLOO-style.
 
+The newest general-purpose open Qwen family is Qwen3.8. Its smallest model is
+27B ([official catalogue and pinned configs](results/training/qwen_latest_details.json)).
+The Apache-2.0 Unsloth NF4 checkpoint occupies **22,344,833,801 bytes**
+([file metadata](results/training/qwen38_quantized.json)). That is 20.81 GiB
+against approximately 29.12 GiB across two T4s, leaving roughly 8.31 GiB before
+training overhead. Sharding, activations and possible F16-to-F32 promotion can
+erase that margin; a real SFT/GRPO update is required to establish fit
+([registered probe](results/training/qwen38_fit_plan.json)). The original 4B
+sessions continue while this probe is prepared. Account quota, session receipts
+and uncertainty in billed hours are tracked in the
+[GPU budget ledger](results/training/kaggle_budget.json).
+
 NIM expansion probes additional Llama and Mistral models; its
 [endpoint catalogue](results/expansion/models.json) lists no Qwen models.
 Calls run sequentially under a shared NIM slot; responses are cached.

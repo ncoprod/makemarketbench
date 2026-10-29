@@ -112,5 +112,11 @@
     "previous_field": "scores_inspected: false was imprecise; it referred to aggregate policy scores",
     "event": "A broad reasoning-parameter text search printed raw API episode lines on 2026-10-29 before this recovery snapshot. No aggregate scores were computed, and no policy or selection rule changed in response.",
     "mitigation": "Restrict future metadata searches to explicitly named protocol/receipt files."
+  },
+  "additional_audit": {
+    "at": "2026-10-29T17:23:46.442275+00:00",
+    "event": "A native-browser initial snapshot automatically displayed the fixed CUDA warm-start dice aggregate at about 15:40 UTC. This was an early display, not a downloaded result.",
+    "selection_response": "No recipe, seed, or selection criterion changed in response. New-family research follows the owner directive, independently of this score.",
+    "browser_output_mitigation": "An embedded notebook URL also appeared in an automatic snapshot. All subsequent notebook AX text is captured without emission and URL query strings are redacted before output. No URL session value is stored in repository artifacts."
   }
 }

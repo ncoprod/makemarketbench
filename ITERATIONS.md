@@ -607,3 +607,30 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - [Original observation](results/training/kaggle_retry.json) and
   [staged observation](results/training/kaggle_staged.json) retain displayed
   precision and distinguish log visibility from actual execution progress.
+
+### New quota directive and newest-family fit probe
+
+- Owner now requests useful GPU work until the available quota is consumed or
+  its 2026-10-31 UTC reset. This overrides the policy stopping rule only for
+  Kaggle. Existing useful sessions continue. The official account quota and
+  per-session receipts are recorded in `results/training/kaggle_budget.json`;
+  unknown billing timestamps remain null rather than inferred from submission.
+- HF Qwen catalogue and pinned configs identify Qwen3.8 as the newest open
+  general-purpose family, with 27B its smallest size. The Apache-2.0 Unsloth
+  NF4 file is 22,344,833,801 bytes. Two-T4 aggregate capacity may permit it;
+  weight size alone does not establish training fit. Register one SFT update
+  followed by one GRPO update, sequence 1024, rank eight, balanced model split,
+  no final-test evaluation, capped at one hour. See `qwen38_fit_plan.json`.
+- Focused implementation: expose training seed, SFT accumulation and device map;
+  retain previous seed zero and accumulation two defaults. Record physical GPU
+  capacity in runtime receipts. Command: `.venv/bin/python -m pytest
+  tests/test_training.py -q`; result: 13 passed in 4.80 seconds. Ruff passed.
+- Research errors retained: the unsharded checkpoint has no index JSON (404);
+  an initially unauthenticated SDK quota call returned 401, corrected by using
+  the official CLI authentication path. Metadata `last_run_time` predates known
+  submissions by three days and changes with query time, so it is excluded from
+  runtime accounting.
+- Audit correction: an automatic browser snapshot displayed the fixed CUDA
+  warm-start dice aggregate early. No training or selection choice changed in
+  response. Further notebook snapshots redact URL queries before output; no
+  session query value is stored in repository artifacts. See recovery receipt.

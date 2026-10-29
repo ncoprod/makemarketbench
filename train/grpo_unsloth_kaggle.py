@@ -182,7 +182,7 @@ def render(tokenizer, messages) -> str:
 
 def execution(args) -> dict:
     return {"command": [sys.executable, *sys.argv], "config": vars(args),
-            "seed": 0, "source_commit": SOURCE_COMMIT,
+            "seed": args.seed, "source_commit": SOURCE_COMMIT,
             "model_revision": getattr(args, "revision", None),
             "source_file_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "embedded_package_sha256": hashlib.sha256(base64.b64decode(PAYLOAD)).hexdigest()}
@@ -195,7 +195,7 @@ def train(args, report_runtime) -> None:
     from transformers import TrainerCallback
     import torch
 
-    torch.manual_seed(0)
+    torch.manual_seed(args.seed)
     torch.cuda.reset_peak_memory_stats()
     report_runtime("loading", 0)
 
@@ -208,7 +208,7 @@ def train(args, report_runtime) -> None:
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
-        fast_inference=False)
+        fast_inference=False, device_map=args.device_map)
     tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
     adapters = [p for p in Path("/kaggle/input").rglob("adapter_model.safetensors")
                 if json.loads(p.with_name("adapter_config.json").read_text())[
@@ -233,7 +233,7 @@ def train(args, report_runtime) -> None:
         model = FastLanguageModel.get_peft_model(
             model, r=args.lora_rank, lora_alpha=2 * args.lora_rank, lora_dropout=0.0,
             target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-            use_gradient_checkpointing="unsloth", random_state=0)
+            use_gradient_checkpointing="unsloth", random_state=args.seed)
 
     if args.eval_only:
         if not adapters:
@@ -253,9 +253,10 @@ def train(args, report_runtime) -> None:
                        callbacks=[RuntimeCallback("sft")],
                        args=_config(SFTConfig, output_dir=str(WORK / "sft"), max_steps=args.sft_steps,
                                     per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
+                                    gradient_accumulation_steps=args.sft_accumulation,
                                     logging_steps=10, save_strategy="steps", save_steps=50,
                                     save_total_limit=2, report_to="none",
-                                    seed=0, data_seed=0,
+                                    seed=args.seed, data_seed=args.seed,
                                     dataset_text_field="text", max_seq_length=args.max_seq_len))
         (WORK / "sft_config.json").write_text(json.dumps(
             {**execution(args), "trainer_config": sft.args.to_dict()}, indent=2) + "\n")
@@ -280,7 +281,7 @@ def train(args, report_runtime) -> None:
         num_generations=args.num_generations, max_prompt_length=args.max_seq_len - args.max_completion,
         max_completion_length=args.max_completion, temperature=1.0, logging_steps=5,
         save_steps=100, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
-        optim="adamw_8bit", seed=0, data_seed=0)
+        optim="adamw_8bit", seed=args.seed, data_seed=args.seed)
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        callbacks=[RuntimeCallback("grpo")],
                        args=cfg, train_dataset=Dataset.from_list(grpo_rows))
@@ -399,6 +400,9 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=400, help="training episodes per game")
     ap.add_argument("--sft-steps", type=int, default=150)
     ap.add_argument("--sft-batch", type=int, default=8)
+    ap.add_argument("--sft-accumulation", type=int, default=2)
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--device-map", default="sequential", help="balanced splits a large model across GPUs")
     ap.add_argument("--grpo-steps", type=int, default=300)
     ap.add_argument("--num-generations", type=int, default=8)
     ap.add_argument("--max-completion", type=int, default=96)
@@ -449,6 +453,8 @@ def main() -> None:
         if not torch.cuda.is_available():
             raise RuntimeError("Kaggle did not allocate a CUDA GPU")
         record["gpus"] = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
+        record["gpu_capacity_bytes"] = [torch.cuda.get_device_properties(i).total_memory
+                                        for i in range(torch.cuda.device_count())]
         record["cuda_version"] = torch.version.cuda
         record["versions"] = {p: importlib.metadata.version(p)
                               for p in ("torch", "unsloth", "unsloth_zoo", "trl", "transformers", "peft",

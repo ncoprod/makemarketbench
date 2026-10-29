@@ -38,7 +38,7 @@ def test_kaggle_evaluation_writes_paired_json_without_model_conversion(kernel, m
 
     monkeypatch.setattr(kernel, "WORK", tmp_path)
     monkeypatch.setattr(kernel, "HFQuoter", oracle_model)
-    args = Namespace(games=["dice", "cards"], eval_episodes=3, eval_seed=200, label="test-policy")
+    args = Namespace(games=["dice", "cards"], eval_episodes=3, eval_seed=200, label="test-policy", seed=0)
     kernel.evaluate(None, None, args)
     for game in args.games:
         result = json.loads((tmp_path / f"results/leaderboard_{game}.json").read_text())

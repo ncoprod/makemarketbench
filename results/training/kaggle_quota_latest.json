@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "command": [
+        "/Users/nico/.local/bin/kaggle",
+        "quota",
+        "--format",
+        "json"
+      ],
+      "purpose": "updated owner directive; live quota accounting"
+    },
+    "model_revision": null,
+    "git_commit": "55460634447c32813c8a81801eef1abbac810272",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-29T15:36:46.302581+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "exit_code": 0,
+  "output": "[\n  {\n    \"resource\": \"GPU\",\n    \"used\": \"7.24h\",\n    \"remaining\": \"22.76h\",\n    \"total\": \"30.00h\",\n    \"refreshAt\": \"2026-10-31T00:00:00+00:00\"\n  },\n  {\n    \"resource\": \"TPU\",\n    \"used\": \"0.00h\",\n    \"remaining\": \"20.00h\",\n    \"total\": \"20.00h\",\n    \"refreshAt\": \"2026-10-31T00:00:00+00:00\"\n  }\n]\n",
+  "error": ""
+}

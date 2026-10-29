@@ -1,0 +1,100 @@
+{
+  "recorded_at": "2026-10-29T17:23:46.442275+00:00",
+  "provenance": {
+    "command": ".venv/bin/python runs/prepare_new_directive.py",
+    "git_commit": "55460634447c32813c8a81801eef1abbac810272",
+    "seed": null,
+    "model_revision": null
+  },
+  "reset_at": "2026-10-31T00:00:00Z",
+  "quota_snapshots": [
+    {
+      "recorded_at": "2026-10-29T17:22:29.240883+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "kernels": [
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:22:39.329000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:22:43.056000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:22:46.421000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        }
+      ],
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00",
+        "gpu_seconds_used": 38741.540303,
+        "gpu_seconds_reserved": 30772.008848,
+        "gpu_seconds_total": 108000.0
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+      "version": 1,
+      "accelerator": "T4 x2",
+      "submitted_at": "2026-10-29T10:18:57.930310+00:00",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "hours_basis": "downloaded script runtime; excludes unknown setup/billing overhead",
+      "purpose": "Original Qwen3.5-4B SFT, warm-start evaluation, GRPO and final evaluation",
+      "receipt": "results/training/kaggle_retry.json",
+      "private": true,
+      "session_limit_hours": 12
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+      "version": 1,
+      "accelerator": "T4 x2",
+      "submitted_at": "2026-10-29T10:52:00.503998+00:00",
+      "start": null,
+      "end": null,
+      "hours": 0.22984404411580828,
+      "hours_basis": "downloaded script runtime; excludes unknown setup/billing overhead",
+      "purpose": "Cold GRPO infrastructure smoke; zero reward variance",
+      "receipt": "results/training/kaggle_smoke.json",
+      "private": true,
+      "session_limit_hours": 12
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+      "version": 1,
+      "accelerator": "T4 x2",
+      "submitted_at": "2026-10-29T13:55:59.219900+00:00",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "hours_basis": "pending downloaded runtime",
+      "purpose": "Checkpointed Qwen3.5-4B SFT then GRPO, separate evaluation",
+      "receipt": "results/training/kaggle_staged.json",
+      "private": true,
+      "session_limit_hours": 12
+    }
+  ],
+  "accounting_notes": [
+    "Account quota is authoritative; per-script runtime is not necessarily billed session duration. Two allocated T4 devices do not imply twice the account debit.",
+    "Actual session start/end are unknown until downloaded logs establish them; submission timestamps are not substituted.",
+    "SDK metadata last_run_time was three days before known submission and changed with query time. Retained in snapshot, excluded from accounting."
+  ],
+  "concurrency": {
+    "verified_commit_sessions": 2,
+    "interactive_session_limit": "pending account UI check",
+    "reference": "https://www.kaggle.com/general/105509"
+  },
+  "submission_policy": "Reserve up to 12h per active session; new bounded useful work only if remaining quota after reservations and time before reset suffice."
+}

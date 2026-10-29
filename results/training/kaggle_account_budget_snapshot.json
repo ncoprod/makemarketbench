@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-10-29T17:22:29.240883+00:00",
+  "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+  "kernels": [
+    {
+      "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
+      "version": 1,
+      "last_run_time": "2026-10-26T17:22:39.329000",
+      "private": true,
+      "accelerator": "NvidiaTeslaT4"
+    },
+    {
+      "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+      "version": 1,
+      "last_run_time": "2026-10-26T17:22:43.056000",
+      "private": true,
+      "accelerator": "NvidiaTeslaT4"
+    },
+    {
+      "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+      "version": 1,
+      "last_run_time": "2026-10-26T17:22:46.421000",
+      "private": true,
+      "accelerator": "NvidiaTeslaT4"
+    }
+  ],
+  "quota": {
+    "refresh_at": "2026-10-31T00:00:00",
+    "gpu_seconds_used": 38741.540303,
+    "gpu_seconds_reserved": 30772.008848,
+    "gpu_seconds_total": 108000.0
+  }
+}
