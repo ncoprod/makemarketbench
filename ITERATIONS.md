@@ -532,3 +532,16 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   running Python processes retain their original recorded source revision.
 - Verification: Ruff and Python compilation pass. This changes provenance only,
   not prompts, seeds, API concurrency or candidate selection.
+
+### Reuse identical greedy CUDA evaluation prompts
+
+- Hypothesis: repeated public states across episodes cause redundant sequential
+  decoding. Cache exact prompts, quotes and repair attempts within one frozen
+  adapter's evaluation. The cache is discarded before evaluating other weights;
+  every episode and its original state transition still executes.
+- Change: share the stateless CUDA quoter across episodes and tag replayed
+  quotes. Greedy decoding, token limits, parser and repair policy are unchanged.
+  Running private kernel snapshots are unchanged.
+- Verification: CPU evaluation/export and cached repair isolation checks pass
+  ([receipt](results/training/cuda_cache_verification.json)).
+  No GPU runtime improvement is claimed before a future CUDA measurement.

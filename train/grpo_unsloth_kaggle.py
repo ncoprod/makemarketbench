@@ -301,6 +301,7 @@ class HFQuoter:
 
     def __init__(self, model, tokenizer, name: str, max_new_tokens: int = 128) -> None:
         self.model, self.tok, self.name, self.max_new = model, tokenizer, name, max_new_tokens
+        self.cache = {}
 
     def reset(self, episode_seed: int) -> None:
         pass
@@ -318,18 +319,26 @@ class HFQuoter:
         from makemarket.prompts import OUTPUT_SPEC, messages_for
 
         msgs = messages_for(obs)
+        prompt = json.dumps(msgs)
+        if prompt in self.cache:
+            quote, info = self.cache[prompt]
+            return quote, {**info, "cached": True}
         attempts = []
-        for attempt in range(2):
+        quote = None
+        for _ in range(2):
             text = self._gen(msgs)
             attempts.append({"content": text})
             try:
-                return parse_quote(text, obs.game.params.max_size), {
-                    "attempts": attempts, "format_error": attempt > 0, "failed": False}
+                quote = parse_quote(text, obs.game.params.max_size)
+                break
             except ValueError as e:
                 attempts[-1]["error"] = str(e)
                 msgs = msgs + [{"role": "assistant", "content": text},
                                {"role": "user", "content": f"Your answer was invalid: {e}. {OUTPUT_SPEC}"}]
-        return None, {"attempts": attempts, "format_error": True, "failed": True}
+        info = {"attempts": attempts, "format_error": len(attempts) > 1,
+                "failed": quote is None, "cached": False}
+        self.cache[prompt] = quote, info
+        return quote, info
 
 
 def evaluate(model, tokenizer, args, label=None) -> None:
@@ -342,11 +351,13 @@ def evaluate(model, tokenizer, args, label=None) -> None:
 
     label = label or args.label
     provenance = {**execution(args), "label": label}
+    # Greedy decoding permits reuse of identical prompts within this adapter.
+    player = HFQuoter(model, tokenizer, label)
 
     for g in args.games:
         out = WORK / "results" / "raw" / g / f"{slug(label)}.jsonl"
         t0 = time.time()
-        eps = run_player(make_game(g), lambda: HFQuoter(model, tokenizer, label),
+        eps = run_player(make_game(g), lambda: player,
                          list(range(args.eval_seed, args.eval_seed + args.eval_episodes)), out,
                          workers=1, backend="py", provenance=provenance)
         tot = sum(sum(r["exp_expected_pnl"] for r in e["rounds"]) for e in eps) / len(eps)

@@ -1,0 +1,27 @@
+{
+  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+  "config": {
+    "command": ".venv/bin/pytest tests/test_training.py -q",
+    "scope": "CPU training/export checks; no CUDA execution"
+  },
+  "model_revision": null,
+  "git_commit": "c5d7f3a29fc1c2fef6bb69042dbefd998602ce34",
+  "uncommitted_diff_sha256": "0164453ba98e5979ff67bb53921e36d5608dfd392ad01c9a47da5e52c3c1a526",
+  "started_at": "2026-10-29T14:57:50.530509+00:00",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "versions": {
+    "numpy": "2.5.4",
+    "openai": "3.40.0",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2"
+  },
+  "status": "passed",
+  "tests_passed": 13,
+  "wall_seconds": 6.4,
+  "source_sha256": {
+    "train/grpo_unsloth_kaggle.py": "fb8159c659e722bc451a3cc50ce5b959ed130763b9e264bbd764966aa3b0679d",
+    "tests/test_training.py": "80bcfeb57877ae38760a2729bab8f5aacfe66a7c2eebfb5dde68fda309219504"
+  },
+  "limitation": "No measured CUDA runtime gain; running private kernels use earlier frozen snapshots."
+}

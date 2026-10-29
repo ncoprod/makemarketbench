@@ -48,6 +48,26 @@ def test_kaggle_evaluation_writes_paired_json_without_model_conversion(kernel, m
         assert all(r["pct_of_bayes"] == pytest.approx(100) for r in result["rows"])
 
 
+def test_greedy_cuda_cache_reuses_repairs_and_stays_with_one_adapter(kernel):
+    from makemarket.games import make_game
+    from makemarket.market import Observation
+
+    game = make_game("dice")
+    ep = game.episode(80000)
+    obs = Observation(game, 0, ep.n_rounds, ep.reveals[:1], [], 0, 0,
+                      ep.public_beliefs[0], ep.public_beliefs[0].mean)
+    player = kernel.HFQuoter(None, None, "adapter-a")
+    responses = iter(["invalid", '{"bid": 1, "bid_size": 1, "ask": 99, "ask_size": 1}'])
+    player._gen = lambda messages: next(responses)
+    expected_quote, original = player.quote(obs)
+    actual_quote, cached = player.quote(obs)
+    assert actual_quote == expected_quote
+    assert cached["attempts"] == original["attempts"]
+    assert cached["cached"] and not original["cached"]
+    assert cached["format_error"] and not cached["failed"]
+    assert not kernel.HFQuoter(None, None, "adapter-b").cache
+
+
 def test_rloo_baseline_is_leave_one_out_and_translation_invariant(monkeypatch):
     import importlib
 
