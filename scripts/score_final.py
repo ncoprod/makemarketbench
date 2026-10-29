@@ -34,8 +34,8 @@ def main():
     ap.add_argument("--label", required=True)
     ap.add_argument("--api", default="results/expansion")
     ap.add_argument("--out", default="results/final.json")
-    ap.add_argument("--candidates", type=int, default=4,
-                    help="registered final candidates, including CUDA warm start and GRPO")
+    ap.add_argument("--candidates", type=int, default=6,
+                    help="registered final candidates, including both CUDA warm-start/GRPO pairs")
     args = ap.parse_args()
     assert args.candidates >= 1
     comparisons = sum(cohort(p) is not None for p in (Path(args.api) / "raw/dice").glob("*.jsonl"))

@@ -133,7 +133,9 @@ smoke completed in **827.439 seconds**, peaking at **4.484 GB allocated VRAM**
 ([runtime](results/kaggle/smoke-v1/runtime.json)). Both completions were truncated
 and received identical invalid-output rewards, so its update had zero learning
 signal ([complete log](results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log)).
-The full SFT/GRPO run remains pending. The local reward trial is explicitly
+The full SFT/GRPO run remains pending. A separately registered training-only
+session saves adapters before separate Kaggle evaluations, avoiding evaluation
+delaying GRPO ([trial log](ITERATIONS.md)). The local reward trial is explicitly
 labelled RLOO-style.
 
 NIM expansion retries GLM and DeepSeek with longer timeouts, enables Ultra

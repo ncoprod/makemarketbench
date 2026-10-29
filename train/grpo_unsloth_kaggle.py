@@ -244,6 +244,7 @@ def train(args) -> None:
                                     per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
                                     logging_steps=10, save_strategy="steps", save_steps=50,
                                     save_total_limit=2, report_to="none",
+                                    seed=0, data_seed=0,
                                     dataset_text_field="text", max_seq_length=args.max_seq_len))
         (WORK / "sft_config.json").write_text(json.dumps(
             {**execution(args), "trainer_config": sft.args.to_dict()}, indent=2) + "\n")
@@ -267,7 +268,7 @@ def train(args) -> None:
         num_generations=args.num_generations, max_prompt_length=args.max_seq_len - args.max_completion,
         max_completion_length=args.max_completion, temperature=1.0, logging_steps=5,
         save_steps=100, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
-        optim="adamw_8bit")
+        optim="adamw_8bit", seed=0, data_seed=0)
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        args=cfg, train_dataset=Dataset.from_list(grpo_rows))
     (WORK / "grpo_config.json").write_text(json.dumps(

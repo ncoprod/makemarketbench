@@ -30,9 +30,10 @@ External access failures remain unmet targets, not successful training trials.
 - Marginal 95% CIs are descriptive. Any claim of superiority across K API
   comparisons must also pass family-wise Bonferroni intervals at level
   `1 - 0.05/(C * (K + 2))` (K comparisons plus dice threshold and cards
-  positivity for each of C frozen final candidates). C is four: the completed
+  positivity for each of C frozen final candidates). C is six: the completed
   1.7B baseline, the validation-selected MLX 4B candidate, CUDA teacher SFT,
-  and CUDA GRPO. Failed/unavailable candidates remain counted conservatively.
+  and CUDA GRPO, plus a separately staged CUDA warm start and GRPO pair.
+  Failed/unavailable candidates remain counted conservatively.
   Do not claim a winner from overlapping or uncorrected intervals.
   The K corrected comparisons are paired differences in dice expected PnL;
   the other two claims are the dice ratio and cards positivity. Marginal
@@ -394,3 +395,24 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Verification: Ruff passes; 16 parsing/training tests pass (seven recurrence
   cases excluded from this metadata-only check). The first test command used a
   nonexistent filename and ran no tests; the corrected command passed.
+
+### T10 — staged CUDA run (registered before submission)
+
+- Hypothesis: a separate training session reaches GRPO sooner and preserves
+  adapters/checkpoints even if the combined training/evaluation session expires.
+  The original session finished 150 SFT steps but still had no first complete
+  200-episode game after 12,831 seconds. This is elapsed progress, not a score.
+- Change: build a private `-train-only` kernel with the existing stage flag;
+  retain the original running kernel and its frozen source. Save both adapters
+  and optimiser checkpoints, then evaluate each in separate Kaggle sessions.
+  Architecture, data, learning rates and step budgets remain predeclared.
+- Explicitly pass trainer/data seeds zero. The original receipt's seed zero
+  described torch/adapter initialisation; original trainer seeds must be read
+  from the exported TRL configs rather than inferred from that receipt.
+- Count the two staged checkpoints as two additional final candidates (C=6),
+  including unavailable candidates, before inspecting any new aggregate test
+  score. Neither test evaluation chooses a CUDA checkpoint.
+- Commands: `python train/build_kaggle_kernel.py --train-only`;
+  `kaggle kernels push -p runs/kaggle_train_only --accelerator NvidiaTeslaT4`.
+  Submission, privacy and runtime receipts will be kept in
+  `results/training/kaggle_staged.json` and the pulled outputs.

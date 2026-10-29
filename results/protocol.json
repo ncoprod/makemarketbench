@@ -48,8 +48,8 @@
     ],
     "bootstrap_resamples": 10000,
     "confidence": 0.95,
-    "final_candidates": 4,
-    "family_confidence": "1 - 0.05/(4 * (K + 2)); K is the number of complete API dice cohorts",
+    "final_candidates": 6,
+    "family_confidence": "1 - 0.05/(6 * (K + 2)); K is the number of complete API dice cohorts",
     "family_bootstrap_resamples": "max(10000, ceil(200 / (1 - family_confidence)))",
     "family_bootstrap_note": "At least 100 expected resamples per corrected tail; descriptive marginal CIs retain 10000 resamples.",
     "api_interval_separation": "Require both expected-PnL and percentage-of-Bayes marginal 95% intervals to separate, plus positive corrected paired differences."
@@ -74,6 +74,11 @@
       "at": "2026-10-29T13:12:44.457762+00:00",
       "reason": "Conservatively clarify interval separation in both displayed score scales before inspecting any new aggregate held-out score; no training or selection change.",
       "source": "ITERATIONS.md; scripts/score_final.py"
+    },
+    {
+      "at": "2026-10-29T13:55:03.841565+00:00",
+      "reason": "Before any new aggregate held-out score: register separate staged CUDA warm-start and GRPO candidates, keeping both original candidates counted; use explicit trainer/data seeds 0.",
+      "source": "ITERATIONS.md; scripts/score_final.py; train/build_kaggle_kernel.py"
     }
   ]
 }

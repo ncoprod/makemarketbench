@@ -34,17 +34,24 @@ def payload() -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--smoke", action="store_true", help="one GRPO update, validation seeds only")
+    stage = ap.add_mutually_exclusive_group()
+    stage.add_argument("--smoke", action="store_true", help="one GRPO update, validation seeds only")
+    stage.add_argument("--train-only", action="store_true", help="save adapters before separate evaluation sessions")
     args = ap.parse_args()
-    out = ROOT / "runs" / "kaggle_smoke" if args.smoke else OUT
+    out = (ROOT / "runs" / "kaggle_smoke" if args.smoke else
+           ROOT / "runs" / "kaggle_train_only" if args.train_only else OUT)
     out.mkdir(parents=True, exist_ok=True)
     src = (ROOT / "train" / "grpo_unsloth_kaggle.py").read_text()
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     src = src.replace('SOURCE_COMMIT = ""', f'SOURCE_COMMIT = "{commit}"')
+    flags = []
     if args.smoke:
         flags = ["--sft-steps", "0", "--grpo-steps", "1", "--num-generations", "2",
                  "--episodes", "4", "--games", "dice", "--eval-episodes", "1",
                  "--eval-seed", "80000", "--label", "qwen3.5-4b-grpo-smoke"]
+    elif args.train_only:
+        flags = ["--train-only", "--label", "qwen3.5-4b-grpo-staged"]
+    if flags:
         src = src.replace("    main()\n", f"    sys.argv[1:1] = {flags!r}\n    main()\n")
     marker = 'PAYLOAD = ""'
     assert marker in src
@@ -66,6 +73,8 @@ def main() -> None:
     }
     if args.smoke:
         meta.update(id=meta["id"] + "-smoke", title=meta["title"] + " smoke")
+    elif args.train_only:
+        meta.update(id=meta["id"] + "-train-only", title=meta["title"] + " train only")
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"wrote {out}/grpo_unsloth_kaggle.py and kernel-metadata.json")
 
