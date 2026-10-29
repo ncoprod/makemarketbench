@@ -453,3 +453,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Apply the same one-second acquisition retry to NIM: both supplemental
   wrappers have waited over an hour, including observed intervening owner
   changes. This changes no API concurrency, request throttle or retry backoff.
+
+### API latency diagnostic (no held-out scores)
+
+- The partial GPT-OSS-20B cohort has 42 recorded requests across seven complete
+  dice episodes. Median recorded latency is 12.006267070770264 seconds; p95 is
+  77.82202217578886 seconds. These exclude in-flight/unsaved requests and are
+  not batch wall time. No PnL was computed or inspected.
+- [Self-contained metadata and calculations](results/expansion/latency_partial.json)
+  support establishing availability before a slow model's full evaluation.

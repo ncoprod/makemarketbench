@@ -1,0 +1,342 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "latency/token diagnostics only; do not inspect policy PnL"
+    },
+    "model_revision": null,
+    "git_commit": "1c78b9a5b5fb25904fc9a1ddf4694a36a85c61d1",
+    "uncommitted_diff_sha256": "4ecd787d3e51a0919dbccef24096cbcbfcc695c5921ce6e35de4423b8623638e",
+    "started_at": "2026-10-29T14:08:57.643268+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "input": "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl",
+  "input_sha256": "082f3944bafff92dfe98b6c98ca35b3ff835b39315cb4495df5302ebdef61252",
+  "complete_episodes": 7,
+  "attempts": 42,
+  "recorded_latency_seconds_sum": 960.6187136173248,
+  "median_request_latency_seconds": 12.006267070770264,
+  "p95_request_latency_seconds": 77.82202217578886,
+  "completion_tokens_sum": 11695,
+  "missing_token_counts": 0,
+  "note": "A partial cohort; latency excludes unsaved/in-flight requests and is not batch wall time. Scores were not calculated.",
+  "seed": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206
+  ],
+  "model": "openai/gpt-oss-20b",
+  "model_revision": "NIM immutable deployment revision not exposed",
+  "attempt_metadata": [
+    {
+      "seed": 200,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": false
+    },
+    {
+      "seed": 200,
+      "round": 1,
+      "latency": 36.19146108627319,
+      "completion_tokens": 114,
+      "cached": false
+    },
+    {
+      "seed": 200,
+      "round": 2,
+      "latency": 13.250767230987549,
+      "completion_tokens": 135,
+      "cached": false
+    },
+    {
+      "seed": 200,
+      "round": 3,
+      "latency": 12.30484390258789,
+      "completion_tokens": 138,
+      "cached": false
+    },
+    {
+      "seed": 200,
+      "round": 4,
+      "latency": 11.414047002792358,
+      "completion_tokens": 190,
+      "cached": false
+    },
+    {
+      "seed": 200,
+      "round": 5,
+      "latency": 10.101163148880005,
+      "completion_tokens": 297,
+      "cached": false
+    },
+    {
+      "seed": 201,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": true
+    },
+    {
+      "seed": 201,
+      "round": 1,
+      "latency": 11.271451950073242,
+      "completion_tokens": 286,
+      "cached": true
+    },
+    {
+      "seed": 201,
+      "round": 2,
+      "latency": 3.377467155456543,
+      "completion_tokens": 97,
+      "cached": true
+    },
+    {
+      "seed": 201,
+      "round": 3,
+      "latency": 5.577335834503174,
+      "completion_tokens": 164,
+      "cached": false
+    },
+    {
+      "seed": 201,
+      "round": 4,
+      "latency": 37.844905853271484,
+      "completion_tokens": 149,
+      "cached": false
+    },
+    {
+      "seed": 201,
+      "round": 5,
+      "latency": 21.287425756454468,
+      "completion_tokens": 436,
+      "cached": false
+    },
+    {
+      "seed": 202,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": true
+    },
+    {
+      "seed": 202,
+      "round": 1,
+      "latency": 12.04749321937561,
+      "completion_tokens": 485,
+      "cached": false
+    },
+    {
+      "seed": 202,
+      "round": 2,
+      "latency": 112.05216097831726,
+      "completion_tokens": 336,
+      "cached": false
+    },
+    {
+      "seed": 202,
+      "round": 3,
+      "latency": 36.60358810424805,
+      "completion_tokens": 137,
+      "cached": false
+    },
+    {
+      "seed": 202,
+      "round": 4,
+      "latency": 5.836734056472778,
+      "completion_tokens": 227,
+      "cached": false
+    },
+    {
+      "seed": 202,
+      "round": 5,
+      "latency": 13.37308120727539,
+      "completion_tokens": 411,
+      "cached": false
+    },
+    {
+      "seed": 203,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": true
+    },
+    {
+      "seed": 203,
+      "round": 1,
+      "latency": 9.78177785873413,
+      "completion_tokens": 155,
+      "cached": false
+    },
+    {
+      "seed": 203,
+      "round": 2,
+      "latency": 44.62253427505493,
+      "completion_tokens": 230,
+      "cached": false
+    },
+    {
+      "seed": 203,
+      "round": 3,
+      "latency": 4.426677942276001,
+      "completion_tokens": 143,
+      "cached": false
+    },
+    {
+      "seed": 203,
+      "round": 4,
+      "latency": 7.087470769882202,
+      "completion_tokens": 204,
+      "cached": false
+    },
+    {
+      "seed": 203,
+      "round": 5,
+      "latency": 8.05302095413208,
+      "completion_tokens": 225,
+      "cached": false
+    },
+    {
+      "seed": 204,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": true
+    },
+    {
+      "seed": 204,
+      "round": 1,
+      "latency": 11.965040922164917,
+      "completion_tokens": 225,
+      "cached": false
+    },
+    {
+      "seed": 204,
+      "round": 2,
+      "latency": 12.352898836135864,
+      "completion_tokens": 191,
+      "cached": false
+    },
+    {
+      "seed": 204,
+      "round": 3,
+      "latency": 7.94076681137085,
+      "completion_tokens": 297,
+      "cached": false
+    },
+    {
+      "seed": 204,
+      "round": 4,
+      "latency": 8.300771951675415,
+      "completion_tokens": 306,
+      "cached": false
+    },
+    {
+      "seed": 204,
+      "round": 5,
+      "latency": 78.1165099143982,
+      "completion_tokens": 597,
+      "cached": false
+    },
+    {
+      "seed": 205,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": true
+    },
+    {
+      "seed": 205,
+      "round": 1,
+      "latency": 12.04749321937561,
+      "completion_tokens": 485,
+      "cached": true
+    },
+    {
+      "seed": 205,
+      "round": 2,
+      "latency": 32.433995723724365,
+      "completion_tokens": 573,
+      "cached": false
+    },
+    {
+      "seed": 205,
+      "round": 3,
+      "latency": 36.893561124801636,
+      "completion_tokens": 1519,
+      "cached": false
+    },
+    {
+      "seed": 205,
+      "round": 4,
+      "latency": 5.889020919799805,
+      "completion_tokens": 133,
+      "cached": false
+    },
+    {
+      "seed": 205,
+      "round": 5,
+      "latency": 151.73139095306396,
+      "completion_tokens": 860,
+      "cached": false
+    },
+    {
+      "seed": 206,
+      "round": 0,
+      "latency": 3.8774490356445312,
+      "completion_tokens": 88,
+      "cached": true
+    },
+    {
+      "seed": 206,
+      "round": 1,
+      "latency": 14.734579801559448,
+      "completion_tokens": 385,
+      "cached": false
+    },
+    {
+      "seed": 206,
+      "round": 2,
+      "latency": 72.22675514221191,
+      "completion_tokens": 131,
+      "cached": false
+    },
+    {
+      "seed": 206,
+      "round": 3,
+      "latency": 14.75794506072998,
+      "completion_tokens": 339,
+      "cached": false
+    },
+    {
+      "seed": 206,
+      "round": 4,
+      "latency": 36.09466481208801,
+      "completion_tokens": 258,
+      "cached": false
+    },
+    {
+      "seed": 206,
+      "round": 5,
+      "latency": 21.485766887664795,
+      "completion_tokens": 221,
+      "cached": false
+    }
+  ],
+  "calculation": {
+    "sum": "sum of recorded per-attempt latency/completion tokens",
+    "median": "numpy.median of recorded per-attempt latency",
+    "p95": "numpy.quantile(latency, 0.95), default linear interpolation"
+  }
+}

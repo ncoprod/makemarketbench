@@ -96,5 +96,17 @@
     "machine_shape": "NvidiaTeslaT4"
   },
   "submitted_at": "2026-10-29T13:55:59.219900+00:00",
-  "polls": []
+  "polls": [
+    {
+      "at": "2026-10-29T14:06:10.351264+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ]
 }
