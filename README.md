@@ -101,7 +101,9 @@ from the mathematical Bayes dealer. The complete
 answers follow the exact non-thinking inference prefix and fit the sequence
 budget. The earlier Qwen3-1.7B baseline stays in the historical table. Its continuation
 now reaches 800 total iterations ([training receipt](results/training/qwen17_sft800.json));
-fresh policy evaluation is pending.
+its frozen policy has completed 200 episodes in each game
+([cohorts and hashes](results/final/qwen17-sft800/cohorts.json)). The corrected
+API comparison remains pending while the other cohorts finish.
 
 The registered recipe uses LoRA behaviour cloning with validation-loss
 checkpoint selection and early stopping, followed by a larger on-policy DAgger
@@ -117,7 +119,11 @@ The first local 4B attempt was interrupted by the machine reboot. A subsequent
 memory probe exceeded its guard before any verified optimiser update
 ([receipt](results/training/qwen35_memory_smoke.json)). A port of MLX-LM's
 chunk-parallel training recurrence passes reference value/gradient checks;
-its GPU memory probe is queued. These infrastructure attempts are not policy
+its probe also exceeded the guard before an update
+([receipt](results/training/qwen35_parallel_memory_guard.json)). A further
+probe projects only answer positions through the vocabulary head while
+preserving the full causal loss and gradients
+([registered check](results/training/qwen35_answer_probe_plan.json)). These infrastructure attempts are not policy
 improvements ([trial log](ITERATIONS.md)).
 
 The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL

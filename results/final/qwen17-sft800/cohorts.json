@@ -1,0 +1,71 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/harvest_qwen17_final.py",
+    "config": {
+      "purpose": "retain every frozen baseline episode; no cross-model selection or final family claim"
+    },
+    "model_revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+    "git_commit": "0f91a5ecafe791fdfc7a8f14fc81e570645e018f",
+    "uncommitted_diff_sha256": "993f57a425760a7f4e861b7b993e0c34f5a9e755c2adce7652e479bf311e30d3",
+    "started_at": "2026-10-29T20:41:25.020929+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "config": {
+    "seeds": [
+      200,
+      399
+    ],
+    "episodes_per_game": 200,
+    "rounds_per_episode": 6,
+    "label": "qwen3-1.7b-sft800"
+  },
+  "frozen_identity": {
+    "adapter_sha256": "8decc3c1cec41f9e7219816b2a852bd45ac7487713f3288f68f5c723c0bf6e60",
+    "model_revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e"
+  },
+  "files": {
+    "results/final/qwen17-sft800/raw/dice/qwen3-1.7b-sft800.jsonl": {
+      "sha256": "3eff00c8a5af8767d9f8279ca5e914352b6e3c1b6969d264d84b29c9d3445fcd",
+      "episodes": 200,
+      "source_commits": [
+        "69d0ebdac690de83c06041c1b8a1c98659f7f627",
+        "ca5e2ff646ccce3deb5ece62738782257bff043a"
+      ],
+      "evaluation_commands": [
+        "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_evaluate.py --model /Users/nico/.cache/mmb_models/Qwen3-1.7B-4bit --revision 3b1b1768f8f8cf8351c712464f906e86c2b8269e --adapter train/runs/qwen3-1.7b-sft800 --label qwen3-1.7b-sft800 --seed 200 --episodes 200 --out results/final/qwen17-sft800"
+      ]
+    },
+    "results/final/qwen17-sft800/leaderboard_dice.json": {
+      "sha256": "d382ec7aa82f9f8bf214862ed77c63ca5c1d762f83f12959c4f82f68c1a936e6"
+    },
+    "results/final/qwen17-sft800/leaderboard_dice.md": {
+      "sha256": "5afb999dff3ae379d5b0f05004f609e113ec476f04568fba91acfdb930dcfc18"
+    },
+    "results/final/qwen17-sft800/raw/cards/qwen3-1.7b-sft800.jsonl": {
+      "sha256": "a81402fa88755ab27f2ab470bde3e8d409c9047d8305c859d2a9c568f6d742ed",
+      "episodes": 200,
+      "source_commits": [
+        "ca5e2ff646ccce3deb5ece62738782257bff043a"
+      ],
+      "evaluation_commands": [
+        "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_evaluate.py --model /Users/nico/.cache/mmb_models/Qwen3-1.7B-4bit --revision 3b1b1768f8f8cf8351c712464f906e86c2b8269e --adapter train/runs/qwen3-1.7b-sft800 --label qwen3-1.7b-sft800 --seed 200 --episodes 200 --out results/final/qwen17-sft800"
+      ]
+    },
+    "results/final/qwen17-sft800/leaderboard_cards.json": {
+      "sha256": "48fdf9810510c4fe9831af77372f61993bb46928a507f4a2e7c1395d866a4cba"
+    },
+    "results/final/qwen17-sft800/leaderboard_cards.md": {
+      "sha256": "3b844a7c2e3a4eafe29352812f7d7143973da82af572a40268185e3f21f4e0f3"
+    }
+  },
+  "generation_script": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import receipt,file_sha256\nout=Path('results/final/qwen17-sft800'); files={}; identities={}\nfor game in ('dice','cards'):\n p=out/'raw'/game/'qwen3-1.7b-sft800.jsonl';rows=[json.loads(line) for line in p.read_text().splitlines()]\n assert sorted(row['seed'] for row in rows)==list(range(200,400))\n assert all(len(row['rounds'])==6 for row in rows)\n for key in ('adapter_sha256','model_revision'):\n  values=sorted({row['provenance'][key] for row in rows});assert len(values)==1\n  identities[key]=values[0]\n files[str(p)]={'sha256':file_sha256(p),'episodes':len(rows),'source_commits':sorted({row['provenance']['git_commit'] for row in rows}),'evaluation_commands':sorted({row['provenance']['command'] for row in rows})}\n for suffix in ('json','md'):\n  p=out/f'leaderboard_{game}.{suffix}';assert p.exists();files[str(p)]={'sha256':file_sha256(p)}\nr={'provenance':receipt({'purpose':'retain every frozen baseline episode; no cross-model selection or final family claim'},identities['model_revision']),'config':{'seeds':[200,399],'episodes_per_game':200,'rounds_per_episode':6,'label':'qwen3-1.7b-sft800'},'frozen_identity':identities,'files':files,'generation_script':Path(__file__).read_text(),'resume_note':'Multiple producing commits reflect interrupted/resumed collection. The evaluation checks immutable model revision and adapter hash before appending; completed episodes were not regenerated. Per-run wall times are not whole-cohort elapsed time.','aggregation':'Per-game descriptive leaderboards produced once by the evaluator; corrected final API comparison is deferred until cohorts are complete.'}\n(out/'cohorts.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint('Verified 200 unique six-round episodes per game; hashes retained')\n",
+  "resume_note": "Multiple producing commits reflect interrupted/resumed collection. The evaluation checks immutable model revision and adapter hash before appending; completed episodes were not regenerated. Per-run wall times are not whole-cohort elapsed time.",
+  "aggregation": "Per-game descriptive leaderboards produced once by the evaluator; corrected final API comparison is deferred until cohorts are complete."
+}

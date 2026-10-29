@@ -977,3 +977,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Plan and source: `results/expansion/ultra_medium_plan.json`. Configuration is
   chosen from timeout evidence and official docs, without inspecting new test
   scores. The shared two-slot bound and one request/client remain unchanged.
+
+### T2 frozen final cohorts completed
+
+- Both games now contain 200 unique seeds, 200–399, with six rounds each.
+  The frozen model revision and adapter hash are constant across all resumed
+  records. Exact producing commands, commits and output hashes are retained in
+  `results/final/qwen17-sft800/cohorts.json`.
+- Commit every episode and descriptive per-game leaderboard. Defer the final
+  corrected API comparison until its cohorts are complete; no held-out score
+  changes a subsequent training recipe. The heavy-ML mutex is released and
+  T11 begins its registered two-microbatch memory probe.
+- New availability probes use validation seed 80,000, rather than historical
+  seed zero, and record their probe seed/round. Already recorded probes and
+  active workers retain their original source snapshot and outcomes.

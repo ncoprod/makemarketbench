@@ -89,7 +89,7 @@ def main() -> None:
             if "qwen3.8" in model["id"].lower():
                 models.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
     g = make_game("dice")
-    ep = g.episode(0)
+    ep = g.episode(80000)
     obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
     ready = []
     for model, extra, tokens, suffix in models:
@@ -102,6 +102,7 @@ def main() -> None:
         entry = protocol.get(label)
         if entry is None:
             entry = {"model": model, "label": label, "timeout_seconds": 600,
+                     "probe_seed": 80000, "probe_round": 2,
                      "max_tokens": tokens, "temperature": cfg.temperature, "extra_body": extra,
                      "provenance": provenance}
             started = time.time()
