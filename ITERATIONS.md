@@ -892,3 +892,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   hashes are retained in `kaggle_staged_adapter_download.json`. Immutable Kaggle
   outputs retain the optimizer states. No training or evaluation is repeated
   because of the transport failure.
+
+### Newest-family context audit — no truncated training state
+
+- Run `python train/audit_kaggle_tokens.py` with the exact pinned tokenizer,
+  without loading weights or consuming GPU quota. The fixed 800 SFT states,
+  4,000 disjoint GRPO states and 48 teacher-validation states all fit their
+  context budgets. Maximum GRPO prompt: 902 tokens against 928; maximum SFT
+  target: 965 against 1,024. No training recipe changes.
+- Result: `results/training/qwen38_token_audit.json`, including exact command,
+  source hash, model revision and producing commit. This rules out context
+  truncation as a cause of a later quality gap; it does not establish quality.

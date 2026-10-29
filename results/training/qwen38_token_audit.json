@@ -1,0 +1,45 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/audit_kaggle_tokens.py",
+    "config": {
+      "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "seed": 0
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "74b1fac194fbd4320326ce6642160a91761261b4",
+    "uncommitted_diff_sha256": "ac344d6a4839960b24bd63445ed97c3eba2844b9fb19e3dbbd970c9d75ba20a0",
+    "started_at": "2026-10-29T20:10:10.842226+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "eee7f77d2cb0d75964deec9837dec4a8e9c6ead91ebe87fc4672532d3b9b0bcb",
+  "splits": {
+    "sft": {
+      "states": 800,
+      "max_prompt_tokens": 898,
+      "max_target_tokens": 965,
+      "prompts_over_grpo_928": 0,
+      "targets_over_sft_1024": 0
+    },
+    "grpo": {
+      "states": 4000,
+      "max_prompt_tokens": 902,
+      "max_target_tokens": 969,
+      "prompts_over_grpo_928": 0,
+      "targets_over_sft_1024": 0
+    },
+    "teacher_validation": {
+      "states": 48,
+      "max_prompt_tokens": 864,
+      "max_target_tokens": 931,
+      "prompts_over_grpo_928": 0,
+      "targets_over_sft_1024": 0
+    }
+  }
+}

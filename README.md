@@ -164,7 +164,9 @@ bfloat16 despite float32 training computation
 conditional all-float32 bound is not the actual memory footprint. Qwen3.8-27B
 is selected for a checkpointed, validation-selected SFT then GRPO pipeline
 ([registered recipe](results/training/qwen38_pipeline_plan.json)). No policy
-score is inferred from this fit check. The original
+score is inferred from this fit check. A tokenizer-only audit verifies that
+its fixed SFT targets and GRPO prompts fit their respective context limits
+([all split counts and maximum lengths](results/training/qwen38_token_audit.json)). The original
 4B sessions continue. Account quota, session receipts
 and uncertainty in billed hours are tracked in the
 [GPU budget ledger](results/training/kaggle_budget.json).
