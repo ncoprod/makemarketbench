@@ -63,6 +63,18 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Evidence: [kaggle_attempt.json](results/training/kaggle_attempt.json).
 - Adapter export verification: maximum forward-delta error 1.6093254089355469e-6;
   CUDA NF4 and MLX affine quantization still produce different base weights.
+- Authentication repair: official `kaggle auth login --force` completed with
+  the existing account. A per-process `KAGGLE_CONFIG_DIR` omits the expired
+  legacy key, which otherwise takes precedence over OAuth. The original key
+  file remains untouched. `kaggle kernels list --mine` now succeeds.
+- Retry: the private 1.7B checkpoint dataset was created. It is retained as an
+  earlier baseline and is incompatible with the new 4B model. The frozen CUDA
+  recipe therefore uses its own teacher SFT warm start (150 steps), then GRPO
+  (300 steps, eight completions/group). Both predeclared checkpoints receive
+  one final 200-episode evaluation per game; neither test score changes training.
+  Report both candidates; any cross-candidate superiority claim also corrects
+  for these two candidates. Training seed 0; exact defaults are in the script.
+- Submission retry receipt: `results/training/kaggle_retry.json` (pending).
 
 ### T2 — complete earlier Qwen3-1.7B BC (interrupted once, restarted and running)
 

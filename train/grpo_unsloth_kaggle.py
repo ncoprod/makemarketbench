@@ -1,4 +1,4 @@
-"""GRPO fine-tuning of Qwen3 (4-bit QLoRA, Unsloth + TRL) on MakeMarketBench.
+"""GRPO fine-tuning of Qwen3.5-4B (4-bit QLoRA, Unsloth + TRL).
 
 Designed for a free Kaggle T4 (16 GB) or P100 session. Pipeline:
 
@@ -13,14 +13,12 @@ Designed for a free Kaggle T4 (16 GB) or P100 session. Pipeline:
      max(reference EV, 1). Because the dealer is risk-neutral and the score is a
      sum over rounds, this per-decision reward decomposes the episode score
      relative to the Bayes player.
-  5. Save LoRA adapters and evaluate on the held-out leaderboard seeds 0-49 with
+  5. Save LoRA adapters and evaluate on held-out seeds 200-399 with
      the same prompts, parser and scorer as the API harness. Raw episodes are
      written in the same JSONL format as results/raw/<game>/ for ``mmb score``.
 
-Status: written and dry-run tested locally (dataset + rewards, ``--dry-run``);
-the GPU run itself is pending. Rough budget on a T4: SFT 150 steps ~25 min,
-GRPO 300 steps x 8 generations ~3-4 h, evaluation (2 games x 50 episodes x 6
-rounds) ~30-40 min; peak VRAM ~9-11 GB for Qwen3-1.7B, ~14 GB for Qwen3-4B.
+CPU checks cover rewards and result export. Actual runtime and peak CUDA memory
+are written to runtime.json, including failed runs.
 """
 
 from __future__ import annotations
@@ -182,6 +180,14 @@ def render(tokenizer, messages) -> str:
                                          enable_thinking=False)
 
 
+def execution(args) -> dict:
+    return {"command": [sys.executable, *sys.argv], "config": vars(args),
+            "seed": 0, "source_commit": SOURCE_COMMIT,
+            "model_revision": getattr(args, "revision", None),
+            "source_file_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "embedded_package_sha256": hashlib.sha256(base64.b64decode(PAYLOAD)).hexdigest()}
+
+
 def train(args) -> None:
     from unsloth import FastLanguageModel  # noqa: I001  (must be imported before trl)
     from datasets import Dataset
@@ -222,6 +228,8 @@ def train(args) -> None:
                                     per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
                                     logging_steps=10, save_strategy="no", report_to="none",
                                     dataset_text_field="text", max_seq_length=args.max_seq_len))
+        (WORK / "sft_config.json").write_text(json.dumps(
+            {**execution(args), "trainer_config": sft.args.to_dict()}, indent=2) + "\n")
         sft.train()
         del sft
 
@@ -241,6 +249,8 @@ def train(args) -> None:
         optim="adamw_8bit")
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        args=cfg, train_dataset=Dataset.from_list(grpo_rows))
+    (WORK / "grpo_config.json").write_text(json.dumps(
+        {**execution(args), "trainer_config": trainer.args.to_dict()}, indent=2) + "\n")
     trainer.train(resume_from_checkpoint=args.resume or None)
     model.save_pretrained(str(WORK / "lora_adapter"))
     tokenizer.save_pretrained(str(WORK / "lora_adapter"))
@@ -294,17 +304,19 @@ def evaluate(model, tokenizer, args, label=None) -> None:
     from makemarket.scoring import markdown_table, summarize
 
     label = label or args.label
+    provenance = {**execution(args), "label": label}
 
     for g in args.games:
         out = WORK / "results" / "raw" / g / f"{slug(label)}.jsonl"
         t0 = time.time()
         eps = run_player(make_game(g), lambda: HFQuoter(model, tokenizer, label),
-                         list(range(args.eval_seed, args.eval_seed + args.eval_episodes)), out, workers=1, backend="py")
+                         list(range(args.eval_seed, args.eval_seed + args.eval_episodes)), out,
+                         workers=1, backend="py", provenance=provenance)
         tot = sum(sum(r["exp_expected_pnl"] for r in e["rounds"]) for e in eps) / len(eps)
         print(f"[eval] {g}: {len(eps)} episodes, mean E[PnL]={tot:.2f} ({time.time() - t0:.0f}s) -> {out}")
         seeds = list(range(args.eval_seed, args.eval_seed + args.eval_episodes))
         run_player(make_game(g), BayesQuoter, seeds,
-                   out.with_name("bayes.jsonl"), workers=1, backend="py")
+                   out.with_name("bayes.jsonl"), workers=1, backend="py", provenance=provenance)
         players = {eps[0]["player"]: eps for f in sorted(out.parent.glob("*.jsonl"))
                    if (eps := load_results(f))}
         rows = summarize(players)
@@ -312,7 +324,7 @@ def evaluate(model, tokenizer, args, label=None) -> None:
             row.update(player_diagnostics(players[row["player"]]))
         dest = WORK / "results" / f"leaderboard_{g}"
         dest.with_suffix(".json").write_text(json.dumps(
-            {"game": g, "seeds": seeds, "rows": rows}, indent=2) + "\n")
+            {"game": g, "seeds": seeds, "rows": rows, "provenance": provenance}, indent=2) + "\n")
         dest.with_suffix(".md").write_text(markdown_table(rows) + "\n")
 
 
@@ -358,10 +370,7 @@ def main() -> None:
     if not Path("/kaggle").exists() and "MMB_FORCE" not in os.environ:
         raise SystemExit("GPU training is meant for Kaggle/CUDA; use --dry-run locally")
     started = time.time()
-    record = {"args": vars(args), "status": "running", "source_commit": SOURCE_COMMIT,
-              "command": [sys.executable, *sys.argv], "model_revision": args.revision,
-              "source_file_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-              "embedded_package_sha256": hashlib.sha256(base64.b64decode(PAYLOAD)).hexdigest()}
+    record = {**execution(args), "status": "running"}
     try:
         subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
         import torch
