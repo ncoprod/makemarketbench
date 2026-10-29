@@ -183,6 +183,7 @@ def render(tokenizer, messages) -> str:
 def execution(args) -> dict:
     return {"command": [sys.executable, *sys.argv], "config": vars(args),
             "seed": args.seed, "source_commit": SOURCE_COMMIT,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
             "model_revision": getattr(args, "revision", None),
             "source_file_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "embedded_package_sha256": hashlib.sha256(base64.b64decode(PAYLOAD)).hexdigest()}
@@ -212,7 +213,7 @@ def train(args, report_runtime) -> None:
     tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
     adapters = [p for p in Path("/kaggle/input").rglob("adapter_model.safetensors")
                 if json.loads(p.with_name("adapter_config.json").read_text())[
-                    "base_model_name_or_path"] == args.base_model]
+                    "base_model_name_or_path"] in (args.base_model, args.model)]
     if args.adapter:
         adapter = Path(args.adapter)
         base = json.loads((adapter / "adapter_config.json").read_text())["base_model_name_or_path"]
@@ -220,6 +221,8 @@ def train(args, report_runtime) -> None:
             raise ValueError(f"Adapter base {base!r} does not match {args.model!r}")
         adapters = [adapter / "adapter_model.safetensors"]
         args.adapter_sha256 = hashlib.sha256(adapters[0].read_bytes()).hexdigest()
+    elif len(adapters) > 1:
+        raise ValueError("Multiple compatible adapters found; select one with --adapter")
     if adapters:
         from peft import PeftModel
 

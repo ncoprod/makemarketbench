@@ -37,8 +37,10 @@ def main() -> None:
     stage = ap.add_mutually_exclusive_group()
     stage.add_argument("--smoke", action="store_true", help="one GRPO update, validation seeds only")
     stage.add_argument("--train-only", action="store_true", help="save adapters before separate evaluation sessions")
+    stage.add_argument("--evaluate-staged", action="store_true", help="validate staged SFT and GRPO on one GPU each")
     args = ap.parse_args()
-    out = (ROOT / "runs" / "kaggle_smoke" if args.smoke else
+    out = (ROOT / "runs" / "kaggle_evaluate_staged" if args.evaluate_staged else
+           ROOT / "runs" / "kaggle_smoke" if args.smoke else
            ROOT / "runs" / "kaggle_train_only" if args.train_only else OUT)
     out.mkdir(parents=True, exist_ok=True)
     src = (ROOT / "train" / "grpo_unsloth_kaggle.py").read_text()
@@ -55,7 +57,44 @@ def main() -> None:
         src = src.replace("    main()\n", f"    sys.argv[1:1] = {flags!r}\n    main()\n")
     marker = 'PAYLOAD = ""'
     assert marker in src
-    (out / "grpo_unsloth_kaggle.py").write_text(src.replace(marker, f'PAYLOAD = "{payload()}"', 1))
+    src = src.replace(marker, f'PAYLOAD = "{payload()}"', 1)
+    if args.evaluate_staged:
+        src = f'''import json, os, subprocess, sys, time
+from pathlib import Path
+
+started = time.monotonic()
+core = Path("/kaggle/working/evaluate_core.py")
+core.write_text({src!r})
+workers = []
+for gpu, (directory, label) in enumerate([
+    ("warmstart_adapter", "qwen3.5-4b-staged-sft"),
+    ("lora_adapter", "qwen3.5-4b-staged-grpo"),
+]):
+    adapters = list(Path("/kaggle/input").rglob(directory + "/adapter_config.json"))
+    assert len(adapters) == 1, (directory, adapters)
+    env = {{**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu),
+           "MMB_WORK": "/kaggle/working/" + label}}
+    command = [sys.executable, str(core), "--eval-only", "--adapter", str(adapters[0].parent),
+               "--label", label, "--eval-seed", "80000", "--eval-episodes", "100"]
+    workers.append(subprocess.Popen(command, env=env))
+deadline = started + 10800
+try:
+    codes = [worker.wait(timeout=max(1, deadline - time.monotonic())) for worker in workers]
+finally:
+    for worker in workers:
+        if worker.poll() is None:
+            worker.kill()
+        worker.wait()
+    Path("/kaggle/working/pair_runtime.json").write_text(json.dumps({{
+        "wall_seconds": time.monotonic() - started, "budget_seconds": 10800,
+        "exit_codes": [worker.returncode for worker in workers],
+        "command": [sys.executable, *sys.argv], "source_commit": {commit!r},
+        "seed": 0, "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    }}, indent=2) + "\\n")
+if any(codes):
+    raise RuntimeError(f"Evaluation worker exit codes: {{codes}}")
+'''
+    (out / "grpo_unsloth_kaggle.py").write_text(src)
     meta = {
         "id": "nicolascoquelet/makemarketbench-grpo-qwen3",
         "title": "MakeMarketBench GRPO Qwen3",
@@ -75,6 +114,9 @@ def main() -> None:
         meta.update(id=meta["id"] + "-smoke", title=meta["title"] + " smoke")
     elif args.train_only:
         meta.update(id=meta["id"] + "-train-only", title=meta["title"] + " train only")
+    elif args.evaluate_staged:
+        meta.update(id=meta["id"] + "-validate-staged", title=meta["title"] + " validate staged",
+                    kernel_sources=["nicolascoquelet/makemarketbench-grpo-qwen3-train-only"])
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"wrote {out}/grpo_unsloth_kaggle.py and kernel-metadata.json")
 

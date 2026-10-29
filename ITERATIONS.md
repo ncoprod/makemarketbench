@@ -648,3 +648,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The staged 4B session has saved GRPO checkpoint 100. Training reward variance
   is nonzero, unlike the cold one-update smoke. These UI diagnostics are
   provisional; downloaded logs and frozen paired evaluation determine results.
+
+### Prepare staged SFT versus GRPO validation
+
+- Hypothesis: SFT provides formatting and scale; nonzero-variance exact-EV GRPO
+  should improve decisions beyond that warm start. Before any recipe adjustment,
+  compare both saved policies on the fixed 100 validation episodes per game.
+- Command: `train/build_kaggle_kernel.py --evaluate-staged`. The generated private
+  kernel mounts the completed training output and evaluates one frozen adapter
+  per T4, using identical seeds 80,000–80,099. No held-out-test selection.
+  Plan: `results/training/kaggle_staged_validation_plan.json`.
+- Correct automatic adapter discovery to accept Unsloth's actual base-model ID
+  as well as the upstream ID. Require an explicit path when several compatible
+  adapters exist, avoiding arbitrary checkpoint selection. The prepared worker
+  paths select `warmstart_adapter` and `lora_adapter` explicitly.

@@ -1,0 +1,29 @@
+{
+  "registered_at": "2026-10-29T17:32:36.402149+00:00",
+  "command": ".venv/bin/python train/build_kaggle_kernel.py --evaluate-staged",
+  "source_commit": "c780b20",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "source_kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+  "policies": [
+    "warmstart_adapter",
+    "lora_adapter"
+  ],
+  "cohort": {
+    "split": "validation",
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "episodes_per_policy_per_game": 100,
+    "seeds": [
+      80000,
+      80099
+    ]
+  },
+  "gpu_use": "Two independent greedy evaluation workers; one policy on each T4. Responses cached within each frozen adapter only.",
+  "purpose": "SFT-only versus SFT+GRPO validation ablation. Diagnose on validation before any focused recipe change. Frozen final candidates remain reportable, independently of this result.",
+  "submission_condition": "Source training session completed and outputs retrieved; batch slot and quota available.",
+  "planned_max_hours": 3,
+  "status": "prepared_not_submitted"
+}
