@@ -24,6 +24,18 @@ def leave_one_out(rewards):
     return rewards - (rewards.sum() - rewards) / (len(rewards) - 1)
 
 
+def completion_loss(policy, prompt, completion, advantage):
+    import mlx.core as mx
+    import mlx.nn as nn
+
+    tokens = mx.array([prompt + completion])
+    text = policy.language_model
+    hidden = text.model(tokens[:, :-1])[:, len(prompt) - 1:]
+    logits = (text.model.embed_tokens.as_linear(hidden) if text.args.tie_word_embeddings
+              else text.lm_head(hidden)).astype(mx.float32)
+    return advantage * nn.losses.cross_entropy(logits, tokens[:, len(prompt):], reduction="sum")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--model", required=True)
@@ -55,6 +67,8 @@ def main() -> None:
     from mlx_lm.tuner.utils import load_adapters
     from mlx_memory import enable_gated_delta_training
 
+    record["mlx_cache_limit_bytes"] = 256 * 1024**2
+    record["previous_mlx_cache_limit_bytes"] = mx.set_cache_limit(record["mlx_cache_limit_bytes"])
     record["recurrence_training"] = enable_gated_delta_training()
 
     model, tokenizer = load(args.model, revision=args.revision)
@@ -69,14 +83,7 @@ def main() -> None:
     rows = build_prompt_set(100, ["dice"], seed_offset=20000)
     fmt, edge = make_reward_fns()
 
-    def loss(policy, prompt, completion, advantage):
-        tokens = mx.array([prompt + completion])
-        logits = policy(tokens[:, :-1])[:, len(prompt) - 1:].astype(mx.float32)
-        targets = tokens[:, len(prompt):]
-        logp = mx.take_along_axis(mx.log_softmax(logits, axis=-1), targets[..., None], axis=-1)
-        return -advantage * logp.sum()
-
-    value_grad = nn.value_and_grad(model, loss)
+    value_grad = nn.value_and_grad(model, completion_loss)
     try:
         for step in range(len(history), args.steps):
             mx.random.seed(args.seed + step)

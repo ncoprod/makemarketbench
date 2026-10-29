@@ -288,6 +288,24 @@ def test_answer_window_preserves_full_causal_loss_and_every_parameter_gradient(m
         for name in before:
             assert mx.allclose(before[name], after[name], atol=1e-6, rtol=1e-5).item(), name
 
+        rloo = importlib.import_module('mlx_rloo')
+        prompt, completion, advantage = list(range(14)), list(range(14, 20)), -0.7
+
+        def full_completion_loss(policy):
+            tokens = mx.array([prompt + completion])
+            logits = policy(tokens[:, :-1])[:, len(prompt) - 1:].astype(mx.float32)
+            targets = tokens[:, len(prompt):]
+            logp = mx.take_along_axis(nn.log_softmax(logits, axis=-1), targets[..., None], axis=-1)
+            return -advantage * logp.sum()
+
+        expected = nn.value_and_grad(model, full_completion_loss)(model)
+        actual = nn.value_and_grad(model, lambda m: rloo.completion_loss(m, prompt, completion, advantage))(model)
+        assert actual[0].item() == pytest.approx(expected[0].item(), abs=1e-5)
+        before, after = dict(tree_flatten(expected[1])), dict(tree_flatten(actual[1]))
+        assert before.keys() == after.keys()
+        for name in before:
+            assert mx.allclose(before[name], after[name], atol=1e-6, rtol=1e-5).item(), name
+
 
 def test_answer_window_rejects_even_one_dropped_supervised_token(monkeypatch):
     import importlib

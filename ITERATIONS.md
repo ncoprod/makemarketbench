@@ -1153,3 +1153,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   or policy improvement is claimed. Source, data hash and calculation are in
   `results/training/mlx_greedy_cache.json`; this infrastructure change does not
   count as a substantive policy nonimprovement.
+
+### T15 — completion-only local RLOO loss
+
+- Hypothesis: the unexecuted reward trainer would waste memory projecting
+  masked prompt positions, just as the original SFT implementation did.
+- Change: project only completion positions, preserving float32 log-probability
+  computation and the summed, advantage-weighted REINFORCE objective. Bound
+  unused allocator cache to 256 MiB before model loading.
+- The first parity check also exposes a pre-existing call to nonexistent
+  `mlx.core.log_softmax`. The reference check now uses `mlx.nn.log_softmax`;
+  the implementation uses cross entropy. No previous RLOO execution is claimed.
+- Command: `.venv/bin/python -m pytest tests/test_training.py -q`.
+- Result: the initial two reference checks fail on the nonexistent function;
+  after correction, all 23 targeted tests pass. Tied and untied output heads
+  match the full-projection objective and every parameter gradient. GPU-memory
+  behavior and trained-policy performance remain unmeasured. This repair is
+  not a policy nonimprovement.
