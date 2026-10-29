@@ -148,8 +148,12 @@ erase that margin; a real SFT/GRPO update is required to establish fit
 ([registered probe](results/training/qwen38_fit_plan.json)). The first balanced
 load failed before training because the loader dispatched modules to CPU/disk
 ([downloaded failure and runtime](results/kaggle/qwen38-fit-v1/runtime.json)).
-A bounded retry enables the loader's suggested CPU layer streaming
-([retry registration](results/training/qwen38_offload_plan.json)). The original
+A second attempt with the loader's suggested CPU layer streaming also failed
+before loading: that path requires single-device placement in this backend
+([downloaded log](results/kaggle/qwen38-fit-v2/probe.log),
+[source inspection](results/training/qwen38_loader_inspection.json)). A bounded
+native multi-GPU placement probe is running
+([registration](results/training/qwen38_native_plan.json)). The original
 4B sessions continue. Account quota, session receipts
 and uncertainty in billed hours are tracked in the
 [GPU budget ledger](results/training/kaggle_budget.json).
@@ -161,8 +165,9 @@ Long-timeout GLM, DeepSeek and Ultra-thinking probes ended in HTTP 504 after
 three requests ([failure receipts](results/expansion/protocol.json)). GLM at
 low effort and DeepSeek with thinking disabled also failed the same way
 ([separate retry receipts](results/expansion/protocol-reasoning.json)).
-No scores are assigned to unavailable endpoints. Responsive cohorts remain
-pending.
+No scores are assigned to unavailable endpoints. Lightning has completed its
+fresh 200-episode dice cohort; further cohorts and the corrected comparison
+remain pending ([cohort receipt](results/expansion/lightning_dice_cohort.json)).
 The original [request protocol](results/llm_protocol.json) and
 [endpoint failures](results/endpoint_check.json) remain available.
 

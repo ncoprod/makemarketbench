@@ -63,6 +63,7 @@ def main() -> None:
 from pathlib import Path
 
 started = time.monotonic()
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
 core = Path("/kaggle/working/evaluate_core.py")
 core.write_text({src!r})
 workers = []

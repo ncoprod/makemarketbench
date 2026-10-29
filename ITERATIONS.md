@@ -723,3 +723,27 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   This native planner can diagnose the head/embedding memory requirements
   precisely. It is not a policy-quality trial or a declaration that every
   possible implementation of 27B QLoRA is infeasible.
+
+### Qwen3.8 fit probe 3 — native planner allocated
+
+- Hypothesis: the native head-aware device mapper may place the large untied
+  embedding and output head where generic balanced placement failed. Change
+  only `--device-map unsloth_balanced`, remove the unsupported load-time offload
+  flag, retain the one-SFT/one-GRPO-update objective and 3,300-second cap.
+- Command: `.venv/bin/python runs/build_qwen38_probe.py`, then import its private
+  notebook and Run All on T4 x2. Source/notebook hashes, pinned revision, seed
+  and the approximate launch window are in `qwen38_native_plan.json`. Exact
+  allocation start is unknown; UI confirms a running two-GPU draft at 18:08 UTC.
+- Result: running; no fit or policy-quality claim yet. The account snapshot
+  records 46,317.750142 of 108,000 GPU seconds used at 18:09 UTC. Script runtimes
+  remain distinct from account billing in `kaggle_budget.json`.
+
+### Freeze completed Lightning dice cohort and prepare paired validation
+
+- `scripts/expand_nim.py` completed 200 unique dice episodes, seeds 200–399,
+  six rounds each. Preserve raw episodes plus a hash/provenance receipt in
+  `results/expansion/lightning_dice_cohort.json`. No aggregate score is used for
+  tuning or selection; cards and the remaining API cohorts continue.
+- The next staged-adapter validation launcher installs its shared dependencies
+  before starting its two workers, avoiding concurrent package mutations.
+  Workers still record their exact installed versions and individual runtime.

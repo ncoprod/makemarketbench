@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-29T17:52:39.137959+00:00",
+  "recorded_at": "2026-10-29T18:10:17.594735+00:00",
   "provenance": {
     "command": ".venv/bin/python runs/prepare_new_directive.py",
     "git_commit": "55460634447c32813c8a81801eef1abbac810272",
@@ -128,6 +128,61 @@
         "gpu_seconds_reserved": 28963.79052,
         "gpu_seconds_total": 108000.0
       }
+    },
+    {
+      "recorded_at": "2026-10-29T18:09:33.133757+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "kernels": [
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
+          "version": 1,
+          "last_run_time": "2026-10-26T18:09:57.366000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+          "version": 1,
+          "last_run_time": "2026-10-26T18:10:18.832000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+          "version": 1,
+          "last_run_time": "2026-10-26T18:10:21.612000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+          "version": 2,
+          "last_run_time": "2026-10-26T18:10:27.154000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        }
+      ],
+      "provenance": {
+        "command": "/Users/nico/.local/share/uv/tools/kaggle/bin/python runs/inspect_kaggle_account.py",
+        "config": {
+          "method": "official SDK quota and kernel metadata",
+          "seed": null
+        },
+        "model_revision": null,
+        "git_commit": "e1900e6fd19fd49790152cbd44948755a48b77ed",
+        "uncommitted_diff_sha256": "29bd7be96168e58a4356c61a02beaaaa34d7097195f3ab0c437f51cbb9c84a1c",
+        "started_at": "2026-10-29T18:09:33.194379+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {}
+      },
+      "source_sha256": "694c2ce528405b748a5f5872b9d36bba753aa5110ff5773a1efd0f7dd02c113c",
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00",
+        "gpu_seconds_used": 46317.750142,
+        "gpu_seconds_reserved": 27936.390619,
+        "gpu_seconds_total": 108000.0
+      }
     }
   ],
   "sessions": [
@@ -208,6 +263,27 @@
       "status": "failed_loading_no_update",
       "end_observed_at": "2026-10-29T18:00:51.886530+00:00",
       "runtime_file": "results/kaggle/qwen38-fit-v2/runtime.json"
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+      "version": null,
+      "mode": "interactive draft, third allocation",
+      "accelerator": "T4 x2",
+      "submitted_at": null,
+      "start_request_window_utc": [
+        "2026-10-29T18:02:00Z",
+        "2026-10-29T18:04:00Z"
+      ],
+      "gpu_confirmed_at": "2026-10-29T18:10:17.594735+00:00",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "hours_basis": "pending downloaded runtime; actual billing duration unknown",
+      "purpose": "Newest-family native head-aware multi-GPU placement probe",
+      "private": true,
+      "session_limit_hours": 1,
+      "receipt": "results/training/qwen38_native_plan.json",
+      "status": "running_gpu_confirmed"
     }
   ],
   "accounting_notes": [
@@ -217,7 +293,7 @@
   ],
   "concurrency": {
     "verified_commit_sessions": 2,
-    "interactive_session_limit": "pending account UI check",
+    "interactive_session_limit": 1,
     "reference": "https://www.kaggle.com/general/105509",
     "batch_session_limit": 2,
     "batch_limit_exact_error": "Maximum batch GPU session count of 2 reached.",

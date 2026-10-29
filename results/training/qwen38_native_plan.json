@@ -1,11 +1,21 @@
 {
   "registered_at": "2026-10-29T18:01:32.301293+00:00",
-  "source_commit": "f04c76b8de7afbaf6a7af7dfcc82326fac1b5c20",
+  "source_commit": "e1900e6fd19fd49790152cbd44948755a48b77ed",
   "seed": 0,
   "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
   "change": "Native unsloth_balanced device map, no layer streaming. Other probe settings remain unchanged.",
   "trial_kind": "infrastructure feasibility; no held-out evaluation",
   "budget_seconds": 3300,
   "basis": "results/training/qwen38_loader_inspection.json",
-  "status": "registered_not_started"
+  "status": "running_gpu_confirmed",
+  "gpu_confirmed_at": "2026-10-29T18:10:17.594735+00:00",
+  "start_request_window_utc": [
+    "2026-10-29T18:02:00Z",
+    "2026-10-29T18:04:00Z"
+  ],
+  "start_request_precision": "Window retained from UI action context; exact allocation start is unknown",
+  "source_sha256": "aadb56119e4f83934c518c162d9d7fad73a96280623d17b97437dbfe2b385797",
+  "notebook_sha256": "d53db2bf8ddf9979693091b6ebb9cff5449b24f6504369506f090f90bc7c0120",
+  "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "gpu_confirmation": "Running Draft Session (4m), two GPU indicators at 18:08 UTC"
 }

@@ -316,5 +316,368 @@
     },
     "usable": true,
     "probe_wall_seconds": 14.944047927856445
+  },
+  "nvidia/nemotron-3-ultra-550b-a55b (no-think)": {
+    "model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "label": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "label": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": null,
+          "reduced_reasoning": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+      "uncommitted_diff_sha256": "b2f87133f29ccc61a0d3d3b46b3afd01c8e1d2a126f6aeb8836a50f579ead7d3",
+      "started_at": "2026-10-29T17:40:06.533453+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "dbf5ba1e81e8ea4e44a5bea934ec136bde7e513fc2bf1f7af6f18e8cebe000ec",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "2c18ad32ba29ae96042e43b5de782c8a79259cd330c8100ca2975a102cfa0ff0",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+        "src/makemarket/market.py": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "probe": {
+      "content": "{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}",
+      "reasoning": "",
+      "finish_reason": "stop",
+      "completion_tokens": 33,
+      "prompt_tokens": 553,
+      "served_model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "system_fingerprint": null,
+      "latency": 1.7948112487792969,
+      "cached": false
+    },
+    "usable": true,
+    "probe_wall_seconds": 1.7953548431396484
+  },
+  "nvidia/nemotron-3.5-bolt-e4b": {
+    "model": "nvidia/nemotron-3.5-bolt-e4b",
+    "label": "nvidia/nemotron-3.5-bolt-e4b",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "nvidia/nemotron-3.5-bolt-e4b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "nvidia/nemotron-3.5-bolt-e4b",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": null,
+          "reduced_reasoning": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+      "uncommitted_diff_sha256": "b2f87133f29ccc61a0d3d3b46b3afd01c8e1d2a126f6aeb8836a50f579ead7d3",
+      "started_at": "2026-10-29T17:40:06.533453+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "dbf5ba1e81e8ea4e44a5bea934ec136bde7e513fc2bf1f7af6f18e8cebe000ec",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "2c18ad32ba29ae96042e43b5de782c8a79259cd330c8100ca2975a102cfa0ff0",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+        "src/makemarket/market.py": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "probe": {
+      "content": "The total sum $V$ is the sum of 8 fair six-sided dice, $V = D_1 + D_2 + \\dots + D_8$.\nWe have observed $D_1=3$ and $D_2=4$.\nThe remaining 6 dice ($D_3, \\dots, D_8$) are still hidden.\nThe sum of the observed dice is $S_{obs} = 3 + 4 = 7$.\nThe remaining sum $V_{rem} = D_3 + \\dots + D_8$ is the sum of 6 fair six-sided dice.\n$V = 7 + V_{rem}$.\n\nWe need to calculate $M = E[V | D_1=3, D_2=4] = 7 + E[V_{rem}]$.\nThe expected value of a single fair six-sided die is $(1+2+3+4+5+6)/6 = 3.5$.\n$E[V_{rem}] = 6 \\times 3.5 = 21$.\n$M = 7 + 21 = 28$.\n\n**Strategy:**\nWe aim to set quotes around $M=28$. Since we are risk-neutral, we should price based on expected value.\n\n**Informed Trader (30%):**\nIf $V > \\text{ask}$, they buy the whole ask size.\nIf $V < \\text{bid}$, they sell the whole bid size.\nIf $\\text{bid} \\le V \\le \\text{ask}$, they do nothing.\n\n**Noise Trader (70%):**\nValuation $u = M + e$, where $e \\sim N(0, 16)$.\nIf $u > M$ (i.e., $e>0$), they want to buy (demand up to $u$).\nIf $u < M$ (i.e., $e<0$), they want to sell (demand down to $u$).\nThey trade at our quoted price if it's within their limit.\n\nSince $M=28$, the noise trader's expected behavior is balanced around 28. We should quote symmetrically around 28 to capture expected value from both types of traders without excessive adverse selection risk.\n\nLet's choose a small spread, say 0.5, and sizes of 5 to maximize potential fills without overcommitting.\n\nBid: $28 - 0.5 = 27.5$\nAsk: $28 + 0.5 = 28.5$\n\nWe set sizes to 5 for both sides.\n\n{\"bid\": 27.5, \"bid_size\": 5, \"ask\": 28.5, \"ask_size\": 5}",
+      "reasoning": "",
+      "finish_reason": "stop",
+      "completion_tokens": 607,
+      "prompt_tokens": 566,
+      "served_model": "nvidia/nemotron-3.5-bolt-e4b",
+      "system_fingerprint": null,
+      "latency": 15.95541501045227,
+      "cached": false
+    },
+    "usable": true,
+    "probe_wall_seconds": 15.956725835800171
+  },
+  "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "label": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "label": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": null,
+          "reduced_reasoning": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+      "uncommitted_diff_sha256": "b2f87133f29ccc61a0d3d3b46b3afd01c8e1d2a126f6aeb8836a50f579ead7d3",
+      "started_at": "2026-10-29T17:40:06.533453+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "dbf5ba1e81e8ea4e44a5bea934ec136bde7e513fc2bf1f7af6f18e8cebe000ec",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "2c18ad32ba29ae96042e43b5de782c8a79259cd330c8100ca2975a102cfa0ff0",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+        "src/makemarket/market.py": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "probe": {
+      "content": "{\n  \"bid\": 14.4,\n  \"bid_size\": 5,\n  \"ask\": 15.6,\n  \"ask_size\": 5\n}",
+      "reasoning": "",
+      "finish_reason": "stop",
+      "completion_tokens": 39,
+      "prompt_tokens": 553,
+      "served_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "system_fingerprint": null,
+      "latency": 1.4204230308532715,
+      "cached": false
+    },
+    "usable": true,
+    "probe_wall_seconds": 1.4228920936584473,
+    "dice": {
+      "episodes": 200,
+      "wall_seconds": 895.7592189311981,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+        "config": {
+          "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 4096,
+          "timeout": 600,
+          "extra_body": {
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            }
+          },
+          "label": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": null,
+            "reduced_reasoning": false
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+        "uncommitted_diff_sha256": "b2f87133f29ccc61a0d3d3b46b3afd01c8e1d2a126f6aeb8836a50f579ead7d3",
+        "started_at": "2026-10-29T17:40:06.533453+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "dbf5ba1e81e8ea4e44a5bea934ec136bde7e513fc2bf1f7af6f18e8cebe000ec",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "2c18ad32ba29ae96042e43b5de782c8a79259cd330c8100ca2975a102cfa0ff0",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+          "src/makemarket/market.py": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    },
+    "evaluation_attempts": [
+      {
+        "game": "dice",
+        "episodes": 200,
+        "wall_seconds": 895.7592189311981,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+          "config": {
+            "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {
+              "chat_template_kwargs": {
+                "enable_thinking": false
+              }
+            },
+            "label": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": null,
+              "reduced_reasoning": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "78b11495f96cf4000b97cef8c94b25b8870dcbf2",
+          "uncommitted_diff_sha256": "b2f87133f29ccc61a0d3d3b46b3afd01c8e1d2a126f6aeb8836a50f579ead7d3",
+          "started_at": "2026-10-29T17:40:06.533453+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "dbf5ba1e81e8ea4e44a5bea934ec136bde7e513fc2bf1f7af6f18e8cebe000ec",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "2c18ad32ba29ae96042e43b5de782c8a79259cd330c8100ca2975a102cfa0ff0",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+            "src/makemarket/market.py": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    ]
   }
 }
