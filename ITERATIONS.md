@@ -462,3 +462,25 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   not batch wall time. No PnL was computed or inspected.
 - [Self-contained metadata and calculations](results/expansion/latency_partial.json)
   support establishing availability before a slow model's full evaluation.
+
+### Validation reference scores
+
+- Commands: `mmb score --game dice --seeds 80000-80099 --results-dir
+  results/validation/qwen35-sft` and the same command for cards. The first
+  invocation omitted the seed argument, found no default-split episodes and
+  wrote no result; the corrected commands use only the registered validation.
+- Public-posterior Bayes reaches approximately 75% of Bayes on dice and 95% on
+  cards. These are reference validation scores, not new learned-policy results.
+  [Dice](results/validation/qwen35-sft/leaderboard_dice.json),
+  [cards](results/validation/qwen35-sft/leaderboard_cards.json).
+
+### Engine timing dependence check (registered before calculation)
+
+- Hypothesis: adjacent timing pairs may share short-term machine load.
+- Change: circular block bootstrap of the existing 200 paired ratios, retaining
+  every sample and reporting both execution orders. Block lengths 1, 5, 10 and
+  20; 50,000 resamples each, seed zero. Correct simultaneously for the three
+  engine candidates and four block lengths. This is a robustness analysis, not
+  a new performance optimisation or a new timed benchmark.
+- Command: `python scripts/analyse_engine.py`. Result pending at
+  `results/engine_trials/inline_matching_block_intervals.json`.
