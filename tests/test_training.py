@@ -173,14 +173,15 @@ def test_routed_cohorts_preserve_frozen_sources_and_reject_changed_weights(tmp_p
     sources = {}
     for game, label in plan["routes"].items():
         for name in (label, "bayes"):
-            path = tmp_path / label / "results/raw" / game / f"{name}.jsonl"
+            path = tmp_path / f"{label}-run" / label / "results/raw" / game / f"{name}.jsonl"
             path.parent.mkdir(parents=True, exist_ok=True)
             rows = [{"game": game, "player": name, "seed": seed, "rounds": [{}] * 6,
                      "provenance": {"model_revision": "fixed", "config": {"adapter_sha256": plan["adapter_sha256"][label]}}}
                     for seed in range(200, 400)]
             path.write_text("".join(json.dumps(e) + "\n" for e in rows))
             sources[path] = path.read_bytes()
-    command = ["stitch_routed_policy.py", "--input", str(tmp_path), "--out", str(out), "--plan", str(plan_path)]
+    command = ["stitch_routed_policy.py", "--input", str(tmp_path / "sft-run"), str(tmp_path / "grpo-run"),
+               "--out", str(out), "--plan", str(plan_path)]
     monkeypatch.setattr("sys.argv", command)
     stitch.main()
     before = (out / "cohorts.json").read_bytes()
@@ -195,7 +196,7 @@ def test_routed_cohorts_preserve_frozen_sources_and_reject_changed_weights(tmp_p
     plan_path.write_text(json.dumps(plan))
     with pytest.raises(AssertionError):
         stitch.main()
-    command[4] = str(tmp_path / "new-out")
+    command[command.index("--out") + 1] = str(tmp_path / "new-out")
     with pytest.raises(AssertionError):
         stitch.main()
 

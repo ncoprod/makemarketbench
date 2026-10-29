@@ -255,7 +255,8 @@ bash scripts/with_resource.sh heavy-ml python train/with_memory_guard.py \
   --result runs/qwen35-memory.json python train/mlx_train.py \
   --model mlx-community/Qwen3.5-4B-MLX-4bit \
   --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 \
-  --out train/runs/qwen35-sft --result runs/qwen35-sft.json --answer-head-tokens 128
+  --out train/runs/qwen35-sft --result runs/qwen35-sft.json \
+  --answer-head-tokens 128 --pad-training-to 1025
 python train/build_kaggle_kernel.py
 kaggle kernels push -p train/kaggle --accelerator NvidiaTeslaT4
 # Poll status no more often than every ten minutes, then pull completed outputs:

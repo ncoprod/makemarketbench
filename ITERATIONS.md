@@ -1452,3 +1452,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   widens the bootstrap interval while retaining the same mean.
 - Ruff and all 31 training/scoring tests pass; exact commands, source hashes and
   outputs are in `results/verification_inference_groups.json`.
+
+### Frozen router accepts independently downloaded evaluation roots
+
+- The registered router uses SFT dice and GRPO cards. The SFT batching gate
+  forces a separate serial kernel, so its two source cohorts now live in
+  different downloaded output roots.
+- Allow multiple explicit input roots and require exactly one source for each
+  registered route. Keep all adapter, revision, seed and source-hash checks;
+  preserve raw source bytes and reuse episodes without new model calls.
+- Verification: `ruff check scripts/stitch_routed_policy.py tests/test_training.py`
+  and `pytest -q tests/test_training.py`; the existing frozen-source and
+  changed-weight checks now exercise two distinct input roots.
+- Correct the README reproduction command to include the fixed 1025-token
+  training shape actually required by the bounded-memory local recipe.

@@ -11,7 +11,7 @@ from makemarket.provenance import file_sha256, receipt
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--input", required=True, help="downloaded staged Kaggle test outputs")
+    ap.add_argument("--input", required=True, nargs="+", help="downloaded staged Kaggle test output roots")
     ap.add_argument("--out", default="results/final/staged-routed")
     ap.add_argument("--plan", default="results/training/staged_routing_plan.json")
     args = ap.parse_args()
@@ -29,7 +29,10 @@ def main():
               "input_sha256": {}, "output_sha256": {}, "routes": plan["routes"],
               "interpretation": "Reused deterministic cohorts, not new model calls; one base model and two game-specific LoRA adapters."}
     for game, underlying in plan["routes"].items():
-        raw = Path(args.input) / underlying / "results/raw" / game
+        roots = [Path(root) / underlying / "results/raw" / game for root in args.input]
+        matches = [root for root in roots if (root / f"{underlying}.jsonl").exists()]
+        assert len(matches) == 1, f"Expected one source for {underlying}/{game}: {matches}"
+        raw = matches[0]
         for label in (underlying, "bayes"):
             source = raw / f"{label}.jsonl"
             episodes = cohort(source)
