@@ -1262,3 +1262,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   and fixed training shapes, with the same 7 GiB guard; stop if its audited
   inputs exceed the fixed shape. The exact queued launcher is retained in
   `results/training/qwen35_followup_plan.json`; no follow-up outcome is claimed.
+
+### Original combined CUDA run: platform limit and frozen-policy continuation
+
+- The scheduled 22:21:51 UTC poll returns `CANCEL_ACKNOWLEDGED`; download its
+  outputs with the exact command in `results/training/kaggle_retry.json`.
+- The checkpoint verifies all 300 GRPO updates after 150 SFT updates. Both
+  warm-start cohorts contain all 200 seeds; the GRPO dice cohort contains
+  seeds 200–319 (120 complete episodes), with cards not started. Preserve all
+  raw episodes without inspecting aggregate test scores.
+- The platform termination prevents `runtime.json` from being written. The
+  last downloaded log timestamp is 37,147.368898703 seconds; this is a lower
+  bound on script duration, not an exact GPU billing time or VRAM measurement.
+- Retain the immutable outputs, checkpoint histories, hashes and exact
+  extraction source in `results/training/kaggle_original_completion.json`.
+  Resume only missing episodes from the saved final GRPO adapter, with the
+  same serial greedy decoding and 128-token limit, one independent game per
+  T4. This continues a frozen candidate; it does not select a new policy.

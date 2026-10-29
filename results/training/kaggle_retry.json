@@ -1,6 +1,6 @@
 {
   "started_at": "2026-10-29T10:18:57.930310+00:00",
-  "status": "submitted_running",
+  "status": "outputs_retrieved",
   "kernel_version": 1,
   "source_commit": "063118e4cae0c7efeb04aeb19480cd4ff058f081",
   "command": "KAGGLE_CONFIG_DIR=\"$PWD/runs/kaggle_oauth_config\" kaggle kernels push -p train/kaggle --accelerator NvidiaTeslaT4",
@@ -728,6 +728,105 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:00:22.598485+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:10:33.885637+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:20:44.945606+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:30:56.041864+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:41:06.896185+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T21:51:17.844439+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T22:01:28.579278+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T22:11:39.465858+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T22:21:51.436469+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.CANCEL_ACKNOWLEDGED\""
     }
   ],
   "console_observation": {
@@ -837,5 +936,21 @@
       "grpo_configuration_visible": false,
       "note": "Dice completion/runtime observed; mean expected PnL withheld. Absence of GRPO configuration in visible logs does not prove no further progress."
     }
-  ]
+  ],
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-grpo-qwen3",
+      "-p",
+      "runs/kaggle_original_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*\\.(?:json|jsonl|md|log|py|ipynb)$"
+    ],
+    "exit_code": 0,
+    "output": "Downloading README.md to runs/kaggle_original_output/grpo\n\nOutput file downloaded to runs/kaggle_original_output/grpo/README.md\nDownloading README.md to runs/kaggle_original_output/grpo/checkpoint-100\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-100/README.md\nDownloading adapter_config.json to runs/kaggle_original_output/grpo/checkpoint-100\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-100/adapter_config.json\nDownloading tokenizer.json to runs/kaggle_original_output/grpo/checkpoint-100\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-100/tokenizer.json\nDownloading tokenizer_config.json to runs/kaggle_original_output/grpo/checkpoint-100\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-100/tokenizer_config.json\nDownloading trainer_state.json to runs/kaggle_original_output/grpo/checkpoint-100\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-100/trainer_state.json\nDownloading README.md to runs/kaggle_original_output/grpo/checkpoint-200\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-200/README.md\nDownloading adapter_config.json to runs/kaggle_original_output/grpo/checkpoint-200\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-200/adapter_config.json\nDownloading tokenizer.json to runs/kaggle_original_output/grpo/checkpoint-200\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-200/tokenizer.json\nDownloading tokenizer_config.json to runs/kaggle_original_output/grpo/checkpoint-200\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-200/tokenizer_config.json\nDownloading trainer_state.json to runs/kaggle_original_output/grpo/checkpoint-200\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-200/trainer_state.json\nDownloading README.md to runs/kaggle_original_output/grpo/checkpoint-300\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-300/README.md\nDownloading adapter_config.json to runs/kaggle_original_output/grpo/checkpoint-300\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-300/adapter_config.json\nDownloading tokenizer.json to runs/kaggle_original_output/grpo/checkpoint-300\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-300/tokenizer.json\nDownloading tokenizer_config.json to runs/kaggle_original_output/grpo/checkpoint-300\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-300/tokenizer_config.json\nDownloading trainer_state.json to runs/kaggle_original_output/grpo/checkpoint-300\n\nOutput file downloaded to runs/kaggle_original_output/grpo/checkpoint-300/trainer_state.json\nDownloading grpo_config.json to runs/kaggle_original_output\n\nOutput file downloaded to runs/kaggle_original_output/grpo_config.json\nDownloading README.md to runs/kaggle_original_output/lora_adapter\n\nOutput file downloaded to runs/kaggle_original_output/lora_adapter/README.md\nDownloading adapter_config.json to runs/kaggle_original_output/lora_adapter\n\nOutput file downloaded to runs/kaggle_original_output/lora_adapter/adapter_config.json\nDownloading tokenizer.json to runs/kaggle_original_output/lora_adapter\n\nOutput file downloaded to runs/kaggle_original_output/lora_adapter/tokenizer.json\nDownloading tokenizer_config.json to runs/kaggle_original_output/lora_adapter\n\nOutput file downloaded to runs/kaggle_original_output/lora_adapter/tokenizer_config.json\nDownloading leaderboard_cards.json to runs/kaggle_original_output/results\n\nOutput file downloaded to runs/kaggle_original_output/results/leaderboard_cards.json\nDownloading leaderboard_cards.md to runs/kaggle_original_output/results\n\nOutput file downloaded to runs/kaggle_original_output/results/leaderboard_cards.md\nDownloading leaderboard_dice.json to runs/kaggle_original_output/results\n\nOutput file downloaded to runs/kaggle_original_output/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to runs/kaggle_original_output/results\n\nOutput file downloaded to runs/kaggle_original_output/results/leaderboard_dice.md\nDownloading bayes.jsonl to runs/kaggle_original_output/results/raw/cards\n\nOutput file downloaded to runs/kaggle_original_output/results/raw/cards/bayes.jsonl\nDownloading qwen3.5-4b-grpo-warmstart.jsonl to runs/kaggle_original_output/results/raw/cards\n\nOutput file downloaded to runs/kaggle_original_output/results/raw/cards/qwen3.5-4b-grpo-warmstart.jsonl\nDownloading bayes.jsonl to runs/kaggle_original_output/results/raw/dice\n\nOutput file downloaded to runs/kaggle_original_output/results/raw/dice/bayes.jsonl\nDownloading qwen3.5-4b-grpo-warmstart.jsonl to runs/kaggle_original_output/results/raw/dice\n\nOutput file downloaded to runs/kaggle_original_output/results/raw/dice/qwen3.5-4b-grpo-warmstart.jsonl\nDownloading qwen3.5-4b-grpo.jsonl to runs/kaggle_original_output/results/raw/dice\n\nOutput file downloaded to runs/kaggle_original_output/results/raw/dice/qwen3.5-4b-grpo.jsonl\nDownloading sft_config.json to runs/kaggle_original_output\n\nOutput file downloaded to runs/kaggle_original_output/sft_config.json\nKernel log downloaded to runs/kaggle_original_output/makemarketbench-grpo-qwen3.log \n\n  0%|          | 0.00/1.87k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1.87k/1.87k [00:00<00:00, 3.18MB/s]\n\n  0%|          | 0.00/5.10k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.10k/5.10k [00:00<00:00, 20.6MB/s]\n\n  0%|          | 0.00/1.51k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1.51k/1.51k [00:00<00:00, 7.97MB/s]\n\n  0%|          | 0.00/19.1M [00:00<?, ?B/s]\n 10%|\u2588         | 2.00M/19.1M [00:00<00:01, 11.2MB/s]\n 21%|\u2588\u2588        | 4.00M/19.1M [00:00<00:01, 11.4MB/s]\n 31%|\u2588\u2588\u2588\u258f      | 6.00M/19.1M [00:00<00:01, 11.5MB/s]\n 42%|\u2588\u2588\u2588\u2588\u258f     | 8.00M/19.1M [00:00<00:01, 11.4MB/s]\n 52%|\u2588\u2588\u2588\u2588\u2588\u258f    | 10.0M/19.1M [00:00<00:00, 11.4MB/s]\n 63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 12.0M/19.1M [00:01<00:00, 11.4MB/s]\n 73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 14.0M/19.1M [00:01<00:00, 11.5MB/s]\n 84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 16.0M/19.1M [00:01<00:00, 11.1MB/s]\n 94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 18.0M/19.1M [00:01<00:00, 11.2MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 19.1M/19.1M [00:01<00:00, 11.3MB/s]\n\n  0%|          | 0.00/7.02k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7.02k/7.02k [00:00<00:00, 19.6MB/s]\n\n  0%|          | 0.00/22.0k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 22.0k/22.0k [00:00<00:00, 6.04MB/s]\n\n  0%|          | 0.00/5.10k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.10k/5.10k [00:00<00:00, 1.61MB/s]\n\n  0%|          | 0.00/1.51k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1.51k/1.51k [00:00<00:00, 3.03MB/s]\n\n  0%|          | 0.00/19.1M [00:00<?, ?B/s]\n 10%|\u2588         | 2.00M/19.1M [00:00<00:01, 11.1MB/s]\n 21%|\u2588\u2588        | 4.00M/19.1M [00:00<00:01, 11.2MB/s]\n 31%|\u2588\u2588\u2588\u258f      | 6.00M/19.1M [00:00<00:01, 11.3MB/s]\n 42%|\u2588\u2588\u2588\u2588\u258f     | 8.00M/19.1M [00:00<00:01, 11.4MB/s]\n 52%|\u2588\u2588\u2588\u2588\u2588\u258f    | 10.0M/19.1M [00:00<00:00, 11.4MB/s]\n 63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 12.0M/19.1M [00:01<00:00, 10.9MB/s]\n 73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 14.0M/19.1M [00:01<00:00, 10.8MB/s]\n 84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 16.0M/19.1M [00:01<00:00, 11.0MB/s]\n 94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 18.0M/19.1M [00:01<00:00, 11.2MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 19.1M/19.1M [00:01<00:00, 11.1MB/s]\n\n  0%|          | 0.00/7.02k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7.02k/7.02k [00:00<00:00, 24.4MB/s]\n\n  0%|          | 0.00/43.2k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 43.2k/43.2k [00:00<00:00, 685kB/s]\n\n  0%|          | 0.00/5.10k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.10k/5.10k [00:00<00:00, 20.1MB/s]\n\n  0%|          | 0.00/1.51k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1.51k/1.51k [00:00<00:00, 6.74MB/s]\n\n  0%|          | 0.00/19.1M [00:00<?, ?B/s]\n  5%|\u258c         | 1.00M/19.1M [00:00<00:03, 5.96MB/s]\n 10%|\u2588         | 2.00M/19.1M [00:00<00:02, 7.45MB/s]\n 16%|\u2588\u258c        | 3.00M/19.1M [00:00<00:02, 8.20MB/s]\n 26%|\u2588\u2588\u258c       | 5.00M/19.1M [00:00<00:01, 9.72MB/s]\n 37%|\u2588\u2588\u2588\u258b      | 7.00M/19.1M [00:00<00:01, 10.3MB/s]\n 47%|\u2588\u2588\u2588\u2588\u258b     | 9.00M/19.1M [00:00<00:00, 10.6MB/s]\n 58%|\u2588\u2588\u2588\u2588\u2588\u258a    | 11.0M/19.1M [00:01<00:00, 10.5MB/s]\n 63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 12.0M/19.1M [00:01<00:00, 10.4MB/s]\n 73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 14.0M/19.1M [00:01<00:00, 10.6MB/s]\n 84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 16.0M/19.1M [00:01<00:00, 10.7MB/s]\n 94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 18.0M/19.1M [00:01<00:00, 10.9MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 19.1M/19.1M [00:01<00:00, 10.3MB/s]\n\n  0%|          | 0.00/7.02k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7.02k/7.02k [00:00<00:00, 28.0MB/s]\n\n  0%|          | 0.00/64.4k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 64.4k/64.4k [00:00<00:00, 610kB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 64.4k/64.4k [00:00<00:00, 609kB/s]\n\n  0%|          | 0.00/7.23k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7.23k/7.23k [00:00<00:00, 32.6MB/s]\n\n  0%|          | 0.00/5.10k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.10k/5.10k [00:00<00:00, 12.5MB/s]\n\n  0%|          | 0.00/1.51k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1.51k/1.51k [00:00<00:00, 6.30MB/s]\n\n  0%|          | 0.00/19.1M [00:00<?, ?B/s]\n  5%|\u258c         | 1.00M/19.1M [00:00<00:09, 2.02MB/s]\n 10%|\u2588         | 2.00M/19.1M [00:00<00:05, 3.54MB/s]\n 21%|\u2588\u2588        | 4.00M/19.1M [00:00<00:02, 6.21MB/s]\n 31%|\u2588\u2588\u2588\u258f      | 6.00M/19.1M [00:01<00:01, 7.52MB/s]\n 37%|\u2588\u2588\u2588\u258b      | 7.00M/19.1M [00:01<00:01, 8.09MB/s]\n 47%|\u2588\u2588\u2588\u2588\u258b     | 9.00M/19.1M [00:01<00:01, 9.24MB/s]\n 58%|\u2588\u2588\u2588\u2588\u2588\u258a    | 11.0M/19.1M [00:01<00:00, 9.90MB/s]\n 68%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 13.0M/19.1M [00:01<00:00, 10.3MB/s]\n 79%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 15.0M/19.1M [00:01<00:00, 10.6MB/s]\n 89%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589 | 17.0M/19.1M [00:02<00:00, 10.9MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589| 19.0M/19.1M [00:02<00:00, 11.1MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 19.1M/19.1M [00:02<00:00, 8.81MB/s]\n\n  0%|          | 0.00/7.02k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7.02k/7.02k [00:00<00:00, 22.8MB/s]\n\n  0%|          | 0.00/5.12k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.12k/5.12k [00:00<00:00, 16.8MB/s]\n\n  0%|          | 0.00/587 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 587/587 [00:00<00:00, 2.46MB/s]\n\n  0%|          | 0.00/5.11k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.11k/5.11k [00:00<00:00, 11.9MB/s]\n\n  0%|          | 0.00/586 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 586/586 [00:00<00:00, 2.65MB/s]\n\n  0%|          | 0.00/642k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 642k/642k [00:00<00:00, 1.57MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 642k/642k [00:00<00:00, 1.57MB/s]\n\n  0%|          | 0.00/788k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 788k/788k [00:00<00:00, 1.85MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 788k/788k [00:00<00:00, 1.85MB/s]\n\n  0%|          | 0.00/620k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 620k/620k [00:00<00:00, 2.64MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 620k/620k [00:00<00:00, 2.64MB/s]\n\n  0%|          | 0.00/764k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 764k/764k [00:00<00:00, 1.68MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 764k/764k [00:00<00:00, 1.68MB/s]\n\n  0%|          | 0.00/456k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 456k/456k [00:00<00:00, 1.21MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 456k/456k [00:00<00:00, 1.21MB/s]\n\n  0%|          | 0.00/5.45k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.45k/5.45k [00:00<00:00, 16.1MB/s]"
+  }
 }
