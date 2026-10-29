@@ -438,3 +438,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   licence, attribution and checkpoint provenance" --quiet` succeeded.
   The official SDK confirms that the dataset remains private.
 - [Upload, privacy and file-hash receipt](results/training/kaggle_dataset_notice.json).
+
+### Dataset metadata correction and resource waiting
+
+- Kaggle had stored the initial dataset licence display name as Unknown.
+  Corrected it to its documented `apache-2.0` identifier, explicitly retaining
+  `isPrivate: true`. The initial failure and corrected SDK checks are retained
+  in the existing dataset notice receipt; the licence file/weights are unchanged.
+- The heavy lock was released and immediately reacquired by another repo while
+  our wrappers waited between 30-second checks. Retry acquisition every second
+  instead; the atomic mkdir mutex and exclusive execution remain unchanged.
+  Shell syntax verification passes. This is scheduling, not a policy trial.

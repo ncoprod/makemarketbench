@@ -110,5 +110,38 @@
     "is_private": true,
     "version": 2,
     "license_name": "Unknown"
+  },
+  "license_metadata_correction": {
+    "reason": "The unsupported initial display name Apache 2.0 was stored as Unknown; official Kaggle dataset metadata identifier is apache-2.0. Set isPrivate explicitly true for metadata update.",
+    "documentation": "https://github.com/Kaggle/kaggle-cli/blob/main/docs/datasets_metadata.md",
+    "command": [
+      "kaggle",
+      "datasets",
+      "metadata",
+      "nicolascoquelet/makemarketbench-qwen3-bc-checkpoint",
+      "--update",
+      "-p",
+      "runs/kaggle_dataset"
+    ],
+    "exit_code": 0,
+    "output": "updating dataset metadata\nsuccessfully updated dataset metadata\n",
+    "error": "",
+    "submitted_metadata": {
+      "title": "MakeMarketBench Qwen3 BC checkpoint",
+      "id": "nicolascoquelet/makemarketbench-qwen3-bc-checkpoint",
+      "licenses": [
+        {
+          "name": "apache-2.0"
+        }
+      ],
+      "isPrivate": true,
+      "description": "# MakeMarketBench Qwen3-1.7B behaviour-cloning checkpoint\n\nPrivate research checkpoint by Nicolas Coquelet. Derivative of Qwen3-1.7B by\nthe Qwen Team, Alibaba Cloud; original MLX conversion by MLX Community.\nThe full upstream Apache-2.0 licence is included in LICENSE.txt, retrieved from\nhttps://huggingface.co/Qwen/Qwen3-1.7B/resolve/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/LICENSE .\nNo upstream NOTICE file was listed at that revision.\n\nModifications: LoRA behaviour cloning on original synthetic MakeMarketBench\nBayes-dealer demonstrations, stopped at iteration 300 of the earlier run; then\nMLX adapter tensors were transposed into PEFT format by train/export_mlx_adapter.py.\nThis is the historical baseline, not the later 800-iteration checkpoint.\nSee export.json for original tensor hash, rank, layers and conversion check.\nOnly adapters are included; base weights are not redistributed. Equivalent\nadapter deltas do not imply equivalent logits across MLX affine and CUDA NF4\nquantisation. It is incompatible with Qwen3.5-4B.\n\nCode, historical training logs and limitations:\nhttps://github.com/ncoprod/makemarketbench (private pending owner review).\n"
+    }
+  },
+  "corrected_remote_check": {
+    "method": "official SDK GetDataset",
+    "is_private": true,
+    "version": 2,
+    "license_name": "Apache 2.0"
   }
 }
