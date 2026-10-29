@@ -1,0 +1,114 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain full upstream Apache licence and modification notice in private checkpoint dataset"
+    },
+    "model_revision": null,
+    "git_commit": "46fc212ed62b86cf6aa3c5f46a5b9e8027a428d3",
+    "uncommitted_diff_sha256": "41cbda0cdfaa9b55729180b7ef6cebae6a31cd6657257f42671f176f55db0887",
+    "started_at": "2026-10-29T13:57:50.915942+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "dataset": "nicolascoquelet/makemarketbench-qwen3-bc-checkpoint",
+  "model": "Qwen/Qwen3-1.7B",
+  "model_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "upstream_license_url": "https://huggingface.co/Qwen/Qwen3-1.7B/resolve/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/LICENSE",
+  "upstream_notice_file_present": false,
+  "files": {
+    "dataset-metadata.json": "dda3aa88430cc8bd5dddeda749dfd1e51e02c9a19ea0bc7bafcfab7ee5642cf8",
+    "adapter_model.safetensors": "586b9a813f58b13ed509e4b8424b08840ef9cb57864282cd7f7e0389ec967c35",
+    "export.json": "394fe5d1bad3ee5369e890935d1a1e1f17290f69387b44fd549aff3e7b5d18af",
+    "README.md": "638d8de2f61d5c1bf7e218b984b70dd68fb00af3c2772a0ff03d04815388d538",
+    "adapter_config.json": "924aaf54479219ec91c272ac087683f56587e892b54aa569cdc609074eaf789d",
+    "LICENSE.txt": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+  },
+  "export": {
+    "source": "train/runs/qwen3-1.7b-sft/0000300_adapters.safetensors",
+    "source_sha256": "d4e5e5b8d8f0a60e5db8c1c6239f8ad077012f45dd11f7c58c80745a33d8dc15",
+    "tensors": 224,
+    "layers": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "rank": 8,
+    "mlx_scale": 20.0,
+    "max_forward_delta_error": 1.6093254089355469e-06,
+    "caveat": "Adapter delta preserved; MLX affine and CUDA NF4 base quantizations differ."
+  },
+  "status": "uploaded",
+  "upload": {
+    "command": [
+      "kaggle",
+      "datasets",
+      "version",
+      "-p",
+      "runs/kaggle_dataset",
+      "-m",
+      "Retain upstream Apache licence, attribution and checkpoint provenance",
+      "--quiet"
+    ],
+    "exit_code": 0,
+    "output": "Dataset version is being created. Please check progress at https://www.kaggle.com/datasets/nicolascoquelet/makemarketbench-qwen3-bc-checkpoint\n",
+    "error": ""
+  },
+  "adapter_unchanged_after_upload": true,
+  "metadata_check": {
+    "command": [
+      "kaggle",
+      "datasets",
+      "metadata",
+      "nicolascoquelet/makemarketbench-qwen3-bc-checkpoint",
+      "-p",
+      "runs/kaggle_dataset_remote"
+    ],
+    "exit_code": 0,
+    "output": "Downloaded metadata to runs/kaggle_dataset_remote/dataset-metadata.json\n",
+    "error": ""
+  },
+  "remote_metadata": {
+    "info": {
+      "datasetId": 12942786,
+      "datasetSlug": "makemarketbench-qwen3-bc-checkpoint",
+      "ownerUser": "nicolascoquelet",
+      "usabilityRating": 0.125,
+      "title": "MakeMarketBench Qwen3 BC checkpoint",
+      "subtitle": "",
+      "description": "",
+      "isPrivate": true,
+      "licenses": [
+        {
+          "name": "unknown"
+        }
+      ],
+      "expectedUpdateFrequency": "not specified"
+    }
+  },
+  "remote_privacy_check": {
+    "method": "official SDK GetDataset",
+    "is_private": true,
+    "version": 2,
+    "license_name": "Unknown"
+  }
+}

@@ -428,3 +428,13 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   seeds, prompts and decoding stay fixed; selection never uses test PnL.
 - Command: the existing three disjoint `scripts/expand_nim.py` batches.
   Per-model timings and outcomes remain in `results/expansion/protocol*.json`.
+
+### Private checkpoint attribution
+
+- Added the full Apache-2.0 licence from the pinned Qwen3-1.7B revision and a
+  modification/quantisation notice to the earlier private PEFT dataset. Its
+  adapter SHA-256 is unchanged; it remains the historical 300-iteration model.
+- `kaggle datasets version -p runs/kaggle_dataset -m "Retain upstream Apache
+  licence, attribution and checkpoint provenance" --quiet` succeeded.
+  The official SDK confirms that the dataset remains private.
+- [Upload, privacy and file-hash receipt](results/training/kaggle_dataset_notice.json).

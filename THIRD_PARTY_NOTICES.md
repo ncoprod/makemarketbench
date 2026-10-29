@@ -12,7 +12,7 @@ does **not** identify the unpublished backend revision served by NIM.
 
 | Model / conversion | Exact licence and primary source | Attribution / handling |
 |---|---|---|
-| Qwen3-1.7B; `mlx-community/Qwen3-1.7B-4bit` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX conversion by MLX Community. Retain the licence, applicable notices, and mark modifications when redistributing weights/adapters. |
+| Qwen3-1.7B; `mlx-community/Qwen3-1.7B-4bit` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX conversion by MLX Community. Retain the licence, applicable notices, and mark modifications when redistributing weights/adapters. The [full licence](third_party/qwen3_LICENSE.txt) and a modification notice accompany the private checkpoint dataset ([receipt](results/training/kaggle_dataset_notice.json)). |
 | Qwen3.5-4B; `mlx-community/Qwen3.5-4B-MLX-4bit`; `unsloth/Qwen3.5-4B` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX Community and Unsloth conversions. Same retention/changed-file obligations. The Unsloth checkpoint is used by the executed CUDA smoke and full training job. |
 | `mlx-community/Qwen3.5-9B-MLX-4bit` | [Apache-2.0 model card](https://huggingface.co/mlx-community/Qwen3.5-9B-MLX-4bit) | Optional memory-dependent candidate; not an executed result unless recorded. |
 | Qwen3.8-27B | [Apache-2.0 model card](https://huggingface.co/Qwen/Qwen3.8-27B) | API candidate if listed by NIM; local training is outside the available memory budget. |
