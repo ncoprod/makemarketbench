@@ -784,3 +784,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Before execution or new final scores, increase the candidate family from
   six to eight, counting both new SFT and GRPO checkpoints. Infrastructure
   attempts remain logged separately; they do not justify a superiority claim.
+
+### T10 launch and complete Lightning API pair
+
+- Import the source built at commit `4e9eda3` into the private interactive
+  notebook. Run All requested at 18:39 UTC; the UI confirms two T4s and internet.
+  Runtime and source hashes are in `qwen38_pipeline_plan.json`. No policy-test
+  data is evaluated in this allocation. All three permitted GPU slots are active.
+- The Lightning API batch now has 200 complete episodes in each game, seeds
+  200–399, six rounds each. Preserve both raw files and their hashes in
+  `results/expansion/lightning_cohorts.json`; aggregation remains deferred.
+  The sequential NIM worker continues with Ultra, thinking disabled.

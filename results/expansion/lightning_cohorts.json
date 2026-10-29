@@ -1,10 +1,7 @@
 {
-  "recorded_at": "2026-10-29T18:10:17.594735+00:00",
-  "command": ".venv/bin/python runs/record_native_launch.py",
-  "git_commit": "e1900e6fd19fd49790152cbd44948755a48b77ed",
-  "raw_file": "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl",
-  "sha256": "42b581fdafa0c1e7c7bf66ab51bb7603856adf6953b31ef2cdb22fe65d23b637",
-  "episodes": 200,
+  "recorded_at": "2026-10-29T18:46:40.916990+00:00",
+  "command": ".venv/bin/python runs/preserve_lightning_pair.py",
+  "git_commit": "4e9eda32ad32bbfd47198318158d193399b2048b",
   "seed_start": 200,
   "seed_end_inclusive": 399,
   "rounds_per_episode": 6,
@@ -64,6 +61,18 @@
       "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
       "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
       "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+    }
+  },
+  "cohorts": {
+    "dice": {
+      "raw_file": "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl",
+      "sha256": "42b581fdafa0c1e7c7bf66ab51bb7603856adf6953b31ef2cdb22fe65d23b637",
+      "episodes": 200
+    },
+    "cards": {
+      "raw_file": "results/expansion/raw/cards/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl",
+      "sha256": "1b3790f492adfd210beb6f3de5774afc48e763a0384da4738b638ffc8f68d05e",
+      "episodes": 200
     }
   }
 }

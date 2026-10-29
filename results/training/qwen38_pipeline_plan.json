@@ -1,6 +1,6 @@
 {
   "registered_at": "2026-10-29T18:27:19.182613+00:00",
-  "source_commit": "87b169018749d18b1d95633d6ac5ddcc47d2ae98",
+  "source_commit": "4e9eda32ad32bbfd47198318158d193399b2048b",
   "command": ".venv/bin/python train/build_kaggle_kernel.py --qwen38-train",
   "seed": 0,
   "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
@@ -30,5 +30,25 @@
   "resume_policy": "Retain checkpoints every 50 steps; if wall cap interrupts before GRPO, resume exact optimizer state in the next useful allocation, preserving data split.",
   "validation_policy": "100 episodes per game, seeds 80000-80099, SFT-only versus GRPO before any focused quality tuning.",
   "final_policy": "Freeze adapters before one 200-episode test per game, seeds 200-399. Family correction now counts eight candidates.",
-  "status": "registered_not_started"
+  "status": "running_gpu_confirmed",
+  "start_requested_at": "2026-10-29T18:39:23Z",
+  "start_requested_precision": "Clock sampled immediately before UI Run All; allocation start is not yet known",
+  "recorded_at": "2026-10-29T18:41:07.508841+00:00",
+  "source_sha256": "56290dc6c90ea1aea8be347c7188efafd01a4cdadd9d99824642af510498bb57",
+  "notebook_sha256": "f7e76b3232b97e4656b51a9e131786296130bdd19b0603861f202e2ed991b8c4",
+  "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "settings": {
+    "accelerator": "T4 x2",
+    "internet": true,
+    "private": true
+  },
+  "quota_check": {
+    "snapshot_at": "2026-10-29T18:28:11.381457+00:00",
+    "remaining_hours": 16.31253342861111,
+    "active_batch_reservation_hours_at_check": 11.186246307222222,
+    "new_cap_hours": 4,
+    "fits": true
+  },
+  "gpu_confirmed_at": "2026-10-29T18:46:41.165904+00:00",
+  "gpu_confirmation": "Running Draft Session (2m), T4 x2, internet on"
 }

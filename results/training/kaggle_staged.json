@@ -283,6 +283,39 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T18:24:48.266904+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T18:35:07.943332+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T18:45:22.037358+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "native_ui_observations": [
