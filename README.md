@@ -172,7 +172,10 @@ platform limit after completing training: both warm-start cohorts have 200
 episodes, while GRPO has 120 dice episodes saved
 ([downloaded outputs](results/training/kaggle_original_completion.json)). A
 private continuation evaluates only the missing episodes from its frozen
-adapter ([receipt](results/training/kaggle_original_final_resume.json)). The local reward trial is explicitly
+adapter ([receipt](results/training/kaggle_original_final_resume.json)). Its
+downloaded trainer configs specify seed 3407 despite outer metadata saying 0;
+the [correction receipt](results/training/original_seed_correction.json)
+distinguishes trainer, LoRA-initialization and prompt-shuffle seeds. The local reward trial is explicitly
 labelled RLOO-style.
 
 The newest general-purpose open Qwen family is Qwen3.8. Its smallest model is

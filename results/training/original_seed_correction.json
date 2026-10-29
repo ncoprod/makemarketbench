@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/correct_original_seed.py",
+    "config": {
+      "purpose": "correct original trainer-seed interpretation from downloaded configs"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "9058f22622989766f4f9d15f170432459d743b73",
+    "uncommitted_diff_sha256": "b687ccc1b7d6b7e26d90ff42fad2454b24e098a71044035c7261073080060da7",
+    "started_at": "2026-10-29T22:37:34.764888+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+  "version": 1,
+  "configs": {
+    "results/kaggle/original-v1/sft_config.json": {
+      "sha256": "1aeb792c1fba04e346c9453d179dbf7fe025fdf85f271dd5030c3d1a2da815ed",
+      "outer_seed": 0,
+      "trainer_seed": 3407,
+      "trainer_data_seed": null
+    },
+    "results/kaggle/original-v1/grpo_config.json": {
+      "sha256": "5506e2917fa9781b832435ee728c8359295b9ada383ec9ed3bc82e971867641a",
+      "outer_seed": 0,
+      "trainer_seed": 3407,
+      "trainer_data_seed": null
+    }
+  },
+  "lora_initialization_seed": 0,
+  "prompt_shuffle_seed": 0,
+  "actual_sft_trainer_seed": 3407,
+  "actual_grpo_trainer_seed": 3407,
+  "trainer_data_seed": null,
+  "correction": "The original hard-coded outer seed 0 does not describe the trainer RNG seed. Both downloaded trainer configs specify 3407. Preserve all original files and raw episode provenance; this record corrects their interpretation. The frozen-adapter continuation seed 0 is an evaluation-process seed, not retraining.",
+  "source_sha256": "dcf746d1f133692e61f3c4227035d4bcd4b16a99145a8ccab9f507d615dfee5f",
+  "calculation_source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256,receipt\n\nfiles=[Path('results/kaggle/original-v1')/name for name in ['sft_config.json','grpo_config.json']]\nconfigs={}\nfor path in files:\n data=json.loads(path.read_text())\n configs[str(path)]={'sha256':file_sha256(path),'outer_seed':data['seed'],\n   'trainer_seed':data['trainer_config']['seed'],'trainer_data_seed':data['trainer_config'].get('data_seed')}\nrecord={'provenance':receipt({'purpose':'correct original trainer-seed interpretation from downloaded configs'},'3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636'),\n 'kernel':'nicolascoquelet/makemarketbench-grpo-qwen3','version':1,'configs':configs,\n 'lora_initialization_seed':0,'prompt_shuffle_seed':0,\n 'actual_sft_trainer_seed':3407,'actual_grpo_trainer_seed':3407,\n 'trainer_data_seed':None,\n 'correction':'The original hard-coded outer seed 0 does not describe the trainer RNG seed. Both downloaded trainer configs specify 3407. Preserve all original files and raw episode provenance; this record corrects their interpretation. The frozen-adapter continuation seed 0 is an evaluation-process seed, not retraining.',\n 'source_sha256':file_sha256('train/kaggle/grpo_unsloth_kaggle.py'),\n 'calculation_source':Path(__file__).read_text()}\nassert all(v['trainer_seed']==3407 for v in configs.values())\nPath('results/training/original_seed_correction.json').write_text(json.dumps(record,indent=2)+'\\n')\np=Path('results/training/kaggle_original_completion.json');data=json.loads(p.read_text());data['seed_correction']='results/training/original_seed_correction.json';p.write_text(json.dumps(data,indent=2)+'\\n')\np=Path('results/training/kaggle_original_final_resume.json');data=json.loads(p.read_text());data['training_seed_correction']='results/training/original_seed_correction.json';p.write_text(json.dumps(data,indent=2)+'\\n')\n"
+}

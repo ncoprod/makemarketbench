@@ -1298,3 +1298,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The retry uses the actual slug and a dataset input. Verify every mounted file
   against the uploaded manifest before model loading. This is an infrastructure
   failure, not a policy nonimprovement or a reason to change the frozen weights.
+
+### Original trainer-seed correction
+
+- Inspecting the downloaded original SFT and GRPO configs reveals trainer seed
+  3407, while their outer metadata hard-codes 0. LoRA initialization and prompt
+  shuffling use 0; the trainer-specific seed was left at Unsloth's default.
+  The separate staged run explicitly configures trainer/data seeds 0.
+- Retain all raw files unchanged. Correct their interpretation in
+  `results/training/original_seed_correction.json`, which records both config
+  hashes, the original source hash and exact extraction command/source. The
+  frozen-adapter continuation seed is an inference-process seed and does not
+  imply retraining with seed 0.

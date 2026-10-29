@@ -82,5 +82,6 @@
     "output": "Source code and metadata downloaded to runs/kaggle_original_eval_resume_remote\n"
   },
   "kernel_version": 2,
-  "kernel_id": 141578574
+  "kernel_id": 141578574,
+  "training_seed_correction": "results/training/original_seed_correction.json"
 }
