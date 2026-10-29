@@ -15,9 +15,10 @@ cd "$(dirname "$0")/.."
 MODEL=${MODEL:-mlx-community/Qwen3-1.7B-4bit}  # or a local directory with the same files
 TAG=${TAG:-qwen3-1.7b}
 PORT=${PORT:-8081}
-ITERS=${ITERS:-600}
-DAGGER_ITERS=${DAGGER_ITERS:-300}
-BATCH=${BATCH:-4}
+ITERS=${ITERS:-800}
+DAGGER_ITERS=${DAGGER_ITERS:-200}
+DAGGER_EPISODES=${DAGGER_EPISODES:-50}
+BATCH=${BATCH:-2}
 LR=${LR:-1e-4}
 LAYERS=${LAYERS:-16}
 SEEDS=${SEEDS:-0-49}
@@ -28,7 +29,7 @@ mkdir -p "$RUNS" logs
 serve() {  # serve [adapter_path]
   local extra=()
   if [ -n "${1:-}" ]; then extra=(--adapter-path "$1"); fi
-  .venv/bin/mlx_lm.server --model "$MODEL" "${extra[@]}" --port "$PORT" \
+  .venv/bin/mlx_lm.server --model "$MODEL" ${extra[@]+"${extra[@]}"} --port "$PORT" \
     --chat-template-args '{"enable_thinking":false}' > "logs/mlx_server_$PORT.log" 2>&1 &
   SERVER_PID=$!
   for _ in $(seq 1 120); do
@@ -58,18 +59,18 @@ for stage in $(seq "$FIRST" "$LAST"); do
     1) [ -f train/data/train.jsonl ] || $PY train/make_sft_data.py --episodes 800
        .venv/bin/mlx_lm.lora --model "$MODEL" --train --data train/data --mask-prompt \
          --iters "$ITERS" --batch-size "$BATCH" --learning-rate "$LR" --num-layers "$LAYERS" \
-         --max-seq-length 1024 --steps-per-report 10 --steps-per-eval 100 \
-         --val-batches 20 --save-every 100 --adapter-path "$RUNS/$TAG-sft" --seed 0 ;;
+         --max-seq-length 1024 --grad-checkpoint --steps-per-report 10 --steps-per-eval 100 \
+         --val-batches 10 --save-every 100 --adapter-path "$RUNS/$TAG-sft" --seed 0 ;;
     2) evaluate "$TAG-sft" "$RUNS/$TAG-sft" ;;
     3) serve "$RUNS/$TAG-sft"
-       $PY train/dagger_data.py --base-url "http://127.0.0.1:$PORT/v1" --episodes 100 \
+       $PY train/dagger_data.py --base-url "http://127.0.0.1:$PORT/v1" --episodes "$DAGGER_EPISODES" \
          --out train/data_dagger --merge train/data/train.jsonl
        stop
        mkdir -p "$RUNS/$TAG-dagger"
        .venv/bin/mlx_lm.lora --model "$MODEL" --train --data train/data_dagger --mask-prompt \
          --iters "$DAGGER_ITERS" --batch-size "$BATCH" --learning-rate "$LR" --num-layers "$LAYERS" \
-         --max-seq-length 1024 --steps-per-report 10 --steps-per-eval 100 \
-         --val-batches 20 --save-every 100 --resume-adapter-file "$RUNS/$TAG-sft/adapters.safetensors" \
+         --max-seq-length 1024 --grad-checkpoint --steps-per-report 10 --steps-per-eval 100 \
+         --val-batches 10 --save-every 100 --resume-adapter-file "$RUNS/$TAG-sft/adapters.safetensors" \
          --adapter-path "$RUNS/$TAG-dagger" --seed 1 ;;
     4) evaluate "$TAG-dagger" "$RUNS/$TAG-dagger" ;;
   esac

@@ -201,7 +201,7 @@ in order:
    followed by the reference quote as JSON. The data has 9,600 decisions from
    800 episodes per game (`train/make_sft_data.py`), and the loss is on the
    answer tokens only.
-3. **DAgger:** the SFT model plays 100 new training episodes per game. The
+3. **DAgger:** the SFT model plays 50 new training episodes per game. The
    reference labels every state the model actually visits, including the
    model's own fills. Training resumes on these on-policy labels mixed with
    4,000 original examples.
