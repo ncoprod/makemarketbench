@@ -343,5 +343,29 @@
       "checked_at": "2026-10-29T09:35:45.280671+00:00"
     },
     "command": "GET each source URL recorded in this file; SHA-256 hash LICENSE bytes"
-  }
+  },
+  "algorithms": [
+    {
+      "name": "MurmurHash3 fmix64 prefix",
+      "author": "Austin Appleby",
+      "license": "Public domain; author disclaims copyright in upstream source header",
+      "source": "https://raw.githubusercontent.com/aappleby/smhasher/master/src/MurmurHash3.cpp",
+      "upstream_sha256": "30f121ed155ebf336af398aabb7d8d157afdfafc8d981e7b48d2a1ceb4b63e4e",
+      "used_at": "cpp/include/mmb/order_book.hpp: IdMap::hash (first xor/multiply/xor portion, not full MurmurHash3)",
+      "checked_at": "2026-10-29T10:38:29.780114+00:00"
+    },
+    {
+      "name": "FNV-style replay word mix",
+      "authors": [
+        "Glenn Fowler",
+        "Landon Curt Noll",
+        "Phong Vo"
+      ],
+      "license": "CC0-1.0",
+      "source": "https://www.isthe.com/chongo/tech/comp/fnv/index.html",
+      "upstream_sha256": "39e92c76be11801f7130d25927445dd58986d4d1573790456ef93c9070c85604",
+      "used_at": "cpp/src/order_book.cpp: replay checksum; repository-specific seed and word mixing, not a canonical FNV byte hash",
+      "checked_at": "2026-10-29T10:38:43.595536+00:00"
+    }
+  ]
 }
