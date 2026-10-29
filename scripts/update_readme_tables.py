@@ -70,11 +70,29 @@ def training() -> str:
     return "\n".join(out)
 
 
+def figgie() -> str:
+    out = ["| Seat 0 | Seeds | N | Trading gain / table [95% CI] | Seat-0 trades / table | Invalid answers |",
+           "|---|---|---|---|---|---|"]
+    for seeds in ("0-199", "0-29"):
+        path = ROOT / "results" / f"leaderboard_figgie_seeds{seeds}.json"
+        if not path.exists():
+            continue
+        lo, hi = (int(x) for x in seeds.split("-"))
+        for r in json.loads(path.read_text())["rows"]:
+            if r["episodes"] != hi - lo + 1:  # only players run on every seed of this block
+                continue
+            out.append(f"| {r['player']} | {seeds} | {r['episodes']} | "
+                       f"{fmt_ci(r['trading_gain'], r['trading_gain_ci'], 2)} | {r['seat0_trades']:.1f} | "
+                       f"{100 * r['format_error_rate']:.0f}% |")
+    return "\n".join(out)
+
+
 def main() -> None:
     readme = ROOT / "README.md"
     text = readme.read_text()
     tables = {"dice": lambda: leaderboard("dice"), "cards": lambda: leaderboard("cards"),
-              "engine": engine, "training": training}
+              "engine": engine, "training": training,
+              "figgie": figgie}
     for name, fn in tables.items():
         pat = re.compile(rf"(<!-- TABLE:{name} -->\n)(?:.*?\n)?(<!-- /TABLE:{name} -->)", re.DOTALL)
         if pat.search(text):

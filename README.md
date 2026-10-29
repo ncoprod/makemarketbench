@@ -188,6 +188,31 @@ in `results/raw/<game>/*.jsonl`.
 
 ![cards leaderboard](docs/figures/leaderboard_cards.png)
 
+### Game 3: Figgie-lite
+
+Seat 0 plays against three hand-Bayes bots. The bot baselines were run on
+seeds 0-199. The LLM seat, `gpt-oss-20b` with `reasoning_effort=low`, was
+stopped after seeds 0-29 to save API budget for game 2, so the 30-seed rows
+are the paired comparison. Gains are in chips per table, out of a 200-chip
+pot.
+
+<!-- TABLE:figgie -->
+| Seat 0 | Seeds | N | Trading gain / table [95% CI] | Seat-0 trades / table | Invalid answers |
+|---|---|---|---|---|---|
+| hand-bayes | 0-199 | 200 | 4.97 [-2.34, 12.13] | 7.0 | 0% |
+| naive | 0-199 | 200 | 0.82 [-4.99, 6.33] | 5.7 | 0% |
+| noise | 0-199 | 200 | -6.48 [-12.14, -0.75] | 4.2 | 0% |
+| naive | 0-29 | 30 | 10.52 [-1.80, 20.67] | 5.3 | 0% |
+| hand-bayes | 0-29 | 30 | -5.08 [-21.73, 12.43] | 6.8 | 0% |
+| openai/gpt-oss-20b | 0-29 | 30 | -6.04 [-20.49, 8.97] | 4.8 | 0% |
+| noise | 0-29 | 30 | -8.18 [-14.82, -1.76] | 3.9 | 0% |
+<!-- /TABLE:figgie -->
+
+Only the noise bot's interval excludes zero (it loses chips). The ranking
+of the two bot baselines even flips between the 30- and 200-seed samples. At this sample size the table cannot separate the LLM from the
+simple bots. It is reported as a working multi-agent harness, not as a
+result.
+
 ## Findings
 
 These are from seeds 0-49. Every number comes from `results/leaderboard_*.json`.
