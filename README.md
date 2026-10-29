@@ -123,7 +123,11 @@ its probe also exceeded the guard before an update
 ([receipt](results/training/qwen35_parallel_memory_guard.json)). A further
 probe projects only answer positions through the vocabulary head while
 preserving the full causal loss and gradients
-([registered check](results/training/qwen35_answer_probe_plan.json)). These infrastructure attempts are not policy
+([registered check](results/training/qwen35_answer_probe_plan.json)). It completed
+an optimizer update under the guard, and its saved weights changed
+([runtime](results/training/qwen35_answer_smoke.json),
+[weight check](results/training/qwen35_answer_probe_verification.json)). The full
+800-iteration run is now active. These infrastructure checks are not policy
 improvements ([trial log](ITERATIONS.md)).
 
 The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL
@@ -261,10 +265,11 @@ bash scripts/with_resource.sh nim python scripts/expand_nim.py --models \
   meta/llama-3.2-11b-vision-instruct
 pip install mlx-lm transformers
 python train/make_sft_data.py
-bash scripts/with_resource.sh heavy-ml python train/mlx_train.py \
+bash scripts/with_resource.sh heavy-ml python train/with_memory_guard.py \
+  --result runs/qwen35-memory.json python train/mlx_train.py \
   --model mlx-community/Qwen3.5-4B-MLX-4bit \
   --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 \
-  --out train/runs/qwen35-sft --result runs/qwen35-sft.json
+  --out train/runs/qwen35-sft --result runs/qwen35-sft.json --answer-head-tokens 128
 python train/build_kaggle_kernel.py
 kaggle kernels push -p train/kaggle --accelerator NvidiaTeslaT4
 # Poll status no more often than every ten minutes, then pull completed outputs:

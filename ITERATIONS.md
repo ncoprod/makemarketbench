@@ -991,3 +991,19 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - New availability probes use validation seed 80,000, rather than historical
   seed zero, and record their probe seed/round. Already recorded probes and
   active workers retain their original source snapshot and outcomes.
+
+### T11 completed; full local SFT restarted
+
+- Two microbatches complete one optimizer update in 100.53891158400074 seconds;
+  guard wall time 103.18615537499863 seconds. Peak MLX allocation is
+  4,538,984,408 bytes; sampled approximate physical footprint reaches
+  7,319,060,480 bytes, below the 7 GiB guard. These are different memory measures.
+- The probe uses the longest training examples (987 and 975 tokens, rounded to
+  the trainer's bucket). Compare all 248 saved LoRA tensors with the initial
+  adapter: 124 change, confirming a nonzero update. Preserve the completed
+  runtime, memory guard, full log and `qwen35_answer_probe_verification.json`.
+- The conditional full run starts from the unchanged initial step-zero adapter,
+  not the probe's trained weights. It uses 800 microbatches, accumulation two,
+  all 480 validation examples, seed three and the same 7 GiB guard. Its eventual
+  best checkpoint is selected by validation only. No policy improvement is yet
+  claimed, and the probe's update is not added to its iteration count.

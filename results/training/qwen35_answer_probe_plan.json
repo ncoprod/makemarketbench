@@ -8,7 +8,7 @@
   "change": "--answer-head-tokens 128; all T9 probe settings unchanged",
   "validation": "Full-loss value and every parameter gradient match on tied and untied causal toy models; reject even one dropped supervised token. Sixteen training checks pass.",
   "acceptance": "At least one optimizer update, completed memory guard, sampled physical footprint below 7 GiB.",
-  "status": "queued_under_heavy_ml_lock",
+  "status": "completed_one_verified_optimizer_update",
   "queued_at": "2026-10-29T20:00:31.364893+00:00",
   "command": [
     "bash",
@@ -39,5 +39,8 @@
     "--answer-head-tokens",
     "128"
   ],
-  "wrapper_pid": 5027
+  "wrapper_pid": 5027,
+  "result": "results/training/qwen35_answer_smoke.json",
+  "guard": "results/training/qwen35_answer_memory_guard.json",
+  "weight_verification": "results/training/qwen35_answer_probe_verification.json"
 }

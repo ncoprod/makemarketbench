@@ -1,0 +1,38 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify completed optimizer update changed real model weights"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "8bde57ab8dacb9ee9f7f24911311758026915e01",
+    "uncommitted_diff_sha256": "4c5eaacdff2157b6034ed674ef3c6238019eabc8a1a50b64c6029576c5faf6d7",
+    "started_at": "2026-10-29T20:44:57.544958+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "initial_adapter_sha256": "e3bdccef652fd6063468ae6f9f0f15c03e608714fc88caf5fb3526b63a7612a8",
+  "updated_adapter_sha256": "3df021eaf1dc8373da51f8f1e03b8d67a15577aafb78b12a6aa2fc976112d1a4",
+  "tensors_checked": 248,
+  "tensors_changed": 124,
+  "maximum_absolute_parameter_delta": 0.0003162276407238096,
+  "probe_train_tokens": [
+    987,
+    975
+  ],
+  "full_training_max_tokens": 987,
+  "validation_note": "Probe uses the longest training states, with a different small validation subset. This is an infrastructure check, not policy quality.",
+  "seed": 3,
+  "inputs": {
+    "train": "928913238d9e3b1b855be86aadc89aad4d0b615dd2ad29bfe46103434ecb0198",
+    "valid": "358532518e017aa8bfdae5de5dac6d9f067705eaf562f6349a0bf0fe11216855"
+  },
+  "full_token_audit": "results/training/qwen35_token_audit.json",
+  "calculation_source": "from safetensors.numpy import load_file\nimport numpy as np\na = load_file(\"train/runs/qwen3.5-4b-sft-interrupted/best.safetensors\")\nb = load_file(\"train/runs/qwen35-answer-smoke/adapters.safetensors\")\nassert a.keys() == b.keys()\ndeltas = [float(np.abs(a[k].astype(np.float32) - b[k].astype(np.float32)).max()) for k in a]\nprint(len(deltas), sum(v > 0 for v in deltas), max(deltas))\n"
+}

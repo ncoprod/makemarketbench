@@ -1,23 +1,24 @@
 {
-  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --out train/runs/qwen3.5-4b-sft --result results/training/qwen35_sft.json",
+  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --resume train/runs/qwen3.5-4b-sft-interrupted/best.safetensors --out train/runs/qwen3.5-4b-sft --result results/training/qwen35_sft.json --answer-head-tokens 128",
   "config": {
     "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
     "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
     "data": "train/data",
     "out": "train/runs/qwen3.5-4b-sft",
     "result": "results/training/qwen35_sft.json",
-    "resume": null,
+    "resume": "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
     "iters": 800,
     "lr": 0.0001,
     "batch_size": 1,
     "accumulation": 2,
     "layers": 16,
-    "seed": 3
+    "seed": 3,
+    "answer_head_tokens": 128
   },
   "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
-  "git_commit": "063118e4cae0c7efeb04aeb19480cd4ff058f081",
-  "uncommitted_diff_sha256": "614c3c79a0a1a60f9aff5509796d958cd9a7a49cc181fe58df8e0388f22127de",
-  "started_at": "2026-10-29T10:19:38.517245+00:00",
+  "git_commit": "8bde57ab8dacb9ee9f7f24911311758026915e01",
+  "uncommitted_diff_sha256": "f426040ebe63180678d981ca5dbd465431572b77f98b4b92931684b430678a28",
+  "started_at": "2026-10-29T20:42:30.063740+00:00",
   "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
   "python": "3.13.17",
   "versions": {
@@ -26,77 +27,11 @@
     "mlx": "0.32.4",
     "mlx-lm": "0.32.2"
   },
+  "optimizer_restarted": true,
   "data_sha256": {
     "train": "b24b28867e8deb8df39903c045a9615350198391d789059fcb9db150e1c04bb9",
     "valid": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
   },
-  "source_sha256": "5ff6193246471393718d9fce31f05eeab99c8d04dcb8e3dacc3f36af140d708b",
-  "status": "interrupted_by_reboot",
-  "validation": [
-    {
-      "iteration": 0,
-      "val_loss": 2.1129567623138428,
-      "val_time": 1884.2940601250157
-    }
-  ],
-  "best_validation_loss": 2.1129567623138428,
-  "best_step": 0,
-  "completed_iterations": 0,
-  "optimizer_updates": 0,
-  "peak_memory_bytes": 4012511272,
-  "wall_seconds": 1893.3195571249817,
-  "interruption": {
-    "recorded_at": "2026-10-29T12:51:17.164535+00:00",
-    "source": "owner reported machine reboot; launch processes absent after boot",
-    "last_reported_completed_microbatches": 0,
-    "unsaved_microbatches": "unknown; fewer than first report at 10",
-    "saved_adapter_step": 0,
-    "diagnostic_sample_command": "sample 60116 1 10 -file runs/qwen35_first_updates.sample.txt",
-    "physical_footprint_printed": "11.2G",
-    "physical_footprint_peak_printed": "11.5G",
-    "sample_sha256": "d081d310e250baecf58646ba152cb4d0bda6cd48184d803fc4366d77cc2fd8a5",
-    "cause_of_reboot": "not established"
-  },
-  "trainer_config": {
-    "adapter_path": "train/runs/qwen3.5-4b-sft",
-    "batch_size": 1,
-    "clear_cache_threshold": 0,
-    "config": null,
-    "data": "train/data",
-    "fine_tune_type": "lora",
-    "grad_accumulation_steps": 2,
-    "grad_checkpoint": true,
-    "iters": 800,
-    "learning_rate": 0.0001,
-    "lora_parameters": {
-      "rank": 8,
-      "dropout": 0.0,
-      "scale": 20.0
-    },
-    "lr_schedule": null,
-    "mask_prompt": true,
-    "max_seq_length": 1536,
-    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
-    "num_layers": 16,
-    "optimizer": "adam",
-    "optimizer_config": {
-      "adam": {},
-      "adamw": {},
-      "muon": {},
-      "sgd": {},
-      "adafactor": {}
-    },
-    "project_name": null,
-    "report_to": null,
-    "resume_adapter_file": null,
-    "save_every": 100,
-    "seed": 3,
-    "steps_per_eval": 200,
-    "steps_per_report": 10,
-    "test": false,
-    "test_batches": 500,
-    "train": true,
-    "trust_remote_code": false,
-    "val_batches": -1
-  }
+  "source_sha256": "c471361d73a72b2dcc17872b399132b068564a2fd5ca23120f791c9dfd2c986b",
+  "status": "initializing"
 }
