@@ -190,7 +190,40 @@ in `results/raw/<game>/*.jsonl`.
 
 ## Findings
 
-_Filled in from the result files once all runs finish._
+These are from seeds 0-49. Every number comes from `results/leaderboard_*.json`.
+
+1. **None of the untuned LLMs earned positive expected PnL on the dice
+   game.** The Bayes dealer and the simple `mean-sd` heuristic were both
+   profitable. In dice, every API model lost money in expectation, and
+   `gpt-oss-20b` and `nemotron-3.5-bolt` did worse than the random quoter.
+2. **The failure is adverse selection, not arithmetic.** The models quote
+   far too tight: their median spread is 12-67% of the optimal spread at the
+   same state (`gpt-oss-20b`: about 1.7 points against 8.2 for the
+   reference). The informed trader then picks them off. Their expected loss
+   to informed flow is 3.7-12x the reference's (15.7-50.1 against 4.2 per
+   episode), while they earn less than the reference from noise traders.
+   This is the textbook Glosten-Milgrom mistake.
+3. **Handing the model the exact posterior does not fix it.** With the
+   public posterior mean and sd written into the prompt (`+hint`),
+   `gpt-oss-20b` still quotes a ~1.7-point spread. Regret per round improves
+   only from 5.28 to 4.40, and the dealer stays deep in negative territory
+   (-109% of the reference). The model also ignores what its own fills
+   reveal: in a typical episode it keeps buying at the public mean after
+   repeatedly being hit by the informed seller.
+4. **Thinking budgets matter in practice.** With thinking enabled,
+   `nemotron-3-ultra-550b` started deriving the optimal quote analytically,
+   with normal tail integrals and size trade-offs. On its probe and on 9 of
+   its first 10 benchmark requests, it hit the 4096-token cap before
+   answering, after 60-180 s each. `minimax-m3.1-flash` hit the cap in both
+   modes. Under a fixed token budget, reasoning that never ends in a quote is
+   worth zero.
+5. **A 1.7B model distilled from the Bayes dealer beats every untuned LLM.**
+   See the next section. It reaches the reference's spread exactly
+   (spread/optimal = 1.00) in both games. On dice it captures 68% of the
+   reference's edge. On cards it still loses money, because its posterior
+   mean drifts after hints: its regret per round rises from 0.0 in round 1
+   to 10.1 in round 6. Conditioning on hints and on cards drawn without
+   replacement is the hard part for a small model.
 
 ## Training a small model
 
