@@ -30,10 +30,11 @@ External access failures remain unmet targets, not successful training trials.
 - Marginal 95% CIs are descriptive. Any claim of superiority across K API
   comparisons must also pass family-wise Bonferroni intervals at level
   `1 - 0.05/(C * (K + 2))` (K comparisons plus dice threshold and cards
-  positivity for each of C frozen final candidates). C is eight: the completed
+  positivity for each of C frozen final candidates). C is nine: the completed
   1.7B baseline, the validation-selected MLX 4B candidate, CUDA teacher SFT,
   and CUDA GRPO, plus a separately staged CUDA warm start and GRPO pair,
-  and the newest-family Qwen3.8 SFT/GRPO pair.
+  and the newest-family Qwen3.8 SFT/GRPO pair, plus the validation-selected
+  two-adapter staged CUDA game router.
   Failed/unavailable candidates remain counted conservatively.
   Do not claim a winner from overlapping or uncorrected intervals.
   The K corrected comparisons are paired differences in dice expected PnL;
@@ -1170,3 +1171,19 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   match the full-projection objective and every parameter gradient. GPU-memory
   behavior and trained-policy performance remain unmeasured. This repair is
   not a policy nonimprovement.
+
+### T16 — validation-selected game routing (registered)
+
+- Hypothesis: the staged GRPO dice/cards tradeoff can be handled by routing the
+  known game to a separately frozen LoRA adapter on the same 4B base model.
+- Change: choose the larger validation mean percentage of Bayes independently
+  by game; the completed 100-episode validation chooses SFT for dice and GRPO
+  for cards. SFT wins an exact tie. No held-out aggregate has been inspected.
+- Command: `.venv/bin/python runs/register_routed_policy.py`.
+- Result: registration only. `results/training/staged_routing_plan.json`
+  freezes both adapter hashes, validation hashes, routes and full registration
+  source. Reuse the corresponding deterministic frozen-policy test episodes
+  once complete, with explicit underlying-policy provenance. This is a
+  two-adapter policy, not a single-checkpoint result. Increase the correction
+  family from eight to nine before any new final score is inspected. Final
+  PnL, CIs and target outcomes remain pending.
