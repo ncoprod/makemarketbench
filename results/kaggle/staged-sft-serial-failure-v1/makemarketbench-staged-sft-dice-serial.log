@@ -1,0 +1,11 @@
+[{"stream_name":"stderr","time":0.624776115,"data":"  File \"/kaggle/src/script.py\", line 38\n"}
+,{"stream_name":"stderr","time":0.624820005,"data":"    }, indent=2) + '\n"}
+,{"stream_name":"stderr","time":0.624826614,"data":"                   ^\n"}
+,{"stream_name":"stderr","time":0.624830764,"data":"SyntaxError: unterminated string literal (detected at line 38)\n"}
+,{"stream_name":"stderr","time":2.962636239,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":2.962675877,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3.263706313,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3.263731911,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4.658758662,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":5.550463613,"data":"[NbConvertApp] Writing 375035 bytes to __results__.html\n"}
+]

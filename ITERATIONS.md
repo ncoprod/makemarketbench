@@ -1348,3 +1348,16 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   arithmetic and private remote metadata are retained in
   `results/training/kaggle_staged_sft_serial.json`. The kernel is private and
   accepted. Status polling is every 610 seconds. Execution remains pending.
+
+### Serial SFT wrapper syntax failure (retained)
+
+- The first scheduled poll reports `ERROR`. The downloaded log shows
+  `SyntaxError: unterminated string literal (detected at line 38)`: the local
+  builder interpreted a newline inside the generated wrapper's string literal.
+  No model loaded and no test episode ran.
+- Preserve the exact submitted source, failed download and retention source in
+  `results/training/kaggle_staged_sft_serial_attempt1.json`, with the full log
+  in `results/kaggle/staged-sft-serial-failure-v1/`.
+- Correct the one escaping error and compile the generated source locally
+  before any retry. Recheck quota and use the identical frozen adapter and
+  seed partitions. This is an implementation failure, not a policy outcome.

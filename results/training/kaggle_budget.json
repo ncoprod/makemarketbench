@@ -733,11 +733,12 @@
       "submitted_at": "2026-10-29T22:47:07.761794+00:00",
       "purpose": "Serial frozen SFT dice test; 200 seeds split into two 100-seed GPU workers after batch parity rejection.",
       "private": true,
-      "status": "submitted_private_verified",
+      "status": "failed_before_model_loading",
       "source_commit": "3682889e7fef3ff9b9dcb931bea36278b2ea3699",
-      "receipt": "results/training/kaggle_staged_sft_serial.json",
+      "receipt": "results/training/kaggle_staged_sft_serial_attempt1.json",
       "wall_cap_seconds": 3300,
-      "session_timeout_seconds": 3350
+      "session_timeout_seconds": 3350,
+      "observed_complete_at": "2026-10-29T22:57:18.588929+00:00"
     }
   ],
   "accounting_notes": [
