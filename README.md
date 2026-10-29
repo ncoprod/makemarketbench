@@ -240,9 +240,9 @@ These are from seeds 0-49. Every number comes from `results/leaderboard_*.json`.
    with normal tail integrals and size trade-offs. On its probe and on 9 of
    its first 10 benchmark requests, it hit the 4096-token cap before
    answering, after 60-180 s each
-   (`results/aborted/nemotron-3-ultra-thinking.json`). `minimax-m3.1-flash` hit the cap in both
-   modes. Under a fixed token budget, reasoning that never ends in a quote is
-   worth zero.
+   (`results/aborted/nemotron-3-ultra-thinking.json`).
+   `minimax-m3.1-flash` hit the cap in both modes. Under a fixed token
+   budget, reasoning that never ends in a quote is worth zero.
 5. **A 1.7B model distilled from the Bayes dealer beats every untuned LLM.**
    See the next section. It reaches the reference's spread exactly
    (spread/optimal = 1.00) in both games. On dice it captures 68% of the
@@ -346,6 +346,9 @@ python scripts/bench_engine.py             # engine throughput -> results/engine
 
 Any OpenAI-compatible server works, for example Ollama
 (`--base-url http://localhost:11434/v1 --api-key-env NONE`), `mlx_lm.server` or vLLM.
+A local Ollama baseline was planned but was not run, because the model
+download did not finish on the available bandwidth. The local models in the
+tables were served with `mlx_lm.server` instead.
 
 ## Limitations
 
