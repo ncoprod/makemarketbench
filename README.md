@@ -195,6 +195,9 @@ Load `NVIDIA_API_KEY` through your environment; never put it in commands or file
 For the shared resource limits, use the lock wrapper:
 
 ```bash
+# CPU references can run before acquiring the heavy-ML lock:
+mmb eval --game cards --seeds 200-399 --player bayes bayes-public mean-sd fixed-prior random \
+  --results-dir runs/final
 bash scripts/with_resource.sh nim python scripts/expand_nim.py
 pip install mlx-lm transformers
 python train/make_sft_data.py

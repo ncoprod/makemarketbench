@@ -312,3 +312,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   UI observation is transcribed at the console's printed precision and is not
   a validation or final policy result:
   [progress](results/training/kaggle_live_progress.json).
+
+### Shared-resource preparation — CPU references
+
+- Add `mmb eval/score --results-dir` and baseline/score receipts, so the
+  mathematical references can be computed outside the heavy-ML mutex and
+  resumed by the existing policy evaluator. No game or model setting changes.
+- End-to-end check: generate and score Bayes on dice seed 80,000 in an ignored
+  output directory; verify the provenance command, exact seed, 100% self-ratio
+  and standard JSON. This is workflow preparation, not a policy trial.

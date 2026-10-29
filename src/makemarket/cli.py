@@ -19,6 +19,7 @@ from pathlib import Path
 from .evaluate import load_results, run_player
 from .games import make_game
 from .players import BASELINES
+from .provenance import receipt
 
 RESULTS = Path("results")
 
@@ -41,10 +42,11 @@ def slug(name: str) -> str:
 def cmd_eval(args) -> None:
     game = make_game(args.game)
     seeds = parse_seeds(args.seeds)
-    raw = RESULTS / "raw" / args.game
+    raw = Path(args.results_dir) / "raw" / args.game
     for name in args.player or []:
         eps = run_player(game, BASELINES[name], seeds, raw / f"{slug(name)}.jsonl", workers=1,
-                         backend=args.backend)
+                         backend=args.backend,
+                         provenance=receipt({"player": name, "seeds": seeds, "backend": args.backend}))
         print(f"{name}: {len(eps)} episodes")
     for model in args.llm or []:
         from .llm import ChatClient, LLMConfig, LLMQuoter, Throttle
@@ -63,7 +65,8 @@ def cmd_score(args) -> None:
     from .scoring import markdown_table, summarize
 
     seeds = set(parse_seeds(args.seeds))
-    raw = RESULTS / "raw" / args.game
+    results = Path(args.results_dir)
+    raw = results / "raw" / args.game
     eps = {}
     for f in sorted(raw.glob("*.jsonl")):
         rows = [e for e in load_results(f) if e["seed"] in seeds]
@@ -76,10 +79,13 @@ def cmd_score(args) -> None:
     rows = [r for r in summarize(eps) if r["episodes"] >= args.min_episodes]
     for r in rows:
         r.update(player_diagnostics(eps[r["player"]]))
-    out = RESULTS / f"leaderboard_{args.game}.json"
-    out.write_text(json.dumps({"game": args.game, "seeds": sorted(seeds), "rows": rows}, indent=2) + "\n")
+    out = results / f"leaderboard_{args.game}.json"
+    out.write_text(json.dumps({"game": args.game, "seeds": sorted(seeds), "rows": rows,
+                              "provenance": receipt({"game": args.game, "seeds": sorted(seeds),
+                                                     "min_episodes": args.min_episodes,
+                                                     "results_dir": args.results_dir})}, indent=2) + "\n")
     md = markdown_table(rows)
-    (RESULTS / f"leaderboard_{args.game}.md").write_text(md + "\n")
+    (results / f"leaderboard_{args.game}.md").write_text(md + "\n")
     print(md)
 
 
@@ -127,6 +133,7 @@ def main(argv: list[str] | None = None) -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
     e = sub.add_parser("eval", help="play episodes and store raw results")
     e.add_argument("--game", required=True)
+    e.add_argument("--results-dir", default=str(RESULTS))
     e.add_argument("--seeds", default="0-49")
     e.add_argument("--player", nargs="*", choices=sorted(BASELINES))
     e.add_argument("--llm", nargs="*", help="model ids served by an OpenAI-compatible endpoint")
@@ -144,6 +151,7 @@ def main(argv: list[str] | None = None) -> None:
     e.set_defaults(fn=cmd_eval)
     s = sub.add_parser("score", help="aggregate raw results into a leaderboard")
     s.add_argument("--game", required=True)
+    s.add_argument("--results-dir", default=str(RESULTS))
     s.add_argument("--seeds", default="0-49")
     s.add_argument("--min-episodes", type=int, default=1)
     s.set_defaults(fn=cmd_score)
