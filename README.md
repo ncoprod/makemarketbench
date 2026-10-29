@@ -165,7 +165,10 @@ and covered by Python/C++ stateful fuzzing. CI runs native ASan/UBSan builds.
 The historical benchmark and rerun occurred at different times on a shared
 laptop. The alternating comparison controls this more closely. A ratio of
 marginal medians differs from the median of paired ratios; both estimands are
-reported. The benchmark measures an in-memory synthetic stream, not network or
+reported. All four circular-block bootstrap intervals also remain above one
+after correcting for the engine variants and block lengths
+([timing-dependence check](results/engine_trials/inline_matching_block_intervals.json)).
+The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
 ## Provenance

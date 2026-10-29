@@ -1,0 +1,59 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/analyse_engine.py",
+    "config": {
+      "seed": 0,
+      "block_lengths": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "resamples": 50000,
+      "engine_candidates": 3
+    },
+    "model_revision": null,
+    "git_commit": "5cedf894ab24ea2bec0663477828a9c094158a54",
+    "uncommitted_diff_sha256": "d1d03f2954885987655bc9567cdf8e97fa75e5582744fd813c1a4e482bdd43f7",
+    "started_at": "2026-10-29T14:13:42.591108+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "ac091cd5e27601a7033d456f5199ecbd37967a4bbfda750155233dfca77fa653",
+  "input": "results/engine_trials/inline_matching_confirmation.json",
+  "input_sha256": "385481856802aac181615697028e31da327165918cc6e621365b3ef14e0e5afd",
+  "pairs": 200,
+  "checksum": 6638620577960879557,
+  "median_speedup": 1.0511294533532733,
+  "lag_one_ratio_correlation": -0.014392495517376416,
+  "order_medians": {
+    "old_first": 1.0511294533532733,
+    "new_first": 1.0495269513125054
+  },
+  "confidence": 0.9958333333333333,
+  "block_bootstrap": {
+    "1": [
+      1.0290834333455798,
+      1.0740045846876147
+    ],
+    "5": [
+      1.028462112694586,
+      1.0757033881910534
+    ],
+    "10": [
+      1.0288468928406247,
+      1.0757040137081033
+    ],
+    "20": [
+      1.0295867148036033,
+      1.0757040137081033
+    ]
+  },
+  "all_corrected_lower_bounds_above_one": true
+}

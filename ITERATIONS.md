@@ -484,3 +484,9 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   a new performance optimisation or a new timed benchmark.
 - Command: `python scripts/analyse_engine.py`. Result pending at
   `results/engine_trials/inline_matching_block_intervals.json`.
+
+- Timing-dependence result: every registered block length retains a corrected
+  lower bound above one. The lowest is 1.028462112694586 (block length five);
+  old-first and new-first median ratios are 1.0511294533532733 and
+  1.0495269513125054. Lag-one ratio correlation is −0.014392495517376416.
+  All results, including the wider intervals, are retained in the result file.
