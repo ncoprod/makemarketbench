@@ -188,9 +188,11 @@ Long-timeout GLM, DeepSeek and Ultra-thinking probes ended in HTTP 504 after
 three requests ([failure receipts](results/expansion/protocol.json)). GLM at
 low effort and DeepSeek with thinking disabled also failed the same way
 ([separate retry receipts](results/expansion/protocol-reasoning.json)).
-No scores are assigned to unavailable endpoints. Lightning has completed fresh
-200-episode cohorts in both games; further cohorts and the corrected comparison
-remain pending ([cohort receipts](results/expansion/lightning_cohorts.json)).
+No scores are assigned to unavailable endpoints. Lightning and Ultra with
+thinking disabled have completed fresh 200-episode cohorts in both games;
+further cohorts and the corrected comparison remain pending
+([Lightning](results/expansion/lightning_cohorts.json),
+[Ultra](results/expansion/ultra_cohorts.json)).
 The original [request protocol](results/llm_protocol.json) and
 [endpoint failures](results/endpoint_check.json) remain available.
 

@@ -971,7 +971,7 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   that mode before explicit reasoning-budget tuning. Its budget example is a
   separate client-side continuation; do not assume an undocumented hosted flag.
 - Queue `bash scripts/with_resource.sh nim python scripts/expand_nim.py --ultra-medium`.
-  Keep the original timeout, output ceiling, greedy temperature and retry count;
+  Keep the original timeout, output ceiling, sampling temperature and retry count;
   this is a separate labelled configuration and protocol file. Run 200 episodes
   per game only if the availability probe returns a usable quote.
 - Plan and source: `results/expansion/ultra_medium_plan.json`. Configuration is
@@ -1007,3 +1007,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   all 480 validation examples, seed three and the same 7 GiB guard. Its eventual
   best checkpoint is selected by validation only. No policy improvement is yet
   claimed, and the probe's update is not added to its iteration count.
+
+### T3 expansion — second complete API pair retained
+
+- Ultra with thinking disabled now has 200 unique seeds, 200–399, and six
+  rounds in each game. Preserve every episode and cohort hashes in
+  `results/expansion/ultra_cohorts.json`; compute no aggregate during tuning.
+- Correct the unexecuted medium-effort draft's temperature from zero to the
+  existing client value 0.3, and make that value explicit in future batches.
+  Active requests already used 0.3. The separate medium-effort retry remains
+  queued under the shared slot rule. These CIs will be conditional on the
+  recorded API samples and trained checkpoints, rather than uncertainty across
+  training seeds or repeated stochastic generations.

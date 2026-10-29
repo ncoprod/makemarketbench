@@ -96,7 +96,8 @@ def main() -> None:
         if args.models and model not in args.models:
             continue
         label = model + (f" ({suffix})" if suffix else "")
-        cfg = LLMConfig(model=model, label=label, timeout=600, max_tokens=tokens, extra_body=extra)
+        cfg = LLMConfig(model=model, label=label, timeout=600, max_tokens=tokens,
+                        temperature=0.3, extra_body=extra)
         provenance = {**batch, "config": {**dataclasses.asdict(cfg), "batch": vars(args)}}
         client = ChatClient(cfg, cache_dir="cache/expansion", throttle=Throttle(1), max_retries=3)
         entry = protocol.get(label)

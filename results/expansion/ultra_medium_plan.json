@@ -31,7 +31,7 @@
     "max_tokens": 16384,
     "timeout_seconds": 600,
     "max_retries": 3,
-    "temperature": 0,
+    "temperature": 0.3,
     "episodes_per_game_if_usable": 200,
     "seeds": [
       200,
@@ -48,5 +48,9 @@
     "scripts/expand_nim.py",
     "--ultra-medium"
   ],
-  "status": "prepared_not_started"
+  "status": "queued_under_shared_nim_slot",
+  "wrapper_pid": 60545,
+  "queued_at": "2026-10-29T20:36:23.057810+00:00",
+  "launch_commit": "0f91a5ecafe791fdfc7a8f14fc81e570645e018f",
+  "draft_correction": "Before any medium-effort request, correct the draft temperature 0 to the actual existing client value 0.3. Make 0.3 explicit in future batches; active workers already use that value."
 }
