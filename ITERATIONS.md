@@ -840,3 +840,43 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Download a live Qwen3.8 runtime through the notebook's output-file action:
   update 70, SFT phase, 1,724.92853140831 seconds, no memory failure. Retain it
   explicitly as a progress sample, not a completed run or a policy score.
+
+### Paired validation launched; newest-family teacher loss improving
+
+- Private validation version one accepted, T4 requested, internet on and
+  remote privacy verified. Execution receipt: `kaggle_staged_validation.json`;
+  its monitor waits 610 seconds between status requests. The source references
+  immutable staged-training outputs, and runs one frozen policy on each T4.
+- Download the active newest-family training log through Kaggle's file action.
+  The first two printed teacher validation losses decrease from 0.3883 to
+  0.3473. Retain the complete unedited progress snapshot and download receipt in
+  `results/kaggle/qwen38-training-v4/progress/`. These are teacher-loss diagnostics,
+  not policy PnL; exact final checkpoint history remains pending.
+- Both local MLX queues still wait for the live foreign heavy-ML owner. No
+  competing local model training or inference starts while memory is occupied.
+
+### T9 local chunk-parallel memory probe — guard stopped before update
+
+- After the shared lock became free, the queued probe ran at 19:16 UTC.
+  The physical-footprint guard stopped it after 60.59448858399992 seconds,
+  sampling approximately 7,633,633,280 bytes. No optimizer update completed.
+  Preserve `qwen35_parallel_memory_guard.json`, the last training callback
+  plus post-run guard outcome in `qwen35_parallel_smoke.json`, and the full log.
+- The conditional full-SFT launcher correctly did not start. The 1.7B frozen
+  final evaluation acquired the heavy-ML lock and resumed missing episodes.
+  This failed infrastructure attempt is not a policy nonimprovement.
+
+### T11 — avoid the masked vocabulary-head allocation (registered)
+
+- Hypothesis: projecting hundreds of masked prompt positions to a 248k-word
+  vocabulary retains large, unnecessary training tensors. Keep the full causal
+  backbone, then project only the final 128 positions. Preserve MLX-LM's exact
+  loss mask, including its boundary convention.
+- A batch guard rejects any supervised token outside the retained window.
+  CPU checks compare loss and every parameter gradient against the full causal
+  model, with tied and untied heads; another test rejects dropping one label.
+  Sixteen training tests pass. Source: `train/mlx_answer_loss.py`.
+- Add `--answer-head-tokens 128` to the otherwise unchanged two-microbatch
+  probe, under the heavy-ML lock and 7 GiB physical guard. Require one verified
+  optimizer update before enabling the full 800-iteration run. Registration:
+  `results/training/qwen35_answer_probe_plan.json`. No held-out policy tuning.

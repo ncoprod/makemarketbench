@@ -1,0 +1,46 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/with_memory_guard.py --result results/training/qwen35_parallel_memory_guard.json .venv/bin/python -u train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --resume train/runs/qwen3.5-4b-sft-interrupted/best.safetensors --data runs/qwen35_memory_data --out train/runs/qwen35-parallel-smoke --result results/training/qwen35_parallel_smoke.json --iters 2",
+    "config": {
+      "result": "results/training/qwen35_parallel_memory_guard.json",
+      "max_gib": 7,
+      "command": [
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_train.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--resume",
+        "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+        "--data",
+        "runs/qwen35_memory_data",
+        "--out",
+        "train/runs/qwen35-parallel-smoke",
+        "--result",
+        "results/training/qwen35_parallel_smoke.json",
+        "--iters",
+        "2"
+      ]
+    },
+    "model_revision": null,
+    "git_commit": "ca5e2ff646ccce3deb5ece62738782257bff043a",
+    "uncommitted_diff_sha256": "d5073a39d5b83af0c2f1c0487cf24832eee3638b2392386d220c7badff2ab92d",
+    "started_at": "2026-10-29T19:16:54.173913+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "41a2bd36ae6deafe8b81942ece393723daf167fb091fc888e81d15202552f404",
+  "status": "physical_memory_limit",
+  "sampled_footprint_peak_bytes_approx": 7633633280.0,
+  "child_pid": 67296,
+  "wall_seconds": 60.59448858399992,
+  "returncode": -9
+}

@@ -1,0 +1,12 @@
+{
+  "registered_at": "2026-10-29T19:59:05.112985+00:00",
+  "git_commit": "3cdb5a0aa108aae04138f7cfb1dfe0a667696548",
+  "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "seed": 3,
+  "trial": "T11 infrastructure memory repair; no held-out evaluation",
+  "hypothesis": "Project only the final 128 answer/padding positions through the large vocabulary head, retaining full causal hidden states and exact upstream masked loss.",
+  "change": "--answer-head-tokens 128; all T9 probe settings unchanged",
+  "validation": "Full-loss value and every parameter gradient match on tied and untied causal toy models; reject even one dropped supervised token. Sixteen training checks pass.",
+  "acceptance": "At least one optimizer update, completed memory guard, sampled physical footprint below 7 GiB.",
+  "status": "registered_not_started"
+}

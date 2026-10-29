@@ -33,6 +33,7 @@ def main() -> None:
     ap.add_argument("--accumulation", type=int, default=2)
     ap.add_argument("--layers", type=int, default=16)
     ap.add_argument("--seed", type=int, default=3)
+    ap.add_argument("--answer-head-tokens", type=int, default=0)
     args = ap.parse_args()
     np.random.seed(args.seed)
     record = receipt(vars(args), args.revision)
@@ -53,6 +54,12 @@ def main() -> None:
     from mlx_memory import enable_gated_delta_training
 
     record["recurrence_training"] = enable_gated_delta_training()
+    if args.answer_head_tokens:
+        from mlx_answer_loss import answer_batches, answer_loss
+
+        lora.train = functools.partial(
+            lora.train, loss=functools.partial(answer_loss, width=args.answer_head_tokens),
+            iterate_batches=functools.partial(answer_batches, width=args.answer_head_tokens))
 
     config = dict(lora.CONFIG_DEFAULTS)
     config.update(model=args.model, train=True, data=args.data, adapter_path=args.out,

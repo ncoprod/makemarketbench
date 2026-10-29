@@ -1,0 +1,12 @@
+{
+  "downloaded_at": "2026-10-29T19:45:09.893637+00:00",
+  "method": "Kaggle private draft output file: train.log, More actions > Download",
+  "source_file": "results/kaggle/qwen38-training-v4/progress/sft-live-train.log",
+  "sha256": "2b1e9d4f0adef7f2858d481c98d2eda9f94bd36279935e84a90dac12aed9d01e",
+  "source_commit": "4e9eda32ad32bbfd47198318158d193399b2048b",
+  "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+  "seed": 0,
+  "execution_receipt": "results/training/qwen38_pipeline_plan.json",
+  "status": "in_progress_not_final",
+  "note": "Console progress bars can interleave evaluation and training; runtime phase_step and checkpoint trainer_state are authoritative for update counts."
+}

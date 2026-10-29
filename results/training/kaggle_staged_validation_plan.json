@@ -25,5 +25,6 @@
   "purpose": "SFT-only versus SFT+GRPO validation ablation. Diagnose on validation before any focused recipe change. Frozen final candidates remain reportable, independently of this result.",
   "submission_condition": "Source training session completed and outputs retrieved; batch slot and quota available.",
   "planned_max_hours": 3,
-  "status": "prepared_not_submitted"
+  "status": "submitted",
+  "execution_receipt": "results/training/kaggle_staged_validation.json"
 }

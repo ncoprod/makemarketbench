@@ -1,0 +1,151 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/submit_staged_validation.py",
+    "config": {
+      "command": [
+        "kaggle",
+        "kernels",
+        "push",
+        "-p",
+        "runs/kaggle_evaluate_staged",
+        "--accelerator",
+        "NvidiaTeslaT4"
+      ],
+      "metadata": {
+        "id": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged",
+        "title": "MakeMarketBench GRPO Qwen3 validate staged",
+        "code_file": "grpo_unsloth_kaggle.py",
+        "language": "python",
+        "kernel_type": "script",
+        "is_private": true,
+        "enable_gpu": true,
+        "enable_internet": true,
+        "machine_shape": "NvidiaTeslaT4",
+        "dataset_sources": [],
+        "competition_sources": [],
+        "kernel_sources": [
+          "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+        ],
+        "model_sources": []
+      }
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "3cdb5a0aa108aae04138f7cfb1dfe0a667696548",
+    "uncommitted_diff_sha256": "a8924cf0f362401c6ac3b0640083ce9821bfc77726113316b7b120441155bf83",
+    "started_at": "2026-10-29T19:23:58.398619+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged",
+    "title": "MakeMarketBench GRPO Qwen3 validate staged",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "359fb9440262188fbfa3f723c0135ea9784322694d5d957bacb9b1b4dbf0467c",
+  "submitted_at": "2026-10-29T19:23:58.493542+00:00",
+  "poll_interval_seconds": 610,
+  "polls": [
+    {
+      "at": "2026-10-29T19:34:16.286717+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T19:44:35.479084+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T19:54:56.230313+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
+  "planned_max_hours": 3,
+  "submission": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "push",
+      "-p",
+      "runs/kaggle_evaluate_staged",
+      "--accelerator",
+      "NvidiaTeslaT4"
+    ],
+    "exit_code": 0,
+    "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged\n",
+    "error": ""
+  },
+  "status": "submitted",
+  "privacy_check": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "pull",
+      "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged",
+      "-p",
+      "runs/kaggle_validation_remote",
+      "-m"
+    ],
+    "exit_code": 0,
+    "output": "Source code and metadata downloaded to runs/kaggle_validation_remote\n",
+    "error": ""
+  },
+  "remote_metadata": {
+    "id": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged",
+    "id_no": 141556273,
+    "title": "MakeMarketBench GRPO Qwen3 validate staged",
+    "code_file": "makemarketbench-grpo-qwen3-validate-staged.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_tpu": false,
+    "enable_internet": true,
+    "keywords": [],
+    "dataset_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+    ],
+    "competition_sources": [],
+    "model_sources": [],
+    "docker_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
+    "machine_shape": "NvidiaTeslaT4"
+  }
+}

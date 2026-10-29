@@ -194,3 +194,70 @@ def test_parallel_recurrence_full_chunks_strong_decay_and_gradients(monkeypatch,
         actual = mx.value_and_grad(lambda *x: objective(parallel, *x), argnums=range(6))(*args)
         for before, after in zip([expected[0], *expected[1]], [actual[0], *actual[1]]):
             assert mx.allclose(before, after, atol=tolerance, rtol=tolerance).item()
+
+
+@pytest.mark.parametrize('tied', [False, True])
+def test_answer_window_preserves_full_causal_loss_and_every_parameter_gradient(monkeypatch, tied):
+    import importlib
+    from types import SimpleNamespace
+
+    mx = pytest.importorskip('mlx.core')
+    nn = pytest.importorskip('mlx.nn')
+    from mlx.utils import tree_flatten
+    from mlx_lm.tuner.trainer import default_loss
+
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / 'train'))
+    answer = importlib.import_module('mlx_answer_loss')
+
+    class Backbone(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.embed_tokens = nn.Embedding(31, 8)
+
+        def __call__(self, tokens):
+            return mx.cumsum(self.embed_tokens(tokens), axis=1) * 0.1
+
+    class Text(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.model = Backbone()
+            self.lm_head = nn.Linear(8, 31)
+            self.args = SimpleNamespace(tie_word_embeddings=tied)
+
+        def __call__(self, tokens):
+            hidden = self.model(tokens)
+            return (self.model.embed_tokens.as_linear(hidden) if tied else self.lm_head(hidden))
+
+    class Model(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.language_model = Text()
+
+        def __call__(self, tokens):
+            return self.language_model(tokens)
+
+    with mx.stream(mx.cpu):
+        mx.random.seed(99)
+        model = Model()
+        batch = mx.array([list(range(20)), list(reversed(range(20)))])
+        lengths = mx.array([[14, 18], [15, 19]])
+        expected = nn.value_and_grad(model, lambda m: default_loss(m, batch, lengths)[0])(model)
+        actual = nn.value_and_grad(model, lambda m: answer.answer_loss(m, batch, lengths, width=8)[0])(model)
+        assert actual[0].item() == pytest.approx(expected[0].item(), abs=1e-6)
+        before, after = dict(tree_flatten(expected[1])), dict(tree_flatten(actual[1]))
+        assert before.keys() == after.keys()
+        for name in before:
+            assert mx.allclose(before[name], after[name], atol=1e-6, rtol=1e-5).item(), name
+
+
+def test_answer_window_rejects_even_one_dropped_supervised_token(monkeypatch):
+    import importlib
+
+    mx = pytest.importorskip('mlx.core')
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / 'train'))
+    answer = importlib.import_module('mlx_answer_loss')
+    with mx.stream(mx.cpu):
+        options = dict(batch_size=1, max_seq_length=64, loop=False, width=8)
+        assert len(list(answer.answer_batches([(list(range(26)), 25)], **options))) == 1
+        with pytest.raises(ValueError, match='discard supervised tokens'):
+            list(answer.answer_batches([(list(range(26)), 24)], **options))
