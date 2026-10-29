@@ -44,9 +44,21 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=200)
     ap.add_argument("--seed", type=int, default=200)
     ap.add_argument("--models", nargs="*")
+    ap.add_argument("--reduced-reasoning", action="store_true",
+                    help="retry GLM at low effort and DeepSeek with thinking disabled")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    path = OUT / ("protocol-supplement.json" if args.models else "protocol.json")
+    models = list(MODELS)
+    filename = "protocol-supplement.json" if args.models else "protocol.json"
+    if args.reduced_reasoning:
+        filename = "protocol-reasoning.json"
+        models = [
+            ("z-ai/glm-5.3-flash", {"reasoning_effort": "low",
+                                  "chat_template_kwargs": {"clear_thinking": True}}, 8192, "reasoning-low"),
+            ("deepseek-ai/deepseek-v4.1-flash",
+             {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"),
+        ]
+    path = OUT / filename
     protocol = json.loads(path.read_text()) if path.exists() else {}
     discovery = OUT / "models.json"
     if not discovery.exists():
@@ -60,11 +72,11 @@ def main() -> None:
     catalog = json.loads(discovery.read_text()).get("data", {}).get("data", [])
     for model in catalog:
         if "qwen3.8" in model["id"].lower():
-            MODELS.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
+            models.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
     g = make_game("dice")
     ep = g.episode(0)
     obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
-    for model, extra, tokens, suffix in MODELS:
+    for model, extra, tokens, suffix in models:
         if args.models and model not in args.models:
             continue
         label = model + (f" ({suffix})" if suffix else "")

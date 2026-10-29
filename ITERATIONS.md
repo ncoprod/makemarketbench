@@ -129,6 +129,14 @@ do not invent missing provenance. Historical adapter configs are preserved.
   seconds. Ultra with thinking is the next probe. No new policy score is claimed.
 - Evidence: [catalogue](results/expansion/models.json), ignored
   `runs/nim_expansion.log` / `runs/nim_supplement.log`; protocol JSON after each probe.
+- Focused follow-up: [NVIDIA's GLM guide](https://docs.nvidia.com/nim/large-language-models/2.1.4/get-started/advanced/get-started-glm-5.3-flash.html)
+  documents default maximum reasoning and a low-effort control; the
+  [upstream DeepSeek serving recipe](https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4.1-Flash)
+  documents `enable_thinking=false`. Retry these explicit modes under a shared
+  slot with `scripts/expand_nim.py --reduced-reasoning`. This changes decoding
+  after availability failures, before any new held-out score is observed.
+  Preserve the original failures and both configurations; completed cohorts
+  join the API comparison family. Evidence: `results/expansion/protocol-reasoning.json`.
 
 ### T4 — Qwen3.5-4B LoRA (running)
 
