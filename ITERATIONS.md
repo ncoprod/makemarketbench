@@ -1116,3 +1116,7 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Queue the already registered frozen SFT/GRPO test pair, 200–399, with batched
   inference only after its train-state parity guard passes. Use a two-hour
   evaluation cap, reserving remaining quota for the newest-family pipeline.
+- Private held-out version one is accepted and remotely verified. Exact launch,
+  source hash, settings, and conservative quota reservation are in
+  `results/training/kaggle_staged_final.json`. The status monitor sleeps
+  610 seconds between checks. Both frozen adapter identities are unchanged.

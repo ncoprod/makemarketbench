@@ -508,6 +508,22 @@
       "result_file": "results/kaggle/staged-validation-v1/pair_runtime.json",
       "allocation_end_at": null,
       "allocation_end_note": "Exact release time unavailable; observed completion is an upper bound."
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-final-staged",
+      "version": 1,
+      "accelerator": "T4 x2 requested",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "submitted_at": "2026-10-29T21:22:34.391705+00:00",
+      "purpose": "Frozen staged SFT and GRPO: 200 held-out episodes per game; batch4 after train-state parity.",
+      "source_commit": "9d4cca4f79c825a8a48b243efb4285e9e4480f0b",
+      "status": "submitted_private_verified",
+      "receipt": "results/training/kaggle_staged_final.json",
+      "wall_cap_seconds": 7200,
+      "session_timeout_seconds": 7500,
+      "time_note": "Allocation start/end and billed per-session hours are not yet exposed."
     }
   ],
   "accounting_notes": [

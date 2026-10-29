@@ -17,7 +17,7 @@
       "mlx-lm": "0.32.2"
     }
   },
-  "status": "prepared_not_started",
+  "status": "queued_under_heavy_ml_lock",
   "hypothesis": "Default MLX free-cache limit equals its much larger memory limit. Repeated allocations may retain unused Metal buffers across shapes; bound that cache without changing active tensors or loss.",
   "change": {
     "mlx_free_cache_limit_bytes": 268435456,
@@ -47,5 +47,38 @@
       "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
     }
   },
-  "api_doc": "mlx.core.set_cache_limit: defaults to the memory limit; reclaims unused cached memory on the next allocation."
+  "api_doc": "mlx.core.set_cache_limit: defaults to the memory limit; reclaims unused cached memory on the next allocation.",
+  "queued_at": "2026-10-29T21:15:27.508086+00:00",
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "heavy-ml",
+    ".venv/bin/python",
+    "-u",
+    "train/with_memory_guard.py",
+    "--result",
+    "results/training/qwen35_cache_memory_guard.json",
+    ".venv/bin/python",
+    "-u",
+    "train/mlx_train.py",
+    "--model",
+    "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "--revision",
+    "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "--resume",
+    "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+    "--data",
+    "runs/qwen35_memory_data",
+    "--out",
+    "train/runs/qwen35-cache-smoke",
+    "--result",
+    "results/training/qwen35_cache_smoke.json",
+    "--iters",
+    "8",
+    "--answer-head-tokens",
+    "128"
+  ],
+  "wrapper_pid": 23301,
+  "conditional_full_launcher_pid": 23302,
+  "launch_commit": "2d9666827e33b8eacab7da911ede350df7af9ce0"
 }

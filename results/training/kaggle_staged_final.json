@@ -1,0 +1,71 @@
+{
+  "submitted_at": "2026-10-29T21:22:34.391705+00:00",
+  "command": [
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "runs/kaggle_evaluate_staged",
+    "--accelerator",
+    "NvidiaTeslaT4",
+    "-t",
+    "7500"
+  ],
+  "source_commit": "9d4cca4f79c825a8a48b243efb4285e9e4480f0b",
+  "source_sha256": "0f385bba70d2e8fc98cc20683e4e7dfa7090a5eecfa23203a9f53c13d055fd63",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-grpo-qwen3-final-staged",
+    "title": "MakeMarketBench GRPO Qwen3 final staged",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+    ],
+    "model_sources": []
+  },
+  "evaluation_seeds": [
+    200,
+    399
+  ],
+  "episodes_per_game": 200,
+  "batch_size": 4,
+  "batch_guard": "Eight training states must have identical parsed serial/batched quotes before test inference.",
+  "wall_cap_seconds": 7200,
+  "session_timeout_seconds": 7500,
+  "quota_admission": {
+    "latest_quota_used_seconds": 76929.544406,
+    "remaining_seconds": 31070.455594,
+    "active_original_and_newest_upper_bound_seconds_at_submission": 8500,
+    "new_session_bound_seconds": 7500,
+    "reserved_newest_followups_seconds": 14400,
+    "fits": true,
+    "note": "These are conservative remaining caps, not billed measurements. Recheck actual quota before conditional followups."
+  },
+  "polls": [],
+  "push": {
+    "exit_code": 0,
+    "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3-final-staged\n"
+  },
+  "privacy_verification": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "pull",
+      "nicolascoquelet/makemarketbench-grpo-qwen3-final-staged",
+      "-p",
+      "runs/kaggle_final_staged_remote",
+      "-m"
+    ],
+    "exit_code": 0,
+    "output": "Source code and metadata downloaded to runs/kaggle_final_staged_remote\n"
+  },
+  "status": "submitted_private_verified",
+  "kernel_id": 141573211
+}
