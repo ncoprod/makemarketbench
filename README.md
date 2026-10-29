@@ -7,12 +7,20 @@ information is revealed round by round. An informed counterparty picks off
 mispriced quotes and noise traders pay the spread. Every decision is compared
 with an exact Bayesian reference dealer.
 
+**Headline (seeds 0-49, 50 episodes per dealer).** None of the four API
+models tested earned positive expected PnL in either game. They quote spreads
+of 1-67% of the optimal spread and are picked off by the informed trader. On
+dice, Qwen3-1.7B after about 0.06 epochs of LoRA behaviour cloning captures
+68% [38, 89] of the reference's edge. The best API model is at -41%, and the
+same small model untuned is at -1728%. Details are in [Findings](#findings).
+
 The repository contains:
 
 - a **C++20 limit order book** (price-time priority) exposed to Python with
   pybind11, plus a pure-Python reference implementation. Parity is tested on
   randomised event streams, and both are benchmarked;
-- **two games** with exact posteriors: a dice sum, and a card sum with hints;
+- **two games** with exact posteriors, a dice sum and a card sum with hints,
+  plus a four-player **Figgie-lite** sandbox on four order books;
 - a **Bayes reference quoter** and naive baselines, with **scoring** that
   separates the edge earned from noise traders from the cost of adverse
   selection;
@@ -152,6 +160,26 @@ output tokens and at most 2 requests in flight. `gpt-oss-20b` used
 reasoning without answering. Raw episodes, including every model answer, are
 in `results/raw/<game>/*.jsonl`.
 
+**Request settings per model.** `scripts/run_llm_queue.py` probes each
+model on a real quoting prompt. It uses the first request variant that
+returns a valid quote within the budget, and records the choice in
+`results/llm_protocol.json`:
+
+| Model | Setting used | Why |
+|---|---|---|
+| `openai/gpt-oss-20b` | `reasoning_effort=low` | At the default effort it used all 4096 tokens with no answer |
+| `nvidia/nemotron-3-ultra-550b-a55b` | thinking off, "(no-think)" | With thinking on, it hit the 4096-token cap |
+| `nvidia/nemotron-3.5-lightning-30b-a3b` | thinking off, "(no-think)" | With thinking on, it hit the 4096-token cap |
+| `nvidia/nemotron-3.5-bolt-e4b` | default | Answered within budget |
+| `minimaxai/minimax-m3.1-flash` | not evaluated | Hit the cap with thinking both on and off |
+| `deepseek-ai/deepseek-v4.1-flash` | not evaluated | Timed out (120-240 s) on every probe |
+| `z-ai/glm-5.3-flash` | not evaluated | Timed out on the probes. It later answered an 8-token request in 112 s, too slow for about 600 requests |
+| `moonshotai/kimi-k2.6`, `nvidia/nemotron-3-super-120b-a12b`, `mistralai/mistral-large-2-instruct`, `google/gemma-3-12b-it`, `google/gemma-3-4b-it` | not evaluated | HTTP 404 from the endpoint |
+
+The availability checks are in `results/endpoint_check.json`. Separately,
+`nemotron-3.5-bolt` got transient 404s on 3 cards seeds, and those seeds
+were rerun.
+
 ### Game 1: dice
 
 <!-- TABLE:dice -->
@@ -169,6 +197,7 @@ in `results/raw/<game>/*.jsonl`.
 | openai/gpt-oss-20b | 50 | -146 [-221, -91] | -20.4 [-27.5, -13.9] | 5.28 | 0.22 | 3.26 | 23.4 | 8% |
 | nvidia/nemotron-3.5-bolt-e4b | 50 | -459 [-612, -368] | -64.1 [-72.9, -56.2] | 11.93 | 0.12 | 3.96 | 50.1 | 0% |
 | qwen3-1.7b-base | 50 | -1728 [-2151, -1455] | -241.3 [-255.7, -226.1] | 41.27 | 0.12 | 24.00 | 124.3 | 0% |
+| nvidia/nemotron-3.5-lightning-30b-a3b (no-think) | 50 | -3017 [-3759, -2550] | -421.3 [-449.7, -393.1] | 70.84 | 0.11 | 22.92 | 276.8 | 0% |
 <!-- /TABLE:dice -->
 
 ![dice leaderboard](docs/figures/leaderboard_dice.png)
@@ -185,7 +214,11 @@ in `results/raw/<game>/*.jsonl`.
 | qwen3-1.7b-dagger | 50 | -30 [-98, 26] | -6.0 [-18.9, 5.4] | 4.42 | 1.00 | 3.92 | 16.0 | 0% |
 | random | 50 | -45 [-93, -11] | -9.1 [-16.6, -2.3] | 5.18 | 1.37 | 4.88 | 14.9 | 0% |
 | qwen3-1.7b-sft | 50 | -80 [-161, -15] | -16.1 [-30.0, -3.2] | 5.01 | 1.00 | 4.09 | 21.6 | 0% |
+| openai/gpt-oss-20b | 50 | -85 [-132, -50] | -17.0 [-24.3, -10.5] | 6.08 | 0.14 | 4.06 | 19.0 | 7% |
+| nvidia/nemotron-3-ultra-550b-a55b (no-think) | 50 | -186 [-280, -116] | -37.3 [-50.7, -24.9] | 9.24 | 0.22 | 3.63 | 38.6 | 0% |
 | qwen3-1.7b-base | 50 | -648 [-781, -558] | -129.8 [-139.0, -121.0] | 24.43 | 0.08 | 33.19 | 60.2 | 22% |
+| nvidia/nemotron-3.5-bolt-e4b | 50 | -719 [-888, -603] | -143.9 [-158.3, -130.4] | 27.18 | 0.09 | 9.41 | 94.8 | 0% |
+| nvidia/nemotron-3.5-lightning-30b-a3b (no-think) | 50 | -2592 [-3146, -2194] | -519.1 [-569.1, -469.9] | 88.54 | 0.01 | 26.90 | 349.9 | 0% |
 <!-- /TABLE:cards -->
 
 ![cards leaderboard](docs/figures/leaderboard_cards.png)
@@ -219,39 +252,56 @@ result.
 
 These are from seeds 0-49. Every number comes from `results/leaderboard_*.json`.
 
-1. **None of the untuned LLMs earned positive expected PnL on the dice
-   game.** The Bayes dealer and the simple `mean-sd` heuristic were both
-   profitable. In dice, every API model lost money in expectation, and
-   `gpt-oss-20b` and `nemotron-3.5-bolt` did worse than the random quoter.
-2. **The failure is adverse selection, not arithmetic.** The models quote
-   far too tight: their median spread is 12-67% of the optimal spread at the
-   same state (`gpt-oss-20b`: about 1.7 points against 8.2 for the
-   reference). The informed trader then picks them off. Their expected loss
-   to informed flow is 3.7-12x the reference's (15.7-50.1 against 4.2 per
-   episode), while they earn less than the reference from noise traders.
-   This is the textbook Glosten-Milgrom mistake.
+1. **None of the untuned LLMs earned positive expected PnL, in either game.**
+   Four API models were evaluated. In dice, the best of them
+   (`nemotron-3-ultra`, no-think) tied the random quoter at -41% of the
+   reference's edge. In cards, every API model did worse than random:
+   -85% to -2592%, against -45% for random. The Bayes dealer and the
+   one-line `mean-sd` heuristic were profitable in both games.
+2. **The main failure is adverse selection, not arithmetic.** On dice, the
+   models that centre their quotes about right, with a mid error of 1.9-4.0
+   against 0.16 for the reference, quote far too tight. Their median spread
+   is 12-67% of the optimal spread at the same state; `gpt-oss-20b` quotes
+   about 1.7 points where the reference quotes 8.2. The informed trader then
+   picks them off. Their expected loss to informed flow is 15.7-50.1 per
+   episode, against 4.2 for the reference, and they earn less than the
+   reference from noise traders. This is the textbook Glosten-Milgrom
+   mistake. `nemotron-3.5-lightning` (no-think) also miscentres badly
+   (mid error 22.9 on dice). For example, on cards it quoted 67.5/68.5 at
+   full size in every round of an episode where V = 27.
 3. **Handing the model the exact posterior does not fix it.** With the
    public posterior mean and sd written into the prompt (`+hint`),
    `gpt-oss-20b` still quotes a ~1.7-point spread. Regret per round improves
    only from 5.28 to 4.40, and the dealer stays deep in negative territory
-   (-109% of the reference). The model also ignores what its own fills
-   reveal: in a typical episode it keeps buying at the public mean after
-   repeatedly being hit by the informed seller.
+   (-109% of the reference). Even with the public mean handed to it, its
+   mid is further off (mid error 2.81) than that of `bayes-public` (0.91),
+   which uses only that same public mean.
 4. **Thinking budgets matter in practice.** With thinking enabled,
    `nemotron-3-ultra-550b` started deriving the optimal quote analytically,
    with normal tail integrals and size trade-offs. On its probe and on 9 of
    its first 10 benchmark requests, it hit the 4096-token cap before
    answering, after 60-180 s each
    (`results/aborted/nemotron-3-ultra-thinking.json`).
-   `minimax-m3.1-flash` hit the cap in both modes. Under a fixed token
+   `nemotron-3.5-lightning` also hit the cap on its probe with thinking on,
+   and `minimax-m3.1-flash` hit it in both modes (`results/llm_protocol.json`). Under a fixed token
    budget, reasoning that never ends in a quote is worth zero.
-5. **A 1.7B model distilled from the Bayes dealer beats every untuned LLM.**
-   See the next section. It reaches the reference's spread exactly
-   (spread/optimal = 1.00) in both games. On dice it captures 68% of the
-   reference's edge. On cards it still loses money, because its posterior
-   mean drifts after hints: its regret per round rises from 0.0 in round 1
-   to 10.1 in round 6. Conditioning on hints and on cards drawn without
-   replacement is the hard part for a small model.
+5. **A 1.7B model distilled from the Bayes dealer beats every untuned LLM
+   on dice and is at least level with the best one on cards.** After about
+   0.06 epochs of LoRA SFT, Qwen3-1.7B quotes the reference's spread exactly
+   (spread/optimal = 1.00).
+   - **Dice:** it captures 68% [38, 89] of the reference's edge, with regret
+     per round 0.53 [0.31, 0.80]. The best API model has regret 2.88
+     [2.30, 3.55], and the same 1.7B model untuned gets -1728%.
+   - **Cards:** its regret per round is 5.01 [3.64, 6.49] against 6.08
+     [5.33, 6.95] for `gpt-oss-20b`, so the intervals overlap. It still
+     loses money because its posterior mean drifts after hints: regret per
+     round rises from 0.0 in round 1 to 10.1 in round 6. Conditioning on
+     hints and on cards drawn without replacement is the hard part for a
+     small model.
+
+   One DAgger round on on-policy states helped cards (round-6 regret 10.1
+   to 6.7) and hurt dice (regret per round 0.53 to 1.32). See the next
+   section.
 
 ## Training a small model
 
@@ -319,6 +369,27 @@ counts answer tokens only because the prompt is masked. That came to 43k
 answer tokens over the run, on the M1 Pro while other jobs shared the
 machine.
 
+**What the DAgger round actually was.** The SFT model played 50 training
+episodes per game, giving 600 on-policy states (300 per game) that the
+reference labelled. These were mixed with 4,000 of the original examples. The
+SFT adapter was then trained for 200 more iterations at batch 2, which is 400
+examples. Validation loss on the same 480 reference examples went *up*: 0.228
+at the start, 0.299 at iteration 100 and 0.273 at 200
+(`results/training/dagger_qwen3-1.7b.log`).
+
+**Result.** The SFT model is the best trained model on dice. DAgger roughly
+halved the late-round error on cards, but made dice worse:
+
+- **Dice:** regret per round rose from 0.53 [0.31, 0.80] to 1.32
+  [0.83, 1.93], and the edge fell from 68% to 16% of the reference.
+- **Cards:** regret per round fell from 5.01 [3.64, 6.49] to 4.42
+  [3.19, 5.76]. Round-6 regret fell from 10.1 to 6.7, and the edge rose from
+  -80% to -30%.
+
+The cards intervals overlap, so that improvement is not established at
+n = 50. One round of 400 examples is a small update; this is a real but
+modest result, not a tuned recipe.
+
 ## Engine
 
 <!-- TABLE:engine -->
@@ -356,6 +427,9 @@ tables were served with `mlx_lm.server` instead.
 
 ## Limitations
 
+- **Training was short and local.** The SFT run was about 0.06 epochs, and
+  DAgger was one round on 600 states, all on a laptop. The GRPO GPU run has
+  not been executed.
 - **Small samples and wide intervals.** 50 episodes per dealer and game is
   what the shared free API budget allowed. The percentage CIs are wide
   because episode PnL depends on V. Regret per round is a lower-variance
@@ -374,7 +448,7 @@ tables were served with `mlx_lm.server` instead.
   committed so the numbers can be audited.
 - **Game 3 is a sandbox.** Figgie-lite has no exact reference: the bots
   ignore the information in other players' trades. The trading-gain metric is
-  very noisy, and only one LLM was run on it.
+  very noisy, and only one LLM was run on it, on 30 tables.
 
 ## Related work
 
