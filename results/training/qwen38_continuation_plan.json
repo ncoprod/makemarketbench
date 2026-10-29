@@ -45,6 +45,7 @@
     "status": "prepared_not_submitted",
     "source_mount": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
     "resume_details": "Copy the immutable saved training core and retained SFT/GRPO checkpoints into their original absolute working paths. Reject incomplete optimizer checkpoints and a changed core hash. Finish SFT in a separate command with its original cadence, then run at most 32 further GRPO updates with saves every five. Preserve the preceding runtime plus each continuation stage runtime/log.",
-    "scheduler_note": "Resumed GRPO retains optimizer/scheduler state but its cosine schedule uses the registered new total ceiling; this is an explicit bounded continuation, not the uninterrupted 96-step recipe."
+    "scheduler_note": "Resumed GRPO retains optimizer/scheduler state but its cosine schedule uses the registered new total ceiling; this is an explicit bounded continuation, not the uninterrupted 96-step recipe.",
+    "core_change": "Retain and hash the exact preceding core. An asserted two-line patch adds GRPO save_total_limit=2 and replaces SOURCE_COMMIT with the continuation producer. Save the patched core and both hashes. All training/data settings remain from the preceding source."
   }
 }

@@ -1063,3 +1063,10 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   after the 20:45 check. Retain that error in the download receipt and enforce
   the interval from the actual UTC download timestamp thereafter. CLI batch
   monitors continue at 610-second intervals.
+- Audit the deployed source, rather than the current repository alone: its
+  GRPO configuration predates rolling retention. The launcher now preserves
+  that exact core and records an asserted two-line patch: retain two GRPO
+  checkpoints and identify the continuation's producing commit. Both complete
+  source files and hashes survive in outputs. The added test covers resuming
+  GRPO optimizer step 20 to the registered ceiling 52, as well as starting from
+  SFT; no GPU result is inferred from it.

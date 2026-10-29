@@ -337,11 +337,12 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     core = tmp_path / 'train_core.py'
-    core.write_text('# frozen source\n')
+    core.write_text('SOURCE_COMMIT = "original"\nconfig = dict(save_steps=args.save_steps, report_to="none")\n')
     revision = '8aa5f05d26b7205477066e1449e0af13f762a299'
     (tmp_path / 'runtime.json').write_text(json.dumps({
         'config': {'revision': revision}, 'model_revision': revision, 'seed': 0,
-        'status': 'failed', 'source_file_sha256': hashlib.sha256(core.read_bytes()).hexdigest(),
+        'status': 'failed', 'source_commit': 'original',
+        'source_file_sha256': hashlib.sha256(core.read_bytes()).hexdigest(),
     }))
     complete = tmp_path / 'sft/checkpoint-750'
     complete.mkdir(parents=True)
@@ -357,6 +358,12 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
         warm.mkdir()
         for name in ['adapter_model.safetensors', 'adapter_config.json']:
             (warm / name).touch()
+    if warm_exists:
+        grpo = tmp_path / 'grpo/checkpoint-20'
+        grpo.mkdir(parents=True)
+        for item in complete.iterdir():
+            (grpo / item.name).touch()
+        (grpo / 'trainer_state.json').write_text(json.dumps({'global_step': 20}))
     calls = []
 
     def run(command, **kwargs):
@@ -371,7 +378,13 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     if not warm_exists:
         assert calls[0][calls[0].index('--adapter') + 1] == str(complete)
         assert calls[0][-6:] == ['--sft-resume', str(complete), '--grpo-steps', '0', '--save-steps', '50']
-    assert calls[-1][-4:] == ['--grpo-steps', '32', '--save-steps', '5']
+    ceiling = 52 if warm_exists else 32
+    assert calls[-1][-4:] == ['--grpo-steps', str(ceiling), '--save-steps', '5']
+    if warm_exists:
+        assert calls[-1][calls[-1].index('--resume') + 1] == str(grpo)
+    patched = (tmp_path / 'continuation_core.py').read_text()
+    assert 'save_total_limit=2' in patched
+    assert 'SOURCE_COMMIT = "test-commit"' in patched
     record = json.loads((tmp_path / 'continuation.json').read_text())
     assert record['status'] == 'completed'
-    assert record['grpo_total_ceiling'] == 32
+    assert record['grpo_total_ceiling'] == ceiling
