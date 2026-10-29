@@ -456,8 +456,9 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 
 ### API latency diagnostic (no held-out scores)
 
-- The partial GPT-OSS-20B cohort has 42 recorded requests across seven complete
-  dice episodes. Median recorded latency is 12.006267070770264 seconds; p95 is
+- The initial partial GPT-OSS-20B diagnostic pooled 42 attempts across seven complete
+  dice episodes, including nine cache replays. Its attempt-weighted median
+  recorded latency was 12.006267070770264 seconds; p95 was
   77.82202217578886 seconds. These exclude in-flight/unsaved requests and are
   not batch wall time. No PnL was computed or inspected.
 - [Self-contained metadata and calculations](results/expansion/latency_partial.json)
@@ -490,3 +491,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   old-first and new-first median ratios are 1.0511294533532733 and
   1.0495269513125054. Lag-one ratio correlation is −0.014392495517376416.
   All results, including the wider intervals, are retained in the result file.
+
+### API latency replay correction
+
+- Diagnosis: cache replays retain original server latency; pooling them with
+  live attempts is unsuitable for estimating newly executed request time.
+- Change: retain original pooled statistics, then filter `cached is False`.
+  There are 33 live requests and nine cached attempts. Live-request median is
+  13.250767230987549 seconds, p95 91.69077033996577 seconds. Failed/in-flight
+  requests and other overhead remain excluded, so the sum is not batch runtime.
+- Result and exact per-attempt metadata: `results/expansion/latency_partial.json`.
+  No model configuration or PnL calculation changed.

@@ -21,12 +21,12 @@
   "input_sha256": "082f3944bafff92dfe98b6c98ca35b3ff835b39315cb4495df5302ebdef61252",
   "complete_episodes": 7,
   "attempts": 42,
-  "recorded_latency_seconds_sum": 960.6187136173248,
-  "median_request_latency_seconds": 12.006267070770264,
-  "p95_request_latency_seconds": 77.82202217578886,
+  "recorded_latency_seconds_sum": 910.6576070785522,
+  "median_request_latency_seconds": 13.250767230987549,
+  "p95_request_latency_seconds": 91.69077033996577,
   "completion_tokens_sum": 11695,
   "missing_token_counts": 0,
-  "note": "A partial cohort; latency excludes unsaved/in-flight requests and is not batch wall time. Scores were not calculated.",
+  "note": "Partial cohort. Uncached-attempt latency excludes unsaved/in-flight requests, failed retries, replay I/O and other overhead, so its sum is not batch wall time. Scores were not calculated.",
   "seed": [
     200,
     201,
@@ -337,6 +337,36 @@
   "calculation": {
     "sum": "sum of recorded per-attempt latency/completion tokens",
     "median": "numpy.median of recorded per-attempt latency",
-    "p95": "numpy.quantile(latency, 0.95), default linear interpolation"
+    "p95": "numpy.quantile(latency, 0.95), default linear interpolation",
+    "latency_filter": "cached is False; missing latency excluded"
+  },
+  "previous_attempt_weighted_statistics": {
+    "recorded_latency_seconds_sum": 960.6187136173248,
+    "median_request_latency_seconds": 12.006267070770264,
+    "p95_request_latency_seconds": 77.82202217578886
+  },
+  "cached_attempts": 9,
+  "uncached_attempts": 33,
+  "uncached_completion_tokens_sum": 10299,
+  "correction": {
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+      "config": {
+        "filter": "cached is False for live-request timing statistics"
+      },
+      "model_revision": null,
+      "git_commit": "e8454728374aa0daa868583cc867c721738cb6cb",
+      "uncommitted_diff_sha256": "d4df60295a83335032358a3a3efc474903e3ba889336cbe8034a174783a19e48",
+      "started_at": "2026-10-29T14:17:23.585598+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "reason": "Cached attempts retain original server latency; the first diagnostic pooled nine replays with 33 live requests. Live-request latency fields now exclude replays; original pooled figures remain above."
   }
 }
