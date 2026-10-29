@@ -1,0 +1,52 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "document availability retry before new API cohort"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "0f85c5436e72b8337000d449752016adbb2667cc",
+    "uncommitted_diff_sha256": "100098ec4331b39d9490c685e7eaf6469dd76d5c3b0c064f5a60e6aab642402f",
+    "started_at": "2026-10-29T20:35:50.848290+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3-ultra-550b-a55b",
+  "source_checked_at": "2026-10-29T20:35:00Z",
+  "source_section": "API Client / Medium-effort reasoning",
+  "source_summary": "Official Ultra reference recommends the medium_effort chat-template flag as a first latency control while keeping enable_thinking true. The explicit token-budget example uses a separate client-side two-request continuation and is not assumed to be a supported direct hosted parameter.",
+  "change": {
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "medium_effort": true
+    }
+  },
+  "unchanged": {
+    "max_tokens": 16384,
+    "timeout_seconds": 600,
+    "max_retries": 3,
+    "temperature": 0,
+    "episodes_per_game_if_usable": 200,
+    "seeds": [
+      200,
+      399
+    ]
+  },
+  "selection_basis": "Availability/timeouts only; no held-out scores inspected or used to select this configuration. Keep original full-thinking failure.",
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--ultra-medium"
+  ],
+  "status": "prepared_not_started"
+}

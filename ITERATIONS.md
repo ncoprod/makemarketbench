@@ -962,3 +962,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Future GRPO jobs retain two rolling optimizer checkpoints. This permits
   frequent checkpointing without retaining every large optimizer snapshot;
   it changes neither the reward nor the active immutable training run.
+
+### T3 follow-up — Ultra medium-effort thinking (registered)
+
+- The original thinking-on Ultra probe failed with HTTP 504. The official
+  [Ultra API reference](https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3-ultra-550b-a55b)
+  documents `medium_effort=true` alongside `enable_thinking=true`, and recommends
+  that mode before explicit reasoning-budget tuning. Its budget example is a
+  separate client-side continuation; do not assume an undocumented hosted flag.
+- Queue `bash scripts/with_resource.sh nim python scripts/expand_nim.py --ultra-medium`.
+  Keep the original timeout, output ceiling, greedy temperature and retry count;
+  this is a separate labelled configuration and protocol file. Run 200 episodes
+  per game only if the availability probe returns a usable quote.
+- Plan and source: `results/expansion/ultra_medium_plan.json`. Configuration is
+  chosen from timeout evidence and official docs, without inspecting new test
+  scores. The shared two-slot bound and one request/client remain unchanged.

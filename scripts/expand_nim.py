@@ -47,8 +47,11 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=200)
     ap.add_argument("--seed", type=int, default=200)
     ap.add_argument("--models", nargs="*")
-    ap.add_argument("--reduced-reasoning", action="store_true",
+    retry = ap.add_mutually_exclusive_group()
+    retry.add_argument("--reduced-reasoning", action="store_true",
                     help="retry GLM at low effort and DeepSeek with thinking disabled")
+    retry.add_argument("--ultra-medium", action="store_true",
+                       help="retry Ultra with the documented medium-effort thinking mode")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     models = list(MODELS + SUPPLEMENT if args.models else MODELS)
@@ -64,6 +67,11 @@ def main() -> None:
             ("deepseek-ai/deepseek-v4.1-flash",
              {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"),
         ]
+    if args.ultra_medium:
+        filename = "protocol-ultra-medium.json"
+        models = [("nvidia/nemotron-3-ultra-550b-a55b",
+                   {"chat_template_kwargs": {"enable_thinking": True, "medium_effort": True}},
+                   16384, "thinking-medium")]
     path = OUT / filename
     protocol = json.loads(path.read_text()) if path.exists() else {}
     discovery = OUT / "models.json"
@@ -76,7 +84,7 @@ def main() -> None:
         except Exception as exc:
             discovery.write_text(json.dumps({"error": f"{type(exc).__name__}: {exc}"}) + "\n")
     catalog = json.loads(discovery.read_text()).get("data", {}).get("data", [])
-    if not args.models and not args.reduced_reasoning:
+    if not args.models and not args.reduced_reasoning and not args.ultra_medium:
         for model in catalog:
             if "qwen3.8" in model["id"].lower():
                 models.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
