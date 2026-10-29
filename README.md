@@ -113,6 +113,13 @@ validation are separate from the fresh test. The final target is
 for the API comparison family ([registered protocol](results/protocol.json)).
 No new training score is claimed before its result file exists.
 
+The first local 4B attempt was interrupted by the machine reboot. A subsequent
+memory probe exceeded its guard before any verified optimiser update
+([receipt](results/training/qwen35_memory_smoke.json)). A port of MLX-LM's
+chunk-parallel training recurrence passes reference value/gradient checks;
+its GPU memory probe is queued. These infrastructure attempts are not policy
+improvements ([trial log](ITERATIONS.md)).
+
 The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL
 GRPO. It evaluates the warm start and trained policy inside Kaggle, writes raw
 JSONL and leaderboard JSON, and records actual wall time and peak CUDA memory.

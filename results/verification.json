@@ -1,0 +1,19 @@
+{
+  "command": [
+    ".venv/bin/pytest",
+    "-q"
+  ],
+  "git_commit": "56db55e01f93f73409342727d9f81dde5a2bf5fd",
+  "config": {
+    "suite": "all local tests",
+    "MLX_parity_device": "CPU"
+  },
+  "seed": "fixed by individual tests",
+  "model_revision": "no full model loaded; mathematical recurrence tests only",
+  "passed": 91,
+  "failed": 0,
+  "exit_code": 0,
+  "printed_runtime_seconds": 12.2,
+  "transcribed_at": "2026-10-29T13:38:00.954929+00:00",
+  "note": "Transcribed from the completed test output. Producing source commit was unchanged during this run; subsequent commit contains reference data only."
+}

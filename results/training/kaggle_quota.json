@@ -5,14 +5,15 @@
       "command": [
         "kaggle",
         "quota",
-        "--json"
+        "--format",
+        "json"
       ],
       "purpose": "inspect accelerator budget; no status poll"
     },
     "model_revision": null,
-    "git_commit": "56db55e01f93f73409342727d9f81dde5a2bf5fd",
-    "uncommitted_diff_sha256": "f226ceca98ee69908688422d761ba1c9ce377a35da7de462a2ef1030701fa4a0",
-    "started_at": "2026-10-29T13:31:41.776380+00:00",
+    "git_commit": "c907b50a31d2af12a7711cefe4521728af2b9cac",
+    "uncommitted_diff_sha256": "e686ecd7c85aed61469ddba646e401471f3a3a80d0be2f485324db15dea743f4",
+    "started_at": "2026-10-29T13:33:32.759755+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -22,7 +23,35 @@
       "mlx-lm": "0.32.2"
     }
   },
-  "exit_code": 2,
-  "output": "",
-  "error": "usage: kaggle [-h] [-v] [-W] [--debug]\n              {competitions,c,datasets,d,kernels,k,models,m,files,forums,f,benchmarks,b,config,auth,quota,search} ...\nkaggle: error: unrecognized arguments: --json"
+  "previous_failed_command": {
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+      "config": {
+        "command": [
+          "kaggle",
+          "quota",
+          "--json"
+        ],
+        "purpose": "inspect accelerator budget; no status poll"
+      },
+      "model_revision": null,
+      "git_commit": "56db55e01f93f73409342727d9f81dde5a2bf5fd",
+      "uncommitted_diff_sha256": "f226ceca98ee69908688422d761ba1c9ce377a35da7de462a2ef1030701fa4a0",
+      "started_at": "2026-10-29T13:31:41.776380+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "exit_code": 2,
+    "output": "",
+    "error": "usage: kaggle [-h] [-v] [-W] [--debug]\n              {competitions,c,datasets,d,kernels,k,models,m,files,forums,f,benchmarks,b,config,auth,quota,search} ...\nkaggle: error: unrecognized arguments: --json"
+  },
+  "exit_code": 0,
+  "output": "[\n  {\n    \"resource\": \"GPU\",\n    \"used\": \"3.49h\",\n    \"remaining\": \"26.51h\",\n    \"total\": \"30.00h\",\n    \"refreshAt\": \"2026-10-31T00:00:00+00:00\"\n  },\n  {\n    \"resource\": \"TPU\",\n    \"used\": \"0.00h\",\n    \"remaining\": \"20.00h\",\n    \"total\": \"20.00h\",\n    \"refreshAt\": \"2026-10-31T00:00:00+00:00\"\n  }\n]",
+  "error": ""
 }
