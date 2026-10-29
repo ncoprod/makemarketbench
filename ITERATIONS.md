@@ -1232,3 +1232,25 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   examples. Discard its updates before the full validation-selected recipe.
   Neither this infrastructure failure nor its repair is a policy
   nonimprovement.
+
+### T17 probe completion and full restart
+
+- Command: the exact guarded command and source commit are retained in
+  `results/training/qwen35_uniform_smoke.json`. The unchanged training order
+  completes 32 microbatches / 16 optimizer updates in 394.0657104999991 seconds.
+- Sampled process footprint peaks at 6,653,214,720 bytes; the MLX allocator peak
+  is 4,145,553,086 bytes. The two-example validation loss falls from
+  2.064978837966919 to 0.3982905149459839. This subset is an infrastructure
+  check, not a policy-quality estimate or a controlled memory comparison with
+  the previous full-validation failure.
+- All 248 LoRA tensors change; maximum absolute delta is
+  0.00855996459722519. Guard and weight-verification files are
+  `results/training/qwen35_uniform_memory_guard.json` and
+  `results/training/qwen35_uniform_probe_verification.json`.
+- At 21:58:35 UTC, discard probe weights and restart the full 800-microbatch
+  recipe from its original adapter, with all 480 validation examples and the
+  same guard. Full completion and policy validation remain pending. The
+  launcher source and command are retained in the uniform-shape plan.
+- The routed-cohort addition initially fails CI on import ordering. Correct
+  that single lint error; lint and all 110 local tests pass, with exact command
+  and output in `results/verification.json` and `results/verification.log`.

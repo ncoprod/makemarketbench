@@ -1,0 +1,26 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/qwen35_sft_after_uniform.py",
+    "config": {
+      "purpose": "verify sixteen uniform-shape updates before full restart"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "a0e55c6de142711e457e3c28bde92e8362db4e32",
+    "uncommitted_diff_sha256": "c347f386acf504cc3ab6a09fa76b5758eabd255c06e95a40b79e06493a3eb63b",
+    "started_at": "2026-10-29T21:58:35.132342+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "tensors_checked": 248,
+  "tensors_changed": 248,
+  "maximum_absolute_parameter_delta": 0.00855996459722519,
+  "initial_adapter_sha256": "e3bdccef652fd6063468ae6f9f0f15c03e608714fc88caf5fb3526b63a7612a8",
+  "updated_adapter_sha256": "2975c0058d7498892cc7c2e995a4d74f359b77e024f1fc8dffdf5bd99382a4e3",
+  "calculation_source": "import hashlib\nimport json\nimport os\nimport shutil\nimport subprocess\nimport time\nfrom pathlib import Path\n\nimport numpy as np\nfrom safetensors.numpy import load_file\nfrom makemarket.provenance import receipt\n\npid = int(Path('runs/qwen35_uniform_probe.pid').read_text())\nwhile True:\n    try:\n        os.kill(pid, 0)\n    except ProcessLookupError:\n        break\n    time.sleep(5)\ntraining = json.loads(Path('results/training/qwen35_uniform_smoke.json').read_text())\nguard = json.loads(Path('results/training/qwen35_uniform_memory_guard.json').read_text())\nassert training['status'] == guard['status'] == 'completed'\nassert training['optimizer_updates'] == 16\ninitial = 'train/runs/qwen3.5-4b-sft-interrupted/best.safetensors'\nupdated = 'train/runs/qwen35-uniform-smoke/adapters.safetensors'\na, b = load_file(initial), load_file(updated)\nassert a.keys() == b.keys()\ndeltas = [float(np.abs(a[k].astype(np.float32)-b[k].astype(np.float32)).max()) for k in a]\nassert any(d > 0 for d in deltas)\nr = {'provenance': receipt({'purpose':'verify sixteen uniform-shape updates before full restart'},training['model_revision']),\n     'tensors_checked':len(deltas),'tensors_changed':sum(d>0 for d in deltas),\n     'maximum_absolute_parameter_delta':max(deltas),\n     'initial_adapter_sha256':hashlib.sha256(Path(initial).read_bytes()).hexdigest(),\n     'updated_adapter_sha256':hashlib.sha256(Path(updated).read_bytes()).hexdigest(),\n     'calculation_source':Path(__file__).read_text()}\nPath('results/training/qwen35_uniform_probe_verification.json').write_text(json.dumps(r,indent=2)+'\\n')\ndel a, b, deltas\nmodel = str(Path.home()/'.cache/mmb_models/Qwen3.5-4B-MLX-4bit')\nrevision = '32f3e8ecf65426fc3306969496342d504bfa13f3'\ncommand = ['bash','scripts/with_resource.sh','heavy-ml','.venv/bin/python','-u','train/with_memory_guard.py',\n           '--result','results/training/qwen35_sft_memory.json','.venv/bin/python','-u','train/mlx_train.py',\n           '--model',model,'--revision',revision,'--resume',initial,'--out','train/runs/qwen3.5-4b-sft',\n           '--result','results/training/qwen35_sft.json','--answer-head-tokens','128','--pad-training-to','1025']\nsubprocess.run(command,check=True)\nshutil.copyfile('train/runs/qwen3.5-4b-sft/best.safetensors','train/runs/qwen3.5-4b-sft/adapters.safetensors')\nsubprocess.run(['bash','scripts/with_resource.sh','heavy-ml','.venv/bin/python','-u','train/mlx_evaluate.py',\n                '--model',model,'--revision',revision,'--adapter','train/runs/qwen3.5-4b-sft',\n                '--label','qwen3.5-4b-sft','--seed','80000','--episodes','100','--out','results/validation/qwen35-sft'],check=True)\n"
+}

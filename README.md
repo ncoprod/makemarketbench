@@ -135,7 +135,13 @@ guard before its first training report
 [weight check](results/training/qwen35_cache_probe_verification.json));
 the full run then stops at its physical-memory guard after ten reported
 microbatches ([retained failure](results/training/qwen35_sft_cache_attempt1.json)).
-A fixed training-shape probe is registered to test compilation-memory growth
+A fixed training-shape probe completes 16 optimizer updates in 394.066 seconds,
+with a sampled process footprint of 6.653 GB under the unchanged 7 GiB guard
+([runtime](results/training/qwen35_uniform_smoke.json),
+[guard](results/training/qwen35_uniform_memory_guard.json)). All 248 LoRA tensors
+change ([weight check](results/training/qwen35_uniform_probe_verification.json)).
+Full training restarts from the original adapter; the small probe's validation
+subset does not establish full-run memory behavior or policy quality
 ([plan](results/training/qwen35_uniform_shape_plan.json)). These infrastructure checks are not policy
 improvements ([trial log](ITERATIONS.md)).
 

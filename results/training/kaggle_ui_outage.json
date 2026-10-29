@@ -42,5 +42,42 @@
   "independent_work": "Batch CLI monitors continue every 610 seconds; local MLX training and sequential NIM batch continue under their locks.",
   "constraint": "Do not restart or replace the useful interactive training session before trained outputs are preserved. CLI Quick Save exposes no explicit live-draft Save Output setting.",
   "calculation_source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import receipt, file_sha256\n\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nfor session in ledger['sessions']:\n    if session['kernel'].endswith('-validate-staged'):\n        session['hours'] = session['script_wall_seconds'] / 3600\n        session['hours_basis'] = 'Downloaded script runtime only; allocation startup and output-finalization billing remain unknown.'\np.write_text(json.dumps(ledger, indent=2) + '\\n')\nrecord = {\n    'provenance': receipt({'purpose':'record unavailable computer-use transport while independent CLI and local work continue'}),\n    'kernel': 'nicolascoquelet/makemarketbench-qwen3-8-27b-training',\n    'last_downloaded_progress': 'results/kaggle/qwen38-training-v4/progress/step500-runtime.json',\n    'last_download_receipt': 'results/kaggle/qwen38-training-v4/progress/step500-download.json',\n    'exact_errors': ['Sky Computer Use native pipe startup failed', 'The browser access host is unavailable'],\n    'recovery_attempts': ['Reset persistent computer-use runtime', 'Select Chrome browser again', 'Re-read documentation and request enabled-surface inventory'],\n    'official_sdk_fallback': json.loads(Path('runs/kaggle_draft_output_check.json').read_text()),\n    'status': 'blocked_live_draft_output_retrieval; training phase since last downloaded progress is unknown',\n    'independent_work': 'Batch CLI monitors continue every 610 seconds; local MLX training and sequential NIM batch continue under their locks.',\n    'constraint': 'Do not restart or replace the useful interactive training session before trained outputs are preserved. CLI Quick Save exposes no explicit live-draft Save Output setting.',\n    'calculation_source': Path(__file__).read_text(), 'source_sha256': file_sha256(__file__),\n}\nPath('results/training/kaggle_ui_outage.json').write_text(json.dumps(record, indent=2) + '\\n')\n",
-  "source_sha256": "5099eac2a424350022cb45e73d5d9dd97048f662bda1e1e4bac9b4fd4b69727f"
+  "source_sha256": "5099eac2a424350022cb45e73d5d9dd97048f662bda1e1e4bac9b4fd4b69727f",
+  "additional_fallback_checks": [
+    {
+      "at": "2026-10-29T21:48:54.994845+00:00",
+      "method": "official SDK GetKernel",
+      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+      "version_label": "draft",
+      "status": "failed",
+      "error_type": "HTTPError",
+      "http_status": 404
+    },
+    {
+      "at": "2026-10-29T22:01:06.355407+00:00",
+      "method": "GetOrCreateKernelSession with kernelId only, as used by the first-party editor client",
+      "request": {
+        "kernelId": 141529807
+      },
+      "source": "https://kkb-production.jupyter-proxy.kaggle.net/static/assets/jupyterlabinjected.c54078e972cab376.js",
+      "http_status": 403,
+      "status": "failed"
+    },
+    {
+      "at": "2026-10-29T22:01:26.837685+00:00",
+      "method": "first-party GetOrCreateKernelSession RPC through the official authenticated API transport",
+      "request": {
+        "kernelId": 141529807
+      },
+      "http_status": 404,
+      "status": "failed"
+    },
+    {
+      "at": "2026-10-29T22:02:44.078907+00:00",
+      "method": "official SDK CreateKernelSession with existing slug only",
+      "http_status": 409,
+      "error": "409 Client Error: Conflict for url: [URL redacted]"
+    }
+  ],
+  "connection_recovery_note": "An earlier first-party iframe session token was recovered in process from this thread only and never printed or stored. Its claims do not expose the current notebook-server URL. The official interactive endpoint returned HTTP 409; no connection was obtained and no reset or accelerator change was requested."
 }

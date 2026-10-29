@@ -1,0 +1,18 @@
+Loading fine-tuned weights from train/runs/qwen3.5-4b-sft-interrupted/best.safetensors
+╭─ [1mmlx_lm.lora[0m ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│    model           [1m/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit[0m                                                 │
+│    type            [1mlora · 16 layers · rank 8[0m                                                                         │
+│    dataset         [1mruns/qwen35_uniform_data[0m                                                                          │
+│    optimizer       [1madam · lr 1.0e-04[0m                                                                                 │
+│    batch · iters   [1m1 · 32[0m                                                                                            │
+│    max seq         [1m1,536[0m                                                                                             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Trainable parameters: 0.193% (8.116M/4205.750M)
+  [1miter   train_loss     tok/s     tokens[0m
+     1    [1mval[0m [1m2.065[0m    4.50s
+    10    [1m0.895 ▼[0m    [1m    4[0m      0.7k
+    20    [1m0.504 ▼[0m    [1m    7[0m      1.4k
+    30    [1m0.531 ▲[0m    [1m    7[0m      2.1k
+    32    [1mval[0m [1m0.398[0m    4.38s
+    32    [1m0.532 ▲[0m    [1m    7[0m      2.2k
+[1mtrain[0m ██████████████████████████████ [1m100%[0m · [1m   32[0m/32
