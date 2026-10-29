@@ -26,6 +26,18 @@
       "format_error_rate": 0.0
     },
     {
+      "player": "openai/gpt-oss-20b",
+      "episodes": 30,
+      "trading_gain": -6.044444444444445,
+      "trading_gain_ci": [
+        -20.48944444444444,
+        8.966666666666667
+      ],
+      "score": -17.6,
+      "seat0_trades": 4.833333333333333,
+      "format_error_rate": 0.0
+    },
+    {
       "player": "noise",
       "episodes": 200,
       "trading_gain": -6.4783333333333335,

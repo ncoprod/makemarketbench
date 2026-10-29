@@ -1,0 +1,53 @@
+{
+  "game": "figgie",
+  "rows": [
+    {
+      "player": "naive",
+      "episodes": 30,
+      "trading_gain": 10.52222222222222,
+      "trading_gain_ci": [
+        -1.800833333333326,
+        20.667222222222215
+      ],
+      "score": -1.0333333333333334,
+      "seat0_trades": 5.333333333333333,
+      "format_error_rate": 0.0
+    },
+    {
+      "player": "hand-bayes",
+      "episodes": 30,
+      "trading_gain": -5.0777777777777775,
+      "trading_gain_ci": [
+        -21.73361111111111,
+        12.433333333333334
+      ],
+      "score": -16.633333333333333,
+      "seat0_trades": 6.766666666666667,
+      "format_error_rate": 0.0
+    },
+    {
+      "player": "openai/gpt-oss-20b",
+      "episodes": 30,
+      "trading_gain": -6.044444444444445,
+      "trading_gain_ci": [
+        -20.48944444444444,
+        8.966666666666667
+      ],
+      "score": -17.6,
+      "seat0_trades": 4.833333333333333,
+      "format_error_rate": 0.0
+    },
+    {
+      "player": "noise",
+      "episodes": 30,
+      "trading_gain": -8.177777777777779,
+      "trading_gain_ci": [
+        -14.822222222222223,
+        -1.7550000000000088
+      ],
+      "score": -19.733333333333334,
+      "seat0_trades": 3.933333333333333,
+      "format_error_rate": 0.0
+    }
+  ]
+}
