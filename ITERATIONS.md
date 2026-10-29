@@ -937,3 +937,11 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/kaggle/qwen38-training-v4/progress/step300-download.json`.
   The official account snapshot reports 65,537.912747 seconds used; remaining
   quota is 42,462.087253 seconds. Account debit and script duration stay distinct.
+
+### Future GPU receipts include execution timestamps
+
+- Add UTC execution start, snapshot and finish timestamps to future runtime
+  JSON. These describe the script process, not Kaggle allocation start/end.
+  Existing source snapshots and unknown allocation times remain unchanged.
+- Verify with the 17 CPU training tests and lint. The scheduled active-run
+  diagnostic still reports SFT update 350 with no error; it predates this change.

@@ -36,6 +36,7 @@ import subprocess
 import sys
 import tarfile
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 PAYLOAD = ""  # base64 tar.gz of src/makemarket, filled in by build_kaggle_kernel.py
@@ -481,9 +482,11 @@ def main() -> None:
             raise TimeoutError("Registered training wall budget exhausted")
         signal.signal(signal.SIGALRM, expire)
         signal.alarm(args.budget_seconds)
-    record = {**execution(args), "status": "running"}
+    record = {**execution(args), "status": "running",
+              "execution_started_at": datetime.now(timezone.utc).isoformat()}
 
     def report_runtime(phase=None, step=None):
+        record["recorded_at"] = datetime.now(timezone.utc).isoformat()
         record["wall_seconds"] = time.time() - started
         if phase is not None:
             record.update(phase=phase, phase_step=step)
@@ -519,6 +522,7 @@ def main() -> None:
         record.update(status="failed", error=f"{type(exc).__name__}: {exc}")
         raise
     finally:
+        record["execution_finished_at"] = datetime.now(timezone.utc).isoformat()
         report_runtime()
 
 
