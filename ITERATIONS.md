@@ -926,3 +926,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   held-out test; register the actual inference configuration with its receipts.
   The eight-candidate family remains conservative; no extra test candidate is
   selected by these infrastructure checks.
+
+### Newest-family progress sample at update 300
+
+- Downloaded live runtime and complete log at 20:12 UTC: SFT update 300,
+  5,386.978399038315 seconds elapsed, peak allocations 12,005,684,736 and
+  12,040,838,656 bytes. The latest completed teacher-validation loss in this
+  snapshot is 0.2949. This is still an active training diagnostic, not policy PnL.
+- Preserve the unedited files and hashes in
+  `results/kaggle/qwen38-training-v4/progress/step300-download.json`.
+  The official account snapshot reports 65,537.912747 seconds used; remaining
+  quota is 42,462.087253 seconds. Account debit and script duration stay distinct.

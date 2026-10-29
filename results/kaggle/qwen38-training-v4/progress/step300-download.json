@@ -1,0 +1,13 @@
+{
+  "downloaded_at": "2026-10-29T20:14:34.936685+00:00",
+  "method": "Kaggle private interactive output file actions / Download",
+  "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "status": "progress_only",
+  "source_commit": "4e9eda32ad32bbfd47198318158d193399b2048b",
+  "seed": 0,
+  "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+  "files": {
+    "results/kaggle/qwen38-training-v4/progress/sft-step300-runtime.json": "31abe5936173a25a83b1e139f41c1728b81fb2389612adf7416d8c3a953e3f00",
+    "results/kaggle/qwen38-training-v4/progress/sft-step300-train.log": "a16600d6427fab2270ca7ff5832b7314a13426d8c0eb20d06f608179d3bd8ac3"
+  }
+}
