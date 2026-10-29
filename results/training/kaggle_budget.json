@@ -84,6 +84,21 @@
       "receipt": "results/training/kaggle_staged.json",
       "private": true,
       "session_limit_hours": 12
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+      "version": null,
+      "mode": "interactive draft",
+      "accelerator": "T4 x2",
+      "submitted_at": "2026-10-29T17:28:19.694273+00:00",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "hours_basis": "pending downloaded runtime and session termination",
+      "purpose": "Newest permissive Qwen-family actual SFT/GRPO fit probe",
+      "private": true,
+      "session_limit_hours": 1,
+      "receipt": "results/training/qwen38_fit_submission.json"
     }
   ],
   "accounting_notes": [
@@ -94,7 +109,14 @@
   "concurrency": {
     "verified_commit_sessions": 2,
     "interactive_session_limit": "pending account UI check",
-    "reference": "https://www.kaggle.com/general/105509"
+    "reference": "https://www.kaggle.com/general/105509",
+    "batch_session_limit": 2,
+    "batch_limit_exact_error": "Maximum batch GPU session count of 2 reached.",
+    "verified_concurrent_gpu_sessions": 3,
+    "verified_modes": {
+      "batch": 2,
+      "interactive": 1
+    }
   },
   "submission_policy": "Reserve up to 12h per active session; new bounded useful work only if remaining quota after reservations and time before reset suffice."
 }

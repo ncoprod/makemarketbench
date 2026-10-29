@@ -634,3 +634,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   warm-start dice aggregate early. No training or selection choice changed in
   response. Further notebook snapshots redact URL queries before output; no
   session query value is stored in repository artifacts. See recovery receipt.
+
+### Dual-T4 fit probe submission and concurrency check
+
+- First push failed with HTTP 409 (title/slug conflict). Correcting the slug
+  reached the account limit: `Maximum batch GPU session count of 2 reached.`
+  CLI exit zero does not imply submission. Both errors are retained in
+  `results/training/qwen38_fit_submission.json`; neither consumed a new run.
+- Imported the same bounded source through a private interactive notebook.
+  Verified Private selected, internet on, GPU T4 x2. Run All was granted:
+  UI reports three active events and a running draft with two GPU indicators.
+  This confirms two batch plus one interactive session concurrently.
+- The staged 4B session has saved GRPO checkpoint 100. Training reward variance
+  is nonzero, unlike the cold one-update smoke. These UI diagnostics are
+  provisional; downloaded logs and frozen paired evaluation determine results.

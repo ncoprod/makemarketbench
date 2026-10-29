@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-10-29T17:26:20.482972+00:00",
+  "command": [
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "runs/kaggle_qwen38_probe",
+    "--accelerator",
+    "NvidiaTeslaT4"
+  ],
+  "source_commit": "bd4a40f",
+  "source_sha256": "985bc85232ef5d14fb9a0ee97c685feb4a2428b5ef88474e90b64b4fdfa09b0f",
+  "private": true,
+  "submitted": false,
+  "attempts": [
+    {
+      "result": "409 Client Error: Conflict for url: https://api.kaggle.com/v1/kernels.KernelsApiService/SaveKernel\nYour kernel title does not resolve to the specified id. This may result in surprising behavior. We suggest making your title something that resolves to the specified id. See https://en.wikipedia.org/wiki/Clean_URL#Slug for more information on how slugs are determined.",
+      "error": "409 notebook title/slug conflict before execution"
+    },
+    {
+      "result": "Kernel push error: Maximum batch GPU session count of 2 reached.",
+      "error": "Maximum batch GPU session count of 2 reached; CLI exit code misleadingly zero"
+    }
+  ],
+  "interactive_probe": "running; UI Event running 3, Draft Session Running with two GPU indicators; script output from /kaggle/working/probe.py observed",
+  "gpu_hours": 0,
+  "interactive_start_requested_at": "2026-10-29T17:28:19.694273+00:00",
+  "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "notebook_sha256": "de774f969fc8fd701d385780be1ab2430351afef79289acc1bce2e5af561c4ae",
+  "ui_privacy": "Private selected; Only collaborators can view this notebook",
+  "internet": true,
+  "accelerator": "GPU T4 x2",
+  "gpu_granted_at_observation": "2026-10-29T17:29:30.992010+00:00"
+}

@@ -195,6 +195,39 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:37:55.153695+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T16:46:48.249974+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 1,
+      "output": "HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/kernels.KernelsApiService/GetKernelSessionStatus (Caused by NameResolutionError(\"HTTPSConnection(host='api.kaggle.com', port=443): Failed to resolve 'api.kaggle.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "at": "2026-10-29T17:23:25.397576+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "native_ui_observations": [
@@ -214,6 +247,20 @@
       "sft_gradient_accumulation": 2,
       "sft_effective_batch": 16,
       "note": "Training diagnostics only; last displayed log need not be latest executed step. Verify exact trainer config and final runtime from outputs."
+    },
+    {
+      "recorded_at": "2026-10-29T17:29:30.993708+00:00",
+      "method": "native Chrome accessibility, policy aggregate lines excluded",
+      "grpo_checkpoint_100_saved": true,
+      "displayed_checkpoint_seconds": "59:39 after GRPO start",
+      "last_visible_training_log": {
+        "epoch": "0.04167",
+        "num_tokens": "9.025e+05",
+        "format_reward_mean": "0.5",
+        "edge_reward_mean": "-0.2728",
+        "reward_std": "0.1613"
+      },
+      "note": "Training reward on sampled teacher states; not held-out policy quality. Downloaded log will be authoritative."
     }
   ]
 }
