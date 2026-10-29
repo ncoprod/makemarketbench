@@ -26,8 +26,10 @@ flowchart LR
     S --> A[API agents and naive baselines]
     B --> T[LoRA behaviour cloning and DAgger]
     B --> R[Exact quote rewards: GRPO or RLOO]
-    T --> E[Common-seed evaluation]
-    R --> E
+    T --> R
+    T --> V[Validation: freeze checkpoint or game router]
+    R --> V
+    V --> E[Common-seed held-out evaluation]
     A --> E
     E --> C[Python and C++ matching engines]
     C --> F[Raw episode JSONL and provenance]
@@ -165,7 +167,12 @@ The separate training-only run completed **150 SFT and 300 GRPO updates in
 It saved both adapters before separate Kaggle evaluations. In the completed
 100-episode validation cohorts, SFT performs better on dice and GRPO on cards
 ([all raw validation results](results/training/kaggle_staged_validation_completion.json));
-held-out policy quality remains pending. The original combined run continues. The local reward trial is explicitly
+held-out policy quality remains pending. The original combined run reaches its
+platform limit after completing training: both warm-start cohorts have 200
+episodes, while GRPO has 120 dice episodes saved
+([downloaded outputs](results/training/kaggle_original_completion.json)). A
+private continuation evaluates only the missing episodes from its frozen
+adapter ([receipt](results/training/kaggle_original_final_resume.json)). The local reward trial is explicitly
 labelled RLOO-style.
 
 The newest general-purpose open Qwen family is Qwen3.8. Its smallest model is
@@ -193,8 +200,12 @@ is selected for a checkpointed, validation-selected SFT then GRPO pipeline
 ([registered recipe](results/training/qwen38_pipeline_plan.json)). No policy
 score is inferred from this fit check. A tokenizer-only audit verifies that
 its fixed SFT targets and GRPO prompts fit their respective context limits
-([all split counts and maximum lengths](results/training/qwen38_token_audit.json)). The original
-4B sessions continue. Account quota, session receipts
+([all split counts and maximum lengths](results/training/qwen38_token_audit.json)).
+Downloaded progress reaches **500 SFT updates**
+([runtime sample](results/kaggle/qwen38-training-v4/progress/step500-runtime.json));
+the later phase and final weights are unverified because computer access fails
+([exact errors and recovery attempts](results/training/kaggle_ui_outage.json)).
+The separate 4B held-out evaluations continue. Account quota, session receipts
 and uncertainty in billed hours are tracked in the
 [GPU budget ledger](results/training/kaggle_budget.json).
 

@@ -84,6 +84,11 @@ no attribution is required, but the algorithm's origin is acknowledged here.
   execution service. Kernel metadata uses `is_private: true`; dataset creation
   omits `--public`. No credentials are embedded. Authentication failure is
   recorded, not described as a GPU run.
+  The private original-GRPO checkpoint dataset includes only LoRA weights and
+  synthetic episode records, with the pinned Qwen3.5 Apache-2.0 licence,
+  derivative attribution, and a separate MIT data licence. File hashes and
+  privacy verification are retained in its
+  [dataset receipt](results/training/kaggle_original_adapter_dataset.json).
 
 No CC-BY-NC dataset is used. MiniMax has a non-commercial default grant with
 conditional commercial permissions. NIM trial usage and Llama also have custom
