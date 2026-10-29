@@ -804,3 +804,13 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   skip. Retain the exact SFT data partition and total update budget.
 - This change affects future resumptions only. The active newest-family run
   starts from the base model, and the two original batch snapshots are immutable.
+
+### Make quota accounting directly reproducible
+
+- Replace the repeated ignored quota-inspection helper with the committed
+  `scripts/kaggle_quota.py`. It calls the official SDK, records the exact
+  command/source hash/commit, and appends the raw quota snapshot to the ledger.
+  It never serializes credentials, signed output URLs or full SDK objects.
+- Account debit remains authoritative. Unknown per-session allocation start/end
+  is kept unknown, rather than substituting unreliable `last_run_time` metadata
+  or treating downloaded script duration as billed session duration.
