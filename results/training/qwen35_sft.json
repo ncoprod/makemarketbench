@@ -33,7 +33,7 @@
     "valid": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
   },
   "source_sha256": "c471361d73a72b2dcc17872b399132b068564a2fd5ca23120f791c9dfd2c986b",
-  "status": "running",
+  "status": "interrupted_by_memory_guard",
   "recurrence_training": {
     "chunk_size": 64,
     "source_sha256": "adb61ebaff874e1b38a091efc35a6aa549248e951770633b2d4d3079ed3ae68b",
@@ -94,5 +94,16 @@
   "completed_iterations": 0,
   "optimizer_updates": 0,
   "peak_memory_bytes": 3712489972,
-  "wall_seconds": 1500.0954161670015
+  "wall_seconds": 1500.0954161670015,
+  "termination": {
+    "recorded_at": "2026-10-29T21:13:22.350818+00:00",
+    "command": ".venv/bin/python runs/preserve_qwen35_answer_failure.py",
+    "guard_file": "results/training/qwen35_sft_answer_attempt1_guard.json",
+    "sampled_footprint_peak_bytes_approx": 7522484224,
+    "guard_bytes": 7516192768,
+    "overshoot_bytes_approx": 6291456,
+    "last_reported_microbatches": 0,
+    "actual_microbatches_before_termination": null,
+    "note": "Training began after full validation. The guard killed the process before the ten-microbatch report; do not infer zero actual updates from its last reported counter."
+  }
 }

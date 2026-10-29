@@ -1,0 +1,20 @@
+Loading fine-tuned weights from train/runs/qwen3.5-4b-sft-interrupted/best.safetensors
+╭─ [1mmlx_lm.lora[0m ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│    model           [1m/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit[0m                                                 │
+│    type            [1mlora · 16 layers · rank 8[0m                                                                         │
+│    dataset         [1mtrain/data[0m                                                                                        │
+│    optimizer       [1madam · lr 1.0e-04[0m                                                                                 │
+│    batch · iters   [1m1 · 800[0m                                                                                           │
+│    max seq         [1m1,536[0m                                                                                             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Trainable parameters: 0.193% (8.116M/4205.750M)
+  [1miter   train_loss     tok/s     tokens[0m
+     1    [1mval[0m [1m2.113[0m    1493.23s
+Traceback (most recent call last):
+  File "/Users/nico/Documents/AI/makemarketbench/runs/qwen35_sft_after_answer.py", line 13, in <module>
+    subprocess.run(command,check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nico/.local/share/uv/python/cpython-3.13.17-macos-aarch64-none/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['bash', 'scripts/with_resource.sh', 'heavy-ml', '.venv/bin/python', '-u', 'train/with_memory_guard.py', '--result', 'results/training/qwen35_sft_memory.json', '.venv/bin/python', '-u', 'train/mlx_train.py', '--model', '/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit', '--revision', '32f3e8ecf65426fc3306969496342d504bfa13f3', '--resume', 'train/runs/qwen3.5-4b-sft-interrupted/best.safetensors', '--out', 'train/runs/qwen3.5-4b-sft', '--result', 'results/training/qwen35_sft.json', '--answer-head-tokens', '128']' returned non-zero exit status 137.

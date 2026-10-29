@@ -36,8 +36,9 @@
     }
   },
   "source_sha256": "41a2bd36ae6deafe8b81942ece393723daf167fb091fc888e81d15202552f404",
-  "status": "running",
-  "sampled_footprint_peak_bytes_approx": 6895435776.0,
+  "status": "physical_memory_limit",
+  "sampled_footprint_peak_bytes_approx": 7522484224.0,
   "child_pid": 71203,
-  "wall_seconds": 1705.738908667001
+  "wall_seconds": 1742.5234014169982,
+  "returncode": -9
 }

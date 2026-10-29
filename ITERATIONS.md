@@ -1081,3 +1081,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/qwen35_answer_full_validation.json`. This strengthens the
   loss-preservation evidence beyond the small gradient tests; it is not a
   trained-policy improvement. The 800-microbatch training stage continues.
+
+### T11 full training interrupted; T13 bounds unused MLX cache
+
+- After the full initial validation, the guard observes 7,522,484,224 bytes,
+  approximately 6,291,456 bytes above its 7 GiB threshold, and terminates the
+  process. Preserve the guard, raw final report, corrected failure receipt and
+  full log under `qwen35_sft_answer_attempt1*`. Training began, but no ten-step
+  report exists: the actual completed update count is unknown, not zero.
+- The saved best adapter remains byte-identical to the initial adapter. This
+  infrastructure failure does not count as a policy nonimprovement.
+- MLX documents that its free-cache limit defaults to the memory limit. Bound
+  unused cached allocations to 256 MiB, without altering active tensors, the
+  loss or the 7 GiB physical guard. Report active/cache memory separately.
+- Register an eight-microbatch, four-update probe on the same longest examples,
+  followed only on success by the original full 800-microbatch recipe from
+  step-zero weights. `qwen35_cache_probe_plan.json` retains settings and host
+  diagnostics. The foreign live heavy-ML owner has the mutex; wait normally.

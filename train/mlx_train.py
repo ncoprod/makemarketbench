@@ -53,6 +53,8 @@ def main() -> None:
     from mlx_lm.utils import load
     from mlx_memory import enable_gated_delta_training
 
+    record["mlx_cache_limit_bytes"] = 256 * 1024**2
+    record["previous_mlx_cache_limit_bytes"] = mx.set_cache_limit(record["mlx_cache_limit_bytes"])
     record["recurrence_training"] = enable_gated_delta_training()
     if args.answer_head_tokens:
         from mlx_answer_loss import answer_batches, answer_loss
@@ -88,6 +90,7 @@ def main() -> None:
             record.update(completed_iterations=info["iteration"],
                           optimizer_updates=info["iteration"] // args.accumulation,
                           peak_memory_bytes=mx.get_peak_memory(),
+                          active_memory_bytes=mx.get_active_memory(), cache_memory_bytes=mx.get_cache_memory(),
                           wall_seconds=time.monotonic() - started, status="running")
             Path(args.result).write_text(json.dumps(record, indent=2) + "\n")
 
@@ -102,6 +105,7 @@ def main() -> None:
                           best_step=self.best_step, completed_iterations=info["iteration"],
                           optimizer_updates=info["iteration"] // args.accumulation,
                           peak_memory_bytes=mx.get_peak_memory(),
+                          active_memory_bytes=mx.get_active_memory(), cache_memory_bytes=mx.get_cache_memory(),
                           wall_seconds=time.monotonic() - started, status="running")
             Path(args.result).write_text(json.dumps(record, indent=2) + "\n")
             if self.stale >= 3:

@@ -127,7 +127,10 @@ preserving the full causal loss and gradients
 an optimizer update under the guard, and its saved weights changed
 ([runtime](results/training/qwen35_answer_smoke.json),
 [weight check](results/training/qwen35_answer_probe_verification.json)). The full
-800-iteration run is now active. These infrastructure checks are not policy
+800-iteration run passed the full validation check, then crossed its memory
+guard before its first training report
+([failure](results/training/qwen35_sft_answer_attempt1.json)). A probe with a
+bounded MLX free-cache limit is queued. These infrastructure checks are not policy
 improvements ([trial log](ITERATIONS.md)).
 
 The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL

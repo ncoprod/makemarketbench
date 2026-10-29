@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "T13 bound the MLX free allocator cache before another full training attempt"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "d779f26e5c2425a804e3c15179be14e71ace09b2",
+    "uncommitted_diff_sha256": "86edd809255fd7cf178dca6e6cb41534b73b98ae59e6f179c1edd4abe04ab715",
+    "started_at": "2026-10-29T21:14:22.760118+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "prepared_not_started",
+  "hypothesis": "Default MLX free-cache limit equals its much larger memory limit. Repeated allocations may retain unused Metal buffers across shapes; bound that cache without changing active tensors or loss.",
+  "change": {
+    "mlx_free_cache_limit_bytes": 268435456,
+    "physical_guard_bytes": 7516192768,
+    "answer_head_tokens": 128
+  },
+  "probe": {
+    "microbatches": 8,
+    "optimizer_updates": 4,
+    "data": "runs/qwen35_memory_data",
+    "seed": 3,
+    "purpose": "Longer allocation-growth probe on the same longest training examples; not a policy-quality run."
+  },
+  "initial_adapter_sha256": "e3bdccef652fd6063468ae6f9f0f15c03e608714fc88caf5fb3526b63a7612a8",
+  "continuation": "Only after successful probe, restart the full 800-microbatch run from the unchanged initial adapter. Discard probe updates; retain full 480-example validation and shared heavy-ML mutex.",
+  "post_failure_diagnostics": {
+    "memory_pressure -Q": {
+      "exit_code": 0,
+      "output": "The system has 17179869184 (1048576 pages with a page size of 16384).\nSystem-wide memory free percentage: 51%\n"
+    },
+    "sysctl hw.memsize": {
+      "exit_code": 0,
+      "output": "hw.memsize: 17179869184\n"
+    },
+    "pmset -g therm": {
+      "exit_code": 0,
+      "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+    }
+  },
+  "api_doc": "mlx.core.set_cache_limit: defaults to the memory limit; reclaims unused cached memory on the next allocation."
+}
