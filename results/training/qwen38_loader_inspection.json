@@ -1,0 +1,36 @@
+{
+  "recorded_at": "2026-10-29T18:00:51.886530+00:00",
+  "provenance": {
+    "command": ".venv/bin/python runs/read_unsloth_source.py",
+    "git_commit": "f04c76b8de7afbaf6a7af7dfcc82326fac1b5c20",
+    "seed": null,
+    "model_revision": null
+  },
+  "package": "unsloth==2026.10.10",
+  "registry": "https://pypi.org/pypi/unsloth/2026.10.10/json",
+  "wheel_sha256": "e0c0cd8f48d8880b6b76af2e7224c80e14b4be93ab8ff4dc140d93c282c73af0",
+  "inspection": [
+    {
+      "path": "unsloth/models/vision.py",
+      "line": 3921,
+      "finding": "The multimodal loader declines from_pretrained layer streaming whenever block_swap_load_device(device_map) is None, including a multi-GPU balanced map."
+    },
+    {
+      "path": "unsloth/models/_utils.py",
+      "line": 9982,
+      "finding": "block_swap_load_device resolves placement strategies only when one GPU is visible; a split map is not a one-GPU load."
+    },
+    {
+      "path": "unsloth/models/loader_utils.py",
+      "line": 1053,
+      "finding": "Native unsloth / unsloth_balanced planner can describe multi-GPU streaming, but vision loader guard precedes that resolution."
+    }
+  ],
+  "conclusion": "The tested multimodal T4 loader cannot use this streaming path. This is a backend limitation, not proof that every implementation of 27B QLoRA is impossible. Native planner without layer offload can give a precise fit diagnosis before downloading weights.",
+  "next_probe": {
+    "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+    "device_map": "unsloth_balanced",
+    "offload_layers": null,
+    "purpose": "Obtain a head-aware native-planner memory diagnosis rather than repeat generic balanced placement."
+  }
+}

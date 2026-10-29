@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-29T17:23:46.442275+00:00",
+  "recorded_at": "2026-10-29T17:52:39.137959+00:00",
   "provenance": {
     "command": ".venv/bin/python runs/prepare_new_directive.py",
     "git_commit": "55460634447c32813c8a81801eef1abbac810272",
@@ -73,6 +73,61 @@
         "gpu_seconds_reserved": 29717.642382,
         "gpu_seconds_total": 108000.0
       }
+    },
+    {
+      "recorded_at": "2026-10-29T17:52:39.137959+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "kernels": [
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:52:47.697000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:52:50.127000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:52:52.201000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:52:53.205000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        }
+      ],
+      "provenance": {
+        "command": "/Users/nico/.local/share/uv/tools/kaggle/bin/python runs/inspect_kaggle_account.py",
+        "config": {
+          "method": "official SDK quota and kernel metadata",
+          "seed": null
+        },
+        "model_revision": null,
+        "git_commit": "f04c76b8de7afbaf6a7af7dfcc82326fac1b5c20",
+        "uncommitted_diff_sha256": "f28cd0b7c3c0fe50dcf45afab5f6ddb30692ca1389fb71f4bbde9c0161d39978",
+        "started_at": "2026-10-29T17:52:39.240121+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {}
+      },
+      "source_sha256": "694c2ce528405b748a5f5872b9d36bba753aa5110ff5773a1efd0f7dd02c113c",
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00",
+        "gpu_seconds_used": 43561.446452,
+        "gpu_seconds_reserved": 28963.79052,
+        "gpu_seconds_total": 108000.0
+      }
     }
   ],
   "sessions": [
@@ -138,18 +193,21 @@
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
-      "version": null,
+      "version": 2,
       "mode": "interactive draft, second allocation",
       "accelerator": "T4 x2",
       "submitted_at": "2026-10-29T17:45:21.973928+00:00",
       "start": null,
       "end": null,
-      "hours": null,
-      "hours_basis": "pending downloaded runtime and session termination",
+      "hours": 0.05896129237280952,
+      "hours_basis": "downloaded script runtime; account quota also includes allocation startup and idle before scheduled inspection",
       "purpose": "One-change newest-family CPU layer offload feasibility retry",
       "private": true,
       "session_limit_hours": 1,
-      "receipt": "results/training/qwen38_offload_plan.json"
+      "receipt": "results/training/qwen38_offload_plan.json",
+      "status": "failed_loading_no_update",
+      "end_observed_at": "2026-10-29T18:00:51.886530+00:00",
+      "runtime_file": "results/kaggle/qwen38-fit-v2/runtime.json"
     }
   ],
   "accounting_notes": [

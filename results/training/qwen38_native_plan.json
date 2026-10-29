@@ -1,0 +1,11 @@
+{
+  "registered_at": "2026-10-29T18:01:32.301293+00:00",
+  "source_commit": "f04c76b8de7afbaf6a7af7dfcc82326fac1b5c20",
+  "seed": 0,
+  "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+  "change": "Native unsloth_balanced device map, no layer streaming. Other probe settings remain unchanged.",
+  "trial_kind": "infrastructure feasibility; no held-out evaluation",
+  "budget_seconds": 3300,
+  "basis": "results/training/qwen38_loader_inspection.json",
+  "status": "registered_not_started"
+}

@@ -707,3 +707,19 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   steps as a request to run its default number of epochs.
 - Verification: 13 CPU training checks passed in 3.38 seconds; Ruff passed.
   No active immutable Kaggle source changes and no new quality trial starts.
+
+### Qwen3.8 fit probe 2 — failed offload compatibility
+
+- Downloaded runtime and durable log: `results/kaggle/qwen38-fit-v2/`.
+  Script wall time: 212.26065254211426 seconds. No weights/update completed.
+  Exact diagnostic says automatic load-to-host requires every layer on one GPU.
+  Preserve Quick Save version two, then stop the idle interactive allocation.
+- Inspect the exact PyPI wheel used by Kaggle, verified by SHA-256. The
+  multimodal loader's single-device guard precedes native block-swap planning;
+  generic `balanced` plus load-to-host cannot reach the streaming planner.
+  `qwen38_loader_inspection.json` records source locations and wheel hash.
+- Focused next check: `device_map=unsloth_balanced`, without layer offload,
+  retaining the same model, revision, rank, sequence and one-update objectives.
+  This native planner can diagnose the head/embedding memory requirements
+  precisely. It is not a policy-quality trial or a declaration that every
+  possible implementation of 27B QLoRA is infeasible.

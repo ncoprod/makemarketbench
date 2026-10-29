@@ -8,10 +8,15 @@
   "previous_result": "results/kaggle/qwen38-fit-v1/runtime.json",
   "budget_seconds": 3300,
   "test_evaluation": false,
-  "status": "interactive_start_requested",
+  "status": "failed_loading_no_update",
   "source_sha256": "ec6a8ac02ebbcb82737e8da8f733461ff1bd5e2f2776e64072009e930c6feda6",
   "notebook_sha256": "60b195ddc622e583e93c19a920d044aea1f03318d57e4c88eded451cca4595ae",
   "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
   "start_requested_at": "2026-10-29T17:45:21.973928+00:00",
-  "logging": "Combined stdout/stderr written to probe.log before downloading outputs"
+  "logging": "Combined stdout/stderr written to probe.log before downloading outputs",
+  "saved_version": 2,
+  "downloaded_runtime": "results/kaggle/qwen38-fit-v2/runtime.json",
+  "downloaded_log": "results/kaggle/qwen38-fit-v2/probe.log",
+  "script_wall_seconds": 212.26065254211426,
+  "stop_observed_at": "2026-10-29T18:00:51.886530+00:00"
 }

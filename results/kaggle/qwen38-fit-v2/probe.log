@@ -1,0 +1,129 @@
+/kaggle/working/probe.py:57: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tf.extractall(dest)
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.
+   \\   /|    Tesla T4. Num GPUs = 2. Max memory: 14.562 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0
+\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.
+Unsloth: offload_layers = 'auto' loads every layer onto the GPU: loading into host RAM needs every layer on one GPU; pass offload_layers to get_peft_model instead.
+/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py", line 4246, in from_pretrained
+    model = auto_model.from_pretrained(
+        model_name,
+    ...<4 lines>...
+        **kwargs,
+    )
+  File "/usr/local/lib/python3.13/dist-packages/transformers/models/auto/auto_factory.py", line 402, in from_pretrained
+    return model_class.from_pretrained(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path, *model_args, config=config, **hub_kwargs, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader.py", line 1092, in wrapped
+    output = original(cls, *args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/modeling_utils.py", line 4373, in from_pretrained
+    device_map = _get_device_map(model, device_map, max_memory, hf_quantizer)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/mxfp4.py", line 47, in _get_device_map
+    device_map = original(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/integrations/accelerate.py", line 374, in _get_device_map
+    hf_quantizer.validate_environment(device_map=device_map)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/transformers/quantizers/quantizer_bnb_4bit.py", line 74, in validate_environment
+    raise ValueError(
+    ...<6 lines>...
+    )
+ValueError: Some modules are dispatched on the CPU or the disk. Make sure you have enough GPU RAM to fit the quantized model. If you want to dispatch the model on the CPU or the disk while keeping these modules in 32-bit, you need to set `llm_int8_enable_fp32_cpu_offload=True` and pass a custom `device_map` to `from_pretrained`. Check https://huggingface.co/docs/transformers/main/en/main_classes/quantization#offload-between-cpu-and-gpu for more details. 
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/probe.py", line 483, in <module>
+    main()
+    ~~~~^^
+  File "/kaggle/working/probe.py", line 467, in main
+    train(args, report_runtime)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/probe.py", line 211, in train
+    model, tokenizer = FastLanguageModel.from_pretrained(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        fast_inference=False, device_map=args.device_map, **load_options)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/tp_env.py", line 278, in wrapper
+    out = from_pretrained(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/tp_env.py", line 226, in from_pretrained
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/fsdp2_load.py", line 252, in wrapper
+    return loader(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/tokenizers_v1.py", line 654, in _wrapper
+    result = fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader_utils.py", line 5076, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/mistral_format.py", line 691, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/fp8_to_nf4.py", line 100, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader.py", line 1886, in from_pretrained
+    delegated, tokenizer = FastModel.from_pretrained(
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        on_model_resolved = on_model_resolved,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<32 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/tp_env.py", line 278, in wrapper
+    out = from_pretrained(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/tp_env.py", line 226, in from_pretrained
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/fsdp2_load.py", line 252, in wrapper
+    return loader(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/tokenizers_v1.py", line 654, in _wrapper
+    result = fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader_utils.py", line 5053, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader_utils.py", line 5076, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/mistral_format.py", line 691, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/fp8_to_nf4.py", line 88, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader.py", line 3385, in from_pretrained
+    model, tokenizer = FastBaseModel.from_pretrained(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model_name = model_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<44 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/moe_grouped_modulelist.py", line 1151, in wrapper
+    result = func(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader_utils.py", line 5076, in _wrapper
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py", line 4491, in from_pretrained
+    raise_if_bnb_cpu_spill(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        error,
+        ^^^^^^
+    ...<5 lines>...
+        max_memory = kwargs.get("max_memory"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/unsloth/models/loader_utils.py", line 516, in raise_if_bnb_cpu_spill
+    raise ValueError(
+    ...<2 lines>...
+    ) from error
+ValueError: Unsloth: unsloth/Qwen3.8-27B-unsloth-bnb-4bit does not fit in GPU memory (cuda:0 has 14.41 GB free), so transformers placed part of it on the CPU, which bitsandbytes cannot quantize. Lower max_seq_length or the batch size, load a smaller model, or add a GPU.
