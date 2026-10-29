@@ -119,10 +119,12 @@ def main() -> None:
                                  list(range(args.seed, args.seed + args.episodes)),
                                  OUT / "raw" / name / f"{slug(label)}.jsonl", workers=1,
                                  provenance=provenance)
-                entry[name] = {"episodes": len(eps), "wall_seconds": time.time() - started}
+                entry[name] = {"episodes": len(eps)}
             except Exception as exc:
                 entry[name] = {"error": f"{type(exc).__name__}: {exc}"}
+            entry[name]["wall_seconds"] = time.time() - started
             entry[name]["provenance"] = provenance
+            entry.setdefault("evaluation_attempts", []).append({"game": name, **entry[name]})
             path.write_text(json.dumps(protocol, indent=2) + "\n")
             print(f"[eval] {label} {name}: {entry[name]}", flush=True)
 

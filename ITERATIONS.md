@@ -521,3 +521,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   zero new episodes are executed or counted.
 - This prevents deterministic baseline recomputation while a model holds the
   heavy-ML lock. [Source/destination manifest](results/reference_reuse.json).
+
+### Preserve API evaluation retries
+
+- Diagnosis: a resumed API batch replaced a previous game's error receipt with
+  its latest outcome, losing the failure and its elapsed time.
+- Change: append every future game attempt to the protocol's history, including
+  elapsed time on failure, while retaining the latest outcome for compatibility.
+  Existing cached responses and completed episodes remain reusable. Already
+  running Python processes retain their original recorded source revision.
+- Verification: Ruff and Python compilation pass. This changes provenance only,
+  not prompts, seeds, API concurrency or candidate selection.
