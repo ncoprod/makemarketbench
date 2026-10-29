@@ -39,10 +39,12 @@ def main() -> None:
     stage.add_argument("--train-only", action="store_true", help="save adapters before separate evaluation sessions")
     stage.add_argument("--evaluate-staged", action="store_true", help="validate staged SFT and GRPO on one GPU each")
     stage.add_argument("--qwen38-train", action="store_true", help="bounded newest-family SFT and GRPO")
+    stage.add_argument("--qwen38-continue", action="store_true", help="resume retained newest-family optimizer states")
     stage.add_argument("--qwen38-evaluate", action="store_true", help="evaluate saved newest-family adapters")
     ap.add_argument("--evaluation-split", choices=["validation", "test"], default="validation")
     args = ap.parse_args()
-    out = (ROOT / "runs" / "kaggle_qwen38_train" if args.qwen38_train else
+    out = (ROOT / "runs" / "kaggle_qwen38_continue" if args.qwen38_continue else
+           ROOT / "runs" / "kaggle_qwen38_train" if args.qwen38_train else
            ROOT / "runs" / "kaggle_qwen38_evaluate" if args.qwen38_evaluate else
            ROOT / "runs" / "kaggle_evaluate_staged" if args.evaluate_staged else
            ROOT / "runs" / "kaggle_smoke" if args.smoke else
@@ -130,6 +132,25 @@ finally:
 if any(codes):
     raise RuntimeError(f"Evaluation worker exit codes: {{codes}}")
 '''
+    if args.qwen38_continue:
+        continuation = (ROOT / "train" / "qwen38_continue.py").read_text()
+        src = f'''import shutil, subprocess, sys
+from pathlib import Path
+
+sources = list(Path("/kaggle/input").rglob("train_core.py"))
+assert len(sources) == 1, sources
+source = sources[0].parent
+work = Path("/kaggle/working")
+for name in ["train_core.py", "runtime.json", "warmstart_adapter", "lora_adapter", "sft", "grpo"]:
+    item = source / name
+    if item.is_dir():
+        shutil.copytree(item, work / name)
+    elif item.is_file():
+        shutil.copyfile(item, work / name)
+launcher = work / "continue.py"
+launcher.write_text({continuation!r})
+subprocess.run([sys.executable, str(launcher), "--source-commit", {commit!r}], check=True)
+'''
     (out / "grpo_unsloth_kaggle.py").write_text(src)
     meta = {
         "id": "nicolascoquelet/makemarketbench-grpo-qwen3",
@@ -154,6 +175,10 @@ if any(codes):
         suffix = "final" if args.evaluation_split == "test" else "validate"
         meta.update(id=meta["id"] + f"-{suffix}-staged", title=meta["title"] + f" {suffix} staged",
                     kernel_sources=["nicolascoquelet/makemarketbench-grpo-qwen3-train-only"])
+    elif args.qwen38_continue:
+        meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-continue",
+                    title="MakeMarketBench Qwen3.8 27B continuation",
+                    kernel_sources=["nicolascoquelet/makemarketbench-qwen3-8-27b-training"])
     elif args.qwen38_evaluate:
         suffix = "final" if args.evaluation_split == "test" else "validate"
         meta.update(id=f"nicolascoquelet/makemarketbench-qwen3-8-27b-{suffix}",

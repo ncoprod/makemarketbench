@@ -325,3 +325,52 @@ def test_gpu_batch_check_uses_training_states_and_keeps_failures(kernel, monkeyp
     assert record["quotes_equal"] is not mismatch
     assert record["training_seeds"] == [20000, 20003]
     assert seen[:8] == [(game, t) for game in args.games for t in (0, 1, 3, 5)]
+
+
+@pytest.mark.parametrize('warm_exists', [False, True])
+def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoints(
+        monkeypatch, tmp_path, warm_exists):
+    import hashlib
+
+    spec = importlib.util.spec_from_file_location(
+        'qwen38_continue', Path(__file__).parents[1] / 'train/qwen38_continue.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    core = tmp_path / 'train_core.py'
+    core.write_text('# frozen source\n')
+    revision = '8aa5f05d26b7205477066e1449e0af13f762a299'
+    (tmp_path / 'runtime.json').write_text(json.dumps({
+        'config': {'revision': revision}, 'model_revision': revision, 'seed': 0,
+        'status': 'failed', 'source_file_sha256': hashlib.sha256(core.read_bytes()).hexdigest(),
+    }))
+    complete = tmp_path / 'sft/checkpoint-750'
+    complete.mkdir(parents=True)
+    for name in ['adapter_model.safetensors', 'trainer_state.json', 'optimizer.pt',
+                 'scheduler.pt', 'rng_state.pth']:
+        (complete / name).touch()
+    partial = tmp_path / 'sft/checkpoint-800'
+    partial.mkdir()
+    (partial / 'adapter_model.safetensors').touch()
+    assert module.latest_checkpoint(tmp_path / 'sft') == complete
+    warm = tmp_path / 'warmstart_adapter'
+    if warm_exists:
+        warm.mkdir()
+        for name in ['adapter_model.safetensors', 'adapter_config.json']:
+            (warm / name).touch()
+    calls = []
+
+    def run(command, **kwargs):
+        calls.append(command)
+        warm.mkdir(exist_ok=True)
+
+    monkeypatch.setattr(module.subprocess, 'run', run)
+    monkeypatch.setattr('sys.argv', ['qwen38_continue.py', '--core', str(core),
+                                    '--source-commit', 'test-commit'])
+    module.main()
+    assert len(calls) == (1 if warm_exists else 2)
+    if not warm_exists:
+        assert calls[0][-6:] == ['--sft-resume', str(complete), '--grpo-steps', '0', '--save-steps', '50']
+    assert calls[-1][-4:] == ['--grpo-steps', '32', '--save-steps', '5']
+    record = json.loads((tmp_path / 'continuation.json').read_text())
+    assert record['status'] == 'completed'
+    assert record['grpo_total_ceiling'] == 32

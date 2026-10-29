@@ -1029,3 +1029,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Record the alias and verification commands in `qwen38_kernel_rename.json`.
   The saved version still predates the active training draft: save its completed
   outputs and verify their hashes before any continuation or evaluation mount.
+
+### T12 conditional continuation is executable
+
+- `train/build_kaggle_kernel.py --qwen38-continue` prepares a private kernel;
+  it remains unsubmitted while the useful original training session continues.
+- Copy saved checkpoints into their original working paths, preserving the
+  trainer's absolute best-checkpoint references. Reject incomplete optimizer
+  checkpoints and any mismatch between the saved runtime and core source hash.
+- SFT continuation keeps its original 50-update validation/save cadence. A
+  separate GRPO command saves every five updates, with at most 32 additional
+  updates and a combined 6,300-second launcher cap. Record an optimizer restart
+  from SFT when no complete GRPO checkpoint exists. A resumed cosine schedule
+  uses the explicitly bounded new ceiling; it is not labelled uninterrupted.
+- Preserve the original runtime and every continuation stage's runtime/log.
+  CPU checks cover both SFT-resume and already-completed-SFT paths, and reject
+  partial checkpoints. GPU behavior remains unmeasured; admission still requires
+  a fresh quota check and retained evaluation budget.

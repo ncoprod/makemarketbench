@@ -37,5 +37,14 @@
   },
   "admission": "Check official quota at submission; reserve active caps, planned final evaluation and startup overhead. Do not submit if remaining quota or reset deadline cannot cover the bound.",
   "evaluation": "Validation 80000-80099 then frozen test 200-399 per game; batch4 only after GPU validation. Report all available frozen checkpoints and retain all failures.",
-  "quality_stopping": "This budget allocation does not count as a quality nonimprovement or establish exhaustion of Qwen3.8 capacity."
+  "quality_stopping": "This budget allocation does not count as a quality nonimprovement or establish exhaustion of Qwen3.8 capacity.",
+  "launcher": {
+    "file": "train/qwen38_continue.py",
+    "builder_command": ".venv/bin/python train/build_kaggle_kernel.py --qwen38-continue",
+    "prepared_at": "2026-10-29T21:00:41.136116+00:00",
+    "status": "prepared_not_submitted",
+    "source_mount": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+    "resume_details": "Copy the immutable saved training core and retained SFT/GRPO checkpoints into their original absolute working paths. Reject incomplete optimizer checkpoints and a changed core hash. Finish SFT in a separate command with its original cadence, then run at most 32 further GRPO updates with saves every five. Preserve the preceding runtime plus each continuation stage runtime/log.",
+    "scheduler_note": "Resumed GRPO retains optimizer/scheduler state but its cosine schedule uses the registered new total ceiling; this is an explicit bounded continuation, not the uninterrupted 96-step recipe."
+  }
 }
