@@ -37,12 +37,14 @@ def main() -> None:
     import mlx.core as mx
     from mlx_lm import load
 
+    mx.set_cache_limit(256 * 1024**2)
     model, tokenizer = load(args.model, adapter_path=args.adapter, revision=args.revision)
+    actor = MLXQuoter(model, tokenizer, "dagger-actor")
     for game_name in ("dice", "cards"):
         for seed in range(30000, 30000 + args.episodes):
             if (game_name, seed) in done:
                 continue
-            player = LabelledPlayer(MLXQuoter(model, tokenizer, "dagger-actor"))
+            player = LabelledPlayer(actor)
             play_episode(make_game(game_name), seed, player, backend="py")
             row = {"game": game_name, "seed": seed, "examples": player.examples, "provenance": record}
             with raw.open("a") as f:

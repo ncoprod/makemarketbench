@@ -68,6 +68,45 @@ def test_greedy_cuda_cache_reuses_repairs_and_stays_with_one_adapter(kernel):
     assert not kernel.HFQuoter(None, None, "adapter-b").cache
 
 
+@pytest.mark.parametrize("last_response,failed", [
+    ('{"bid": 1, "bid_size": 1, "ask": 99, "ask_size": 1}', False),
+    ("still invalid", True),
+])
+def test_greedy_mlx_cache_preserves_repairs_and_isolates_adapters(monkeypatch, last_response, failed):
+    import importlib
+    import sys
+    from types import SimpleNamespace
+
+    from makemarket.games import make_game
+    from makemarket.market import Observation
+
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "train"))
+    quoter = importlib.import_module("mlx_evaluate").MLXQuoter
+    responses, calls = iter(["invalid", last_response]), []
+
+    def generate(*args, **kwargs):
+        calls.append(kwargs["prompt"])
+        return next(responses)
+
+    monkeypatch.setitem(sys.modules, "mlx_lm", SimpleNamespace(generate=generate))
+    monkeypatch.setitem(sys.modules, "mlx_lm.sample_utils", SimpleNamespace(make_sampler=lambda **kw: None))
+    tokenizer = SimpleNamespace(apply_chat_template=lambda messages, **kw: json.dumps(messages))
+    game = make_game("dice")
+    ep = game.episode(20000)
+    obs = Observation(game, 0, ep.n_rounds, ep.reveals[:1], [], 0, 0,
+                      ep.public_beliefs[0], ep.public_beliefs[0].mean)
+    player = quoter(None, tokenizer, "adapter-a")
+    expected, original = player.quote(obs)
+    actual, cached = player.quote(obs)
+    assert actual == expected
+    assert cached["attempts"] == original["attempts"]
+    assert cached["failed"] == failed
+    assert cached["format_error"]
+    assert cached["cached"] and not original["cached"]
+    assert len(calls) == 2 and calls[0] != calls[1]
+    assert not quoter(None, tokenizer, "adapter-b").cache
+
+
 def test_rloo_baseline_is_leave_one_out_and_translation_invariant(monkeypatch):
     import importlib
 

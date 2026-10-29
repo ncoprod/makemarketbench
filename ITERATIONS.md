@@ -1135,3 +1135,21 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   adapter, discarding probe updates. Full training is not yet verified complete.
 - The complete local suite passes 104 tests with no skips; exact producing
   commit, command, output and hash are in `results/verification.json`.
+
+### T14 — exact greedy MLX response reuse
+
+- Hypothesis: repeated states make serial local validation and DAgger collection
+  needlessly regenerate the same greedy answer. On teacher-training data only,
+  9,600 examples contain 5,579 unique prompts and 4,021 repeated occurrences.
+  This is not a measured hit rate on future actor states.
+- Change: keep one response cache per loaded frozen adapter and reuse its actor
+  across episodes. Preserve the complete repair trace, including failures;
+  mark reused responses explicitly. Bound unused inference allocator cache to
+  the same 256 MiB used by the successful training probe.
+- Commands: `.venv/bin/python runs/measure_mlx_cache.py`;
+  `.venv/bin/python -m pytest tests/test_training.py -q`.
+- Result: 23 targeted tests pass. CPU fake-generator checks cover successful
+  repairs, repeated failures and adapter isolation. No local inference speedup
+  or policy improvement is claimed. Source, data hash and calculation are in
+  `results/training/mlx_greedy_cache.json`; this infrastructure change does not
+  count as a substantive policy nonimprovement.

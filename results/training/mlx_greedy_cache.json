@@ -1,0 +1,33 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/measure_mlx_cache.py",
+    "config": {
+      "purpose": "count repeated teacher-training prompts before exact greedy caching",
+      "data": "train/data/train.jsonl",
+      "seed_ranges": [
+        10000,
+        10799
+      ]
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "9bf24ffaef2e34c7bbadc6ae171a890d3dfb5ab8",
+    "uncommitted_diff_sha256": "7b7dd466591a248052f155c9653738877b2db250fda3a0471e97b542ffe17de1",
+    "started_at": "2026-10-29T21:35:15.513918+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "2e279148c55041fe1febe6585e42a67a01c1c470f95a353f30b01ab6641095dd",
+  "calculation_source": "import json\nfrom collections import Counter\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('train/data/train.jsonl')\nrows = [json.loads(line) for line in path.read_text().splitlines()]\nprompts = Counter(json.dumps([m for m in row['messages'] if m['role'] != 'assistant'], sort_keys=True) for row in rows)\nrecord = {\n    'provenance': receipt({'purpose': 'count repeated teacher-training prompts before exact greedy caching', 'data': str(path), 'seed_ranges': [10000, 10799]}, '32f3e8ecf65426fc3306969496342d504bfa13f3'),\n    'source_sha256': file_sha256(__file__), 'calculation_source': Path(__file__).read_text(),\n    'data_sha256': file_sha256(path), 'examples': len(rows), 'unique_prompts': len(prompts),\n    'repeated_occurrences': len(rows) - len(prompts),\n    'interpretation': 'Teacher-training prompt duplication only. Future actor-state cache hit rate and wall-time savings are unmeasured. Cache applies only within one loaded frozen adapter; greedy generation settings and repair parsing are unchanged.',\n    'status': 'CPU cache parity tests passed; full inference speedup unmeasured',\n}\nPath('results/training/mlx_greedy_cache.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint({k: record[k] for k in ('examples', 'unique_prompts', 'repeated_occurrences')})\n",
+  "data_sha256": "b24b28867e8deb8df39903c045a9615350198391d789059fcb9db150e1c04bb9",
+  "examples": 9600,
+  "unique_prompts": 5579,
+  "repeated_occurrences": 4021,
+  "interpretation": "Teacher-training prompt duplication only. Future actor-state cache hit rate and wall-time savings are unmeasured. Cache applies only within one loaded frozen adapter; greedy generation settings and repair parsing are unchanged.",
+  "status": "CPU cache parity tests passed; full inference speedup unmeasured"
+}
