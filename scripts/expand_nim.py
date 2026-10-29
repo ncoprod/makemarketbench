@@ -33,6 +33,9 @@ MODELS = [
     ("nvidia/nemotron-3-ultra-550b-a55b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
     ("nvidia/nemotron-3.5-bolt-e4b", {}, 4096, ""),
     ("nvidia/nemotron-3.5-lightning-30b-a3b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
+    ("mistralai/mistral-7b-instruct-v0.3", {}, 4096, ""),
+    ("nv-mistralai/mistral-nemo-12b-instruct", {}, 4096, ""),
+    ("meta/llama-3.2-11b-vision-instruct", {}, 4096, "text-only"),
 ]
 
 
@@ -43,7 +46,7 @@ def main() -> None:
     ap.add_argument("--models", nargs="*")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    path = OUT / "protocol.json"
+    path = OUT / ("protocol-supplement.json" if args.models else "protocol.json")
     protocol = json.loads(path.read_text()) if path.exists() else {}
     discovery = OUT / "models.json"
     if not discovery.exists():

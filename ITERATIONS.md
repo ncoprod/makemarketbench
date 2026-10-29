@@ -29,11 +29,18 @@ External access failures remain unmet targets, not successful training trials.
   Report all validation trials and all frozen final candidates, not only a winner.
 - Marginal 95% CIs are descriptive. Any claim of superiority across K API
   comparisons must also pass family-wise Bonferroni intervals at level
-  `1 - 0.05/(K + 2)` (K comparisons plus dice threshold and cards positivity).
+  `1 - 0.05/(C * (K + 2))` (K comparisons plus dice threshold and cards
+  positivity for each of C frozen final candidates). C is four: the completed
+  1.7B baseline, the validation-selected MLX 4B candidate, CUDA teacher SFT,
+  and CUDA GRPO. Failed/unavailable candidates remain counted conservatively.
   Do not claim a winner from overlapping or uncorrected intervals.
   The K corrected comparisons are paired differences in dice expected PnL;
   the other two claims are the dice ratio and cards positivity. Marginal
   individual-model intervals must also be separated as required by the target.
+  Corrected intervals use enough resamples for at least 100 expected draws in
+  each tail; marginal intervals retain 10,000. Block sampling bounds memory and
+  reproduces the previous bootstrap draws exactly. This amendment precedes new
+  final scores and increases conservatism rather than changing model selection.
 - Keep raw episodes, settings, seed ranges, model revisions, source commit,
   commands, failures and measured resource usage with each new result.
 
@@ -100,14 +107,20 @@ do not invent missing provenance. Historical adapter configs are preserved.
   Local base weights/tokenizer match all checked immutable Hub blobs:
   [verification](results/training/qwen17_base_verification.json).
 
-### T3 — extended NIM probes (interrupted, continuation pending)
+### T3 — extended NIM probes (resumed, running)
 
 - Hypothesis: 600 s timeouts and 16,384 tokens for thinking make more models usable.
 - Command: `bash scripts/with_resource.sh nim .venv/bin/python -u scripts/expand_nim.py`.
-- Result: interrupted before a completed response; no new score claimed.
-- Evidence: ignored `runs/nim_expansion.log`; protocol JSON is saved after each probe.
+- Result: interrupted before a completed response; resumed under one shared slot.
+  GET `/v1/models` succeeded and returned no Qwen model. The initial long-timeout
+  worker is running. A second sequential batch is queued for catalogue-listed
+  Mistral-7B, Mistral-NeMo-12B and Llama-3.2-11B (text only), with licences
+  verified before calls. Each batch holds its own slot; total requests remain
+  bounded by the two shared mutexes. No new policy score is claimed yet.
+- Evidence: [catalogue](results/expansion/models.json), ignored
+  `runs/nim_expansion.log` / `runs/nim_supplement.log`; protocol JSON after each probe.
 
-### T4 — Qwen3.5-4B LoRA (registered, not yet executed)
+### T4 — Qwen3.5-4B LoRA (running)
 
 - Hypothesis: a stronger small model reduces posterior-inference errors on cards.
 - Model: `mlx-community/Qwen3.5-4B-MLX-4bit`, revision
@@ -124,7 +137,9 @@ do not invent missing provenance. Historical adapter configs are preserved.
   and generation; audit every training/validation prefix before starting.
 - CUDA recipe: `unsloth/Qwen3.5-4B`, revision
   `3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636`; no 1.7B adapter is loaded into 4B.
-- Result / commands / resource measurements: pending execution.
+- Execution started after T2 released the heavy-ML mutex. Initial full teacher
+  validation is running; no training or policy result is claimed yet.
+  Exact command and start receipt: `results/training/qwen35_sft.json`.
 
 ### E1 — engine baseline/profile (in progress)
 

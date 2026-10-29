@@ -145,6 +145,33 @@
       "license_name": null,
       "license_link": null,
       "source": "https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/mistralai/Mistral-7B-Instruct-v0.3",
+      "checked_at": "2026-10-29T10:24:47.719914+00:00"
+    },
+    {
+      "id": "mistralai/Mistral-Nemo-Instruct-2407",
+      "revision": "04d8a90549d23fc6bd7f642064003592df51e9b3",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/mistralai/Mistral-Nemo-Instruct-2407",
+      "checked_at": "2026-10-29T10:24:47.906166+00:00"
+    },
+    {
+      "id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+      "revision": "9eb2daaa8597bf192a8b0e73f848f3a102794df5",
+      "license": "llama3.2",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/meta-llama/Llama-3.2-11B-Vision-Instruct",
+      "checked_at": "2026-10-29T10:24:48.056070+00:00"
     }
   ],
   "upstream_licenses": [

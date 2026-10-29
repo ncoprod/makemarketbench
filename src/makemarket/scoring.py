@@ -11,8 +11,12 @@ def bootstrap_ci(x: np.ndarray, stat=np.mean, n_boot: int = N_BOOT, seed: int = 
                  level: float = 0.95) -> tuple[float, float]:
     x = np.asarray(x, dtype=float)
     rng = np.random.default_rng(seed)
-    idx = rng.integers(0, len(x), (n_boot, len(x)))
-    stats = np.array([stat(x[i]) for i in idx]) if stat is not np.mean else x[idx].mean(1)
+    stats = np.empty(n_boot)
+    for start in range(0, n_boot, 1000):
+        stop = min(start + 1000, n_boot)
+        idx = rng.integers(0, len(x), (stop - start, len(x)))
+        stats[start:stop] = ([stat(x[i]) for i in idx] if stat is not np.mean
+                             else x[idx].mean(1))
     a = (1 - level) / 2
     return float(np.quantile(stats, a)), float(np.quantile(stats, 1 - a))
 
@@ -22,8 +26,11 @@ def paired_ratio_ci(num: np.ndarray, den: np.ndarray, n_boot: int = N_BOOT, seed
     """100 * mean(num) / mean(den) with a paired (same-seed) bootstrap CI."""
     num, den = np.asarray(num, float), np.asarray(den, float)
     rng = np.random.default_rng(seed)
-    idx = rng.integers(0, len(num), (n_boot, len(num)))
-    r = 100 * num[idx].mean(1) / den[idx].mean(1)
+    r = np.empty(n_boot)
+    for start in range(0, n_boot, 1000):
+        stop = min(start + 1000, n_boot)
+        idx = rng.integers(0, len(num), (stop - start, len(num)))
+        r[start:stop] = 100 * num[idx].mean(1) / den[idx].mean(1)
     a = (1 - level) / 2
     return 100 * num.mean() / den.mean(), float(np.quantile(r, a)), float(np.quantile(r, 1 - a))
 

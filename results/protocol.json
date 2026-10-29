@@ -47,7 +47,11 @@
       80099
     ],
     "bootstrap_resamples": 10000,
-    "confidence": 0.95
+    "confidence": 0.95,
+    "final_candidates": 4,
+    "family_confidence": "1 - 0.05/(4 * (K + 2)); K is the number of complete API dice cohorts",
+    "family_bootstrap_resamples": "max(10000, ceil(200 / (1 - family_confidence)))",
+    "family_bootstrap_note": "At least 100 expected resamples per corrected tail; descriptive marginal CIs retain 10000 resamples."
   },
   "training": {
     "teacher_episodes_per_game": 800,
@@ -58,5 +62,12 @@
     "max_steps": 800,
     "dagger_episodes_per_game": 150,
     "rloo_steps": 24
-  }
+  },
+  "amendments": [
+    {
+      "at": "2026-10-29T10:23:34.435168+00:00",
+      "reason": "Before new final scores: count all four frozen candidates and improve Monte Carlo precision of corrected tails.",
+      "source": "ITERATIONS.md"
+    }
+  ]
 }

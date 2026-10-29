@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -33,9 +34,15 @@ def main():
     ap.add_argument("--label", required=True)
     ap.add_argument("--api", default="results/expansion")
     ap.add_argument("--out", default="results/final.json")
+    ap.add_argument("--candidates", type=int, default=4,
+                    help="registered final candidates, including CUDA warm start and GRPO")
     args = ap.parse_args()
+    assert args.candidates >= 1
     comparisons = sum(cohort(p) is not None for p in (Path(args.api) / "raw/dice").glob("*.jsonl"))
-    level = 1 - 0.05 / (comparisons + 2)
+    level = 1 - 0.05 / (args.candidates * (comparisons + 2))
+    # Keep at least 100 bootstrap draws in each corrected tail, without a large
+    # episodes-by-resamples allocation (the scorer samples in small blocks).
+    family_resamples = max(10_000, math.ceil(200 / (1 - level)))
     record = {"provenance": receipt(vars(args)), "source_sha256": file_sha256(__file__),
               "seeds": SEEDS, "games": {}, "input_sha256": {}, "incomplete_cohorts": []}
     for game in ("dice", "cards"):
@@ -58,12 +65,15 @@ def main():
         # K paired differences, one dice ratio, and one cards positivity claim.
         marginal = {r["player"]: r for r in summarize(players)}
         differences = {name: {"mean": float((local - epnl(players[name])).mean()),
-                              "family_ci": bootstrap_ci(local - epnl(players[name]), level=level)}
+                              "family_ci": bootstrap_ci(local - epnl(players[name]), level=level,
+                                                        n_boot=family_resamples)}
                        for name in api_names if game == "dice"}
         record["games"][game] = {
             "rows": list(marginal.values()), "api_cohorts": api_names, "family_level": level,
-            "local_epnl_family_ci": bootstrap_ci(local, level=level),
-            "local_percent_family_ci": paired_ratio_ci(local, bayes, level=level)[1:],
+            "family_bootstrap_resamples": family_resamples,
+            "local_epnl_family_ci": bootstrap_ci(local, level=level, n_boot=family_resamples),
+            "local_percent_family_ci": paired_ratio_ci(local, bayes, level=level,
+                                                       n_boot=family_resamples)[1:],
             "paired_api_differences": differences,
             "lower_95_above_every_api_upper_95": bool(api_names) and all(
                 marginal[args.label]["epnl_ci"][0] > marginal[n]["epnl_ci"][1] for n in api_names),
