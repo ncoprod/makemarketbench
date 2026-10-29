@@ -64,7 +64,8 @@ def main():
         if not all((warm / name).is_file() for name in ['adapter_model.safetensors', 'adapter_config.json']):
             checkpoint = latest_checkpoint(work / 'sft')
             assert checkpoint is not None, 'No complete SFT optimizer checkpoint'
-            run('sft', ['--sft-resume', str(checkpoint), '--grpo-steps', '0', '--save-steps', '50'])
+            run('sft', ['--adapter', str(checkpoint), '--sft-resume', str(checkpoint),
+                        '--grpo-steps', '0', '--save-steps', '50'])
         checkpoint = latest_checkpoint(work / 'grpo')
         if checkpoint:
             step = json.loads((checkpoint / 'trainer_state.json').read_text())['global_step']

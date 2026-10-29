@@ -1046,3 +1046,7 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   CPU checks cover both SFT-resume and already-completed-SFT paths, and reject
   partial checkpoints. GPU behavior remains unmeasured; admission still requires
   a fresh quota check and retained evaluation budget.
+- Pre-submission review also found that a mounted training run contains several
+  compatible checkpoint adapters. Select the same complete SFT checkpoint
+  explicitly for both PEFT loading and optimizer resumption, avoiding ambiguous
+  auto-discovery. The targeted continuation checks pass before any GPU use.

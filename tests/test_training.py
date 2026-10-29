@@ -369,6 +369,7 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     module.main()
     assert len(calls) == (1 if warm_exists else 2)
     if not warm_exists:
+        assert calls[0][calls[0].index('--adapter') + 1] == str(complete)
         assert calls[0][-6:] == ['--sft-resume', str(complete), '--grpo-steps', '0', '--save-steps', '50']
     assert calls[-1][-4:] == ['--grpo-steps', '32', '--save-steps', '5']
     record = json.loads((tmp_path / 'continuation.json').read_text())
