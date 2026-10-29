@@ -39,8 +39,11 @@ def main() -> None:
     stage.add_argument("--train-only", action="store_true", help="save adapters before separate evaluation sessions")
     stage.add_argument("--evaluate-staged", action="store_true", help="validate staged SFT and GRPO on one GPU each")
     stage.add_argument("--qwen38-train", action="store_true", help="bounded newest-family SFT and GRPO")
+    stage.add_argument("--qwen38-evaluate", action="store_true", help="evaluate saved newest-family adapters")
+    ap.add_argument("--evaluation-split", choices=["validation", "test"], default="validation")
     args = ap.parse_args()
     out = (ROOT / "runs" / "kaggle_qwen38_train" if args.qwen38_train else
+           ROOT / "runs" / "kaggle_qwen38_evaluate" if args.qwen38_evaluate else
            ROOT / "runs" / "kaggle_evaluate_staged" if args.evaluate_staged else
            ROOT / "runs" / "kaggle_smoke" if args.smoke else
            ROOT / "runs" / "kaggle_train_only" if args.train_only else OUT)
@@ -68,7 +71,15 @@ def main() -> None:
     marker = 'PAYLOAD = ""'
     assert marker in src
     src = src.replace(marker, f'PAYLOAD = "{payload()}"', 1)
-    if args.evaluate_staged:
+    if args.evaluate_staged or args.qwen38_evaluate:
+        newest = args.qwen38_evaluate
+        family = "qwen3.8-27b" if newest else "qwen3.5-4b-staged"
+        seed, episodes = (200, 200) if args.evaluation_split == "test" else (80000, 100)
+        model_flags = (["--model", "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+                        "--base-model", "Qwen/Qwen3.8-27B", "--revision",
+                        "8aa5f05d26b7205477066e1449e0af13f762a299",
+                        "--device-map", "unsloth_balanced", "--lora-rank", "8"] if newest else [])
+        revision = "8aa5f05d26b7205477066e1449e0af13f762a299" if newest else "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636"
         src = f'''import json, os, subprocess, sys, time
 from pathlib import Path
 
@@ -77,20 +88,30 @@ subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=
 core = Path("/kaggle/working/evaluate_core.py")
 core.write_text({src!r})
 workers = []
+deadline = started + 10800
 for gpu, (directory, label) in enumerate([
-    ("warmstart_adapter", "qwen3.5-4b-staged-sft"),
-    ("lora_adapter", "qwen3.5-4b-staged-grpo"),
+    ("warmstart_adapter", "{family}-sft"),
+    ("lora_adapter", "{family}-grpo"),
 ]):
     adapters = list(Path("/kaggle/input").rglob(directory + "/adapter_config.json"))
     assert len(adapters) == 1, (directory, adapters)
     work = Path("/kaggle/working") / label
     work.mkdir(exist_ok=True)
-    env = {{**os.environ, "CUDA_VISIBLE_DEVICES": str(gpu),
-           "MMB_WORK": str(work)}}
+    env = {{**os.environ, "MMB_WORK": str(work)}}
+    if not {newest!r}:
+        env["CUDA_VISIBLE_DEVICES"] = str(gpu)
     command = [sys.executable, str(core), "--eval-only", "--adapter", str(adapters[0].parent),
-               "--label", label, "--eval-seed", "80000", "--eval-episodes", "100"]
+               "--label", label, "--eval-seed", "{seed}", "--eval-episodes", "{episodes}",
+               "--eval-batch-size", "4", "--budget-seconds", str(max(1, int(deadline - time.monotonic()))),
+               *{model_flags!r}]
     workers.append(subprocess.Popen(command, env=env, cwd=work))
-deadline = started + 10800
+    if {newest!r}:
+        try:
+            workers[-1].wait(timeout=max(1, deadline - time.monotonic()))
+        except subprocess.TimeoutExpired:
+            workers[-1].kill()
+            workers[-1].wait()
+            break
 try:
     codes = [worker.wait(timeout=max(1, deadline - time.monotonic())) for worker in workers]
 finally:
@@ -102,7 +123,8 @@ finally:
         "wall_seconds": time.monotonic() - started, "budget_seconds": 10800,
         "exit_codes": [worker.returncode for worker in workers],
         "command": [sys.executable, *sys.argv], "source_commit": {commit!r},
-        "seed": 0, "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+        "seed": 0, "model_revision": {revision!r}, "evaluation_seed": {seed},
+        "episodes_per_game": {episodes}, "batch_size": 4,
     }}, indent=2) + "\\n")
 if any(codes):
     raise RuntimeError(f"Evaluation worker exit codes: {{codes}}")
@@ -128,8 +150,14 @@ if any(codes):
     elif args.train_only:
         meta.update(id=meta["id"] + "-train-only", title=meta["title"] + " train only")
     elif args.evaluate_staged:
-        meta.update(id=meta["id"] + "-validate-staged", title=meta["title"] + " validate staged",
+        suffix = "final" if args.evaluation_split == "test" else "validate"
+        meta.update(id=meta["id"] + f"-{suffix}-staged", title=meta["title"] + f" {suffix} staged",
                     kernel_sources=["nicolascoquelet/makemarketbench-grpo-qwen3-train-only"])
+    elif args.qwen38_evaluate:
+        suffix = "final" if args.evaluation_split == "test" else "validate"
+        meta.update(id=f"nicolascoquelet/makemarketbench-qwen3-8-27b-{suffix}",
+                    title=f"MakeMarketBench Qwen3.8 27B {suffix}",
+                    kernel_sources=["nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe"])
     elif args.qwen38_train:
         meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
                     title="MakeMarketBench Qwen3.8 27B training")

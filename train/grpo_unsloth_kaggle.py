@@ -336,36 +336,57 @@ class HFQuoter:
         return self.tok.decode(out[0, ids["input_ids"].shape[1]:], skip_special_tokens=True)
 
     def quote(self, obs):
+        return self.quote_many([obs])[0]
+
+    def _gen_many(self, messages):
+        if len(messages) == 1:
+            return [self._gen(messages[0])]
+        import torch
+
+        self.tok.padding_side = "left"
+        ids = self.tok([render(self.tok, msgs) for msgs in messages],
+                       padding=True, return_tensors="pt").to(self.model.device)
+        with torch.no_grad():
+            output = self.model.generate(**ids, max_new_tokens=self.max_new, do_sample=False)
+        return self.tok.batch_decode(output[:, ids["input_ids"].shape[1]:], skip_special_tokens=True)
+
+    def quote_many(self, observations):
         from makemarket.llm import parse_quote
         from makemarket.prompts import OUTPUT_SPEC, messages_for
 
-        msgs = messages_for(obs)
-        prompt = json.dumps(msgs)
-        if prompt in self.cache:
-            quote, info = self.cache[prompt]
-            return quote, {**info, "cached": True}
-        attempts = []
-        quote = None
+        prompts = [json.dumps(messages_for(obs)) for obs in observations]
+        cached = set(self.cache)
+        pending = {prompt: {"messages": json.loads(prompt), "attempts": [],
+                            "max_size": obs.game.params.max_size}
+                   for prompt, obs in zip(prompts, observations) if prompt not in self.cache}
         for _ in range(2):
-            text = self._gen(msgs)
-            attempts.append({"content": text})
-            try:
-                quote = parse_quote(text, obs.game.params.max_size)
+            if not pending:
                 break
-            except ValueError as e:
-                attempts[-1]["error"] = str(e)
-                msgs = msgs + [{"role": "assistant", "content": text},
-                               {"role": "user", "content": f"Your answer was invalid: {e}. {OUTPUT_SPEC}"}]
-        info = {"attempts": attempts, "format_error": len(attempts) > 1,
-                "failed": quote is None, "cached": False}
-        self.cache[prompt] = quote, info
-        return quote, info
+            keys = list(pending)
+            texts = self._gen_many([pending[key]["messages"] for key in keys])
+            assert len(texts) == len(keys)
+            for key, text in zip(keys, texts):
+                row = pending[key]
+                row["attempts"].append({"content": text})
+                try:
+                    quote = parse_quote(text, row["max_size"])
+                except ValueError as exc:
+                    quote = None
+                    row["attempts"][-1]["error"] = str(exc)
+                    row["messages"] += [{"role": "assistant", "content": text},
+                                        {"role": "user", "content": f"Your answer was invalid: {exc}. {OUTPUT_SPEC}"}]
+                self.cache[key] = quote, {"attempts": row["attempts"],
+                                          "format_error": len(row["attempts"]) > 1,
+                                          "failed": quote is None}
+                if quote is not None:
+                    del pending[key]
+        return [(self.cache[key][0], {**self.cache[key][1], "cached": key in cached}) for key in prompts]
 
 
 def evaluate(model, tokenizer, args, label=None) -> None:
     from makemarket.analysis import player_diagnostics
     from makemarket.cli import slug
-    from makemarket.evaluate import load_results, run_player
+    from makemarket.evaluate import load_results, run_batched_player, run_player
     from makemarket.games import make_game
     from makemarket.players import BayesQuoter
     from makemarket.scoring import markdown_table, summarize
@@ -378,9 +399,12 @@ def evaluate(model, tokenizer, args, label=None) -> None:
     for g in args.games:
         out = WORK / "results" / "raw" / g / f"{slug(label)}.jsonl"
         t0 = time.time()
-        eps = run_player(make_game(g), lambda: player,
-                         list(range(args.eval_seed, args.eval_seed + args.eval_episodes)), out,
-                         workers=1, backend="py", provenance=provenance)
+        seeds = list(range(args.eval_seed, args.eval_seed + args.eval_episodes))
+        if getattr(args, "eval_batch_size", 1) > 1:
+            eps = run_batched_player(make_game(g), player, seeds, out, args.eval_batch_size, provenance)
+        else:
+            eps = run_player(make_game(g), lambda: player, seeds, out,
+                             workers=1, backend="py", provenance=provenance)
         tot = sum(sum(r["exp_expected_pnl"] for r in e["rounds"]) for e in eps) / len(eps)
         print(f"[eval] {g}: {len(eps)} episodes, mean E[PnL]={tot:.2f} ({time.time() - t0:.0f}s) -> {out}")
         seeds = list(range(args.eval_seed, args.eval_seed + args.eval_episodes))
@@ -434,6 +458,7 @@ def main() -> None:
     ap.add_argument("--lora-rank", type=int, default=16)
     ap.add_argument("--lr", type=float, default=5e-6)
     ap.add_argument("--eval-episodes", type=int, default=200)
+    ap.add_argument("--eval-batch-size", type=int, default=1)
     ap.add_argument("--eval-seed", type=int, default=200)
     ap.add_argument("--resume", help="GRPO checkpoint directory, including optimizer state")
     ap.add_argument("--sft-resume", help="SFT checkpoint directory, including optimizer state")

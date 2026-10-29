@@ -903,3 +903,26 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Result: `results/training/qwen38_token_audit.json`, including exact command,
   source hash, model revision and producing commit. This rules out context
   truncation as a cause of a later quality gap; it does not establish quality.
+
+### B1 — fixed-group GPU evaluation (registered, GPU measurement pending)
+
+- Bottleneck: the downloaded newest-family fit log takes 128.4 seconds for a
+  two-completion GRPO update. Serial token generation threatens the remaining
+  evaluation budget. Batch four independent episodes at each round instead.
+- Share the original market mechanics through an observation/quote generator;
+  do not duplicate fill, ledger or expectation calculations. Fixed seed groups
+  and atomic whole-group writes preserve deterministic ordering and resumability.
+  Greedy decoding, the prompt, parser and one repair retry remain the protocol.
+- Before GPU use, all 100 tests pass. Separate comparison with the previous
+  runner gives exact equality of every episode field for 100 baseline episodes,
+  covering both games and all five baselines. Evidence and the complete check
+  source: `results/training/batch_mechanics_parity.json`.
+- Command: `python train/build_kaggle_kernel.py --qwen38-evaluate`; then private
+  validation allocation. `--evaluation-split test` generates the later frozen
+  200-episode cohort. Qwen3.8 adapters are evaluated serially across both T4s;
+  staged 4B adapters use separate T4s. Each allocation has a three-hour cap.
+- No GPU throughput, numerical equivalence or memory improvement is claimed
+  from CPU tests. Validate batch size four on seeds 80,000–80,099 before the
+  held-out test; register the actual inference configuration with its receipts.
+  The eight-candidate family remains conservative; no extra test candidate is
+  selected by these infrastructure checks.

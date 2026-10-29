@@ -261,3 +261,32 @@ def test_answer_window_rejects_even_one_dropped_supervised_token(monkeypatch):
         assert len(list(answer.answer_batches([(list(range(26)), 25)], **options))) == 1
         with pytest.raises(ValueError, match='discard supervised tokens'):
             list(answer.answer_batches([(list(range(26)), 24)], **options))
+
+
+def test_batched_cuda_repairs_only_invalid_unique_prompts(kernel):
+    from dataclasses import replace
+
+    from makemarket.games import make_game
+    from makemarket.market import Observation
+
+    game = make_game("dice")
+    ep = game.episode(80000)
+    first = Observation(game, 0, ep.n_rounds, ep.reveals[:1], [], 0, 0,
+                        ep.public_beliefs[0], ep.public_beliefs[0].mean)
+    second = replace(first, position=1)
+    player, calls = kernel.HFQuoter(None, None, "batched"), []
+    valid = '{"bid": 1, "bid_size": 1, "ask": 99, "ask_size": 1}'
+
+    def generate(messages):
+        calls.append(messages)
+        return [valid, "invalid"] if len(calls) == 1 else [valid]
+
+    player._gen_many = generate
+    answers = player.quote_many([first, second, first])
+    assert [len(batch) for batch in calls] == [2, 1]
+    assert calls[1][0][-1]["role"] == "user"
+    assert all(quote is not None and not info["failed"] for quote, info in answers)
+    assert [info["format_error"] for _, info in answers] == [False, True, False]
+    assert all(not info["cached"] for _, info in answers)
+    assert all(info["cached"] for _, info in player.quote_many([first, second]))
+    assert len(calls) == 2

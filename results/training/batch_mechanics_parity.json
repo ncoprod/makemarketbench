@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/verify_batch_mechanics.py",
+    "config": {
+      "seed_range": [
+        0,
+        9
+      ],
+      "models": [
+        "bayes",
+        "bayes-public",
+        "mean-sd",
+        "fixed-prior",
+        "random"
+      ],
+      "games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "model_revision": null,
+    "git_commit": "bbb1af886350a2317e5f956111d6e1b4d91c2155",
+    "uncommitted_diff_sha256": "ed97dbc0a4cc0cd78ddbb918644863eae41b533fca3dd44e4babc71090e6f0ba",
+    "started_at": "2026-10-29T20:17:44.496056+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "script_source": "import hashlib,importlib.util,json,subprocess,sys\nfrom pathlib import Path\nfrom makemarket.evaluate import episode_to_dict\nfrom makemarket.games import make_game\nfrom makemarket.market import play_episode\nfrom makemarket.players import BASELINES\nfrom makemarket.provenance import receipt,file_sha256\nname='makemarket.market_before_batch';spec=importlib.util.spec_from_file_location(name,'runs/market_before_batch.py');old=importlib.util.module_from_spec(spec);sys.modules[name]=old;spec.loader.exec_module(old)\ncount=0\nfor game in ('dice','cards'):\n for label,player in BASELINES.items():\n  for seed in range(10):\n   assert episode_to_dict(old.play_episode(make_game(game),seed,player(),backend='py'))==episode_to_dict(play_episode(make_game(game),seed,player(),backend='py'))\n   count+=1\np=Path('results/training/batch_mechanics_parity.json');p.write_text(json.dumps({'provenance':receipt({'seed_range':[0,9],'models':list(BASELINES),'games':['dice','cards']}),'script_source':Path(__file__).read_text(),'old_source_commit':'bbb1af8efind-via-git','old_source_sha256':file_sha256('runs/market_before_batch.py'),'new_source_sha256':file_sha256('src/makemarket/market.py'),'episodes_checked':count,'result':'exact equality of every episode field; baseline policies include stateful Bayes and seeded random'},indent=2)+'\\n');r=json.loads(p.read_text());r['old_source_commit']=subprocess.check_output(['git','rev-parse','bbb1af8'],text=True).strip();p.write_text(json.dumps(r,indent=2)+'\\n');print(count,'episodes identical')\n",
+  "old_source_commit": "bbb1af886350a2317e5f956111d6e1b4d91c2155",
+  "old_source_sha256": "c8f656fc8522d130b59064d356ac8c10d40a14682e4089e22af0110d2d4cc44e",
+  "new_source_sha256": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+  "episodes_checked": 100,
+  "result": "exact equality of every episode field; baseline policies include stateful Bayes and seeded random"
+}

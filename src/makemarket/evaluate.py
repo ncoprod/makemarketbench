@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import partial
 from pathlib import Path
 
-from .market import EpisodeResult, play_episode
+from .market import EpisodeResult, episode_steps, play_episode
 
 
 def episode_to_dict(r: EpisodeResult) -> dict:
@@ -42,6 +42,44 @@ def load_results(path: str | Path) -> list[dict]:
         if line.strip():
             out.append(json.loads(line))
     return out
+
+
+def run_batched_player(game, player, seeds, out_path, batch_size, provenance):
+    """Advance fixed seed groups together; commit each whole group atomically."""
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    results = load_results(out_path)
+    done = {row["seed"] for row in results}
+    started = time.monotonic()
+    for offset in range(0, len(seeds), batch_size):
+        group = seeds[offset:offset + batch_size]
+        if all(seed in done for seed in group):
+            continue
+        if any(seed in done for seed in group):
+            raise ValueError("Cannot resume a partial seed group with a different batch protocol")
+        steps = [episode_steps(game, seed, player.name, "py") for seed in group]
+        observations = [next(step) for step in steps]
+        finished = []
+        while steps:
+            answers = player.quote_many(observations)
+            assert len(answers) == len(steps)
+            active, following = [], []
+            for step, answer in zip(steps, answers):
+                try:
+                    following.append(step.send(answer))
+                    active.append(step)
+                except StopIteration as result:
+                    row = episode_to_dict(result.value)
+                    row["provenance"] = provenance
+                    finished.append(row)
+            steps, observations = active, following
+        results.extend(sorted(finished, key=lambda row: row["seed"]))
+        temporary = out_path.with_suffix(".tmp")
+        temporary.write_text("".join(json.dumps(row) + "\n" for row in results))
+        temporary.replace(out_path)
+        print(f"[{player.name}] {offset + len(group)}/{len(seeds)} episodes, "
+              f"{time.monotonic() - started:.0f}s", flush=True)
+    return results
 
 
 def run_player(game, make_player, seeds: list[int], out_path: str | Path, workers: int = 1,

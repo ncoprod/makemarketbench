@@ -87,19 +87,31 @@ def validate_quote(raw: dict, max_size: int) -> Quote:
 
 
 def play_episode(game, seed: int, player: Player, backend: str | None = None) -> EpisodeResult:
+    player.reset(seed)
+    steps = episode_steps(game, seed, player.name, backend)
+    obs = next(steps)
+    while True:
+        answer = player.quote(obs)
+        try:
+            obs = steps.send(answer)
+        except StopIteration as finished:
+            return finished.value
+
+
+def episode_steps(game, seed: int, player_name: str, backend: str | None = None):
+    """Yield observations and accept quotes, sharing mechanics with batched play."""
     ep: Episode = game.episode(seed)
     p = game.params
     ex = Exchange(backend)
     rounds: list[RoundRecord] = []
     infos, exps = [], []
-    player.reset(seed)
     v_ticks = ep.value * TICKS_PER_UNIT
     for t in range(ep.n_rounds):
         belief = ep.public_beliefs[t]
         obs = Observation(game, t, ep.n_rounds, ep.reveals[: t + 1], list(rounds),
                           ex.ledger.position(DEALER), ex.ledger.cash(DEALER) / TICKS_PER_UNIT,
                           belief, belief.mean)
-        q, info = player.quote(obs)
+        q, info = yield obs
         infos.append(info)
         rec = RoundRecord(t, ep.reveals[t], q)
         if q is not None:
@@ -134,4 +146,4 @@ def play_episode(game, seed: int, player: Player, backend: str | None = None) ->
         rec.position = ex.ledger.position(DEALER)
         rec.cash = ex.ledger.cash(DEALER) / TICKS_PER_UNIT
         rounds.append(rec)
-    return EpisodeResult(ep.game, seed, player.name, ep.value, rounds, infos, exps)
+    return EpisodeResult(ep.game, seed, player_name, ep.value, rounds, infos, exps)
