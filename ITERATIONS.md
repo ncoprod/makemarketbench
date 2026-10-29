@@ -823,3 +823,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   generated modules concurrently. Shared dependency installation remains serial.
 - Rebuild and compile-check the prepared validation launcher. No policy, seeds,
   training recipe or active immutable source changes.
+
+### Staged Qwen3.5-4B — full SFT and GRPO completed
+
+- Downloaded primary results, configs, checkpoint histories and complete log
+  from private version one into `results/kaggle/staged-v1/`. SFT reaches 150
+  updates; GRPO reaches 300. Script wall time 17,983.032301425934 seconds;
+  peak allocated 6,326,962,176 bytes on GPU 0; GPU 1 allocation remains zero.
+  Completion receipt: `results/training/kaggle_staged_completion.json`.
+- GRPO's last logging interval has reward standard deviation
+  0.12598861753940582 and nonzero gradient norm. This establishes substantive
+  execution, not held-out policy improvement. Frozen paired validation is next.
+- The bulk optimizer/adapter download continues resumably in ignored runs/;
+  slow weight transfer does not block remote evaluation of immutable outputs.
+  Primary receipts/results are downloaded and committed before next submission.
+- Download a live Qwen3.8 runtime through the notebook's output-file action:
+  update 70, SFT phase, 1,724.92853140831 seconds, no memory failure. Retain it
+  explicitly as a progress sample, not a completed run or a policy score.

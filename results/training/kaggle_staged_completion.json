@@ -1,0 +1,41 @@
+{
+  "recorded_at": "2026-10-29T19:22:05.096058+00:00",
+  "provenance": {
+    "command": ".venv/bin/python runs/harvest_staged.py",
+    "git_commit": "ca5e2ff646ccce3deb5ece62738782257bff043a",
+    "seed": 0,
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636"
+  },
+  "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+  "version": 1,
+  "status": "completed",
+  "private": true,
+  "primary_outputs": {
+    "results/kaggle/staged-v1/runtime.json": "3dda72ceaa6f0783678e242917e756f73920e69e32c27c9128224b7ae3c5f0bb",
+    "results/kaggle/staged-v1/sft_config.json": "fe1d6146df74878142dc0cf6227978a5141039a2bbfeaaec1db889869d2b8fcb",
+    "results/kaggle/staged-v1/grpo_config.json": "2e9374893c060a3faf81d6a4a90c91b7d5a388e7e94bdddbda591a27ee5c6dee",
+    "results/kaggle/staged-v1/sft/checkpoint-150/trainer_state.json": "12cfca1469af97f29449a80055f0c67e1079a4d27673eec7469a76e8a8b5e91c",
+    "results/kaggle/staged-v1/grpo/checkpoint-300/trainer_state.json": "353c84ae20e70d16ad24a4fbc9fbeb4c07985fc828770887a602c00f59b7b511",
+    "results/kaggle/staged-v1/makemarketbench-grpo-qwen3-train-only.log": "fc2c46e8b507d50651e39b828ee5396d8b4b75742e1697d4dfa1d59e4a4f0282"
+  },
+  "download_command": [
+    "kaggle",
+    "kernels",
+    "output",
+    "nicolascoquelet/makemarketbench-grpo-qwen3-train-only/1",
+    "-p",
+    "runs/kaggle_staged_receipts",
+    "--page-size",
+    "200",
+    "--file-pattern",
+    "(^|/)(runtime.json|sft_config.json|grpo_config.json|trainer_state.json)$"
+  ],
+  "script_wall_seconds": 17983.032301425934,
+  "peak_allocated_bytes": 6326962176,
+  "sft_updates": 150,
+  "grpo_updates": 300,
+  "trained_gpu_count": 1,
+  "allocated_gpu_count": 2,
+  "bulk_checkpoint_download": "Still running into ignored runs/kaggle_staged_output; source kernel retains immutable complete weights and optimizer states. Primary result/config/log receipts downloaded before next submission.",
+  "quality_evaluation": "Pending separately; training reward is not a test score."
+}

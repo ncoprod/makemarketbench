@@ -133,9 +133,12 @@ smoke completed in **827.439 seconds**, peaking at **4.484 GB allocated VRAM**
 ([runtime](results/kaggle/smoke-v1/runtime.json)). Both completions were truncated
 and received identical invalid-output rewards, so its update had zero learning
 signal ([complete log](results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log)).
-The full SFT/GRPO run remains pending. A separately registered training-only
-session saves adapters before separate Kaggle evaluations, avoiding evaluation
-delaying GRPO ([trial log](ITERATIONS.md)). The local reward trial is explicitly
+The separate training-only run completed **150 SFT and 300 GRPO updates in
+17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training GPU
+([downloaded runtime](results/kaggle/staged-v1/runtime.json),
+[checkpoint histories and configs](results/training/kaggle_staged_completion.json)).
+It saved both adapters before separate Kaggle evaluations; policy quality is
+pending. The original combined run continues. The local reward trial is explicitly
 labelled RLOO-style.
 
 The newest general-purpose open Qwen family is Qwen3.8. Its smallest model is

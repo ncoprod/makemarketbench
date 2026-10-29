@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-29T18:55:16.491208+00:00",
+  "recorded_at": "2026-10-29T19:22:05.096058+00:00",
   "provenance": {
     "command": [
       "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
@@ -300,12 +300,16 @@
       "submitted_at": "2026-10-29T13:55:59.219900+00:00",
       "start": null,
       "end": null,
-      "hours": null,
-      "hours_basis": "pending downloaded runtime",
+      "hours": 4.995286750396093,
+      "hours_basis": "downloaded script runtime; account debit includes unknown startup and output finalization overhead",
       "purpose": "Checkpointed Qwen3.5-4B SFT then GRPO, separate evaluation",
       "receipt": "results/training/kaggle_staged.json",
       "private": true,
-      "session_limit_hours": 12
+      "session_limit_hours": 12,
+      "status": "completed_primary_outputs_retrieved",
+      "end_observed_at": "2026-10-29T19:22:05.096058+00:00",
+      "runtime_file": "results/kaggle/staged-v1/runtime.json",
+      "completion_receipt": "results/training/kaggle_staged_completion.json"
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
