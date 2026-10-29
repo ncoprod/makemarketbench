@@ -95,6 +95,61 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T20:05:08.781147+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T20:15:20.611757+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T20:25:31.790246+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T20:35:42.881965+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T20:45:54.730070+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-validate-staged has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "planned_max_hours": 3,

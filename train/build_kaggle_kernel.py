@@ -158,9 +158,9 @@ if any(codes):
         suffix = "final" if args.evaluation_split == "test" else "validate"
         meta.update(id=f"nicolascoquelet/makemarketbench-qwen3-8-27b-{suffix}",
                     title=f"MakeMarketBench Qwen3.8 27B {suffix}",
-                    kernel_sources=["nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe"])
+                    kernel_sources=["nicolascoquelet/makemarketbench-qwen3-8-27b-training"])
     elif args.qwen38_train:
-        meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+        meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-training",
                     title="MakeMarketBench Qwen3.8 27B training")
         cell = ("from pathlib import Path\nimport subprocess, sys\n"
                 f"Path('/kaggle/working/train_core.py').write_text({src!r})\n"

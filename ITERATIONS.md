@@ -1019,3 +1019,13 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   queued under the shared slot rule. These CIs will be conditional on the
   recorded API samples and trained checkpoints, rather than uncertainty across
   training seeds or repeated stochastic generations.
+
+### Preserve the renamed newest-family kernel identity
+
+- Kaggle changed the training kernel slug when its title changed. The native
+  editor, official owner listing and pulled private metadata agree on
+  `makemarketbench-qwen3-8-27b-training`, numeric ID 141529807. Historical probe
+  references remain historical; future mounts use the verified current slug.
+- Record the alias and verification commands in `qwen38_kernel_rename.json`.
+  The saved version still predates the active training draft: save its completed
+  outputs and verify their hashes before any continuation or evaluation mount.

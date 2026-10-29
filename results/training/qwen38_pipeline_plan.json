@@ -36,7 +36,7 @@
   "recorded_at": "2026-10-29T18:41:07.508841+00:00",
   "source_sha256": "56290dc6c90ea1aea8be347c7188efafd01a4cdadd9d99824642af510498bb57",
   "notebook_sha256": "f7e76b3232b97e4656b51a9e131786296130bdd19b0603861f202e2ed991b8c4",
-  "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
   "settings": {
     "accelerator": "T4 x2",
     "internet": true,
@@ -50,5 +50,7 @@
     "fits": true
   },
   "gpu_confirmed_at": "2026-10-29T18:46:41.165904+00:00",
-  "gpu_confirmation": "Running Draft Session (2m), T4 x2, internet on"
+  "gpu_confirmation": "Running Draft Session (2m), T4 x2, internet on",
+  "former_notebook_ref": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "rename_receipt": "results/training/qwen38_kernel_rename.json"
 }

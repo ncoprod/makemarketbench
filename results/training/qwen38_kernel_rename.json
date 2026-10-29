@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-10-29T20:55:31.130460+00:00",
+  "command": ".venv/bin/python runs/retain_qwen38_rename.py",
+  "git_commit": "3524fd46b03470e7fee7744e6f490a6bb43c5b90",
+  "verification_commands": [
+    "kaggle kernels list --mine --page-size 20 --csv",
+    "kaggle kernels pull nicolascoquelet/makemarketbench-qwen3-8-27b-training -p runs/kaggle_qwen38_remote_current -m"
+  ],
+  "former_ref": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "current_ref": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+  "kernel_id": 141529807,
+  "is_private": true,
+  "explanation": "Renaming the interactive training draft also changed the kernel slug. The numeric kernel ID is unchanged. Pulled saved metadata still describes the previous script version; save the completed training outputs before mounting them for continuation/evaluation."
+}
