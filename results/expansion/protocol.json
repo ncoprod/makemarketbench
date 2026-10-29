@@ -1,0 +1,38 @@
+{
+  "z-ai/glm-5.3-flash (long-timeout)": {
+    "model": "z-ai/glm-5.3-flash",
+    "label": "z-ai/glm-5.3-flash (long-timeout)",
+    "timeout_seconds": 600,
+    "max_tokens": 8192,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "z-ai/glm-5.3-flash",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 8192,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "z-ai/glm-5.3-flash (long-timeout)"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "e496d31dd46ddcd1985564582106341a93d4ac10",
+      "uncommitted_diff_sha256": null,
+      "started_at": "2026-10-29T10:12:50.942785+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+    "probe_wall_seconds": 922.9031600952148
+  }
+}

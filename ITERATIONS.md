@@ -116,7 +116,9 @@ do not invent missing provenance. Historical adapter configs are preserved.
   worker is running. A second sequential batch is queued for catalogue-listed
   Mistral-7B, Mistral-NeMo-12B and Llama-3.2-11B (text only), with licences
   verified before calls. Each batch holds its own slot; total requests remain
-  bounded by the two shared mutexes. No new policy score is claimed yet.
+  bounded by the two shared mutexes. GLM then failed after three requests with
+  HTTP 504 in 922.903 seconds, despite the 600-second client timeout; no score
+  is assigned. DeepSeek retry is running. No new policy score is claimed yet.
 - Evidence: [catalogue](results/expansion/models.json), ignored
   `runs/nim_expansion.log` / `runs/nim_supplement.log`; protocol JSON after each probe.
 

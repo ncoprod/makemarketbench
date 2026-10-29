@@ -244,6 +244,43 @@
     {
       "at": "2026-10-29T10:18:15+00:00",
       "output": "KernelWorkerStatus.RUNNING"
+    },
+    {
+      "at": "2026-10-29T10:28:26.954106+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
     }
-  ]
+  ],
+  "console_observation": {
+    "at": "2026-10-29T10:31:17.135248+00:00",
+    "source": "https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3",
+    "method": "Authenticated native Chrome accessibility view of Logs; CLI output returns no live files.",
+    "accelerator": "GPU T4 x2",
+    "training_gpus_used": 1,
+    "unsloth": "2026.10.10",
+    "transformers": "5.16.1",
+    "torch": "2.11.0+cu128",
+    "cuda_toolkit": "12.8",
+    "triton": "3.6.0",
+    "training_config": {
+      "sft_examples": 1200,
+      "sft_steps": 150,
+      "per_device_batch_size": 8,
+      "gradient_accumulation_steps": 2,
+      "effective_batch_size": 16,
+      "trainable_parameters": 21233664
+    },
+    "exact_log_lines": [
+      "Unsloth: Switching to float32 training since model cannot work with float16",
+      "Unsloth: Not splitting across GPUs; the model fits on cuda:0 with room to train. Pass device_map = \"unsloth_balanced\" to split it anyway.",
+      "Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass."
+    ],
+    "note": "Observation proves allocation and SFT execution, not completion of GRPO. Peak VRAM and final runtime remain unmeasured."
+  }
 }
