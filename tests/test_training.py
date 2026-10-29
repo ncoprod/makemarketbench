@@ -115,3 +115,31 @@ def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, mon
     assert len(calls) == 2
     assert calls[0] == calls[1]
     assert "qwen3.5-4b-sft" in calls[0]
+
+
+@pytest.mark.parametrize("masked", [False, True])
+def test_chunk_checkpoint_preserves_recurrence_values_and_gradients(monkeypatch, masked):
+    import importlib
+
+    mx = pytest.importorskip("mlx.core")
+    gd = pytest.importorskip("mlx_lm.models.gated_delta")
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "train"))
+    original = gd.gated_delta_ops
+    monkeypatch.setattr(gd, "gated_delta_ops", original)
+    importlib.import_module("mlx_memory").checkpoint_gated_delta(chunk_size=4)
+    with mx.stream(mx.cpu):
+        mx.random.seed(123)
+        q, k = [mx.random.normal((1, 17, 2, 8)) * 0.1 for _ in range(2)]
+        v = mx.random.normal((1, 17, 4, 8)) * 0.1
+        args = [q, k, v, mx.full((1, 17, 4), 0.9), mx.full((1, 17, 4), 0.2),
+                mx.random.normal((1, 4, 8, 8)) * 0.1]
+        mask = mx.arange(17)[None, :] % 3 != 0 if masked else None
+
+        def objective(fn, *values):
+            output, state = fn(*values, mask=mask)
+            return mx.square(output).sum() + mx.square(state).sum()
+
+        expected = mx.value_and_grad(lambda *x: objective(original, *x), argnums=range(6))(*args)
+        actual = mx.value_and_grad(lambda *x: objective(gd.gated_delta_ops, *x), argnums=range(6))(*args)
+        for before, after in zip([expected[0], *expected[1]], [actual[0], *actual[1]]):
+            assert mx.allclose(before, after, atol=1e-6, rtol=1e-5).item()

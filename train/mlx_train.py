@@ -50,6 +50,9 @@ def main() -> None:
     from mlx_lm.tuner.datasets import load_dataset
     from mlx_lm.tuner.trainer import TrainingCallback
     from mlx_lm.utils import load
+    from mlx_memory import checkpoint_gated_delta
+
+    record["recurrence_checkpoint"] = checkpoint_gated_delta()
 
     config = dict(lora.CONFIG_DEFAULTS)
     config.update(model=args.model, train=True, data=args.data, adapter_path=args.out,

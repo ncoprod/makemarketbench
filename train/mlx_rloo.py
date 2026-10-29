@@ -53,6 +53,9 @@ def main() -> None:
     from mlx_lm.sample_utils import make_sampler
     from mlx_lm.tuner.trainer import grad_checkpoint
     from mlx_lm.tuner.utils import load_adapters
+    from mlx_memory import checkpoint_gated_delta
+
+    record["recurrence_checkpoint"] = checkpoint_gated_delta()
 
     model, tokenizer = load(args.model, revision=args.revision)
     model.freeze()
