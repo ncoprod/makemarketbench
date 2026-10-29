@@ -36,6 +36,18 @@
         "2026-10-29T22:47:44Z",
         "2026-10-29T22:48:51Z"
       ]
+    },
+    {
+      "at": "2026-10-29T23:34:00+00:00",
+      "action": "cua.rewriteDocumentation(); cua.getState()",
+      "result": {
+        "apps": [],
+        "browsers": [],
+        "errors": [
+          "Native apps: Error: Sky Computer Use native pipe startup failed",
+          "Browsers: Error: The browser access host is unavailable"
+        ]
+      }
     }
   ],
   "official_sdk_fallback": {
@@ -100,5 +112,13 @@
       "source": "import json\nimport signal\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom kaggle.api.kaggle_api_extended import KaggleApi\nfrom kagglesdk.kernels.types.kernels_api_service import ApiGetKernelSessionLogsStreamRequest\n\nrecord = {'at': datetime.now(timezone.utc).isoformat(), 'method': 'official SDK GetKernelSessionLogsStream',\n          'kernel': 'nicolascoquelet/makemarketbench-qwen3-8-27b-training', 'version_label': 'draft',\n          'request_wait_for_logs_url_seconds': 1, 'client_wall_cap_seconds': 35}\ndef timeout(signum, frame):\n    raise TimeoutError('Read-only draft log stream client wall cap')\nsignal.signal(signal.SIGALRM, timeout)\nsignal.alarm(35)\ntry:\n    api = KaggleApi(); api.authenticate()\n    request = ApiGetKernelSessionLogsStreamRequest()\n    request.user_name = 'nicolascoquelet'; request.kernel_slug = 'makemarketbench-qwen3-8-27b-training'\n    request.version_label = 'draft'; request.wait_for_logs_url_seconds = 1\n    with api.build_kaggle_client() as client:\n        response = client.kernels.kernels_api_client.get_kernel_session_logs_stream(request)\n        record['http_status'] = response.status_code\n        record['content_type'] = response.headers.get('Content-Type')\n        path = Path('runs/kaggle_newest_draft_stream.log')\n        with path.open('wb') as f:\n            for chunk in response.iter_content(65536):\n                f.write(chunk)\n        record.update(status='downloaded', bytes=path.stat().st_size)\nexcept Exception as exc:\n    record.update(status='failed', error_type=type(exc).__name__, http_status=getattr(getattr(exc, 'response', None), 'status_code', None))\nfinally:\n    signal.alarm(0)\n    Path('runs/kaggle_draft_log_stream_check.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint(json.dumps(record))\n"
     }
   ],
-  "connection_recovery_note": "An earlier first-party iframe session token was recovered in process from this thread only and never printed or stored. Its claims do not expose the current notebook-server URL. The official interactive endpoint returned HTTP 409; no connection was obtained and no reset or accelerator change was requested."
+  "connection_recovery_note": "An earlier first-party iframe session token was recovered in process from this thread only and never printed or stored. Its claims do not expose the current notebook-server URL. The official interactive endpoint returned HTTP 409; no connection was obtained and no reset or accelerator change was requested.",
+  "latest_saved_version_check": {
+    "at": "2026-10-29T23:29:32.863505+00:00",
+    "method": "official SDK GetKernel, latest saved version",
+    "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+    "kernel_id": 141529807,
+    "version": 3,
+    "private": true
+  }
 }

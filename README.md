@@ -96,140 +96,88 @@ not claims about financial-market profitability.
 
 ## Current training and evaluation
 
-The new local target is **Qwen3.5-4B, MLX 4-bit, Apache-2.0**, pinned to an
-[immutable model revision](results/licenses.json). Teacher targets come only
-from the mathematical Bayes dealer. The complete
-[token audit](results/training/qwen35_token_audit.json) verifies that training
-answers follow the exact non-thinking inference prefix and fit the sequence
-budget. The earlier Qwen3-1.7B baseline stays in the historical table. Its continuation
-now reaches 800 total iterations ([training receipt](results/training/qwen17_sft800.json));
-its frozen policy has completed 200 episodes in each game
-([cohorts and hashes](results/final/qwen17-sft800/cohorts.json)). The corrected
-API comparison remains pending while the other cohorts finish.
+Training uses exact Bayes demonstrations, disjoint teacher/policy validation,
+and a fresh 200-episode-per-game test. The registered recipes, seeds, selection
+rule and nine-candidate correction are in [protocol.json](results/protocol.json).
+Test scores do not select checkpoints or prompts. The earlier Qwen3-1.7B
+baseline now completes 800 total iterations and both fresh test cohorts
+([training](results/training/qwen17_sft800.json),
+[cohorts](results/final/qwen17-sft800/cohorts.json)); its corrected comparison
+waits for the remaining candidates and API cohorts.
 
-The registered recipe uses LoRA behaviour cloning with validation-loss
-checkpoint selection and early stopping, followed by a larger on-policy DAgger
-round and a small local RLOO-style reward trial. Numerical settings and split
-boundaries are in [protocol.json](results/protocol.json); hypotheses, exact
-commands and outcomes are in [ITERATIONS.md](ITERATIONS.md). Training and policy
-validation are separate from the fresh test. The final target is
-**200 episodes per player per game**, with paired bootstrap CIs and correction
-for the API comparison family ([registered protocol](results/protocol.json)).
-No new training score is claimed before its result file exists.
+**Local Qwen3.5-4B:** MLX 4-bit LoRA, followed by a larger DAgger round and a
+small RLOO-style trial. The [token audit](results/training/qwen35_token_audit.json)
+checks non-thinking prefixes and sequence limits. Earlier attempts stopped at
+reboot or memory guards; all are retained in [ITERATIONS.md](ITERATIONS.md).
+Projecting only answer positions preserves the full causal loss/gradients;
+fixed training shapes then permit a complete validation pass after 199
+microbatches: loss **2.113 → 0.404**, sampled physical footprint **6.713 GB**
+([exact counts, loss and memory](results/training/qwen35_uniform_validation199.json)).
+The registered 800-microbatch run continues. These are training measurements,
+not policy-quality results. Local heavy work holds the shared ML lock.
 
-The first local 4B attempt was interrupted by the machine reboot. A subsequent
-memory probe exceeded its guard before any verified optimiser update
-([receipt](results/training/qwen35_memory_smoke.json)). A port of MLX-LM's
-chunk-parallel training recurrence passes reference value/gradient checks;
-its probe also exceeded the guard before an update
-([receipt](results/training/qwen35_parallel_memory_guard.json)). A further
-probe projects only answer positions through the vocabulary head while
-preserving the full causal loss and gradients
-([registered check](results/training/qwen35_answer_probe_plan.json)). It completed
-an optimizer update under the guard, and its saved weights changed
-([runtime](results/training/qwen35_answer_smoke.json),
-[weight check](results/training/qwen35_answer_probe_verification.json)). The full
-800-iteration run passed the full validation check, then crossed its memory
-guard before its first training report
-([failure](results/training/qwen35_sft_answer_attempt1.json)). An eight-microbatch probe with a
-256 MiB MLX free-cache limit completes four updates under the same guard
-([runtime](results/training/qwen35_cache_smoke.json),
-[weight check](results/training/qwen35_cache_probe_verification.json));
-the full run then stops at its physical-memory guard after ten reported
-microbatches ([retained failure](results/training/qwen35_sft_cache_attempt1.json)).
-A fixed training-shape probe completes 16 optimizer updates in 394.066 seconds,
-with a sampled process footprint of 6.653 GB under the unchanged 7 GiB guard
-([runtime](results/training/qwen35_uniform_smoke.json),
-[guard](results/training/qwen35_uniform_memory_guard.json)). All 248 LoRA tensors
-change ([weight check](results/training/qwen35_uniform_probe_verification.json)).
-Full training restarts from the original adapter; the small probe's validation
-subset does not establish full-run memory behavior or policy quality
-([plan](results/training/qwen35_uniform_shape_plan.json)). These infrastructure checks are not policy
-improvements ([trial log](ITERATIONS.md)).
+**CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
+17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
+([runtime](results/kaggle/staged-v1/runtime.json),
+[configs and checkpoint histories](results/training/kaggle_staged_completion.json)).
+It saves both adapters before evaluation inside Kaggle; no local conversion
+is required. Incompatible model-size adapters are rejected. The initial HTTP
+401 and subsequent OAuth recovery are retained in the
+[submission receipt](results/training/kaggle_retry.json).
 
-The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL
-GRPO. It evaluates the warm start and trained policy inside Kaggle, writes raw
-JSONL and leaderboard JSON, and records actual wall time and peak CUDA memory.
-A compatible BC adapter can initialise it; adapters from a different model size
-are rejected. The initial submission failed with HTTP 401
-([exact failure](results/training/kaggle_attempt.json)). Official OAuth login
-restored CLI access: the private checkpoint dataset is ready and the kernel
-was accepted with a T4 requested, internet enabled and remote privacy verified
-([retry receipt](results/training/kaggle_retry.json)). A separate one-update GRPO
-smoke completed in **827.439 seconds**, peaking at **4.484 GB allocated VRAM**
-([runtime](results/kaggle/smoke-v1/runtime.json)). Both completions were truncated
-and received identical invalid-output rewards, so its update had zero learning
-signal ([complete log](results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log)).
-The separate training-only run completed **150 SFT and 300 GRPO updates in
-17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training GPU
-([downloaded runtime](results/kaggle/staged-v1/runtime.json),
-[checkpoint histories and configs](results/training/kaggle_staged_completion.json)).
-It saved both adapters before separate Kaggle evaluations. In the completed
-100-episode validation cohorts, SFT performs better on dice and GRPO on cards
-([all raw validation results](results/training/kaggle_staged_validation_completion.json)).
-The paired validation change is **+4.96 [2.05, 8.04]** expected PnL on cards
-and **−1.37 [−2.29, −0.53]** on dice; these are descriptive 95% CIs from the
-validation used for router selection, not held-out confirmation
-([ablation and source](results/validation/staged_ablation.json)).
-Held-out policy quality remains pending. The original combined run reaches its
-platform limit after completing training: both warm-start cohorts have 200
-episodes, while GRPO has 120 dice episodes saved
-([downloaded outputs](results/training/kaggle_original_completion.json)). A
-private continuation evaluates only the missing episodes from its frozen
-adapter ([receipt](results/training/kaggle_original_final_resume.json)). Its
-downloaded trainer configs specify seed 3407 despite outer metadata saying 0;
-the [correction receipt](results/training/original_seed_correction.json)
-distinguishes trainer, LoRA-initialization and prompt-shuffle seeds. The local reward trial is explicitly
-labelled RLOO-style.
+The paired 100-episode validation ablation gives **+4.96 [2.05, 8.04]** expected
+PnL on cards and **−1.37 [−2.29, −0.53]** on dice after GRPO. These descriptive
+95% CIs are conditional on one training pipeline and the validation used for
+selection ([ablation and source](results/validation/staged_ablation.json)).
+A [registered game router](results/training/staged_routing_plan.json) therefore
+uses the SFT adapter on dice and GRPO on cards: one base model, two adapters.
+The staged GRPO test completes 200 episodes in each game. SFT fails its
+training-state batching check before test; serial dice evaluation is running
+([downloaded outcomes](results/training/kaggle_staged_final_completion.json),
+[serial continuation](results/training/kaggle_staged_sft_serial.json)).
 
-The newest general-purpose open Qwen family is Qwen3.8. Its smallest model is
-27B ([official catalogue and pinned configs](results/training/qwen_latest_details.json)).
-The Apache-2.0 Unsloth NF4 checkpoint occupies **22,344,833,801 bytes**
-([file metadata](results/training/qwen38_quantized.json)). That is 20.81 GiB
-against approximately 29.12 GiB across two T4s, leaving roughly 8.31 GiB before
-training overhead. Sharding, activations and possible F16-to-F32 promotion can
-erase that margin; a real SFT/GRPO update is required to establish fit
-([registered probe](results/training/qwen38_fit_plan.json)). The first balanced
-load failed before training because the loader dispatched modules to CPU/disk
-([downloaded failure and runtime](results/kaggle/qwen38-fit-v1/runtime.json)).
-A second attempt with the loader's suggested CPU layer streaming also failed
-before loading: that path requires single-device placement in this backend
-([downloaded log](results/kaggle/qwen38-fit-v2/probe.log),
-[source inspection](results/training/qwen38_loader_inspection.json)). A bounded
-native multi-GPU placement probe **completed both updates in 840.319 seconds**,
-with **11.994 GB / 12.018 GB** peak allocations on the two T4s
-([downloaded runtime](results/kaggle/qwen38-fit-v3/runtime.json)). Its planner
-places the untied output head on the second GPU; some weight layers remain
-bfloat16 despite float32 training computation
-([placement and training log](results/kaggle/qwen38-fit-v3/probe.log)). Thus the
-conditional all-float32 bound is not the actual memory footprint. Qwen3.8-27B
-is selected for a checkpointed, validation-selected SFT then GRPO pipeline
-([registered recipe](results/training/qwen38_pipeline_plan.json)). No policy
-score is inferred from this fit check. A tokenizer-only audit verifies that
-its fixed SFT targets and GRPO prompts fit their respective context limits
-([all split counts and maximum lengths](results/training/qwen38_token_audit.json)).
-Downloaded progress reaches **500 SFT updates**
-([runtime sample](results/kaggle/qwen38-training-v4/progress/step500-runtime.json));
-the later phase and final weights are unverified because computer access fails
-([exact errors and recovery attempts](results/training/kaggle_ui_outage.json)).
-The separate 4B held-out evaluations continue. Account quota, session receipts
-and uncertainty in billed hours are tracked in the
+A separate original CUDA pipeline also completes training and both 200-episode
+SFT tests, then reaches its platform limit with 120 GRPO dice episodes saved
+([outputs](results/training/kaggle_original_completion.json)). A private frozen
+continuation evaluates only missing episodes
+([receipt](results/training/kaggle_original_final_resume.json)). Its trainer
+configs specify seed 3407 despite outer metadata saying 0; the
+[correction](results/training/original_seed_correction.json) distinguishes
+trainer, adapter-initialization and prompt-shuffle seeds. Backend and recipe
+differences prevent interpreting these runs as a pure model-size comparison.
+
+**Newest-family Qwen3.8-27B:** the smallest general-purpose Qwen3.8 release is
+27B, Apache-2.0 ([official catalogue](results/training/qwen_latest_details.json)).
+Its Unsloth NF4 checkpoint occupies **22,344,833,801 bytes (20.81 GiB)** against
+approximately **29.12 GiB** across two T4s, before activation, optimizer and
+loader overhead ([weight metadata](results/training/qwen38_quantized.json)).
+Two loading probes fail before updates; head-aware multi-GPU placement then
+completes both SFT/GRPO fit updates in **840.319 seconds**, with **11.994 GB /
+12.018 GB** peak allocations ([runtime](results/kaggle/qwen38-fit-v3/runtime.json),
+[all attempts](ITERATIONS.md)). The planner places the untied head on GPU 1;
+some layers retain bfloat16 weights. This measured fit supports choosing the
+newest family rather than assuming a single-T4 memory limit.
+
+The [full registered pipeline](results/training/qwen38_pipeline_plan.json)
+reaches **500 downloaded SFT updates**
+([progress](results/kaggle/qwen38-training-v4/progress/step500-runtime.json)).
+Its later phase and trained outputs remain unverified: computer use fails,
+and official CLI/SDK routes cannot retrieve the unsaved live draft
+([errors and recovery receipts](results/training/kaggle_ui_outage.json)).
+No policy score is inferred from training loss or the fit probe. Account billing,
+script runtimes and unknown allocation boundaries remain distinct in the
 [GPU budget ledger](results/training/kaggle_budget.json).
 
-NIM expansion probes additional Llama and Mistral models; its
-[endpoint catalogue](results/expansion/models.json) lists no Qwen models.
-Calls run sequentially under a shared NIM slot; responses are cached.
-Long-timeout GLM, DeepSeek and Ultra-thinking probes ended in HTTP 504 after
-three requests ([failure receipts](results/expansion/protocol.json)). GLM at
-low effort and DeepSeek with thinking disabled also failed the same way
-([separate retry receipts](results/expansion/protocol-reasoning.json)).
-No scores are assigned to unavailable endpoints. Lightning and Ultra with
-thinking disabled have completed fresh 200-episode cohorts in both games;
-further cohorts and the corrected comparison remain pending
+**NIM coverage:** the [endpoint catalogue](results/expansion/models.json) lists
+no Qwen model. Sequential calls hold a shared NIM slot and cache responses.
+Long-timeout GLM, DeepSeek and Ultra-thinking probes fail after three HTTP 504
+responses ([receipts](results/expansion/protocol.json)); reduced-reasoning retries
+also fail ([receipts](results/expansion/protocol-reasoning.json)). Unavailable
+models receive no score. Lightning and Ultra with thinking disabled complete
+fresh 200-episode cohorts in both games
 ([Lightning](results/expansion/lightning_cohorts.json),
-[Ultra](results/expansion/ultra_cohorts.json)).
-The original [request protocol](results/llm_protocol.json) and
-[endpoint failures](results/endpoint_check.json) remain available.
+[Ultra](results/expansion/ultra_cohorts.json)); GPT-OSS, Bolt and additional
+responsive models remain in progress. The corrected final comparison is pending.
 
 ## Engine performance and correctness
 
