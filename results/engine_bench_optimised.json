@@ -1,0 +1,74 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/bench_engine.py --out results/engine_bench_optimised.json",
+    "config": {
+      "events": 1000000,
+      "repeats": 3,
+      "native": "/Users/nico/Documents/AI/makemarketbench/build/native/bench_book",
+      "out": "results/engine_bench_optimised.json",
+      "stream_seed": 2026,
+      "timing": "best of repeats"
+    },
+    "model_revision": null,
+    "git_commit": "66abdced95512828d5f9b4d57073637c7aabe33f",
+    "uncommitted_diff_sha256": "05266efacb19abf6674eb82902ff1aa949dceff4a5eedb27cb29ec63d50b02af",
+    "started_at": "2026-10-29T09:38:18.246276+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "events": 1000000,
+  "fills": 451456,
+  "event_mix": {
+    "gtc": 0.499754,
+    "ioc": 0.149951,
+    "market": 0.0497,
+    "cancel": 0.300595
+  },
+  "machine": "arm64 macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "results": {
+    "cpp_pybind_batch": {
+      "seconds": 0.11402579105924815,
+      "events_per_sec": 8769945.735174922,
+      "checksum": 6638620577960879557
+    },
+    "cpp_pybind_per_call": {
+      "seconds": 0.31870570906903595,
+      "events_per_sec": 3137690.890197974,
+      "fills": 451456
+    },
+    "python_batch": {
+      "seconds": 0.8150040420005098,
+      "events_per_sec": 1226987.7797727222,
+      "checksum": 6638620577960879557
+    },
+    "python_per_call": {
+      "seconds": 0.603783915983513,
+      "events_per_sec": 1656221.6606434183,
+      "fills": 451456
+    },
+    "cpp_native": {
+      "seconds": 0.040638,
+      "events_per_sec": 24607308.0,
+      "checksum": 6638620577960879557
+    },
+    "cpp_native_v1_map_list": {
+      "seconds": 0.096029,
+      "events_per_sec": 10413507.4
+    }
+  },
+  "speedup_native_vs_python_batch": 20.05505548275148,
+  "source_sha256": {
+    "cpp/src/order_book.cpp": "0d657a67a872d635141925d850b51ec31bea4eda3fd84592d0e33b6a9f1501e2",
+    "cpp/include/mmb/order_book.hpp": "740207fd78b6962df3271681a0017ffd7117b46f9e9ed1a4d7d9d53f398df286",
+    "cpp/bench/bench_book.cpp": "fff2956a3488c1901d29831f48050e54032c347049120269a49171da741d8387",
+    "scripts/bench_engine.py": "2dd59299be7ac7df858e16d2054885ef1ef2194bd3ecc70e5af01079ef307b02"
+  },
+  "native_binary_sha256": "905ac042f735d11f4eb23430ee79d631a6d1a43b417f91e8bd006547240a33ac"
+}

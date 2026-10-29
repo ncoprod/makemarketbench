@@ -1,0 +1,62 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "document committed benchmark rules; no experiment executed"
+    },
+    "model_revision": null,
+    "git_commit": "513077cf520e18fe412af74ec5d863c33df1b79a",
+    "uncommitted_diff_sha256": "9008b80953462763a905139c34c60829ae0989f7d9528ad68166bdbeef25900c",
+    "started_at": "2026-10-29T09:50:39.732784+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "games": {
+    "dice": {
+      "alpha": 0.3,
+      "noise_sd": 4.0,
+      "d_max": 5,
+      "max_size": 10
+    },
+    "cards": {
+      "alpha": 0.3,
+      "noise_sd": 6.0,
+      "d_max": 5,
+      "max_size": 10
+    }
+  },
+  "engine": {
+    "stream_seed": 2026,
+    "events": 1000000,
+    "expected_checksum": 6638620577960879557
+  },
+  "evaluation": {
+    "fresh_test_seeds": [
+      200,
+      399
+    ],
+    "episodes_per_player_per_game": 200,
+    "validation_seeds": [
+      80000,
+      80099
+    ],
+    "bootstrap_resamples": 10000,
+    "confidence": 0.95
+  },
+  "training": {
+    "teacher_episodes_per_game": 800,
+    "teacher_decisions": 9600,
+    "validation_decisions": 480,
+    "lora_rank": 8,
+    "lora_layers": 16,
+    "max_steps": 800,
+    "dagger_episodes_per_game": 150,
+    "rloo_steps": 24
+  }
+}

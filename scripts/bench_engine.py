@@ -19,6 +19,7 @@ import numpy as np
 
 from makemarket.engine import get_backend
 from makemarket.engine.streams import random_stream, stream_lists
+from makemarket.provenance import file_sha256, receipt
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -53,6 +54,7 @@ def main() -> None:
     ap.add_argument("--events", type=int, default=1_000_000)
     ap.add_argument("--repeats", type=int, default=3)
     ap.add_argument("--native", default=str(ROOT / "build/native/bench_book"))
+    ap.add_argument("--out", default=str(ROOT / "results/engine_bench.json"))
     args = ap.parse_args()
 
     s = random_stream(args.events, seed=2026)
@@ -96,6 +98,7 @@ def main() -> None:
             assert v["fills"] == fills, f"fill count mismatch in {k}"
 
     out = {
+        "provenance": receipt({**vars(args), "stream_seed": 2026, "timing": "best of repeats"}),
         "events": n,
         "fills": fills,
         "event_mix": {"gtc": float((s["op"] == 0).mean()), "ioc": float((s["op"] == 1).mean()),
@@ -106,7 +109,12 @@ def main() -> None:
         "speedup_native_vs_python_batch": res.get("cpp_native", res["cpp_pybind_batch"])["events_per_sec"]
         / res["python_batch"]["events_per_sec"],
     }
-    path = ROOT / "results" / "engine_bench.json"
+    out["source_sha256"] = {f: file_sha256(ROOT / f)
+                            for f in ("cpp/src/order_book.cpp", "cpp/include/mmb/order_book.hpp",
+                                      "cpp/bench/bench_book.cpp", "scripts/bench_engine.py")}
+    if native.exists():
+        out["native_binary_sha256"] = file_sha256(native)
+    path = Path(args.out)
     path.write_text(json.dumps(out, indent=2) + "\n")
     for k, v in res.items():
         print(f"{k:22s} {v['events_per_sec']:>14,.0f} events/s")

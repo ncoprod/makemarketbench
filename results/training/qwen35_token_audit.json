@@ -8,9 +8,9 @@
       "out": "results/training/qwen35_token_audit.json"
     },
     "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
-    "git_commit": "66abdced95512828d5f9b4d57073637c7aabe33f",
-    "uncommitted_diff_sha256": "7830fdb14ec185aea72517adbd9f62a899249c48c877ccfc75d1ce6fe2a4fcc9",
-    "started_at": "2026-10-29T09:47:05.400999+00:00",
+    "git_commit": "c5612415fbb8fd9cad1479e5510fc749320ef503",
+    "uncommitted_diff_sha256": "807549c7fce38bc740db6c296f91554dd1b2ad954a4bca960e4f51aaa6d1328a",
+    "started_at": "2026-10-29T09:52:08.013251+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -35,5 +35,6 @@
       "prefix_mismatch_rows": [],
       "sha256": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
     }
-  }
+  },
+  "source_sha256": "b2b76171c1d45125736947072a4d811267797f3e05101f95428eea0908c33f89"
 }

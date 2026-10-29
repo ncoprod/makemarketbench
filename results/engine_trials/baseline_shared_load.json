@@ -1,0 +1,57 @@
+{
+  "events": 1000000,
+  "fills": 451456,
+  "event_mix": {
+    "gtc": 0.499754,
+    "ioc": 0.149951,
+    "market": 0.0497,
+    "cancel": 0.300595
+  },
+  "machine": "arm64 macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "results": {
+    "cpp_pybind_batch": {
+      "seconds": 0.13963933300692588,
+      "events_per_sec": 7161306.047991519,
+      "checksum": 6638620577960879557
+    },
+    "cpp_pybind_per_call": {
+      "seconds": 0.3963035000488162,
+      "events_per_sec": 2523318.617869439,
+      "fills": 451456
+    },
+    "python_batch": {
+      "seconds": 1.1330977500183508,
+      "events_per_sec": 882536.391925414,
+      "checksum": 6638620577960879557
+    },
+    "python_per_call": {
+      "seconds": 1.3658206249820068,
+      "events_per_sec": 732160.5646518728,
+      "fills": 451456
+    },
+    "cpp_native": {
+      "seconds": 0.079754,
+      "events_per_sec": 12538588.8,
+      "checksum": 6638620577960879557
+    },
+    "cpp_native_v1_map_list": {
+      "seconds": 0.223,
+      "events_per_sec": 4484303.2
+    }
+  },
+  "speedup_native_vs_python_batch": 14.207446757685293,
+  "provenance": {
+    "command": ".venv/bin/python scripts/bench_engine.py",
+    "git_commit": "deb9b65360a2d77647674f7512a28a3b2a7af475",
+    "config": {
+      "stream_seed": 2026,
+      "events": 1000000,
+      "repeats": 3,
+      "native_repeats": 5,
+      "compiler_flags": "-O3 -DNDEBUG -g"
+    },
+    "model_revision": null,
+    "status": "shared-load baseline; not a controlled before-after comparison"
+  }
+}
