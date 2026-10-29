@@ -42,5 +42,34 @@
       }
     },
     "label": "nvidia/nemotron-3-ultra-550b-a55b (no-think)"
+  },
+  "minimaxai/minimax-m3.1-flash": {
+    "probes": [
+      {
+        "extra_body": {},
+        "usable": false,
+        "note": "invalid (no JSON object with a 'bid' field found); finish=length tokens=4096 latency=154s"
+      },
+      {
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "usable": false,
+        "note": "invalid (no JSON object with a 'bid' field found); finish=length tokens=4096 latency=145s"
+      }
+    ]
+  },
+  "nvidia/nemotron-3.5-bolt-e4b": {
+    "probes": [
+      {
+        "extra_body": {},
+        "usable": true,
+        "note": "finish=stop tokens=942 latency=17s"
+      }
+    ],
+    "extra_body": {},
+    "label": "nvidia/nemotron-3.5-bolt-e4b"
   }
 }
