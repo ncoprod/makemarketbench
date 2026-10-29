@@ -277,6 +277,39 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T10:59:08.782074+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T12:46:10.476270+00:00",
+      "command": [
+        "/Users/nico/.local/bin/kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T12:56:21.764475+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "console_observation": {
@@ -331,5 +364,6 @@
     "method": "Official Kaggle SDK GetKernelSessionLogsStream",
     "error": "HTTP 404 Not Found: https://api.kaggle.com/v1/kernels.KernelsApiService/GetKernelSessionLogsStream",
     "note": "SDK live-log endpoint unavailable. This is a monitoring failure, not a GPU training failure; native UI logs and the 610-second CLI status monitor remain usable."
-  }
+  },
+  "monitor_restart_note": "Local monitor killed by owner-reported reboot; remote execution checked after restart."
 }

@@ -160,6 +160,12 @@ do not invent missing provenance. Historical adapter configs are preserved.
   1,884.2940601250157 seconds, MLX allocator peak 4,012,511,272 bytes. This is
   an untrained adapter baseline, not a policy result; optimisation is running.
   Exact command and start receipt: `results/training/qwen35_sft.json`.
+- Attempt 1 was interrupted by the owner-reported machine reboot. No trained
+  adapter checkpoint survived: the saved best adapter is at step zero, and the
+  number of unsaved microbatches is unknown (below the first report at ten).
+  A pre-reboot `sample` report printed an 11.5G process footprint peak. The
+  reboot's cause is not established. Preserve [the attempt receipt](results/training/qwen35_sft_attempt1.json)
+  and [log](results/training/qwen35_sft_attempt1.log), rather than claiming completion.
 
 ### E1 — engine baseline/profile (in progress)
 
@@ -247,8 +253,30 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Commands: `python train/build_kaggle_kernel.py --smoke`;
   `kaggle kernels push -p runs/kaggle_smoke --accelerator NvidiaTeslaT4`.
 - Result: private version 1 accepted, T4 and internet enabled; remote privacy
-  verified in [the receipt](results/training/kaggle_smoke.json). The existing
-  full kernel continues unchanged. Runtime and VRAM await retrieved outputs.
+  verified in [the receipt](results/training/kaggle_smoke.json). It completed:
+  **827.4385588169098 seconds** whole-run wall time; **4,484,432,896 bytes** peak
+  allocated CUDA memory, 5,110,759,424 reserved. One GRPO update took 243.7 seconds
+  (printed trainer precision). Both completions hit the 96-token ceiling and
+  received identical invalid-format rewards: reward std and training loss zero.
+  This proves execution but provides **no learning signal or quality result**.
+  [Runtime](results/kaggle/smoke-v1/runtime.json),
+  [complete log](results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log).
+  The full SFT/GRPO kernel remained running remotely across the local reboot.
+
+### T8 — reduce MLX recurrent-state retention (registered, smoke pending)
+
+- Hypothesis: Qwen3.5's training-only sequential gated-delta fallback retains
+  per-token recurrent states; layer checkpointing alone leaves a large peak.
+- Change: checkpoint that same recurrence in 64-token chunks. Value and gradient
+  parity passed on CPU, including masks and a partial last chunk; inference's
+  existing Metal kernel is unchanged. This is rematerialisation, not truncation
+  or a changed objective. Limit our training child's sampled physical footprint
+  to 7 GiB using a macOS `top` guard, releasing the shared lock on exit.
+- Command: two-microbatch smoke on two fixed training examples, followed by the
+  original T4 recipe only if the smoke completes within the memory guard.
+- Results: pending `results/training/qwen35_memory_smoke.json` and
+  `results/training/qwen35_memory_guard.json`. This infrastructure trial does
+  not satisfy the two unsuccessful substantive validation trials stopping rule.
 
 Selection registered before T4–T6 validation: maximise the smaller of the two
 validation margins, `min(dice_percent_of_Bayes - 80, cards_percent_of_Bayes)`;

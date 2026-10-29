@@ -1,0 +1,194 @@
+{
+  "game": "dice",
+  "seeds": [
+    80000
+  ],
+  "rows": [
+    {
+      "player": "bayes",
+      "episodes": 1,
+      "pct_of_bayes": 99.99999999999999,
+      "pct_of_bayes_ci": [
+        99.99999999999999,
+        99.99999999999999
+      ],
+      "epnl": 14.111234600747492,
+      "epnl_ci": [
+        14.111234600747492,
+        14.111234600747492
+      ],
+      "realized_pnl": 5.399999999999999,
+      "realized_pnl_ci": [
+        5.399999999999999,
+        5.399999999999999
+      ],
+      "realized_pnl_sd": 0.0,
+      "noise_edge": 14.711234600747492,
+      "adverse_cost": 0.6,
+      "spread": 7.966666666666668,
+      "coverage": 0.8333333333333334,
+      "mean_size": 4.666666666666667,
+      "abs_final_position": 1.0,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        0.0,
+        0.0
+      ],
+      "posterior_edge_pct": 100.0,
+      "flow_shift": NaN,
+      "mid_error": 0.10026271600336578,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 0.0,
+      "regret_by_round": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "player": "qwen3.5-4b-grpo-smoke-warmstart",
+      "episodes": 1,
+      "pct_of_bayes": 0.0,
+      "pct_of_bayes_ci": [
+        0.0,
+        0.0
+      ],
+      "epnl": 0.0,
+      "epnl_ci": [
+        0.0,
+        0.0
+      ],
+      "realized_pnl": 0.0,
+      "realized_pnl_ci": [
+        0.0,
+        0.0
+      ],
+      "realized_pnl_sd": 0.0,
+      "noise_edge": 0.0,
+      "adverse_cost": 0.0,
+      "spread": null,
+      "coverage": null,
+      "mean_size": 0.0,
+      "abs_final_position": 0.0,
+      "format_error_rate": 1.0,
+      "fail_rate": 1.0,
+      "regret_per_round_ci": [
+        1.7339801805186086,
+        1.7339801805186086
+      ],
+      "posterior_edge_pct": 0.0,
+      "flow_shift": NaN,
+      "mid_error": NaN,
+      "median_spread_ratio": NaN,
+      "regret_per_round": 1.7339801805186086,
+      "regret_by_round": [
+        1.1917466197418682,
+        1.3984467226225261,
+        1.590050839460235,
+        1.8140324232684029,
+        2.0820749327151455,
+        2.327529545303474
+      ]
+    },
+    {
+      "player": "qwen3.5-4b-grpo-smoke",
+      "episodes": 1,
+      "pct_of_bayes": 0.0,
+      "pct_of_bayes_ci": [
+        0.0,
+        0.0
+      ],
+      "epnl": 0.0,
+      "epnl_ci": [
+        0.0,
+        0.0
+      ],
+      "realized_pnl": 0.0,
+      "realized_pnl_ci": [
+        0.0,
+        0.0
+      ],
+      "realized_pnl_sd": 0.0,
+      "noise_edge": 0.0,
+      "adverse_cost": 0.0,
+      "spread": null,
+      "coverage": null,
+      "mean_size": 0.0,
+      "abs_final_position": 0.0,
+      "format_error_rate": 1.0,
+      "fail_rate": 1.0,
+      "regret_per_round_ci": [
+        1.7339801805186086,
+        1.7339801805186086
+      ],
+      "posterior_edge_pct": 0.0,
+      "flow_shift": NaN,
+      "mid_error": NaN,
+      "median_spread_ratio": NaN,
+      "regret_per_round": 1.7339801805186086,
+      "regret_by_round": [
+        1.1917466197418682,
+        1.3984467226225261,
+        1.590050839460235,
+        1.8140324232684029,
+        2.0820749327151455,
+        2.327529545303474
+      ]
+    }
+  ],
+  "provenance": {
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py",
+      "--sft-steps",
+      "0",
+      "--grpo-steps",
+      "1",
+      "--num-generations",
+      "2",
+      "--episodes",
+      "4",
+      "--games",
+      "dice",
+      "--eval-episodes",
+      "1",
+      "--eval-seed",
+      "80000",
+      "--label",
+      "qwen3.5-4b-grpo-smoke"
+    ],
+    "config": {
+      "model": "unsloth/Qwen3.5-4B",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "label": "qwen3.5-4b-grpo-smoke",
+      "games": [
+        "dice"
+      ],
+      "episodes": 4,
+      "sft_steps": 0,
+      "sft_batch": 8,
+      "grpo_steps": 1,
+      "num_generations": 2,
+      "max_completion": 96,
+      "max_seq_len": 1280,
+      "lora_rank": 16,
+      "lr": 5e-06,
+      "eval_episodes": 1,
+      "eval_seed": 80000,
+      "resume": null,
+      "sft_resume": null,
+      "dry_run": false
+    },
+    "seed": 0,
+    "source_commit": "f33ce01d9469c832965526eb9ba4c18c9d2fe4ee",
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "source_file_sha256": "e875c4c8cc2aca8ba2f02aefd111013cc0144865a5b4fea8c70e2a62db06368b",
+    "embedded_package_sha256": "2eba0f81785f2edc243799f7ff35e15eb2d6cce6cce91be726438e7247d6e7ca",
+    "label": "qwen3.5-4b-grpo-smoke"
+  }
+}

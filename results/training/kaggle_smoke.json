@@ -31,11 +31,11 @@
     80000
   ],
   "trial_kind": "infrastructure smoke; not a final candidate",
-  "gpu_runtime_seconds": null,
-  "peak_vram_bytes": null,
+  "gpu_runtime_seconds": 827.4385588169098,
+  "peak_vram_bytes": 4484432896,
   "exit_code": 0,
   "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-grpo-qwen3-smoke\n",
-  "status": "submitted",
+  "status": "completed_infrastructure_smoke",
   "remote_verification": {
     "command": [
       "/Users/nico/.local/bin/kaggle",
@@ -88,5 +88,47 @@
     "eval_episodes": 1,
     "eval_seed": 80000,
     "label": "qwen3.5-4b-grpo-smoke"
+  },
+  "polls": [
+    {
+      "at": "2026-10-29T12:46:11.709620+00:00",
+      "command": [
+        "/Users/nico/.local/bin/kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-smoke"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
+  "monitor_restart_note": "Local monitor killed by owner-reported reboot; remote execution checked after restart.",
+  "peak_reserved_bytes": 5110759424,
+  "grpo_updates_completed": 1,
+  "grpo_trainer_runtime_seconds_printed": 243.7,
+  "policy_quality_claim": false,
+  "diagnosis": "Both 96-token completions clipped; format and edge rewards identical (-1 and -2), zero group reward standard deviation and zero training loss. Trainer executed, but this cold-start smoke had no policy-learning signal.",
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+      "-p",
+      "runs/kaggle_smoke_output"
+    ],
+    "status": "download completed",
+    "local_directory": "runs/kaggle_smoke_output"
+  },
+  "committed_output_sha256": {
+    "results/kaggle/smoke-v1/runtime.json": "e328f579d2ab35ff9b0e729167b252049bd2e72d0b6ae3f40d22deb85ebe84fc",
+    "results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log": "d479c4378c539d780d54fe057e30cf0173b1da6622b0bf6188a04fd48c7cdd88",
+    "results/kaggle/smoke-v1/grpo_config.json": "705c7a37a49128731a7f5c548d309f60b6f9c742c59d8067a65745d115c2b8c2",
+    "results/kaggle/smoke-v1/results/leaderboard_dice.json": "0c2d072f991f45a63d3735fc0db3502cb88cc725d381191e2aa9fff6d4fcc3f6",
+    "results/kaggle/smoke-v1/results/leaderboard_dice.md": "8edfd422b3e2c7d1894b4c72ba23412d38d61d70b13804e39f1b9f20ecdcc8a5",
+    "results/kaggle/smoke-v1/grpo/checkpoint-1/trainer_state.json": "c56bb6fcb2ef317629bb5d96ab2399e4e02f3dbbc39d419300c74bd0ad3f9fff",
+    "results/kaggle/smoke-v1/results/raw/dice/qwen3.5-4b-grpo-smoke-warmstart.jsonl": "cb40454e7be1379cb7ff1266dccc268d4c6bd4f68e8bae1c8c90dc28fc901330",
+    "results/kaggle/smoke-v1/results/raw/dice/bayes.jsonl": "33ef036e6feae3b7b6a67e309a94c1a084a453ffe5bd7c95f5079c65e8809a68",
+    "results/kaggle/smoke-v1/results/raw/dice/qwen3.5-4b-grpo-smoke.jsonl": "1353625e3c9fb4c6a18018b366c7290aaa6fdc1947c555df20d137acde754c52"
   }
 }

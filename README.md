@@ -121,9 +121,12 @@ are rejected. The initial submission failed with HTTP 401
 ([exact failure](results/training/kaggle_attempt.json)). Official OAuth login
 restored CLI access: the private checkpoint dataset is ready and the kernel
 was accepted with a T4 requested, internet enabled and remote privacy verified
-([retry receipt](results/training/kaggle_retry.json)). The console confirms SFT
-execution on one allocated T4; GRPO completion is pending. Runtime and VRAM remain
-unmeasured until outputs are retrieved. The local reward trial is explicitly
+([retry receipt](results/training/kaggle_retry.json)). A separate one-update GRPO
+smoke completed in **827.439 seconds**, peaking at **4.484 GB allocated VRAM**
+([runtime](results/kaggle/smoke-v1/runtime.json)). Both completions were truncated
+and received identical invalid-output rewards, so its update had zero learning
+signal ([complete log](results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log)).
+The full SFT/GRPO run remains pending. The local reward trial is explicitly
 labelled RLOO-style.
 
 NIM expansion retries GLM and DeepSeek with longer timeouts, enables Ultra

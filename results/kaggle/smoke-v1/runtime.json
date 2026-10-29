@@ -1,0 +1,77 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py",
+    "--sft-steps",
+    "0",
+    "--grpo-steps",
+    "1",
+    "--num-generations",
+    "2",
+    "--episodes",
+    "4",
+    "--games",
+    "dice",
+    "--eval-episodes",
+    "1",
+    "--eval-seed",
+    "80000",
+    "--label",
+    "qwen3.5-4b-grpo-smoke"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.5-4B",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "label": "qwen3.5-4b-grpo-smoke",
+    "games": [
+      "dice"
+    ],
+    "episodes": 4,
+    "sft_steps": 0,
+    "sft_batch": 8,
+    "grpo_steps": 1,
+    "num_generations": 2,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 16,
+    "lr": 5e-06,
+    "eval_episodes": 1,
+    "eval_seed": 80000,
+    "resume": null,
+    "sft_resume": null,
+    "dry_run": false
+  },
+  "seed": 0,
+  "source_commit": "f33ce01d9469c832965526eb9ba4c18c9d2fe4ee",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "source_file_sha256": "e875c4c8cc2aca8ba2f02aefd111013cc0144865a5b4fea8c70e2a62db06368b",
+  "embedded_package_sha256": "2eba0f81785f2edc243799f7ff35e15eb2d6cce6cce91be726438e7247d6e7ca",
+  "status": "completed",
+  "gpus": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "unsloth": "2026.10.10",
+    "trl": "1.15.0",
+    "transformers": "5.16.1",
+    "peft": "0.20.0"
+  },
+  "wall_seconds": 827.4385588169098,
+  "peak_allocated_bytes": 4484432896,
+  "peak_reserved_bytes": 5110759424,
+  "memory_by_gpu": [
+    {
+      "device": 0,
+      "peak_allocated_bytes": 4484432896,
+      "peak_reserved_bytes": 5110759424
+    },
+    {
+      "device": 1,
+      "peak_allocated_bytes": 0,
+      "peak_reserved_bytes": 0
+    }
+  ]
+}

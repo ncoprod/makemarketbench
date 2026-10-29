@@ -70,5 +70,251 @@
     "usable": false,
     "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
     "probe_wall_seconds": 923.3275508880615
+  },
+  "nvidia/nemotron-3-ultra-550b-a55b (thinking)": {
+    "model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking)",
+    "timeout_seconds": 600,
+    "max_tokens": 16384,
+    "temperature": 0.3,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": true
+      }
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 16384,
+        "timeout": 600,
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": true
+          }
+        },
+        "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking)"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "c139ce449e51b0f993950000145293c02c822d58",
+      "uncommitted_diff_sha256": "e16ad496b8ef6a54370f3902d8a10a9c2717e155777968152701782e20559474",
+      "started_at": "2026-10-29T10:43:37.589696+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+    "probe_wall_seconds": 822.1619720458984
+  },
+  "meta/llama-3.3-70b-instruct": {
+    "model": "meta/llama-3.3-70b-instruct",
+    "label": "meta/llama-3.3-70b-instruct",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "meta/llama-3.3-70b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "meta/llama-3.3-70b-instruct"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+      "uncommitted_diff_sha256": "d40207993e11cb3f3effd54053c30d0145c4b1ee195b4fa35822d3816452c564",
+      "started_at": "2026-10-29T10:57:34.532467+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: APIStatusError(410): Error code: 410",
+    "probe_wall_seconds": 1.7110793590545654
+  },
+  "qwen/qwen3-235b-a22b (no-think)": {
+    "model": "qwen/qwen3-235b-a22b",
+    "label": "qwen/qwen3-235b-a22b (no-think)",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "qwen/qwen3-235b-a22b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          }
+        },
+        "label": "qwen/qwen3-235b-a22b (no-think)"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+      "uncommitted_diff_sha256": "4707891baf96ef5a2bfb39e1801d5f181146c9651db1e93df167120dcdc83eb3",
+      "started_at": "2026-10-29T10:57:39.810414+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: NotFoundError(404): Error code: 404",
+    "probe_wall_seconds": 0.7129888534545898
+  },
+  "mistralai/mistral-small-3.1-24b-instruct-2503": {
+    "model": "mistralai/mistral-small-3.1-24b-instruct-2503",
+    "label": "mistralai/mistral-small-3.1-24b-instruct-2503",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "mistralai/mistral-small-3.1-24b-instruct-2503",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "mistralai/mistral-small-3.1-24b-instruct-2503"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+      "uncommitted_diff_sha256": "e66eaf8f5359317cad8ace611a0cbcb24e23d4e61aed1d6255d43a9facfdfcae",
+      "started_at": "2026-10-29T10:57:40.905542+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: NotFoundError(404): Error code: 404",
+    "probe_wall_seconds": 0.8038308620452881
+  },
+  "meta/llama-3.1-8b-instruct": {
+    "model": "meta/llama-3.1-8b-instruct",
+    "label": "meta/llama-3.1-8b-instruct",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "meta/llama-3.1-8b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "meta/llama-3.1-8b-instruct"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+      "uncommitted_diff_sha256": "8fbe278b0fa5dcde1c1fc3a7fd5e1fcd4ce30bbb3aff051f115be972896dc745",
+      "started_at": "2026-10-29T10:57:43.419096+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: APIStatusError(410): Error code: 410",
+    "probe_wall_seconds": 0.899346113204956
+  },
+  "openai/gpt-oss-20b": {
+    "model": "openai/gpt-oss-20b",
+    "label": "openai/gpt-oss-20b",
+    "timeout_seconds": 600,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {
+      "reasoning_effort": "low"
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py",
+      "config": {
+        "model": "openai/gpt-oss-20b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {
+          "reasoning_effort": "low"
+        },
+        "label": "openai/gpt-oss-20b"
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+      "uncommitted_diff_sha256": "9bd182fa023d87ac1b50bfb01dbceadc5855be4dce54dba724a4aedfd0bae8e8",
+      "started_at": "2026-10-29T10:57:48.604086+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "probe": {
+      "content": "{\"bid\":27.5,\"bid_size\":5,\"ask\":28.5,\"ask_size\":5}",
+      "reasoning": "We have 8 dice sum V. Two dice revealed: 3 and 4. So remaining 6 dice unknown. Expected M = 3+4 + 6*3.5 =7+21=28. So V expected 28. We need bid and ask. Informed trader 30% knows V. They will buy if V>ask, sell if V<bid. So we want to capture spread. For noise trader, their u = M + e, e~N(0,16). They will buy if u>M, i.e., e>0. So half buy half sell. They will trade D units at price up to u if buying, down to u if selling. So we need to set prices to capture expected value. We can set ask slightly above M to attract informed buying when V>ask. But risk of noise selling. We can set bid slightly below M to attract informed selling when V<bid. But we can also set sizes to limit exposure. Since position zero, we can set both sides. Let's choose bid=27.5 size 5, ask=28.5 size 5. Ensure bid<ask. That seems reasonable.",
+      "finish_reason": "stop",
+      "completion_tokens": 277,
+      "prompt_tokens": 595,
+      "served_model": "openai/gpt-oss-20b",
+      "system_fingerprint": null,
+      "latency": 14.841909170150757,
+      "cached": false
+    },
+    "usable": true,
+    "probe_wall_seconds": 14.944047927856445
   }
 }
