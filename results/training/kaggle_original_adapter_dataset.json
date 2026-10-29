@@ -1,0 +1,72 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/create_original_adapter_dataset.py",
+    "config": {
+      "purpose": "privately preserve original final GRPO adapter and partial frozen cohorts"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "28851549d2ceea7869085980af40a3fd5014df79",
+    "uncommitted_diff_sha256": "12851317935422234b94145f4651d610e7225d70aab27383bf7576d38e1ef649",
+    "started_at": "2026-10-29T22:29:32.095771+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+  "source_version": 1,
+  "source_completion": "results/training/kaggle_original_completion.json",
+  "adapter_download_command": [
+    "kaggle",
+    "kernels",
+    "output",
+    "nicolascoquelet/makemarketbench-grpo-qwen3",
+    "-p",
+    "runs/kaggle_original_adapter",
+    "--file-pattern",
+    "^lora_adapter/adapter_model.safetensors$"
+  ],
+  "file_sha256": {
+    "adapter_model.safetensors": "5e532ea652c3c1ee3d3d1bce81a2bf02dbd2bbacdf26d088d74712312baa06a6",
+    "adapter_config.json": "57819c8a01786cc2744979313c9000fc3ae6b49f44ede436250fe340e1c410d1",
+    "trainer_state.json": "4b1f657d6bba21cfa0c8fecd0f802c3568f21bfdaf341c221583ee3715025545",
+    "dice_grpo.jsonl": "d45561d62a96cec457c3f0c210f13cf798da78e064c023ba179102296e090fdf",
+    "bayes_dice.jsonl": "54a0dc6c9e3c6746d71c415038e2fb52faaa9a1e47eeb0e8247ae09048d4c84b",
+    "bayes_cards.jsonl": "2f022c5fdd4bd30b74d202f2e01064c5820e093e6733895c583dd86d254ac56f"
+  },
+  "upstream_license_url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/LICENSE",
+  "upstream_license_sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+  "calculation_source": "import hashlib\nimport json\nimport os\nimport shutil\nimport subprocess\nimport urllib.request\nfrom datetime import datetime,timezone\nfrom pathlib import Path\nfrom makemarket.provenance import receipt,file_sha256\n\np=Path('results/training/kaggle_original_final_resume.json');r=json.loads(p.read_text())\nr.update(status='failed_missing_rejected_input_source',actual_kernel='nicolascoquelet/makemarketbench-frozen-grpo-final-resume',actual_kernel_id=141578574,\n         terminal_status='KernelWorkerStatus.ERROR',observed_terminal_at=datetime.now(timezone.utc).isoformat(),\n         diagnosis='Kaggle rejects the cancelled parent kernel as an input source. The title also resolved to a different new slug. Runtime assertion finds zero mounted adapters; no inference was performed.')\nlog=Path('runs/kaggle_original_eval_resume_failure/makemarketbench-frozen-grpo-final-resume.log')\nrecords=json.loads(log.read_text())\nr['last_log_seconds']=max(x['time'] for x in records)\nr['failure_log_sha256']=file_sha256(log)\nPath('results/kaggle/original-resume-failure-v1').mkdir(parents=True,exist_ok=True)\nshutil.copyfile(log,'results/kaggle/original-resume-failure-v1/full.log')\np.write_text(json.dumps(r,indent=2)+'\\n')\nledger_path=Path('results/training/kaggle_budget.json');ledger=json.loads(ledger_path.read_text())\nledger['sessions'].append({'kernel':r['actual_kernel'],'version':1,'accelerator':'T4 x2 requested','start':None,'end':None,\n 'hours':r['last_log_seconds']/3600,'hours_basis':'Last downloaded log timestamp only, not exact billing duration.',\n 'submitted_at':r['submitted_at'],'purpose':'Attempted continuation; failed because cancelled parent input was rejected.',\n 'private':True,'status':r['status'],'receipt':str(p)})\nledger_path.write_text(json.dumps(ledger,indent=2)+'\\n')\nfolder=Path('runs/kaggle_original_adapter_dataset');folder.mkdir(exist_ok=True)\nsources={\n 'adapter_model.safetensors':Path('runs/kaggle_original_adapter/lora_adapter/adapter_model.safetensors'),\n 'adapter_config.json':Path('runs/kaggle_original_output/lora_adapter/adapter_config.json'),\n 'trainer_state.json':Path('runs/kaggle_original_output/grpo/checkpoint-300/trainer_state.json'),\n 'dice_grpo.jsonl':Path('runs/kaggle_original_output/results/raw/dice/qwen3.5-4b-grpo.jsonl'),\n 'bayes_dice.jsonl':Path('runs/kaggle_original_output/results/raw/dice/bayes.jsonl'),\n 'bayes_cards.jsonl':Path('runs/kaggle_original_output/results/raw/cards/bayes.jsonl')}\nfor name,source in sources.items():shutil.copyfile(source,folder/name)\nlicense_url='https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/LICENSE'\nlicense_bytes=urllib.request.urlopen(license_url).read()\nassert b'Apache License' in license_bytes\n(folder/'LICENSE.txt').write_bytes(license_bytes)\n(folder/'NOTICE.txt').write_text('LoRA derivative of Qwen3.5-4B, Qwen Team, Alibaba Cloud.\\nUnsloth NF4 conversion; original model revision 3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636.\\nModifications by Nicolas Coquelet: 150 SFT and 300 exact-EV GRPO updates on synthetic MakeMarketBench data.\\nOnly adapter weights are included. Synthetic episode records are MIT, copyright Nicolas Coquelet.\\n')\nshutil.copyfile('LICENSE',folder/'SYNTHETIC_DATA_LICENSE.txt')\nrecord={'provenance':receipt({'purpose':'privately preserve original final GRPO adapter and partial frozen cohorts'},'3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636'),\n 'source_kernel':'nicolascoquelet/makemarketbench-grpo-qwen3','source_version':1,\n 'source_completion':'results/training/kaggle_original_completion.json',\n 'adapter_download_command':['kaggle','kernels','output','nicolascoquelet/makemarketbench-grpo-qwen3','-p','runs/kaggle_original_adapter','--file-pattern','^lora_adapter/adapter_model.safetensors$'],\n 'file_sha256':{name:file_sha256(folder/name) for name in sources},'upstream_license_url':license_url,'upstream_license_sha256':hashlib.sha256(license_bytes).hexdigest(),\n 'calculation_source':Path(__file__).read_text()}\n(folder/'original_grpo_receipt.json').write_text(json.dumps(record,indent=2)+'\\n')\nmeta={'title':'MakeMarketBench original GRPO checkpoint','id':'nicolascoquelet/makemarketbench-original-grpo-checkpoint',\n 'licenses':[{'name':'apache-2.0'}],'isPrivate':True,\n 'description':'Private Qwen3.5-4B LoRA adapter by Nicolas Coquelet: 150 SFT and 300 GRPO updates. Apache-2.0 model derivative; MIT synthetic episodes carry a separate licence. Base weights are not included. Exact hashes and source receipt included.'}\n(folder/'dataset-metadata.json').write_text(json.dumps(meta,indent=2)+'\\n')\nenv=os.environ.copy();env['KAGGLE_CONFIG_DIR']=str(Path('runs/kaggle_oauth_config').resolve())\nfor name in ['KAGGLE_KEY','KAGGLE_API_TOKEN','KAGGLE_TOKEN_FILE']:env.pop(name,None)\ncommand=['kaggle','datasets','create','-p',str(folder),'--quiet']\nvalue=subprocess.run(command,env=env,capture_output=True,text=True)\nrecord.update(dataset=meta['id'],command=command,create={'exit_code':value.returncode,'output':value.stdout+value.stderr},status='created' if value.returncode==0 else 'failed')\nPath('results/training/kaggle_original_adapter_dataset.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint(record['create'])\nassert value.returncode==0\n",
+  "dataset": "nicolascoquelet/makemarketbench-original-grpo-checkpoint",
+  "command": [
+    "kaggle",
+    "datasets",
+    "create",
+    "-p",
+    "runs/kaggle_original_adapter_dataset",
+    "--quiet"
+  ],
+  "create": {
+    "exit_code": 0,
+    "output": "Your private Dataset is being created. Please check progress at https://www.kaggle.com/datasets/nicolascoquelet/makemarketbench-original-grpo-checkpoint\n"
+  },
+  "status": "ready_private_verified",
+  "remote_is_private": true,
+  "remote_license_metadata": [
+    {
+      "name": "apache-2.0"
+    }
+  ],
+  "privacy_verification_command": [
+    "kaggle",
+    "datasets",
+    "metadata",
+    "nicolascoquelet/makemarketbench-original-grpo-checkpoint",
+    "-p",
+    "runs/kaggle_original_adapter_dataset_remote"
+  ]
+}

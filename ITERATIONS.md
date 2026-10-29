@@ -1279,3 +1279,22 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   Resume only missing episodes from the saved final GRPO adapter, with the
   same serial greedy decoding and 128-token limit, one independent game per
   T4. This continues a frozen candidate; it does not select a new policy.
+
+### Original continuation input-source failure (retained)
+
+- Kaggle accepts the push but reports the cancelled parent as an invalid kernel
+  source. Its mismatched title also produces a different slug. The mounted-input
+  assertion then fails before model loading or inference; the run reaches
+  `ERROR`. Preserve its full downloaded log and submission in
+  `results/training/kaggle_original_final_resume_attempt1.json` and
+  `results/kaggle/original-resume-failure-v1/full.log`.
+- Download the original final adapter directly, hash it, and create a private
+  dataset containing that adapter, the 300-update trainer state and original
+  partial cohorts. Include the pinned upstream Apache-2.0 licence, derivative
+  attribution and a separate MIT licence for synthetic episodes. Verify the
+  dataset is ready and private before retrying. Exact upload commands, hashes
+  and privacy verification are in
+  `results/training/kaggle_original_adapter_dataset.json`.
+- The retry uses the actual slug and a dataset input. Verify every mounted file
+  against the uploaded manifest before model loading. This is an infrastructure
+  failure, not a policy nonimprovement or a reason to change the frozen weights.
