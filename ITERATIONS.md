@@ -684,3 +684,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   upstream/Unsloth catalogue. Its available checkpoint is 71,903,776,776 bytes
   before runtime quantization, not a prequantized fit claim. No fallback run
   has been selected from a policy score.
+
+### Qwen3.8 fit probe 2 — host streaming started
+
+- Change only the loader placement policy with `--offload-layers auto`.
+  The private draft retained T4 x2 and internet settings; import the new bounded
+  notebook and request Run All. Exact source and notebook hashes, revision,
+  seed and launch time are in `qwen38_offload_plan.json`.
+- Preserve the first output snapshot before restarting. The retry writes a
+  durable combined `probe.log`; the first snapshot contains its exact exception
+  in runtime JSON but its console-only precision warning is a UI observation.
+- No held-out evaluation runs in either feasibility probe. Both are training
+  infrastructure trials, not evidence of policy improvement or exhaustion.

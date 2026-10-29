@@ -145,8 +145,12 @@ The Apache-2.0 Unsloth NF4 checkpoint occupies **22,344,833,801 bytes**
 against approximately 29.12 GiB across two T4s, leaving roughly 8.31 GiB before
 training overhead. Sharding, activations and possible F16-to-F32 promotion can
 erase that margin; a real SFT/GRPO update is required to establish fit
-([registered probe](results/training/qwen38_fit_plan.json)). The original 4B
-sessions continue while this probe is prepared. Account quota, session receipts
+([registered probe](results/training/qwen38_fit_plan.json)). The first balanced
+load failed before training because the loader dispatched modules to CPU/disk
+([downloaded failure and runtime](results/kaggle/qwen38-fit-v1/runtime.json)).
+A bounded retry enables the loader's suggested CPU layer streaming
+([retry registration](results/training/qwen38_offload_plan.json)). The original
+4B sessions continue. Account quota, session receipts
 and uncertainty in billed hours are tracked in the
 [GPU budget ledger](results/training/kaggle_budget.json).
 
@@ -197,6 +201,8 @@ exchange latency.
 | [Teacher token audit](results/training/qwen35_token_audit.json) | Data hashes, pinned model revision, every split checked | Exact command and producing commit |
 | [Kaggle failure](results/training/kaggle_attempt.json) | Private dataset/kernel settings and exact error | Failed submission is recorded as failed |
 | [Kaggle retry](results/training/kaggle_retry.json) | OAuth recovery, private remote metadata, pinned model and submitted script hash | Accepted submission; execution measurements pending |
+| [Newest Qwen catalogue](results/training/qwen_latest_details.json) | Official HF model IDs, revisions and configs | Family and size selection, separate from policy quality |
+| [GPU budget](results/training/kaggle_budget.json) | Official quota snapshots and per-session receipts | Script runtime and account billing kept distinct |
 | [Licence verification](results/licenses.json) | HF revisions, upstream licence URLs and hashes | Verification evidence; model licence is distinct from endpoint terms |
 
 New run receipts record the exact command, configuration, seeds, model revision

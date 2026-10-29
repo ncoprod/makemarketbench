@@ -135,6 +135,21 @@
       "end_observed_at": "2026-10-29T17:41:30.778488+00:00",
       "status": "failed_loading_no_update",
       "runtime_file": "results/kaggle/qwen38-fit-v1/runtime.json"
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+      "version": null,
+      "mode": "interactive draft, second allocation",
+      "accelerator": "T4 x2",
+      "submitted_at": "2026-10-29T17:45:21.973928+00:00",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "hours_basis": "pending downloaded runtime and session termination",
+      "purpose": "One-change newest-family CPU layer offload feasibility retry",
+      "private": true,
+      "session_limit_hours": 1,
+      "receipt": "results/training/qwen38_offload_plan.json"
     }
   ],
   "accounting_notes": [

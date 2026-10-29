@@ -1,6 +1,6 @@
 {
   "registered_at": "2026-10-29T17:41:30.780186+00:00",
-  "source_commit": "78b1149",
+  "source_commit": "7861e7d9e92057d8b0b5cf80a01791a7750376b8",
   "seed": 0,
   "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
   "hypothesis": "The loader explicitly suggests host layer streaming; retain newest family if a real LoRA and GRPO step fits with CPU offload.",
@@ -8,5 +8,10 @@
   "previous_result": "results/kaggle/qwen38-fit-v1/runtime.json",
   "budget_seconds": 3300,
   "test_evaluation": false,
-  "status": "registered_not_started"
+  "status": "interactive_start_requested",
+  "source_sha256": "ec6a8ac02ebbcb82737e8da8f733461ff1bd5e2f2776e64072009e930c6feda6",
+  "notebook_sha256": "60b195ddc622e583e93c19a920d044aea1f03318d57e4c88eded451cca4595ae",
+  "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+  "start_requested_at": "2026-10-29T17:45:21.973928+00:00",
+  "logging": "Combined stdout/stderr written to probe.log before downloading outputs"
 }
