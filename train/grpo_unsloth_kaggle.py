@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import importlib.metadata
 import io
 import json
 import os
@@ -183,14 +184,30 @@ def train(args) -> None:
     from unsloth import FastLanguageModel  # noqa: I001  (must be imported before trl)
     from datasets import Dataset
     from trl import GRPOConfig, GRPOTrainer, SFTConfig, SFTTrainer
+    import torch
+
+    torch.manual_seed(0)
+    torch.cuda.reset_peak_memory_stats()
 
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=args.model, max_seq_length=args.max_seq_len, load_in_4bit=True,
+        model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
         fast_inference=False)
-    model = FastLanguageModel.get_peft_model(
-        model, r=args.lora_rank, lora_alpha=2 * args.lora_rank, lora_dropout=0.0,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-        use_gradient_checkpointing="unsloth", random_state=0)
+    adapters = [p for p in Path("/kaggle/input").rglob("adapter_model.safetensors")
+                if json.loads(p.with_name("adapter_config.json").read_text())[
+                    "base_model_name_or_path"] == args.base_model]
+    if adapters:
+        from peft import PeftModel
+
+        model = PeftModel.from_pretrained(model, str(adapters[0].parent), is_trainable=True)
+        model.enable_input_require_grads()
+        model.gradient_checkpointing_enable()
+        args.sft_steps = 0
+        print(f"[warm start] converted MLX adapter: {adapters[0]}", flush=True)
+    else:
+        model = FastLanguageModel.get_peft_model(
+            model, r=args.lora_rank, lora_alpha=2 * args.lora_rank, lora_dropout=0.0,
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+            use_gradient_checkpointing="unsloth", random_state=0)
 
     rows = build_prompt_set(args.episodes, args.games)
     print(f"prompt set: {len(rows)} states")
@@ -204,6 +221,11 @@ def train(args) -> None:
                                     logging_steps=10, save_strategy="no", report_to="none",
                                     dataset_text_field="text", max_seq_length=args.max_seq_len))
         sft.train()
+        del sft
+
+    FastLanguageModel.for_inference(model)
+    evaluate(model, tokenizer, args, label=args.label + "-warmstart")
+    FastLanguageModel.for_training(model)
 
     grpo_rows = [{"prompt": render(tokenizer, r["messages"]), "game": r["game"], "values": r["values"],
                   "probs": r["probs"], "m_pub": r["m_pub"], "ref_quote": r["ref_quote"]}
@@ -217,7 +239,7 @@ def train(args) -> None:
         optim="adamw_8bit")
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        args=cfg, train_dataset=Dataset.from_list(grpo_rows))
-    trainer.train()
+    trainer.train(resume_from_checkpoint=args.resume or None)
     model.save_pretrained(str(WORK / "lora_adapter"))
     tokenizer.save_pretrained(str(WORK / "lora_adapter"))
     FastLanguageModel.for_inference(model)
@@ -261,17 +283,35 @@ class HFQuoter:
         return None, {"attempts": attempts, "format_error": True, "failed": True}
 
 
-def evaluate(model, tokenizer, args) -> None:
-    from makemarket.evaluate import run_player
+def evaluate(model, tokenizer, args, label=None) -> None:
+    from makemarket.analysis import player_diagnostics
+    from makemarket.cli import slug
+    from makemarket.evaluate import load_results, run_player
     from makemarket.games import make_game
+    from makemarket.players import BayesQuoter
+    from makemarket.scoring import markdown_table, summarize
+
+    label = label or args.label
 
     for g in args.games:
-        out = WORK / "results" / "raw" / g / f"{args.label}.jsonl"
+        out = WORK / "results" / "raw" / g / f"{slug(label)}.jsonl"
         t0 = time.time()
-        eps = run_player(make_game(g), lambda: HFQuoter(model, tokenizer, args.label),
-                         list(range(args.eval_episodes)), out, workers=1, backend="py")
+        eps = run_player(make_game(g), lambda: HFQuoter(model, tokenizer, label),
+                         list(range(args.eval_seed, args.eval_seed + args.eval_episodes)), out, workers=1, backend="py")
         tot = sum(sum(r["exp_expected_pnl"] for r in e["rounds"]) for e in eps) / len(eps)
         print(f"[eval] {g}: {len(eps)} episodes, mean E[PnL]={tot:.2f} ({time.time() - t0:.0f}s) -> {out}")
+        seeds = list(range(args.eval_seed, args.eval_seed + args.eval_episodes))
+        run_player(make_game(g), BayesQuoter, seeds,
+                   out.with_name("bayes.jsonl"), workers=1, backend="py")
+        players = {eps[0]["player"]: eps for f in sorted(out.parent.glob("*.jsonl"))
+                   if (eps := load_results(f))}
+        rows = summarize(players)
+        for row in rows:
+            row.update(player_diagnostics(players[row["player"]]))
+        dest = WORK / "results" / f"leaderboard_{g}"
+        dest.with_suffix(".json").write_text(json.dumps(
+            {"game": g, "seeds": seeds, "rows": rows}, indent=2) + "\n")
+        dest.with_suffix(".md").write_text(markdown_table(rows) + "\n")
 
 
 # --------------------------------------------------------------------------- main
@@ -289,8 +329,10 @@ def dry_run(args) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="unsloth/Qwen3-1.7B-unsloth-bnb-4bit")
-    ap.add_argument("--label", default="qwen3-1.7b-grpo")
+    ap.add_argument("--model", default="unsloth/Qwen3.5-4B")
+    ap.add_argument("--base-model", default="Qwen/Qwen3.5-4B")
+    ap.add_argument("--revision", default="3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636")
+    ap.add_argument("--label", default="qwen3.5-4b-grpo")
     ap.add_argument("--games", nargs="+", default=["dice", "cards"])
     ap.add_argument("--episodes", type=int, default=400, help="training episodes per game")
     ap.add_argument("--sft-steps", type=int, default=150)
@@ -301,7 +343,9 @@ def main() -> None:
     ap.add_argument("--max-seq-len", type=int, default=1280)
     ap.add_argument("--lora-rank", type=int, default=16)
     ap.add_argument("--lr", type=float, default=5e-6)
-    ap.add_argument("--eval-episodes", type=int, default=50)
+    ap.add_argument("--eval-episodes", type=int, default=200)
+    ap.add_argument("--eval-seed", type=int, default=200)
+    ap.add_argument("--resume", help="GRPO checkpoint directory, including optimizer state")
     ap.add_argument("--dry-run", action="store_true")
     args, _ = ap.parse_known_args()
     WORK.mkdir(parents=True, exist_ok=True)
@@ -311,8 +355,28 @@ def main() -> None:
         return
     if not Path("/kaggle").exists() and "MMB_FORCE" not in os.environ:
         raise SystemExit("GPU training is meant for Kaggle/CUDA; use --dry-run locally")
-    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
-    train(args)
+    started = time.time()
+    record = {"args": vars(args), "status": "running"}
+    try:
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
+        import torch
+
+        if not torch.cuda.is_available():
+            raise RuntimeError("Kaggle did not allocate a CUDA GPU")
+        record["gpu"] = torch.cuda.get_device_name(0)
+        record["versions"] = {p: importlib.metadata.version(p)
+                              for p in ("torch", "unsloth", "trl", "transformers", "peft")}
+        train(args)
+        record["status"] = "completed"
+    except Exception as exc:
+        record.update(status="failed", error=f"{type(exc).__name__}: {exc}")
+        raise
+    finally:
+        record["wall_seconds"] = time.time() - started
+        if "torch" in sys.modules and torch.cuda.is_available():
+            record["peak_allocated_bytes"] = torch.cuda.max_memory_allocated()
+            record["peak_reserved_bytes"] = torch.cuda.max_memory_reserved()
+        (WORK / "runtime.json").write_text(json.dumps(record, indent=2) + "\n")
 
 
 if __name__ == "__main__":

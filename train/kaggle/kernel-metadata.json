@@ -1,5 +1,5 @@
 {
-  "id": "ncoprod/makemarketbench-grpo-qwen3",
+  "id": "nicolascoquelet/makemarketbench-grpo-qwen3",
   "title": "MakeMarketBench GRPO Qwen3",
   "code_file": "grpo_unsloth_kaggle.py",
   "language": "python",

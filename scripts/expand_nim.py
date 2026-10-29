@@ -1,0 +1,82 @@
+"""Sequential, resumable NIM expansion; run under scripts/with_resource.sh nim.
+
+Long-timeout probes and thinking use distinct labels and caches. No local
+workers are used, so one held NIM slot equals at most one request in flight.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import time
+from pathlib import Path
+
+from makemarket.cli import slug
+from makemarket.evaluate import run_player
+from makemarket.games import make_game
+from makemarket.llm import ChatClient, LLMConfig, LLMQuoter, Throttle, parse_quote
+from makemarket.market import Observation
+from makemarket.prompts import messages_for
+
+OUT = Path("results/expansion")
+MODELS = [
+    ("z-ai/glm-5.3-flash", {}, 8192, "long-timeout"),
+    ("deepseek-ai/deepseek-v4.1-flash", {}, 8192, "long-timeout"),
+    ("nvidia/nemotron-3-ultra-550b-a55b", {"chat_template_kwargs": {"enable_thinking": True}}, 16384, "thinking"),
+    ("meta/llama-3.3-70b-instruct", {}, 4096, ""),
+    ("qwen/qwen3-235b-a22b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
+    ("mistralai/mistral-small-3.1-24b-instruct-2503", {}, 4096, ""),
+    ("meta/llama-3.1-8b-instruct", {}, 4096, ""),
+]
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--episodes", type=int, default=100)
+    ap.add_argument("--models", nargs="*")
+    args = ap.parse_args()
+    OUT.mkdir(parents=True, exist_ok=True)
+    path = OUT / "protocol.json"
+    protocol = json.loads(path.read_text()) if path.exists() else {}
+    g = make_game("dice")
+    ep = g.episode(0)
+    obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
+    for model, extra, tokens, suffix in MODELS:
+        if args.models and model not in args.models:
+            continue
+        label = model + (f" ({suffix})" if suffix else "")
+        cfg = LLMConfig(model=model, label=label, timeout=600, max_tokens=tokens, extra_body=extra)
+        client = ChatClient(cfg, cache_dir="cache/expansion", throttle=Throttle(1), max_retries=3)
+        entry = protocol.get(label)
+        if entry is None:
+            entry = {"model": model, "label": label, "timeout_seconds": 600,
+                     "max_tokens": tokens, "temperature": cfg.temperature, "extra_body": extra}
+            started = time.time()
+            try:
+                response = client.chat(messages_for(obs))
+                entry["probe"] = response
+                parse_quote(response["content"], g.params.max_size)
+                entry["usable"] = True
+            except Exception as exc:
+                entry.update(usable=False, error=f"{type(exc).__name__}: {exc}")
+            entry["probe_wall_seconds"] = time.time() - started
+            protocol[label] = entry
+            path.write_text(json.dumps(protocol, indent=2) + "\n")
+        print(f"[probe] {label}: usable={entry['usable']}", flush=True)
+        if not entry["usable"]:
+            continue
+        for name in ("dice", "cards"):
+            started = time.time()
+            try:
+                eps = run_player(make_game(name), lambda c=client: LLMQuoter(c),
+                                 list(range(args.episodes)), OUT / "raw" / name / f"{slug(label)}.jsonl",
+                                 workers=1)
+                entry[name] = {"episodes": len(eps), "wall_seconds": time.time() - started}
+            except Exception as exc:
+                entry[name] = {"error": f"{type(exc).__name__}: {exc}"}
+            path.write_text(json.dumps(protocol, indent=2) + "\n")
+            print(f"[eval] {label} {name}: {entry[name]}", flush=True)
+
+
+if __name__ == "__main__":
+    main()

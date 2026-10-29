@@ -9,6 +9,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 logs/
+runs/
 cache/
 .env
 *.safetensors

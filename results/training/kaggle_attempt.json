@@ -1,0 +1,46 @@
+{
+  "attempted_at": "2026-10-29T09:11:39.506930+00:00",
+  "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+  "dataset": "nicolascoquelet/makemarketbench-qwen3-bc-checkpoint",
+  "is_private": true,
+  "requested_accelerator": "NvidiaTeslaT4",
+  "enable_internet": true,
+  "commands": [
+    "kaggle datasets create -p runs/kaggle_dataset",
+    "kaggle kernels push -p train/kaggle --accelerator NvidiaTeslaT4",
+    "kaggle kernels status nicolascoquelet/makemarketbench-grpo-qwen3"
+  ],
+  "cli_error": "Authentication required to call the Kaggle API.\n\nFirst, you will need a Kaggle account. You can sign up at\n  https://www.kaggle.com/account/login\n\nRecommended: log in with OAuth via a web-based authorization flow.\nNo token to manage; credentials are cached locally for you.\n    kaggle auth login\n\nIf you'd rather not use OAuth, generate an API token at\n  https://www.kaggle.com/settings/api  (click \"Generate New Token\" under \"API\")\nand supply it to the CLI in one of these ways:\n\n  Option A: Environment variable\n    export KAGGLE_API_TOKEN=xxxxxxxxxxxxxx  # token copied from the settings UI\n\n  Option B: API token file\n    Save the token to ~/.kaggle/access_token\n",
+  "direct_legacy_auth_http_status": 401,
+  "status": "not_submitted",
+  "gpu_runtime_seconds": null,
+  "peak_vram_bytes": null,
+  "fallback": "local MLX RLOO-style dice run; separate result when complete",
+  "warmstart_export": {
+    "source": "train/runs/qwen3-1.7b-sft/0000300_adapters.safetensors",
+    "source_sha256": "d4e5e5b8d8f0a60e5db8c1c6239f8ad077012f45dd11f7c58c80745a33d8dc15",
+    "tensors": 224,
+    "layers": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "rank": 8,
+    "mlx_scale": 20.0,
+    "max_forward_delta_error": 1.6093254089355469e-06,
+    "caveat": "Adapter delta preserved; MLX affine and CUDA NF4 base quantizations differ."
+  }
+}

@@ -8,6 +8,7 @@ kernel needs neither the GitHub repo nor a C++ toolchain. Push with
 from __future__ import annotations
 
 import base64
+import gzip
 import io
 import json
 import tarfile
@@ -19,9 +20,13 @@ OUT = ROOT / "train" / "kaggle"
 
 def payload() -> str:
     buf = io.BytesIO()
-    with tarfile.open(fileobj=buf, mode="w:gz") as tf:
+    with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0) as gz, tarfile.open(fileobj=gz, mode="w") as tf:
         for f in sorted((ROOT / "src" / "makemarket").rglob("*.py")):
-            tf.add(f, arcname=str(f.relative_to(ROOT / "src")))
+            info = tf.gettarinfo(str(f), arcname=str(f.relative_to(ROOT / "src")))
+            info.mtime = info.uid = info.gid = 0
+            info.uname = info.gname = ""
+            with f.open("rb") as content:
+                tf.addfile(info, content)
     return base64.b64encode(buf.getvalue()).decode()
 
 
@@ -32,7 +37,7 @@ def main() -> None:
     assert marker in src
     (OUT / "grpo_unsloth_kaggle.py").write_text(src.replace(marker, f'PAYLOAD = "{payload()}"', 1))
     meta = {
-        "id": "ncoprod/makemarketbench-grpo-qwen3",
+        "id": "nicolascoquelet/makemarketbench-grpo-qwen3",
         "title": "MakeMarketBench GRPO Qwen3",
         "code_file": "grpo_unsloth_kaggle.py",
         "language": "python",
