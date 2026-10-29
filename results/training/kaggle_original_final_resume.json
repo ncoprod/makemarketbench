@@ -41,7 +41,52 @@
   "status": "submitted_private_verified",
   "wall_cap_seconds": 7200,
   "session_timeout_seconds": 7500,
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-29T22:41:02.287597+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T22:51:13.216818+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:01:24.121950+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:11:35.012621+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
   "policy_note": "Frozen original 300-update GRPO weights. Retain the 120 completed dice episodes byte for byte; run missing seeds only, serial greedy 128 tokens, one independent game per T4. Cache repeated prompts within each frozen worker.",
   "quota_admission": {
     "remaining_seconds": 18871.365863,
@@ -83,5 +128,6 @@
   },
   "kernel_version": 2,
   "kernel_id": 141578574,
-  "training_seed_correction": "results/training/original_seed_correction.json"
+  "training_seed_correction": "results/training/original_seed_correction.json",
+  "version": 2
 }

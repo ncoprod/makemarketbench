@@ -1398,3 +1398,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   on one training pipeline. Retain both directions; do not present these CIs
   as held-out confirmation or training-seed uncertainty. No new policy is
   selected from test results and this analysis consumes no GPU budget.
+
+### GPU ledger distinguishes verified progress from live allocation
+
+- The 23:11 UTC official quota snapshot records 95,207.853819 seconds used of
+  108,000. Retain the reported reservation independently; it is not additional
+  completed compute or free quota.
+- The newest-family live draft remains inaccessible. Record its downloaded
+  8,484.44287776947-second, step-500 SFT sample as a script-duration lower
+  bound. Its current phase, final runtime and actual allocation release remain
+  unknown. Correct the ledger's ambiguous four-hour session label: four hours
+  is the registered script cap; Kaggle's platform session maximum is 12 hours.
+- Record available script start/end timestamps separately from unknown GPU
+  allocation boundaries. Retain exact maintenance source in the ledger.
+  No extra kernel is admitted while the active-run allowance consumes the
+  remaining quota. Latest completed audit/ablation CI remains green.
