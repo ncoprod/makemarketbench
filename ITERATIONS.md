@@ -359,3 +359,16 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Results pending: `results/training/qwen35_parallel_smoke.json` and
   `results/training/qwen35_parallel_memory_guard.json`. Do not start full
   training until this probe passes. This remains an infrastructure trial.
+
+### Completed reference preparation and monitoring recovery
+
+- All 20 reference files are complete: five mathematical baselines, two games,
+  200 fresh-test episodes and 100 validation episodes per player/game, 3,000
+  episodes total. [Manifest and hashes](results/reference_cohorts.json). No
+  learned-policy test score was inspected.
+- Two scheduled private-kernel status polls failed after the SDK reused an
+  expired OAuth token. Refreshing the existing credentials restored private
+  kernel listing; the original account/scopes are unchanged and no token was
+  printed. Exact failures and recovery are in
+  [the submission receipt](results/training/kaggle_retry.json). This is a
+  monitoring/authentication failure, not evidence that remote training failed.

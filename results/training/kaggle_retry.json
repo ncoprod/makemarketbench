@@ -310,6 +310,39 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T13:06:34.046721+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T13:16:46.037064+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 1,
+      "output": "Cannot access kernel 'nicolascoquelet/makemarketbench-grpo-qwen3' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug \u2014 use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private."
+    },
+    {
+      "at": "2026-10-29T13:26:58.353328+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 1,
+      "output": "Cannot access kernel 'nicolascoquelet/makemarketbench-grpo-qwen3' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug \u2014 use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private."
     }
   ],
   "console_observation": {
@@ -365,5 +398,28 @@
     "error": "HTTP 404 Not Found: https://api.kaggle.com/v1/kernels.KernelsApiService/GetKernelSessionLogsStream",
     "note": "SDK live-log endpoint unavailable. This is a monitoring failure, not a GPU training failure; native UI logs and the 610-second CLI status monitor remain usable."
   },
-  "monitor_restart_note": "Local monitor killed by owner-reported reboot; remote execution checked after restart."
+  "monitor_restart_note": "Local monitor killed by owner-reported reboot; remote execution checked after restart.",
+  "oauth_refresh_recovery": {
+    "at": "2026-10-29T13:31:17.103444+00:00",
+    "symptom": "Private kernel status returned kernels.get permission denied after the access token expired.",
+    "cause": "Installed SDK access_token_has_expired compares expiration against now minus 30 minutes, temporarily reusing an expired token.",
+    "sdk_file_sha256": "277c0a19b1d6a325d23d9ce2890c95bbdfb68ef01ccdcd5bc1a60c51c6c0953a",
+    "expired_at": "2026-10-29T13:11:35.279331+00:00",
+    "action": "KaggleCredentials.load(client=KaggleClient()).refresh_access_token(); existing account and scopes retained; no token printed.",
+    "new_expires_at": "2026-10-30T01:29:50.970773+00:00",
+    "verification": {
+      "command": [
+        "kaggle",
+        "kernels",
+        "list",
+        "--mine",
+        "--search",
+        "makemarketbench",
+        "--csv"
+      ],
+      "exit_code": 0,
+      "output": "ref,title,author,lastRunTime,totalVotes\nnicolascoquelet/makemarketbench-grpo-qwen3,MakeMarketBench GRPO Qwen3,Nicolas Coquelet,2026-10-29 10:18:04.410000,0\nnicolascoquelet/makemarketbench-grpo-qwen3-smoke,MakeMarketBench GRPO Qwen3 smoke,Nicolas Coquelet,2026-10-29 10:52:14.933000,0"
+    },
+    "note": "Next scheduled kernel-status poll verifies remote execution; no extra status poll issued."
+  }
 }

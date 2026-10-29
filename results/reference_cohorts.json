@@ -1,0 +1,124 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "action": "verify complete CPU reference cohorts without scoring policies"
+    },
+    "model_revision": null,
+    "git_commit": "56db55e01f93f73409342727d9f81dde5a2bf5fd",
+    "uncommitted_diff_sha256": "f226ceca98ee69908688422d761ba1c9ce377a35da7de462a2ef1030701fa4a0",
+    "started_at": "2026-10-29T13:31:17.539126+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "files": [
+    {
+      "path": "results/final/qwen17-sft800/raw/dice/bayes.jsonl",
+      "episodes": 200,
+      "sha256": "bf06e99f1c3ce63015070809157147bd154d43c40f8ee6d07da8fb388fdfdf3b"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/dice/bayes-public.jsonl",
+      "episodes": 200,
+      "sha256": "f02055885c6fc364ba9abb3379914b1d595925fa3ae3a31c2244016e57dcd8f6"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/dice/mean-sd.jsonl",
+      "episodes": 200,
+      "sha256": "24bec5c84f104c478efee53a25baf8ae70c85bb2e756fa80bd1c4109f5c98b51"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/dice/fixed-prior.jsonl",
+      "episodes": 200,
+      "sha256": "be71613d1e754fbc7990e5afdd705be2c96265771881f96647ce0235a177e48d"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/dice/random.jsonl",
+      "episodes": 200,
+      "sha256": "589bc2e77c8f40041b1c6c1a79c109036b6c5894c8ebe0e38d8236dc6a80db25"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/cards/bayes.jsonl",
+      "episodes": 200,
+      "sha256": "24771e0a1e518e0f7ac81d35dc1bc59be52b742dbf4aef69fd55a888f36d61c2"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/cards/bayes-public.jsonl",
+      "episodes": 200,
+      "sha256": "cdd798fbe96978ea41dd61cdcac2fb472193528607b96d09538bb4b2135b0447"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/cards/mean-sd.jsonl",
+      "episodes": 200,
+      "sha256": "c662bb7dfcaaf5a42ea7fc36329de9d9dac81270d855a2da641307b3fb8a98ad"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/cards/fixed-prior.jsonl",
+      "episodes": 200,
+      "sha256": "eebf276a03154b88070ac9f46050b9c136d04824683c872d2b9901df17369b2b"
+    },
+    {
+      "path": "results/final/qwen17-sft800/raw/cards/random.jsonl",
+      "episodes": 200,
+      "sha256": "d05933d8d98d16cc6f2d74bf8ca16971b037ccb587948ea8a66ad62d7cdf98c5"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/dice/bayes.jsonl",
+      "episodes": 100,
+      "sha256": "3db71c8603d9458deaf7bc75a45676330501d013a1b35fbf22be0f8654ca6fa0"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/dice/bayes-public.jsonl",
+      "episodes": 100,
+      "sha256": "4429090f5832850a4e9cde050f1365ee30dfe4d8fbf7da774313326fe616f3e4"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/dice/mean-sd.jsonl",
+      "episodes": 100,
+      "sha256": "42670872059b05c8637021e3a6ab73be1404aec7fadbec2c75ae8d92166d3c1c"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/dice/fixed-prior.jsonl",
+      "episodes": 100,
+      "sha256": "edb5c14c8af2e595537c8a8b7805d3d7ceda04add23fba45d53d9e189ab6a418"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/dice/random.jsonl",
+      "episodes": 100,
+      "sha256": "26f78c87724f3c69574b6be678a0355315e130e3bf9e4b3fc73fc8f679b9d497"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/cards/bayes.jsonl",
+      "episodes": 100,
+      "sha256": "2b5b8ef9ca43e4387d43e3ddb7b481d0a2c6b039c76c36e22829ae49e14cea52"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/cards/bayes-public.jsonl",
+      "episodes": 100,
+      "sha256": "efe070e0b299b5bb73f722ed72e20b209bb0435cfb6381f3e2ed125669d0f4d5"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/cards/mean-sd.jsonl",
+      "episodes": 100,
+      "sha256": "939064b0216af624f14b3c87aaad96f42f755fe1d5ed95fa42e13dee11c18439"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/cards/fixed-prior.jsonl",
+      "episodes": 100,
+      "sha256": "7033fcf881c053d556cca0824259d51f11d028c4e132e6ef247b3b2b05d9ec86"
+    },
+    {
+      "path": "results/validation/qwen35-sft/raw/cards/random.jsonl",
+      "episodes": 100,
+      "sha256": "eab867c77f87a6d226a48d9d824659b8421f45b4edbed16f3bbe46d25c5d7f18"
+    }
+  ],
+  "total_episodes": 3000,
+  "note": "No learned-policy scores inspected. Raw reference episodes record their producing command and commit."
+}
