@@ -284,3 +284,13 @@ ties choose the earlier trial. Report every trial. Freeze the selected adapter
 before one final 200-episode test per game. This validation selection is separate
 from validation-loss checkpoint selection. If T5 and T6 both fail to improve,
 inspect reward, inference and data diagnostics before applying the stopping rule.
+
+### Export correction — unavailable diagnostics
+
+- The completed CUDA smoke produced no valid quotes. Its exact saved JSON
+  contains `NaN` for unavailable quote/flow diagnostics, which is not standard
+  JSON. Preserve those original outputs unchanged. Future exports use `null`
+  and Markdown uses `n/a`; expected PnL, regret and all rewards are unchanged.
+- Verification: `pytest -q tests/test_games.py` passed 13 tests, including a
+  no-quote episode checked with `json.dumps(..., allow_nan=False)`. This is an
+  export fix, not a model-quality iteration.

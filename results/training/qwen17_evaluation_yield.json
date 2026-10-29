@@ -1,0 +1,24 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "action": "yield GPU to registered two-step Qwen3.5 memory smoke"
+    },
+    "model_revision": null,
+    "git_commit": "dac3c3424de9acff07055243cf8aec1f3a1389c2",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-29T13:01:20.600430+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "completed_policy_episodes": {
+    "results/final/qwen17-sft800/raw/dice/qwen3-1.7b-sft800.jsonl": 57
+  },
+  "note": "Frozen adapter/decoding unchanged. Resume only missing episodes after the memory smoke; no scores inspected for tuning."
+}

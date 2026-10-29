@@ -13,7 +13,7 @@ does **not** identify the unpublished backend revision served by NIM.
 | Model / conversion | Exact licence and primary source | Attribution / handling |
 |---|---|---|
 | Qwen3-1.7B; `mlx-community/Qwen3-1.7B-4bit` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX conversion by MLX Community. Retain the licence, applicable notices, and mark modifications when redistributing weights/adapters. |
-| Qwen3.5-4B; `mlx-community/Qwen3.5-4B-MLX-4bit`; `unsloth/Qwen3.5-4B` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX Community and Unsloth conversions. Same retention/changed-file obligations. The Unsloth checkpoint is the planned CUDA source; execution status is separate. |
+| Qwen3.5-4B; `mlx-community/Qwen3.5-4B-MLX-4bit`; `unsloth/Qwen3.5-4B` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX Community and Unsloth conversions. Same retention/changed-file obligations. The Unsloth checkpoint is used by the executed CUDA smoke and full training job. |
 | `mlx-community/Qwen3.5-9B-MLX-4bit` | [Apache-2.0 model card](https://huggingface.co/mlx-community/Qwen3.5-9B-MLX-4bit) | Optional memory-dependent candidate; not an executed result unless recorded. |
 | Qwen3.8-27B | [Apache-2.0 model card](https://huggingface.co/Qwen/Qwen3.8-27B) | API candidate if listed by NIM; local training is outside the available memory budget. |
 | `openai/gpt-oss-20b` | [Apache-2.0 model card](https://huggingface.co/openai/gpt-oss-20b) | OpenAI. API inference only; no weights redistributed. |
@@ -42,7 +42,7 @@ replacement for their complete notices and dependency-specific terms.
 |---|---|---|
 | MLX and MLX-LM | MIT: [MLX](https://github.com/ml-explore/mlx/blob/main/LICENSE), [MLX-LM](https://github.com/ml-explore/mlx-lm/blob/main/LICENSE) | Retain Apple Inc. copyright, permission notice and disclaimer. Training calls the upstream trainer and LoRA implementations. |
 | Unsloth Core | [Apache-2.0](https://github.com/unslothai/unsloth/blob/main/LICENSE) | Retain licence/NOTICE and mark changes. The optional AGPL-3.0 Studio/Docker UI is not used or bundled. |
-| Unsloth Zoo | [GNU LGPL version 3](https://github.com/unslothai/unsloth-zoo/blob/main/LICENSE) | Planned CUDA runtime dependency; not vendored. Redistribution must retain its LGPL/GPL texts and library-source/relinking rights as applicable. It must not be labelled Apache-2.0 merely because Unsloth Core is Apache-2.0. |
+| Unsloth Zoo | [GNU LGPL version 3](https://github.com/unslothai/unsloth-zoo/blob/main/LICENSE) | Executed CUDA runtime dependency; not vendored. Redistribution must retain its LGPL/GPL texts and library-source/relinking rights as applicable. It must not be labelled Apache-2.0 merely because Unsloth Core is Apache-2.0. |
 | pybind11 | [BSD-3-Clause](https://github.com/pybind/pybind11/blob/master/LICENSE) | Retain Wenzel Jakob/contributors copyright, conditions and disclaimer; no endorsement. |
 | NumPy | [BSD-3-Clause](https://github.com/numpy/numpy/blob/main/LICENSE.txt) | Retain NumPy Developers copyright, conditions and disclaimer. |
 | PyTorch | [BSD-3-Clause](https://github.com/pytorch/pytorch/blob/main/LICENSE) | Retain upstream copyright, licence and bundled third-party notices. CUDA training dependency. |

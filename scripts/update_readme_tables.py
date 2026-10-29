@@ -17,6 +17,10 @@ def fmt_ci(x, ci, nd=0):
     return f"{x:.{nd}f} [{ci[0]:.{nd}f}, {ci[1]:.{nd}f}]"
 
 
+def fmt_optional(x):
+    return "n/a" if x is None else f"{x:.2f}"
+
+
 def leaderboard(game: str) -> str:
     path = ROOT / "results" / f"leaderboard_{game}.json"
     rows = json.loads(path.read_text())["rows"]
@@ -27,7 +31,7 @@ def leaderboard(game: str) -> str:
         out.append(
             f"| {r['player']} | {r['episodes']} | {fmt_ci(r['pct_of_bayes'], r['pct_of_bayes_ci'])} | "
             f"{fmt_ci(r['epnl'], r['epnl_ci'], 1)} | {r['regret_per_round']:.2f} | "
-            f"{r['median_spread_ratio']:.2f} | {r['mid_error']:.2f} | "
+            f"{fmt_optional(r['median_spread_ratio'])} | {fmt_optional(r['mid_error'])} | "
             f"{r['adverse_cost']:.1f} | {100 * r['format_error_rate']:.0f}% |")
     return "\n".join(out)
 

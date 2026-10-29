@@ -60,7 +60,10 @@ def player_diagnostics(eps: list[dict]) -> dict:
     by_round = [float(np.mean([d["regret"] for d in rows if d["t"] == t])) for t in range(n_rounds)]
     def shift(side):
         v = [d["mid"] - d["m_pub"] for d in rows if d["prev_side"] == side and np.isfinite(d["mid"])]
-        return float(np.mean(v)) if v else np.nan
+        return float(np.mean(v)) if v else None
+
+    sold, bought = shift("sold"), shift("bought")
+    mid_err, ratio = mid_err[np.isfinite(mid_err)], ratio[np.isfinite(ratio)]
 
     from .scoring import bootstrap_ci
 
@@ -72,9 +75,9 @@ def player_diagnostics(eps: list[dict]) -> dict:
     return {
         "regret_per_round_ci": list(bootstrap_ci(per_ep)),
         "posterior_edge_pct": float(100 * ev.sum() / ref_ev.sum()),
-        "flow_shift": shift("sold") - shift("bought"),
-        "mid_error": float(np.nanmean(mid_err)),
-        "median_spread_ratio": float(np.nanmedian(ratio)),
+        "flow_shift": sold - bought if sold is not None and bought is not None else None,
+        "mid_error": float(mid_err.mean()) if mid_err.size else None,
+        "median_spread_ratio": float(np.median(ratio)) if ratio.size else None,
         "regret_per_round": float(regret.mean()),
         "regret_by_round": by_round,
     }

@@ -147,3 +147,27 @@ def test_diagnostics_reference_has_zero_regret():
     assert abs(d["regret_per_round"]) < 1e-9 and d["median_spread_ratio"] == pytest.approx(1.0)
     eps = [episode_to_dict(play_episode(g, s, BASELINES["mean-sd"]())) for s in range(4)]
     assert player_diagnostics(eps)["regret_per_round"] > 0
+
+
+def test_no_quote_diagnostics_are_standard_json():
+    import json
+
+    from makemarket.analysis import player_diagnostics
+    from makemarket.evaluate import episode_to_dict
+
+    class NoQuote:
+        name = "no-quote"
+
+        def reset(self, seed):
+            pass
+
+        def quote(self, obs):
+            return None, {}
+
+    episode = episode_to_dict(play_episode(make_game("dice"), 80000, NoQuote()))
+    diagnostics = player_diagnostics([episode])
+    assert diagnostics["mid_error"] is None
+    assert diagnostics["median_spread_ratio"] is None
+    assert diagnostics["flow_shift"] is None
+    assert diagnostics["regret_per_round"] > 0
+    json.dumps(diagnostics, allow_nan=False)
