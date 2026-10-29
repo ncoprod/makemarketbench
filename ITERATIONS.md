@@ -553,3 +553,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   policy, but subsequent training states are not its own trajectories. Document
   this limitation explicitly; DAgger separately collects on-policy contexts.
   No experiment or outcome changes.
+
+### GLM low-effort availability result
+
+- The separately registered low-effort GLM-5.3-Flash probe also failed after
+  three HTTP 504 responses, with 923.1078577041626 seconds elapsed. Configuration,
+  exact error and source hashes are retained in
+  [protocol-reasoning.json](results/expansion/protocol-reasoning.json).
+- Rechecked [NVIDIA's reasoning controls](https://docs.nvidia.com/nim/vision-language-models/latest/get-started/advanced/get-started-glm-5-3-flash.html):
+  thinking is always enabled and `low` is the smallest documented effort.
+  The failure therefore does not establish poor quoting quality. The separate
+  DeepSeek non-thinking probe remains pending.

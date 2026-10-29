@@ -107,6 +107,72 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T14:16:21.896017+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T14:26:33.185671+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T14:36:45.462248+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T14:46:56.686241+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T14:57:08.962032+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:07:20.225314+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
     }
   ]
 }
