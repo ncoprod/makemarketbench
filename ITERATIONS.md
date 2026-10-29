@@ -96,6 +96,11 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Initial recipe: same Bayes demonstrations, rank 8, 16 layers, batch 1,
   gradient accumulation 2, 1e-4 learning rate, 800-step ceiling, validation-only
   stopping/selection. Policy comparisons use validation seeds above.
+- Validation-loss checks cover **all 480 teacher-validation examples**, every
+  200 microbatches, with three unsuccessful checks for stopping. This replaces
+  the initially drafted random 80-example checks before any T4 execution:
+  changing validation subsets could imitate a plateau. The ceiling is 800
+  microbatches / 400 optimiser updates; receipts distinguish these counts.
 - Prompt contract: explicitly disable thinking during both teacher tokenization
   and generation; audit every training/validation prefix before starting.
 - CUDA recipe: `unsloth/Qwen3.5-4B`, revision

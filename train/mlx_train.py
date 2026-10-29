@@ -55,8 +55,8 @@ def main() -> None:
                   resume_adapter_file=args.resume, iters=args.iters, batch_size=args.batch_size,
                   grad_accumulation_steps=args.accumulation, learning_rate=args.lr,
                   num_layers=args.layers, seed=args.seed, grad_checkpoint=True,
-                  max_seq_length=1536, mask_prompt=True, steps_per_eval=100,
-                  steps_per_report=10, save_every=100, val_batches=80)
+                  max_seq_length=1536, mask_prompt=True, steps_per_eval=200,
+                  steps_per_report=10, save_every=100, val_batches=-1)
     model, tokenizer = load(args.model, revision=args.revision)
     tokenizer.apply_chat_template = functools.partial(tokenizer.apply_chat_template, enable_thinking=False)
     train_set, valid_set, _ = load_dataset(SimpleNamespace(**config), tokenizer)
@@ -71,6 +71,14 @@ def main() -> None:
         best, stale, best_step = float("inf"), 0, 0
         history: list[dict] = []
 
+        def on_train_loss_report(self, info):
+            record.setdefault("training", []).append(info)
+            record.update(completed_iterations=info["iteration"],
+                          optimizer_updates=info["iteration"] // args.accumulation,
+                          peak_memory_bytes=mx.get_peak_memory(),
+                          wall_seconds=time.monotonic() - started, status="running")
+            Path(args.result).write_text(json.dumps(record, indent=2) + "\n")
+
         def on_val_loss_report(self, info):
             self.history.append(info)
             if info["val_loss"] < self.best - 0.001:
@@ -79,7 +87,9 @@ def main() -> None:
             else:
                 self.stale += 1
             record.update(validation=self.history, best_validation_loss=self.best,
-                          best_step=self.best_step, peak_memory_bytes=mx.get_peak_memory(),
+                          best_step=self.best_step, completed_iterations=info["iteration"],
+                          optimizer_updates=info["iteration"] // args.accumulation,
+                          peak_memory_bytes=mx.get_peak_memory(),
                           wall_seconds=time.monotonic() - started, status="running")
             Path(args.result).write_text(json.dumps(record, indent=2) + "\n")
             if self.stale >= 3:

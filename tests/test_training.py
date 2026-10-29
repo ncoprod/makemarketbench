@@ -81,3 +81,37 @@ def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_pa
     rows[0]["rounds"] = [{}] * 5
     write(rows)
     assert scoring.cohort(path) is None
+
+
+def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "final_candidate", Path(__file__).parents[1] / "train/final_candidate.py")
+    selection = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(selection)
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(selection, "receipt", lambda config, revision: {"model_revision": revision})
+    calls = []
+    monkeypatch.setattr(selection.subprocess, "run", lambda command, **kw: calls.append(command))
+    monkeypatch.setattr("sys.argv", ["final_candidate.py", "--model", "test-model", "--revision", "fixed"])
+    for method, percent in (("sft", 90), ("dagger", 80), ("rloo", 70)):
+        label = f"qwen3.5-4b-{method}"
+        adapter = tmp_path / f"train/runs/{label}"
+        adapter.mkdir(parents=True)
+        (adapter / "adapters.safetensors").write_bytes(method.encode())
+        for game in ("dice", "cards"):
+            path = tmp_path / f"results/validation/qwen35-{method}/leaderboard_{game}.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps({"seeds": list(range(80000, 80100)),
+                                        "rows": [{"player": label, "episodes": 100,
+                                                  "pct_of_bayes": percent}]}))
+    (tmp_path / "results/training").mkdir()
+    selection.main()
+    frozen = tmp_path / "results/training/selection.json"
+    before = frozen.read_bytes()
+    for path in (tmp_path / "results/validation").rglob("*.json"):
+        path.write_text("invalid JSON: a resumed test must not reselect")
+    selection.main()
+    assert frozen.read_bytes() == before
+    assert len(calls) == 2
+    assert calls[0] == calls[1]
+    assert "qwen3.5-4b-sft" in calls[0]

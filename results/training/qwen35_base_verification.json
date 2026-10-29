@@ -1,0 +1,97 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/verify_snapshot.py --repo mlx-community/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --local /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --out results/training/qwen35_base_verification.json",
+    "config": {
+      "repo": "mlx-community/Qwen3.5-4B-MLX-4bit",
+      "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "local": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "out": "results/training/qwen35_base_verification.json"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "3b27c88d4e9404d2ca03d7b4bfc3daedbaf0e513",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-29T09:59:09.885079+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "metadata_url": "https://huggingface.co/api/models/mlx-community/Qwen3.5-4B-MLX-4bit/revision/32f3e8ecf65426fc3306969496342d504bfa13f3?blobs=true",
+  "files": {
+    "chat_template.jinja": {
+      "bytes": 7756,
+      "hash": "a585dec894e63da457d9440ec6aa7caa16d20860",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "a585dec894e63da457d9440ec6aa7caa16d20860",
+      "matches": true
+    },
+    "config.json": {
+      "bytes": 3366,
+      "hash": "cb3e1a878a5c4a0505e0c9967da45820b2ca6bd3",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "cb3e1a878a5c4a0505e0c9967da45820b2ca6bd3",
+      "matches": true
+    },
+    "model.safetensors": {
+      "bytes": 3034300695,
+      "hash": "5fb9acd0246866381cf8c5c354c6db1019f6498eec4ccb4f5edcc71ffeacb2db",
+      "hash_algorithm": "sha256",
+      "expected_hash": "5fb9acd0246866381cf8c5c354c6db1019f6498eec4ccb4f5edcc71ffeacb2db",
+      "matches": true
+    },
+    "model.safetensors.index.json": {
+      "bytes": 101944,
+      "hash": "40196ba58595ef9b3fad25a8a6daf3288b953c19",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "40196ba58595ef9b3fad25a8a6daf3288b953c19",
+      "matches": true
+    },
+    "preprocessor_config.json": {
+      "bytes": 390,
+      "hash": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64",
+      "matches": true
+    },
+    "processor_config.json": {
+      "bytes": 1300,
+      "hash": "7ad6acdf4203f22b7b990e36ccc3a1fe38563d5e",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "7ad6acdf4203f22b7b990e36ccc3a1fe38563d5e",
+      "matches": true
+    },
+    "tokenizer.json": {
+      "bytes": 19989343,
+      "hash": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+      "hash_algorithm": "sha256",
+      "expected_hash": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+      "matches": true
+    },
+    "tokenizer_config.json": {
+      "bytes": 1139,
+      "hash": "a068e2468cff426a9b105006e74e044030a6faf4",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "a068e2468cff426a9b105006e74e044030a6faf4",
+      "matches": true
+    },
+    "video_preprocessor_config.json": {
+      "bytes": 385,
+      "hash": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe",
+      "matches": true
+    },
+    "vocab.json": {
+      "bytes": 6722759,
+      "hash": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176",
+      "hash_algorithm": "git-blob-sha1",
+      "expected_hash": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176",
+      "matches": true
+    }
+  },
+  "all_local_checked_files_match": true
+}

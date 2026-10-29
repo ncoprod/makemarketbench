@@ -21,7 +21,7 @@ def file_sha256(path: str | Path) -> str:
 
 
 def receipt(config: dict, model_revision: str | None = None) -> dict:
-    root = Path(__file__).resolve().parents[2]
+    root = Path.cwd()
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
     diff = subprocess.check_output(["git", "diff", "HEAD"], cwd=root)
     versions = {}
