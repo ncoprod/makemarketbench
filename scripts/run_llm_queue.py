@@ -84,8 +84,10 @@ def main() -> None:
                     if ok:
                         entry.update(extra_body=extra, label=model + suffix)
                         break
-                protocol[model] = entry
-                PROTOCOL.write_text(json.dumps(protocol, indent=2) + "\n")
+                # only persist decisions; transient endpoint errors are retried next run
+                if "label" in entry or any(not pr["note"].startswith("error") for pr in entry["probes"]):
+                    protocol[model] = entry
+                    PROTOCOL.write_text(json.dumps(protocol, indent=2) + "\n")
             if "label" not in entry:
                 print(f"[queue] {model}: no usable variant, skipping", flush=True)
                 continue
