@@ -321,3 +321,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - End-to-end check: generate and score Bayes on dice seed 80,000 in an ignored
   output directory; verify the provenance command, exact seed, 100% self-ratio
   and standard JSON. This is workflow preparation, not a policy trial.
+
+### CUDA checkpoint/session separation (not yet submitted)
+
+- Future builds accept `--train-only` to save warm-start and GRPO adapters before
+  a separate `--eval-only --adapter DIR` session. Explicit adapters are checked
+  against the requested base and hashed. GRPO resume preserves the original
+  SFT/data partition. The already running version 1 is unchanged.
+- Verification: CPU reward dry run and paired JSON export test pass. CUDA
+  execution of these new stage flags is not yet verified; it is not claimed.

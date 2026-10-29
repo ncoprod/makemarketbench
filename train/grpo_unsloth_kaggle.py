@@ -204,19 +204,34 @@ def train(args) -> None:
     adapters = [p for p in Path("/kaggle/input").rglob("adapter_model.safetensors")
                 if json.loads(p.with_name("adapter_config.json").read_text())[
                     "base_model_name_or_path"] == args.base_model]
+    if args.adapter:
+        adapter = Path(args.adapter)
+        base = json.loads((adapter / "adapter_config.json").read_text())["base_model_name_or_path"]
+        if base not in (args.base_model, args.model):
+            raise ValueError(f"Adapter base {base!r} does not match {args.model!r}")
+        adapters = [adapter / "adapter_model.safetensors"]
+        args.adapter_sha256 = hashlib.sha256(adapters[0].read_bytes()).hexdigest()
     if adapters:
         from peft import PeftModel
 
         model = PeftModel.from_pretrained(model, str(adapters[0].parent), is_trainable=True)
         model.enable_input_require_grads()
         model.gradient_checkpointing_enable()
-        args.sft_steps = 0
-        print(f"[warm start] converted MLX adapter: {adapters[0]}", flush=True)
+        if not args.resume:
+            args.sft_steps = 0
+        print(f"[warm start] PEFT adapter: {adapters[0]}", flush=True)
     else:
         model = FastLanguageModel.get_peft_model(
             model, r=args.lora_rank, lora_alpha=2 * args.lora_rank, lora_dropout=0.0,
             target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
             use_gradient_checkpointing="unsloth", random_state=0)
+
+    if args.eval_only:
+        if not adapters:
+            raise ValueError("--eval-only requires a compatible saved adapter")
+        FastLanguageModel.for_inference(model)
+        evaluate(model, tokenizer, args)
+        return
 
     rows = build_prompt_set(args.episodes, args.games)
     print(f"prompt set: {len(rows)} states")
@@ -238,9 +253,10 @@ def train(args) -> None:
     if not args.resume:
         model.save_pretrained(str(WORK / "warmstart_adapter"))
         tokenizer.save_pretrained(str(WORK / "warmstart_adapter"))
-        FastLanguageModel.for_inference(model)
-        evaluate(model, tokenizer, args, label=args.label + "-warmstart")
-        FastLanguageModel.for_training(model)
+        if not args.train_only:
+            FastLanguageModel.for_inference(model)
+            evaluate(model, tokenizer, args, label=args.label + "-warmstart")
+            FastLanguageModel.for_training(model)
 
     grpo_rows = [{"prompt": render(tokenizer, r["messages"]), "game": r["game"], "values": r["values"],
                   "probs": r["probs"], "m_pub": r["m_pub"], "ref_quote": r["ref_quote"]}
@@ -259,8 +275,9 @@ def train(args) -> None:
     trainer.train(resume_from_checkpoint=args.resume or None)
     model.save_pretrained(str(WORK / "lora_adapter"))
     tokenizer.save_pretrained(str(WORK / "lora_adapter"))
-    FastLanguageModel.for_inference(model)
-    evaluate(model, tokenizer, args)
+    if not args.train_only:
+        FastLanguageModel.for_inference(model)
+        evaluate(model, tokenizer, args)
 
 
 # --------------------------------------------------------------------- evaluation
@@ -366,6 +383,10 @@ def main() -> None:
     ap.add_argument("--eval-seed", type=int, default=200)
     ap.add_argument("--resume", help="GRPO checkpoint directory, including optimizer state")
     ap.add_argument("--sft-resume", help="SFT checkpoint directory, including optimizer state")
+    ap.add_argument("--adapter", help="explicit compatible PEFT adapter directory")
+    stage = ap.add_mutually_exclusive_group()
+    stage.add_argument("--train-only", action="store_true", help="save both adapters; evaluate in a later session")
+    stage.add_argument("--eval-only", action="store_true", help="evaluate a saved adapter without training")
     ap.add_argument("--dry-run", action="store_true")
     args, _ = ap.parse_known_args()
     WORK.mkdir(parents=True, exist_ok=True)
