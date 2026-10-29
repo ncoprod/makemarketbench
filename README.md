@@ -259,6 +259,7 @@ exchange latency.
 | [Engine confirmation](results/engine_trials/inline_matching_confirmation.json) | Event-stream hash, old/new source hashes, compiler command, all timings, checksum | Producing commit and exact candidate patch retained |
 | [Engine rerun](results/engine_bench_optimised.json) | Exact command, seed, source/binary hashes, environment | `provenance.git_commit` and working-diff hash |
 | [Completed 1.7B continuation](results/training/qwen17_sft800.json) | Exact launch, data/base/adapter hashes, 800 total iterations | Post-run receipt explicitly identifies missing start-time diff and memory peak |
+| [Game comparability](results/final/game_comparability.json) | Complete CUDA, MLX and API test cohorts checked against canonical seeded games | Seed, hidden value, six rounds and public reveals verified without inspecting model scores |
 | [Teacher token audit](results/training/qwen35_token_audit.json) | Data hashes, pinned model revision, every split checked | Exact command and producing commit |
 | [Kaggle failure](results/training/kaggle_attempt.json) | Private dataset/kernel settings and exact error | Failed submission is recorded as failed |
 | [Completed CUDA training](results/training/kaggle_staged_completion.json) | Pinned model, trainer configs, adapter hashes and downloaded runtime | SFT and GRPO complete; [test evaluation](results/training/kaggle_staged_final_completion.json) retains GRPO cohorts and failed SFT batching check |

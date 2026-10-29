@@ -1368,3 +1368,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   builder and submitted source are retained in
   `results/training/kaggle_staged_sft_serial.json`; the failed version remains
   separate. Status polling resumes every 610 seconds.
+
+### Cross-backend held-out game comparability check
+
+- Verify the completed CUDA, MLX and API cohorts against freshly generated
+  canonical games using only seed, hidden value, round indices and public
+  reveals. Do not inspect model scores during this check.
+- Command: `.venv/bin/python scripts/check_cohort_games.py results/kaggle/staged-final-v1 results/kaggle/original-v1 results/final/qwen17-sft800 results/expansion/raw`.
+- All 24 complete cohorts pass: each has the 200 distinct registered test seeds
+  and six rounds per episode, with canonical hidden values and public reveals.
+  Incomplete API/GRPO files remain listed separately rather than counted as
+  completed. Exact command, source hashes and input hashes are retained in
+  `results/final/game_comparability.json`. Ruff passes for the new script.

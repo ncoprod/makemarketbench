@@ -1,0 +1,190 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/check_cohort_games.py results/kaggle/staged-final-v1 results/kaggle/original-v1 results/final/qwen17-sft800 results/expansion/raw",
+    "config": {
+      "inputs": [
+        "results/kaggle/staged-final-v1",
+        "results/kaggle/original-v1",
+        "results/final/qwen17-sft800",
+        "results/expansion/raw"
+      ],
+      "out": "results/final/game_comparability.json"
+    },
+    "model_revision": null,
+    "git_commit": "b6c352c4159bbceb650d0c616e52d062ab309629",
+    "uncommitted_diff_sha256": "009822a759038061f5369bb0be04dda40985764ae8c486b2d6533e00cd724d67",
+    "started_at": "2026-10-29T23:04:25.240573+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "cohorts": {
+    "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+      "sha256": "66e0df44486cb4b347c6f1c18efae11f4ba01eb263a28538c558772f1bee70dc"
+    },
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+      "sha256": "1b3790f492adfd210beb6f3de5774afc48e763a0384da4738b638ffc8f68d05e"
+    },
+    "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+      "sha256": "7fa324326209f79bd86d251ccdc650c6627704d1eb634b40fe9a72edc2b9b3fa"
+    },
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+      "sha256": "42b581fdafa0c1e7c7bf66ab51bb7603856adf6953b31ef2cdb22fe65d23b637"
+    },
+    "results/final/qwen17-sft800/raw/cards/bayes-public.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "bayes-public",
+      "sha256": "cdd798fbe96978ea41dd61cdcac2fb472193528607b96d09538bb4b2135b0447"
+    },
+    "results/final/qwen17-sft800/raw/cards/bayes.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "bayes",
+      "sha256": "24771e0a1e518e0f7ac81d35dc1bc59be52b742dbf4aef69fd55a888f36d61c2"
+    },
+    "results/final/qwen17-sft800/raw/cards/fixed-prior.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "fixed-prior",
+      "sha256": "eebf276a03154b88070ac9f46050b9c136d04824683c872d2b9901df17369b2b"
+    },
+    "results/final/qwen17-sft800/raw/cards/mean-sd.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "mean-sd",
+      "sha256": "c662bb7dfcaaf5a42ea7fc36329de9d9dac81270d855a2da641307b3fb8a98ad"
+    },
+    "results/final/qwen17-sft800/raw/cards/qwen3-1.7b-sft800.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "qwen3-1.7b-sft800",
+      "sha256": "a81402fa88755ab27f2ab470bde3e8d409c9047d8305c859d2a9c568f6d742ed"
+    },
+    "results/final/qwen17-sft800/raw/cards/random.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "random",
+      "sha256": "d05933d8d98d16cc6f2d74bf8ca16971b037ccb587948ea8a66ad62d7cdf98c5"
+    },
+    "results/final/qwen17-sft800/raw/dice/bayes-public.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "bayes-public",
+      "sha256": "f02055885c6fc364ba9abb3379914b1d595925fa3ae3a31c2244016e57dcd8f6"
+    },
+    "results/final/qwen17-sft800/raw/dice/bayes.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "bayes",
+      "sha256": "bf06e99f1c3ce63015070809157147bd154d43c40f8ee6d07da8fb388fdfdf3b"
+    },
+    "results/final/qwen17-sft800/raw/dice/fixed-prior.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "fixed-prior",
+      "sha256": "be71613d1e754fbc7990e5afdd705be2c96265771881f96647ce0235a177e48d"
+    },
+    "results/final/qwen17-sft800/raw/dice/mean-sd.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "mean-sd",
+      "sha256": "24bec5c84f104c478efee53a25baf8ae70c85bb2e756fa80bd1c4109f5c98b51"
+    },
+    "results/final/qwen17-sft800/raw/dice/qwen3-1.7b-sft800.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "qwen3-1.7b-sft800",
+      "sha256": "3eff00c8a5af8767d9f8279ca5e914352b6e3c1b6969d264d84b29c9d3445fcd"
+    },
+    "results/final/qwen17-sft800/raw/dice/random.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "random",
+      "sha256": "589bc2e77c8f40041b1c6c1a79c109036b6c5894c8ebe0e38d8236dc6a80db25"
+    },
+    "results/kaggle/original-v1/results/raw/cards/bayes.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "bayes",
+      "sha256": "2f022c5fdd4bd30b74d202f2e01064c5820e093e6733895c583dd86d254ac56f"
+    },
+    "results/kaggle/original-v1/results/raw/cards/qwen3.5-4b-grpo-warmstart.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "qwen3.5-4b-grpo-warmstart",
+      "sha256": "06259863a7481bd7a06935f82824b58d962bd5e7c2852519e7b8d7aedf8589de"
+    },
+    "results/kaggle/original-v1/results/raw/dice/bayes.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "bayes",
+      "sha256": "54a0dc6c9e3c6746d71c415038e2fb52faaa9a1e47eeb0e8247ae09048d4c84b"
+    },
+    "results/kaggle/original-v1/results/raw/dice/qwen3.5-4b-grpo-warmstart.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "qwen3.5-4b-grpo-warmstart",
+      "sha256": "4a8d6084b1230f4b8b7a5444b906d015d96abe8d8629ce74bff724be21ac3834"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "bayes",
+      "sha256": "3c869ac3372f13bca62567dd93d7a5984261d73115d66ec67c2abbcabc4b5365"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "qwen3.5-4b-staged-grpo",
+      "sha256": "46af35950fbc1f7960a84438aece21f3b2e5e1e3692f0764b7d5d5494c8e81c6"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "bayes",
+      "sha256": "e6548e0c37b4f567d84f4ba2349dae33ce1a3224e75b2f7fd4a5e7e878d495a5"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "qwen3.5-4b-staged-grpo",
+      "sha256": "e0d7211b3eb35fcd0842da3026b251a175df089bc507ea4017158dde0fc621fc"
+    }
+  },
+  "incomplete_cohorts": [
+    "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl",
+    "results/kaggle/original-v1/results/raw/dice/qwen3.5-4b-grpo.jsonl"
+  ],
+  "source_sha256": "6cb581d54387605e753644265bfeebecccc9cf1c3f7310e619ef93c3c754ee90",
+  "game_source_sha256": {
+    "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+    "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+    "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+    "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+    "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc"
+  },
+  "checks": [
+    "200 distinct seeds 200-399",
+    "six rounds per episode",
+    "hidden value and public reveals match canonical seeded game"
+  ],
+  "interpretation": "Structural comparability only; no model scores inspected."
+}
