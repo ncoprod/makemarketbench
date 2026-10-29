@@ -36,6 +36,7 @@ def main() -> None:
     args = ap.parse_args()
     np.random.seed(args.seed)
     record = receipt(vars(args), args.revision)
+    record["optimizer_restarted"] = bool(args.resume)
     record["data_sha256"] = {n: file_sha256(Path(args.data) / f"{n}.jsonl") for n in ("train", "valid")}
     record["source_sha256"] = file_sha256(__file__)
     record["status"] = "initializing"

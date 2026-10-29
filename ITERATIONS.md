@@ -81,7 +81,14 @@ do not invent missing provenance. Historical adapter configs are preserved.
   one final 200-episode evaluation per game; neither test score changes training.
   Report both candidates; any cross-candidate superiority claim also corrects
   for these two candidates. Training seed 0; exact defaults are in the script.
-- Submission retry receipt: `results/training/kaggle_retry.json` (pending).
+- Submission retry: accepted private version 1, T4 requested and internet
+  enabled; console confirms actual SFT on one of two allocated T4s. Unsloth
+  switches Qwen3.5 training to float32 on T4. GRPO completion is still pending.
+  Receipt: [kaggle_retry.json](results/training/kaggle_retry.json).
+- Future builds save SFT optimizer checkpoints every 50 steps and a warm-start
+  adapter, expose SFT resume, skip redundant warm-start work on GRPO resume,
+  and record memory for each allocated GPU. These source improvements do not
+  modify the already running version 1; its submitted snapshot is preserved.
 
 ### T2 — complete earlier Qwen3-1.7B BC (completed after interruption)
 

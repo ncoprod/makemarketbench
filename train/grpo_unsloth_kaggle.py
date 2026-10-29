@@ -221,22 +221,26 @@ def train(args) -> None:
     rows = build_prompt_set(args.episodes, args.games)
     print(f"prompt set: {len(rows)} states")
 
-    if args.sft_steps > 0:
+    if args.sft_steps > 0 and not args.resume:
         sft_rows = [{"text": render(tokenizer, r["messages"]) + sft_target(r) + tokenizer.eos_token}
                     for r in rows[: args.sft_steps * args.sft_batch]]
         sft = _trainer(SFTTrainer, tokenizer, model=model, train_dataset=Dataset.from_list(sft_rows),
                        args=_config(SFTConfig, output_dir=str(WORK / "sft"), max_steps=args.sft_steps,
                                     per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
-                                    logging_steps=10, save_strategy="no", report_to="none",
+                                    logging_steps=10, save_strategy="steps", save_steps=50,
+                                    save_total_limit=2, report_to="none",
                                     dataset_text_field="text", max_seq_length=args.max_seq_len))
         (WORK / "sft_config.json").write_text(json.dumps(
             {**execution(args), "trainer_config": sft.args.to_dict()}, indent=2) + "\n")
-        sft.train()
+        sft.train(resume_from_checkpoint=args.sft_resume or None)
         del sft
 
-    FastLanguageModel.for_inference(model)
-    evaluate(model, tokenizer, args, label=args.label + "-warmstart")
-    FastLanguageModel.for_training(model)
+    if not args.resume:
+        model.save_pretrained(str(WORK / "warmstart_adapter"))
+        tokenizer.save_pretrained(str(WORK / "warmstart_adapter"))
+        FastLanguageModel.for_inference(model)
+        evaluate(model, tokenizer, args, label=args.label + "-warmstart")
+        FastLanguageModel.for_training(model)
 
     grpo_rows = [{"prompt": render(tokenizer, r["messages"]), "game": r["game"], "values": r["values"],
                   "probs": r["probs"], "m_pub": r["m_pub"], "ref_quote": r["ref_quote"]}
@@ -361,6 +365,7 @@ def main() -> None:
     ap.add_argument("--eval-episodes", type=int, default=200)
     ap.add_argument("--eval-seed", type=int, default=200)
     ap.add_argument("--resume", help="GRPO checkpoint directory, including optimizer state")
+    ap.add_argument("--sft-resume", help="SFT checkpoint directory, including optimizer state")
     ap.add_argument("--dry-run", action="store_true")
     args, _ = ap.parse_known_args()
     WORK.mkdir(parents=True, exist_ok=True)
@@ -378,7 +383,7 @@ def main() -> None:
 
         if not torch.cuda.is_available():
             raise RuntimeError("Kaggle did not allocate a CUDA GPU")
-        record["gpu"] = torch.cuda.get_device_name(0)
+        record["gpus"] = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
         record["versions"] = {p: importlib.metadata.version(p)
                               for p in ("torch", "unsloth", "trl", "transformers", "peft")}
         train(args)
@@ -391,6 +396,10 @@ def main() -> None:
         if "torch" in sys.modules and torch.cuda.is_available():
             record["peak_allocated_bytes"] = torch.cuda.max_memory_allocated()
             record["peak_reserved_bytes"] = torch.cuda.max_memory_reserved()
+            record["memory_by_gpu"] = [
+                {"device": i, "peak_allocated_bytes": torch.cuda.max_memory_allocated(i),
+                 "peak_reserved_bytes": torch.cuda.max_memory_reserved(i)}
+                for i in range(torch.cuda.device_count())]
         (WORK / "runtime.json").write_text(json.dumps(record, indent=2) + "\n")
 
 
