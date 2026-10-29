@@ -22,5 +22,5 @@ while :; do
       exit
     fi
   done
-  if [ "$resource" = nim ]; then sleep 5; else sleep 1; fi
+  sleep 1
 done

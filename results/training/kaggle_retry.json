@@ -343,6 +343,39 @@
       ],
       "exit_code": 1,
       "output": "Cannot access kernel 'nicolascoquelet/makemarketbench-grpo-qwen3' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug \u2014 use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private."
+    },
+    {
+      "at": "2026-10-29T13:37:10.232227+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T13:47:22.484005+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T13:57:33.540521+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "console_observation": {
@@ -421,5 +454,24 @@
       "output": "ref,title,author,lastRunTime,totalVotes\nnicolascoquelet/makemarketbench-grpo-qwen3,MakeMarketBench GRPO Qwen3,Nicolas Coquelet,2026-10-29 10:18:04.410000,0\nnicolascoquelet/makemarketbench-grpo-qwen3-smoke,MakeMarketBench GRPO Qwen3 smoke,Nicolas Coquelet,2026-10-29 10:52:14.933000,0"
     },
     "note": "Next scheduled kernel-status poll verifies remote execution; no extra status poll issued."
-  }
+  },
+  "ui_observations": [
+    {
+      "method": "native Chrome accessibility view of private Kaggle Logs tab",
+      "elapsed_seconds_displayed": 12831.0,
+      "visible_sft_metrics": {
+        "train_runtime_displayed": "6777",
+        "train_loss_displayed": "0.2319",
+        "epoch_displayed": "2"
+      },
+      "grpo_update_observed": false,
+      "first_complete_200_episode_game_observed": false,
+      "note": "Absence from visible logs is not proof of no progress; original stdout may be buffered.",
+      "observation_time_window_utc": [
+        "2026-10-29T13:50:18Z",
+        "2026-10-29T13:53:07Z"
+      ],
+      "recorded_at": "2026-10-29T14:03:16.192507+00:00"
+    }
+  ]
 }

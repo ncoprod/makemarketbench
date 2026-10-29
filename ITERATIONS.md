@@ -449,3 +449,7 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   our wrappers waited between 30-second checks. Retry acquisition every second
   instead; the atomic mkdir mutex and exclusive execution remain unchanged.
   Shell syntax verification passes. This is scheduling, not a policy trial.
+
+- Apply the same one-second acquisition retry to NIM: both supplemental
+  wrappers have waited over an hour, including observed intervening owner
+  changes. This changes no API concurrency, request throttle or retry backoff.
