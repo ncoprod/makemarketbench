@@ -59,3 +59,25 @@ def test_rloo_baseline_is_leave_one_out_and_translation_invariant(monkeypatch):
     assert advantages == pytest.approx([-2, -2 / 3, 2 / 3, 2])
     assert advantages.sum() == pytest.approx(0)
     np.testing.assert_allclose(advantages, rloo.leave_one_out([101, 102, 103, 104]))
+
+
+def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_path):
+    spec = importlib.util.spec_from_file_location(
+        "final_scoring", Path(__file__).parents[1] / "scripts/score_final.py")
+    scoring = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(scoring)
+    path = tmp_path / "episodes.jsonl"
+    rows = [{"seed": s, "rounds": [{}] * 6} for s in range(200, 400)]
+
+    def write(records):
+        path.write_text("".join(json.dumps(r) + "\n" for r in records))
+
+    write(rows)
+    assert len(scoring.cohort(path)) == 200
+    write(rows[:-1])
+    assert scoring.cohort(path) is None
+    write(rows + [rows[0]])
+    assert scoring.cohort(path) is None
+    rows[0]["rounds"] = [{}] * 5
+    write(rows)
+    assert scoring.cohort(path) is None

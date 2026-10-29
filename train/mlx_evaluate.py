@@ -63,6 +63,12 @@ def main() -> None:
     record["source_sha256"] = file_sha256(__file__)
     if args.adapter:
         record["adapter_sha256"] = file_sha256(Path(args.adapter) / "adapters.safetensors")
+    for name in args.games:
+        path = Path(args.out) / "raw" / name / f"{args.label}.jsonl"
+        for episode in load_results(path):
+            old = episode.get("provenance", {})
+            if any(old.get(k) != record.get(k) for k in ("adapter_sha256", "model_revision")):
+                raise ValueError(f"{path} contains a different model/adapter; use a new output directory")
     started = time.monotonic()
 
     import mlx.core as mx

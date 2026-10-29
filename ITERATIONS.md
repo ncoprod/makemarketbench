@@ -31,6 +31,9 @@ External access failures remain unmet targets, not successful training trials.
   comparisons must also pass family-wise Bonferroni intervals at level
   `1 - 0.05/(K + 2)` (K comparisons plus dice threshold and cards positivity).
   Do not claim a winner from overlapping or uncorrected intervals.
+  The K corrected comparisons are paired differences in dice expected PnL;
+  the other two claims are the dice ratio and cards positivity. Marginal
+  individual-model intervals must also be separated as required by the target.
 - Keep raw episodes, settings, seed ranges, model revisions, source commit,
   commands, failures and measured resource usage with each new result.
 
@@ -61,7 +64,7 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Adapter export verification: maximum forward-delta error 1.6093254089355469e-6;
   CUDA NF4 and MLX affine quantization still produce different base weights.
 
-### T2 — complete earlier Qwen3-1.7B BC (interrupted, continuation pending)
+### T2 — complete earlier Qwen3-1.7B BC (interrupted once, restarted and running)
 
 - Hypothesis: the truncated earlier run undertrained the teacher policy.
 - Change: resume step-300 weights for 500 updates; validation 40 batches rather
@@ -70,7 +73,13 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Interim result: validation loss 0.229 at start; 10 updates reported, then the
   owner interrupted the turn. No new checkpoint saved; prior step-300 weights
   remain intact. This is an interrupted trial, not 800 completed updates.
-- Evidence: ignored `runs/sft800.log`; final machine-readable result pending.
+- Restart: resumed the same step-300 adapter with the same continuation recipe.
+  The fixed total-step-800 adapter is a predeclared final baseline; it will be
+  evaluated once on the fresh 200-episode cohort, independently of T4–T6 selection.
+- Evidence: ignored `runs/sft800.log`; `results/training/qwen17_sft800.json`
+  will record completion, exact command, restarted optimiser and measured runtime.
+  Local base weights/tokenizer now match all checked immutable Hub blobs:
+  [verification](results/training/qwen17_base_verification.json).
 
 ### T3 — extended NIM probes (interrupted, continuation pending)
 
