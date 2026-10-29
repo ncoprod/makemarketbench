@@ -1070,3 +1070,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   source files and hashes survive in outputs. The added test covers resuming
   GRPO optimizer step 20 to the registered ceiling 52, as well as starting from
   SFT; no GPU result is inferred from it.
+
+### T11 full-model validation parity
+
+- The full 480-example validation pass at the unchanged initial adapter reports
+  2.1129567623138428, exactly the same loss as the pre-reboot implementation.
+  The model revision and both dataset hashes match. The new pass takes
+  1,493.2317288750019 seconds; this is not a controlled timing comparison.
+- Retain the complete initial validation snapshot and calculation source in
+  `results/training/qwen35_answer_full_validation.json`. This strengthens the
+  loss-preservation evidence beyond the small gradient tests; it is not a
+  trained-policy improvement. The 800-microbatch training stage continues.
