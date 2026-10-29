@@ -1187,3 +1187,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   two-adapter policy, not a single-checkpoint result. Increase the correction
   family from eight to nine before any new final score is inspected. Final
   PnL, CIs and target outcomes remain pending.
+
+### Computer-use outage during newest-family training
+
+- After the downloaded update-500 progress sample, computer use fails with
+  `Sky Computer Use native pipe startup failed`; browser access separately
+  reports `The browser access host is unavailable`. Resetting and reconnecting
+  do not restore access. The official SDK's draft-output request returns 404.
+- Preserve these exact errors and the recovery attempts in
+  `results/training/kaggle_ui_outage.json`. The latest phase and live draft
+  outputs remain unknown. Do not replace the useful session or present its
+  last progress sample as a completed run. Ask the owner to restore computer
+  use while CLI batch monitors, local training and API evaluations continue.
+- The complete local suite now passes 106 tests, with no skips, after the
+  greedy-cache and RLOO repairs (`results/verification.json`).

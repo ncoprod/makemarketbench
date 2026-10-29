@@ -3,18 +3,18 @@
     ".venv/bin/pytest",
     "-q"
   ],
-  "git_commit": "192f0dac0afe05f445a17f2319dec2b9415be681",
+  "git_commit": "3b55940a67f524dd3cea4d258b54333ea0ba3c51",
   "config": {
     "suite": "all local tests",
     "MLX_parity_device": "CPU"
   },
   "seed": "fixed by individual tests",
   "model_revision": "no full model loaded; mathematical recurrence tests only",
-  "passed": 104,
+  "passed": 106,
   "skipped": 0,
   "exit_code": 0,
-  "wall_seconds": 10.415582542002085,
-  "started_at": "2026-10-29T21:27:14.551360+00:00",
+  "wall_seconds": 6.391941709000093,
+  "started_at": "2026-10-29T21:40:06.178933+00:00",
   "stdout_file": "results/verification.log",
-  "stdout_sha256": "3b02d480fe51529f3a50377e9bebcf98545136e527391071e68be89012bfc1af"
+  "stdout_sha256": "693765c638c87c570b63716ccb4df6ca9a22f0181da2cecbf36a73e83e87f3c0"
 }

@@ -1,0 +1,46 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_recovery_status.py",
+    "config": {
+      "purpose": "record unavailable computer-use transport while independent CLI and local work continue"
+    },
+    "model_revision": null,
+    "git_commit": "3b55940a67f524dd3cea4d258b54333ea0ba3c51",
+    "uncommitted_diff_sha256": "d89e00fa07c582a54411127b25e6881a32da2d1d5659a8753f1939468b7775b9",
+    "started_at": "2026-10-29T21:42:35.634252+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+  "last_downloaded_progress": "results/kaggle/qwen38-training-v4/progress/step500-runtime.json",
+  "last_download_receipt": "results/kaggle/qwen38-training-v4/progress/step500-download.json",
+  "exact_errors": [
+    "Sky Computer Use native pipe startup failed",
+    "The browser access host is unavailable"
+  ],
+  "recovery_attempts": [
+    "Reset persistent computer-use runtime",
+    "Select Chrome browser again",
+    "Re-read documentation and request enabled-surface inventory"
+  ],
+  "official_sdk_fallback": {
+    "at": "2026-10-29T21:17:56.073245+00:00",
+    "method": "official SDK ListKernelSessionOutput",
+    "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+    "version_label": "draft",
+    "status": "failed",
+    "error_type": "HTTPError",
+    "http_status": 404
+  },
+  "status": "blocked_live_draft_output_retrieval; training phase since last downloaded progress is unknown",
+  "independent_work": "Batch CLI monitors continue every 610 seconds; local MLX training and sequential NIM batch continue under their locks.",
+  "constraint": "Do not restart or replace the useful interactive training session before trained outputs are preserved. CLI Quick Save exposes no explicit live-draft Save Output setting.",
+  "calculation_source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import receipt, file_sha256\n\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nfor session in ledger['sessions']:\n    if session['kernel'].endswith('-validate-staged'):\n        session['hours'] = session['script_wall_seconds'] / 3600\n        session['hours_basis'] = 'Downloaded script runtime only; allocation startup and output-finalization billing remain unknown.'\np.write_text(json.dumps(ledger, indent=2) + '\\n')\nrecord = {\n    'provenance': receipt({'purpose':'record unavailable computer-use transport while independent CLI and local work continue'}),\n    'kernel': 'nicolascoquelet/makemarketbench-qwen3-8-27b-training',\n    'last_downloaded_progress': 'results/kaggle/qwen38-training-v4/progress/step500-runtime.json',\n    'last_download_receipt': 'results/kaggle/qwen38-training-v4/progress/step500-download.json',\n    'exact_errors': ['Sky Computer Use native pipe startup failed', 'The browser access host is unavailable'],\n    'recovery_attempts': ['Reset persistent computer-use runtime', 'Select Chrome browser again', 'Re-read documentation and request enabled-surface inventory'],\n    'official_sdk_fallback': json.loads(Path('runs/kaggle_draft_output_check.json').read_text()),\n    'status': 'blocked_live_draft_output_retrieval; training phase since last downloaded progress is unknown',\n    'independent_work': 'Batch CLI monitors continue every 610 seconds; local MLX training and sequential NIM batch continue under their locks.',\n    'constraint': 'Do not restart or replace the useful interactive training session before trained outputs are preserved. CLI Quick Save exposes no explicit live-draft Save Output setting.',\n    'calculation_source': Path(__file__).read_text(), 'source_sha256': file_sha256(__file__),\n}\nPath('results/training/kaggle_ui_outage.json').write_text(json.dumps(record, indent=2) + '\\n')\n",
+  "source_sha256": "5099eac2a424350022cb45e73d5d9dd97048f662bda1e1e4bac9b4fd4b69727f"
+}
