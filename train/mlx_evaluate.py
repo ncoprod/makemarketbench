@@ -60,6 +60,7 @@ def main() -> None:
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     record = receipt(vars(args), args.revision)
+    record["source_sha256"] = file_sha256(__file__)
     if args.adapter:
         record["adapter_sha256"] = file_sha256(Path(args.adapter) / "adapters.safetensors")
     started = time.monotonic()
@@ -67,7 +68,7 @@ def main() -> None:
     import mlx.core as mx
     from mlx_lm import load
 
-    model, tokenizer = load(args.model, adapter_path=args.adapter)
+    model, tokenizer = load(args.model, adapter_path=args.adapter, revision=args.revision)
     seeds = list(range(args.seed, args.seed + args.episodes))
     for name in args.games:
         raw = Path(args.out) / "raw" / name

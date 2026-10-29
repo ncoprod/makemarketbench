@@ -25,6 +25,7 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=150, help="per game; 1,800 new states total")
     args = ap.parse_args()
     record = receipt(vars(args), args.revision)
+    record["source_sha256"] = file_sha256(__file__)
     record["adapter_sha256"] = file_sha256(Path(args.adapter) / "adapters.safetensors")
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -36,7 +37,7 @@ def main() -> None:
     import mlx.core as mx
     from mlx_lm import load
 
-    model, tokenizer = load(args.model, adapter_path=args.adapter)
+    model, tokenizer = load(args.model, adapter_path=args.adapter, revision=args.revision)
     for game_name in ("dice", "cards"):
         for seed in range(30000, 30000 + args.episodes):
             if (game_name, seed) in done:

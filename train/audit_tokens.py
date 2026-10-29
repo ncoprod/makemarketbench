@@ -16,8 +16,9 @@ def main():
     ap.add_argument("--data", default="train/data")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
-    tokenizer = AutoTokenizer.from_pretrained(args.model)
+    tokenizer = AutoTokenizer.from_pretrained(args.model, revision=args.revision)
     result = {"provenance": receipt(vars(args), args.revision), "splits": {}}
+    result["source_sha256"] = file_sha256(__file__)
     for split in ("train", "valid"):
         path = Path(args.data) / f"{split}.jsonl"
         lengths, mismatches = [], []

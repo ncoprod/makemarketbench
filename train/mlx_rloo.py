@@ -36,6 +36,7 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=5)
     args = ap.parse_args()
     record = receipt(vars(args), args.revision)
+    record["source_sha256"] = file_sha256(__file__)
     record["initial_adapter_sha256"] = file_sha256(Path(args.adapter) / "adapters.safetensors")
     result, out = Path(args.result), Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -53,7 +54,7 @@ def main() -> None:
     from mlx_lm.tuner.trainer import grad_checkpoint
     from mlx_lm.tuner.utils import load_adapters
 
-    model, tokenizer = load(args.model)
+    model, tokenizer = load(args.model, revision=args.revision)
     model.freeze()
     load_adapters(model, args.adapter)
     optimizer = optim.Adam(learning_rate=args.lr)
