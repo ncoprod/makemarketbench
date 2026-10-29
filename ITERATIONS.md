@@ -36,7 +36,8 @@ External access failures remain unmet targets, not successful training trials.
   Do not claim a winner from overlapping or uncorrected intervals.
   The K corrected comparisons are paired differences in dice expected PnL;
   the other two claims are the dice ratio and cards positivity. Marginal
-  individual-model intervals must also be separated as required by the target.
+  individual-model intervals must also be separated as required by the target,
+  in both expected-PnL units and the leaderboard's percentage-of-Bayes units.
   Corrected intervals use enough resamples for at least 100 expected draws in
   each tail; marginal intervals retain 10,000. Block sampling bounds memory and
   reproduces the previous bootstrap draws exactly. This amendment precedes new

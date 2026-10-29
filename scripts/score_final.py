@@ -77,6 +77,9 @@ def main():
             "paired_api_differences": differences,
             "lower_95_above_every_api_upper_95": bool(api_names) and all(
                 marginal[args.label]["epnl_ci"][0] > marginal[n]["epnl_ci"][1] for n in api_names),
+            "lower_percent_95_above_every_api_upper_percent_95": bool(api_names) and all(
+                marginal[args.label]["pct_of_bayes_ci"][0] > marginal[n]["pct_of_bayes_ci"][1]
+                for n in api_names),
             "all_paired_family_lower_bounds_positive": bool(api_names) and all(
                 d["family_ci"][0] > 0 for d in differences.values())}
     dice, cards = (record["games"][g] for g in ("dice", "cards"))
@@ -84,6 +87,7 @@ def main():
     record["targets"] = {
         "dice_mean_at_least_80_percent": local_dice["pct_of_bayes"] >= 80,
         "dice_above_api_intervals": dice["lower_95_above_every_api_upper_95"] and
+                                    dice["lower_percent_95_above_every_api_upper_percent_95"] and
                                     dice["all_paired_family_lower_bounds_positive"],
         "cards_positive_with_family_lower_above_zero": cards["local_epnl_family_ci"][0] > 0,
         "at_least_four_complete_api_cohorts_per_game": all(
