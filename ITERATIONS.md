@@ -880,3 +880,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   probe, under the heavy-ML lock and 7 GiB physical guard. Require one verified
   optimizer update before enabling the full 800-iteration run. Registration:
   `results/training/qwen35_answer_probe_plan.json`. No held-out policy tuning.
+
+### Local memory repair queued; staged adapters retained
+
+- The complete local suite now passes 95 tests. T11 waits under the shared
+  heavy-ML mutex behind the fixed 1.7B final evaluation; the full 4B run is
+  conditional on a completed, guarded optimizer update.
+- The large optimizer download failed with an incomplete-read error after its
+  retries. A targeted resumable download succeeded for both staged adapters.
+  Safetensors headers contain 256 tensors each; exact byte counts and SHA-256
+  hashes are retained in `kaggle_staged_adapter_download.json`. Immutable Kaggle
+  outputs retain the optimizer states. No training or evaluation is repeated
+  because of the transport failure.

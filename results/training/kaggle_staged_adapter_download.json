@@ -1,0 +1,142 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/download_staged_adapters.py",
+    "config": {
+      "command": [
+        "kaggle",
+        "kernels",
+        "output",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only/1",
+        "-p",
+        "runs/kaggle_staged_adapters",
+        "--page-size",
+        "200",
+        "--file-pattern",
+        "^(?:warmstart_adapter|lora_adapter)/.*$"
+      ]
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "c52589cdc60f25e9a9fa383f0c3316c99495bfdd",
+    "uncommitted_diff_sha256": "0fcd5ba5c48f81c34854af5e9211a0a8c71ec61ac088191bb92df8ea68b72801",
+    "started_at": "2026-10-29T20:01:15.697298+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "attempts": [
+    {
+      "at": "2026-10-29T20:02:12.389897+00:00",
+      "exit_code": 0
+    }
+  ],
+  "status": "completed",
+  "verified_adapters": {
+    "warmstart_adapter": {
+      "bytes": 84972248,
+      "sha256": "dff5ed68e4c07474ac8640b04f318632ed750781e4095a983f71d2cfb9bf4025",
+      "tensor_count": 256,
+      "adapter_config": {
+        "alora_invocation_tokens": null,
+        "alpha_pattern": {},
+        "arrow_config": null,
+        "auto_mapping": {
+          "base_model_class": "Qwen3_5ForConditionalGeneration",
+          "parent_library": "unsloth_compiled_module_qwen3_5",
+          "unsloth_fixed": true
+        },
+        "base_model_name_or_path": "unsloth/Qwen3.5-4B",
+        "bias": "none",
+        "corda_config": null,
+        "ensure_weight_tying": false,
+        "eva_config": null,
+        "exclude_modules": null,
+        "fan_in_fan_out": false,
+        "inference_mode": true,
+        "init_lora_weights": true,
+        "layer_replication": null,
+        "layers_pattern": null,
+        "layers_to_transform": null,
+        "loftq_config": {},
+        "lora_alpha": 32,
+        "lora_bias": false,
+        "lora_dropout": 0.0,
+        "lora_ga_config": null,
+        "megatron_config": null,
+        "megatron_core": "megatron.core",
+        "modules_to_save": null,
+        "monteclora_config": null,
+        "peft_type": "LORA",
+        "peft_version": "0.20.0",
+        "qalora_group_size": 16,
+        "r": 16,
+        "rank_pattern": {},
+        "revision": null,
+        "target_modules": "(?:.*?(?:language|text).*?(?:self_attn|attention|attn|mixer|mlp|feed_forward|ffn|dense|mixer).*?\\.(?:q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj))|(?:\\bmodel\\.layers\\.[\\d]{1,}(?!.*\\.experts\\.\\d)\\..*?(?:self_attn|attention|attn|mixer|mlp|feed_forward|ffn|dense|mixer).*?\\.(?:(?:q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)))",
+        "target_parameters": null,
+        "task_type": "CAUSAL_LM",
+        "trainable_token_indices": null,
+        "use_bdlora": null,
+        "use_dora": false,
+        "use_qalora": false,
+        "use_rslora": false,
+        "velora_config": null
+      }
+    },
+    "lora_adapter": {
+      "bytes": 84972248,
+      "sha256": "fe632766ed8600327330d8e46425b648dd45245e20bb8d568505ea5db3eb9f6a",
+      "tensor_count": 256,
+      "adapter_config": {
+        "alora_invocation_tokens": null,
+        "alpha_pattern": {},
+        "arrow_config": null,
+        "auto_mapping": {
+          "base_model_class": "Qwen3_5ForConditionalGeneration",
+          "parent_library": "unsloth_compiled_module_qwen3_5",
+          "unsloth_fixed": true
+        },
+        "base_model_name_or_path": "unsloth/Qwen3.5-4B",
+        "bias": "none",
+        "corda_config": null,
+        "ensure_weight_tying": false,
+        "eva_config": null,
+        "exclude_modules": null,
+        "fan_in_fan_out": false,
+        "inference_mode": true,
+        "init_lora_weights": true,
+        "layer_replication": null,
+        "layers_pattern": null,
+        "layers_to_transform": null,
+        "loftq_config": {},
+        "lora_alpha": 32,
+        "lora_bias": false,
+        "lora_dropout": 0.0,
+        "lora_ga_config": null,
+        "megatron_config": null,
+        "megatron_core": "megatron.core",
+        "modules_to_save": null,
+        "monteclora_config": null,
+        "peft_type": "LORA",
+        "peft_version": "0.20.0",
+        "qalora_group_size": 16,
+        "r": 16,
+        "rank_pattern": {},
+        "revision": null,
+        "target_modules": "(?:.*?(?:language|text).*?(?:self_attn|attention|attn|mixer|mlp|feed_forward|ffn|dense|mixer).*?\\.(?:q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj))|(?:\\bmodel\\.layers\\.[\\d]{1,}(?!.*\\.experts\\.\\d)\\..*?(?:self_attn|attention|attn|mixer|mlp|feed_forward|ffn|dense|mixer).*?\\.(?:(?:q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)))",
+        "target_parameters": null,
+        "task_type": "CAUSAL_LM",
+        "trainable_token_indices": null,
+        "use_bdlora": null,
+        "use_dora": false,
+        "use_qalora": false,
+        "use_rslora": false,
+        "velora_config": null
+      }
+    }
+  }
+}

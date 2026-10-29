@@ -36,6 +36,6 @@
   "grpo_updates": 300,
   "trained_gpu_count": 1,
   "allocated_gpu_count": 2,
-  "bulk_checkpoint_download": "Still running into ignored runs/kaggle_staged_output; source kernel retains immutable complete weights and optimizer states. Primary result/config/log receipts downloaded before next submission.",
+  "bulk_checkpoint_download": "Bulk optimizer download failed with ChunkedEncodingError / incomplete read after five retries. Partial files remain ignored; immutable Kaggle version retains optimizer state. Targeted final and warm-start adapters subsequently downloaded and safetensors headers verified; see kaggle_staged_adapter_download.json.",
   "quality_evaluation": "Pending separately; training reward is not a test score."
 }
