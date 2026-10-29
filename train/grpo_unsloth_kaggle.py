@@ -200,6 +200,7 @@ def train(args) -> None:
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
         fast_inference=False)
+    tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
     adapters = [p for p in Path("/kaggle/input").rglob("adapter_model.safetensors")
                 if json.loads(p.with_name("adapter_config.json").read_text())[
                     "base_model_name_or_path"] == args.base_model]
