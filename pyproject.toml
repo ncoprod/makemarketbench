@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "MakeMarketBench: can LLMs make markets under adverse selection? Quote-setting games scored against a Bayes reference quoter."
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "Nico Coquelet" }]
+authors = [{ name = "Nicolas Coquelet" }]
 requires-python = ">=3.10"
 dependencies = ["numpy>=1.24"]
 

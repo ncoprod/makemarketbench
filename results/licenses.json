@@ -1,0 +1,320 @@
+{
+  "checked_at": "2026-10-29T09:27:06.771388+00:00",
+  "command": "GET https://huggingface.co/api/models/<id> for each id; retain cardData licence and immutable revision",
+  "models": [
+    {
+      "id": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": "https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE",
+      "source": "https://huggingface.co/api/models/Qwen/Qwen3-1.7B"
+    },
+    {
+      "id": "mlx-community/Qwen3-1.7B-4bit",
+      "revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": "https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE",
+      "source": "https://huggingface.co/api/models/mlx-community/Qwen3-1.7B-4bit"
+    },
+    {
+      "id": "Qwen/Qwen3.5-4B",
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE",
+      "source": "https://huggingface.co/api/models/Qwen/Qwen3.5-4B"
+    },
+    {
+      "id": "mlx-community/Qwen3.5-4B-MLX-4bit",
+      "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/mlx-community/Qwen3.5-4B-MLX-4bit"
+    },
+    {
+      "id": "unsloth/Qwen3.5-4B",
+      "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE",
+      "source": "https://huggingface.co/api/models/unsloth/Qwen3.5-4B"
+    },
+    {
+      "id": "mlx-community/Qwen3.5-9B-MLX-4bit",
+      "revision": "938d8919941c6e7efd3c7150eff7fe9d12afa631",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/mlx-community/Qwen3.5-9B-MLX-4bit"
+    },
+    {
+      "id": "Qwen/Qwen3.8-27B",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B"
+    },
+    {
+      "id": "openai/gpt-oss-20b",
+      "revision": "6cee5e81ee83917806bbde320786a8fb61efebee",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/openai/gpt-oss-20b"
+    },
+    {
+      "id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "revision": "77df655d5e9f8362164ed14dd8b48f8bce657498",
+      "license": "other",
+      "license_name": "openmdw-1.1",
+      "license_link": "https://openmdw.ai/license/1-1/",
+      "source": "https://huggingface.co/api/models/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16"
+    },
+    {
+      "id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+      "revision": "a9904d24bcc1d289a1950fa9d2b978c47cf903b9",
+      "license": "other",
+      "license_name": "openmdw-1.1",
+      "license_link": "https://openmdw.ai/license/1-1/",
+      "source": "https://huggingface.co/api/models/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16"
+    },
+    {
+      "id": "nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB",
+      "revision": "1db54d5b12533ff1bcaa8e42cf4c667988a1f1be",
+      "license": "other",
+      "license_name": "openmdw-1.1",
+      "license_link": "https://openmdw.ai/license/1-1/",
+      "source": "https://huggingface.co/api/models/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB"
+    },
+    {
+      "id": "zai-org/GLM-5.3-Flash",
+      "revision": "46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "license": "mit",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+      "license": "mit",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4.1-Flash-1017"
+    },
+    {
+      "id": "meta-llama/Llama-3.3-70B-Instruct",
+      "revision": "6f6073b423013f6a7d4d9f39144961bfbfbc386b",
+      "license": "llama3.3",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/meta-llama/Llama-3.3-70B-Instruct"
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B",
+      "revision": "8efa61729e24bd65b1d152b5ab5409052aa80e65",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": "https://huggingface.co/Qwen/Qwen3-235B-A22B/blob/main/LICENSE",
+      "source": "https://huggingface.co/api/models/Qwen/Qwen3-235B-A22B"
+    },
+    {
+      "id": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+      "revision": "68faf511d618ef198fef186659617cfd2eb8e33a",
+      "license": "apache-2.0",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/mistralai/Mistral-Small-3.1-24B-Instruct-2503"
+    },
+    {
+      "id": "MiniMaxAI/MiniMax-M3.1-Flash",
+      "revision": "262ae6830934f3512211081b8a3f16425b93a239",
+      "license": "other",
+      "license_name": "minimax-community",
+      "license_link": "LICENSE",
+      "source": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M3.1-Flash"
+    },
+    {
+      "id": "meta-llama/Llama-3.1-8B-Instruct",
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "license": "llama3.1",
+      "license_name": null,
+      "license_link": null,
+      "source": "https://huggingface.co/api/models/meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "upstream_licenses": [
+    {
+      "component": "MLX",
+      "url": "https://raw.githubusercontent.com/ml-explore/mlx/main/LICENSE",
+      "sha256": "ccfab7ccb2ea306f71531c8ca77bb55507606cd90768b1e32b8b52ab5b48cf01",
+      "first_line": "MIT License"
+    },
+    {
+      "component": "MLX-LM",
+      "url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/main/LICENSE",
+      "sha256": "ccfab7ccb2ea306f71531c8ca77bb55507606cd90768b1e32b8b52ab5b48cf01",
+      "first_line": "MIT License"
+    },
+    {
+      "component": "pybind11",
+      "url": "https://raw.githubusercontent.com/pybind/pybind11/master/LICENSE",
+      "sha256": "83965b843b98f670d3a85bd041ed4b372c8ec50d7b4a5995a83ac697ba675dcb",
+      "first_line": "Copyright (c) 2016 Wenzel Jakob <wenzel.jakob@epfl.ch>, All rights reserved."
+    },
+    {
+      "component": "Unsloth",
+      "url": "https://raw.githubusercontent.com/unslothai/unsloth/main/LICENSE",
+      "sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "TRL",
+      "url": "https://raw.githubusercontent.com/huggingface/trl/main/LICENSE",
+      "sha256": "1bf614b1fdc40fbd344aa58d00d17d5fd0d252ea333a05be018a38959c8b2998",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "NumPy",
+      "url": "https://raw.githubusercontent.com/numpy/numpy/main/LICENSE.txt",
+      "sha256": "1be1df33863f97a7bc1c4d67980bd6c69c9a6fef0a5ee76e6ad6cb91e56e8491",
+      "first_line": "Copyright (c) 2005-2025, NumPy Developers."
+    },
+    {
+      "component": "Llama3.3",
+      "url": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct/raw/main/LICENSE",
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    {
+      "component": "OpenMDW1.1",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/raw/main/LICENSE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "component": "Qwen3.5",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-4B/raw/main/LICENSE",
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "Unsloth Zoo",
+      "url": "https://raw.githubusercontent.com/unslothai/unsloth-zoo/main/LICENSE",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "first_line": "GNU LESSER GENERAL PUBLIC LICENSE"
+    },
+    {
+      "component": "PyTorch",
+      "url": "https://raw.githubusercontent.com/pytorch/pytorch/main/LICENSE",
+      "sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+      "first_line": "From PyTorch:"
+    },
+    {
+      "component": "Transformers",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/main/LICENSE",
+      "sha256": "77fd4710def9ec3c0f6225800e0235f15a425abd4a8b03559127fcd782612049",
+      "first_line": "Copyright 2018- The Hugging Face team. All rights reserved."
+    },
+    {
+      "component": "PEFT",
+      "url": "https://raw.githubusercontent.com/huggingface/peft/main/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "Datasets",
+      "url": "https://raw.githubusercontent.com/huggingface/datasets/main/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "Hugging Face Hub",
+      "url": "https://raw.githubusercontent.com/huggingface/huggingface_hub/main/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "Safetensors",
+      "url": "https://raw.githubusercontent.com/huggingface/safetensors/main/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "OpenAI Python",
+      "url": "https://raw.githubusercontent.com/openai/openai-python/main/LICENSE",
+      "sha256": "636eb7d79da9bb6d515a4b3fd417aa26679eb3cf16396ddab4bc55fa74e616e4",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "Matplotlib",
+      "url": "https://raw.githubusercontent.com/matplotlib/matplotlib/main/LICENSE/LICENSE",
+      "sha256": "5a1a81ea301728c8bba2933da832c0cd62229daf20893a024ab3d53244468dbc",
+      "first_line": "License agreement for matplotlib versions 1.3.0 and later"
+    },
+    {
+      "component": "scikit-build-core",
+      "url": "https://raw.githubusercontent.com/scikit-build/scikit-build-core/main/LICENSE",
+      "sha256": "203fb4d261f202242333928424e101de19abf5bf166620124418fb6dd6b279b5",
+      "first_line": "Apache License"
+    },
+    {
+      "component": "pytest",
+      "url": "https://raw.githubusercontent.com/pytest-dev/pytest/main/LICENSE",
+      "sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b",
+      "first_line": "The MIT License (MIT)"
+    },
+    {
+      "component": "Ruff",
+      "url": "https://raw.githubusercontent.com/astral-sh/ruff/main/LICENSE",
+      "sha256": "2597d854122b77ddc71971564ca2350a37608575ce324adc5650a2b2051c8f18",
+      "first_line": "MIT License"
+    },
+    {
+      "component": "Kaggle CLI",
+      "url": "https://raw.githubusercontent.com/Kaggle/kaggle-cli/main/LICENSE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "component": "Llama3.3",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_3/LICENSE",
+      "sha256": "fb58d9a630ccc1dc0d08f8c00232de56bc73309020f59c8181d0c12ef28d9f8c",
+      "first_line": "**LLAMA 3.3 COMMUNITY LICENSE AGREEMENT**"
+    },
+    {
+      "component": "Llama3.1",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_1/LICENSE",
+      "sha256": "bf2eac60b81e5c5f779fc3b4849d3bfacfd63f97f3eb68b44e9c6868c5801712",
+      "first_line": "LLAMA 3.1 COMMUNITY LICENSE AGREEMENT"
+    },
+    {
+      "component": "OpenMDW1.1",
+      "url": "https://raw.githubusercontent.com/OpenMDW/OpenMDW/refs/heads/main/1.1/LICENSE.OpenMDW-1.1",
+      "sha256": "2ab44b68365473c112f5092211a38f231cb23e50de68b75a13369adbd76a74df",
+      "first_line": "OpenMDW License Agreement, version 1.1 (OpenMDW-1.1)"
+    },
+    {
+      "component": "MiniMax M3.1",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/raw/main/LICENSE",
+      "sha256": "8c4978e3e0fe0349ff929cc8450463cba3039c4c9fc144d8bd5382ab00df247a",
+      "first_line": "MINIMAX COMMUNITY LICENSE"
+    },
+    {
+      "component": "Kaggle CLI",
+      "url": "https://raw.githubusercontent.com/Kaggle/kaggle-cli/main/LICENSE.txt",
+      "sha256": "23385f5abc4894501c8b79736428395961d9241235412cec1f13b4a6523adef9",
+      "first_line": "Apache License"
+    }
+  ],
+  "provenance": {
+    "git_commit": "0c4e369c23ad0dd65345a9573cf43fe508c292f6",
+    "model_revision": "one immutable Hub revision per model entry",
+    "config": {
+      "source": "Hugging Face model card metadata and upstream LICENSE",
+      "checked_at": "2026-10-29T09:35:45.280671+00:00"
+    },
+    "command": "GET each source URL recorded in this file; SHA-256 hash LICENSE bytes"
+  }
+}

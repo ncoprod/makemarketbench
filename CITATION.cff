@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use MakeMarketBench, please cite this software."
+type: software
+title: "MakeMarketBench: Can LLMs Make Markets under Adverse Selection?"
+authors:
+  - family-names: Coquelet
+    given-names: Nicolas
+repository-code: "https://github.com/ncoprod/makemarketbench"
+url: "https://github.com/ncoprod/makemarketbench"
+license: MIT
+version: 0.1.0
+keywords:
+  - market making
+  - adverse selection
+  - language model evaluation
+  - reinforcement learning
