@@ -87,6 +87,8 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Initial recipe: same Bayes demonstrations, rank 8, 16 layers, batch 1,
   gradient accumulation 2, 1e-4 learning rate, 800-step ceiling, validation-only
   stopping/selection. Policy comparisons use validation seeds above.
+- Prompt contract: explicitly disable thinking during both teacher tokenization
+  and generation; audit every training/validation prefix before starting.
 - CUDA recipe: `unsloth/Qwen3.5-4B`, revision
   `3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636`; no 1.7B adapter is loaded into 4B.
 - Result / commands / resource measurements: pending execution.
@@ -142,3 +144,33 @@ do not invent missing provenance. Historical adapter configs are preserved.
   succeeded. This was a build failure, not a performance measurement.
 - Verification: 77 Python tests, including 10 stateful fuzz seeds; native
   50,000-event pool/index stress under ASan/UBSan passed locally. CI added.
+
+### T5 — larger Qwen3.5 DAgger round (registered, queued)
+
+- Hypothesis: posterior errors after the policy's own fills require on-policy labels.
+- Change: collect 150 training episodes per game (1,800 states), triple the earlier
+  round's 600 states, on seeds 30,000–30,149; combine with 4,000 original teacher
+  examples. Resume the selected T4 adapter, seed 4, same LoRA recipe and stopping.
+- Commands: `train/mlx_dagger.py --episodes 150`; `train/mlx_train.py --iters 800 --seed 4`;
+  complete commands, dataset hashes and measurements accompany the receipts.
+- Validation: same 100 episodes per game; final test remains untouched.
+- Result: pending; `results/training/qwen35_dagger.json` and
+  `results/validation/qwen35-dagger/leaderboard_{dice,cards}.json`.
+
+### T6 — local RLOO-style fallback (registered, queued)
+
+- Hypothesis: optimise the exact economic reward rather than only imitate text.
+- Change: start from T4; four categorical completions per dice training state,
+  leave-one-out baseline, 24 Adam updates at 1e-6, seed 5. No critic, PPO clipping
+  or reference KL; this is a small REINFORCE fallback, not an executed Kaggle GRPO.
+- Command: `train/mlx_rloo.py --steps 24 --lr 1e-6 --seed 5` under the heavy-ML lock.
+- Validation: both games, same validation seeds; no test-dependent adjustment.
+- Result: pending; `results/training/qwen35_rloo.json` and
+  `results/validation/qwen35-rloo/leaderboard_{dice,cards}.json`.
+
+Selection registered before T4–T6 validation: maximise the smaller of the two
+validation margins, `min(dice_percent_of_Bayes - 80, cards_percent_of_Bayes)`;
+ties choose the earlier trial. Report every trial. Freeze the selected adapter
+before one final 200-episode test per game. This validation selection is separate
+from validation-loss checkpoint selection. If T5 and T6 both fail to improve,
+inspect reward, inference and data diagnostics before applying the stopping rule.

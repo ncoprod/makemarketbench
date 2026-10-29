@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import importlib.metadata
 import io
 import json
@@ -39,6 +40,7 @@ import time
 from pathlib import Path
 
 PAYLOAD = ""  # base64 tar.gz of src/makemarket, filled in by build_kaggle_kernel.py
+SOURCE_COMMIT = ""
 
 WORK = Path(os.environ.get("MMB_WORK", "/kaggle/working" if Path("/kaggle").exists() else "train/runs/grpo"))
 
@@ -356,7 +358,10 @@ def main() -> None:
     if not Path("/kaggle").exists() and "MMB_FORCE" not in os.environ:
         raise SystemExit("GPU training is meant for Kaggle/CUDA; use --dry-run locally")
     started = time.time()
-    record = {"args": vars(args), "status": "running"}
+    record = {"args": vars(args), "status": "running", "source_commit": SOURCE_COMMIT,
+              "command": [sys.executable, *sys.argv], "model_revision": args.revision,
+              "source_file_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              "embedded_package_sha256": hashlib.sha256(base64.b64decode(PAYLOAD)).hexdigest()}
     try:
         subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
         import torch

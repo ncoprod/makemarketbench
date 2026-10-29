@@ -11,6 +11,7 @@ import base64
 import gzip
 import io
 import json
+import subprocess
 import tarfile
 from pathlib import Path
 
@@ -33,6 +34,8 @@ def payload() -> str:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     src = (ROOT / "train" / "grpo_unsloth_kaggle.py").read_text()
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    src = src.replace('SOURCE_COMMIT = ""', f'SOURCE_COMMIT = "{commit}"')
     marker = 'PAYLOAD = ""'
     assert marker in src
     (OUT / "grpo_unsloth_kaggle.py").write_text(src.replace(marker, f'PAYLOAD = "{payload()}"', 1))

@@ -120,6 +120,8 @@ class ChatClient:
                     "finish_reason": r.choices[0].finish_reason,
                     "completion_tokens": getattr(r.usage, "completion_tokens", None),
                     "prompt_tokens": getattr(r.usage, "prompt_tokens", None),
+                    "served_model": r.model,
+                    "system_fingerprint": getattr(r, "system_fingerprint", None),
                     "latency": latency,
                 }
                 path.write_text(json.dumps(out))

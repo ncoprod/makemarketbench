@@ -46,3 +46,16 @@ def test_kaggle_evaluation_writes_paired_json_without_model_conversion(kernel, m
         assert {r["player"] for r in result["rows"]} == {"bayes", "test-policy"}
         assert all(r["episodes"] == 3 for r in result["rows"])
         assert all(r["pct_of_bayes"] == pytest.approx(100) for r in result["rows"])
+
+
+def test_rloo_baseline_is_leave_one_out_and_translation_invariant(monkeypatch):
+    import importlib
+
+    import numpy as np
+
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "train"))
+    rloo = importlib.import_module("mlx_rloo")
+    advantages = rloo.leave_one_out([1, 2, 3, 4])
+    assert advantages == pytest.approx([-2, -2 / 3, 2 / 3, 2])
+    assert advantages.sum() == pytest.approx(0)
+    np.testing.assert_allclose(advantages, rloo.leave_one_out([101, 102, 103, 104]))

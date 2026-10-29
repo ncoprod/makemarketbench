@@ -7,6 +7,7 @@ workers are used, so one held NIM slot equals at most one request in flight.
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import time
 from pathlib import Path
@@ -17,6 +18,7 @@ from makemarket.games import make_game
 from makemarket.llm import ChatClient, LLMConfig, LLMQuoter, Throttle, parse_quote
 from makemarket.market import Observation
 from makemarket.prompts import messages_for
+from makemarket.provenance import receipt
 
 OUT = Path("results/expansion")
 MODELS = [
@@ -27,17 +29,35 @@ MODELS = [
     ("qwen/qwen3-235b-a22b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
     ("mistralai/mistral-small-3.1-24b-instruct-2503", {}, 4096, ""),
     ("meta/llama-3.1-8b-instruct", {}, 4096, ""),
+    ("openai/gpt-oss-20b", {"reasoning_effort": "low"}, 4096, ""),
+    ("nvidia/nemotron-3-ultra-550b-a55b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
+    ("nvidia/nemotron-3.5-bolt-e4b", {}, 4096, ""),
+    ("nvidia/nemotron-3.5-lightning-30b-a3b", {"chat_template_kwargs": {"enable_thinking": False}}, 4096, "no-think"),
 ]
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--episodes", type=int, default=100)
+    ap.add_argument("--episodes", type=int, default=200)
+    ap.add_argument("--seed", type=int, default=200)
     ap.add_argument("--models", nargs="*")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "protocol.json"
     protocol = json.loads(path.read_text()) if path.exists() else {}
+    discovery = OUT / "models.json"
+    if not discovery.exists():
+        client = ChatClient(LLMConfig(model="discovery", timeout=60), throttle=Throttle(1))
+        try:
+            data = client.client.models.list().model_dump()
+            discovery.write_text(json.dumps({"provenance": receipt({"method": "GET /v1/models"}),
+                                             "data": data}, indent=2) + "\n")
+        except Exception as exc:
+            discovery.write_text(json.dumps({"error": f"{type(exc).__name__}: {exc}"}) + "\n")
+    catalog = json.loads(discovery.read_text()).get("data", {}).get("data", [])
+    for model in catalog:
+        if "qwen3.8" in model["id"].lower():
+            MODELS.append((model["id"], {"chat_template_kwargs": {"enable_thinking": False}}, 8192, "no-think"))
     g = make_game("dice")
     ep = g.episode(0)
     obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
@@ -46,11 +66,13 @@ def main() -> None:
             continue
         label = model + (f" ({suffix})" if suffix else "")
         cfg = LLMConfig(model=model, label=label, timeout=600, max_tokens=tokens, extra_body=extra)
+        provenance = receipt(dataclasses.asdict(cfg), "NIM immutable deployment revision not exposed")
         client = ChatClient(cfg, cache_dir="cache/expansion", throttle=Throttle(1), max_retries=3)
         entry = protocol.get(label)
         if entry is None:
             entry = {"model": model, "label": label, "timeout_seconds": 600,
-                     "max_tokens": tokens, "temperature": cfg.temperature, "extra_body": extra}
+                     "max_tokens": tokens, "temperature": cfg.temperature, "extra_body": extra,
+                     "provenance": provenance}
             started = time.time()
             try:
                 response = client.chat(messages_for(obs))
@@ -69,8 +91,9 @@ def main() -> None:
             started = time.time()
             try:
                 eps = run_player(make_game(name), lambda c=client: LLMQuoter(c),
-                                 list(range(args.episodes)), OUT / "raw" / name / f"{slug(label)}.jsonl",
-                                 workers=1)
+                                 list(range(args.seed, args.seed + args.episodes)),
+                                 OUT / "raw" / name / f"{slug(label)}.jsonl", workers=1,
+                                 provenance=provenance)
                 entry[name] = {"episodes": len(eps), "wall_seconds": time.time() - started}
             except Exception as exc:
                 entry[name] = {"error": f"{type(exc).__name__}: {exc}"}

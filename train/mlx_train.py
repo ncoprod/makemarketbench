@@ -14,6 +14,8 @@ import time
 from pathlib import Path
 from types import SimpleNamespace
 
+import numpy as np
+
 from makemarket.provenance import file_sha256, receipt
 
 
@@ -32,9 +34,13 @@ def main() -> None:
     ap.add_argument("--layers", type=int, default=16)
     ap.add_argument("--seed", type=int, default=3)
     args = ap.parse_args()
+    np.random.seed(args.seed)
     record = receipt(vars(args), args.revision)
     record["data_sha256"] = {n: file_sha256(Path(args.data) / f"{n}.jsonl") for n in ("train", "valid")}
     record["source_sha256"] = file_sha256(__file__)
+    record["status"] = "initializing"
+    Path(args.result).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.result).write_text(json.dumps(record, indent=2) + "\n")
     started = time.monotonic()
 
     import mlx.core as mx
