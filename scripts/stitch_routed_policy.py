@@ -4,8 +4,9 @@ import argparse
 import json
 from pathlib import Path
 
-from makemarket.provenance import file_sha256, receipt
 from score_final import cohort
+
+from makemarket.provenance import file_sha256, receipt
 
 
 def main():
