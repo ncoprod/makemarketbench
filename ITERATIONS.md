@@ -416,3 +416,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `kaggle kernels push -p runs/kaggle_train_only --accelerator NvidiaTeslaT4`.
   Submission, privacy and runtime receipts will be kept in
   `results/training/kaggle_staged.json` and the pulled outputs.
+
+### API availability scheduling
+
+- Hypothesis: evaluating a slow first model delays discovering other responsive
+  endpoints. The first resumed batch saved seven GPT-OSS-20B dice episodes over
+  approximately fifteen minutes before its provenance restart. This is
+  throughput evidence, not a comparison of policy scores.
+- Change: finish the registered availability probes first, then evaluate every
+  responsive model in increasing observed probe latency. Models, sample sizes,
+  seeds, prompts and decoding stay fixed; selection never uses test PnL.
+- Command: the existing three disjoint `scripts/expand_nim.py` batches.
+  Per-model timings and outcomes remain in `results/expansion/protocol*.json`.

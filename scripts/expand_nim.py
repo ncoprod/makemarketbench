@@ -83,6 +83,7 @@ def main() -> None:
     g = make_game("dice")
     ep = g.episode(0)
     obs = Observation(g, 2, 6, ep.reveals[:3], [], 0, 0.0, ep.public_beliefs[2], ep.public_beliefs[2].mean)
+    ready = []
     for model, extra, tokens, suffix in models:
         if args.models and model not in args.models:
             continue
@@ -107,8 +108,10 @@ def main() -> None:
             protocol[label] = entry
             path.write_text(json.dumps(protocol, indent=2) + "\n")
         print(f"[probe] {label}: usable={entry['usable']}", flush=True)
-        if not entry["usable"]:
-            continue
+        if entry["usable"]:
+            ready.append((label, client, entry, provenance))
+    # Establish availability first; finish faster cohorts before slower ones.
+    for label, client, entry, provenance in sorted(ready, key=lambda item: item[2]["probe_wall_seconds"]):
         for name in ("dice", "cards"):
             started = time.time()
             try:
