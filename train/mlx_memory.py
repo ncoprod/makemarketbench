@@ -1,13 +1,13 @@
-"""Checkpoint MLX's training-only gated-delta recurrence in short chunks.
+"""Bound MLX's training-only gated-delta recurrence memory.
 
-The upstream fallback unrolls every token while retaining large recurrent states
-for backward. Rematerialising chunks preserves the recurrence and its gradients.
-Inference continues to use the upstream Metal kernel.
+Use the upstream chunk-parallel training patch for scalar, unmasked gates.
+Checkpoint the reference recurrence for other cases. Inference is unchanged.
 """
 
 
-def checkpoint_gated_delta(chunk_size=64):
+def enable_gated_delta_training(chunk_size=64):
     import mlx.core as mx
+    from gated_delta_chunkwise import gated_delta_chunkwise
     from mlx_lm.models import gated_delta
 
     from makemarket.provenance import file_sha256
@@ -15,6 +15,8 @@ def checkpoint_gated_delta(chunk_size=64):
     original = gated_delta.gated_delta_ops
 
     def chunked(q, k, v, g, beta, state=None, mask=None):
+        if mask is None and g.ndim == 3:
+            return gated_delta_chunkwise(q, k, v, g, beta, state, chunk_size=chunk_size)
         outputs = []
         for start in range(0, q.shape[1], chunk_size):
             stop = start + chunk_size
@@ -26,4 +28,6 @@ def checkpoint_gated_delta(chunk_size=64):
         return mx.concatenate(outputs, axis=1), state
 
     gated_delta.gated_delta_ops = chunked
-    return {"chunk_size": chunk_size, "source_sha256": file_sha256(__file__)}
+    return {"chunk_size": chunk_size, "source_sha256": file_sha256(__file__),
+            "implementation": "parallel scalar/unmasked; checkpointed sequential otherwise",
+            "port_sha256": file_sha256(gated_delta_chunkwise.__code__.co_filename)}

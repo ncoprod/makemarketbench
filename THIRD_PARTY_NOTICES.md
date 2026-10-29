@@ -41,6 +41,7 @@ replacement for their complete notices and dependency-specific terms.
 | Component | Licence / upstream | Required handling for redistribution |
 |---|---|---|
 | MLX and MLX-LM | MIT: [MLX](https://github.com/ml-explore/mlx/blob/main/LICENSE), [MLX-LM](https://github.com/ml-explore/mlx-lm/blob/main/LICENSE) | Retain Apple Inc. copyright, permission notice and disclaimer. Training calls the upstream trainer and LoRA implementations. |
+| MLX-LM chunkwise gated-delta port | [MIT text](third_party/mlx_lm_LICENSE.txt), copyright Apple Inc. | Two algorithm functions from adityak74's [PR #1870](https://github.com/ml-explore/mlx-lm/pull/1870), pinned to `3b04b9f1992fb83c4210228f7eb1c9dc72827e49`. Type annotations/import style changed; algorithm bodies unchanged. Source and licence hashes are in `results/licenses.json`. |
 | Unsloth Core | [Apache-2.0](https://github.com/unslothai/unsloth/blob/main/LICENSE) | Retain licence/NOTICE and mark changes. The optional AGPL-3.0 Studio/Docker UI is not used or bundled. |
 | Unsloth Zoo | [GNU LGPL version 3](https://github.com/unslothai/unsloth-zoo/blob/main/LICENSE) | Executed CUDA runtime dependency; not vendored. Redistribution must retain its LGPL/GPL texts and library-source/relinking rights as applicable. It must not be labelled Apache-2.0 merely because Unsloth Core is Apache-2.0. |
 | pybind11 | [BSD-3-Clause](https://github.com/pybind/pybind11/blob/master/LICENSE) | Retain Wenzel Jakob/contributors copyright, conditions and disclaimer; no endorsement. |

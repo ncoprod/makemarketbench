@@ -366,6 +366,20 @@
       "upstream_sha256": "39e92c76be11801f7130d25927445dd58986d4d1573790456ef93c9070c85604",
       "used_at": "cpp/src/order_book.cpp: replay checksum; repository-specific seed and word mixing, not a canonical FNV byte hash",
       "checked_at": "2026-10-29T10:38:43.595536+00:00"
+    },
+    {
+      "name": "Chunkwise-parallel gated delta training",
+      "author": "adityak74 and MLX-LM contributors; copyright Apple Inc.",
+      "license": "MIT",
+      "source": "https://raw.githubusercontent.com/adityak74/mlx-lm/3b04b9f1992fb83c4210228f7eb1c9dc72827e49/mlx_lm/models/gated_delta.py",
+      "upstream_sha256": "da6b385af63e06fd4f44b68ad4711d57b5dc70ac8886e4aebb95308c0b932209",
+      "port_sha256": "e561e9fb23b8074f332ae931bd9b97bf96f5fbcb3959f9109d058e2d5604cac8",
+      "license_source": "https://raw.githubusercontent.com/adityak74/mlx-lm/3b04b9f1992fb83c4210228f7eb1c9dc72827e49/LICENSE",
+      "license_sha256": "ccfab7ccb2ea306f71531c8ca77bb55507606cd90768b1e32b8b52ab5b48cf01",
+      "used_at": "train/gated_delta_chunkwise.py",
+      "algorithm_bodies_ast_equal": true,
+      "changes": "Only Python type annotations/import formatting; dispatch integration is separate.",
+      "checked_at": "2026-10-29T13:27:25.610924+00:00"
     }
   ]
 }

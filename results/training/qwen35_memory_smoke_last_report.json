@@ -1,0 +1,95 @@
+{
+  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --resume train/runs/qwen3.5-4b-sft-interrupted/best.safetensors --data runs/qwen35_memory_data --out train/runs/qwen35-memory-smoke --result results/training/qwen35_memory_smoke.json --iters 2",
+  "config": {
+    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "data": "runs/qwen35_memory_data",
+    "out": "train/runs/qwen35-memory-smoke",
+    "result": "results/training/qwen35_memory_smoke.json",
+    "resume": "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+    "iters": 2,
+    "lr": 0.0001,
+    "batch_size": 1,
+    "accumulation": 2,
+    "layers": 16,
+    "seed": 3
+  },
+  "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "git_commit": "c4c7c63d6526ca754692faad9f9887da950f851b",
+  "uncommitted_diff_sha256": "933bf51d5d8f812782e0b11902e9635d9d16cf2a14e2b97fc384f7653472f386",
+  "started_at": "2026-10-29T13:20:19.606746+00:00",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "versions": {
+    "numpy": "2.5.4",
+    "openai": "3.40.0",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2"
+  },
+  "optimizer_restarted": true,
+  "data_sha256": {
+    "train": "928913238d9e3b1b855be86aadc89aad4d0b615dd2ad29bfe46103434ecb0198",
+    "valid": "358532518e017aa8bfdae5de5dac6d9f067705eaf562f6349a0bf0fe11216855"
+  },
+  "source_sha256": "bfb61c348f073a4deb32190416504142977dbc59f6846f3969d1dd8ad322affd",
+  "status": "running",
+  "recurrence_checkpoint": {
+    "chunk_size": 64,
+    "source_sha256": "e08ee86b16de13cc0edc193de5723ad0201e99984e8746d32cb4ca3c876dd7f0"
+  },
+  "trainer_config": {
+    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "train": true,
+    "fine_tune_type": "lora",
+    "optimizer": "adam",
+    "optimizer_config": {
+      "adam": {},
+      "adamw": {},
+      "muon": {},
+      "sgd": {},
+      "adafactor": {}
+    },
+    "data": "runs/qwen35_memory_data",
+    "seed": 3,
+    "num_layers": 16,
+    "batch_size": 1,
+    "iters": 2,
+    "val_batches": -1,
+    "learning_rate": 0.0001,
+    "steps_per_report": 10,
+    "steps_per_eval": 200,
+    "resume_adapter_file": "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+    "adapter_path": "train/runs/qwen35-memory-smoke",
+    "save_every": 100,
+    "test": false,
+    "test_batches": 500,
+    "max_seq_length": 1536,
+    "config": null,
+    "grad_checkpoint": true,
+    "grad_accumulation_steps": 2,
+    "clear_cache_threshold": 0,
+    "lr_schedule": null,
+    "lora_parameters": {
+      "rank": 8,
+      "dropout": 0.0,
+      "scale": 20.0
+    },
+    "mask_prompt": true,
+    "report_to": null,
+    "project_name": null,
+    "trust_remote_code": false
+  },
+  "validation": [
+    {
+      "iteration": 0,
+      "val_loss": 2.064978837966919,
+      "val_time": 6.397403625000152
+    }
+  ],
+  "best_validation_loss": 2.064978837966919,
+  "best_step": 0,
+  "completed_iterations": 0,
+  "optimizer_updates": 0,
+  "peak_memory_bytes": 3859413300,
+  "wall_seconds": 17.01199762499982
+}

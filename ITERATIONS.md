@@ -264,7 +264,7 @@ do not invent missing provenance. Historical adapter configs are preserved.
   [complete log](results/kaggle/smoke-v1/makemarketbench-grpo-qwen3-smoke.log).
   The full SFT/GRPO kernel remained running remotely across the local reboot.
 
-### T8 — reduce MLX recurrent-state retention (registered, smoke pending)
+### T8 — reduce MLX recurrent-state retention (failed memory smoke)
 
 - Hypothesis: Qwen3.5's training-only sequential gated-delta fallback retains
   per-token recurrent states; layer checkpointing alone leaves a large peak.
@@ -330,3 +330,32 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   SFT/data partition. The already running version 1 is unchanged.
 - Verification: CPU reward dry run and paired JSON export test pass. CUDA
   execution of these new stage flags is not yet verified; it is not claimed.
+
+### T8 outcome — checkpointing alone was insufficient
+
+- The two-minibatch probe exceeded its 7-GiB physical-footprint guard after
+  82.85770724999975 seconds. Maximum sampled footprint was approximately
+  8,478,785,536 bytes; periodic samples can overshoot the guard. Only our child
+  was killed, with no verified optimiser update. Unsaved minibatch progress is
+  unknown. [Training/termination receipt](results/training/qwen35_memory_smoke.json),
+  [guard](results/training/qwen35_memory_guard.json),
+  [log](results/training/qwen35_memory_smoke.log). The original T4 recipe was
+  not launched. This failure does not count as substantive non-improvement.
+
+### T9 — chunk-parallel MLX training recurrence (registered, smoke queued)
+
+- Hypothesis: replace sequential per-token training states with the algebraic
+  chunkwise formulation, reducing both retained states and dispatch overhead.
+- Change: port the two algorithm functions from MLX-LM PR #1870, pinned to
+  `3b04b9f1992fb83c4210228f7eb1c9dc72827e49`, under its verified MIT licence.
+  Function-body ASTs match upstream; only annotations/import style changed.
+  Scalar unmasked training uses the port; masks/vector gates retain the
+  checkpointed reference. Inference's Metal path is unchanged.
+- Verification: seven CPU value/gradient parity cases pass, covering grouped
+  heads, nonzero initial state, masks, vector gates, full/partial chunks,
+  strong decay, float32 and bfloat16. GPU memory feasibility is still unverified.
+- Command: same two-minibatch subset and initial adapter as T8, new output
+  `train/runs/qwen35-parallel-smoke`, under the same 7-GiB guard and heavy lock.
+- Results pending: `results/training/qwen35_parallel_smoke.json` and
+  `results/training/qwen35_parallel_memory_guard.json`. Do not start full
+  training until this probe passes. This remains an infrastructure trial.
