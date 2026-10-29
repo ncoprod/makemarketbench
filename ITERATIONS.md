@@ -583,3 +583,13 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   No score or negative-quality conclusion is assigned to this endpoint.
 - The reduced-reasoning worker exited and released its slot. Remaining API
   workers continue waiting for the shared slots; no concurrency limit changed.
+
+### Raw-data exposure audit correction
+
+- A broad reasoning-parameter search printed raw API episode lines while
+  locating configuration metadata. No aggregate policy score was calculated;
+  no policy, seed choice or selection rule changed in response.
+- Correct the recovery receipt's imprecise `scores_inspected: false` field to
+  distinguish uncomputed aggregate scores from exposed raw episode fields.
+  Preserve the earlier commit. Further metadata searches name protocol/receipt
+  files explicitly. The registered training recipes remain unchanged.

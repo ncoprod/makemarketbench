@@ -106,5 +106,11 @@
       ]
     }
   ],
-  "scores_inspected": false
+  "aggregate_scores_computed": false,
+  "raw_episode_fields_exposed": true,
+  "audit_correction": {
+    "previous_field": "scores_inspected: false was imprecise; it referred to aggregate policy scores",
+    "event": "A broad reasoning-parameter text search printed raw API episode lines on 2026-10-29 before this recovery snapshot. No aggregate scores were computed, and no policy or selection rule changed in response.",
+    "mitigation": "Restrict future metadata searches to explicitly named protocol/receipt files."
+  }
 }
