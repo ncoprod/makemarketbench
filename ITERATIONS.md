@@ -1201,3 +1201,28 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   use while CLI batch monitors, local training and API evaluations continue.
 - The complete local suite now passes 106 tests, with no skips, after the
   greedy-cache and RLOO repairs (`results/verification.json`).
+
+### T17 — uniform training shapes (registered)
+
+- The T13 full run also hits the unchanged guard: sampled process footprint
+  8,065,646,592 bytes, versus the last reported MLX allocator peak
+  4,032,126,054 bytes. Ten microbatches / five updates were reported; the
+  actual final count after that report is unknown. Preserve the log, guard,
+  untouched raw report and corrected failure under `qwen35_sft_cache_attempt1*`.
+- Hypothesis: mlx-lm's compiled gradient step accumulates process memory across
+  its many 32-token length buckets. The repeated-longest-example probe did
+  not exercise those varied shapes. This explanation is not yet measured.
+- Change: right-pad training only to 1,025 tokens, giving 1,024 model inputs.
+  The audited maximum is 987 tokens, so no example is truncated. Gather the
+  128-position vocabulary projection by each row's actual end position;
+  padding must not discard an earlier answer. Keep the 7 GiB guard, seed,
+  optimizer, training data and 256 MiB free-cache limit unchanged.
+- CPU checks compare loss and every gradient with full causal projection on
+  ragged examples, with and without extra trailing padding, for tied and
+  untied heads. Padding preserves every input token and label offset, and
+  rejects insufficient space. All 26 training tests pass.
+- `results/training/qwen35_uniform_shape_plan.json` registers a 32-microbatch,
+  16-update probe on the full unchanged training set, with only two validation
+  examples. Discard its updates before the full validation-selected recipe.
+  Neither this infrastructure failure nor its repair is a policy
+  nonimprovement.

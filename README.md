@@ -133,7 +133,10 @@ guard before its first training report
 256 MiB MLX free-cache limit completes four updates under the same guard
 ([runtime](results/training/qwen35_cache_smoke.json),
 [weight check](results/training/qwen35_cache_probe_verification.json));
-the full run has restarted from unchanged initial weights. These infrastructure checks are not policy
+the full run then stops at its physical-memory guard after ten reported
+microbatches ([retained failure](results/training/qwen35_sft_cache_attempt1.json)).
+A fixed training-shape probe is registered to test compilation-memory growth
+([plan](results/training/qwen35_uniform_shape_plan.json)). These infrastructure checks are not policy
 improvements ([trial log](ITERATIONS.md)).
 
 The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL

@@ -34,7 +34,10 @@ def main() -> None:
     ap.add_argument("--layers", type=int, default=16)
     ap.add_argument("--seed", type=int, default=3)
     ap.add_argument("--answer-head-tokens", type=int, default=0)
+    ap.add_argument("--pad-training-to", type=int, default=0)
     args = ap.parse_args()
+    if args.pad_training_to and not args.answer_head_tokens:
+        ap.error("--pad-training-to requires --answer-head-tokens")
     np.random.seed(args.seed)
     record = receipt(vars(args), args.revision)
     record["optimizer_restarted"] = bool(args.resume)
@@ -61,7 +64,8 @@ def main() -> None:
 
         lora.train = functools.partial(
             lora.train, loss=functools.partial(answer_loss, width=args.answer_head_tokens),
-            iterate_batches=functools.partial(answer_batches, width=args.answer_head_tokens))
+            iterate_batches=functools.partial(answer_batches, width=args.answer_head_tokens,
+                                             pad_training_to=args.pad_training_to))
 
     config = dict(lora.CONFIG_DEFAULTS)
     config.update(model=args.model, train=True, data=args.data, adapter_path=args.out,

@@ -1,0 +1,28 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_cache_failure.py",
+    "config": {
+      "purpose": "register uniform training shapes after varied-shape physical-footprint failure"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "99632069abc0a218064b56e930b0573f02c79c42",
+    "uncommitted_diff_sha256": "c9344a56212700d5d16d0947661dfd2682423eca898e50bffda6004b1608ef2a",
+    "started_at": "2026-10-29T21:46:46.118633+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "failure_file": "results/training/qwen35_sft_cache_attempt1.json",
+  "observed_physical_peak_bytes_approx": 8065646592.0,
+  "last_reported_allocator_peak_bytes": 4032126054,
+  "hypothesis": "mlx-lm compiles its gradient step for each 32-token sequence bucket; the full variable-length run accumulates much more process footprint than the repeated longest-example probe. This is unproven until measured.",
+  "change": "Right-pad only training batches to 1025 tokens (1024 inputs), and gather the answer projection by each row actual end length so all original supervised tokens and gradients remain unchanged. Keep the 7 GiB guard and 256 MiB free-cache bound.",
+  "probe": "32 microbatches / 16 optimizer updates, full unchanged train data/order, two validation examples, seed 3; discard probe weights before the full recipe.",
+  "status": "registered_not_yet_executed",
+  "source": "train/mlx_answer_loss.py; tests/test_training.py"
+}

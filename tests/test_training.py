@@ -236,7 +236,8 @@ def test_parallel_recurrence_full_chunks_strong_decay_and_gradients(monkeypatch,
 
 
 @pytest.mark.parametrize('tied', [False, True])
-def test_answer_window_preserves_full_causal_loss_and_every_parameter_gradient(monkeypatch, tied):
+@pytest.mark.parametrize('padding', [0, 16])
+def test_answer_window_preserves_full_causal_loss_and_every_parameter_gradient(monkeypatch, tied, padding):
     import importlib
     from types import SimpleNamespace
 
@@ -279,6 +280,7 @@ def test_answer_window_preserves_full_causal_loss_and_every_parameter_gradient(m
         mx.random.seed(99)
         model = Model()
         batch = mx.array([list(range(20)), list(reversed(range(20)))])
+        batch = mx.pad(batch, [(0, 0), (0, padding)])
         lengths = mx.array([[14, 18], [15, 19]])
         expected = nn.value_and_grad(model, lambda m: default_loss(m, batch, lengths)[0])(model)
         actual = nn.value_and_grad(model, lambda m: answer.answer_loss(m, batch, lengths, width=8)[0])(model)
@@ -315,9 +317,29 @@ def test_answer_window_rejects_even_one_dropped_supervised_token(monkeypatch):
     answer = importlib.import_module('mlx_answer_loss')
     with mx.stream(mx.cpu):
         options = dict(batch_size=1, max_seq_length=64, loop=False, width=8)
-        assert len(list(answer.answer_batches([(list(range(26)), 25)], **options))) == 1
+        assert len(list(answer.answer_batches([(list(range(26)), 19)], **options))) == 1
         with pytest.raises(ValueError, match='discard supervised tokens'):
-            list(answer.answer_batches([(list(range(26)), 24)], **options))
+            list(answer.answer_batches([(list(range(26)), 18)], **options))
+
+
+def test_uniform_training_padding_keeps_tokens_and_offsets(monkeypatch):
+    import importlib
+
+    mx = pytest.importorskip('mlx.core')
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / 'train'))
+    answer = importlib.import_module('mlx_answer_loss')
+    with mx.stream(mx.cpu):
+        rows = [(list(range(26)), 19)]
+        iterator = answer.answer_batches(rows, batch_size=1, max_seq_length=64,
+                                         loop=True, width=8, pad_training_to=65)
+        batch, lengths = next(iterator)
+        assert batch.shape == (1, 65)
+        assert batch[0, :26].tolist() == rows[0][0]
+        assert mx.all(batch[0, 26:] == 0).item()
+        assert lengths.tolist() == [[19, 26]]
+        with pytest.raises(ValueError, match='exceeds its fixed padding'):
+            next(answer.answer_batches(rows, batch_size=1, max_seq_length=64,
+                                       loop=True, width=8, pad_training_to=16))
 
 
 def test_batched_cuda_repairs_only_invalid_unique_prompts(kernel):

@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/with_memory_guard.py --result results/training/qwen35_sft_memory.json .venv/bin/python -u train/mlx_train.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --resume train/runs/qwen3.5-4b-sft-interrupted/best.safetensors --out train/runs/qwen3.5-4b-sft --result results/training/qwen35_sft.json --answer-head-tokens 128",
+    "config": {
+      "result": "results/training/qwen35_sft_memory.json",
+      "max_gib": 7,
+      "command": [
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_train.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--resume",
+        "train/runs/qwen3.5-4b-sft-interrupted/best.safetensors",
+        "--out",
+        "train/runs/qwen3.5-4b-sft",
+        "--result",
+        "results/training/qwen35_sft.json",
+        "--answer-head-tokens",
+        "128"
+      ]
+    },
+    "model_revision": null,
+    "git_commit": "2d9666827e33b8eacab7da911ede350df7af9ce0",
+    "uncommitted_diff_sha256": "4ea3c635bc0d741c6b4cd97d032e38b3b4d4afe4cb984de5bf75be763e01793a",
+    "started_at": "2026-10-29T21:18:23.136066+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "41a2bd36ae6deafe8b81942ece393723daf167fb091fc888e81d15202552f404",
+  "status": "physical_memory_limit",
+  "sampled_footprint_peak_bytes_approx": 8065646592.0,
+  "child_pid": 25406,
+  "wall_seconds": 1576.1665401669998,
+  "returncode": -9
+}
