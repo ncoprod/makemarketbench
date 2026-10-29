@@ -512,3 +512,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   kernel snapshots are unchanged; these hooks have not yet executed on CUDA.
 - Verification: Ruff, five CPU training/export checks and the reward dry run
   pass. CUDA callback execution remains to be verified on a future resume.
+
+### Reference reuse outside the heavy lock
+
+- Copy the exact completed reference cohorts into the remaining DAgger/RLOO
+  validation folders and frozen-final destination. Verify seeds, complete rounds
+  and identical SHA-256 values. Thirty destination files reuse existing data;
+  zero new episodes are executed or counted.
+- This prevents deterministic baseline recomputation while a model holds the
+  heavy-ML lock. [Source/destination manifest](results/reference_reuse.json).
