@@ -1,0 +1,111 @@
+{
+  "command": ".venv/bin/mlx_lm.lora --model \"/Users/nico/.cache/mmb_models/Qwen3-1.7B-4bit\" --train --data train/data --mask-prompt --iters 500 --batch-size 2 --learning-rate 1e-4 --num-layers 16 --max-seq-length 1024 --grad-checkpoint --steps-per-report 10 --steps-per-eval 100 --val-batches 40 --save-every 100 --resume-adapter-file train/runs/qwen3-1.7b-sft/0000300_adapters.safetensors --adapter-path train/runs/qwen3-1.7b-sft800 --seed 2",
+  "config": {
+    "adapter_path": "train/runs/qwen3-1.7b-sft800",
+    "batch_size": 2,
+    "clear_cache_threshold": 0,
+    "config": null,
+    "data": "train/data",
+    "fine_tune_type": "lora",
+    "grad_accumulation_steps": 1,
+    "grad_checkpoint": true,
+    "iters": 500,
+    "learning_rate": 0.0001,
+    "lora_parameters": {
+      "rank": 8,
+      "dropout": 0.0,
+      "scale": 20.0
+    },
+    "lr_schedule": null,
+    "mask_prompt": true,
+    "max_seq_length": 1024,
+    "model": "/Users/nico/.cache/mmb_models/Qwen3-1.7B-4bit",
+    "num_layers": 16,
+    "optimizer": "adam",
+    "optimizer_config": {
+      "adam": {},
+      "adamw": {},
+      "muon": {},
+      "sgd": {},
+      "adafactor": {}
+    },
+    "project_name": null,
+    "report_to": null,
+    "resume_adapter_file": "train/runs/qwen3-1.7b-sft/0000300_adapters.safetensors",
+    "save_every": 100,
+    "seed": 2,
+    "steps_per_eval": 100,
+    "steps_per_report": 10,
+    "test": false,
+    "test_batches": 500,
+    "train": true,
+    "trust_remote_code": false,
+    "val_batches": 40
+  },
+  "model_revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+  "git_commit": "deb9b65360a2d77647674f7512a28a3b2a7af475",
+  "uncommitted_diff_sha256": null,
+  "started_at": "2026-10-29T10:14:20+01:00",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "versions": {
+    "numpy": "2.5.4",
+    "openai": "3.40.0",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2"
+  },
+  "finished_at": "2026-10-29T11:19:32.920007+01:00",
+  "wall_seconds": 3912.920032978058,
+  "status": "completed",
+  "prior_iterations": 300,
+  "continuation_iterations": 500,
+  "total_iterations": 800,
+  "optimizer_restarted": true,
+  "seed": 2,
+  "peak_memory_bytes": null,
+  "peak_memory_note": "Upstream CLI did not persist allocator peak memory; no estimate substituted.",
+  "base_verification": "results/training/qwen17_base_verification.json",
+  "validation": [
+    {
+      "continuation_iteration": 1,
+      "validation_loss": 0.229,
+      "completed_continuation_iterations": 0
+    },
+    {
+      "continuation_iteration": 100,
+      "validation_loss": 0.296,
+      "completed_continuation_iterations": 99
+    },
+    {
+      "continuation_iteration": 200,
+      "validation_loss": 0.266,
+      "completed_continuation_iterations": 199
+    },
+    {
+      "continuation_iteration": 300,
+      "validation_loss": 0.231,
+      "completed_continuation_iterations": 299
+    },
+    {
+      "continuation_iteration": 400,
+      "validation_loss": 0.254,
+      "completed_continuation_iterations": 399
+    },
+    {
+      "continuation_iteration": 500,
+      "validation_loss": 0.227,
+      "completed_continuation_iterations": 499
+    }
+  ],
+  "initial_adapter_sha256": "d4e5e5b8d8f0a60e5db8c1c6239f8ad077012f45dd11f7c58c80745a33d8dc15",
+  "final_adapter_sha256": "8decc3c1cec41f9e7219816b2a852bd45ac7487713f3288f68f5c723c0bf6e60",
+  "data_sha256": {
+    "train": "b24b28867e8deb8df39903c045a9615350198391d789059fcb9db150e1c04bb9",
+    "valid": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
+  },
+  "provenance_note": "Start commit resolved from git timestamps; external mlx-lm trainer and exact live launch script recorded after completion; the original launch had no receipt wrapper. Start-time working diff was not captured and is unknown; no completion-time diff is substituted.",
+  "training_source_sha256": {
+    ".venv/lib/python3.13/site-packages/mlx_lm/lora.py": "e366eec6ae2f8a72446f1af65faf189a92a01ca509fb0cafb3fa54b89b4291f7"
+  },
+  "validation_note": "CLI validation runs before the reported minibatch; printed loss precision is three decimals. Final weights have all 500 continuation minibatches."
+}

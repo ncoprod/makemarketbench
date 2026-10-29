@@ -1,0 +1,94 @@
+Loading pretrained model
+Loading datasets
+Training
+Loading fine-tuned weights from train/runs/qwen3-1.7b-sft/0000300_adapters.safetensors
+╭─ mlx_lm.lora ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│    model           /Users/nico/.cache/mmb_models/Qwen3-1.7B-4bit                                                     │
+│    type            lora · 16 layers · rank 8                                                                         │
+│    dataset         train/data                                                                                        │
+│    optimizer       adam · lr 1.0e-04                                                                                 │
+│    batch · iters   2 · 500                                                                                           │
+│    max seq         1,024                                                                                             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Trainable parameters: 0.289% (4.981M/1720.575M)
+  iter   train_loss     tok/s     tokens
+     1    val 0.229    134.19s
+    10    0.330 ▼       20      1.4k
+
+RESUMED 2026-10-29T10:14:20+0100
+Loading pretrained model
+Loading datasets
+Training
+Loading fine-tuned weights from train/runs/qwen3-1.7b-sft/0000300_adapters.safetensors
+╭─ mlx_lm.lora ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│    model           /Users/nico/.cache/mmb_models/Qwen3-1.7B-4bit                                                     │
+│    type            lora · 16 layers · rank 8                                                                         │
+│    dataset         train/data                                                                                        │
+│    optimizer       adam · lr 1.0e-04                                                                                 │
+│    batch · iters   2 · 500                                                                                           │
+│    max seq         1,024                                                                                             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Trainable parameters: 0.289% (4.981M/1720.575M)
+  iter   train_loss     tok/s     tokens
+     1    val 0.229    118.73s
+    10    0.330 ▼       17      1.4k
+    20    0.334 ▲       17      2.9k
+    30    0.358 ▲       19      4.3k
+    40    0.334 ▼       23      5.8k
+    50    0.401 ▲       24      7.2k
+    60    0.323 ▼       28      8.6k
+    70    0.310 ▼       28     10.1k
+    80    0.286 ▼       28     11.5k
+    90    0.293 ▲       27     13.0k
+   100    val 0.296    95.74s
+   100    0.326 ▲       26     14.4k
+  save  0000100_adapters.safetensors
+   110    0.307 ▼       27     15.8k
+   120    0.233 ▼       30     17.3k
+   130    0.281 ▲       25     18.7k
+   140    0.270 ▼       25     20.2k
+   150    0.252 ▼       27     21.6k
+   160    0.230 ▼       28     23.0k
+   170    0.240 ▲       27     24.5k
+   180    0.327 ▲       26     25.9k
+   190    0.276 ▼       27     27.4k
+   200    val 0.266    97.06s
+   200    0.244 ▼       25     28.8k
+  save  0000200_adapters.safetensors
+   210    0.311 ▲       25     30.2k
+   220    0.255 ▼       25     31.7k
+   230    0.235 ▼       26     33.1k
+   240    0.244 ▲       27     34.6k
+   250    0.233 ▼       25     36.0k
+   260    0.268 ▲       24     37.4k
+   270    0.230 ▼       27     38.9k
+   280    0.213 ▼       24     40.3k
+   290    0.275 ▲       21     41.8k
+   300    val 0.231    124.01s
+   300    0.273 ▼       21     43.2k
+  save  0000300_adapters.safetensors
+   310    0.246 ▼       20     44.6k
+   320    0.289 ▲       19     46.1k
+   330    0.261 ▼       20     47.5k
+   340    0.259 ▼       21     49.0k
+   350    0.248 ▼       22     50.4k
+   360    0.162 ▼       22     51.8k
+   370    0.270 ▲       21     53.3k
+   380    0.152 ▼       23     54.7k
+   390    0.164 ▲       22     56.2k
+   400    val 0.254    125.00s
+   400    0.245 ▲       23     57.6k
+  save  0000400_adapters.safetensors
+   410    0.166 ▼       23     59.0k
+   420    0.249 ▲       21     60.5k
+   430    0.276 ▲       19     61.9k
+   440    0.265 ▼       20     63.4k
+   450    0.259 ▼       19     64.8k
+   460    0.246 ▼       18     66.2k
+   470    0.199 ▼       21     67.7k
+   480    0.254 ▲       19     69.1k
+   490    0.231 ▼       21     70.6k
+   500    val 0.227    118.84s
+   500    0.263 ▲       21     72.0k
+  save  0000500_adapters.safetensors
+train ██████████████████████████████ 100% ·   500/500

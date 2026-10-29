@@ -76,7 +76,7 @@ do not invent missing provenance. Historical adapter configs are preserved.
   for these two candidates. Training seed 0; exact defaults are in the script.
 - Submission retry receipt: `results/training/kaggle_retry.json` (pending).
 
-### T2 — complete earlier Qwen3-1.7B BC (interrupted once, restarted and running)
+### T2 — complete earlier Qwen3-1.7B BC (completed after interruption)
 
 - Hypothesis: the truncated earlier run undertrained the teacher policy.
 - Change: resume step-300 weights for 500 updates; validation 40 batches rather
@@ -90,7 +90,14 @@ do not invent missing provenance. Historical adapter configs are preserved.
   evaluated once on the fresh 200-episode cohort, independently of T4–T6 selection.
 - Evidence: ignored `runs/sft800.log`; `results/training/qwen17_sft800.json`
   will record completion, exact command, restarted optimiser and measured runtime.
-  Local base weights/tokenizer now match all checked immutable Hub blobs:
+  Completion: all 500 continuation minibatches finished, reaching 800 total,
+  in 3,912.920 seconds after restart. The CLI printed validation loss 0.227
+  before the last minibatch; it sampled 80 examples and is not directly
+  comparable to the new fixed full-validation protocol. No policy improvement
+  is inferred from this loss. Peak allocator memory was not persisted by the
+  upstream CLI and remains unknown. Frozen final adapter SHA is in the receipt;
+  its fresh 200-episode/game evaluation is queued under the heavy-ML lock.
+  Local base weights/tokenizer match all checked immutable Hub blobs:
   [verification](results/training/qwen17_base_verification.json).
 
 ### T3 — extended NIM probes (interrupted, continuation pending)

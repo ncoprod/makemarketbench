@@ -99,7 +99,9 @@ The new local target is **Qwen3.5-4B, MLX 4-bit, Apache-2.0**, pinned to an
 from the mathematical Bayes dealer. The complete
 [token audit](results/training/qwen35_token_audit.json) verifies that training
 answers follow the exact non-thinking inference prefix and fit the sequence
-budget. The earlier Qwen3-1.7B baseline stays in the historical table.
+budget. The earlier Qwen3-1.7B baseline stays in the historical table. Its continuation
+now reaches 800 total iterations ([training receipt](results/training/qwen17_sft800.json));
+fresh policy evaluation is pending.
 
 The registered recipe uses LoRA behaviour cloning with validation-loss
 checkpoint selection and early stopping, followed by a larger on-policy DAgger
@@ -158,6 +160,7 @@ exchange latency.
 | [Historical game results](results/leaderboard_dice.json) | [raw episodes](results/raw), [API settings](results/llm_protocol.json), [training logs](results/training) | Original results predate full receipts; missing immutable revisions and exact commands are not reconstructed as facts |
 | [Engine confirmation](results/engine_trials/inline_matching_confirmation.json) | Event-stream hash, old/new source hashes, compiler command, all timings, checksum | Producing commit and exact candidate patch retained |
 | [Engine rerun](results/engine_bench_optimised.json) | Exact command, seed, source/binary hashes, environment | `provenance.git_commit` and working-diff hash |
+| [Completed 1.7B continuation](results/training/qwen17_sft800.json) | Exact launch, data/base/adapter hashes, 800 total iterations | Post-run receipt explicitly identifies missing start-time diff and memory peak |
 | [Teacher token audit](results/training/qwen35_token_audit.json) | Data hashes, pinned model revision, every split checked | Exact command and producing commit |
 | [Kaggle failure](results/training/kaggle_attempt.json) | Private dataset/kernel settings and exact error | Failed submission is recorded as failed |
 | [Kaggle retry](results/training/kaggle_retry.json) | OAuth recovery, private remote metadata, pinned model and submitted script hash | Accepted submission; execution measurements pending |

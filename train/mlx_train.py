@@ -57,6 +57,7 @@ def main() -> None:
                   num_layers=args.layers, seed=args.seed, grad_checkpoint=True,
                   max_seq_length=1536, mask_prompt=True, steps_per_eval=200,
                   steps_per_report=10, save_every=100, val_batches=-1)
+    record["trainer_config"] = config
     model, tokenizer = load(args.model, revision=args.revision)
     tokenizer.apply_chat_template = functools.partial(tokenizer.apply_chat_template, enable_thinking=False)
     train_set, valid_set, _ = load_dataset(SimpleNamespace(**config), tokenizer)
