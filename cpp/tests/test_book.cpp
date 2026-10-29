@@ -69,11 +69,44 @@ static void test_ledger() {
     CHECK(ex.ledger.mark(7, 110) == 300 - 330);
 }
 
+static void test_reserved_id_and_pool_stress() {
+    OrderBook b;
+    const uint64_t reserved = ~uint64_t{0};
+    uint64_t rng = 12345;
+    for (int i = 0; i < 50000; ++i) {
+        rng ^= rng << 13;
+        rng ^= rng >> 7;
+        rng ^= rng << 17;
+        const uint64_t id = rng % 2048;
+        const int32_t owner = static_cast<int32_t>(rng % 4);
+        const Side side = (rng & 4) ? Side::Buy : Side::Sell;
+        const int64_t price = static_cast<int64_t>((rng >> 8) % 200) - 100;
+        if ((rng % 5) == 0) b.cancel(id, owner);
+        else if ((rng % 17) == 0) b.cancel_owner(owner);
+        else {
+            try {
+                b.submit_limit(id, owner, side, price, 1 + (rng % 10), TIF::GTC);
+            } catch (const std::invalid_argument&) {
+                // Reusing a live id is expected in this generator.
+            }
+        }
+        CHECK(!b.has_order(reserved));
+        CHECK(!b.cancel(reserved, owner));
+        if (b.best_bid() && b.best_ask()) CHECK(*b.best_bid() < *b.best_ask());
+        if (i % 1000 == 0) b.clear();
+    }
+    bool threw = false;
+    try { b.submit_limit(reserved, 0, Side::Buy, 0, 1, TIF::GTC); }
+    catch (const std::invalid_argument&) { threw = true; }
+    CHECK(threw);
+}
+
 int main() {
     test_price_time_priority();
     test_rest_and_ioc();
     test_cancel_and_errors();
     test_ledger();
+    test_reserved_id_and_pool_stress();
     if (failures) {
         std::fprintf(stderr, "%d failure(s)\n", failures);
         return 1;

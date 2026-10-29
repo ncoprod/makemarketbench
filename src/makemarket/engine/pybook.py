@@ -40,6 +40,8 @@ class OrderBook:
             raise ValueError("side must be 0 (buy) or 1 (sell)")
         if qty <= 0:
             raise ValueError("qty must be positive")
+        if id == _MASK:
+            raise ValueError("order id 2^64-1 is reserved")
         if id in self._index:
             raise ValueError("duplicate live order id")
         fills: list[Fill] = []

@@ -99,3 +99,46 @@ do not invent missing provenance. Historical adapter configs are preserved.
 - Existing baseline: 20,207,599.5 events/s; checksum 6638620577960879557.
 - Evidence: [engine_bench.json](results/engine_bench.json). Current rerun/profile
   was interrupted; no optimisation speedup claimed yet.
+
+### E2 — recycle pool nodes through an intrusive free head (confounded)
+
+- Hypothesis: remove the second vector allocation/write when recycling nodes.
+- Change: replace `free_` with `free_head_`, reusing a released node's next field.
+- Command: 5 alternating pairs of `bench_book_{before,free_head} build/bench_stream.bin 10`.
+- Result: extremely inconsistent separate-process wall times under shared load;
+  a build/source-edit overlap also makes this unsuitable for code attribution.
+  **No speedup claimed.** Counted as a trial and discarded.
+- Evidence: [all samples](results/engine_trials/free_head_confounded.json).
+
+### E3 — free head plus one index probe per cancellation (no improvement)
+
+- Hypothesis: avoid repeated hashing/probing for successful cancellations.
+- Change: locate an index slot once, validate its owner, then erase that slot.
+- Command: `python scripts/compare_engine.py --pairs 50` (old/new books compiled
+  into distinct namespaces in one executable, alternating order).
+- Result: median wall throughput 22.93M → 22.77M events/s; paired median speedup
+  0.990, 95% interval [0.982, 1.005]. **Discarded both speculative changes.**
+- Evidence: [result and source hashes](results/engine_trials/free_head_single_probe.json),
+  [exact candidate patch](results/engine_trials/free_head_single_probe.patch).
+
+### E4 — inline the matching loop (confirmed improvement)
+
+- Hypothesis: the sampling profile showed matching remained out of line; forcing
+  inlining removes an inner call and lets the compiler specialise the hot path.
+- Change: one `always_inline` attribute on the existing templated matcher;
+  retain the existing flat levels and pool. Separately fix reserved-ID lookup:
+  the empty index sentinel must never return a stale value.
+- Exploratory command: `python scripts/compare_engine.py --pairs 50 --out results/engine_trials/inline_matching.json`.
+- Confirmation command: `python scripts/compare_engine.py --pairs 200 --out results/engine_trials/inline_matching_confirmation.json`.
+- Confirmation result: median wall throughput **20,136,331.421 → 20,814,208.545**
+  events/s. Median paired speedup **1.0511**, 95% CI **[1.0347, 1.0649]**;
+  Bonferroni-for-three-candidates CI **[1.0318, 1.0694]**. Ratios of marginal
+  medians and medians of paired ratios are different estimands; both are reported.
+  All checksums equal **6638620577960879557**. Machine shared with other work.
+- Evidence: [200-pair confirmation](results/engine_trials/inline_matching_confirmation.json),
+  [50-pair exploratory trial](results/engine_trials/inline_matching.json).
+- Harness failure: naming the generated executable `compare` shadowed the C++20
+  `<compare>` header on the next build. Renamed it `bench_comparison`; rerun
+  succeeded. This was a build failure, not a performance measurement.
+- Verification: 77 Python tests, including 10 stateful fuzz seeds; native
+  50,000-event pool/index stress under ASan/UBSan passed locally. CI added.

@@ -19,6 +19,7 @@ void OrderBook::IdMap::rehash(std::size_t cap) {
 }
 
 int32_t OrderBook::IdMap::find(uint64_t key) const {
+    if (key == kEmpty) return kNil;
     for (std::size_t i = hash(key) & mask_;; i = (i + 1) & mask_) {
         if (keys_[i] == key) return vals_[i];
         if (keys_[i] == kEmpty) return kNil;
@@ -106,7 +107,7 @@ void OrderBook::unlink(int32_t idx, std::vector<Level>& levels, std::size_t li) 
 }
 
 template <bool IsBuy>
-void OrderBook::match(uint64_t id, int32_t owner, Side side, int64_t limit, int64_t& qty,
+[[gnu::always_inline]] inline void OrderBook::match(uint64_t id, int32_t owner, Side side, int64_t limit, int64_t& qty,
                       std::vector<Fill>& out) {
     std::vector<Level>& book = IsBuy ? asks_ : bids_;
     while (qty > 0 && !book.empty()) {

@@ -1,0 +1,123 @@
+diff --git a/cpp/include/mmb/order_book.hpp b/cpp/include/mmb/order_book.hpp
+index e9b9eb3..e82c5d4 100644
+--- a/cpp/include/mmb/order_book.hpp
++++ b/cpp/include/mmb/order_book.hpp
+@@ -89,8 +89,11 @@ private:
+     public:
+         IdMap() { rehash(1024); }
+         int32_t find(uint64_t key) const;
++        std::size_t locate(uint64_t key) const;
++        int32_t value_at(std::size_t slot) const { return slot == keys_.size() ? kNil : vals_[slot]; }
+         void insert(uint64_t key, int32_t value);
+         void erase(uint64_t key);
++        void erase_slot(std::size_t slot);
+         std::size_t size() const { return size_; }
+         void clear() { std::fill(keys_.begin(), keys_.end(), kEmpty); size_ = 0; }
+         template <class F> void for_each(F f) const {
+@@ -125,7 +128,7 @@ private:
+     static std::size_t find_level(const std::vector<Level>& levels, int64_t price, bool is_bid);
+ 
+     std::vector<Node> pool_;
+-    std::vector<int32_t> free_;
++    int32_t free_head_ = kNil;
+     std::vector<Level> bids_;  // ascending price: best bid at back
+     std::vector<Level> asks_;  // descending price: best ask at back
+     IdMap index_;
+diff --git a/cpp/src/order_book.cpp b/cpp/src/order_book.cpp
+index 8ddbb66..3f824b4 100644
+--- a/cpp/src/order_book.cpp
++++ b/cpp/src/order_book.cpp
+@@ -19,9 +19,14 @@ void OrderBook::IdMap::rehash(std::size_t cap) {
+ }
+ 
+ int32_t OrderBook::IdMap::find(uint64_t key) const {
++    return value_at(locate(key));
++}
++
++std::size_t OrderBook::IdMap::locate(uint64_t key) const {
++    if (key == kEmpty) return keys_.size();
+     for (std::size_t i = hash(key) & mask_;; i = (i + 1) & mask_) {
+-        if (keys_[i] == key) return vals_[i];
+-        if (keys_[i] == kEmpty) return kNil;
++        if (keys_[i] == key) return i;
++        if (keys_[i] == kEmpty) return keys_.size();
+     }
+ }
+ 
+@@ -35,11 +40,11 @@ void OrderBook::IdMap::insert(uint64_t key, int32_t value) {
+ }
+ 
+ void OrderBook::IdMap::erase(uint64_t key) {
+-    std::size_t i = hash(key) & mask_;
+-    while (keys_[i] != key) {
+-        if (keys_[i] == kEmpty) return;
+-        i = (i + 1) & mask_;
+-    }
++    erase_slot(locate(key));
++}
++
++void OrderBook::IdMap::erase_slot(std::size_t i) {
++    if (i == keys_.size()) return;
+     keys_[i] = kEmpty;
+     --size_;
+     // backward-shift deletion keeps probe sequences intact without tombstones
+@@ -66,9 +71,9 @@ std::size_t OrderBook::find_level(const std::vector<Level>& levels, int64_t pric
+ }
+ 
+ int32_t OrderBook::alloc_node(const Node& n) {
+-    if (!free_.empty()) {
+-        const int32_t idx = free_.back();
+-        free_.pop_back();
++    if (free_head_ != kNil) {
++        const int32_t idx = free_head_;
++        free_head_ = pool_[idx].next;
+         pool_[idx] = n;
+         return idx;
+     }
+@@ -101,7 +106,8 @@ void OrderBook::unlink(int32_t idx, std::vector<Level>& levels, std::size_t li)
+     if (n.next != kNil) pool_[n.next].prev = n.prev;
+     else level.tail = n.prev;
+     level.total -= n.qty;
+-    free_.push_back(idx);
++    n.next = free_head_;
++    free_head_ = idx;
+     if (level.head == kNil) levels.erase(levels.begin() + static_cast<std::ptrdiff_t>(li));
+ }
+ 
+@@ -121,8 +127,10 @@ void OrderBook::match(uint64_t id, int32_t owner, Side side, int64_t limit, int6
+             level.total -= q;
+             if (maker.qty == 0) {
+                 index_.erase(maker.id);
+-                free_.push_back(level.head);
++                const int32_t removed = level.head;
+                 level.head = maker.next;
++                maker.next = free_head_;
++                free_head_ = removed;
+                 if (level.head != kNil) pool_[level.head].prev = kNil;
+                 else level.tail = kNil;
+             }
+@@ -157,12 +165,13 @@ std::vector<Fill> OrderBook::submit_market(uint64_t id, int32_t owner, Side side
+ }
+ 
+ bool OrderBook::cancel(uint64_t id, int32_t owner) {
+-    const int32_t idx = index_.find(id);
++    const std::size_t slot = index_.locate(id);
++    const int32_t idx = index_.value_at(slot);
+     if (idx == kNil || pool_[idx].owner != owner) return false;
+     const bool is_bid = pool_[idx].side == Side::Buy;
+     std::vector<Level>& levels = is_bid ? bids_ : asks_;
+     const std::size_t li = find_level(levels, pool_[idx].price, is_bid);
+-    index_.erase(id);
++    index_.erase_slot(slot);
+     unlink(idx, levels, li);
+     return true;
+ }
+@@ -203,7 +212,7 @@ std::vector<std::pair<int64_t, int64_t>> OrderBook::depth(Side side, std::size_t
+ 
+ void OrderBook::clear() {
+     pool_.clear();
+-    free_.clear();
++    free_head_ = kNil;
+     bids_.clear();
+     asks_.clear();
+     index_.clear();

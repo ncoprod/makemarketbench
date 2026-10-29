@@ -1,0 +1,118 @@
+{
+  "command": "interleaved bench_book_{before,free_head} build/bench_stream.bin 10; 5 pairs; alternating order",
+  "pairs": [
+    {
+      "before": {
+        "events": 1000000,
+        "best_seconds": 0.145726,
+        "events_per_sec": 6862177.8,
+        "v1_best_seconds": 0.117058,
+        "v1_events_per_sec": 8542788.8,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      },
+      "free_head": {
+        "events": 1000000,
+        "best_seconds": 0.056759,
+        "events_per_sec": 17618312.5,
+        "v1_best_seconds": 0.115827,
+        "v1_events_per_sec": 8633590.4,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      }
+    },
+    {
+      "free_head": {
+        "events": 1000000,
+        "best_seconds": 0.049158,
+        "events_per_sec": 20342620.6,
+        "v1_best_seconds": 0.135398,
+        "v1_events_per_sec": 7385658.4,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      },
+      "before": {
+        "events": 1000000,
+        "best_seconds": 0.122589,
+        "events_per_sec": 8157352.6,
+        "v1_best_seconds": 0.830554,
+        "v1_events_per_sec": 1204015.1,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      }
+    },
+    {
+      "before": {
+        "events": 1000000,
+        "best_seconds": 0.218392,
+        "events_per_sec": 4578929.3,
+        "v1_best_seconds": 0.109639,
+        "v1_events_per_sec": 9120831.6,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      },
+      "free_head": {
+        "events": 1000000,
+        "best_seconds": 0.320689,
+        "events_per_sec": 3118288.4,
+        "v1_best_seconds": 0.141562,
+        "v1_events_per_sec": 7064026.0,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      }
+    },
+    {
+      "free_head": {
+        "events": 1000000,
+        "best_seconds": 0.049117,
+        "events_per_sec": 20359653.3,
+        "v1_best_seconds": 0.109276,
+        "v1_events_per_sec": 9151143.7,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      },
+      "before": {
+        "events": 1000000,
+        "best_seconds": 0.049042,
+        "events_per_sec": 20390755.0,
+        "v1_best_seconds": 0.113857,
+        "v1_events_per_sec": 8782921.3,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      }
+    },
+    {
+      "before": {
+        "events": 1000000,
+        "best_seconds": 0.120692,
+        "events_per_sec": 8285544.7,
+        "v1_best_seconds": 0.256986,
+        "v1_events_per_sec": 3891256.9,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      },
+      "free_head": {
+        "events": 1000000,
+        "best_seconds": 0.131361,
+        "events_per_sec": 7612607.1,
+        "v1_best_seconds": 0.134061,
+        "v1_events_per_sec": 7459279.3,
+        "fills": 451456,
+        "volume": 1378129,
+        "checksum": 6638620577960879557
+      }
+    }
+  ],
+  "median_before": 8157352.6,
+  "median_after": 17618312.5,
+  "status": "confounded: separate processes under a changing concurrent workload; no speedup claim"
+}

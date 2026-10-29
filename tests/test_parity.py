@@ -27,6 +27,7 @@ def test_event_by_event_parity(seed):
     py, cpp = get_backend("py").OrderBook(), get_backend("cpp").OrderBook()
     for ev in zip(*stream_lists(s)):
         a, b = _step(py, *ev), _step(cpp, *ev)
+        assert a[0] == b[0]
         assert [tuple(x) for x in a[1]] == [tuple(x) for x in b[1]] if a[0] == "fills" else a == b
         assert py.best_bid() == cpp.best_bid() and py.best_ask() == cpp.best_ask()
         assert py.order_count() == cpp.order_count()
@@ -90,3 +91,43 @@ def test_replay_parity_deep_and_shallow_books(width, p_cancel):
     assert py.order_count() == cpp.order_count()
     for side in (BUY, SELL):
         assert py.depth(side, 10_000) == [tuple(x) for x in cpp.depth(side, 10_000)]
+
+
+@pytest.mark.parametrize("seed", range(10))
+def test_stateful_fuzz_against_reference(seed):
+    """Id reuse, duplicates, sparse 64-bit ids, foreign cancels and pool resets.
+
+    The generator deliberately departs from monotonically increasing stream ids
+    to exercise index collisions/deletions and FIFO after recycled allocations.
+    """
+    import random
+
+    rng = random.Random(seed)
+    books = [get_backend(b).OrderBook() for b in ("py", "cpp")]
+    ids = [rng.getrandbits(64) for _ in range(100)] + [0, (1 << 64) - 1]
+    for _ in range(1500):
+        op, oid, owner = rng.randrange(8), rng.choice(ids), rng.randrange(4)
+        side, price, qty = rng.randrange(2), rng.randrange(-20, 21), rng.randrange(0, 12)
+        if op < 4:
+            outputs = [_step(book, op, oid, owner, side, price, qty) for book in books]
+            assert outputs[0][0] == outputs[1][0]
+            if outputs[0][0] == "fills":
+                assert [tuple(f) for f in outputs[0][1]] == [tuple(f) for f in outputs[1][1]]
+            else:
+                assert outputs[0] == outputs[1]
+        elif op == 4:
+            assert books[0].cancel_owner(owner) == books[1].cancel_owner(owner)
+        elif op == 5 and rng.random() < 0.1:
+            for book in books:
+                book.clear()
+        assert books[0].order_count() == books[1].order_count()
+        for query_side in (BUY, SELL):
+            depths = [list(map(tuple, b.depth(query_side, 100))) for b in books]
+            assert depths[0] == depths[1]
+            assert all(q > 0 for _, q in depths[0])
+            assert books[0].volume_at(query_side, price) == books[1].volume_at(query_side, price)
+        assert books[0].best_bid() == books[1].best_bid()
+        assert books[0].best_ask() == books[1].best_ask()
+        assert books[0].has_order(oid) == books[1].has_order(oid)
+        if books[0].best_bid() is not None and books[0].best_ask() is not None:
+            assert books[0].best_bid() < books[0].best_ask()
