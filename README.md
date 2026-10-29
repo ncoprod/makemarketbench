@@ -115,10 +115,13 @@ The private Kaggle script targets `unsloth/Qwen3.5-4B` with Unsloth and TRL
 GRPO. It evaluates the warm start and trained policy inside Kaggle, writes raw
 JSONL and leaderboard JSON, and records actual wall time and peak CUDA memory.
 A compatible BC adapter can initialise it; adapters from a different model size
-are rejected. **The submission failed before GPU allocation:** Kaggle CLI
-reported authentication required, and the credential check returned HTTP 401
-([exact failure](results/training/kaggle_attempt.json)). Runtime and VRAM remain
-unmeasured. The local fallback is explicitly labelled RLOO-style, not Kaggle GRPO.
+are rejected. The initial submission failed with HTTP 401
+([exact failure](results/training/kaggle_attempt.json)). Official OAuth login
+restored CLI access: the private checkpoint dataset is ready and the kernel
+was accepted with a T4 requested, internet enabled and remote privacy verified
+([retry receipt](results/training/kaggle_retry.json)). Runtime and VRAM remain
+unmeasured until outputs are retrieved. The local reward trial is explicitly
+labelled RLOO-style.
 
 NIM expansion retries GLM and DeepSeek with longer timeouts, enables Ultra
 thinking, discovers Qwen3.8 availability and probes additional Qwen, Llama and
@@ -157,6 +160,7 @@ exchange latency.
 | [Engine rerun](results/engine_bench_optimised.json) | Exact command, seed, source/binary hashes, environment | `provenance.git_commit` and working-diff hash |
 | [Teacher token audit](results/training/qwen35_token_audit.json) | Data hashes, pinned model revision, every split checked | Exact command and producing commit |
 | [Kaggle failure](results/training/kaggle_attempt.json) | Private dataset/kernel settings and exact error | Failed submission is recorded as failed |
+| [Kaggle retry](results/training/kaggle_retry.json) | OAuth recovery, private remote metadata, pinned model and submitted script hash | Accepted submission; execution measurements pending |
 | [Licence verification](results/licenses.json) | HF revisions, upstream licence URLs and hashes | Verification evidence; model licence is distinct from endpoint terms |
 
 New run receipts record the exact command, configuration, seeds, model revision
