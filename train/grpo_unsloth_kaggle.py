@@ -207,9 +207,10 @@ def train(args, report_runtime) -> None:
         def on_log(self, args, state, control, **kwargs):
             report_runtime(self.phase, state.global_step)
 
+    load_options = {"offload_layers": args.offload_layers} if args.offload_layers else {}
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
-        fast_inference=False, device_map=args.device_map)
+        fast_inference=False, device_map=args.device_map, **load_options)
     tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
     adapters = [p for p in Path("/kaggle/input").rglob("adapter_model.safetensors")
                 if json.loads(p.with_name("adapter_config.json").read_text())[
@@ -406,6 +407,7 @@ def main() -> None:
     ap.add_argument("--sft-accumulation", type=int, default=2)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device-map", default="sequential", help="balanced splits a large model across GPUs")
+    ap.add_argument("--offload-layers", choices=["auto"], help="stream layers from host RAM when GPU loading fails")
     ap.add_argument("--grpo-steps", type=int, default=300)
     ap.add_argument("--num-generations", type=int, default=8)
     ap.add_argument("--max-completion", type=int, default=96)

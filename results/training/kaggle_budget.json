@@ -40,6 +40,39 @@
         "gpu_seconds_reserved": 30772.008848,
         "gpu_seconds_total": 108000.0
       }
+    },
+    {
+      "recorded_at": "2026-10-29T17:40:05.069661+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "kernels": [
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:40:13.115000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:40:13.619000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        },
+        {
+          "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
+          "version": 1,
+          "last_run_time": "2026-10-26T17:40:13.979000",
+          "private": true,
+          "accelerator": "NvidiaTeslaT4"
+        }
+      ],
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00",
+        "gpu_seconds_used": 41583.127852,
+        "gpu_seconds_reserved": 29717.642382,
+        "gpu_seconds_total": 108000.0
+      }
     }
   ],
   "sessions": [
@@ -87,18 +120,21 @@
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
-      "version": null,
+      "version": 1,
       "mode": "interactive draft",
       "accelerator": "T4 x2",
       "submitted_at": "2026-10-29T17:28:19.694273+00:00",
       "start": null,
       "end": null,
-      "hours": null,
-      "hours_basis": "pending downloaded runtime and session termination",
+      "hours": 0.06810015704896714,
+      "hours_basis": "script runtime from downloaded output; interactive allocation also includes startup and idle before scheduled inspection",
       "purpose": "Newest permissive Qwen-family actual SFT/GRPO fit probe",
       "private": true,
       "session_limit_hours": 1,
-      "receipt": "results/training/qwen38_fit_submission.json"
+      "receipt": "results/training/qwen38_fit_submission.json",
+      "end_observed_at": "2026-10-29T17:41:30.778488+00:00",
+      "status": "failed_loading_no_update",
+      "runtime_file": "results/kaggle/qwen38-fit-v1/runtime.json"
     }
   ],
   "accounting_notes": [

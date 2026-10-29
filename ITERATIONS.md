@@ -662,3 +662,25 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   as well as the upstream ID. Require an explicit path when several compatible
   adapters exist, avoiding arbitrary checkpoint selection. The prepared worker
   paths select `warmstart_adapter` and `lora_adapter` explicitly.
+
+### Qwen3.8 fit probe 1 — failed loader placement
+
+- Result downloaded from private Quick Save version one:
+  `results/kaggle/qwen38-fit-v1/runtime.json`. Script wall time was
+  245.16056537628174 seconds; two T4s each expose 15,636,037,632 bytes.
+  No SFT or GRPO update executed. VRAM peaks are loader-preflight allocations,
+  not the memory required by a loaded model.
+- Exact failure: `does not fit in GPU memory ... transformers placed part of it
+  on the CPU, which bitsandbytes cannot quantize`. The log also reports
+  `Using float16 precision for qwen3_5 won't work! Using float32.` The script
+  failed before substantive weight allocation, so this is a loader placement
+  failure, not a measured training OOM. Stop the idle interactive allocation
+  after preserving its files. Account quota includes its startup/idle interval;
+  script runtime alone does not represent the billed duration.
+- One focused repair is registered: use the loader's suggested
+  `offload_layers="auto"` to stream layers from host RAM. Keep all other probe
+  settings and its 3,300-second cap. `qwen38_offload_plan.json` records the trial.
+- Conditional fallback research also records the Apache-2.0 Qwen3.6 35B-A3B
+  upstream/Unsloth catalogue. Its available checkpoint is 71,903,776,776 bytes
+  before runtime quantization, not a prequantized fit claim. No fallback run
+  has been selected from a policy score.

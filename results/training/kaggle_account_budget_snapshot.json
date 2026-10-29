@@ -1,33 +1,33 @@
 {
-  "recorded_at": "2026-10-29T17:22:29.240883+00:00",
+  "recorded_at": "2026-10-29T17:40:05.069661+00:00",
   "quota_method": "official SDK GetAcceleratorQuotaStatistics",
   "kernels": [
     {
       "ref": "nicolascoquelet/makemarketbench-grpo-qwen3",
       "version": 1,
-      "last_run_time": "2026-10-26T17:22:39.329000",
+      "last_run_time": "2026-10-26T17:40:13.115000",
       "private": true,
       "accelerator": "NvidiaTeslaT4"
     },
     {
       "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-smoke",
       "version": 1,
-      "last_run_time": "2026-10-26T17:22:43.056000",
+      "last_run_time": "2026-10-26T17:40:13.619000",
       "private": true,
       "accelerator": "NvidiaTeslaT4"
     },
     {
       "ref": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only",
       "version": 1,
-      "last_run_time": "2026-10-26T17:22:46.421000",
+      "last_run_time": "2026-10-26T17:40:13.979000",
       "private": true,
       "accelerator": "NvidiaTeslaT4"
     }
   ],
   "quota": {
     "refresh_at": "2026-10-31T00:00:00",
-    "gpu_seconds_used": 38741.540303,
-    "gpu_seconds_reserved": 30772.008848,
+    "gpu_seconds_used": 41583.127852,
+    "gpu_seconds_reserved": 29717.642382,
     "gpu_seconds_total": 108000.0
   }
 }

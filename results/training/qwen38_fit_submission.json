@@ -23,13 +23,18 @@
       "error": "Maximum batch GPU session count of 2 reached; CLI exit code misleadingly zero"
     }
   ],
-  "interactive_probe": "running; UI Event running 3, Draft Session Running with two GPU indicators; script output from /kaggle/working/probe.py observed",
-  "gpu_hours": 0,
+  "interactive_probe": "failed, privately quick-saved with outputs, GPU session stopped",
+  "gpu_hours": 0.06810015704896714,
   "interactive_start_requested_at": "2026-10-29T17:28:19.694273+00:00",
   "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
   "notebook_sha256": "de774f969fc8fd701d385780be1ab2430351afef79289acc1bce2e5af561c4ae",
   "ui_privacy": "Private selected; Only collaborators can view this notebook",
   "internet": true,
   "accelerator": "GPU T4 x2",
-  "gpu_granted_at_observation": "2026-10-29T17:29:30.992010+00:00"
+  "gpu_granted_at_observation": "2026-10-29T17:29:30.992010+00:00",
+  "status": "failed_loading_no_update",
+  "downloaded_runtime": "results/kaggle/qwen38-fit-v1/runtime.json",
+  "stop_requested_at": "2026-10-29T17:41:30.778488+00:00",
+  "gpu_hours_basis": "script runtime from downloaded output; interactive allocation also includes startup and idle before scheduled inspection",
+  "saved_version": 1
 }
