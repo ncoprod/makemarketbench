@@ -1,0 +1,238 @@
+[{"stream_name":"stderr","time":23.536786086,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":23.536845716,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stderr","time":24.262577232,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":24.262613404,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stdout","time":83.939323951,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":83.939356718,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":83.939362316,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":83.939367093,"data":"   \\\\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":83.939372034,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":83.939376833,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":83.939381358,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":83.939386777,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":83.950345061,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":83.950370643,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":83.950376413,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":83.950386058,"data":"   \\\\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":83.950391498,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":83.950396166,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":83.95040082,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":83.950406085,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":84.907115717,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stdout","time":84.96073449,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stderr","time":85.225061354,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":85.22508822,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":85.26762297,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":85.267673812,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":85.53214302,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":85.623692833,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":138.16248543,"data":"\rLoading weights:   0%|          | 0/723 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 0/723 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/723 [00:00\u003c03:55,  3.07it/s]\rLoading weights:   0%|          | 1/723 [00:00\u003c03:48,  3.15it/s]\rLoading weights:   1%|          | 6/723 [00:00\u003c00:44, 15.94it/s]\rLoading weights:   1%|          | 6/723 [00:00\u003c00:43, 16.33it/s]\rLoading weights:   3%|▎         | 25/723 [00:00\u003c00:10, 64.31it/s]\rLoading weights:   3%|▎         | 25/723 [00:00\u003c00:10, 65.40it/s]\rLoading weights:   6%|▌         | 41/723 [00:00\u003c00:07, 89.66it/s]\rLoading weights:   6%|▌         | 41/723 [00:00\u003c00:07, 90.71it/s]\rLoading weights:   8%|▊         | 61/723 [00:00\u003c00:05, 121.95it/s]\rLoading weights:   9%|▊         | 62/723 [00:00\u003c00:05, 121.73it/s]\rLoading weights:  11%|█         | 79/723 [00:00\u003c00:04, 138.66it/s]\rLoading weights:  11%|█         | 80/723 [00:00\u003c00:04, 135.05it/s]\rLoading weights:  13%|█▎        | 95/723 [00:00\u003c00:04, 143.95it/s]\rLoading weights:  14%|█▎        | 98/723 [00:00\u003c00:04, 146.92it/s]\rLoading weights:  16%|█▋        | 118/723 [00:01\u003c00:03, 163.39it/s]\rLoading weights:  16%|█▋        | 119/723 [00:01\u003c00:03, 159.44it/s]\rLoading weights:  19%|█▉        | 136/723 [00:01\u003c00:03, 167.81it/s]\rLoading weights:  20%|█▉        | 142/723 [00:01\u003c00:03, 179.08it/s]\rLoading weights:  21%|██▏       | 154/723 [00:01\u003c00:03, 163.72it/s]\rLoading weights:  22%|██▏       | 161/723 [00:01\u003c00:03, 169.46it/s]\rLoading weights:  25%|██▌       | 181/723 [00:01\u003c00:02, 188.85it/s]\rLoading weights:  26%|██▌       | 185/723 [00:01\u003c00:02, 182.43it/s]\rLoading weights:  28%|██▊       | 201/723 [00:01\u003c00:02, 177.31it/s]\rLoading weights:  28%|██▊       | 204/723 [00:01\u003c00:02, 176.21it/s]\rLoading weights:  31%|███       | 224/723 [00:01\u003c00:02, 186.12it/s]\rLoading weights:  31%|███       | 225/723 [00:01\u003c00:02, 180.76it/s]\rLoading weights:  34%|███▎      | 243/723 [00:01\u003c00:02, 186.92it/s]\rLoading weights:  34%|███▍      | 248/723 [00:01\u003c00:02, 193.81it/s]\rLoading weights:  36%|███▌      | 262/723 [00:01\u003c00:02, 179.17it/s]\rLoading weights:  37%|███▋      | 268/723 [00:01\u003c00:02, 183.04it/s]\rLoading weights:  40%|███▉      | 287/723 [00:01\u003c00:02, 194.57it/s]\rLoading weights:  40%|████      | 290/723 [00:01\u003c00:02, 192.68it/s]\rLoading weights:  42%|████▏     | 307/723 [00:02\u003c00:02, 181.21it/s]\rLoading weights:  43%|████▎     | 310/723 [00:02\u003c00:02, 179.98it/s]\rLoading weights:  46%|████▌     | 330/723 [00:02\u003c00:02, 190.37it/s]\rLoading weights:  46%|████▌     | 331/723 [00:02\u003c00:02, 184.51it/s]\rLoading weights:  48%|████▊     | 350/723 [00:02\u003c00:01, 191.99it/s]\rLoading weights:  49%|████▉     | 354/723 [00:02\u003c00:01, 195.48it/s]\rLoading weights:  51%|█████     | 370/723 [00:02\u003c00:01, 181.91it/s]\rLoading weights:  52%|█████▏    | 374/723 [00:02\u003c00:01, 184.14it/s]\rLoading weights:  54%|█████▍    | 393/723 [00:02\u003c00:01, 194.06it/s]\rLoading weights:  55%|█████▍    | 396/723 [00:02\u003c00:01, 193.70it/s]\rLoading weights:  57%|█████▋    | 413/723 [00:02\u003c00:01, 184.59it/s]\rLoading weights:  58%|█████▊    | 416/723 [00:02\u003c00:01, 183.78it/s]\rLoading weights:  65%|██████▌   | 470/723 [00:02\u003c00:00, 289.38it/s]\rLoading weights:  68%|██████▊   | 492/723 [00:02\u003c00:00, 339.79it/s]\rLoading weights:  83%|████████▎ | 602/723 [00:02\u003c00:00, 576.36it/s]\rLoading weights:  86%|████████▋ | 624/723 [00:02\u003c00:00, 611.52it/s]\rLoading weights:  99%|█████████▉| 718/723 [00:02\u003c00:00, 740.80it/s]\rLoading weights: 100%|██████████| 723/723 [00:02\u003c00:00, 243.37it/s]\n"}
+,{"stream_name":"stderr","time":138.163916505,"data":"\rLoading weights: 100%|██████████| 723/723 [00:02\u003c00:00, 244.28it/s]\n"}
+,{"stream_name":"stdout","time":145.237991597,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/lora_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":145.363002704,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stderr","time":352.30971937,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":352.310548683,"data":"  File \"/kaggle/working/evaluate_core.py\", line 573, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":352.310576838,"data":"    main()\n"}
+,{"stream_name":"stderr","time":352.310632301,"data":"    ~~~~^^\n"}
+,{"stream_name":"stderr","time":352.310648253,"data":"  File \"/kaggle/working/evaluate_core.py\", line 562, in main\n"}
+,{"stream_name":"stderr","time":352.310657815,"data":"    train(args, report_runtime)\n"}
+,{"stream_name":"stderr","time":352.310666063,"data":"    ~~~~~^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":352.310782307,"data":"  File \"/kaggle/working/evaluate_core.py\", line 248, in train\n"}
+,{"stream_name":"stderr","time":352.310792798,"data":"    check_batching(model, tokenizer, args)\n"}
+,{"stream_name":"stderr","time":352.310811305,"data":"    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":352.31084234,"data":"  File \"/kaggle/working/evaluate_core.py\", line 426, in check_batching\n"}
+,{"stream_name":"stderr","time":352.310849235,"data":"    raise ValueError(\"Serial/batched quotes differ on training states; inspect batch_parity.json\")\n"}
+,{"stream_name":"stderr","time":352.31096006,"data":"ValueError: Serial/batched quotes differ on training states; inspect batch_parity.json\n"}
+,{"stream_name":"stdout","time":407.426530403,"data":"[qwen3.5-4b-staged-grpo] 4/200 episodes, 55s\n"}
+,{"stream_name":"stdout","time":453.401639933,"data":"[qwen3.5-4b-staged-grpo] 8/200 episodes, 101s\n"}
+,{"stream_name":"stdout","time":499.609206787,"data":"[qwen3.5-4b-staged-grpo] 12/200 episodes, 147s\n"}
+,{"stream_name":"stdout","time":545.893415414,"data":"[qwen3.5-4b-staged-grpo] 16/200 episodes, 193s\n"}
+,{"stream_name":"stdout","time":590.64961532,"data":"[qwen3.5-4b-staged-grpo] 20/200 episodes, 238s\n"}
+,{"stream_name":"stdout","time":634.988720637,"data":"[qwen3.5-4b-staged-grpo] 24/200 episodes, 283s\n"}
+,{"stream_name":"stdout","time":679.748944869,"data":"[qwen3.5-4b-staged-grpo] 28/200 episodes, 327s\n"}
+,{"stream_name":"stdout","time":725.094859072,"data":"[qwen3.5-4b-staged-grpo] 32/200 episodes, 373s\n"}
+,{"stream_name":"stdout","time":770.746390526,"data":"[qwen3.5-4b-staged-grpo] 36/200 episodes, 418s\n"}
+,{"stream_name":"stdout","time":816.255489763,"data":"[qwen3.5-4b-staged-grpo] 40/200 episodes, 464s\n"}
+,{"stream_name":"stdout","time":853.813562437,"data":"[qwen3.5-4b-staged-grpo] 44/200 episodes, 501s\n"}
+,{"stream_name":"stdout","time":897.139131865,"data":"[qwen3.5-4b-staged-grpo] 48/200 episodes, 545s\n"}
+,{"stream_name":"stdout","time":934.6501249,"data":"[qwen3.5-4b-staged-grpo] 52/200 episodes, 582s\n"}
+,{"stream_name":"stdout","time":971.978277117,"data":"[qwen3.5-4b-staged-grpo] 56/200 episodes, 620s\n"}
+,{"stream_name":"stdout","time":1015.974081982,"data":"[qwen3.5-4b-staged-grpo] 60/200 episodes, 664s\n"}
+,{"stream_name":"stdout","time":1060.818155644,"data":"[qwen3.5-4b-staged-grpo] 64/200 episodes, 708s\n"}
+,{"stream_name":"stdout","time":1104.602182609,"data":"[qwen3.5-4b-staged-grpo] 68/200 episodes, 752s\n"}
+,{"stream_name":"stdout","time":1142.386673013,"data":"[qwen3.5-4b-staged-grpo] 72/200 episodes, 790s\n"}
+,{"stream_name":"stdout","time":1187.859341068,"data":"[qwen3.5-4b-staged-grpo] 76/200 episodes, 835s\n"}
+,{"stream_name":"stdout","time":1232.25147126,"data":"[qwen3.5-4b-staged-grpo] 80/200 episodes, 880s\n"}
+,{"stream_name":"stdout","time":1267.21125969,"data":"[qwen3.5-4b-staged-grpo] 84/200 episodes, 915s\n"}
+,{"stream_name":"stdout","time":1303.773267439,"data":"[qwen3.5-4b-staged-grpo] 88/200 episodes, 951s\n"}
+,{"stream_name":"stdout","time":1338.98946915,"data":"[qwen3.5-4b-staged-grpo] 92/200 episodes, 987s\n"}
+,{"stream_name":"stdout","time":1375.409514407,"data":"[qwen3.5-4b-staged-grpo] 96/200 episodes, 1023s\n"}
+,{"stream_name":"stdout","time":1420.08791077,"data":"[qwen3.5-4b-staged-grpo] 100/200 episodes, 1068s\n"}
+,{"stream_name":"stdout","time":1464.835736756,"data":"[qwen3.5-4b-staged-grpo] 104/200 episodes, 1112s\n"}
+,{"stream_name":"stdout","time":1509.0295161,"data":"[qwen3.5-4b-staged-grpo] 108/200 episodes, 1157s\n"}
+,{"stream_name":"stdout","time":1544.111061138,"data":"[qwen3.5-4b-staged-grpo] 112/200 episodes, 1192s\n"}
+,{"stream_name":"stdout","time":1588.288733551,"data":"[qwen3.5-4b-staged-grpo] 116/200 episodes, 1236s\n"}
+,{"stream_name":"stdout","time":1624.213137545,"data":"[qwen3.5-4b-staged-grpo] 120/200 episodes, 1272s\n"}
+,{"stream_name":"stdout","time":1668.92088718,"data":"[qwen3.5-4b-staged-grpo] 124/200 episodes, 1317s\n"}
+,{"stream_name":"stdout","time":1704.610595851,"data":"[qwen3.5-4b-staged-grpo] 128/200 episodes, 1352s\n"}
+,{"stream_name":"stdout","time":1731.604638126,"data":"[qwen3.5-4b-staged-grpo] 132/200 episodes, 1379s\n"}
+,{"stream_name":"stdout","time":1774.492338537,"data":"[qwen3.5-4b-staged-grpo] 136/200 episodes, 1422s\n"}
+,{"stream_name":"stdout","time":1817.991510175,"data":"[qwen3.5-4b-staged-grpo] 140/200 episodes, 1466s\n"}
+,{"stream_name":"stdout","time":1854.138656991,"data":"[qwen3.5-4b-staged-grpo] 144/200 episodes, 1502s\n"}
+,{"stream_name":"stdout","time":1891.687482797,"data":"[qwen3.5-4b-staged-grpo] 148/200 episodes, 1539s\n"}
+,{"stream_name":"stdout","time":1927.433139034,"data":"[qwen3.5-4b-staged-grpo] 152/200 episodes, 1575s\n"}
+,{"stream_name":"stdout","time":1964.171556926,"data":"[qwen3.5-4b-staged-grpo] 156/200 episodes, 1612s\n"}
+,{"stream_name":"stdout","time":2007.828542658,"data":"[qwen3.5-4b-staged-grpo] 160/200 episodes, 1655s\n"}
+,{"stream_name":"stdout","time":2043.725140645,"data":"[qwen3.5-4b-staged-grpo] 164/200 episodes, 1691s\n"}
+,{"stream_name":"stdout","time":2078.661823319,"data":"[qwen3.5-4b-staged-grpo] 168/200 episodes, 1726s\n"}
+,{"stream_name":"stdout","time":2122.093563647,"data":"[qwen3.5-4b-staged-grpo] 172/200 episodes, 1770s\n"}
+,{"stream_name":"stdout","time":2157.842268461,"data":"[qwen3.5-4b-staged-grpo] 176/200 episodes, 1805s\n"}
+,{"stream_name":"stdout","time":2193.981422504,"data":"[qwen3.5-4b-staged-grpo] 180/200 episodes, 1842s\n"}
+,{"stream_name":"stdout","time":2237.860012548,"data":"[qwen3.5-4b-staged-grpo] 184/200 episodes, 1885s\n"}
+,{"stream_name":"stdout","time":2273.85677531,"data":"[qwen3.5-4b-staged-grpo] 188/200 episodes, 1921s\n"}
+,{"stream_name":"stdout","time":2310.150428981,"data":"[qwen3.5-4b-staged-grpo] 192/200 episodes, 1958s\n"}
+,{"stream_name":"stdout","time":2346.713077481,"data":"[qwen3.5-4b-staged-grpo] 196/200 episodes, 1994s\n"}
+,{"stream_name":"stdout","time":2382.199931762,"data":"[qwen3.5-4b-staged-grpo] 200/200 episodes, 2030s\n"}
+,{"stream_name":"stdout","time":2382.229661725,"data":"[eval] dice: 200 episodes, mean E[PnL]=9.74 (2030s) -\u003e /kaggle/working/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl\n"}
+,{"stream_name":"stdout","time":2382.229684719,"data":"[bayes] 5/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.259315377,"data":"[bayes] 10/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.290467793,"data":"[bayes] 15/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.319042346,"data":"[bayes] 20/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.346934946,"data":"[bayes] 25/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.374725043,"data":"[bayes] 30/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.403359924,"data":"[bayes] 35/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.431334316,"data":"[bayes] 40/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.459222406,"data":"[bayes] 45/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.487768952,"data":"[bayes] 50/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.516381018,"data":"[bayes] 55/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.544492803,"data":"[bayes] 60/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.571690983,"data":"[bayes] 65/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.599189184,"data":"[bayes] 70/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.626481976,"data":"[bayes] 75/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.653686099,"data":"[bayes] 80/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.681938296,"data":"[bayes] 85/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":2382.70854214,"data":"[bayes] 90/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.735454785,"data":"[bayes] 95/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.762398124,"data":"[bayes] 100/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.789578407,"data":"[bayes] 105/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.81673836,"data":"[bayes] 110/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.843935378,"data":"[bayes] 115/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.872256803,"data":"[bayes] 120/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.901401299,"data":"[bayes] 125/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.928375428,"data":"[bayes] 130/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.956055681,"data":"[bayes] 135/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2382.981968128,"data":"[bayes] 140/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.009280299,"data":"[bayes] 145/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.037863369,"data":"[bayes] 150/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.065386842,"data":"[bayes] 155/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.091769674,"data":"[bayes] 160/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.118752407,"data":"[bayes] 165/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.145663855,"data":"[bayes] 170/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.172505089,"data":"[bayes] 175/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.199923067,"data":"[bayes] 180/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.227269944,"data":"[bayes] 185/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.254519688,"data":"[bayes] 190/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.2823175,"data":"[bayes] 195/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2383.310128187,"data":"[bayes] 200/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":2441.8139969,"data":"[qwen3.5-4b-staged-grpo] 4/200 episodes, 56s\n"}
+,{"stream_name":"stdout","time":2488.56032319,"data":"[qwen3.5-4b-staged-grpo] 8/200 episodes, 103s\n"}
+,{"stream_name":"stdout","time":2536.643568541,"data":"[qwen3.5-4b-staged-grpo] 12/200 episodes, 151s\n"}
+,{"stream_name":"stdout","time":2584.117870123,"data":"[qwen3.5-4b-staged-grpo] 16/200 episodes, 198s\n"}
+,{"stream_name":"stdout","time":2630.459943664,"data":"[qwen3.5-4b-staged-grpo] 20/200 episodes, 245s\n"}
+,{"stream_name":"stdout","time":2677.761419606,"data":"[qwen3.5-4b-staged-grpo] 24/200 episodes, 292s\n"}
+,{"stream_name":"stdout","time":2724.545109385,"data":"[qwen3.5-4b-staged-grpo] 28/200 episodes, 339s\n"}
+,{"stream_name":"stdout","time":2770.178453804,"data":"[qwen3.5-4b-staged-grpo] 32/200 episodes, 384s\n"}
+,{"stream_name":"stdout","time":2816.184876972,"data":"[qwen3.5-4b-staged-grpo] 36/200 episodes, 430s\n"}
+,{"stream_name":"stdout","time":2854.136009113,"data":"[qwen3.5-4b-staged-grpo] 40/200 episodes, 468s\n"}
+,{"stream_name":"stdout","time":2899.472375704,"data":"[qwen3.5-4b-staged-grpo] 44/200 episodes, 514s\n"}
+,{"stream_name":"stdout","time":2945.211074859,"data":"[qwen3.5-4b-staged-grpo] 48/200 episodes, 559s\n"}
+,{"stream_name":"stdout","time":2990.987081589,"data":"[qwen3.5-4b-staged-grpo] 52/200 episodes, 605s\n"}
+,{"stream_name":"stdout","time":3036.511829203,"data":"[qwen3.5-4b-staged-grpo] 56/200 episodes, 651s\n"}
+,{"stream_name":"stdout","time":3075.08510931,"data":"[qwen3.5-4b-staged-grpo] 60/200 episodes, 689s\n"}
+,{"stream_name":"stdout","time":3121.180424549,"data":"[qwen3.5-4b-staged-grpo] 64/200 episodes, 735s\n"}
+,{"stream_name":"stdout","time":3159.045677535,"data":"[qwen3.5-4b-staged-grpo] 68/200 episodes, 773s\n"}
+,{"stream_name":"stdout","time":3203.776881569,"data":"[qwen3.5-4b-staged-grpo] 72/200 episodes, 818s\n"}
+,{"stream_name":"stdout","time":3242.476005743,"data":"[qwen3.5-4b-staged-grpo] 76/200 episodes, 857s\n"}
+,{"stream_name":"stdout","time":3279.636937818,"data":"[qwen3.5-4b-staged-grpo] 80/200 episodes, 894s\n"}
+,{"stream_name":"stdout","time":3326.511550792,"data":"[qwen3.5-4b-staged-grpo] 84/200 episodes, 941s\n"}
+,{"stream_name":"stdout","time":3371.879743168,"data":"[qwen3.5-4b-staged-grpo] 88/200 episodes, 986s\n"}
+,{"stream_name":"stdout","time":3417.222606241,"data":"[qwen3.5-4b-staged-grpo] 92/200 episodes, 1031s\n"}
+,{"stream_name":"stdout","time":3463.888407803,"data":"[qwen3.5-4b-staged-grpo] 96/200 episodes, 1078s\n"}
+,{"stream_name":"stdout","time":3500.435645851,"data":"[qwen3.5-4b-staged-grpo] 100/200 episodes, 1114s\n"}
+,{"stream_name":"stdout","time":3539.101135301,"data":"[qwen3.5-4b-staged-grpo] 104/200 episodes, 1153s\n"}
+,{"stream_name":"stdout","time":3577.247993986,"data":"[qwen3.5-4b-staged-grpo] 108/200 episodes, 1191s\n"}
+,{"stream_name":"stdout","time":3615.313153374,"data":"[qwen3.5-4b-staged-grpo] 112/200 episodes, 1229s\n"}
+,{"stream_name":"stdout","time":3653.800369197,"data":"[qwen3.5-4b-staged-grpo] 116/200 episodes, 1268s\n"}
+,{"stream_name":"stdout","time":3699.659871468,"data":"[qwen3.5-4b-staged-grpo] 120/200 episodes, 1314s\n"}
+,{"stream_name":"stdout","time":3746.655504737,"data":"[qwen3.5-4b-staged-grpo] 124/200 episodes, 1361s\n"}
+,{"stream_name":"stdout","time":3784.86667513,"data":"[qwen3.5-4b-staged-grpo] 128/200 episodes, 1399s\n"}
+,{"stream_name":"stdout","time":3830.825984081,"data":"[qwen3.5-4b-staged-grpo] 132/200 episodes, 1445s\n"}
+,{"stream_name":"stdout","time":3869.25473399,"data":"[qwen3.5-4b-staged-grpo] 136/200 episodes, 1483s\n"}
+,{"stream_name":"stdout","time":3907.218398306,"data":"[qwen3.5-4b-staged-grpo] 140/200 episodes, 1521s\n"}
+,{"stream_name":"stdout","time":3944.481925226,"data":"[qwen3.5-4b-staged-grpo] 144/200 episodes, 1559s\n"}
+,{"stream_name":"stdout","time":3983.250847584,"data":"[qwen3.5-4b-staged-grpo] 148/200 episodes, 1597s\n"}
+,{"stream_name":"stdout","time":4027.970325634,"data":"[qwen3.5-4b-staged-grpo] 152/200 episodes, 1642s\n"}
+,{"stream_name":"stdout","time":4065.860903063,"data":"[qwen3.5-4b-staged-grpo] 156/200 episodes, 1680s\n"}
+,{"stream_name":"stdout","time":4103.029084057,"data":"[qwen3.5-4b-staged-grpo] 160/200 episodes, 1717s\n"}
+,{"stream_name":"stdout","time":4141.447140306,"data":"[qwen3.5-4b-staged-grpo] 164/200 episodes, 1755s\n"}
+,{"stream_name":"stdout","time":4187.271377894,"data":"[qwen3.5-4b-staged-grpo] 168/200 episodes, 1801s\n"}
+,{"stream_name":"stdout","time":4224.835140632,"data":"[qwen3.5-4b-staged-grpo] 172/200 episodes, 1839s\n"}
+,{"stream_name":"stdout","time":4263.52761192,"data":"[qwen3.5-4b-staged-grpo] 176/200 episodes, 1878s\n"}
+,{"stream_name":"stdout","time":4301.33073405,"data":"[qwen3.5-4b-staged-grpo] 180/200 episodes, 1915s\n"}
+,{"stream_name":"stdout","time":4339.644330225,"data":"[qwen3.5-4b-staged-grpo] 184/200 episodes, 1954s\n"}
+,{"stream_name":"stdout","time":4377.813035524,"data":"[qwen3.5-4b-staged-grpo] 188/200 episodes, 1992s\n"}
+,{"stream_name":"stdout","time":4422.480430867,"data":"[qwen3.5-4b-staged-grpo] 192/200 episodes, 2037s\n"}
+,{"stream_name":"stdout","time":4461.421442761,"data":"[qwen3.5-4b-staged-grpo] 196/200 episodes, 2075s\n"}
+,{"stream_name":"stdout","time":4500.018459375,"data":"[qwen3.5-4b-staged-grpo] 200/200 episodes, 2114s\n"}
+,{"stream_name":"stdout","time":4500.212643481,"data":"[eval] cards: 200 episodes, mean E[PnL]=10.59 (2114s) -\u003e /kaggle/working/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl\n"}
+,{"stream_name":"stdout","time":4500.212672158,"data":"[bayes] 5/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":4500.407408532,"data":"[bayes] 10/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":4500.60871485,"data":"[bayes] 15/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":4500.818210646,"data":"[bayes] 20/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":4501.013217369,"data":"[bayes] 25/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":4501.231839018,"data":"[bayes] 30/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":4501.457458663,"data":"[bayes] 35/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":4501.651909768,"data":"[bayes] 40/200 episodes, 2s\n"}
+,{"stream_name":"stdout","time":4501.857338521,"data":"[bayes] 45/200 episodes, 2s\n"}
+,{"stream_name":"stdout","time":4502.054751897,"data":"[bayes] 50/200 episodes, 2s\n"}
+,{"stream_name":"stdout","time":4502.255242332,"data":"[bayes] 55/200 episodes, 2s\n"}
+,{"stream_name":"stdout","time":4502.451782647,"data":"[bayes] 60/200 episodes, 2s\n"}
+,{"stream_name":"stdout","time":4502.643218381,"data":"[bayes] 65/200 episodes, 3s\n"}
+,{"stream_name":"stdout","time":4502.84941858,"data":"[bayes] 70/200 episodes, 3s\n"}
+,{"stream_name":"stdout","time":4503.042271641,"data":"[bayes] 75/200 episodes, 3s\n"}
+,{"stream_name":"stdout","time":4503.241478501,"data":"[bayes] 80/200 episodes, 3s\n"}
+,{"stream_name":"stdout","time":4503.438315972,"data":"[bayes] 85/200 episodes, 3s\n"}
+,{"stream_name":"stdout","time":4503.640990284,"data":"[bayes] 90/200 episodes, 4s\n"}
+,{"stream_name":"stdout","time":4503.840079697,"data":"[bayes] 95/200 episodes, 4s\n"}
+,{"stream_name":"stdout","time":4504.043426612,"data":"[bayes] 100/200 episodes, 4s\n"}
+,{"stream_name":"stdout","time":4504.246760501,"data":"[bayes] 105/200 episodes, 4s\n"}
+,{"stream_name":"stdout","time":4504.448829602,"data":"[bayes] 110/200 episodes, 4s\n"}
+,{"stream_name":"stdout","time":4504.657851524,"data":"[bayes] 115/200 episodes, 5s\n"}
+,{"stream_name":"stdout","time":4504.870765663,"data":"[bayes] 120/200 episodes, 5s\n"}
+,{"stream_name":"stdout","time":4505.067291274,"data":"[bayes] 125/200 episodes, 5s\n"}
+,{"stream_name":"stdout","time":4505.271470768,"data":"[bayes] 130/200 episodes, 5s\n"}
+,{"stream_name":"stdout","time":4505.486407662,"data":"[bayes] 135/200 episodes, 5s\n"}
+,{"stream_name":"stdout","time":4505.680898118,"data":"[bayes] 140/200 episodes, 6s\n"}
+,{"stream_name":"stdout","time":4505.881306835,"data":"[bayes] 145/200 episodes, 6s\n"}
+,{"stream_name":"stdout","time":4506.076920951,"data":"[bayes] 150/200 episodes, 6s\n"}
+,{"stream_name":"stdout","time":4506.274887363,"data":"[bayes] 155/200 episodes, 6s\n"}
+,{"stream_name":"stdout","time":4506.483469222,"data":"[bayes] 160/200 episodes, 6s\n"}
+,{"stream_name":"stdout","time":4506.683513892,"data":"[bayes] 165/200 episodes, 7s\n"}
+,{"stream_name":"stdout","time":4506.877309616,"data":"[bayes] 170/200 episodes, 7s\n"}
+,{"stream_name":"stdout","time":4507.081923316,"data":"[bayes] 175/200 episodes, 7s\n"}
+,{"stream_name":"stdout","time":4507.276428306,"data":"[bayes] 180/200 episodes, 7s\n"}
+,{"stream_name":"stdout","time":4507.47661763,"data":"[bayes] 185/200 episodes, 7s\n"}
+,{"stream_name":"stdout","time":4507.671359972,"data":"[bayes] 190/200 episodes, 8s\n"}
+,{"stream_name":"stdout","time":4507.877936481,"data":"[bayes] 195/200 episodes, 8s\n"}
+,{"stream_name":"stdout","time":4508.082831803,"data":"[bayes] 200/200 episodes, 8s\n"}
+,{"stream_name":"stderr","time":4529.172792768,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":4529.173449283,"data":"  File \"/kaggle/src/script.py\", line 49, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":4529.173458683,"data":"    raise RuntimeError(f\"Evaluation worker exit codes: {codes}\")\n"}
+,{"stream_name":"stderr","time":4529.173463151,"data":"RuntimeError: Evaluation worker exit codes: [1, 0]\n"}
+,{"stream_name":"stderr","time":4531.135372568,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":4531.1354008,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":4531.404151708,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":4531.404175838,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4532.180084411,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":4532.678435841,"data":"[NbConvertApp] Writing 375385 bytes to __results__.html\n"}
+]

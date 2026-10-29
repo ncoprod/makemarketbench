@@ -1,0 +1,18 @@
+{
+  "wall_seconds": 4528.369066715,
+  "budget_seconds": 7200,
+  "exit_codes": [
+    1,
+    0
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ],
+  "source_commit": "9d4cca4f79c825a8a48b243efb4285e9e4480f0b",
+  "seed": 0,
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "evaluation_seed": 200,
+  "episodes_per_game": 200,
+  "batch_size": 4
+}

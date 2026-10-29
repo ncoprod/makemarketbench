@@ -1,0 +1,65 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_staged_final.py",
+    "config": {
+      "purpose": "retain staged final evaluation, including failed SFT train-state parity"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "c281dab3f011b7c5d9f5b46d626d4f5d077c4971",
+    "uncommitted_diff_sha256": "1b7361f9aa8ef5a5372c3499a5d0c5d254d422ecc2b7c52adf9ec0b14970dbd4",
+    "started_at": "2026-10-29T22:45:46.443349+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "kernel": "nicolascoquelet/makemarketbench-grpo-qwen3-final-staged",
+  "version": 1,
+  "download_receipt": "results/training/kaggle_staged_final.json",
+  "runtime_file": "results/kaggle/staged-final-v1/pair_runtime.json",
+  "cohorts": {
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": {
+      "episodes": 200,
+      "sha256": "3c869ac3372f13bca62567dd93d7a5984261d73115d66ec67c2abbcabc4b5365"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": {
+      "episodes": 200,
+      "sha256": "46af35950fbc1f7960a84438aece21f3b2e5e1e3692f0764b7d5d5494c8e81c6"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": {
+      "episodes": 200,
+      "sha256": "e6548e0c37b4f567d84f4ba2349dae33ce1a3224e75b2f7fd4a5e7e878d495a5"
+    },
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": {
+      "episodes": 200,
+      "sha256": "e0d7211b3eb35fcd0842da3026b251a175df089bc507ea4017158dde0fc621fc"
+    }
+  },
+  "files_sha256": {
+    "results/kaggle/staged-final-v1/evaluate_core.py": "b9be41520ac35b2e8252c1d0881aa96bdd358880a4dc103eadd9b79d7a69fb0b",
+    "results/kaggle/staged-final-v1/makemarketbench-grpo-qwen3-final-staged.log": "3be98da2f1f7ca5077aaa2703bd1a65162eed3a7f560ae1b547beb573e1f1ea4",
+    "results/kaggle/staged-final-v1/pair_runtime.json": "b5bb4b8b11c45936806518e30b855e456fa2766a73b8b87d6f1e9965d45fec66",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/batch_parity.json": "89bed5500b67645fc2271a87018cbcf3b1e3c5a2848d9efeb243d570541f3870",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/leaderboard_cards.json": "c1cd202318d46d40a7c7e26f44eecc253ba2cdb87efe12542acde775aaff4951",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/leaderboard_cards.md": "d20c1afec7c8b88688f4067beb036947b8a6fd5112653db1b126f18155082404",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/leaderboard_dice.json": "278cea826f41d771724f758545f59bcb8c42180ba63f7e7daccb29f1d07377a5",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/leaderboard_dice.md": "f0a9309b861f163f9e31901f56549e9e483083877e442851d06fc26841900cdc",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": "3c869ac3372f13bca62567dd93d7a5984261d73115d66ec67c2abbcabc4b5365",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": "46af35950fbc1f7960a84438aece21f3b2e5e1e3692f0764b7d5d5494c8e81c6",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": "e6548e0c37b4f567d84f4ba2349dae33ce1a3224e75b2f7fd4a5e7e878d495a5",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": "e0d7211b3eb35fcd0842da3026b251a175df089bc507ea4017158dde0fc621fc",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/runtime.json": "ee5a9b1d3df66d7193b1862a78eda03b00b9597196ca1c46f4981a0e63c4d628",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-sft/batch_parity.json": "2ea7b0722a642422b5b5224d732169b0125c209521a3e44efab1abaf20be2453",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-sft/runtime.json": "4d3e1b66485afdfa22b51f5237077856046a5710ad00fb8465fc838183d056fa"
+  },
+  "batch_parity": {
+    "sft": false,
+    "grpo": true
+  },
+  "interpretation": "GRPO completes both 200-episode test cohorts. SFT stops before test on train-state quote mismatch. No aggregate scores inspected for tuning.",
+  "calculation_source": "import json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nsource = Path('runs/kaggle_final_staged_output')\nout = Path('results/kaggle/staged-final-v1')\nshutil.copytree(source, out, dirs_exist_ok=True)\nfiles = {str(p): file_sha256(p) for p in sorted(out.rglob('*')) if p.is_file()}\ncohorts = {}\nfor path in out.rglob('*.jsonl'):\n    rows = [json.loads(line) for line in path.read_text().splitlines()]\n    assert sorted(r['seed'] for r in rows) == list(range(200, 400))\n    assert all(len(r['rounds']) == 6 for r in rows)\n    cohorts[str(path)] = {'episodes': len(rows), 'sha256': files[str(path)]}\npair = json.loads((out / 'pair_runtime.json').read_text())\nassert pair['exit_codes'] == [1, 0]\nparity = {name: json.loads((out / ('qwen3.5-4b-staged-' + name) / 'batch_parity.json').read_text())['quotes_equal'] for name in ('sft', 'grpo')}\nassert parity == {'sft': False, 'grpo': True}\nr = {'provenance': receipt({'purpose': 'retain staged final evaluation, including failed SFT train-state parity'}, pair['model_revision']),\n     'kernel': 'nicolascoquelet/makemarketbench-grpo-qwen3-final-staged', 'version': 1,\n     'download_receipt': 'results/training/kaggle_staged_final.json',\n     'runtime_file': str(out / 'pair_runtime.json'), 'cohorts': cohorts, 'files_sha256': files,\n     'batch_parity': parity,\n     'interpretation': 'GRPO completes both 200-episode test cohorts. SFT stops before test on train-state quote mismatch. No aggregate scores inspected for tuning.',\n     'calculation_source': Path(__file__).read_text()}\nPath('results/training/kaggle_staged_final_completion.json').write_text(json.dumps(r, indent=2) + '\\n')\np = Path('results/training/kaggle_budget.json'); b = json.loads(p.read_text())\nfor session in b['sessions']:\n    if session['kernel'] == r['kernel']:\n        session.update(status='partial_success_outputs_retrieved', script_wall_seconds=pair['wall_seconds'],\n                       hours=pair['wall_seconds'] / 3600,\n                       hours_basis='Downloaded script runtime only; allocation billing and exact release time unavailable.',\n                       observed_complete_at=json.loads(Path(r['download_receipt']).read_text())['polls'][-1]['at'],\n                       result_file=r['runtime_file'])\n    if session['kernel'].endswith('frozen-grpo-final-resume') and session['version'] == 1:\n        session['receipt'] = 'results/training/kaggle_original_final_resume_attempt1.json'\np.write_text(json.dumps(b, indent=2) + '\\n')\np = Path('README.md'); s = p.read_text().replace('| [Kaggle retry](results/training/kaggle_retry.json) | OAuth recovery, private remote metadata, pinned model and submitted script hash | Accepted submission; execution measurements pending |', '| [Completed CUDA training](results/training/kaggle_staged_completion.json) | Pinned model, trainer configs, adapter hashes and downloaded runtime | SFT and GRPO complete; [test evaluation](results/training/kaggle_staged_final_completion.json) retains GRPO cohorts and failed SFT batching check |')\np.write_text(s)\n"
+}

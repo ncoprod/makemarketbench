@@ -1310,3 +1310,21 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   hashes, the original source hash and exact extraction command/source. The
   frozen-adapter continuation seed is an inference-process seed and does not
   imply retraining with seed 0.
+
+### Staged held-out evaluation: GRPO complete, SFT parity safeguard triggered
+
+- Download the terminal kernel outputs at the scheduled 22:44 UTC poll; retain
+  the exact download command in `results/training/kaggle_staged_final.json`.
+- GRPO passes serial/batched parsed-quote parity on eight training states and
+  completes all 200 held-out episodes in each game. SFT fails that training-state
+  check and stops before test evaluation. Keep the failure rather than treating
+  batched inference as equivalent for this checkpoint.
+- Parent wall time is 4,528.369066715 seconds; worker exit codes are `[1, 0]`.
+  Raw cohorts, both parity files, both runtime files and the complete downloaded
+  log are retained in `results/kaggle/staged-final-v1/`, with hashes and exact
+  extraction source in `results/training/kaggle_staged_final_completion.json`.
+- No held-out aggregate scores are inspected to change a policy. The focused
+  fallback is the unchanged SFT adapter with serial greedy decoding. Check
+  remaining quota before admitting it; prioritize the registered dice SFT route,
+  since the registered cards GRPO route is already complete. This infrastructure
+  safeguard is not a substantive policy nonimprovement.
