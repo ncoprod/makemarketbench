@@ -288,7 +288,9 @@ and `kernel-metadata.json` sets GPU and internet. Push it with
 `kaggle kernels push -p train/kaggle`. It saves the LoRA adapter, evaluates
 seeds 0-49 with the same prompts and parser, and writes raw episodes that
 `mmb score` reads. The kernel is dry-run tested on CPU only. **No GPU numbers
-are reported here.** `train/serve_vllm.sh` serves the resulting adapter with
+are reported here.** The planning estimate in the script's docstring is not
+a measurement: about 4-5 h on a T4 for 150 SFT steps, 300 GRPO steps with 8
+generations and the evaluation, at roughly 9-11 GB peak VRAM. `train/serve_vllm.sh` serves the resulting adapter with
 vLLM for evaluation through the standard harness.
 
 <!-- TABLE:training -->
@@ -299,6 +301,18 @@ vLLM for evaluation through the standard harness.
 | qwen3-1.7b-base | cards | 50 | -648 [-781, -558] | -129.8 [-139.0, -121.0] | 24.43 | 22% |
 | qwen3-1.7b-sft | cards | 50 | -80 [-161, -15] | -16.1 [-30.0, -3.2] | 5.01 | 0% |
 <!-- /TABLE:training -->
+
+**What the SFT run actually was.** It used LoRA rank 8 on 16 layers, batch 2,
+learning rate 1e-4 and max sequence 1024, with gradient checkpointing. The
+config is in `results/training/sft_adapter_config.json`. The run was planned
+for 800 iterations but was stopped at **300 iterations** to fit the time
+budget, so it saw 600 of the 9,600 examples, about 0.06 epochs. Validation
+loss on the 480 held-out examples fell from 4.258 before training to 0.285
+at iteration 100, 0.233 at 200 and 0.242 at 300
+(`results/training/sft_qwen3-1.7b.log`). MLX reported a median of 14 loss tokens/s, which
+counts answer tokens only because the prompt is masked. That came to 43k
+answer tokens over the run, on the M1 Pro while other jobs shared the
+machine.
 
 ## Engine
 
