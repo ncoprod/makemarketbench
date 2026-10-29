@@ -279,6 +279,51 @@
       ]
     },
     {
+      "player": "qwen3-1.7b-dagger",
+      "episodes": 50,
+      "pct_of_bayes": 16.09601736098006,
+      "pct_of_bayes_ci": [
+        -37.288569221334576,
+        60.559282477845535
+      ],
+      "epnl": 2.247669553055933,
+      "epnl_ci": [
+        -5.1592165088544055,
+        8.411268101488668
+      ],
+      "realized_pnl": -0.8439999999999986,
+      "realized_pnl_ci": [
+        -11.426149999999996,
+        8.250299999999996
+      ],
+      "realized_pnl_sd": 35.56873862462568,
+      "noise_edge": 12.033669553055933,
+      "adverse_cost": 9.786,
+      "spread": 8.052333333333333,
+      "coverage": 0.6266666666666666,
+      "mean_size": 4.7,
+      "abs_final_position": 5.54,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        0.8318068957597441,
+        1.9298823312251163
+      ],
+      "posterior_edge_pct": 40.00280282213355,
+      "flow_shift": -1.0670454545454546,
+      "mid_error": 1.593948571905097,
+      "median_spread_ratio": 0.9756097560975606,
+      "regret_per_round": 1.32247392017191,
+      "regret_by_round": [
+        0.0,
+        0.645613793501762,
+        1.046072980969704,
+        1.8479185925414017,
+        2.1165082977589402,
+        2.2787298562596505
+      ]
+    },
+    {
       "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
       "episodes": 50,
       "pct_of_bayes": -40.71828425946225,

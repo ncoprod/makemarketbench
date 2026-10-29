@@ -234,6 +234,51 @@
       ]
     },
     {
+      "player": "qwen3-1.7b-dagger",
+      "episodes": 50,
+      "pct_of_bayes": -30.003154667005916,
+      "pct_of_bayes_ci": [
+        -98.23954495603144,
+        26.314964036865508
+      ],
+      "epnl": -6.008091616404288,
+      "epnl_ci": [
+        -18.9161033249587,
+        5.43247752657555
+      ],
+      "realized_pnl": -16.24,
+      "realized_pnl_ci": [
+        -36.000499999999995,
+        0.52
+      ],
+      "realized_pnl_sd": 66.20147356396848,
+      "noise_edge": 10.005908383595711,
+      "adverse_cost": 16.014,
+      "spread": 12.033333333333335,
+      "coverage": 0.6,
+      "mean_size": 4.49,
+      "abs_final_position": 8.44,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        3.189769191902969,
+        5.761981708640458
+      ],
+      "posterior_edge_pct": -33.86557859136783,
+      "flow_shift": -6.16919557972034,
+      "mid_error": 3.9209000010393638,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 4.4195101860321895,
+      "regret_by_round": [
+        0.0,
+        2.9698339886166445,
+        5.165491509893879,
+        5.608100308971075,
+        6.040050515718817,
+        6.733584792992719
+      ]
+    },
+    {
       "player": "random",
       "episodes": 50,
       "pct_of_bayes": -45.37670835426151,
