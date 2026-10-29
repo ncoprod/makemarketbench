@@ -442,6 +442,39 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:08:54.189288+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:19:05.407298+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:29:18.482220+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3 has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "console_observation": {
@@ -538,6 +571,18 @@
         "2026-10-29T13:53:07Z"
       ],
       "recorded_at": "2026-10-29T14:03:16.192507+00:00"
+    }
+  ],
+  "native_ui_observations": [
+    {
+      "recorded_at": "2026-10-29T15:33:06.842055+00:00",
+      "method": "native Chrome accessibility tree; aggregate policy scores filtered before tool output",
+      "displayed_running_seconds": 18860.1,
+      "warmstart_dice_completed_episodes": 200,
+      "warmstart_dice_printed_eval_seconds": 9760,
+      "printed_runtime_precision": "whole seconds",
+      "grpo_configuration_visible": false,
+      "note": "Dice completion/runtime observed; mean expected PnL withheld. Absence of GRPO configuration in visible logs does not prove no further progress."
     }
   ]
 }

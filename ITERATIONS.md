@@ -593,3 +593,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   distinguish uncomputed aggregate scores from exposed raw episode fields.
   Preserve the earlier commit. Further metadata searches name protocol/receipt
   files explicitly. The registered training recipes remain unchanged.
+
+### Recovered live CUDA progress
+
+- Chrome accessibility reads recovered on a fresh private-kernel tab. The
+  original session has completed 200 warm-start dice episodes, with a printed
+  evaluation time of 9,760 seconds. Filter its mean PnL before tool output;
+  aggregate policy scores remain withheld during validation selection.
+- The staged run is executing SFT, with its latest visible log at epoch 1.467,
+  training loss 0.05815 and 5,455.0 seconds. These are training diagnostics, not
+  validation performance. The UI reports two allocated T4s and one trainer GPU;
+  its effective SFT batch is 16 (device batch eight, accumulation two).
+- [Original observation](results/training/kaggle_retry.json) and
+  [staged observation](results/training/kaggle_staged.json) retain displayed
+  precision and distinguish log visibility from actual execution progress.

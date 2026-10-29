@@ -173,6 +173,47 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:17:31.575943+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T15:27:43.508636+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-grpo-qwen3-train-only"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-grpo-qwen3-train-only has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
+  "native_ui_observations": [
+    {
+      "recorded_at": "2026-10-29T15:33:06.842055+00:00",
+      "method": "native Chrome accessibility tree; only this private kernel tab inspected",
+      "displayed_running_seconds": 5769.6,
+      "allocated_hardware": "GPU T4 x2",
+      "trainer_gpus_used": 1,
+      "sft_last_printed_log_seconds": 5455.0,
+      "sft_last_printed_loss": "0.05815",
+      "sft_last_printed_epoch": "1.467",
+      "sft_total_steps": 150,
+      "sft_examples": 1200,
+      "sft_epochs": 2,
+      "sft_per_device_batch": 8,
+      "sft_gradient_accumulation": 2,
+      "sft_effective_batch": 16,
+      "note": "Training diagnostics only; last displayed log need not be latest executed step. Verify exact trainer config and final runtime from outputs."
     }
   ]
 }
