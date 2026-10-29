@@ -142,6 +142,45 @@ def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_pa
     assert scoring.cohort(path) is None
 
 
+def test_routed_cohorts_preserve_frozen_sources_and_reject_changed_weights(tmp_path, monkeypatch):
+    import importlib
+
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "scripts"))
+    stitch = importlib.import_module("stitch_routed_policy")
+    plan = {"provenance": {"model_revision": "fixed"}, "candidate_label": "routed",
+            "routes": {"dice": "sft", "cards": "grpo"}, "adapter_sha256": {"sft": "a", "grpo": "b"}}
+    plan_path, out = tmp_path / "plan.json", tmp_path / "out"
+    plan_path.write_text(json.dumps(plan))
+    sources = {}
+    for game, label in plan["routes"].items():
+        for name in (label, "bayes"):
+            path = tmp_path / label / "results/raw" / game / f"{name}.jsonl"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            rows = [{"game": game, "player": name, "seed": seed, "rounds": [{}] * 6,
+                     "provenance": {"model_revision": "fixed", "config": {"adapter_sha256": plan["adapter_sha256"][label]}}}
+                    for seed in range(200, 400)]
+            path.write_text("".join(json.dumps(e) + "\n" for e in rows))
+            sources[path] = path.read_bytes()
+    command = ["stitch_routed_policy.py", "--input", str(tmp_path), "--out", str(out), "--plan", str(plan_path)]
+    monkeypatch.setattr("sys.argv", command)
+    stitch.main()
+    before = (out / "cohorts.json").read_bytes()
+    stitch.main()
+    assert (out / "cohorts.json").read_bytes() == before
+    for game, label in plan["routes"].items():
+        rows = [json.loads(s) for s in (out / "raw" / game / "routed.jsonl").read_text().splitlines()]
+        assert len(rows) == 200 and all(e["player"] == "routed" for e in rows)
+        assert all(e["provenance"]["routed_policy"]["underlying_player"] == label for e in rows)
+    assert all(path.read_bytes() == data for path, data in sources.items())
+    plan["adapter_sha256"]["sft"] = "different weights"
+    plan_path.write_text(json.dumps(plan))
+    with pytest.raises(AssertionError):
+        stitch.main()
+    command[4] = str(tmp_path / "new-out")
+    with pytest.raises(AssertionError):
+        stitch.main()
+
+
 def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, monkeypatch):
     spec = importlib.util.spec_from_file_location(
         "final_candidate", Path(__file__).parents[1] / "train/final_candidate.py")

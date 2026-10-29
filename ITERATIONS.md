@@ -1187,6 +1187,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   two-adapter policy, not a single-checkpoint result. Increase the correction
   family from eight to nine before any new final score is inspected. Final
   PnL, CIs and target outcomes remain pending.
+- `scripts/stitch_routed_policy.py` now materializes the registered cohorts
+  without model calls or aggregate scoring. It checks all 200 seeds, complete
+  episodes, both adapter hashes and the pinned revision; preserves original
+  files and records underlying-policy provenance. CPU tests reject changed
+  weights or a changed registration and verify idempotent reuse. All 27
+  training tests pass after this and the uniform-padding checks.
 
 ### Computer-use outage during newest-family training
 
