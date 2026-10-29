@@ -1,0 +1,110 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "action": "snapshot completed pre-reboot/resumed policy episodes without aggregating scores"
+    },
+    "model_revision": null,
+    "git_commit": "7e35d13850c6c92048cc0db4f5245b6fe1dda73e",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-29T15:08:12.533590+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "cohorts": [
+    {
+      "path": "results/final/qwen17-sft800/raw/dice/qwen3-1.7b-sft800.jsonl",
+      "prefix_sha256": "eac648512ca768bfa45131895d8d623cf1d133e839720122de69b34bf7dddb16",
+      "completed_episodes": 57,
+      "seeds": [
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256
+      ],
+      "status": "incomplete; preserve and resume missing seeds only",
+      "producer_commits": [
+        "69d0ebdac690de83c06041c1b8a1c98659f7f627"
+      ]
+    },
+    {
+      "path": "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl",
+      "prefix_sha256": "082f3944bafff92dfe98b6c98ca35b3ff835b39315cb4495df5302ebdef61252",
+      "completed_episodes": 7,
+      "seeds": [
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206
+      ],
+      "status": "incomplete; preserve and resume missing seeds only",
+      "producer_commits": [
+        "aa1e84f2408ca4b174d7047bac9f0285f96497a8",
+        "c907b50a31d2af12a7711cefe4521728af2b9cac"
+      ]
+    }
+  ],
+  "scores_inspected": false
+}

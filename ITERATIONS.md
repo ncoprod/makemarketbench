@@ -564,3 +564,13 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   thinking is always enabled and `low` is the smallest documented effort.
   The failure therefore does not establish poor quoting quality. The separate
   DeepSeek non-thinking probe remains pending.
+
+### Back up incomplete evaluation cohorts
+
+- Commit the 57 complete 1.7B dice episodes and seven complete GPT-OSS-20B
+  dice episodes already written before the current queues. Verify unique seeds
+  and six rounds per episode without aggregating scores. These remain incomplete
+  cohorts and do not satisfy the final sample requirement.
+- [Recovery checkpoint](results/recovery_checkpoint.json) records each snapshot's
+  prefix hash and producer commits. Resumers skip these seeds; later appends
+  change the full-file hash without invalidating this historical snapshot.
