@@ -102,7 +102,8 @@ for gpu, (directory, label) in enumerate([
         env["CUDA_VISIBLE_DEVICES"] = str(gpu)
     command = [sys.executable, str(core), "--eval-only", "--adapter", str(adapters[0].parent),
                "--label", label, "--eval-seed", "{seed}", "--eval-episodes", "{episodes}",
-               "--eval-batch-size", "4", "--budget-seconds", str(max(1, int(deadline - time.monotonic()))),
+               "--eval-batch-size", "4", "--check-batching",
+               "--budget-seconds", str(max(1, int(deadline - time.monotonic()))),
                *{model_flags!r}]
     workers.append(subprocess.Popen(command, env=env, cwd=work))
     if {newest!r}:

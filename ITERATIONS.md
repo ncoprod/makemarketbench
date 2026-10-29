@@ -945,3 +945,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   Existing source snapshots and unknown allocation times remain unchanged.
 - Verify with the 17 CPU training tests and lint. The scheduled active-run
   diagnostic still reports SFT update 350 with no error; it predates this change.
+
+### Protect batching validity and reserve useful newest-family evaluation
+
+- Before any batched validation/test cohort, compare serial and batched parsed
+  quotes on eight fixed training states: dice/cards, seeds 20,000–20,003, rounds
+  0/1/3/5. Preserve responses and timings in `batch_parity.json`; differing
+  quotes stop evaluation for diagnosis. Serial timing includes warm-up and is
+  explicitly not a steady-state speedup estimate. All 102 CPU tests pass.
+- Prepared conditional continuation plan: `qwen38_continuation_plan.json`.
+  Only if the current 96-update GRPO stage is unfinished, admit up to 32 further
+  updates subject to actual quota and evaluation reservations. Resume optimizer
+  state when available; otherwise explicitly restart from frozen SFT weights.
+  The single-update 128.4-second probe includes compilation, so it is only a
+  conservative scheduling diagnostic. This is not a quality-stopping trial.
+- Future GRPO jobs retain two rolling optimizer checkpoints. This permits
+  frequent checkpointing without retaining every large optimizer snapshot;
+  it changes neither the reward nor the active immutable training run.

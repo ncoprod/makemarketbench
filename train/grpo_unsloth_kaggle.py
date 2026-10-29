@@ -244,6 +244,8 @@ def train(args, report_runtime) -> None:
             raise ValueError("--eval-only requires a compatible saved adapter")
         FastLanguageModel.for_inference(model)
         report_runtime("evaluation", 0)
+        if args.check_batching:
+            check_batching(model, tokenizer, args)
         evaluate(model, tokenizer, args)
         return
 
@@ -301,7 +303,7 @@ def train(args, report_runtime) -> None:
         per_device_train_batch_size=args.num_generations, gradient_accumulation_steps=1,
         num_generations=args.num_generations, max_prompt_length=args.max_seq_len - args.max_completion,
         max_completion_length=args.max_completion, temperature=1.0, logging_steps=5,
-        save_steps=args.save_steps, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
+        save_steps=args.save_steps, save_total_limit=2, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
         optim="adamw_8bit", seed=args.seed, data_seed=args.seed)
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        callbacks=[RuntimeCallback("grpo")],
@@ -384,6 +386,46 @@ class HFQuoter:
         return [(self.cache[key][0], {**self.cache[key][1], "cached": key in cached}) for key in prompts]
 
 
+def check_batching(model, tokenizer, args):
+    """Check padding on training states before committing held-out GPU compute."""
+    from makemarket.games import make_game
+    from makemarket.market import episode_steps
+    from makemarket.players import BayesQuoter
+
+    observations = []
+    for name in args.games:
+        for index, round_index in enumerate((0, 1, 3, 5)):
+            teacher = BayesQuoter()
+            teacher.reset(20000 + index)
+            steps = episode_steps(make_game(name), 20000 + index, "teacher", "py")
+            obs = next(steps)
+            for _ in range(round_index):
+                obs = steps.send(teacher.quote(obs))
+            observations.append(obs)
+    serial = HFQuoter(model, tokenizer, args.label)
+    batched = HFQuoter(model, tokenizer, args.label)
+    started = time.monotonic()
+    expected = [serial.quote(obs) for obs in observations]
+    serial_seconds = time.monotonic() - started
+    started = time.monotonic()
+    actual = []
+    for offset in range(0, len(observations), args.eval_batch_size):
+        actual.extend(batched.quote_many(observations[offset:offset + args.eval_batch_size]))
+    def encode(answers):
+        return [quote.to_dict() if quote is not None else None for quote, _ in answers]
+
+    record = {**execution(args), "training_seeds": [20000, 20003], "rounds": [0, 1, 3, 5],
+              "serial_seconds": serial_seconds, "batch_seconds": time.monotonic() - started,
+              "serial_quotes": encode(expected), "batch_quotes": encode(actual),
+              "serial_attempts": [info["attempts"] for _, info in expected],
+              "batch_attempts": [info["attempts"] for _, info in actual],
+              "timing_note": "Serial runs first and includes warm-up; diagnostic, not a steady-state speedup estimate."}
+    record["quotes_equal"] = record["serial_quotes"] == record["batch_quotes"]
+    (WORK / "batch_parity.json").write_text(json.dumps(record, indent=2) + "\n")
+    if not record["quotes_equal"]:
+        raise ValueError("Serial/batched quotes differ on training states; inspect batch_parity.json")
+
+
 def evaluate(model, tokenizer, args, label=None) -> None:
     from makemarket.analysis import player_diagnostics
     from makemarket.cli import slug
@@ -460,6 +502,7 @@ def main() -> None:
     ap.add_argument("--lr", type=float, default=5e-6)
     ap.add_argument("--eval-episodes", type=int, default=200)
     ap.add_argument("--eval-batch-size", type=int, default=1)
+    ap.add_argument("--check-batching", action="store_true", help="compare serial/batched training-state quotes first")
     ap.add_argument("--eval-seed", type=int, default=200)
     ap.add_argument("--resume", help="GRPO checkpoint directory, including optimizer state")
     ap.add_argument("--sft-resume", help="SFT checkpoint directory, including optimizer state")

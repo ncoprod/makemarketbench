@@ -290,3 +290,38 @@ def test_batched_cuda_repairs_only_invalid_unique_prompts(kernel):
     assert all(not info["cached"] for _, info in answers)
     assert all(info["cached"] for _, info in player.quote_many([first, second]))
     assert len(calls) == 2
+
+
+@pytest.mark.parametrize("mismatch", [False, True])
+def test_gpu_batch_check_uses_training_states_and_keeps_failures(kernel, monkeypatch, tmp_path, mismatch):
+    from makemarket.games.base import Quote
+
+    seen = []
+
+    class Quoter:
+        def __init__(self, model, tokenizer, label):
+            pass
+
+        def quote(self, obs):
+            seen.append((obs.game.name, obs.t))
+            quote = Quote(1, 1, 99, 1)
+            return quote, {"attempts": [{"content": json.dumps(quote.to_dict())}]}
+
+        def quote_many(self, observations):
+            answers = [self.quote(obs) for obs in observations]
+            if mismatch:
+                answers[0] = (None, answers[0][1])
+            return answers
+
+    monkeypatch.setattr(kernel, "WORK", tmp_path)
+    monkeypatch.setattr(kernel, "HFQuoter", Quoter)
+    args = Namespace(games=["dice", "cards"], label="test", seed=0, eval_batch_size=4)
+    if mismatch:
+        with pytest.raises(ValueError, match="Serial/batched quotes differ"):
+            kernel.check_batching(None, None, args)
+    else:
+        kernel.check_batching(None, None, args)
+    record = json.loads((tmp_path / "batch_parity.json").read_text())
+    assert record["quotes_equal"] is not mismatch
+    assert record["training_seeds"] == [20000, 20003]
+    assert seen[:8] == [(game, t) for game in args.games for t in (0, 1, 3, 5)]

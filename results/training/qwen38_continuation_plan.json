@@ -1,0 +1,41 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "register bounded newest-family continuation before policy scores"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "1ca6f4e109dc2a5c9cba1bbb15b37f9fd7712a4e",
+    "uncommitted_diff_sha256": "7e974b6a5c22b9e8a7c19c297b8dc77b2a0a9f3e3f1068ae60d106e61a676c03",
+    "started_at": "2026-10-29T20:26:01.268663+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "registered_at": "2026-10-29T20:26:01.309158+00:00",
+  "status": "prepared_not_submitted",
+  "trial": "T12 budget allocation, not a measured policy result",
+  "reason": "Downloaded two-completion GRPO probe took 128.4 seconds/update. The four-hour SFT/GRPO cap may preserve SFT before completing the originally intended GRPO stage. Reserve quota for common-seed validation and held-out evaluation rather than assume 96 updates plus evaluation fit. This was a single-update probe with compilation overhead, not a measured steady-state speed estimate. Reassess against the active run before submission.",
+  "conditional_recipe": {
+    "only_if_original_96_updates_unfinished": true,
+    "warm_start": "frozen newest-family minimum teacher-loss SFT adapter; finish the registered 800-update SFT ceiling first if interrupted",
+    "group_size": 2,
+    "learning_rate": 5e-06,
+    "seed": 0,
+    "save_every_updates": 5,
+    "rolling_checkpoints": 2,
+    "wall_cap_seconds": 6300,
+    "data_partition": "same 800 shuffled SFT states, 4000 disjoint GRPO states; preserve --sft-steps 800 --sft-batch 1 even when loading adapter",
+    "optimizer": "resume the latest original GRPO checkpoint when one exists; otherwise restart explicitly from warm-start SFT",
+    "additional_grpo_updates_max": 32,
+    "total_update_ceiling_if_resuming": "min(96, checkpoint_global_step + 32); starting from SFT without a GRPO checkpoint gives 32 final updates"
+  },
+  "admission": "Check official quota at submission; reserve active caps, planned final evaluation and startup overhead. Do not submit if remaining quota or reset deadline cannot cover the bound.",
+  "evaluation": "Validation 80000-80099 then frozen test 200-399 per game; batch4 only after GPU validation. Report all available frozen checkpoints and retain all failures.",
+  "quality_stopping": "This budget allocation does not count as a quality nonimprovement or establish exhaustion of Qwen3.8 capacity."
+}
