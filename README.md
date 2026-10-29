@@ -166,8 +166,12 @@ The separate training-only run completed **150 SFT and 300 GRPO updates in
 [checkpoint histories and configs](results/training/kaggle_staged_completion.json)).
 It saved both adapters before separate Kaggle evaluations. In the completed
 100-episode validation cohorts, SFT performs better on dice and GRPO on cards
-([all raw validation results](results/training/kaggle_staged_validation_completion.json));
-held-out policy quality remains pending. The original combined run reaches its
+([all raw validation results](results/training/kaggle_staged_validation_completion.json)).
+The paired validation change is **+4.96 [2.05, 8.04]** expected PnL on cards
+and **−1.37 [−2.29, −0.53]** on dice; these are descriptive 95% CIs from the
+validation used for router selection, not held-out confirmation
+([ablation and source](results/validation/staged_ablation.json)).
+Held-out policy quality remains pending. The original combined run reaches its
 platform limit after completing training: both warm-start cohorts have 200
 episodes, while GRPO has 120 dice episodes saved
 ([downloaded outputs](results/training/kaggle_original_completion.json)). A

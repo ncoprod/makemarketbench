@@ -1,0 +1,181 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/staged_validation_ablation.py",
+    "config": {
+      "purpose": "paired SFT versus SFT+GRPO validation ablation",
+      "bootstrap_resamples": 10000,
+      "bootstrap_seed": 0
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "4f8dcd0b7c47c22f4fe64c1bf47735c1ad18dcc5",
+    "uncommitted_diff_sha256": "bed36a77164c284cf8300b227e925c86dd8af429235e5f575c65fad09ae3d19e",
+    "started_at": "2026-10-29T23:09:12.360632+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "778bbb5cae0e01269579a1d46bb73dcc53eff08ed0e83f8fe5c9c41bcb267fa4",
+  "calculation_source": "import json\nfrom pathlib import Path\nimport numpy as np\nfrom makemarket.evaluate import load_results\nfrom makemarket.provenance import receipt, file_sha256\nfrom makemarket.scoring import bootstrap_ci, episode_metrics, paired_ratio_ci\n\nroot=Path('results/kaggle/staged-validation-v1')\nr={'provenance':receipt({'purpose':'paired SFT versus SFT+GRPO validation ablation','bootstrap_resamples':10000,'bootstrap_seed':0},'3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636'),\n   'source_sha256':file_sha256(__file__),'calculation_source':Path(__file__).read_text(),\n   'seeds':list(range(80000,80100)),'input_sha256':{},'games':{},\n   'interpretation':'Descriptive validation ablation conditional on one frozen training pipeline. These episodes selected the game router; intervals are not held-out confirmation or training-seed uncertainty.'}\nfor game in ('dice','cards'):\n arrays={}\n for method in ('sft','grpo'):\n  label='qwen3.5-4b-staged-'+method\n  for player in (label,'bayes'):\n   p=root/label/'results/raw'/game/(player+'.jsonl')\n   rows=sorted(load_results(p),key=lambda row:row['seed'])\n   assert [row['seed'] for row in rows]==r['seeds']\n   r['input_sha256'][str(p)]=file_sha256(p)\n   metrics=[episode_metrics(row) for row in rows]\n   values={k:np.array([row[k] for row in metrics]) for k in ('epnl','noise_edge','adverse_cost','fail_rate')}\n   if player=='bayes' and 'bayes' in arrays:\n    assert np.array_equal(values['epnl'],arrays['bayes']['epnl'])\n   arrays['bayes' if player=='bayes' else method]=values\n delta=arrays['grpo']['epnl']-arrays['sft']['epnl']\n pct,lo,hi=paired_ratio_ci(delta,arrays['bayes']['epnl'])\n r['games'][game]={'grpo_minus_sft_epnl':float(delta.mean()),'paired_95_ci':bootstrap_ci(delta),\n                   'paired_97_5_ci_two_game_correction':bootstrap_ci(delta,level=.975),\n                   'grpo_minus_sft_percentage_points_of_bayes':float(pct),'paired_percentage_point_95_ci':[lo,hi],\n                   'mean_changes':{k:float((arrays['grpo'][k]-arrays['sft'][k]).mean()) for k in ('noise_edge','adverse_cost','fail_rate')}}\nPath('results/validation/staged_ablation.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint(json.dumps(r['games'],indent=2))\n",
+  "seeds": [
+    80000,
+    80001,
+    80002,
+    80003,
+    80004,
+    80005,
+    80006,
+    80007,
+    80008,
+    80009,
+    80010,
+    80011,
+    80012,
+    80013,
+    80014,
+    80015,
+    80016,
+    80017,
+    80018,
+    80019,
+    80020,
+    80021,
+    80022,
+    80023,
+    80024,
+    80025,
+    80026,
+    80027,
+    80028,
+    80029,
+    80030,
+    80031,
+    80032,
+    80033,
+    80034,
+    80035,
+    80036,
+    80037,
+    80038,
+    80039,
+    80040,
+    80041,
+    80042,
+    80043,
+    80044,
+    80045,
+    80046,
+    80047,
+    80048,
+    80049,
+    80050,
+    80051,
+    80052,
+    80053,
+    80054,
+    80055,
+    80056,
+    80057,
+    80058,
+    80059,
+    80060,
+    80061,
+    80062,
+    80063,
+    80064,
+    80065,
+    80066,
+    80067,
+    80068,
+    80069,
+    80070,
+    80071,
+    80072,
+    80073,
+    80074,
+    80075,
+    80076,
+    80077,
+    80078,
+    80079,
+    80080,
+    80081,
+    80082,
+    80083,
+    80084,
+    80085,
+    80086,
+    80087,
+    80088,
+    80089,
+    80090,
+    80091,
+    80092,
+    80093,
+    80094,
+    80095,
+    80096,
+    80097,
+    80098,
+    80099
+  ],
+  "input_sha256": {
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": "6665d2cedc71b041cc87eed65f4ae52ed2e0755cb8744dbcdeb9814d8b4c7834",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/dice/bayes.jsonl": "32b345756da52083a4842d4dff55fd1671313c9e51b8be48b449c51b0de871bb",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": "6aeaebc0d538a98fd77cbf08ab1a0363f831e411f7c7cacd13c255cb9aef1cad",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": "f22129415516968ddea8e54678f5316afd29013e4bcf6e7510574483329b9883",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/cards/qwen3.5-4b-staged-sft.jsonl": "4c61c4d47b2e086470d928b352ff0c81778670eece7be8aebdc1b18a8104d375",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-sft/results/raw/cards/bayes.jsonl": "cc400e41be606400d30f450d933cbfa993376a3d7a726a08d1caa220940a5d7a",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": "62492014c6c08c21534a39b751c0349fd5effedbdcf10ba40f5c716b7f1db405",
+    "results/kaggle/staged-validation-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": "21ed02f550c4c6f9774b75d9cd90545a68076ec5ffbc333dd66bd01def4767ec"
+  },
+  "games": {
+    "dice": {
+      "grpo_minus_sft_epnl": -1.3725765147304103,
+      "paired_95_ci": [
+        -2.290160461493702,
+        -0.5298819195898281
+      ],
+      "paired_97_5_ci_two_game_correction": [
+        -2.4395898111718632,
+        -0.4428360552622351
+      ],
+      "grpo_minus_sft_percentage_points_of_bayes": -9.39956861967028,
+      "paired_percentage_point_95_ci": [
+        -16.915465220847196,
+        -3.52527131358958
+      ],
+      "mean_changes": {
+        "noise_edge": -1.2243765147304095,
+        "adverse_cost": 0.14820000000000022,
+        "fail_rate": 0.0
+      }
+    },
+    "cards": {
+      "grpo_minus_sft_epnl": 4.958334309320262,
+      "paired_95_ci": [
+        2.0498365187466008,
+        8.044547142644168
+      ],
+      "paired_97_5_ci_two_game_correction": [
+        1.622757068693905,
+        8.497727152796527
+      ],
+      "grpo_minus_sft_percentage_points_of_bayes": 28.27206838753957,
+      "paired_percentage_point_95_ci": [
+        11.655500831353217,
+        47.49525926290263
+      ],
+      "mean_changes": {
+        "noise_edge": 1.7099343093202617,
+        "adverse_cost": -3.2484,
+        "fail_rate": 0.0
+      }
+    }
+  },
+  "interpretation": "Descriptive validation ablation conditional on one frozen training pipeline. These episodes selected the game router; intervals are not held-out confirmation or training-seed uncertainty."
+}

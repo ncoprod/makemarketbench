@@ -1380,3 +1380,21 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   Incomplete API/GRPO files remain listed separately rather than counted as
   completed. Exact command, source hashes and input hashes are retained in
   `results/final/game_comparability.json`. Ruff passes for the new script.
+
+### Paired validation ablation diagnosis
+
+- Compute episode-paired GRPO-minus-SFT differences on all 100 validation seeds
+  in each game. Confirm their Bayes reference arrays are identical first.
+- Command: `.venv/bin/python runs/staged_validation_ablation.py`. Exact source,
+  raw-input hashes, bootstrap seed 0 and 10,000 resamples are retained in
+  `results/validation/staged_ablation.json`.
+- Cards expected PnL changes by +4.958334309320262, with descriptive paired 95%
+  CI [2.0498365187466008, 8.044547142644168]. Noise edge rises 1.7099343093202617
+  and adverse-selection cost falls 3.2484.
+- Dice changes by -1.3725765147304103, CI [-2.290160461493702,
+  -0.5298819195898281]. Noise edge falls 1.2243765147304095 and adverse cost
+  rises 0.1482. Both stages have zero no-quote rates in both games.
+- These are the same validation cohorts used for router selection, conditional
+  on one training pipeline. Retain both directions; do not present these CIs
+  as held-out confirmation or training-seed uncertainty. No new policy is
+  selected from test results and this analysis consumes no GPU budget.
