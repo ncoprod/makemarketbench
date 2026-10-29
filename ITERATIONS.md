@@ -1466,3 +1466,23 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   changed-weight checks now exercise two distinct input roots.
 - Correct the README reproduction command to include the fixed 1025-token
   training shape actually required by the bounded-memory local recipe.
+
+### Audit the complete projected supervision window
+
+- Command: `.venv/bin/python runs/audit_answer_width.py`; tokenizer only, no
+  model weights or heavy-ML work. Retain exact source, model revision, data
+  hashes and upstream dataset/trainer source hashes in
+  `results/training/qwen35_answer_width.json`.
+- All 9,600 training and 480 validation targets contain at most 68 answer
+  tokens. The upstream inclusive mask also includes one boundary padding
+  target, so its maximum required projected window is 69, below the configured
+  128. Existing loss/gradient parity tests intentionally preserve that upstream
+  convention. Do not change the objective or hyperparameters of the active run.
+- The quota snapshot at 23:41 UTC reports 99,553.244329 GPU seconds used of
+  108,000. Clarify the ledger admission rule: bounded batch limits and an
+  explicit allowance for unknown continued interactive allocation are separate
+  from billing reservations and the platform's 12-hour maximum.
+- The official SDK's separate draft-status route also returns HTTP 404. Retain
+  that exact failure. Direct browser selection still fails with the native
+  pipe error. Exact timestamps of the two earlier CUA calls were not persisted;
+  replace an approximate timestamp with the surrounding clock-read bounds.
