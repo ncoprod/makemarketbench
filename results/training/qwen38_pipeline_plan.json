@@ -1,0 +1,34 @@
+{
+  "registered_at": "2026-10-29T18:27:19.182613+00:00",
+  "source_commit": "87b169018749d18b1d95633d6ac5ddcc47d2ae98",
+  "command": ".venv/bin/python train/build_kaggle_kernel.py --qwen38-train",
+  "seed": 0,
+  "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+  "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+  "licence": "Apache-2.0",
+  "selection_basis": "Newest general-purpose Qwen family, actual SFT/GRPO updates proven on two T4s; not selected from a policy test score.",
+  "recipe": {
+    "sft_steps_max": 800,
+    "sft_batch": 1,
+    "sft_accumulation": 1,
+    "completion_only_loss": true,
+    "teacher_validation_episodes_per_game": 4,
+    "teacher_validation_seeds": [
+      60000,
+      60003
+    ],
+    "evaluation_every_steps": 50,
+    "early_stopping_patience": 2,
+    "checkpoint_selection": "minimum teacher validation loss",
+    "grpo_steps": 96,
+    "num_generations": 2,
+    "lora_rank": 8,
+    "max_seq_len": 1024,
+    "train_only": true
+  },
+  "wall_budget_seconds": 14400,
+  "resume_policy": "Retain checkpoints every 50 steps; if wall cap interrupts before GRPO, resume exact optimizer state in the next useful allocation, preserving data split.",
+  "validation_policy": "100 episodes per game, seeds 80000-80099, SFT-only versus GRPO before any focused quality tuning.",
+  "final_policy": "Freeze adapters before one 200-episode test per game, seeds 200-399. Family correction now counts eight candidates.",
+  "status": "registered_not_started"
+}

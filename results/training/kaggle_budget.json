@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-29T18:10:17.594735+00:00",
+  "recorded_at": "2026-10-29T18:27:19.182613+00:00",
   "provenance": {
     "command": ".venv/bin/python runs/prepare_new_directive.py",
     "git_commit": "55460634447c32813c8a81801eef1abbac810272",
@@ -266,7 +266,7 @@
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
-      "version": null,
+      "version": 3,
       "mode": "interactive draft, third allocation",
       "accelerator": "T4 x2",
       "submitted_at": null,
@@ -277,13 +277,15 @@
       "gpu_confirmed_at": "2026-10-29T18:10:17.594735+00:00",
       "start": null,
       "end": null,
-      "hours": null,
-      "hours_basis": "pending downloaded runtime; actual billing duration unknown",
+      "hours": 0.23342185338338217,
+      "hours_basis": "downloaded script runtime; account quota includes startup and idle before scheduled inspection",
       "purpose": "Newest-family native head-aware multi-GPU placement probe",
       "private": true,
       "session_limit_hours": 1,
       "receipt": "results/training/qwen38_native_plan.json",
-      "status": "running_gpu_confirmed"
+      "status": "completed_sft_and_grpo_update",
+      "end_observed_at": "2026-10-29T18:27:19.182613+00:00",
+      "runtime_file": "results/kaggle/qwen38-fit-v3/runtime.json"
     }
   ],
   "accounting_notes": [

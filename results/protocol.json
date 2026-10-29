@@ -48,8 +48,8 @@
     ],
     "bootstrap_resamples": 10000,
     "confidence": 0.95,
-    "final_candidates": 6,
-    "family_confidence": "1 - 0.05/(6 * (K + 2)); K is the number of complete API dice cohorts",
+    "final_candidates": 8,
+    "family_confidence": "1 - 0.05/(8 * (K + 2)); K is the number of complete API dice cohorts",
     "family_bootstrap_resamples": "max(10000, ceil(200 / (1 - family_confidence)))",
     "family_bootstrap_note": "At least 100 expected resamples per corrected tail; descriptive marginal CIs retain 10000 resamples.",
     "api_interval_separation": "Require both expected-PnL and percentage-of-Bayes marginal 95% intervals to separate, plus positive corrected paired differences."
@@ -79,6 +79,11 @@
       "at": "2026-10-29T13:55:03.841565+00:00",
       "reason": "Before any new aggregate held-out score: register separate staged CUDA warm-start and GRPO candidates, keeping both original candidates counted; use explicit trainer/data seeds 0.",
       "source": "ITERATIONS.md; scripts/score_final.py; train/build_kaggle_kernel.py"
+    },
+    {
+      "at": "2026-10-29T18:27:19.182613+00:00",
+      "reason": "Before newest-family training or final evaluation: count Qwen3.8 SFT and GRPO final candidates conservatively, following successful two-T4 fit probe. No policy test scores used.",
+      "source": "ITERATIONS.md; train/build_kaggle_kernel.py; scripts/score_final.py"
     }
   ]
 }

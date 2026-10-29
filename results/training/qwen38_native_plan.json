@@ -7,7 +7,7 @@
   "trial_kind": "infrastructure feasibility; no held-out evaluation",
   "budget_seconds": 3300,
   "basis": "results/training/qwen38_loader_inspection.json",
-  "status": "running_gpu_confirmed",
+  "status": "completed_sft_and_grpo_update",
   "gpu_confirmed_at": "2026-10-29T18:10:17.594735+00:00",
   "start_request_window_utc": [
     "2026-10-29T18:02:00Z",
@@ -17,5 +17,11 @@
   "source_sha256": "aadb56119e4f83934c518c162d9d7fad73a96280623d17b97437dbfe2b385797",
   "notebook_sha256": "d53db2bf8ddf9979693091b6ebb9cff5449b24f6504369506f090f90bc7c0120",
   "notebook": "nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
-  "gpu_confirmation": "Running Draft Session (4m), two GPU indicators at 18:08 UTC"
+  "gpu_confirmation": "Running Draft Session (4m), two GPU indicators at 18:08 UTC",
+  "saved_version": 3,
+  "downloaded_runtime": "results/kaggle/qwen38-fit-v3/runtime.json",
+  "downloaded_log": "results/kaggle/qwen38-fit-v3/probe.log",
+  "script_wall_seconds": 840.3186721801758,
+  "stop_observed_at": "2026-10-29T18:27:19.182613+00:00",
+  "ui_audit": "Initial scheduled AX diagnostic included a stale error from the previous allocation; downloaded source-hashed runtime and log establish that this native-planner attempt succeeded. Quick Save title mistakenly said failure; snapshot content is complete."
 }

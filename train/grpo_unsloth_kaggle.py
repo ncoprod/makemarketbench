@@ -31,6 +31,7 @@ import io
 import json
 import os
 import random
+import signal
 import subprocess
 import sys
 import tarfile
@@ -193,7 +194,7 @@ def train(args, report_runtime) -> None:
     from unsloth import FastLanguageModel  # noqa: I001  (must be imported before trl)
     from datasets import Dataset
     from trl import GRPOConfig, GRPOTrainer, SFTConfig, SFTTrainer
-    from transformers import TrainerCallback
+    from transformers import EarlyStoppingCallback, TrainerCallback
     import torch
 
     torch.manual_seed(args.seed)
@@ -249,17 +250,31 @@ def train(args, report_runtime) -> None:
     print(f"prompt set: {len(rows)} states")
 
     if args.sft_steps > 0 and not args.resume and not adapters:
-        sft_rows = [{"text": render(tokenizer, r["messages"]) + sft_target(r) + tokenizer.eos_token}
-                    for r in rows[: args.sft_steps * args.sft_batch]]
+        def example(row):
+            return {"prompt": render(tokenizer, row["messages"]),
+                    "completion": sft_target(row) + tokenizer.eos_token}
+
+        sft_rows = [example(r) for r in rows[: args.sft_steps * args.sft_batch]]
+        validation = {}
+        callbacks = [RuntimeCallback("sft")]
+        if args.sft_validation_episodes:
+            validation["eval_dataset"] = Dataset.from_list([
+                example(r) for r in build_prompt_set(args.sft_validation_episodes, args.games, 60_000)])
+            callbacks.append(EarlyStoppingCallback(early_stopping_patience=2))
+        evaluation = (dict(eval_strategy="steps", eval_steps=min(50, args.save_steps),
+                           load_best_model_at_end=True, metric_for_best_model="eval_loss",
+                           greater_is_better=False, per_device_eval_batch_size=1)
+                      if validation else {})
         sft = _trainer(SFTTrainer, tokenizer, model=model, train_dataset=Dataset.from_list(sft_rows),
-                       callbacks=[RuntimeCallback("sft")],
+                       callbacks=callbacks, **validation,
                        args=_config(SFTConfig, output_dir=str(WORK / "sft"), max_steps=args.sft_steps,
                                     per_device_train_batch_size=args.sft_batch, learning_rate=1e-4,
                                     gradient_accumulation_steps=args.sft_accumulation,
-                                    logging_steps=10, save_strategy="steps", save_steps=50,
+                                    logging_steps=10, save_strategy="steps", save_steps=min(50, args.save_steps),
                                     save_total_limit=2, report_to="none",
                                     seed=args.seed, data_seed=args.seed,
-                                    dataset_text_field="text", max_seq_length=args.max_seq_len))
+                                    completion_only_loss=True, max_seq_length=args.max_seq_len,
+                                    **evaluation))
         (WORK / "sft_config.json").write_text(json.dumps(
             {**execution(args), "trainer_config": sft.args.to_dict()}, indent=2) + "\n")
         sft.train(resume_from_checkpoint=args.sft_resume or None)
@@ -285,7 +300,7 @@ def train(args, report_runtime) -> None:
         per_device_train_batch_size=args.num_generations, gradient_accumulation_steps=1,
         num_generations=args.num_generations, max_prompt_length=args.max_seq_len - args.max_completion,
         max_completion_length=args.max_completion, temperature=1.0, logging_steps=5,
-        save_steps=100, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
+        save_steps=args.save_steps, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
         optim="adamw_8bit", seed=args.seed, data_seed=args.seed)
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        callbacks=[RuntimeCallback("grpo")],
@@ -406,6 +421,9 @@ def main() -> None:
     ap.add_argument("--sft-steps", type=int, default=150)
     ap.add_argument("--sft-batch", type=int, default=8)
     ap.add_argument("--sft-accumulation", type=int, default=2)
+    ap.add_argument("--sft-validation-episodes", type=int, default=0)
+    ap.add_argument("--save-steps", type=int, default=100)
+    ap.add_argument("--budget-seconds", type=int, default=0, help="wall cap, preserving periodic checkpoints")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device-map", default="sequential", help="balanced splits a large model across GPUs")
     ap.add_argument("--offload-layers", choices=["auto"], help="stream layers from host RAM when GPU loading fails")
@@ -433,6 +451,11 @@ def main() -> None:
     if not Path("/kaggle").exists() and "MMB_FORCE" not in os.environ:
         raise SystemExit("GPU training is meant for Kaggle/CUDA; use --dry-run locally")
     started = time.time()
+    if args.budget_seconds:
+        def expire(signum, frame):
+            raise TimeoutError("Registered training wall budget exhausted")
+        signal.signal(signal.SIGALRM, expire)
+        signal.alarm(args.budget_seconds)
     record = {**execution(args), "status": "running"}
 
     def report_runtime(phase=None, step=None):

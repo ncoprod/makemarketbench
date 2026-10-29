@@ -38,8 +38,10 @@ def main() -> None:
     stage.add_argument("--smoke", action="store_true", help="one GRPO update, validation seeds only")
     stage.add_argument("--train-only", action="store_true", help="save adapters before separate evaluation sessions")
     stage.add_argument("--evaluate-staged", action="store_true", help="validate staged SFT and GRPO on one GPU each")
+    stage.add_argument("--qwen38-train", action="store_true", help="bounded newest-family SFT and GRPO")
     args = ap.parse_args()
-    out = (ROOT / "runs" / "kaggle_evaluate_staged" if args.evaluate_staged else
+    out = (ROOT / "runs" / "kaggle_qwen38_train" if args.qwen38_train else
+           ROOT / "runs" / "kaggle_evaluate_staged" if args.evaluate_staged else
            ROOT / "runs" / "kaggle_smoke" if args.smoke else
            ROOT / "runs" / "kaggle_train_only" if args.train_only else OUT)
     out.mkdir(parents=True, exist_ok=True)
@@ -53,6 +55,14 @@ def main() -> None:
                  "--eval-seed", "80000", "--label", "qwen3.5-4b-grpo-smoke"]
     elif args.train_only:
         flags = ["--train-only", "--label", "qwen3.5-4b-grpo-staged"]
+    elif args.qwen38_train:
+        flags = ["--model", "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+                 "--base-model", "Qwen/Qwen3.8-27B", "--revision", "8aa5f05d26b7205477066e1449e0af13f762a299",
+                 "--device-map", "unsloth_balanced", "--sft-steps", "800", "--sft-batch", "1",
+                 "--sft-accumulation", "1", "--sft-validation-episodes", "4", "--save-steps", "50",
+                 "--grpo-steps", "96", "--num-generations", "2", "--max-seq-len", "1024",
+                 "--lora-rank", "8", "--seed", "0", "--budget-seconds", "14400",
+                 "--train-only", "--label", "qwen3.8-27b-sft-grpo"]
     if flags:
         src = src.replace("    main()\n", f"    sys.argv[1:1] = {flags!r}\n    main()\n")
     marker = 'PAYLOAD = ""'
@@ -118,6 +128,23 @@ if any(codes):
     elif args.evaluate_staged:
         meta.update(id=meta["id"] + "-validate-staged", title=meta["title"] + " validate staged",
                     kernel_sources=["nicolascoquelet/makemarketbench-grpo-qwen3-train-only"])
+    elif args.qwen38_train:
+        meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-fit-probe",
+                    title="MakeMarketBench Qwen3.8 27B training")
+        cell = ("from pathlib import Path\nimport subprocess, sys\n"
+                f"Path('/kaggle/working/train_core.py').write_text({src!r})\n"
+                "with open('/kaggle/working/train.log', 'w') as log:\n"
+                "    try:\n"
+                "        subprocess.run([sys.executable, '/kaggle/working/train_core.py'], "
+                "check=True, timeout=15000, stdout=log, stderr=subprocess.STDOUT)\n"
+                "    finally:\n"
+                "        log.flush()\n"
+                "        print(Path('/kaggle/working/train.log').read_text()[-8000:])\n")
+        notebook = dict(nbformat=4, nbformat_minor=5,
+                        metadata={"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}},
+                        cells=[dict(cell_type="code", metadata={}, execution_count=None, outputs=[],
+                                    source=cell.splitlines(True))])
+        (out / "train.ipynb").write_text(json.dumps(notebook) + "\n")
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"wrote {out}/grpo_unsloth_kaggle.py and kernel-metadata.json")
 

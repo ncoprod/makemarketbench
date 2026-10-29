@@ -30,9 +30,10 @@ External access failures remain unmet targets, not successful training trials.
 - Marginal 95% CIs are descriptive. Any claim of superiority across K API
   comparisons must also pass family-wise Bonferroni intervals at level
   `1 - 0.05/(C * (K + 2))` (K comparisons plus dice threshold and cards
-  positivity for each of C frozen final candidates). C is six: the completed
+  positivity for each of C frozen final candidates). C is eight: the completed
   1.7B baseline, the validation-selected MLX 4B candidate, CUDA teacher SFT,
-  and CUDA GRPO, plus a separately staged CUDA warm start and GRPO pair.
+  and CUDA GRPO, plus a separately staged CUDA warm start and GRPO pair,
+  and the newest-family Qwen3.8 SFT/GRPO pair.
   Failed/unavailable candidates remain counted conservatively.
   Do not claim a winner from overlapping or uncorrected intervals.
   The K corrected comparisons are paired differences in dice expected PnL;
@@ -747,3 +748,39 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The next staged-adapter validation launcher installs its shared dependencies
   before starting its two workers, avoiding concurrent package mutations.
   Workers still record their exact installed versions and individual runtime.
+
+### Qwen3.8 fit probe 3 — successful SFT and GRPO updates
+
+- Authoritative downloaded runtime and log contradict the stale prior error
+  initially shown in the UI. Both registered updates completed in
+  840.3186721801758 seconds; allocated peaks were 11,994,392,064 and
+  12,017,976,832 bytes. Files: `results/kaggle/qwen38-fit-v3/`.
+- The native planner splits about 20.487 GiB of loaded weights evenly and
+  explicitly places the output head on GPU 1. Some layers remain bfloat16,
+  despite float32 training computation. The earlier conditional all-F32 memory
+  arithmetic is a bound, not the measured footprint. GRPO reward standard
+  deviation is 0.7225 and no completion was clipped; this is a real update,
+  not a policy-quality evaluation.
+- Preserve private Quick Save version three before stopping the completed
+  allocation. Its UI title mistakenly says failure; source-hashed JSON/logs
+  establish success. Record that mistake explicitly in the receipt.
+
+### T10 — newest-family Qwen3.8 SFT → GRPO (registered)
+
+- Hypothesis: clone Bayes quotes with completion-only loss, select by teacher
+  validation loss, then improve exact expected-value rewards with GRPO.
+  Earlier CUDA SFT trained on full prompt text; the new objective supervises
+  the answer directly and does not spend its loss on copying the prompt.
+- Command: `train/build_kaggle_kernel.py --qwen38-train`; private interactive
+  notebook, two T4s, pinned Qwen3.8-27B NF4 revision, rank 8, seed 0, 1,024-token
+  context. Up to 800 SFT updates; 48 fixed teacher validation states, evaluated
+  every 50 updates, patience two, restore minimum validation-loss checkpoint.
+  Then 96 GRPO updates with two completions per group. No final evaluation
+  runs in this training allocation. Plan: `qwen38_pipeline_plan.json`.
+- A four-hour wall cap and checkpoints every 50 updates bound quota exposure.
+  Resume optimizer state if the cap interrupts a useful stage; reaching the
+  cap is not quality exhaustion. Policy validation remains 100 episodes per
+  game on seeds 80,000–80,099, independently of teacher-loss selection.
+- Before execution or new final scores, increase the candidate family from
+  six to eight, counting both new SFT and GRPO checkpoints. Infrastructure
+  attempts remain logged separately; they do not justify a superiority claim.

@@ -152,8 +152,16 @@ A second attempt with the loader's suggested CPU layer streaming also failed
 before loading: that path requires single-device placement in this backend
 ([downloaded log](results/kaggle/qwen38-fit-v2/probe.log),
 [source inspection](results/training/qwen38_loader_inspection.json)). A bounded
-native multi-GPU placement probe is running
-([registration](results/training/qwen38_native_plan.json)). The original
+native multi-GPU placement probe **completed both updates in 840.319 seconds**,
+with **11.994 GB / 12.018 GB** peak allocations on the two T4s
+([downloaded runtime](results/kaggle/qwen38-fit-v3/runtime.json)). Its planner
+places the untied output head on the second GPU; some weight layers remain
+bfloat16 despite float32 training computation
+([placement and training log](results/kaggle/qwen38-fit-v3/probe.log)). Thus the
+conditional all-float32 bound is not the actual memory footprint. Qwen3.8-27B
+is selected for a checkpointed, validation-selected SFT then GRPO pipeline
+([registered recipe](results/training/qwen38_pipeline_plan.json)). No policy
+score is inferred from this fit check. The original
 4B sessions continue. Account quota, session receipts
 and uncertainty in billed hours are tracked in the
 [GPU budget ledger](results/training/kaggle_budget.json).
