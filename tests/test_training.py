@@ -142,6 +142,25 @@ def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_pa
     assert scoring.cohort(path) is None
 
 
+def test_inference_group_bootstrap_preserves_mean_and_detects_dependence():
+    import numpy as np
+
+    from makemarket.scoring import bootstrap_ci
+
+    spec = importlib.util.spec_from_file_location(
+        "final_scoring", Path(__file__).parents[1] / "scripts/score_final.py")
+    scoring = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(scoring)
+    values = np.repeat(np.tile([-1.5, 2.5], 25), 4)
+    grouped = scoring.group_means(values, 4)
+    assert grouped.mean() == values.mean()
+    assert len(grouped) == 50
+    naive = bootstrap_ci(values)
+    clustered = bootstrap_ci(grouped)
+    assert clustered[1] - clustered[0] > 1.5 * (naive[1] - naive[0])
+    np.testing.assert_array_equal(scoring.group_means(values, 1), values)
+
+
 def test_routed_cohorts_preserve_frozen_sources_and_reject_changed_weights(tmp_path, monkeypatch):
     import importlib
 

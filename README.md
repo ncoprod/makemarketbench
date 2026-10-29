@@ -329,8 +329,11 @@ Endpoint deployments can drift even when model names do not; cached transcripts
 preserve the responses actually scored. Figgie-lite is an exploratory sandbox.
 Bootstrap intervals quantify episode variation conditional on each frozen
 checkpoint and the recorded API responses. Training-seed variation and fresh
-API decoding draws require separate replications. Backend comparisons also
-vary quantizers, adapter settings and training recipes.
+API decoding draws require separate replications. Batched CUDA cohorts also
+receive a complete-inference-batch bootstrap sensitivity check; target
+positivity must pass both resampling methods ([protocol](results/protocol.json)).
+This check remains conditional on the recorded response cache. Backend
+comparisons vary quantizers, adapter settings and training recipes.
 The reward trials sample new quotes on states visited by the Bayes teacher;
 their training contexts do not follow the learned policy's own fills. DAgger
 collects those on-policy states. This state-distribution gap can limit transfer

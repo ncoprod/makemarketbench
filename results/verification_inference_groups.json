@@ -1,0 +1,48 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/verify_inference_groups.py",
+    "config": {
+      "purpose": "verify inference-group sensitivity before opening new held-out aggregates"
+    },
+    "model_revision": null,
+    "git_commit": "c491d721e4b9277b9ef4de5cbf59c40e6679281c",
+    "uncommitted_diff_sha256": "6aa7fbadc2efdb61a3120ace39f465e2ac75bb6d03eee2b381498f8a5bec9d17",
+    "started_at": "2026-10-29T23:27:12.362116+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": {
+    "scripts/score_final.py": "0515a3ef94d2d2b9a288d41ffd229968862f44c319c6f71ac5c9e3c8d1c0a19d",
+    "tests/test_training.py": "26d3d70867e949bc585946d98b3a29919da19074ae81a805d9d44b542f1e4a97"
+  },
+  "checks": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "src",
+        "tests",
+        "scripts",
+        "train"
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "tests/test_training.py",
+        "tests/test_scoring.py"
+      ],
+      "exit_code": 0,
+      "output": "...............................                                          [100%]\n31 passed in 3.67s\n"
+    }
+  ]
+}

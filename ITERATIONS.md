@@ -1430,3 +1430,25 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   embedded in that receipt. The registered recipe continues toward 800
   microbatches with validation early stopping. This is training progress and
   full-validation memory evidence, not episode-level PnL.
+
+### Inference-group bootstrap sensitivity registered before final scoring
+
+- Inspect only the training-state parity file. One SFT dice bid changes from
+  22.0 to 22.3 under batching, while the other seven tested quotes match.
+  The failed gate already prevented its test execution. This demonstrates
+  that numerical batching cannot be assumed globally identical to serial
+  decoding, even when a small GRPO parity sample passes.
+- Retain the required episode bootstrap. Also resample complete inference
+  groups for CUDA cohorts, using group means and common indices for paired
+  reference/API comparisons. Serial cohorts retain their original intervals.
+- Require cards positivity and paired API superiority to pass both the primary
+  and inference-group family intervals, without choosing a method after seeing
+  scores. Keep the nine-candidate correction and both interval sets. The
+  sensitivity remains conditional on the frozen response cache and does not
+  estimate fresh-cache or training-seed variation.
+- Register this amendment in `results/protocol.json` before opening any new
+  held-out aggregate. No policy or seed changes. A synthetic perfectly
+  correlated four-episode-group example verifies that preserving dependence
+  widens the bootstrap interval while retaining the same mean.
+- Ruff and all 31 training/scoring tests pass; exact commands, source hashes and
+  outputs are in `results/verification_inference_groups.json`.
