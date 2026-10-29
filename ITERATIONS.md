@@ -1050,3 +1050,16 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   compatible checkpoint adapters. Select the same complete SFT checkpoint
   explicitly for both PEFT loading and optimizer resumption, avoiding ambiguous
   auto-discovery. The targeted continuation checks pass before any GPU use.
+
+### Newest-family progress sample at update 500
+
+- Downloaded runtime reports SFT update 500 and 8,484.44287776947 seconds elapsed,
+  without an error. Preserve the raw log and source-matched runtime under
+  `results/kaggle/qwen38-training-v4/progress/step500-*`.
+- The log's completed teacher-validation checks improve to 0.2818 at update 400,
+  then 0.2832 at update 450. These are training diagnostics, not policy PnL;
+  neither a policy improvement nor a stopping decision is inferred from them.
+- One native progress check at 20:53 UTC was scheduled less than ten minutes
+  after the 20:45 check. Retain that error in the download receipt and enforce
+  the interval from the actual UTC download timestamp thereafter. CLI batch
+  monitors continue at 610-second intervals.

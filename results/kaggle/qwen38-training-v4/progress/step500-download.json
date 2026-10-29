@@ -1,0 +1,19 @@
+{
+  "recorded_at": "2026-10-29T21:04:47.896397+00:00",
+  "command": ".venv/bin/python runs/retain_qwen38_step500.py",
+  "git_commit": "b3ef833f94a25078d0ed7254d627bc29ac732282",
+  "source_kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+  "kernel_id": 141529807,
+  "files": {
+    "results/kaggle/qwen38-training-v4/progress/step500-runtime.json": {
+      "sha256": "b1af69cf796787c32fc79e519847c34d407e2fade276e34e0d332a2a2bc5f622",
+      "downloaded_at": "2026-10-29T21:03:53.629538+00:00"
+    },
+    "results/kaggle/qwen38-training-v4/progress/step500-train.log": {
+      "sha256": "3d1f2bb61453bcda1437b5bc347b221a387a4cb115610f864dcf4e17bb819ec3",
+      "downloaded_at": "2026-10-29T21:04:11.054241+00:00"
+    }
+  },
+  "meaning": "Live training progress, not a completed policy or held-out score.",
+  "polling_audit": "One native runtime check at 20:53 UTC was earlier than ten minutes after the preceding 20:45 UTC check. Record the scheduling error; subsequent check at 21:03 UTC followed a full ten-minute interval. Batch monitors remain at 610 seconds."
+}
