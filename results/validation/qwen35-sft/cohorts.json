@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/retain_local_validation.py sft",
+    "config": {
+      "method": "sft"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "c5ee2f30d2978f041594a101f3f6b2c9629c5b52",
+    "uncommitted_diff_sha256": "dc624f92c7d599ecb8cabcd4971b339b455c87c0f69521c45b6e02d61a48ae87",
+    "started_at": "2026-10-30T02:53:57.374910+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "0b68195682ae84692c859bcf53d1227720cf8052db84c260f4d902b170ab4b1b",
+  "label": "qwen3.5-4b-sft",
+  "adapter_sha256": "3b819dcf29dc686712fb27d14c46ef03e23fdcb6cc366cc4e38aa4af551706f5",
+  "input_sha256": {
+    "results/validation/qwen35-sft/raw/dice/qwen3.5-4b-sft.jsonl": "189ab8c00b7b618dcb36b659bbd65717e813df3da15e6e8ba8780612476369af",
+    "results/validation/qwen35-sft/raw/dice/bayes.jsonl": "3db71c8603d9458deaf7bc75a45676330501d013a1b35fbf22be0f8654ca6fa0",
+    "results/validation/qwen35-sft/leaderboard_dice.json": "c5c8f4cb656d628e215798f0f3b4b9f5f2d6b5c2f34852cae2bca1d163475165",
+    "results/validation/qwen35-sft/raw/cards/qwen3.5-4b-sft.jsonl": "a0fc6cdd1a75b914c57bebaec6a0d12ce93a02711b9b0b495366e3f841ab155b",
+    "results/validation/qwen35-sft/raw/cards/bayes.jsonl": "2b5b8ef9ca43e4387d43e3ddb7b481d0a2c6b039c76c36e22829ae49e14cea52",
+    "results/validation/qwen35-sft/leaderboard_cards.json": "247280034a8d74407160137882bad727289cffa7111ed457d9b114e3c7db7133"
+  },
+  "games": {
+    "dice": {
+      "player": "qwen3.5-4b-sft",
+      "episodes": 100,
+      "pct_of_bayes": 23.134629375436102,
+      "pct_of_bayes_ci": [
+        -4.187352895527057,
+        48.005063619931335
+      ],
+      "epnl": 3.3782453474795444,
+      "epnl_ci": [
+        -0.6220414708649687,
+        6.953221967179836
+      ],
+      "realized_pnl": 2.2740000000000005,
+      "realized_pnl_ci": [
+        -3.586,
+        7.735
+      ],
+      "realized_pnl_sd": 28.995041791396822,
+      "noise_edge": 10.985645347479547,
+      "adverse_cost": 7.6074,
+      "spread": 8.107666666666667,
+      "coverage": 0.6766666666666667,
+      "mean_size": 4.704166666666667,
+      "abs_final_position": 5.91,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        1.3698462537870733,
+        2.113087139812314
+      ],
+      "posterior_edge_pct": 24.258965634461237,
+      "flow_shift": -0.5697178930755591,
+      "mid_error": 1.890888401085412,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 1.7233415265808851,
+      "regret_by_round": [
+        0.0,
+        0.49485900651896403,
+        0.9803862080508573,
+        1.9284248201743008,
+        3.014970971371988,
+        3.921408153369202
+      ]
+    },
+    "cards": {
+      "player": "qwen3.5-4b-sft",
+      "episodes": 100,
+      "pct_of_bayes": 8.87169554476217,
+      "pct_of_bayes_ci": [
+        -35.13311349022747,
+        42.71311186729823
+      ],
+      "epnl": 1.555911360939736,
+      "epnl_ci": [
+        -5.485642180841259,
+        8.046854681414676
+      ],
+      "realized_pnl": 9.12,
+      "realized_pnl_ci": [
+        1.5397500000000022,
+        16.52
+      ],
+      "realized_pnl_sd": 38.25678259003773,
+      "noise_edge": 14.125911360939734,
+      "adverse_cost": 12.57,
+      "spread": 11.81166666666667,
+      "coverage": 0.635,
+      "mean_size": 4.5,
+      "abs_final_position": 5.33,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        2.3287494083227718,
+        3.4699795291972304
+      ],
+      "posterior_edge_pct": 10.519580313869888,
+      "flow_shift": -4.357149977599479,
+      "mid_error": 2.9770250121357096,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 2.886289498491802,
+      "regret_by_round": [
+        0.0,
+        0.9521581240312728,
+        2.618072620269404,
+        3.568506828664413,
+        5.154726277661898,
+        5.024273140323827
+      ]
+    }
+  },
+  "selection_score": -56.865370624563894,
+  "interpretation": "Completed validation only; 95% descriptive paired-bootstrap intervals. Same registered max-min selection rule; no held-out scoring or training-seed replication claim."
+}

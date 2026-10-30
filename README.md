@@ -114,9 +114,9 @@ fixed training shapes complete **800 microbatches / 400 optimizer updates** in
 **14,021.710 seconds**. Full validation loss falls **2.113 → 0.280** on all
 **480 examples**, with sampled physical footprint **6.713 GB**
 ([completed run, memory guard and adapter hash](results/training/qwen35_sft_completion.json)).
-The completed 100-episode dice validation is **23.1% [−4.2, 48.0]** of Bayes;
-cards validation continues
-([validation scores](results/validation/qwen35-sft/leaderboard_dice.json),
+The completed 100-episode-per-game validation gives **23.1% [−4.2, 48.0]** of
+Bayes on dice and **8.9% [−35.1, 42.7]** on cards
+([complete cohorts and scores](results/validation/qwen35-sft/cohorts.json),
 [numerical-rationale diagnosis](results/validation/qwen35-sft/dice_rationale_diagnosis.json)).
 Teacher loss does not establish policy quality. Local heavy work holds the
 shared ML lock.

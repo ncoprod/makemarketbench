@@ -1945,3 +1945,22 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/expansion/bolt_resume_plan.json`. If absent, record that limitation.
   Both shared NIM slots are now held by live trial-ledger wrappers; leave them
   untouched and continue local work while our API jobs queue.
+
+### T17 policy validation completes; larger DAgger collection starts
+
+- Command: `.venv/bin/python scripts/retain_local_validation.py sft`. Verify
+  both 100-episode cohorts, all six rounds, seeds 80000–80099, one frozen
+  adapter/base identity, reference cohorts and leaderboard hashes. Source and
+  result: `scripts/retain_local_validation.py`;
+  `results/validation/qwen35-sft/cohorts.json`.
+- Cards reaches 8.87169554476217% of Bayes [−35.13311349022747,
+  42.71311186729823], expected PnL 1.555911360939736
+  [−5.485642180841259, 8.046854681414676]. Realised PnL is 9.12
+  [1.5397500000000022, 16.52]; retain it, but do not substitute that more
+  favourable statistic for the registered expected-PnL target. No format
+  errors/failures. These validation intervals do not establish positive edge.
+- Registered max-min selection score is −56.865370624563894. No new policy
+  test is opened. The existing follow-up launcher acquires the heavy-ML mutex
+  and starts collecting 150 actor episodes per game, targeting 1,800 new
+  labels, before the unchanged DAgger training/validation and RLOO trial.
+  The verifier CLI adds no new selection rule or experimental configuration.
