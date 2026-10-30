@@ -144,22 +144,19 @@ while the other fails on one quote before testing
 ([downloaded outcomes](results/training/kaggle_staged_sft_complete_completion.json),
 [router provenance](results/final/staged-routed/cohorts.json)). A passing small
 training-state check is not proof of numerical equivalence on every state.
-Two fresh development profiles agree across allocations, but SFT batch4 changes
-two of sixteen quotes in each repeat; GRPO batch4 changes none. Median profile
-latency falls from 112.10 to 46.16 seconds for SFT and 114.55 to 48.05 seconds
-for GRPO. These are descriptive fixed-state timings, including prompt caching,
-not held-out scores ([all observations and resource measurements](results/training/kaggle_inference_profile_completion.json)).
-Disabling Unsloth compilation removes one SFT discrepancy but leaves another;
-it does not establish batch equivalence
-([compiler ablation](results/training/kaggle_compile_ablation_completion.json)).
-Direct-generation composition checks match serial on four identical copies of
-each previously discrepant SFT prompt, while some mixed batches change quotes.
-A GRPO quote also changes after bypassing cache deduplication. This narrows the
-systems diagnosis without identifying a unique numerical or padding cause
-([all composition cases](results/training/kaggle_composition_ablation_completion.json)).
-Padded single-prompt quotes match native ones on the checked states, while four
-identical padded copies of one cards prompt all change their quotes
-([final padding probe](results/training/kaggle_padding_retry_completion.json)).
+
+Batching improves fixed-state latency but can change generated quotes. Across
+two fresh development profiles, SFT batch4 changes two of sixteen quotes in
+each repeat; GRPO batch4 changes none. Median latency falls **112.10 → 46.16
+seconds** for SFT and **114.55 → 48.05 seconds** for GRPO, including prompt
+caching ([all timings and quotes](results/training/kaggle_inference_profile_completion.json)).
+Further [compiler](results/training/kaggle_compile_ablation_completion.json),
+[batch-composition](results/training/kaggle_composition_ablation_completion.json)
+and [padding](results/training/kaggle_padding_retry_completion.json) probes
+expose additional discrepancies without identifying a unique cause. Frozen
+evaluation settings stay unchanged; final inference retains both episode and
+whole-batch bootstrap intervals. These probes measure systems behaviour,
+not held-out policy quality.
 
 A separate original CUDA pipeline also completes training and both 200-episode
 SFT tests. Its frozen GRPO continuation now completes both 200-episode games,
