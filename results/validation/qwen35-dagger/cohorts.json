@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/retain_local_validation.py dagger",
+    "config": {
+      "method": "dagger"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "7d99e6c976e4f8e5a6d8d646660dea919f293ac6",
+    "uncommitted_diff_sha256": "5a67b1378deaaef520e6b4e73bd04a3796e957fe20daf61bf1936f51c1dbadd5",
+    "started_at": "2026-10-30T08:15:20.820623+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "df02e4d734f842b8448f749a2db5e1082b2c007ef163a2353cf63f82e8259998",
+  "label": "qwen3.5-4b-dagger",
+  "adapter_sha256": "3b819dcf29dc686712fb27d14c46ef03e23fdcb6cc366cc4e38aa4af551706f5",
+  "input_sha256": {
+    "results/validation/qwen35-dagger/raw/dice/qwen3.5-4b-dagger.jsonl": "154b14aa1e96decf6912e0c21c93f5206ed1aa9ef2f5e80fc087d7469fe917b8",
+    "results/validation/qwen35-dagger/raw/dice/bayes.jsonl": "3db71c8603d9458deaf7bc75a45676330501d013a1b35fbf22be0f8654ca6fa0",
+    "results/validation/qwen35-dagger/leaderboard_dice.json": "cc8b09d4b63802c58c662060c19a038331da243dbbe0e0ec0bf48b3e20ed1188",
+    "results/validation/qwen35-dagger/raw/cards/qwen3.5-4b-dagger.jsonl": "f8667208dfe310e3a4df07e960597be503ff1e571a52c5f1a21f6b8b9d4b1bd7",
+    "results/validation/qwen35-dagger/raw/cards/bayes.jsonl": "2b5b8ef9ca43e4387d43e3ddb7b481d0a2c6b039c76c36e22829ae49e14cea52",
+    "results/validation/qwen35-dagger/leaderboard_cards.json": "e9e4507b2663bd9ce1ae2029bc133df2df7fc61f507cecf896e5dc9928266d00"
+  },
+  "games": {
+    "dice": {
+      "player": "qwen3.5-4b-dagger",
+      "episodes": 100,
+      "pct_of_bayes": 23.134629375436102,
+      "pct_of_bayes_ci": [
+        -4.187352895527057,
+        48.005063619931335
+      ],
+      "epnl": 3.3782453474795444,
+      "epnl_ci": [
+        -0.6220414708649687,
+        6.953221967179836
+      ],
+      "realized_pnl": 2.2740000000000005,
+      "realized_pnl_ci": [
+        -3.586,
+        7.735
+      ],
+      "realized_pnl_sd": 28.995041791396822,
+      "noise_edge": 10.985645347479547,
+      "adverse_cost": 7.6074,
+      "spread": 8.107666666666667,
+      "coverage": 0.6766666666666667,
+      "mean_size": 4.704166666666667,
+      "abs_final_position": 5.91,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        1.3698462537870733,
+        2.113087139812314
+      ],
+      "posterior_edge_pct": 24.258965634461237,
+      "flow_shift": -0.5697178930755591,
+      "mid_error": 1.890888401085412,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 1.7233415265808851,
+      "regret_by_round": [
+        0.0,
+        0.49485900651896403,
+        0.9803862080508573,
+        1.9284248201743008,
+        3.014970971371988,
+        3.921408153369202
+      ]
+    },
+    "cards": {
+      "player": "qwen3.5-4b-dagger",
+      "episodes": 100,
+      "pct_of_bayes": 8.87169554476217,
+      "pct_of_bayes_ci": [
+        -35.13311349022747,
+        42.71311186729823
+      ],
+      "epnl": 1.555911360939736,
+      "epnl_ci": [
+        -5.485642180841259,
+        8.046854681414676
+      ],
+      "realized_pnl": 9.12,
+      "realized_pnl_ci": [
+        1.5397500000000022,
+        16.52
+      ],
+      "realized_pnl_sd": 38.25678259003773,
+      "noise_edge": 14.125911360939734,
+      "adverse_cost": 12.57,
+      "spread": 11.81166666666667,
+      "coverage": 0.635,
+      "mean_size": 4.5,
+      "abs_final_position": 5.33,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        2.3287494083227718,
+        3.4699795291972304
+      ],
+      "posterior_edge_pct": 10.519580313869888,
+      "flow_shift": -4.357149977599479,
+      "mid_error": 2.9770250121357096,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 2.886289498491802,
+      "regret_by_round": [
+        0.0,
+        0.9521581240312728,
+        2.618072620269404,
+        3.568506828664413,
+        5.154726277661898,
+        5.024273140323827
+      ]
+    }
+  },
+  "selection_score": -56.865370624563894,
+  "interpretation": "Completed validation only; 95% descriptive paired-bootstrap intervals. Same registered max-min selection rule; no held-out scoring or training-seed replication claim."
+}

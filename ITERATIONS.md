@@ -2099,3 +2099,21 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   Queue this batch then another identical-config, missing-only GPT-OSS retry,
   each under the global NIM mutex with concurrency one. No successful episode
   or response is discarded, and no held-out score chooses a model or decoder.
+
+### Teacher-selected DAgger policy validation completes
+
+- Commands: `.venv/bin/python scripts/retain_local_validation.py dagger` and
+  `.venv/bin/python scripts/compare_local_validation.py dagger`.
+- All 100 validation episodes per game, seeds 80000–80099, complete. The
+  selected adapter is the unchanged SFT adapter. Dice remains
+  23.134629375436102% of Bayes, cards 8.87169554476217%; paired expected-PnL
+  changes and both marginal and six-contrast-family intervals are exactly
+  zero in each game. This is no policy improvement under teacher-loss selection,
+  not an evaluation of the distinct last trained DAgger checkpoint.
+- Sources: `results/validation/qwen35-dagger/cohorts.json` and `vs_sft.json`,
+  retaining exact commands, revision, input hashes and git commit. RLOO starts
+  under the shared heavy-ML lock; last-checkpoint validation remains registered
+  before final selection and held-out scoring.
+- Browser inventory at 08:15 UTC still reports the native-pipe and browser-host
+  errors. Preserve the exact result in `results/training/kaggle_ui_outage.json`;
+  no new GPU job or claim about inaccessible Qwen3.8 progress.

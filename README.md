@@ -123,6 +123,10 @@ Teacher loss does not establish policy quality. Local heavy work holds the
 shared ML lock. The larger DAgger continuation stops after **599 microbatches /
 299 updates** without improving validation loss; its selected adapter is
 byte-identical to SFT ([complete training outcome](results/training/qwen35_dagger_completion.json)).
+Its completed 100-episode-per-game policy validation reproduces SFT exactly:
+paired expected-PnL changes are zero in both games
+([all six-contrast-family intervals](results/validation/qwen35-dagger/vs_sft.json),
+[cohorts and identities](results/validation/qwen35-dagger/cohorts.json)).
 The final local selection also checks the distinct last saved DAgger checkpoint
 before opening the test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
 
