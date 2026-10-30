@@ -1,0 +1,398 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/evaluate_core.py",
+    "--eval-only",
+    "--adapter",
+    "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter",
+    "--label",
+    "qwen3.5-4b-staged-sft",
+    "--budget-seconds",
+    "296"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.5-4B",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "label": "qwen3.5-4b-staged-sft",
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "episodes": 400,
+    "sft_steps": 150,
+    "sft_batch": 8,
+    "sft_accumulation": 2,
+    "sft_validation_episodes": 0,
+    "save_steps": 100,
+    "budget_seconds": 296,
+    "seed": 0,
+    "device_map": "sequential",
+    "offload_layers": null,
+    "grpo_steps": 300,
+    "num_generations": 8,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 16,
+    "lr": 5e-06,
+    "eval_episodes": 200,
+    "eval_batch_size": 1,
+    "check_batching": false,
+    "eval_seed": 200,
+    "resume": null,
+    "sft_resume": null,
+    "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter",
+    "train_only": false,
+    "eval_only": true,
+    "dry_run": false,
+    "adapter_sha256": "dff5ed68e4c07474ac8640b04f318632ed750781e4095a983f71d2cfb9bf4025"
+  },
+  "seed": 0,
+  "source_commit": "67ab3f5423ed1b43c7f5322cb57d0479ef99eae3",
+  "cuda_visible_devices": "0",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "source_file_sha256": "d9d87d90a8336231907ba9296e778ce645fc078f3e87113bcc7dd8ee7ab79db3",
+  "embedded_package_sha256": "f2fd75899b56ba595718d24c36557b5d1b2045599c4739031c662956e5397ab3",
+  "profile_output": "/kaggle/working/sft/inference_profile.json",
+  "states": [
+    {
+      "game": "dice",
+      "seed": 20000,
+      "round": 0
+    },
+    {
+      "game": "dice",
+      "seed": 20001,
+      "round": 1
+    },
+    {
+      "game": "dice",
+      "seed": 20002,
+      "round": 3
+    },
+    {
+      "game": "dice",
+      "seed": 20003,
+      "round": 5
+    },
+    {
+      "game": "dice",
+      "seed": 20004,
+      "round": 0
+    },
+    {
+      "game": "dice",
+      "seed": 20005,
+      "round": 1
+    },
+    {
+      "game": "dice",
+      "seed": 20006,
+      "round": 3
+    },
+    {
+      "game": "dice",
+      "seed": 20007,
+      "round": 5
+    },
+    {
+      "game": "cards",
+      "seed": 20000,
+      "round": 0
+    },
+    {
+      "game": "cards",
+      "seed": 20001,
+      "round": 1
+    },
+    {
+      "game": "cards",
+      "seed": 20002,
+      "round": 3
+    },
+    {
+      "game": "cards",
+      "seed": 20003,
+      "round": 5
+    },
+    {
+      "game": "cards",
+      "seed": 20004,
+      "round": 0
+    },
+    {
+      "game": "cards",
+      "seed": 20005,
+      "round": 1
+    },
+    {
+      "game": "cards",
+      "seed": 20006,
+      "round": 3
+    },
+    {
+      "game": "cards",
+      "seed": 20007,
+      "round": 5
+    }
+  ],
+  "prompt_tokens": [
+    539,
+    587,
+    673,
+    759,
+    539,
+    572,
+    673,
+    772,
+    606,
+    662,
+    742,
+    889,
+    606,
+    663,
+    769,
+    858
+  ],
+  "target_indices": [
+    2,
+    13
+  ],
+  "driver_sha256": "ba62e43af2204fd2080febbdca99436dae9be04accbd3e732f0ed22e56390754",
+  "rendered_prompts_sha256": "bc9f7b6900bacf322b7c529a6b688d94d20a7161190bb13b7604208751f62ccb",
+  "compiler_environment": {
+    "UNSLOTH_COMPILE_DISABLE": "1"
+  },
+  "cases": [
+    {
+      "name": "native_single",
+      "state_index": 2,
+      "copies": 1,
+      "input_shape": [
+        1,
+        673
+      ],
+      "left_pad_tokens": [
+        0
+      ],
+      "wall_seconds": 97.324324784,
+      "peak_allocated_bytes": 4237997568,
+      "peak_reserved_bytes": 4366270464,
+      "answers": [
+        {
+          "text": "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 3.46).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "padded_single",
+      "state_index": 2,
+      "copies": 1,
+      "input_shape": [
+        1,
+        759
+      ],
+      "left_pad_tokens": [
+        86
+      ],
+      "wall_seconds": 7.328613888000007,
+      "peak_allocated_bytes": 4064778240,
+      "peak_reserved_bytes": 4366270464,
+      "answers": [
+        {
+          "text": "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 3.46).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "padded_identical_four",
+      "state_index": 2,
+      "copies": 4,
+      "input_shape": [
+        4,
+        759
+      ],
+      "left_pad_tokens": [
+        86,
+        86,
+        86,
+        86
+      ],
+      "wall_seconds": 9.458289562999994,
+      "peak_allocated_bytes": 4622086144,
+      "peak_reserved_bytes": 4800380928,
+      "answers": [
+        {
+          "text": "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 3.46).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 3.46).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 3.46).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 3.46).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "native_single",
+      "state_index": 13,
+      "copies": 1,
+      "input_shape": [
+        1,
+        663
+      ],
+      "left_pad_tokens": [
+        0
+      ],
+      "wall_seconds": 7.804510145999984,
+      "peak_allocated_bytes": 4099135488,
+      "peak_reserved_bytes": 4800380928,
+      "answers": [
+        {
+          "text": "Public E[V] = 38.00; after my fills E[V] = 40.00 (sd 6.58).\n{\"bid\": 33.0, \"bid_size\": 4, \"ask\": 47.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 33.0,
+            "bid_size": 4,
+            "ask": 47.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "padded_single",
+      "state_index": 13,
+      "copies": 1,
+      "input_shape": [
+        1,
+        858
+      ],
+      "left_pad_tokens": [
+        195
+      ],
+      "wall_seconds": 7.453443063000009,
+      "peak_allocated_bytes": 4087004160,
+      "peak_reserved_bytes": 4800380928,
+      "answers": [
+        {
+          "text": "Public E[V] = 38.00; after my fills E[V] = 40.00 (sd 6.58).\n{\"bid\": 33.0, \"bid_size\": 4, \"ask\": 47.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 33.0,
+            "bid_size": 4,
+            "ask": 47.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "padded_identical_four",
+      "state_index": 13,
+      "copies": 4,
+      "input_shape": [
+        4,
+        858
+      ],
+      "left_pad_tokens": [
+        195,
+        195,
+        195,
+        195
+      ],
+      "wall_seconds": 9.753614739999989,
+      "peak_allocated_bytes": 4691914240,
+      "peak_reserved_bytes": 4915724288,
+      "answers": [
+        {
+          "text": "Public E[V] = 38.00; after my fills E[V] = 38.00 (sd 6.58).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 38.00; after my fills E[V] = 38.00 (sd 6.58).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 38.00; after my fills E[V] = 38.00 (sd 6.58).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 38.00; after my fills E[V] = 38.00 (sd 6.58).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        }
+      ]
+    }
+  ],
+  "status": "completed",
+  "interpretation": "Discrepant development prompts only, no held-out episodes or policy tuning. Direct first greedy generation, no deduplication/repair. Padding uses each target original mixed-batch maximum prompt length. Native versus padded single sequence isolates padding length within this execution; four identical padded copies also vary batch size."
+}

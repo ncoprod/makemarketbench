@@ -1,0 +1,283 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/evaluate_core.py",
+    "--eval-only",
+    "--adapter",
+    "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/lora_adapter",
+    "--label",
+    "qwen3.5-4b-staged-grpo",
+    "--budget-seconds",
+    "294"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.5-4B",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "label": "qwen3.5-4b-staged-grpo",
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "episodes": 400,
+    "sft_steps": 150,
+    "sft_batch": 8,
+    "sft_accumulation": 2,
+    "sft_validation_episodes": 0,
+    "save_steps": 100,
+    "budget_seconds": 294,
+    "seed": 0,
+    "device_map": "sequential",
+    "offload_layers": null,
+    "grpo_steps": 300,
+    "num_generations": 8,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 16,
+    "lr": 5e-06,
+    "eval_episodes": 200,
+    "eval_batch_size": 1,
+    "check_batching": false,
+    "eval_seed": 200,
+    "resume": null,
+    "sft_resume": null,
+    "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/lora_adapter",
+    "train_only": false,
+    "eval_only": true,
+    "dry_run": false,
+    "adapter_sha256": "fe632766ed8600327330d8e46425b648dd45245e20bb8d568505ea5db3eb9f6a"
+  },
+  "seed": 0,
+  "source_commit": "67ab3f5423ed1b43c7f5322cb57d0479ef99eae3",
+  "cuda_visible_devices": "1",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "source_file_sha256": "d9d87d90a8336231907ba9296e778ce645fc078f3e87113bcc7dd8ee7ab79db3",
+  "embedded_package_sha256": "f2fd75899b56ba595718d24c36557b5d1b2045599c4739031c662956e5397ab3",
+  "profile_output": "/kaggle/working/grpo/inference_profile.json",
+  "states": [
+    {
+      "game": "dice",
+      "seed": 20000,
+      "round": 0
+    },
+    {
+      "game": "dice",
+      "seed": 20001,
+      "round": 1
+    },
+    {
+      "game": "dice",
+      "seed": 20002,
+      "round": 3
+    },
+    {
+      "game": "dice",
+      "seed": 20003,
+      "round": 5
+    },
+    {
+      "game": "dice",
+      "seed": 20004,
+      "round": 0
+    },
+    {
+      "game": "dice",
+      "seed": 20005,
+      "round": 1
+    },
+    {
+      "game": "dice",
+      "seed": 20006,
+      "round": 3
+    },
+    {
+      "game": "dice",
+      "seed": 20007,
+      "round": 5
+    },
+    {
+      "game": "cards",
+      "seed": 20000,
+      "round": 0
+    },
+    {
+      "game": "cards",
+      "seed": 20001,
+      "round": 1
+    },
+    {
+      "game": "cards",
+      "seed": 20002,
+      "round": 3
+    },
+    {
+      "game": "cards",
+      "seed": 20003,
+      "round": 5
+    },
+    {
+      "game": "cards",
+      "seed": 20004,
+      "round": 0
+    },
+    {
+      "game": "cards",
+      "seed": 20005,
+      "round": 1
+    },
+    {
+      "game": "cards",
+      "seed": 20006,
+      "round": 3
+    },
+    {
+      "game": "cards",
+      "seed": 20007,
+      "round": 5
+    }
+  ],
+  "prompt_tokens": [
+    539,
+    587,
+    673,
+    759,
+    539,
+    572,
+    673,
+    772,
+    606,
+    662,
+    742,
+    889,
+    606,
+    663,
+    769,
+    858
+  ],
+  "target_indices": [
+    7
+  ],
+  "driver_sha256": "ba62e43af2204fd2080febbdca99436dae9be04accbd3e732f0ed22e56390754",
+  "rendered_prompts_sha256": "bc9f7b6900bacf322b7c529a6b688d94d20a7161190bb13b7604208751f62ccb",
+  "compiler_environment": {
+    "UNSLOTH_COMPILE_DISABLE": "1"
+  },
+  "cases": [
+    {
+      "name": "native_single",
+      "state_index": 7,
+      "copies": 1,
+      "input_shape": [
+        1,
+        772
+      ],
+      "left_pad_tokens": [
+        0
+      ],
+      "wall_seconds": 97.44966359499995,
+      "peak_allocated_bytes": 4250818048,
+      "peak_reserved_bytes": 4634705920,
+      "answers": [
+        {
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "padded_single",
+      "state_index": 7,
+      "copies": 1,
+      "input_shape": [
+        1,
+        772
+      ],
+      "left_pad_tokens": [
+        0
+      ],
+      "wall_seconds": 7.40407826400002,
+      "peak_allocated_bytes": 4137349632,
+      "peak_reserved_bytes": 4634705920,
+      "answers": [
+        {
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ]
+    },
+    {
+      "name": "padded_identical_four",
+      "state_index": 7,
+      "copies": 4,
+      "input_shape": [
+        4,
+        772
+      ],
+      "left_pad_tokens": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "wall_seconds": 9.632773347000011,
+      "peak_allocated_bytes": 4880670720,
+      "peak_reserved_bytes": 5247074304,
+      "answers": [
+        {
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ]
+    }
+  ],
+  "status": "completed",
+  "interpretation": "Discrepant development prompts only, no held-out episodes or policy tuning. Direct first greedy generation, no deduplication/repair. Padding uses each target original mixed-batch maximum prompt length. Native versus padded single sequence isolates padding length within this execution; four identical padded copies also vary batch size."
+}

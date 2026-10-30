@@ -1879,3 +1879,28 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Keep the failed version-one receipt unchanged. Retry source, admission and
   polls: `results/training/kaggle_padding_retry.json`. This remains a systems
   diagnostic, not a policy trial or a change to held-out evaluation.
+
+### T20 version 2 completes; weekly GPU submission loop closes
+
+- Command: `.venv/bin/python runs/retain_padding_retry.py`. Both workers
+  complete; downloaded pair wall time 283.59922675099995 seconds. SFT state 2
+  has 86 left-pad tokens: single and four identical padded copies match native.
+  SFT state 13 has 195 left-pad tokens: padded single matches native, while all
+  four identical padded copies change their quotes. GRPO state 7 is a zero-pad
+  control and all cases match native. Every answer parses. Retain all cases,
+  shapes, masks, raw text, VRAM and timings in
+  `results/training/kaggle_padding_retry_completion.json`.
+- This exposes inference-configuration sensitivity; do not claim that the
+  previous eight-state gate proves equivalence or that this identifies a
+  unique kernel defect. Frozen policy configurations remain unchanged.
+- Command: `.venv/bin/python runs/close_kaggle_budget.py`. Official weekly
+  account debit is 107918.349345 / 108000 seconds (29.9773192625 hours), with
+  81.65065500000492 seconds remaining and no reservation. Even the first
+  observed native generation including warmup takes at least 97.324324784
+  seconds, before counting environment/model loading. Another useful cold
+  allocation cannot fit. No filler job or automatic next-week allocation.
+- Close the submission loop, preserving the incomplete newest-family run and
+  unknown exact allocation boundaries honestly. Source/evidence:
+  `results/training/kaggle_budget_closure.json`; per-kernel ledger remains
+  `results/training/kaggle_budget.json`. Continue the registered normal local
+  improvement loop, API coverage, final frozen scoring, figures and CI.

@@ -1,0 +1,52 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/close_kaggle_budget.py",
+    "config": {
+      "purpose": "close this weekly-budget submission loop because no useful cold-start run fits"
+    },
+    "model_revision": null,
+    "git_commit": "fe830b67be6f55caa13f1eae31390b369fa15fe1",
+    "uncommitted_diff_sha256": "85a85052710c5c37aa2ae947ad98a0b1a659adf6665d1d96e4974881aeb5e9e5",
+    "started_at": "2026-10-30T01:59:42.974301+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nledger_path = Path('results/training/kaggle_budget.json')\nledger = json.loads(ledger_path.read_text())\nlast = ledger['quota_snapshots'][-1]\nq = last['quota']\nremaining = q['gpu_seconds_total'] - q['gpu_seconds_used'] - q['gpu_seconds_reserved']\ncompletion = Path('results/training/kaggle_padding_retry_completion.json')\nr = json.loads(completion.read_text())\nfirst_generation = [s['cases'][0]['wall_seconds'] for s in r['stages'].values()]\nassert remaining < min(first_generation)\nassert json.loads(Path('results/training/kaggle_padding_retry.json').read_text())['status'] == 'outputs_retrieved'\nrecord = {'provenance':receipt({'purpose':'close this weekly-budget submission loop because no useful cold-start run fits'}),\n          'source':Path(__file__).read_text(), 'status':'closed_no_meaningful_run_fits',\n          'official_snapshot':last,'account_quota_hours_used':q['gpu_seconds_used']/3600,\n          'account_quota_hours_total':q['gpu_seconds_total']/3600,'remaining_seconds':remaining,\n          'minimum_observed_first_generation_seconds_including_warmup':min(first_generation),\n          'evidence_file':str(completion),'evidence_sha256':file_sha256(completion),\n          'reason':'Remaining quota is below even the observed first native generation including warmup, before counting fresh environment/model loading. No further full cohort, training seed or useful diagnostic can be admitted with an evidence-based cold-start allowance.',\n          'scope':'Official weekly account quota, not a fabricated attribution of all usage to this task or a sum of physical GPU-card compute hours. Per-kernel script wall times and unknown allocation boundaries remain separately recorded.',\n          'newest_family_status':'Qwen3.8-27B chosen after measured two-T4 fit. Full registered run has 500 downloaded SFT updates; later progress/final outputs remain unverified after computer-use transport outage.',\n          'continued_work':'Finish the registered local MLX validation, DAgger/RLOO loop, NIM cohorts, frozen evaluation and final reporting. Do not automatically consume the next weekly GPU allocation.'}\nPath('results/training/kaggle_budget_closure.json').write_text(json.dumps(record,indent=2)+'\\n')\nledger['submission_loop_closed'] = {'result_file':'results/training/kaggle_budget_closure.json','status':record['status'],\n                                    'account_quota_hours_used':record['account_quota_hours_used'],'remaining_seconds':remaining}\nledger_path.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint(json.dumps({k:record[k] for k in ('status','account_quota_hours_used','remaining_seconds')}))\n",
+  "status": "closed_no_meaningful_run_fits",
+  "official_snapshot": {
+    "recorded_at": "2026-10-30T01:58:52.055942+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "fe830b67be6f55caa13f1eae31390b369fa15fe1",
+      "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
+    },
+    "quota": {
+      "refresh_at": "2026-10-31T00:00:00+00:00",
+      "gpu_seconds_used": 107918.349345,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "account_quota_hours_used": 29.9773192625,
+  "account_quota_hours_total": 30.0,
+  "remaining_seconds": 81.65065500000492,
+  "minimum_observed_first_generation_seconds_including_warmup": 97.324324784,
+  "evidence_file": "results/training/kaggle_padding_retry_completion.json",
+  "evidence_sha256": "0422790dd93cf2a24ebe25a2b47c2f9e2632ac22cd08931b187337d294ec1769",
+  "reason": "Remaining quota is below even the observed first native generation including warmup, before counting fresh environment/model loading. No further full cohort, training seed or useful diagnostic can be admitted with an evidence-based cold-start allowance.",
+  "scope": "Official weekly account quota, not a fabricated attribution of all usage to this task or a sum of physical GPU-card compute hours. Per-kernel script wall times and unknown allocation boundaries remain separately recorded.",
+  "newest_family_status": "Qwen3.8-27B chosen after measured two-T4 fit. Full registered run has 500 downloaded SFT updates; later progress/final outputs remain unverified after computer-use transport outage.",
+  "continued_work": "Finish the registered local MLX validation, DAgger/RLOO loop, NIM cohorts, frozen evaluation and final reporting. Do not automatically consume the next weekly GPU allocation."
+}

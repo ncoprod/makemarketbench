@@ -1,0 +1,16 @@
+{
+  "wall_seconds": 283.59922675099995,
+  "budget_seconds": 320,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "source_commit": "67ab3f5423ed1b43c7f5322cb57d0479ef99eae3",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "purpose": "Development-state native and explicitly left-padded prompt invariance; no held-out policy episodes.",
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ]
+}

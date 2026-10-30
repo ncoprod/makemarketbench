@@ -154,6 +154,9 @@ each previously discrepant SFT prompt, while some mixed batches change quotes.
 A GRPO quote also changes after bypassing cache deduplication. This narrows the
 systems diagnosis without identifying a unique numerical or padding cause
 ([all composition cases](results/training/kaggle_composition_ablation_completion.json)).
+Padded single-prompt quotes match native ones on the checked states, while four
+identical padded copies of one cards prompt all change their quotes
+([final padding probe](results/training/kaggle_padding_retry_completion.json)).
 
 A separate original CUDA pipeline also completes training and both 200-episode
 SFT tests. Its frozen GRPO continuation now completes both 200-episode games,
@@ -188,6 +191,9 @@ and official CLI/SDK routes cannot retrieve the unsaved live draft
 No policy score is inferred from training loss or the fit probe. Account billing,
 script runtimes and unknown allocation boundaries remain distinct in the
 [GPU budget ledger](results/training/kaggle_budget.json).
+The weekly submission loop closes at **29.9773 / 30 account-quota hours**, with
+**81.65 seconds** left, below the observed cold-start work for another useful
+run ([official snapshot and stopping evidence](results/training/kaggle_budget_closure.json)).
 
 **NIM coverage:** the [endpoint catalogue](results/expansion/models.json) lists
 no Qwen model. Sequential calls hold a shared NIM slot and cache responses.

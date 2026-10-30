@@ -1,0 +1,215 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_padding_retry.py",
+    "config": {
+      "purpose": "retain native and explicitly padded development prompt diagnostics"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "fe830b67be6f55caa13f1eae31390b369fa15fe1",
+    "uncommitted_diff_sha256": "964a648748ec2246525db8694fe362e6c69a982632a5e61c8d1fc1f51f2e6e6f",
+    "started_at": "2026-10-30T01:58:51.482991+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport shutil\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\npull_path = Path('results/training/kaggle_padding_retry.json')\npull = json.loads(pull_path.read_text())\nassert pull['status'] == 'outputs_retrieved'\nout = Path('results/kaggle/padding-ablation-v2')\nshutil.copytree('runs/kaggle_padding_retry_output', out, dirs_exist_ok=True)\npair = json.loads((out / 'pair_runtime.json').read_text())\nrecord = {'provenance': receipt({'purpose': 'retain native and explicitly padded development prompt diagnostics'}, pair['model_revision']),\n          'source': Path(__file__).read_text(), 'download_receipt': str(pull_path), 'pair_runtime': pair,\n          'files_sha256': {str(p): file_sha256(p) for p in out.rglob('*') if p.is_file()}, 'stages': {},\n          'interpretation': 'Fixed development prompts; no policy test or tuning. Native versus padded single sequence holds batch size fixed. Identical padded copies also vary batch size. All raw text, quotes, masks and failed/partial cases retained.'}\nfor stage in ('sft', 'grpo'):\n    path = out / stage / 'inference_profile.json'\n    if not path.exists():\n        record['stages'][stage] = {'status': 'profile_not_saved'}\n        continue\n    p = json.loads(path.read_text())\n    prior = json.loads(Path(f'results/kaggle/composition-ablation-v1/{stage}/inference_profile.json').read_text())\n    assert p['states'] == prior['states']\n    native = {case['state_index']: case['answers'][0]['quote'] for case in p['cases'] if case['name'] == 'native_single'}\n    record['stages'][stage] = {'status': p['status'], 'cases': [\n        {'name': case['name'], 'state_index': case['state_index'], 'input_shape': case['input_shape'],\n         'left_pad_tokens': case['left_pad_tokens'], 'wall_seconds': case['wall_seconds'],\n         'peak_allocated_bytes': case['peak_allocated_bytes'],\n         'quote_changes_vs_native': sum(a['quote'] != native[case['state_index']] for a in case['answers']),\n         'native_changed_vs_prior': native[case['state_index']] != prior['serial']['answers'][case['state_index']]['quote'],\n         'parse_errors': sum(a['parse_error'] is not None for a in case['answers'])} for case in p['cases']]}\nPath('results/training/kaggle_padding_retry_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nfor session in ledger['sessions']:\n    if session['kernel'] == pull['metadata']['id'] and session['version'] == 2:\n        session.update(status='completed_outputs_retrieved' if pair['exit_codes'] == [0, 0] else 'partial_outputs_retrieved',\n                       script_wall_seconds=pair['wall_seconds'], hours=pair['wall_seconds'] / 3600,\n                       hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.',\n                       observed_complete_at=pull['polls'][-1]['at'], result_file=str(out / 'pair_runtime.json'))\np.write_text(json.dumps(ledger, indent=2) + '\\n')\nprint(json.dumps({'runtime_seconds': pair['wall_seconds'], 'exit_codes': pair['exit_codes'], 'stages': record['stages']}, indent=2))\n",
+  "download_receipt": "results/training/kaggle_padding_retry.json",
+  "pair_runtime": {
+    "wall_seconds": 283.59922675099995,
+    "budget_seconds": 320,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "source_commit": "67ab3f5423ed1b43c7f5322cb57d0479ef99eae3",
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "seed": 0,
+    "purpose": "Development-state native and explicitly left-padded prompt invariance; no held-out policy episodes.",
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py"
+    ]
+  },
+  "files_sha256": {
+    "results/kaggle/padding-ablation-v2/inference_profile.py": "ba62e43af2204fd2080febbdca99436dae9be04accbd3e732f0ed22e56390754",
+    "results/kaggle/padding-ablation-v2/evaluate_core.py": "d9d87d90a8336231907ba9296e778ce645fc078f3e87113bcc7dd8ee7ab79db3",
+    "results/kaggle/padding-ablation-v2/makemarketbench-padding-ablation.log": "bb9c45b3a61b8124c18a9b4f4a963f1801a271600f95fd73fe37586a7fa9c5a5",
+    "results/kaggle/padding-ablation-v2/pair_runtime.json": "208350d411f841888d297ff9829c885e2b0528226148ce54587cfa598d81b22d",
+    "results/kaggle/padding-ablation-v2/__pycache__/inference_profile.cpython-313.pyc": "cc1e9f04a7079a3f12ad2f8208f9d80ec4e0b243f8fcf81a4034c26aba048947",
+    "results/kaggle/padding-ablation-v2/grpo/runtime.json": "0a988d9ee44d9ac112e62fca004f8f131a3ac739ac4c77b4fd4a1c7f644193b2",
+    "results/kaggle/padding-ablation-v2/grpo/inference_profile.json": "f57f45fb2ce3f8126861e58d9fe5ced2b472f8939e98abd4f7db63dd07659dcc",
+    "results/kaggle/padding-ablation-v2/sft/runtime.json": "df3678785fd9c8a8bbfc5a662f883fc498b85bc40aada6a834380c807a0abc5e",
+    "results/kaggle/padding-ablation-v2/sft/inference_profile.json": "5780a0d2b76d3a2bbe20ef0c9ec0131523b8f632a97a37a3b3d7e7c495c7dcaf"
+  },
+  "stages": {
+    "sft": {
+      "status": "completed",
+      "cases": [
+        {
+          "name": "native_single",
+          "state_index": 2,
+          "input_shape": [
+            1,
+            673
+          ],
+          "left_pad_tokens": [
+            0
+          ],
+          "wall_seconds": 97.324324784,
+          "peak_allocated_bytes": 4237997568,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "padded_single",
+          "state_index": 2,
+          "input_shape": [
+            1,
+            759
+          ],
+          "left_pad_tokens": [
+            86
+          ],
+          "wall_seconds": 7.328613888000007,
+          "peak_allocated_bytes": 4064778240,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "padded_identical_four",
+          "state_index": 2,
+          "input_shape": [
+            4,
+            759
+          ],
+          "left_pad_tokens": [
+            86,
+            86,
+            86,
+            86
+          ],
+          "wall_seconds": 9.458289562999994,
+          "peak_allocated_bytes": 4622086144,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "native_single",
+          "state_index": 13,
+          "input_shape": [
+            1,
+            663
+          ],
+          "left_pad_tokens": [
+            0
+          ],
+          "wall_seconds": 7.804510145999984,
+          "peak_allocated_bytes": 4099135488,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "padded_single",
+          "state_index": 13,
+          "input_shape": [
+            1,
+            858
+          ],
+          "left_pad_tokens": [
+            195
+          ],
+          "wall_seconds": 7.453443063000009,
+          "peak_allocated_bytes": 4087004160,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "padded_identical_four",
+          "state_index": 13,
+          "input_shape": [
+            4,
+            858
+          ],
+          "left_pad_tokens": [
+            195,
+            195,
+            195,
+            195
+          ],
+          "wall_seconds": 9.753614739999989,
+          "peak_allocated_bytes": 4691914240,
+          "quote_changes_vs_native": 4,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        }
+      ]
+    },
+    "grpo": {
+      "status": "completed",
+      "cases": [
+        {
+          "name": "native_single",
+          "state_index": 7,
+          "input_shape": [
+            1,
+            772
+          ],
+          "left_pad_tokens": [
+            0
+          ],
+          "wall_seconds": 97.44966359499995,
+          "peak_allocated_bytes": 4250818048,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "padded_single",
+          "state_index": 7,
+          "input_shape": [
+            1,
+            772
+          ],
+          "left_pad_tokens": [
+            0
+          ],
+          "wall_seconds": 7.40407826400002,
+          "peak_allocated_bytes": 4137349632,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        },
+        {
+          "name": "padded_identical_four",
+          "state_index": 7,
+          "input_shape": [
+            4,
+            772
+          ],
+          "left_pad_tokens": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "wall_seconds": 9.632773347000011,
+          "peak_allocated_bytes": 4880670720,
+          "quote_changes_vs_native": 0,
+          "native_changed_vs_prior": false,
+          "parse_errors": 0
+        }
+      ]
+    }
+  },
+  "interpretation": "Fixed development prompts; no policy test or tuning. Native versus padded single sequence holds batch size fixed. Identical padded copies also vary batch size. All raw text, quotes, masks and failed/partial cases retained."
+}

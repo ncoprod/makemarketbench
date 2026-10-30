@@ -1,0 +1,91 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/evaluate_core.py",
+    "--eval-only",
+    "--adapter",
+    "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter",
+    "--label",
+    "qwen3.5-4b-staged-sft",
+    "--budget-seconds",
+    "296"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.5-4B",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "label": "qwen3.5-4b-staged-sft",
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "episodes": 400,
+    "sft_steps": 150,
+    "sft_batch": 8,
+    "sft_accumulation": 2,
+    "sft_validation_episodes": 0,
+    "save_steps": 100,
+    "budget_seconds": 296,
+    "seed": 0,
+    "device_map": "sequential",
+    "offload_layers": null,
+    "grpo_steps": 300,
+    "num_generations": 8,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 16,
+    "lr": 5e-06,
+    "eval_episodes": 200,
+    "eval_batch_size": 1,
+    "check_batching": false,
+    "eval_seed": 200,
+    "resume": null,
+    "sft_resume": null,
+    "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter",
+    "train_only": false,
+    "eval_only": true,
+    "dry_run": false,
+    "adapter_sha256": "dff5ed68e4c07474ac8640b04f318632ed750781e4095a983f71d2cfb9bf4025"
+  },
+  "seed": 0,
+  "source_commit": "67ab3f5423ed1b43c7f5322cb57d0479ef99eae3",
+  "cuda_visible_devices": "0",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "source_file_sha256": "d9d87d90a8336231907ba9296e778ce645fc078f3e87113bcc7dd8ee7ab79db3",
+  "embedded_package_sha256": "f2fd75899b56ba595718d24c36557b5d1b2045599c4739031c662956e5397ab3",
+  "status": "completed",
+  "execution_started_at": "2026-10-30T01:49:08.068711+00:00",
+  "recorded_at": "2026-10-30T01:53:25.546129+00:00",
+  "wall_seconds": 257.4778711795807,
+  "gpus": [
+    "Tesla T4"
+  ],
+  "gpu_capacity_bytes": [
+    15636037632
+  ],
+  "cuda_version": "12.8",
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "unsloth": "2026.10.10",
+    "unsloth_zoo": "2026.10.10",
+    "trl": "1.15.0",
+    "transformers": "5.16.1",
+    "peft": "0.20.0",
+    "bitsandbytes": "0.50.2",
+    "datasets": "4.8.5",
+    "accelerate": "1.14.0",
+    "triton": "3.6.0"
+  },
+  "phase": "development_inference_profile",
+  "phase_step": 0,
+  "peak_allocated_bytes": 4691914240,
+  "peak_reserved_bytes": 4915724288,
+  "memory_by_gpu": [
+    {
+      "device": 0,
+      "peak_allocated_bytes": 4691914240,
+      "peak_reserved_bytes": 4915724288
+    }
+  ],
+  "execution_finished_at": "2026-10-30T01:53:25.546106+00:00"
+}

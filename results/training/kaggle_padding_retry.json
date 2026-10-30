@@ -91,7 +91,19 @@
     "inference": "Prior batch completed and official quota is unchanged over the recorded interval. No interactive allocation is restarted; exact old draft end remains unknown."
   },
   "retry_of": "results/training/kaggle_padding_ablation_failure.json",
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-30T01:58:44.056714+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-padding-ablation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-padding-ablation has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
   "command": [
     "kaggle",
     "kernels",
@@ -120,7 +132,7 @@
     "exit_code": 0,
     "output": "Source code and metadata downloaded to runs/kaggle_padding_ablation_remote\n"
   },
-  "status": "submitted_private_verified",
+  "status": "outputs_retrieved",
   "remote_metadata": {
     "id": "nicolascoquelet/makemarketbench-padding-ablation",
     "id_no": 141594611,
@@ -141,5 +153,21 @@
     "model_sources": [],
     "docker_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
     "machine_shape": "NvidiaTeslaT4"
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-padding-ablation",
+      "-p",
+      "runs/kaggle_padding_retry_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading inference_profile.cpython-313.pyc to runs/kaggle_padding_retry_output/__pycache__\n\nOutput file downloaded to runs/kaggle_padding_retry_output/__pycache__/inference_profile.cpython-313.pyc\nDownloading evaluate_core.py to runs/kaggle_padding_retry_output\n\nOutput file downloaded to runs/kaggle_padding_retry_output/evaluate_core.py\nDownloading inference_profile.json to runs/kaggle_padding_retry_output/grpo\n\nOutput file downloaded to runs/kaggle_padding_retry_output/grpo/inference_profile.json\nDownloading runtime.json to runs/kaggle_padding_retry_output/grpo\n\nOutput file downloaded to runs/kaggle_padding_retry_output/grpo/runtime.json\nDownloading inference_profile.py to runs/kaggle_padding_retry_output\n\nOutput file downloaded to runs/kaggle_padding_retry_output/inference_profile.py\nDownloading pair_runtime.json to runs/kaggle_padding_retry_output\n\nOutput file downloaded to runs/kaggle_padding_retry_output/pair_runtime.json\nDownloading inference_profile.json to runs/kaggle_padding_retry_output/sft\n\nOutput file downloaded to runs/kaggle_padding_retry_output/sft/inference_profile.json\nDownloading runtime.json to runs/kaggle_padding_retry_output/sft\n\nOutput file downloaded to runs/kaggle_padding_retry_output/sft/runtime.json\nKernel log downloaded to runs/kaggle_padding_retry_output/makemarketbench-padding-ablation.log \n\n  0%|          | 0.00/6.49k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6.49k/6.49k [00:00<00:00, 6.46MB/s]\n\n  0%|          | 0.00/63.6k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.6k/63.6k [00:00<00:00, 615kB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.6k/63.6k [00:00<00:00, 613kB/s]\n\n  0%|          | 0.00/6.73k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6.73k/6.73k [00:00<00:00, 22.2MB/s]\n\n  0%|          | 0.00/2.55k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.55k/2.55k [00:00<00:00, 4.93MB/s]\n\n  0%|          | 0.00/4.26k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4.26k/4.26k [00:00<00:00, 17.6MB/s]\n\n  0%|          | 0.00/430 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 430/430 [00:00<00:00, 2.31MB/s]\n\n  0%|          | 0.00/9.77k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 9.77k/9.77k [00:00<00:00, 13.3MB/s]\n\n  0%|          | 0.00/2.56k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.56k/2.56k [00:00<00:00, 11.0MB/s]"
   }
 }
