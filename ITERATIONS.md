@@ -2073,3 +2073,29 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   Hosted CI still refuses jobs for account billing; the owner request is pending.
 - The 07:18 UTC browser inventory check still has the same transport errors;
   retain it in `results/training/kaggle_ui_outage.json`. No new GPU submission.
+
+### Fresh NIM discovery, retained partial failures and additional candidates
+
+- The dated GET /v1/models completes under a global NIM slot: 85 listed models,
+  no Qwen. Full response/source/provenance:
+  `results/expansion/models_20261030.json`. Catalogue presence does not prove a
+  generation endpoint works: both Mistral-7B and Nemo return HTTP 404; Llama
+  3.2-11B yields one complete dice episode before HTTP 404 in both games.
+  Preserve `results/expansion/protocol-supplement.json` and its partial raw row.
+- GPT-OSS cards resumes from three to 125 complete episodes, then fails after
+  three HTTP 504 attempts, with batch wall time 13835.842253923416 seconds.
+  Preserve all bytes and no partial score:
+  `results/expansion/gpt_cards_partial_failure.json`,
+  `results/expansion/protocol-gpt-resume.json`. Dice replays its complete cache.
+- Verify pinned HF model-card licences before adding Mistral Large 4, Llama
+  3.2-90B text-only and Granite-3.0-8B as availability candidates. Source/full
+  licence evidence: `results/licenses_nim_followup_20261030.json`;
+  `THIRD_PARTY_NOTICES.md`. Mistral Large 4 has the custom Mistral Ecosystem
+  Open-Weight License, not Apache or unrestricted MIT.
+- The hosted Mistral schema accepts `reasoning_effort=none/high`, unlike its
+  vendor low/medium/high examples. Fix `none` before any model evaluation:
+  https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer.
+  Plan/source/commands: `results/expansion/additional_followup_plan.json`.
+  Queue this batch then another identical-config, missing-only GPT-OSS retry,
+  each under the global NIM mutex with concurrency one. No successful episode
+  or response is discarded, and no held-out score chooses a model or decoder.

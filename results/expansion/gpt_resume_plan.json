@@ -18,7 +18,7 @@
     }
   },
   "source": "import json\nimport subprocess\nfrom pathlib import Path\nfrom makemarket.provenance import receipt\n\npath = Path('results/expansion/gpt_resume_plan.json')\nrecord = {'provenance': receipt({'purpose': 'resume incomplete GPT-OSS cards with identical endpoint/decoder settings'}),\n          'source': Path(__file__).read_text(), 'status': 'acquiring_global_slot',\n          'prior_failure': json.loads(Path('results/expansion/protocol.json').read_text())['openai/gpt-oss-20b']['cards'],\n          'previous_plan': 'results/expansion/gpt_resume_plan_initial.json',\n          'scheduling_change': 'Use an independent receipt file so this retry need not wait for supplementary model completion.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\ncommand = ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u', 'scripts/expand_nim.py',\n           '--models', 'openai/gpt-oss-20b', '--protocol-file', 'protocol-gpt-resume.json']\nrecord.update(status='acquiring_slot_then_resuming', command=command)\npath.write_text(json.dumps(record, indent=2) + '\\n')\nr = subprocess.run(command)\nrecord.update(status='finished', exit_code=r.returncode)\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
-  "status": "acquiring_slot_then_resuming",
+  "status": "finished",
   "prior_failure": {
     "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
     "wall_seconds": 1239.676654100418,
@@ -91,5 +91,6 @@
     "openai/gpt-oss-20b",
     "--protocol-file",
     "protocol-gpt-resume.json"
-  ]
+  ],
+  "exit_code": 0
 }

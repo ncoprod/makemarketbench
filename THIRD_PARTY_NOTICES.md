@@ -5,7 +5,8 @@ not relicense model weights, hosted services, or their outputs. No third-party
 model weights or training frameworks are vendored in this repository.
 
 Model-card licence fields and immutable Hub revisions were retrieved on
-2026-10-29; see [the verification record](results/licenses.json). A Hub revision
+2026-10-29 and 2026-10-30; see [the original record](results/licenses.json) and
+[additional API models](results/licenses_nim_followup_20261030.json). A Hub revision
 does **not** identify the unpublished backend revision served by NIM.
 
 ## Models
@@ -26,7 +27,9 @@ does **not** identify the unpublished backend revision served by NIM.
 | Qwen3-235B-A22B | [Apache-2.0 model card](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Qwen Team; API candidate, not redistributed. |
 | Mistral-Small-3.1-24B-Instruct-2503 | [Apache-2.0 model card](https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503) | Mistral AI; API candidate, not redistributed. |
 | Mistral-7B-Instruct-v0.3; Mistral-Nemo-Instruct-2407 | Apache-2.0: [7B model card](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3), [NeMo model card](https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407) | Mistral AI / NVIDIA. Retain licences and notices for covered redistribution; API inference only. |
-| Llama-3.2-11B-Vision-Instruct | [Llama 3.2 Community License Agreement](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE) and [model-card Acceptable Use Policy](https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct) | Meta Platforms, Inc. Retain agreement, origin notice and required “Built with Llama” attribution for covered products/distribution. The multimodal EU restriction has an end-user exception for products/services incorporating the model; this repo only calls the hosted NIM API with text, and does not download or redistribute these weights. |
+| Llama-3.2-11B/90B-Vision-Instruct | [Llama 3.2 Community License Agreement](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE), [11B card](https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct) and [90B card](https://huggingface.co/meta-llama/Llama-3.2-90B-Vision-Instruct) | Meta Platforms, Inc. Retain agreement, origin notice and required “Built with Llama” attribution for covered products/distribution. The multimodal EU restriction has an end-user exception for products/services incorporating the model; this repo only calls the hosted NIM API with text, and does not download or redistribute these weights. |
+| Mistral-Large-4-1T-A52B | [Mistral Ecosystem Open-Weight License](https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B/blob/main/LICENSE), an MIT derivative with commercial Model-as-a-Service restrictions | Attribution: “2026 - Mistral”. Preserve copyright and permission notices for covered copies. Commercial Model-as-a-Service operators need a separate licence, with stated exceptions. This repo consumes hosted NIM inference for evaluation; no model serving business, weight redistribution or API-derived training labels. Full pinned licence is retained in the verification record; do not label these weights Apache-2.0 or unrestricted MIT. |
+| Granite-3.0-8B-Instruct | [Apache-2.0 model card](https://huggingface.co/ibm-granite/granite-3.0-8b-instruct) | IBM Research. Retain the Apache licence, copyright and applicable notices for covered redistribution. Hosted API candidate; no weights redistributed. |
 
 Model availability probes are not evaluations. Models that return 404 or never
 produce a usable quote have no leaderboard score. Other historical unsuccessful
@@ -91,5 +94,5 @@ no attribution is required, but the algorithm's origin is acknowledged here.
   [dataset receipt](results/training/kaggle_original_adapter_dataset.json).
 
 No CC-BY-NC dataset is used. MiniMax has a non-commercial default grant with
-conditional commercial permissions. NIM trial usage and Llama also have custom
+conditional commercial permissions. NIM trial usage, Llama and Mistral Large 4 also have custom
 restrictions; these materials must not be described as unrestricted MIT software.
