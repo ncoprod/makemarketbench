@@ -30,9 +30,11 @@
     "--protocol-file",
     "protocol-mistral-default.json"
   ],
-  "status": "waiting_for_additional_batch_and_gpt_resume",
+  "status": "finished",
   "prior_failure_protocol": "results/expansion/protocol-additional.json",
   "documentation": "https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer",
   "change": "Omit reasoning_effort. Official schema says an omitted field is served as none; the explicit none request returns HTTP 400. Preserve both labels/caches and failures, and do not presume the actual server mode is equivalent without response evidence.",
-  "controls": "Same validation availability prompt, temperature 0.3, max_tokens 4096, timeout 600, three attempts, one request under the NIM mutex. If usable, the fixed 200/game test uses seeds 200-399. No test score selects this field."
+  "controls": "Same validation availability prompt, temperature 0.3, max_tokens 4096, timeout 600, three attempts, one request under the NIM mutex. If usable, the fixed 200/game test uses seeds 200-399. No test score selects this field.",
+  "prior_protocol_sha256": "f4162b48614271149d39758676da2de459f1f2a4e9a9c7569f2431c3c6218ca6",
+  "exit_code": 0
 }

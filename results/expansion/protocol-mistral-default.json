@@ -1,0 +1,157 @@
+{
+  "mistralai/mistral-large-4-1t-a52b (no-reasoning)": {
+    "model": "mistralai/mistral-large-4-1t-a52b",
+    "label": "mistralai/mistral-large-4-1t-a52b (no-reasoning)",
+    "timeout_seconds": 600,
+    "probe_seed": 80000,
+    "probe_round": 2,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {
+      "reasoning_effort": "none"
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models mistralai/mistral-large-4-1t-a52b --protocol-file protocol-mistral-default.json",
+      "config": {
+        "model": "mistralai/mistral-large-4-1t-a52b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {
+          "reasoning_effort": "none"
+        },
+        "label": "mistralai/mistral-large-4-1t-a52b (no-reasoning)",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": [
+            "mistralai/mistral-large-4-1t-a52b"
+          ],
+          "protocol_file": "protocol-mistral-default.json",
+          "reduced_reasoning": false,
+          "ultra_medium": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "f422e97a18cd45eacb0a140ed7771a60b5f707fa",
+      "uncommitted_diff_sha256": "34d44654222d26f71737f89fdd37e1efeedfe3b5591cd773c3aedc6cb284fed9",
+      "started_at": "2026-10-30T13:50:43.647604+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "637ff7679e6f5d4ec72d603b42fba81ba01fc20d291af7a279ed3bb099df9be8",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "e4e06984bffd644179291df2a6edb6bf22dc1c2aef143fc6986a0db99d45b006",
+        "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "usable": false,
+    "error": "RuntimeError: BadRequestError(400): Error code: 400 - Invalid request",
+    "probe_wall_seconds": 23.199573040008545
+  },
+  "mistralai/mistral-large-4-1t-a52b (server-default)": {
+    "model": "mistralai/mistral-large-4-1t-a52b",
+    "label": "mistralai/mistral-large-4-1t-a52b (server-default)",
+    "timeout_seconds": 600,
+    "probe_seed": 80000,
+    "probe_round": 2,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models mistralai/mistral-large-4-1t-a52b --protocol-file protocol-mistral-default.json",
+      "config": {
+        "model": "mistralai/mistral-large-4-1t-a52b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "mistralai/mistral-large-4-1t-a52b (server-default)",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": [
+            "mistralai/mistral-large-4-1t-a52b"
+          ],
+          "protocol_file": "protocol-mistral-default.json",
+          "reduced_reasoning": false,
+          "ultra_medium": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "f422e97a18cd45eacb0a140ed7771a60b5f707fa",
+      "uncommitted_diff_sha256": "34d44654222d26f71737f89fdd37e1efeedfe3b5591cd773c3aedc6cb284fed9",
+      "started_at": "2026-10-30T13:50:43.647604+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "637ff7679e6f5d4ec72d603b42fba81ba01fc20d291af7a279ed3bb099df9be8",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "e4e06984bffd644179291df2a6edb6bf22dc1c2aef143fc6986a0db99d45b006",
+        "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "probe": {
+      "content": "",
+      "reasoning": "We need answer JSON only? User says respond with single JSON object and nothing after it, may reason briefly before JSON. Need solve market making round 3. Need compute optimal quote given info: two dice revealed 6 and 3, four hidden dice remain? Wait V sum of 8 dice. Before round 1 no info. Before round 2 one die revealed (die #1=6). Before round 3 die #2=3. So at round 3 public info: two dice known sum 9, six dice hidden? Actually 8 total, revealed 2, hidden 6. But statement says \"so 3 dice remain hidden at the end\" after rounds 2-6 reveal one more each: round2 reveals #1, round3 #2, round4 #3, round5 #4, round6 #5, leaving 3 hidden. Yes at round3 hidden 6 dice. Need quote.\n\nWe need infer expected value M given public info: sum known 9 + expected 6 hidden dice *3.5 = 9 + 21 = 30. Variance of hidden sum: 6 * Var(die) = 6 * (35/12) = 17.5? Var single die = (6^2-1)/12 = 35/12 \u22482.9167, times 6 = 17.5. Std \u22484.1833. But noise trader e ~ Normal(0,4^2) around M=30. Informed knows V exactly.\n\nWe are market maker, no position, cash 0. Need post bid/ask sizes 0-10, prices one decimal, bid<ask. Need maximize expected profit over 6 rounds? We only quote round 3 now, but future rounds matter? Since risk-neutral and position carries, quote affects expected final profit. Need consider current round and future? The prompt asks post quote for round 3. We need decide optimal quote in round 3 given current state and future opportunities? In these games, typically each round quote myopically? But scoring total profit, position carries. Need maybe account for future rounds? We need think.\n\nWe are at round 3 of 6, no position. Public info M=30. Hidden dice 6. Future rounds will reveal more dice, reducing uncertainty. We can quote now and later. Need maximize expected total profit. Since risk-neutral, and future quotes can adjust. The current quote's expected profit conditional on counterparty and future optimal? We need maybe solve dynamic programming? But likely quote should be around M with spread considering adverse selection. Need compute optimal bid/ask.\n\nLet's parse game. Each round exactly one counterparty: informed 30% knows V; noise 70% with valuation u=M+e, e~N(0,4^2), D uniform 1..5. If u>M buy D up to u; if u<M sell D down to u. They trade min(D, size) at your price if within limit. For informed: if V>ask they buy whole ask size; if V<bid they sell whole bid size; else nothing. Note if V between bid and ask no trade. If V>ask, they buy at ask (even if ask > V? condition V>ask so ask < V, good for us? We sell at ask below V, profit positive if no position? Actually if we sell at ask < V, we incur loss if we later settle at V? Wait if we sell (short) at ask, cash +ask, position -size, final cash + position*V = ask - size*V? If ask < V, profit negative. But informed buys from us at ask only if V>ask, so we sell below V -> adverse selection loss. If V<bid, informed sells to us at bid > V -> we buy above V -> loss. So informed trades only when price is on losing side. Noise trades can be profitable if price within their limit.\n\nNeed quote bid/ask. We need choose sizes and prices. Since one counterparty per round, if both sides? Counterparty either buys or sells depending. Informed: if V>ask buys ask_size; if V<bid sells bid_size; if bid<V<ask no trade. Noise: if u>M wants buy D at any price up to u. They will buy min(D, ask_size) at ask if ask <= u? Actually \"at any price up to u\" means if ask <= u, they buy at ask. If u>M. If u<M, sell D at any price down to u, so if bid >= u, they sell at bid. They trade min(D, your size) at your price if within limit. So noise buy if u>M and ask <= u; noise sell if u<M and bid >= u. Note if u>M but ask>u no trade; if u<M but bid<u no trade.\n\nWe need expected profit from round trade plus future. Since no position, current trade profit if buy at bid: cash -bid*size, position +size; final settlement adds size*V, so round P&L = size*(V - bid) if bought. If sell at ask: cash +ask*size, position -size; final = ask*size - size*V = size*(ask - V). So buy profitable if V>bid, sell profitable if V<ask. Informed causes losses when V<bid (buy) or V>ask (sell). Noise can cause either.\n\nNeed choose quote to maximize expected total. Since future rounds exist, maybe current position affects future quotes? We can always quote future. But risk-neutral, no inventory constraints? Position carries, but no limit? Sizes 0-10 per round, can accumulate. There is no explicit position limit. So we can trade each round independently? Future quotes can offset? Since final settlement at V, any position from now will be settled at V, but future trades can change position. If risk-neutral and no constraints, the optimal policy may be myopic: each round maximize expected immediate profit conditional on current info, because future opportunities independent? However future info changes, but current trade's expected profit conditional on current info is what matters; future quotes can be optimized later. Since no position limits and cash linear, total expected profit = sum of expected round profits (with future info) if quotes chosen optimally. But current quote choice doesn't affect future info or future quote opportunities except position? Future quotes can be chosen regardless of position; no constraints. So myopic optimization is sufficient. But need be careful: if we take position now, future quotes might be affected by risk? Risk-neutral, no risk aversion, so no. Thus maximize expected profit of round 3 only, conditional on public info. But wait, if future rounds reveal dice, our current position's value changes, but expected profit from current trade conditional on current info is fixed; future trades can be optimized with more info. No interaction. So yes myopic.\n\nThus need compute optimal bid/ask for a single round with current distribution of V given public info: V = 9 + sum of 6 iid dice. M=30. Need choose bid, ask, sizes.\n\nWe need maximize expected profit:\nE[Profit] = P(informed) * E_informed[profit] + P(noise) * E_noise[profit].\n\nGiven quote (b, bs, a, as), with b<a.\n\nInformed (prob 0.3): knows V. If V > a: sells? Actually if V > ask, they buy ask_size from us at ask. Our profit = as*(a - V) (negative if a<V). If V < b: they sell bid_size to us at bid. Our profit = bs*(V - b) (negative if V<b). If b <= V <= a: no trade, profit 0. So informed expected profit = 0.3 * [ as * E[(a - V) * 1_{V>a}] + bs * E[(V - b) * 1_{V<b}] ].\nBoth terms negative (or zero) because a<V => a-V<0; V<b => V-b<0. So informed always non-positive expected.\n\nNoise (prob 0.7): u = M + e, e~N(0,16). D uniform 1..5 independent. If u>M (e>0), buys min(D, as) at ask if ask <= u. Profit = (a - V) * min(D, as)? Wait if noise buys from us at ask, our profit per unit = a - V. But V is actual sum, unknown to us but in expectation. Noise's u is based on M, not V. So expected profit conditional on V? We need integrate over V and e,D. If e>0 and ask <= M+e, trade size q = min(D, as) at ask. Profit = q*(a - V). If e<0 and bid >= M+e, they sell q=min(D, bs) at bid. Profit = q*(V - b). If e=0 measure zero.\n\nSo noise expected profit = 0.7 * E[ 1_{e>0, a <= M+e} * min(D, as) * (a - V) + 1_{e<0, b >= M+e} * min(D, bs) * (V - b) ].\nSince V and e independent? V distribution given public info; e noise independent of V? Yes noise valuation error independent. D independent. So can separate: E[(a - V)] = a - M = a - 30 for buy; E[(V - b)] = M - b = 30 - b for sell. But wait for noise buy, condition e>0 and a <= M+e. The trade occurs if ask <= u. The expected profit per unit is a - E[V] = a - M, because V independent of e. Yes. For noise sell, per unit V - b expectation M - b. So noise expected profit = 0.7 * [ P(e>0, a <= M+e) * E[min(D,as)] * (a - M) + P(e<0, b >= M+e) * E[min(D,bs)] * (M - b) ].\nBut note if a > M, then a - M positive, but condition a <= M+e requires e >= a-M >0, possible. If a <= M, then condition e>0 and a<=M+e automatically? If a<=M, for any e>0, M+e > M >= a, so yes. Similarly for sell: if b >= M, then b >= M+e for e<0? If b>=M, then for any e<0, M+e < M <= b, so yes. If b < M, need e <= b-M <0.\n\nThus noise can be profitable if we sell above M (a>M) with some probability, or buy below M (b<M) with some probability. But informed causes losses if a too low? Actually informed sells to us if V<b (we buy above V) and buys from us if V>a (we sell below V). So to avoid informed losses, want bid high? Wait if V < bid, informed sells to us at bid, we buy at bid > V -> loss. So lower bid reduces probability V<bid and loss. Higher ask reduces probability V>ask and loss. But noise profit wants bid low (buy below M) and ask high (sell above M). Tradeoff.\n\nNeed compute optimal. Since sizes up to 10, and D uniform 1..5, E[min(D,s)] for integer s 0..10. Let's compute: D uniform 1..5. For s>=5, min(D,s)=D, E=3. For s=0 ->0. s=1: min(D,1)=1 always? D>=1, min=1, E=1. s=2: min(D,2): D=1 ->1, D=2..5 ->2, average (1+2*4)/5 =9/5=1.8. s=3: D=1->1,2->2,3..5->3 => (1+2+3*3)/5=12/5=2.4. s=4: (1+2+3+4*2)/5=14/5=2.8. s=5: 3. s>5 same 3. So E[min(D,s)] = min? formula.\n\nInformed expected loss depends on full distribution of V, not just M, because tail probabilities and expected shortfall. Need compute distribution of V = 9 + sum of 6 dice. Hidden sum S6 ranges 6..36. V ranges 15..45. M=30. Need compute probabilities and expected values for tails. We can compute exactly or approximate. Need choose prices one decimal. Could use normal approximation? But dice sum distribution with n=6 is close to normal but discrete. Need exact maybe possible. We need optimize over price and size. Could do numerical reasoning manually. Need produce one JSON. We need be accurate enough.\n\nLet's formalize.\n\nLet S = sum of 6 hidden dice. V = 9 + S. M = 30. Distribution of S: number of ways for sum s with 6 dice. We can compute probabilities. Need tail expectations:\nFor informed:\nL_sell? If V > a (i.e., S > a-9), we sell as at ask a. Expected loss per unit = E[V - a | V>a] * P(V>a) = E[(V-a) 1_{V>a}]. Actually profit = as*(a - V) = -as*(V-a). So expected = -as * E[(V-a) 1_{V>a}].\nIf V < b (S < b-9), we buy bs at bid b. Profit = bs*(V-b) = -bs*(b-V). Expected = -bs * E[(b-V) 1_{V<b}].\nSo informed expected profit = -0.3 * [ as * E[(V-a)_+] + bs * E[(b-V)_+] ] where (x)_+ = max(x,0). Note E[(V-a)_+] = E[V-a | V>a] P(V>a).\n\nNoise:\nLet e~N(0,16). For ask a:\nP_buy_noise = P(e>0 and a <= M+e) = P(e >= a-M) if a>M? Actually if a>M, need e >= a-M >0. If a<=M, need e>0 (since a<=M <= M+e for e>0). More generally P(e>0 and e >= a-M) = P(e >= max(0, a-M))? If a-M <=0, max=0, P(e>=0)=0.5. If a-M>0, P(e >= a-M). Yes.\nSo P_buy = \u03a6(-max(0, a-M)/4)? Since P(e >= x) = 1-\u03a6(x/4) = \u03a6(-x/4). For x=max(0,a-M). If a<=M, x=0 => 0.5. If a>M, x=a-M => \u03a6(-(a-M)/4).\nFor bid b:\nP_sell_noise = P(e<0 and b >= M+e) = P(e <= b-M) if b<M? Let's derive: e<0 and e <= b-M. If b>=M, then b-M>=0, condition e<0 implies e<=b-M automatically, so P=0.5. If b<M, need e <= b-M <0, so P = \u03a6((b-M)/4). More generally P(e <= min(0, b-M))? If b-M>=0, min=0, P(e<=0)=0.5. If b-M<0, P(e<=b-M)=\u03a6((b-M)/4). Yes.\nSo P_sell = \u03a6(min(0, b-M)/4) (since min negative or zero). Equivalently if b>=M: 0.5; if b<M: \u03a6((b-M)/4).\n\nNoise expected profit = 0.7 * [ P_buy * E[min(D,as)] * (a - M) + P_sell * E[min(D,bs)] * (M - b) ].\nNote if a<M, a-M negative, but P_buy=0.5, so noise buy would lose per unit; we wouldn't set ask below M? Maybe could if informed? But ask below M increases informed sell? Actually if a<M, informed buys if V>a, which is likely, causing losses; noise buy at a<M loses. So ask should be >= M likely. Similarly bid <= M likely. But maybe due to skew? We'll see.\n\nThus total expected profit for round:\nE = 0.7 * [ P_buy(a) * q(as) * (a - 30) + P_sell(b) * q(bs) * (30 - b) ] - 0.3 * [ as * E[(V-a)_+] + bs * E[(b-V)_+] ].\n\nWhere q(s)=E[min(D,s)].\n\nWe can choose bid and ask independently? The bid and ask sides independent in expected profit because no overlap? Informed: if V>a and V<b cannot both since b<a. Noise: buy and sell conditions mutually exclusive? e>0 vs e<0, yes. So bid and ask choices independent except constraint b<a. Thus optimize bid side and ask side separately, then ensure b<a. Since likely bid < M < ask, constraint satisfied.\n\nSo we can optimize ask: choose a and as to maximize\nAskProfit(a, as) = as * [ 0.7 * P_buy(a) * q(as)/as? Wait q(as) depends on as. Let's write:\nAsk side expected profit = 0.7 * P_buy(a) * q(as) * (a - M) - 0.3 * as * E[(V-a)_+].\n= as * [ 0.7 * P_buy(a) * (q(as)/as) * (a - M) - 0.3 * E[(V-a)_+] ].\nSince q(as)/as is average fill per unit? For as<=5, q(as)/as <1? Actually q(as) = E[min(D,as)]. For as=1, q=1, ratio=1. as=2, q=1.8, ratio=0.9. as=3, ratio=0.8. as=4, ratio=0.7. as=5, ratio=0.6. as>=5, q=3, ratio=3/as. So larger size reduces noise fill ratio but informed always takes whole size if V>a. Thus there is tradeoff: larger ask_size increases informed loss (linear) but noise profit only up to q(as) (sublinear). So optimal ask_size likely small, maybe 1? Need evaluate.\n\nSimilarly bid side:\nBidProfit(b, bs) = bs * [ 0.7 * P_sell(b) * (q(bs)/bs) * (M - b) - 0.3 * E[(b-V)_+]",
+      "finish_reason": "length",
+      "completion_tokens": 4096,
+      "prompt_tokens": 546,
+      "served_model": "mistralai/mistral-large-4-1t-a52b",
+      "system_fingerprint": null,
+      "latency": 231.72479486465454,
+      "cached": false
+    },
+    "usable": false,
+    "error": "ValueError: no JSON object with a 'bid' field found",
+    "probe_wall_seconds": 842.9137778282166
+  }
+}

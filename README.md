@@ -261,7 +261,12 @@ availability probe ([receipts](results/expansion/protocol-additional.json)).
 Granite-3.0-8B also fails its bounded HTTP 404 probe
 ([additional receipts](results/expansion/protocol-additional.json)).
 A [Mistral compatibility control](results/expansion/mistral_default_plan.json)
-omits the rejected reasoning field, before any test-based choice.
+omits the rejected reasoning field, but exhausts its 4,096-token budget on
+reasoning without a final answer. A [registered larger-budget probe](results/expansion/mistral_budget_plan.json)
+uses the same validation state before any test-based choice. Ultra's
+medium-effort thinking run saves 53 dice episodes before three HTTP 504s;
+the incomplete cohort remains unscored
+([failure receipts](results/expansion/round3_api_failures.json)).
 [Baseline-first scheduling](results/expansion/baseline_priority_plan.json) preserves
 the slow Llama-90B cohort, finishes missing GPT/Bolt baseline episodes first,
 then resumes it with the same settings and cache.
@@ -291,8 +296,8 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **131 Python tests**
-([pre-push CI receipt](results/ci_local_round3.json)), native Release and
+Current local verification passes **133 Python tests**
+([local CI receipt](results/ci_local_round3_mistral.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
 requires these checks. Hosted Actions minutes are exhausted until about
 November 1 according to the owner; jobs refuse before any steps with the

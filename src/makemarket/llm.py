@@ -167,8 +167,11 @@ class LLMQuoter:
             except ValueError as e:
                 attempts[-1]["error"] = str(e)
                 if attempt == 0:
+                    assistant = {"role": "assistant", "content": text[-2000:] if text else ""}
+                    if self.client.cfg.model == "mistralai/mistral-large-4-1t-a52b" and out.get("reasoning"):
+                        assistant["reasoning_content"] = out["reasoning"]
                     msgs = msgs + [
-                        {"role": "assistant", "content": text[-2000:] if text else ""},
+                        assistant,
                         {"role": "user", "content": f"Your answer was invalid: {e}. {OUTPUT_SPEC}"},
                     ]
         return None, {"attempts": attempts, "format_error": True, "failed": True}

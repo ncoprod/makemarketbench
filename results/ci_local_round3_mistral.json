@@ -1,0 +1,31 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "local CI after Mistral reasoning-repair regression fix"
+    },
+    "model_revision": null,
+    "git_commit": "932393aa9fb7c8bc7a9f195260f0275e0af03e4e",
+    "uncommitted_diff_sha256": "5901471849246b588e926ffcbd6a275b2b2d8ca6aa650431f7b1bcd9a07a9257",
+    "started_at": "2026-10-30T14:16:32.392683+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": "bash scripts/ci_local.sh",
+  "status": "passed",
+  "python_tests": 133,
+  "source_sha256": {
+    "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+    "scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+    "tests/test_llm_parsing.py": "611362fa60ec922baed4ee45d5465ff520e709c44445e386c896d9d635c2bfa2",
+    "scripts/ci_local.sh": "9434b584799f75a968e0269b32c29e14cee129a472a43921317bc9595611e855"
+  },
+  "output": "+ date -u\nFri Oct 30 14:16:05 UTC 2026\n+ git rev-parse HEAD\n932393aa9fb7c8bc7a9f195260f0275e0af03e4e\n+ .venv/bin/python --version\nPython 3.13.17\n+ .venv/bin/ruff check src tests scripts train\nAll checks passed!\n+ .venv/bin/python -c 'from makemarket.engine import cpp_available; assert cpp_available()'\n+ .venv/bin/python -m pytest -q\n........................................................................ [ 54%]\n.............................................................            [100%]\n133 passed in 7.44s\n+ cmake -S . -B build/native -DMMB_BUILD_NATIVE=ON -DCMAKE_BUILD_TYPE=Release\n-- Configuring done (0.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /Users/nico/Documents/AI/makemarketbench/build/native\n+ cmake --build build/native -j 2\n[ 33%] Built target mmb_core\n[ 66%] Built target test_book\n[100%] Built target bench_book\n+ ctest --test-dir build/native --output-on-failure\nTest project /Users/nico/Documents/AI/makemarketbench/build/native\n    Start 1: test_book\n1/1 Test #1: test_book ........................   Passed    0.01 sec\n\n100% tests passed, 0 tests failed out of 1\n\nTotal Test time (real) =   0.02 sec\n+ cmake -S . -B build/sanitize -DMMB_BUILD_NATIVE=ON -DMMB_SANITIZE=ON -DCMAKE_BUILD_TYPE=Debug\n-- Configuring done (0.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /Users/nico/Documents/AI/makemarketbench/build/sanitize\n+ cmake --build build/sanitize -j 2\n[ 33%] Built target mmb_core\n[100%] Built target test_book\n[100%] Built target bench_book\n+ ctest --test-dir build/sanitize --output-on-failure\nTest project /Users/nico/Documents/AI/makemarketbench/build/sanitize\n    Start 1: test_book\n1/1 Test #1: test_book ........................   Passed    0.44 sec\n\n100% tests passed, 0 tests failed out of 1\n\nTotal Test time (real) =   0.45 sec\n+ .venv/bin/python train/build_kaggle_kernel.py --out build/kaggle_ci\nwrote build/kaggle_ci/grpo_unsloth_kaggle.py and kernel-metadata.json\n+ MMB_WORK=build/kaggle_dry\n+ .venv/bin/python build/kaggle_ci/grpo_unsloth_kaggle.py --dry-run\nstates: 36\nformat: [0.5, -1.0, 0.5, 0.5]\nedge:   [0.0, -2.0, -1.0, 0.0]\n+ date -u\nFri Oct 30 14:16:15 UTC 2026\n",
+  "scope": "macOS Python 3.13.17; native Release, ASan/UBSan and Kaggle reward/export dry-run passed. Hosted matrix unavailable due to exhausted account minutes."
+}

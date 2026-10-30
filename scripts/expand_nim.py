@@ -41,6 +41,7 @@ SUPPLEMENT = [
     ("meta/llama-3.2-11b-vision-instruct", {}, 4096, "text-only"),
     ("mistralai/mistral-large-4-1t-a52b", {"reasoning_effort": "none"}, 4096, "no-reasoning"),
     ("mistralai/mistral-large-4-1t-a52b", {}, 4096, "server-default"),
+    ("mistralai/mistral-large-4-1t-a52b", {}, 16384, "server-default-16k"),
     ("meta/llama-3.2-90b-vision-instruct", {}, 4096, "text-only"),
     ("ibm/granite-3.0-8b-instruct", {}, 4096, ""),
 ]

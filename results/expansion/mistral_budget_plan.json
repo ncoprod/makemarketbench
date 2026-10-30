@@ -1,0 +1,39 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/mistral_budget_followup.py",
+    "config": {
+      "purpose": "one validation availability probe with room for reasoning and final JSON"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "932393aa9fb7c8bc7a9f195260f0275e0af03e4e",
+    "uncommitted_diff_sha256": "5901471849246b588e926ffcbd6a275b2b2d8ca6aa650431f7b1bcd9a07a9257",
+    "started_at": "2026-10-30T14:16:05.855948+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/expansion')\npath = root / 'mistral_budget_plan.json'\nprotocol = root / 'protocol-mistral-budget.json'\ncommand = ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u',\n           'scripts/expand_nim.py', '--models', 'mistralai/mistral-large-4-1t-a52b',\n           '--protocol-file', protocol.name]\nrecord = json.loads(path.read_text()) if path.exists() else {\n    'provenance': receipt({'purpose': 'one validation availability probe with room for reasoning and final JSON'}, 'NIM immutable deployment revision not exposed'),\n    'source': Path(__file__).read_text(), 'command': command,\n    'status': 'waiting_for_original_baseline_resume',\n    'documentation': 'https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer',\n    'hypothesis': 'The 4096-token omitted-field control returned reasoning only with finish_reason=length. A 16384-token cap may permit final JSON. This is an availability change, not test-score tuning.',\n    'controls': 'Same validation availability state: dice seed 80000, round 2, temperature 0.3, 600-second timeout, three attempts. Preserve both earlier failed probes without repeating them. If usable, evaluate seeds 200-399 on both games with a distinct label. Preserve reasoning_content in repair conversations as required by the model API.',\n    'prior_protocol': 'results/expansion/protocol-mistral-default.json',\n    'prior_protocol_sha256': file_sha256(root / 'protocol-mistral-default.json')}\nif not protocol.exists():\n    protocol.write_text((root / 'protocol-mistral-default.json').read_text())\npath.write_text(json.dumps(record, indent=2) + '\\n')\nwhile json.loads((root / 'intermittent_resume_plan.json').read_text())['status'] != 'finished':\n    time.sleep(30)\nrecord['status'] = 'acquiring_slot_then_running'\npath.write_text(json.dumps(record, indent=2) + '\\n')\nresult = subprocess.run(command)\nrecord.update(status='finished', exit_code=result.returncode)\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "mistralai/mistral-large-4-1t-a52b",
+    "--protocol-file",
+    "protocol-mistral-budget.json"
+  ],
+  "status": "waiting_for_original_baseline_resume",
+  "documentation": "https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer",
+  "hypothesis": "The 4096-token omitted-field control returned reasoning only with finish_reason=length. A 16384-token cap may permit final JSON. This is an availability change, not test-score tuning.",
+  "controls": "Same validation availability state: dice seed 80000, round 2, temperature 0.3, 600-second timeout, three attempts. Preserve both earlier failed probes without repeating them. If usable, evaluate seeds 200-399 on both games with a distinct label. Preserve reasoning_content in repair conversations as required by the model API.",
+  "prior_protocol": "results/expansion/protocol-mistral-default.json",
+  "prior_protocol_sha256": "150bab87f4bab0eda4c4d493bdf321e4f4e80b112d8b5cc02479995e864557d9"
+}

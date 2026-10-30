@@ -2459,3 +2459,19 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   and `gpt_complete_canonical.json`. Earlier failed attempts remain retained.
 - No aggregate test score is opened. The priority supervisor now waits for
   the Bolt/Llama-11B and Mistral follow-ups before resuming the slower Llama-90B.
+
+### T25 — Mistral availability: reasoning budget and repair state
+
+- Hypothesis: the omitted-field control is reachable but its 4,096-token cap
+  is exhausted by reasoning (`finish_reason=length`, no final content). This
+  differs from the explicit `none` request's HTTP 400. Preserve both failures.
+- Change: one 16,384-token probe on the same validation state, temperature,
+  timeout and retries; distinct cache/label. Preserve `reasoning_content`
+  during Mistral's repair turn, as its API requires. Two regression cases
+  verify Mistral repair state and unchanged handling of other providers.
+- Command and registered controls: `results/expansion/mistral_budget_plan.json`.
+  Wait for the original baseline resume first. No held-out score chooses this
+  budget, and successful availability is not evidence of trading quality.
+- Existing controls and Ultra thinking's 53 complete dice episodes followed
+  by three HTTP 504s: `results/expansion/round3_api_failures.json`. No partial
+  cohort score is computed; retain the negative acquisition result.
