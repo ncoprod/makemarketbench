@@ -222,7 +222,10 @@ cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards retry reac
 404 after 95 dice episodes and before cards
 ([partial failure](results/expansion/bolt_partial_failure.json)); a
 [conditional missing-only retry](results/expansion/bolt_resume_plan.json) is running
-after fresh discovery. Mistral-7B/Nemo fail with HTTP 404; Llama-3.2-11B saves
+after fresh discovery. Its dice resume also encounters 404 between successful
+generations ([preserved partial](results/expansion/bolt_resume_dice_failure.json));
+[bounded NIM backoff and missing-only recovery](results/expansion/intermittent_resume_plan.json)
+keep the same requests and successful responses. Mistral-7B/Nemo fail with HTTP 404; Llama-3.2-11B saves
 one dice episode before the same error
 ([all attempts](results/expansion/protocol-supplement.json)). Licensed Mistral
 Large 4, Llama-3.2-90B and Granite-3.0-8B probes, followed by another GPT-OSS
@@ -252,6 +255,14 @@ after correcting for the engine variants and block lengths
 ([timing-dependence check](results/engine_trials/inline_matching_block_intervals.json)).
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
+
+Current local verification passes **127 Python tests**
+([retry regression and full-suite receipt](results/verification_nim_404_retry.json)),
+plus native Release and ASan/UBSan checks
+([local verification](results/verification_ci_local_fallback.json)). Hosted
+GitHub Actions currently refuses jobs before any steps because of account
+billing ([exact annotation](results/ci_billing_block_20261030.json)); this is
+not a passing hosted matrix.
 
 ## Provenance
 
