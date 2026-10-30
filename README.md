@@ -200,8 +200,8 @@ The weekly submission loop closes at **29.9773 / 30 account-quota hours**, with
 **81.65 seconds** left, below the observed cold-start work for another useful
 run ([official snapshot and stopping evidence](results/training/kaggle_budget_closure.json)).
 
-**NIM coverage:** the [endpoint catalogue](results/expansion/models.json) lists
-no Qwen model. Sequential calls hold a shared NIM slot and cache responses.
+**NIM coverage:** the [fresh endpoint catalogue](results/expansion/models_20261030.json)
+lists **85 models**, with no Qwen. Sequential calls hold a shared NIM slot and cache responses.
 Long-timeout GLM, DeepSeek and Ultra-thinking probes fail after three HTTP 504
 responses ([receipts](results/expansion/protocol.json)); reduced-reasoning retries
 also fail ([receipts](results/expansion/protocol-reasoning.json)). Unavailable
@@ -209,14 +209,18 @@ models receive no score. Lightning and Ultra with thinking disabled complete
 fresh 200-episode cohorts in both games
 ([Lightning](results/expansion/lightning_cohorts.json),
 [Ultra](results/expansion/ultra_cohorts.json)). GPT-OSS completes its fresh dice
-cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards run saves
-three episodes before three HTTP 504 failures; a missing-only
-[resume is queued](results/expansion/gpt_resume_plan.json). Bolt stops with HTTP
+cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards retry reaches
+**125 complete episodes**, then stops after three HTTP 504s
+([unscored partial](results/expansion/gpt_cards_partial_failure.json)). Bolt stops with HTTP
 404 after 95 dice episodes and before cards
 ([partial failure](results/expansion/bolt_partial_failure.json)); a
-[conditional missing-only retry](results/expansion/bolt_resume_plan.json) waits
-for the fresh catalogue. Additional coverage and the corrected comparison remain
-pending.
+[conditional missing-only retry](results/expansion/bolt_resume_plan.json) is running
+after fresh discovery. Mistral-7B/Nemo fail with HTTP 404; Llama-3.2-11B saves
+one dice episode before the same error
+([all attempts](results/expansion/protocol-supplement.json)). Licensed Mistral
+Large 4, Llama-3.2-90B and Granite-3.0-8B probes, followed by another GPT-OSS
+resume, are [queued](results/expansion/additional_followup_plan.json).
+Partial cohorts remain unscored; the corrected final comparison is pending.
 
 ## Engine performance and correctness
 

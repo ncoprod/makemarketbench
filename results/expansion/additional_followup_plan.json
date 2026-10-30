@@ -1,13 +1,13 @@
 {
   "provenance": {
-    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/nim_additional_followup.py",
     "config": {
-      "purpose": "register additional listed API probes and a second missing-only GPT-OSS retry"
+      "purpose": "probe additional listed models, evaluate usable candidates, then resume GPT-OSS missing cards"
     },
     "model_revision": "NIM immutable deployment revision not exposed",
-    "git_commit": "66a3d06154bd5d32ca5d0f8b95aebaefe48062f0",
-    "uncommitted_diff_sha256": "cac6f3dd3eb1c8b21ff30c5213d8d5647a897468c0e78f6c434b5373e31189f3",
-    "started_at": "2026-10-30T07:41:01.994733+00:00",
+    "git_commit": "97087798643788d399ed0c1204a68b4a99808950",
+    "uncommitted_diff_sha256": "9f7ffcee7242b0211524b72e02139f4274f40c193083cf27fc17539038ef594b",
+    "started_at": "2026-10-30T07:41:10.039462+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -18,10 +18,55 @@
     }
   },
   "source": "import json\nimport subprocess\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nmodels=['mistralai/mistral-large-4-1t-a52b','meta/llama-3.2-90b-vision-instruct','ibm/granite-3.0-8b-instruct']\ncommands=[['bash','scripts/with_resource.sh','nim','.venv/bin/python','-u','scripts/expand_nim.py',\n           '--models',*models,'--protocol-file','protocol-additional.json'],\n          ['bash','scripts/with_resource.sh','nim','.venv/bin/python','-u','scripts/expand_nim.py',\n           '--models','openai/gpt-oss-20b','--protocol-file','protocol-gpt-resume2.json']]\npath=Path('results/expansion/additional_followup_plan.json')\ngpt=Path('results/expansion/raw/cards/openai_gpt-oss-20b.jsonl')\nprefix=gpt.read_bytes()\nrecord={'provenance':receipt({'purpose':'probe additional listed models, evaluate usable candidates, then resume GPT-OSS missing cards'},'NIM immutable deployment revision not exposed'),\n        'source':Path(__file__).read_text(),'commands':commands,'status':'queued',\n        'model_licence_verification':'results/licenses_nim_followup_20261030.json',\n        'catalogue_sha256':file_sha256('results/expansion/models_20261030.json'),\n        'gpt_existing_prefix_sha256':file_sha256(gpt),'gpt_existing_prefix_bytes':len(prefix),\n        'mistral_api_options_source':'https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer',\n        'mistral_decoder':'reasoning_effort=none; the hosted schema accepts none/high, unlike the vendor low/medium/high examples. Fixed before evaluation.',\n        'sampling':'200/game, seeds 200-399, temperature 0.3, max_tokens 4096, timeout 600 seconds; client concurrency 1 under the shared NIM mutex.',\n        'statistical_scope':'No held-out score has selected these models or decoders. No partial cohort score. Successful cached responses and completed episodes are reused exactly.'}\npath.write_text(json.dumps(record,indent=2)+'\\n')\nfor command in commands:\n    record.update(status='acquiring_slot_then_running',current_command=command)\n    path.write_text(json.dumps(record,indent=2)+'\\n')\n    result=subprocess.run(command)\n    record.setdefault('completed_commands',[]).append({'command':command,'exit_code':result.returncode})\n    path.write_text(json.dumps(record,indent=2)+'\\n')\nassert gpt.read_bytes().startswith(prefix)\nrecord.update(status='finished',gpt_prefix_preserved=True)\npath.write_text(json.dumps(record,indent=2)+'\\n')\n",
-  "status": "registered_before_launch",
-  "catalogue": "results/expansion/models_20261030.json",
-  "licences": "results/licenses_nim_followup_20261030.json",
-  "gpt_saved_episodes": 125,
-  "gpt_prefix_sha256": "d6649676ea4362cf526f0c7aeeb3b39f83344ffe28abf7107749d1f228516414",
-  "decoder": "Mistral Large 4 uses the NIM-documented reasoning_effort=none. Text-only Llama90 and Granite8 use default chat settings; all 0.3 temperature/4096 tokens/600s/200 episodes per game on 200-399. Global NIM slots, own concurrency one. No scores inspected."
+  "commands": [
+    [
+      "bash",
+      "scripts/with_resource.sh",
+      "nim",
+      ".venv/bin/python",
+      "-u",
+      "scripts/expand_nim.py",
+      "--models",
+      "mistralai/mistral-large-4-1t-a52b",
+      "meta/llama-3.2-90b-vision-instruct",
+      "ibm/granite-3.0-8b-instruct",
+      "--protocol-file",
+      "protocol-additional.json"
+    ],
+    [
+      "bash",
+      "scripts/with_resource.sh",
+      "nim",
+      ".venv/bin/python",
+      "-u",
+      "scripts/expand_nim.py",
+      "--models",
+      "openai/gpt-oss-20b",
+      "--protocol-file",
+      "protocol-gpt-resume2.json"
+    ]
+  ],
+  "status": "acquiring_slot_then_running",
+  "model_licence_verification": "results/licenses_nim_followup_20261030.json",
+  "catalogue_sha256": "a774655132526c9ab16222c4c021a727df36f868750f7f0ce1f6a02b4832f7db",
+  "gpt_existing_prefix_sha256": "d6649676ea4362cf526f0c7aeeb3b39f83344ffe28abf7107749d1f228516414",
+  "gpt_existing_prefix_bytes": 882108,
+  "mistral_api_options_source": "https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer",
+  "mistral_decoder": "reasoning_effort=none; the hosted schema accepts none/high, unlike the vendor low/medium/high examples. Fixed before evaluation.",
+  "sampling": "200/game, seeds 200-399, temperature 0.3, max_tokens 4096, timeout 600 seconds; client concurrency 1 under the shared NIM mutex.",
+  "statistical_scope": "No held-out score has selected these models or decoders. No partial cohort score. Successful cached responses and completed episodes are reused exactly.",
+  "current_command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "mistralai/mistral-large-4-1t-a52b",
+    "meta/llama-3.2-90b-vision-instruct",
+    "ibm/granite-3.0-8b-instruct",
+    "--protocol-file",
+    "protocol-additional.json"
+  ]
 }
