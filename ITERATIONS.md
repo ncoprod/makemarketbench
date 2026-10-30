@@ -2210,3 +2210,22 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   assessed before freezing and testing once. Results are pending.
 - Selection regression checks and full suite pass: 129 tests in 6.01 seconds,
   with Ruff clean (`results/verification_rloo_extension_selection.json`).
+
+### Bound continuation checkpoint storage and preserve reboot recovery
+
+- Measured RLOO checkpoint pair is about 93 MiB (31 MiB adapter, 62 MiB Adam
+  state). Keeping every additional group in both extensions would use roughly
+  15 GiB on a volume with 48 GiB available, shared with the other repositories.
+  Keep each fixed budget's frozen adapter and latest resume checkpoint; retain
+  every group's complete JSON history. Original RLOO24 artifacts stay intact.
+- `train/mlx_rloo.py` atomically replaces its progress JSON before pruning the
+  preceding optimizer checkpoint. Preserve loaded history immediately, so an
+  exception before a continuation's first successful group cannot erase it.
+  Rewards, sampler, gradients, learning rate, seeds and budgets do not change.
+- Fault injection makes the JSON replacement fail and verifies both previous
+  progress and optimizer checkpoint survive; retry then commits new progress
+  before cleanup. Ruff and all 130 tests pass in 6.66 seconds. Exact commands,
+  source hashes and checks: `results/verification_rloo_checkpoint_storage.json`.
+- The 09:42 browser recheck still fails. Hosted CI run 41035351043 for `ceb5528`
+  still has zero job steps and the same account-billing refusal; append primary
+  receipts to `results/ci_billing_block_20261030.json`. No owner response yet.

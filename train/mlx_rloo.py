@@ -36,6 +36,15 @@ def completion_loss(policy, prompt, completion, advantage):
     return advantage * nn.losses.cross_entropy(logits, tokens[:, len(prompt):], reduction="sum")
 
 
+def save_progress(result, record, out, completed):
+    temporary = result.with_suffix(".tmp")
+    temporary.write_text(json.dumps(record, indent=2) + "\n")
+    temporary.replace(result)
+    # Commit the new resume point before removing its large predecessor.
+    if completed > 1:
+        shutil.rmtree(out / f"step_{completed - 1:04d}", ignore_errors=True)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--model", required=True)
@@ -55,6 +64,8 @@ def main() -> None:
     result.parent.mkdir(parents=True, exist_ok=True)
     previous = json.loads(result.read_text()) if result.exists() else {}
     history = previous.get("history", [])
+    record.update(history=history, initial_completed_groups=len(history),
+                  checkpoint_retention="Latest adapter/optimizer resume point; complete per-group history retained.")
     started = time.monotonic()
 
     import mlx.core as mx
@@ -119,7 +130,7 @@ def main() -> None:
                             "advantages": advantages.tolist(), "completions": texts})
             record.update(status="running", history=history, wall_seconds=time.monotonic() - started,
                           peak_memory_bytes=mx.get_peak_memory())
-            result.write_text(json.dumps(record, indent=2) + "\n")
+            save_progress(result, record, out, len(history))
             print(f"step {step + 1}: rewards {rewards.tolist()}", flush=True)
         shutil.copyfile(checkpoint / "adapters.safetensors", out / "adapters.safetensors")
         shutil.copyfile(Path(args.adapter) / "adapter_config.json", out / "adapter_config.json")
@@ -129,7 +140,7 @@ def main() -> None:
         raise
     finally:
         record.update(wall_seconds=time.monotonic() - started, peak_memory_bytes=mx.get_peak_memory())
-        result.write_text(json.dumps(record, indent=2) + "\n")
+        save_progress(result, record, out, len(history))
 
 
 if __name__ == "__main__":

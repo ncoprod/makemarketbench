@@ -261,8 +261,8 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **129 Python tests**
-([selection regression and full-suite receipt](results/verification_rloo_extension_selection.json)),
+Current local verification passes **130 Python tests**
+([resume fault-injection and full-suite receipt](results/verification_rloo_checkpoint_storage.json)),
 plus native Release and ASan/UBSan checks
 ([local verification](results/verification_ci_local_fallback.json)). Hosted
 GitHub Actions currently refuses jobs before any steps because of account

@@ -289,6 +289,33 @@ def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, mon
     assert "qwen3.5-4b-sft" in calls[0]
 
 
+def test_rloo_interrupted_progress_commit_preserves_previous_resume_point(tmp_path, monkeypatch):
+    import importlib
+
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "train"))
+    rloo = importlib.import_module("mlx_rloo")
+    result = tmp_path / "training.json"
+    result.write_text('{"history": [{"step": 1}]}')
+    before = result.read_bytes()
+    previous, current = (tmp_path / f"step_{i:04d}" for i in (1, 2))
+    for folder in (previous, current):
+        folder.mkdir()
+        (folder / "optimizer.safetensors").write_bytes(b"resume state")
+    record = {"history": [{"step": 1}, {"step": 2}]}
+    with monkeypatch.context() as patch:
+        def interrupted_replace(*args):
+            raise OSError("simulated interrupted progress commit")
+
+        patch.setattr(Path, "replace", interrupted_replace)
+        with pytest.raises(OSError, match="interrupted"):
+            rloo.save_progress(result, record, tmp_path, 2)
+    assert result.read_bytes() == before and previous.exists()
+    rloo.save_progress(result, record, tmp_path, 2)
+    assert json.loads(result.read_text()) == record
+    assert not previous.exists()
+    assert (current / "optimizer.safetensors").read_bytes() == b"resume state"
+
+
 @pytest.mark.parametrize("mode", ["scalar", "masked", "vector"])
 def test_training_recurrence_preserves_values_and_gradients(monkeypatch, mode):
     import importlib

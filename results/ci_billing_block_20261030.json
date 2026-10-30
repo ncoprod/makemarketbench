@@ -148,5 +148,142 @@
     }
   ],
   "local_verification": "results/verification_validation_amendment.json",
-  "recovery": "Owner notified asynchronously to restore the account billing allowance. Continue training; rerun hosted CI after the account restriction is resolved. No payment or spending-limit change performed."
+  "recovery": "Owner notified asynchronously to restore the account billing allowance. Continue training; rerun hosted CI after the account restriction is resolved. No payment or spending-limit change performed.",
+  "followup_checks": [
+    {
+      "observed_at": "2026-10-30T09:43:30.772246+00:00",
+      "run_id": 41035351043,
+      "commit": "ceb55280e9c1a866a7ac7ceb533462f501d44aef",
+      "observations": [
+        {
+          "command": [
+            "gh",
+            "api",
+            "repos/ncoprod/makemarketbench/actions/runs/41035351043/jobs"
+          ],
+          "result": {
+            "total_count": 3,
+            "jobs": [
+              {
+                "id": 123994712193,
+                "run_id": 41035351043,
+                "workflow_name": "CI",
+                "head_branch": "main",
+                "run_url": "https://api.github.com/repos/ncoprod/makemarketbench/actions/runs/41035351043",
+                "run_attempt": 1,
+                "node_id": "CR_kwDOVbVQ888AAAAc3qkogQ",
+                "head_sha": "ceb55280e9c1a866a7ac7ceb533462f501d44aef",
+                "url": "https://api.github.com/repos/ncoprod/makemarketbench/actions/jobs/123994712193",
+                "html_url": "https://github.com/ncoprod/makemarketbench/actions/runs/41035351043/job/123994712193",
+                "status": "completed",
+                "conclusion": "failure",
+                "created_at": "2026-10-30T09:42:12Z",
+                "started_at": "2026-10-30T09:42:12Z",
+                "completed_at": "2026-10-30T09:42:14Z",
+                "name": "test (3.12)",
+                "steps": [],
+                "check_run_url": "https://api.github.com/repos/ncoprod/makemarketbench/check-runs/123994712193",
+                "labels": [
+                  "ubuntu-latest"
+                ],
+                "runner_id": 0,
+                "runner_name": "",
+                "runner_group_id": 0,
+                "runner_group_name": ""
+              },
+              {
+                "id": 123994712470,
+                "run_id": 41035351043,
+                "workflow_name": "CI",
+                "head_branch": "main",
+                "run_url": "https://api.github.com/repos/ncoprod/makemarketbench/actions/runs/41035351043",
+                "run_attempt": 1,
+                "node_id": "CR_kwDOVbVQ888AAAAc3qkplg",
+                "head_sha": "ceb55280e9c1a866a7ac7ceb533462f501d44aef",
+                "url": "https://api.github.com/repos/ncoprod/makemarketbench/actions/jobs/123994712470",
+                "html_url": "https://github.com/ncoprod/makemarketbench/actions/runs/41035351043/job/123994712470",
+                "status": "completed",
+                "conclusion": "failure",
+                "created_at": "2026-10-30T09:42:13Z",
+                "started_at": "2026-10-30T09:42:13Z",
+                "completed_at": "2026-10-30T09:42:14Z",
+                "name": "sanitizers",
+                "steps": [],
+                "check_run_url": "https://api.github.com/repos/ncoprod/makemarketbench/check-runs/123994712470",
+                "labels": [
+                  "ubuntu-latest"
+                ],
+                "runner_id": 0,
+                "runner_name": "",
+                "runner_group_id": 0,
+                "runner_group_name": ""
+              },
+              {
+                "id": 123994712503,
+                "run_id": 41035351043,
+                "workflow_name": "CI",
+                "head_branch": "main",
+                "run_url": "https://api.github.com/repos/ncoprod/makemarketbench/actions/runs/41035351043",
+                "run_attempt": 1,
+                "node_id": "CR_kwDOVbVQ888AAAAc3qkptw",
+                "head_sha": "ceb55280e9c1a866a7ac7ceb533462f501d44aef",
+                "url": "https://api.github.com/repos/ncoprod/makemarketbench/actions/jobs/123994712503",
+                "html_url": "https://github.com/ncoprod/makemarketbench/actions/runs/41035351043/job/123994712503",
+                "status": "completed",
+                "conclusion": "cancelled",
+                "created_at": "2026-10-30T09:42:13Z",
+                "started_at": "2026-10-30T09:42:13Z",
+                "completed_at": "2026-10-30T09:42:15Z",
+                "name": "test (3.10)",
+                "steps": [],
+                "check_run_url": "https://api.github.com/repos/ncoprod/makemarketbench/check-runs/123994712503",
+                "labels": [
+                  "ubuntu-latest"
+                ],
+                "runner_id": 0,
+                "runner_name": "",
+                "runner_group_id": 0,
+                "runner_group_name": ""
+              }
+            ]
+          }
+        },
+        {
+          "command": [
+            "gh",
+            "api",
+            "repos/ncoprod/makemarketbench/check-runs/123994712193/annotations"
+          ],
+          "result": [
+            {
+              "path": ".github",
+              "blob_href": "https://github.com/ncoprod/makemarketbench/blob/ceb55280e9c1a866a7ac7ceb533462f501d44aef/.github",
+              "start_line": 1,
+              "start_column": null,
+              "end_line": 1,
+              "end_column": null,
+              "annotation_level": "failure",
+              "title": "",
+              "message": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+              "raw_details": ""
+            },
+            {
+              "path": ".github",
+              "blob_href": "https://github.com/ncoprod/makemarketbench/blob/ceb55280e9c1a866a7ac7ceb533462f501d44aef/.github",
+              "start_line": 1,
+              "start_column": null,
+              "end_line": 1,
+              "end_column": null,
+              "annotation_level": "notice",
+              "title": "",
+              "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\"",
+              "raw_details": ""
+            }
+          ]
+        }
+      ],
+      "status": "same_billing_refusal_before_any_job_steps",
+      "local_verification": "results/verification_rloo_extension_selection.json"
+    }
+  ]
 }

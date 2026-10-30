@@ -1,0 +1,39 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify atomic RLOO progress writes and bounded checkpoint storage before the extended budgets"
+    },
+    "model_revision": null,
+    "git_commit": "ceb55280e9c1a866a7ac7ceb533462f501d44aef",
+    "uncommitted_diff_sha256": "8f90a345bb5cb7a3a594fc9f55f9d38a58c2df59e43bdf227ed28c65c381c97d",
+    "started_at": "2026-10-30T10:08:45.063106+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check train/mlx_rloo.py tests/test_training.py",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/pytest -q",
+      "exit_code": 0,
+      "tests_passed": 130,
+      "pytest_seconds": 6.66
+    }
+  ],
+  "source_sha256": {
+    "train/mlx_rloo.py": "aab621042617f53540a49fd476cc308a42fa9a645d8cfcd41da2b7a7bfe18e89",
+    "tests/test_training.py": "c21ef40910309b3a8506aa58066a93ad124266154d88e92e90b040ec2ea13aa5"
+  },
+  "fault_injection": "A failed progress-file replacement preserves the previous JSON and optimizer checkpoint. A successful retry commits the new state before removing its predecessor.",
+  "retention": "Frozen adapters at each fixed budget and complete per-group JSON history remain; keep only the latest resume optimizer/adapter per continuation directory. Original RLOO24 files are unchanged.",
+  "scope": "Filesystem/resume behavior only; no reward, sampler, gradient, learning rate, seed, budget or model-policy change."
+}
