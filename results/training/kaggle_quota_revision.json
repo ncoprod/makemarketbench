@@ -1,0 +1,67 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain a changed authoritative account-debit observation without inventing per-kernel allocation times"
+    },
+    "model_revision": null,
+    "git_commit": "be1320546224c06d2467580ed766691070f2de13",
+    "uncommitted_diff_sha256": "f6c105e171bcefc81d78d75dc246fcbdc9ba6cf2fade2d5816f30efc2241b670",
+    "started_at": "2026-10-30T13:32:07.376367+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "previous_snapshot": {
+    "recorded_at": "2026-10-30T01:58:52.055942+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "fe830b67be6f55caa13f1eae31390b369fa15fe1",
+      "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
+    },
+    "quota": {
+      "refresh_at": "2026-10-31T00:00:00+00:00",
+      "gpu_seconds_used": 107918.349345,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "latest_snapshot": {
+    "recorded_at": "2026-10-30T13:29:43.801873+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
+      "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
+    },
+    "quota": {
+      "refresh_at": "2026-10-31T00:00:00+00:00",
+      "gpu_seconds_used": 110363.015345,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "increase_seconds": 2444.666000000012,
+  "latest_account_hours_used": 30.65639315138889,
+  "account_hours_total": 30.0,
+  "interpretation": "The later official snapshot exceeds the nominal 30-hour allowance with zero reserved time. The API provides no per-kernel attribution here; this does not identify the cause or exact billing time of the increase. Keep the earlier closure as the observation that supported its admission decision, not the final account total.",
+  "source_only_save": "results/training/qwen38_round3_source_save.json",
+  "source_only_save_sha256": "93800c4f349643408535c99fe572a062aabc557cb831e209615892b2ed7c2119",
+  "next_action": "No current-window GPU submission. After reset, verify the actual refreshed available quota before submitting the saved batch."
+}

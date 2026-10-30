@@ -2434,3 +2434,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   `kaggle_budget.json` separately records the owner's new-window authorization;
   source-save time is not invented GPU runtime. No existing paper/main.tex or
   paper/main.pdf is present, so there is no paper artifact to regenerate.
+
+### Preserve the later official account-debit revision
+
+- A later official quota snapshot reports 110363.015345 seconds used
+  (30.65639315138889 hours), total allowance 108000 seconds, zero reserved.
+  The earlier closure observed 107918.349345 seconds. Retain both and the
+  2444.666-second increase in `results/training/kaggle_quota_revision.json`.
+- The account API does not attribute that increase to a kernel or allocation
+  interval. Do not invent an explanation or substitute the favorable earlier
+  total. The source-only version was explicitly saved with `--no-run`.
+- README now distinguishes the two observations. No current-window GPU run
+  is submitted; actual refreshed availability must admit the next batch.

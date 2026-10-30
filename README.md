@@ -226,9 +226,13 @@ and official CLI/SDK routes cannot retrieve the unsaved live draft
 No policy score is inferred from training loss or the fit probe. Account billing,
 script runtimes and unknown allocation boundaries remain distinct in the
 [GPU budget ledger](results/training/kaggle_budget.json).
-The weekly submission loop closes at **29.9773 / 30 account-quota hours**, with
-**81.65 seconds** left, below the observed cold-start work for another useful
-run ([official snapshot and stopping evidence](results/training/kaggle_budget_closure.json)).
+The earlier weekly closure observed **29.9773 / 30 account-quota hours**, with
+**81.65 seconds** left ([stopping evidence](results/training/kaggle_budget_closure.json)).
+A later official snapshot reports **30.6564 hours used**, zero reserved, and no
+per-kernel attribution for the increase
+([both observations](results/training/kaggle_quota_revision.json)). The next
+allocation is explicitly authorized for the saved 27B rerun; submission waits
+for its actual refreshed quota.
 
 **NIM coverage:** the [fresh endpoint catalogue](results/expansion/models_20261030.json)
 lists **85 models**, with no Qwen. Sequential calls hold a shared NIM slot and cache responses.
@@ -287,12 +291,12 @@ The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
 Current local verification passes **131 Python tests**
-([resume fault-injection and full-suite receipt](results/verification_rloo_checkpoint_storage.json)),
-plus native Release and ASan/UBSan checks
-([local verification](results/verification_ci_local_fallback.json)). Hosted
-GitHub Actions currently refuses jobs before any steps because of account
-billing ([exact annotation](results/ci_billing_block_20261030.json)); this is
-not a passing hosted matrix.
+([pre-push CI receipt](results/ci_local_round3.json)), native Release and
+ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
+requires these checks. Hosted Actions minutes are exhausted until about
+November 1 according to the owner; jobs refuse before any steps with the
+account-billing annotation ([exact receipt](results/ci_billing_block_20261030.json)).
+Local macOS verification does not establish a passing hosted Linux matrix.
 
 ## Provenance
 
@@ -320,10 +324,8 @@ hashes and measured resource use. Raw episode files support resumable evaluation
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e '.[dev,llm,plot]'
-pytest -q
-cmake -S . -B build/native -DMMB_BUILD_NATIVE=ON -DCMAKE_BUILD_TYPE=Release
-cmake --build build/native -j 2
-ctest --test-dir build/native --output-on-failure
+bash scripts/ci_local.sh
+git config core.hooksPath .githooks
 python scripts/bench_engine.py --out runs/engine_reproduction.json
 python scripts/compare_engine.py --pairs 200 --out runs/engine_comparison.json
 mmb eval --game dice --player bayes bayes-public mean-sd fixed-prior random
