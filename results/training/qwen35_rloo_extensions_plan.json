@@ -78,6 +78,28 @@
       "96",
       "--seed",
       "5"
+    ],
+    [
+      "bash",
+      "scripts/with_resource.sh",
+      "heavy-ml",
+      ".venv/bin/python",
+      "-u",
+      "train/mlx_evaluate.py",
+      "--model",
+      "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "--revision",
+      "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "--adapter",
+      "train/runs/qwen3.5-4b-rloo96",
+      "--label",
+      "qwen3.5-4b-rloo96",
+      "--seed",
+      "80000",
+      "--episodes",
+      "100",
+      "--out",
+      "results/validation/qwen35-rloo96"
     ]
   ],
   "budgets": [
@@ -107,26 +129,21 @@
     "heavy-ml",
     ".venv/bin/python",
     "-u",
-    "train/with_memory_guard.py",
-    "--result",
-    "results/training/qwen35_rloo96_memory.json",
-    ".venv/bin/python",
-    "-u",
-    "train/mlx_rloo.py",
+    "train/mlx_evaluate.py",
     "--model",
     "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
     "--revision",
     "32f3e8ecf65426fc3306969496342d504bfa13f3",
     "--adapter",
-    "train/runs/qwen3.5-4b-sft",
-    "--out",
     "train/runs/qwen3.5-4b-rloo96",
-    "--result",
-    "results/training/qwen35_rloo96.json",
-    "--steps",
-    "96",
+    "--label",
+    "qwen3.5-4b-rloo96",
     "--seed",
-    "5"
+    "80000",
+    "--episodes",
+    "100",
+    "--out",
+    "results/validation/qwen35-rloo96"
   ],
   "completed_commands": [
     {
@@ -169,6 +186,36 @@
         "dagger-last"
       ],
       "wall_seconds": 0.32854608399793506
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/with_resource.sh",
+        "heavy-ml",
+        ".venv/bin/python",
+        "-u",
+        "train/with_memory_guard.py",
+        "--result",
+        "results/training/qwen35_rloo96_memory.json",
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_rloo.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--adapter",
+        "train/runs/qwen3.5-4b-sft",
+        "--out",
+        "train/runs/qwen3.5-4b-rloo96",
+        "--result",
+        "results/training/qwen35_rloo96.json",
+        "--steps",
+        "96",
+        "--seed",
+        "5"
+      ],
+      "wall_seconds": 3957.8433856670017
     }
   ],
   "initialization": {

@@ -141,6 +141,10 @@ dice expected-PnL gain survives the expanded correction; the cards gain does
 not ([all contrasts](results/validation/qwen35-rloo/vs_sft.json)). Fixed
 96/192-group continuations are
 [registered before selection or test](results/training/qwen35_rloo_extensions_plan.json).
+The 96-group run finishes its 72 new groups in 3,952.699 seconds, with exact
+history-prefix preservation and bounded checkpoint storage
+([completion receipt](results/training/qwen35_rloo96_completion.json)); policy
+validation remains pending.
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
@@ -243,6 +247,9 @@ Granite-3.0-8B probing and another GPT-OSS resume are in the
 [additional batch](results/expansion/additional_followup_plan.json).
 A [Mistral compatibility control](results/expansion/mistral_default_plan.json)
 omits the rejected reasoning field, before any test-based choice.
+[Baseline-first scheduling](results/expansion/baseline_priority_plan.json) preserves
+the slow Llama-90B cohort, finishes missing GPT/Bolt baseline episodes first,
+then resumes it with the same settings and cache.
 Partial cohorts remain unscored; the corrected final comparison is pending.
 
 ## Engine performance and correctness

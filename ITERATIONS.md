@@ -2276,3 +2276,36 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Granite-3.0-8B's probe fails after three bounded HTTP 404 attempts in
   15.734764099121094 seconds; Llama-3.2-90B continues its complete-cohort attempt.
   Primary receipt: `results/expansion/protocol-additional.json`.
+
+### T22 training completes; fixed 96-group policy validation starts
+
+- Resume adds 72 groups to the exact original 24-group history, taking
+  3952.6985441669967 seconds. Cumulative training wall time across the two
+  separately initialized processes is 5128.20590720899 seconds, excluding their
+  policy-validation time. Do not describe 96 cumulative groups as 96 new ones.
+- MLX allocated peak 4403563576 bytes; sampled physical footprint peak
+  5042601984 bytes. The guard completes normally. Frozen RLOO24 history is
+  unchanged; all 24 earlier history entries match exactly.
+- Bounded retention leaves the final adapter and latest adapter/optimizer pair,
+  129985219 bytes in total. Exact command/source and input hashes:
+  `.venv/bin/python runs/retain_rloo96_training.py`;
+  `results/training/qwen35_rloo96_completion.json`. Validation is pending;
+  successful training is not evidence that T22 improves the policy.
+
+### Prioritize missing original API baselines, preserve the slow additional cohort
+
+- Llama-90B's validation availability probe generates 304 output tokens and
+  stops, taking 126.76465725898743 seconds. It is slow even well below its
+  4096-token cap (`results/expansion/protocol-additional.json`), so lowering
+  the cap alone is not an evidenced remedy. No held-out policy score is read.
+- Register `.venv/bin/python -u runs/nim_baseline_priority.py` to wait for the
+  next complete Llama-90B episode, preserve every completed row and cached
+  response, then stop only that supervisor's process group. Acquire a shared
+  slot for the missing-only GPT-OSS resume before releasing the already queued
+  Bolt/Llama-11B and Mistral controls. Resume Llama-90B afterward.
+- Exact source/commands, initial prefix identity and observed transition:
+  `results/expansion/baseline_priority_plan.json`. All requested cohorts remain
+  200/game on seeds 200–399, with unchanged prompts, decoder and timeout.
+  The interrupted batch is explicitly marked rescheduled, never complete in
+  the sense of a finished cohort. This is scheduling from validation runtime,
+  not selection on test outcomes or discarded slow/negative episodes.
