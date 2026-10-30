@@ -1904,3 +1904,27 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/kaggle_budget_closure.json`; per-kernel ledger remains
   `results/training/kaggle_budget.json`. Continue the registered normal local
   improvement loop, API coverage, final frozen scoring, figures and CI.
+
+### T17 policy validation: complete dice cohort is weak despite lower loss
+
+- The frozen local SFT adapter completes all 100 dice validation episodes,
+  seeds 80000–80099, with no format/failure cases. It reaches
+  23.134629375436102% of Bayes [−4.187352895527057, 48.005063619931335],
+  expected PnL 3.3782453474795444 [−0.6220414708649687, 6.953221967179836].
+  These are descriptive 95% paired-bootstrap validation intervals.
+- Midpoint-error mean is 1.890888401085412; state-level regret increases from
+  zero in the first round to 3.921408153369202 in the last. Exact evaluation
+  command/config/revision and raw observations are retained in
+  `results/validation/qwen35-sft/leaderboard_dice.json` and its raw directory.
+- Command: `.venv/bin/python runs/diagnose_mlx_sft_dice.py`. All 600 rationale
+  statements parse; public-value mean absolute error is 1.55, with only 179
+  within 0.01. Posterior-value mean absolute error is 1.8276492617554572, with
+  113 within 0.01. These round counts are dependent within 100 episodes, not
+  600 independent trials; rationale numbers need not faithfully explain the
+  model. Full source and per-state checks:
+  `results/validation/qwen35-sft/dice_rationale_diagnosis.json`.
+- Diagnosis: learned format/low teacher loss is insufficient for public-value
+  arithmetic and sequential posterior conditioning. The registered next change
+  remains DAgger on more actor-reached states; do not tune on new held-out
+  scores or claim that backend/recipe differences isolate one causal factor.
+  Cards validation and the queued DAgger/RLOO rounds continue.

@@ -114,9 +114,12 @@ fixed training shapes complete **800 microbatches / 400 optimizer updates** in
 **14,021.710 seconds**. Full validation loss falls **2.113 → 0.280** on all
 **480 examples**, with sampled physical footprint **6.713 GB**
 ([completed run, memory guard and adapter hash](results/training/qwen35_sft_completion.json)).
-The frozen best adapter now undergoes policy validation on 100 episodes per
-game. Teacher loss does not establish policy quality. Local heavy work holds
-the shared ML lock.
+The completed 100-episode dice validation is **23.1% [−4.2, 48.0]** of Bayes;
+cards validation continues
+([validation scores](results/validation/qwen35-sft/leaderboard_dice.json),
+[numerical-rationale diagnosis](results/validation/qwen35-sft/dice_rationale_diagnosis.json)).
+Teacher loss does not establish policy quality. Local heavy work holds the
+shared ML lock.
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
