@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify exact Kaggle status matching and the full suite"
+    },
+    "model_revision": null,
+    "git_commit": "e490a03551363437359ef6f1f36dee8b086db45e",
+    "uncommitted_diff_sha256": "d54bcb4aa1191064866927dd6abe5c9c4f1f86b93326005f51cb46a11211ee6e",
+    "started_at": "2026-10-30T00:14:21.244013+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": ".venv/bin/pytest -q",
+  "exit_code": 0,
+  "output": "........................................................................ [ 64%]\n........................................                                 [100%]\n112 passed in 6.31s\n",
+  "output_sha256": "77a164822ca1a06b2f27b56492accdfd248be7bc93829fedf759a2d242761595",
+  "source_sha256": {
+    "scripts/watch_kaggle.py": "f677227d83fa847c9ffeead00cc5c69f2e547b694c69a5380c9facd385e6de33",
+    "tests/test_training.py": "cbb0d22edf7606c25def998f1efb5df8e0e78c9fd995b47f88c465b666fd113d"
+  },
+  "note": "Hosted CI is checked separately after this commit."
+}

@@ -161,6 +161,18 @@ def test_inference_group_bootstrap_preserves_mean_and_detects_dependence():
     np.testing.assert_array_equal(scoring.group_means(values, 1), values)
 
 
+def test_kaggle_terminal_status_ignores_kernel_name(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "scripts"))
+    from watch_kaggle import terminal_status
+
+    prefix = 'nicolascoquelet/makemarketbench-staged-sft-complete has status '
+    assert not terminal_status(prefix + '"KernelWorkerStatus.RUNNING"')
+    assert not terminal_status(prefix + '"KernelWorkerStatus.QUEUED"')
+    assert terminal_status(prefix + '"KernelWorkerStatus.COMPLETE"')
+    assert terminal_status(prefix + '"KernelWorkerStatus.ERROR"')
+    assert terminal_status(prefix + '"KernelWorkerStatus.CANCEL_ACKNOWLEDGED"')
+
+
 def test_routed_cohorts_preserve_frozen_sources_and_reject_changed_weights(tmp_path, monkeypatch):
     import importlib
 

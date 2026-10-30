@@ -64,7 +64,19 @@
     "fits": true
   },
   "generated_source_compiles": true,
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-30T00:11:59.019052+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-complete"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-complete has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
   "version": 1,
   "push": {
     "exit_code": 0,
@@ -85,5 +97,26 @@
   },
   "status": "submitted_private_verified",
   "source_provenance_note": "The frozen inference core retains its inherited SOURCE_COMMIT declaration; the producing wrapper commit is recorded separately, and the exact patched core SHA is recorded in execution provenance. All scheduling/parity patches and full source are retained here. No inherited declaration is rewritten after submission.",
-  "preflight_failure": "First local compilation caught a broad COMMIT placeholder colliding with the embedded SOURCE_COMMIT identifier. Unique placeholders corrected it before any remote submission or GPU allocation."
+  "preflight_failure": "First local compilation caught a broad COMMIT placeholder colliding with the embedded SOURCE_COMMIT identifier. Unique placeholders corrected it before any remote submission or GPU allocation.",
+  "premature_output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-staged-sft-complete",
+      "-p",
+      "runs/kaggle_staged_sft_complete_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  "monitor_correction": {
+    "at": "2026-10-30T00:14:21.175985+00:00",
+    "reason": "The previous substring matcher read COMPLETE in the kernel slug as a terminal status. Actual status was RUNNING; the premature pull returned no files. Kernel execution was not interrupted. Resume from last poll + 610 seconds.",
+    "source": "scripts/watch_kaggle.py"
+  }
 }

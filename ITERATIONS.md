@@ -1567,3 +1567,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   ASan/UBSan also passing. Distinguish hosted skips from local execution.
 - Exact local output, source hashes, command and receipt-generation source:
   `results/verification_full_111.json`.
+
+### Correct terminal-status matching before collecting live outputs
+
+- The new kernel slug contains “complete”. The old monitor searched the entire
+  CLI output for that substring and treated its first RUNNING poll as terminal.
+  The premature output pull returned no files; it did not stop the GPU job.
+- Match only the `KernelWorkerStatus` value. Centralize the actual active
+  monitors in `scripts/watch_kaggle.py`; preserve the premature pull and exact
+  correction in `results/training/kaggle_staged_sft_complete.json`.
+- Resume monitoring from the existing recorded poll plus 610 seconds; do not
+  send an early status request. The other batch uses the same corrected script.
+- Regression checks reject RUNNING/QUEUED even when the slug contains complete
+  and accept actual terminal statuses. Ruff passes and the full local suite
+  reports **112 passed in 6.31 seconds**; exact output and hashes are in
+  `results/verification_full_112.json`.
