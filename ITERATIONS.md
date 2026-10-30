@@ -2117,3 +2117,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Browser inventory at 08:15 UTC still reports the native-pipe and browser-host
   errors. Preserve the exact result in `results/training/kaggle_ui_outage.json`;
   no new GPU job or claim about inaccessible Qwen3.8 progress.
+
+### Local RLOO training completes before policy validation
+
+- Registered command is retained verbatim in `results/training/qwen35_rloo.json`:
+  `train/mlx_rloo.py` from the SFT adapter, 24 groups of four categorical
+  samples, dice-only exact quote-EV/format rewards, learning rate 1e-6, seed 5.
+  This is REINFORCE with a leave-one-out baseline, not TRL GRPO.
+- All 24 groups complete in 1175.5073630419938 seconds; one group has zero
+  advantages. No training-reward trend is claimed because states differ.
+  MLX allocated peak is 4392258616 bytes; the physical-footprint guard samples
+  5086642176 bytes and exits successfully. The saved adapter differs from SFT.
+- Command to retain the completion receipt:
+  `.venv/bin/python runs/retain_rloo_training.py`. Source, initial/final adapter
+  hashes and linked training/guard files:
+  `results/training/qwen35_rloo_completion.json`.
+  Policy validation starts under the heavy-ML lock; no validation or held-out
+  improvement is inferred from successful optimization steps.

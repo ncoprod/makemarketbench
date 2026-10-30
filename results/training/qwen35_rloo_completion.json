@@ -1,0 +1,39 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_rloo_training.py",
+    "config": {
+      "purpose": "retain completed local RLOO trial before inspecting its policy validation"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "781c54f7fb02b792e24432308c23c5254ded55e6",
+    "uncommitted_diff_sha256": "0d68219520599a9d0e25d64b1e52403fd280c57147047b32a8dbaa3bee0c4fe4",
+    "started_at": "2026-10-30T08:35:52.271961+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\ntraining_path = Path('results/training/qwen35_rloo.json')\nguard_path = Path('results/training/qwen35_rloo_memory.json')\ntraining = json.loads(training_path.read_text())\nguard = json.loads(guard_path.read_text())\ninitial = Path('train/runs/qwen3.5-4b-sft/adapters.safetensors')\nadapter = Path('train/runs/qwen3.5-4b-rloo/adapters.safetensors')\nassert training['status'] == guard['status'] == 'completed'\nassert len(training['history']) == 24 and guard['returncode'] == 0\nassert file_sha256(initial) == training['initial_adapter_sha256']\nassert file_sha256(adapter) != file_sha256(initial)\nrecord = {\n    'provenance': receipt({'purpose': 'retain completed local RLOO trial before inspecting its policy validation'}, training['model_revision']),\n    'source': Path(__file__).read_text(),\n    'training_result': str(training_path), 'memory_result': str(guard_path),\n    'input_sha256': {str(p): file_sha256(p) for p in (training_path, guard_path, initial, adapter)},\n    'status': 'completed', 'groups': 24, 'categorical_completions_per_group': 4,\n    'zero_advantage_groups': sum(not any(x['advantages']) for x in training['history']),\n    'wall_seconds': training['wall_seconds'], 'guard_wall_seconds': guard['wall_seconds'],\n    'mlx_allocated_peak_bytes': training['peak_memory_bytes'],\n    'sampled_footprint_peak_bytes_approx': guard['sampled_footprint_peak_bytes_approx'],\n    'adapter_sha256': file_sha256(adapter),\n    'interpretation': 'Local REINFORCE with leave-one-out rewards, dice only, from the fixed SFT adapter. No PPO clipping, reference KL or critic; not TRL GRPO. Training rewards vary by state and are not a before/after policy-quality estimate. Registered validation and one selected held-out test remain pending.'}\nPath('results/training/qwen35_rloo_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint(json.dumps({k: record[k] for k in ('status', 'groups', 'wall_seconds', 'adapter_sha256')}))\n",
+  "training_result": "results/training/qwen35_rloo.json",
+  "memory_result": "results/training/qwen35_rloo_memory.json",
+  "input_sha256": {
+    "results/training/qwen35_rloo.json": "144e7580509deb9f8a4020984127229d37caaed6046301ec14767249d01be88e",
+    "results/training/qwen35_rloo_memory.json": "afdcf689cb396b13411dcd9355ef0fe0828dcbae73550ed4883fab5106824472",
+    "train/runs/qwen3.5-4b-sft/adapters.safetensors": "3b819dcf29dc686712fb27d14c46ef03e23fdcb6cc366cc4e38aa4af551706f5",
+    "train/runs/qwen3.5-4b-rloo/adapters.safetensors": "5e8e8da8803a611e815f7d280465d6d06b2f6cb18c7232b20d7610f2bf503398"
+  },
+  "status": "completed",
+  "groups": 24,
+  "categorical_completions_per_group": 4,
+  "zero_advantage_groups": 1,
+  "wall_seconds": 1175.5073630419938,
+  "guard_wall_seconds": 1179.5511298749916,
+  "mlx_allocated_peak_bytes": 4392258616,
+  "sampled_footprint_peak_bytes_approx": 5086642176.0,
+  "adapter_sha256": "5e8e8da8803a611e815f7d280465d6d06b2f6cb18c7232b20d7610f2bf503398",
+  "interpretation": "Local REINFORCE with leave-one-out rewards, dice only, from the fixed SFT adapter. No PPO clipping, reference KL or critic; not TRL GRPO. Training rewards vary by state and are not a before/after policy-quality estimate. Registered validation and one selected held-out test remain pending."
+}

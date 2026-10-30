@@ -129,6 +129,9 @@ paired expected-PnL changes are zero in both games
 [cohorts and identities](results/validation/qwen35-dagger/cohorts.json)).
 The final local selection also checks the distinct last saved DAgger checkpoint
 before opening the test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
+The dice-only RLOO-style trial completes all 24 groups in 1,175.507 seconds;
+its policy validation is pending
+([runtime, memory and adapter identity](results/training/qwen35_rloo_completion.json)).
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
