@@ -166,8 +166,10 @@ Two consecutive iterations miss the registered improvement criterion, so this
 local recipe stops ([assessment and diagnosis](results/training/qwen35_rloo384_iteration.json)).
 The max-min rule freezes RLOO192 across all seven trials
 ([selection](results/training/selection.json)); all eighteen validation
-contrasts count. Its fresh 200-episode-per-game test is collected without
-opening scores while the newest-model selection remains pending.
+contrasts count. Its fresh **200-episode-per-game test is complete**, with
+canonical states and file identities verified
+([acquisition receipt](results/final/selected/cohorts.json)). Scores remain
+sealed while the newest-model selection is pending.
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
@@ -313,8 +315,8 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **137 Python tests**
-([local CI receipt](results/ci_local_round3_local_selection.json)), native Release and
+Current local verification passes **138 Python tests**
+([local CI receipt](results/ci_local_round3_api_complete.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
 requires these checks. Hosted Actions minutes are exhausted until about
 November 1 according to the owner; jobs refuse before any steps with the

@@ -2618,3 +2618,18 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - A fresh Hugging Face API recheck confirms the registered Qwen3.8 base and
   quantized checkpoint remain ungated and Apache-2.0; the quantized revision is
   unchanged. Receipt: `results/training/qwen38_before_batch_access.json`.
+
+### Frozen local test acquisition complete; aggregate still sealed
+
+- RLOO192 completes seeds 200–399 on both games under the heavy-ML lock.
+  The process stopwatch reaches 3,210.7126041250012 seconds after dice and
+  6,992.689321875005 seconds after cards (cumulative, not additive). MLX peaks
+  at 4,013,428,412 and 4,080,897,716 bytes respectively. All original validation
+  hashes and the frozen adapter identity remain unchanged.
+- `scripts/check_cohort_games.py results/final/selected/raw --out
+  results/final/selected/canonical.json` verifies all twelve model/reference
+  cohorts. Acquisition commands, revision, source commit, selection and raw
+  hashes: `results/final/selected/cohorts.json`. No aggregate is computed.
+- The full pre-push fallback passes 138 Python tests, native Release,
+  ASan/UBSan and the Kaggle dry-run on commit 1292401. Exact output:
+  `results/ci_local_round3_api_complete.json`. Hosted billing remains blocked.

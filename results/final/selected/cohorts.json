@@ -1,0 +1,55 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_selected_local.py",
+    "config": {
+      "purpose": "retain the frozen local candidate complete test acquisition, without computing scores"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "1292401d2c64cdcf14c47c1c1505a480bdb9161c",
+    "uncommitted_diff_sha256": "a478c151281507a4ae1c5c344dcbc96d99fac6a07d307d5030d91866c340fc57",
+    "started_at": "2026-10-30T21:25:47.007679+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/final/selected')\nselection_path = Path('results/training/selection.json')\nselection = json.loads(selection_path.read_text())\nfor trial in selection['trials']:\n    assert all(file_sha256(p) == h for p, h in trial['input_sha256'].items())\nassert file_sha256(Path(selection['adapter'])/'adapters.safetensors') == selection['adapter_sha256']\ngames = {}\nfor game in ('dice', 'cards'):\n    acquisition = root / f'acquisition_{game}.json'\n    data = json.loads(acquisition.read_text())\n    assert data['episodes'] == 200 and data['seeds'] == list(range(200, 400))\n    assert data['provenance']['model_revision'] == selection['provenance']['model_revision']\n    games[game] = {k: data[k] for k in ('episodes','wall_seconds','peak_memory_bytes')}\nrecord = {'provenance': receipt({'purpose':'retain the frozen local candidate complete test acquisition, without computing scores'}, selection['provenance']['model_revision']),\n          'source': Path(__file__).read_text(), 'label': selection['label'],\n          'selection_file': str(selection_path), 'selection_sha256': file_sha256(selection_path),\n          'adapter_sha256': selection['adapter_sha256'], 'games': games,\n          'input_sha256': {str(p): file_sha256(p) for p in sorted(root.rglob('*')) if p.is_file() and p.name != 'cohorts.json'},\n          'interpretation':'All 200 seeds per game complete after immutable validation selection. Acquisition wall times are cumulative from process start; the cards time is total acquisition runtime, not an additional independent duration. Canonical states verified; no held-out aggregate computed. Scores await frozen newest-model selection.'}\n(root/'cohorts.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint({'label':record['label'],'games':games,'scores':'sealed'})\n",
+  "label": "qwen3.5-4b-rloo192",
+  "selection_file": "results/training/selection.json",
+  "selection_sha256": "e5efc224e1d0f6eb9df46e0805d2dc4e616609392e0782516207829dd0b309f9",
+  "adapter_sha256": "ec4bc597877c4bb61c8becd0c21a33e495a3dacea46f2435464de61e98cd1686",
+  "games": {
+    "dice": {
+      "episodes": 200,
+      "wall_seconds": 3210.7126041250012,
+      "peak_memory_bytes": 4013428412
+    },
+    "cards": {
+      "episodes": 200,
+      "wall_seconds": 6992.689321875005,
+      "peak_memory_bytes": 4080897716
+    }
+  },
+  "input_sha256": {
+    "results/final/selected/acquisition_cards.json": "b00331be19c4e3e9a2484de7a3b6a5abc62d8da3e5f8dd8d65bdababed419ecc",
+    "results/final/selected/acquisition_dice.json": "5e53f5f0ab51ed38b38aba8462497f23174e1b659c69b0040749d9263b0d79ba",
+    "results/final/selected/canonical.json": "7f23d50eeeddd15b33b9e4ee29413960023ae7ab045c4ac2022ac4a8bdbb977a",
+    "results/final/selected/raw/cards/bayes-public.jsonl": "cdd798fbe96978ea41dd61cdcac2fb472193528607b96d09538bb4b2135b0447",
+    "results/final/selected/raw/cards/bayes.jsonl": "24771e0a1e518e0f7ac81d35dc1bc59be52b742dbf4aef69fd55a888f36d61c2",
+    "results/final/selected/raw/cards/fixed-prior.jsonl": "eebf276a03154b88070ac9f46050b9c136d04824683c872d2b9901df17369b2b",
+    "results/final/selected/raw/cards/mean-sd.jsonl": "c662bb7dfcaaf5a42ea7fc36329de9d9dac81270d855a2da641307b3fb8a98ad",
+    "results/final/selected/raw/cards/qwen3.5-4b-rloo192.jsonl": "e16abab91959bd3188ea84ef708cf52e918f967e7caeabcc296845851fc3ece4",
+    "results/final/selected/raw/cards/random.jsonl": "d05933d8d98d16cc6f2d74bf8ca16971b037ccb587948ea8a66ad62d7cdf98c5",
+    "results/final/selected/raw/dice/bayes-public.jsonl": "f02055885c6fc364ba9abb3379914b1d595925fa3ae3a31c2244016e57dcd8f6",
+    "results/final/selected/raw/dice/bayes.jsonl": "bf06e99f1c3ce63015070809157147bd154d43c40f8ee6d07da8fb388fdfdf3b",
+    "results/final/selected/raw/dice/fixed-prior.jsonl": "be71613d1e754fbc7990e5afdd705be2c96265771881f96647ce0235a177e48d",
+    "results/final/selected/raw/dice/mean-sd.jsonl": "24bec5c84f104c478efee53a25baf8ae70c85bb2e756fa80bd1c4109f5c98b51",
+    "results/final/selected/raw/dice/qwen3.5-4b-rloo192.jsonl": "32ec6244df681dc2b346c088c8689ef08a297e072886f2bdfb6377515a398ff4",
+    "results/final/selected/raw/dice/random.jsonl": "589bc2e77c8f40041b1c6c1a79c109036b6c5894c8ebe0e38d8236dc6a80db25"
+  },
+  "interpretation": "All 200 seeds per game complete after immutable validation selection. Acquisition wall times are cumulative from process start; the cards time is total acquisition runtime, not an additional independent duration. Canonical states verified; no held-out aggregate computed. Scores await frozen newest-model selection."
+}
