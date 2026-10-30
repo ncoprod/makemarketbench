@@ -59,7 +59,8 @@
       "decision_rule": "Require positive primary and inference-group family lower bounds for cards and paired API superiority. No choice between methods after seeing scores.",
       "scope": "Conditional on frozen weights and recorded response cache; does not estimate fresh-cache or training-seed variation."
     },
-    "local_validation_contrast_family": "Fourteen contrasts: DAgger-best, DAgger-last, RLOO24, RLOO96 and RLOO192 versus SFT, and RLOO96 versus RLOO24, RLOO192 versus RLOO96, each on dice/cards; 1-0.05/14, 56000 resamples, seed 0. Registered after RLOO24 validation; earlier six-contrast receipts retained separately. One local test candidate, nine final candidates total."
+    "local_validation_contrast_family": "Eighteen contrasts: six follow-ups versus SFT in both games, plus RLOO96 versus RLOO24, RLOO192 versus RLOO96, and RLOO384 versus RLOO192 in both games; Bonferroni 1-0.05/18, 72000 resamples, seed 0. RLOO384 registered after RLOO192 validation, before its own validation. Earlier six- and fourteen-contrast receipts retained; one selected local test candidate, nine final candidates total.",
+    "newest_family_selection": "Round 3: validate saved SFT and GRPO96 adapters serially on 100/game, freeze max min(dice percent -80, cards percent), SFT wins ties, then evaluate only that winner on 200/game. Both local and newest-family decisions precede opening any new aggregate held-out score. The unselected newest-family slot remains counted in the conservative nine-candidate family."
   },
   "training": {
     "teacher_episodes_per_game": 800,
@@ -76,12 +77,14 @@
       "dagger-last",
       "rloo",
       "rloo96",
-      "rloo192"
+      "rloo192",
+      "rloo384"
     ],
     "dagger_last_rule": "Last numbered saved DAgger checkpoint; evaluate on 100 validation episodes per game before freezing the one local test candidate. Keep teacher-loss-selected checkpoint as a separate validation trial.",
     "rloo_extension_steps": [
       96,
-      192
+      192,
+      384
     ]
   },
   "amendments": [
@@ -151,6 +154,11 @@
         "all_new_test_aggregates": "Remain sealed until local and newest-family selections are frozen."
       },
       "source": "results/training/qwen38_round3_batch_plan.json"
+    },
+    {
+      "at": "2026-10-30T16:05:52.194658+00:00",
+      "reason": "Record the already registered final local doubling and the Round 3 saved-batch selection/sealing controls in the canonical protocol. RLOO384 training is active; its validation and all new held-out aggregation remain pending.",
+      "source": "results/training/qwen35_rloo384_plan.json; results/training/qwen38_round3_batch_plan.json; scripts/select_qwen38.py; scripts/score_frozen_candidates.py"
     }
   ]
 }

@@ -1,0 +1,437 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_bolt_dice_complete.py",
+    "config": {
+      "purpose": "retain complete Bolt dice acquisition and bounded Llama-11B retry without opening scores"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "7bf3cef45e1f12c4a302bd93b198073ad772717b",
+    "uncommitted_diff_sha256": "0fcb52eddf2c799ec61916081f8afeb42ea182e3223364aeede362b5e9aa010c",
+    "started_at": "2026-10-30T16:05:52.113715+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import hashlib\nimport json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/expansion')\nplan = json.loads((root / 'intermittent_resume_plan.json').read_text())\nprotocol = json.loads((root / 'protocol-intermittent-resume.json').read_text())\nraw = root / 'raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl'\nprefix = plan['existing_prefixes'][str(raw)]\nassert hashlib.sha256(raw.read_bytes()[:prefix['bytes']]).hexdigest() == prefix['sha256']\nrows = [json.loads(s) for s in raw.read_text().splitlines()]\nassert [r['seed'] for r in rows] == list(range(200, 400))\nfields = ('model','base_url','temperature','max_tokens','timeout','extra_body','label')\nconfigs = {json.dumps({k:r['provenance']['config'][k] for k in fields},sort_keys=True) for r in rows}\nassert len(configs) == 1\nr = {'provenance': receipt({'purpose': 'retain complete Bolt dice acquisition and bounded Llama-11B retry without opening scores'}, 'NIM immutable deployment revision not exposed'),\n     'source': Path(__file__).read_text(), 'episodes': len(rows), 'raw_file': str(raw), 'raw_sha256': file_sha256(raw),\n     'config':json.loads(configs.pop()), 'prior_138_episode_prefix_preserved':True,\n     'prefix':prefix,'completed_new_episodes':62,'resume':protocol['nvidia/nemotron-3.5-bolt-e4b']['dice'],\n     'llama11_bounded_retry': protocol['meta/llama-3.2-11b-vision-instruct (text-only)'],\n     'canonical_receipt': 'results/expansion/bolt_dice_complete_canonical.json',\n     'canonical_sha256': file_sha256(root/'bolt_dice_complete_canonical.json'),\n     'scope':'Acquisition only; no held-out aggregate opened. Bolt cards continue missing-only. Llama-11B remains incomplete after three 404 attempts on each game.'}\n(root/'bolt_dice_complete_cohort.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint('Bolt dice 200 complete; exact 138-episode prefix preserved, settings identical; scores sealed.')\n",
+  "episodes": 200,
+  "raw_file": "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+  "raw_sha256": "3d5d6be0034b37932998ed3c8f1c068e6d444c3fbce90e6378727910e90f4855",
+  "config": {
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "extra_body": {},
+    "label": "nvidia/nemotron-3.5-bolt-e4b",
+    "max_tokens": 4096,
+    "model": "nvidia/nemotron-3.5-bolt-e4b",
+    "temperature": 0.3,
+    "timeout": 600
+  },
+  "prior_138_episode_prefix_preserved": true,
+  "prefix": {
+    "bytes": 2875679,
+    "sha256": "abc5e19c1ca845203c2e360fa64966de9aff34426b9ddcbd3d56835693f5e1ac"
+  },
+  "completed_new_episodes": 62,
+  "resume": {
+    "episodes": 200,
+    "wall_seconds": 6038.942450761795,
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+      "config": {
+        "model": "nvidia/nemotron-3.5-bolt-e4b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "nvidia/nemotron-3.5-bolt-e4b",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": [
+            "nvidia/nemotron-3.5-bolt-e4b",
+            "meta/llama-3.2-11b-vision-instruct"
+          ],
+          "protocol_file": "protocol-intermittent-resume.json",
+          "reduced_reasoning": false,
+          "ultra_medium": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+      "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+      "started_at": "2026-10-30T14:23:08.670030+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+        "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    }
+  },
+  "llama11_bounded_retry": {
+    "model": "meta/llama-3.2-11b-vision-instruct",
+    "label": "meta/llama-3.2-11b-vision-instruct (text-only)",
+    "timeout_seconds": 600,
+    "probe_seed": 80000,
+    "probe_round": 2,
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "extra_body": {},
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+      "config": {
+        "model": "meta/llama-3.2-11b-vision-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 4096,
+        "timeout": 600,
+        "extra_body": {},
+        "label": "meta/llama-3.2-11b-vision-instruct (text-only)",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": [
+            "nvidia/nemotron-3.5-bolt-e4b",
+            "meta/llama-3.2-11b-vision-instruct"
+          ],
+          "protocol_file": "protocol-intermittent-resume.json",
+          "reduced_reasoning": false,
+          "ultra_medium": false
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+      "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+      "started_at": "2026-10-30T14:23:08.670030+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+        "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "probe": {
+      "content": "To post a quote for round 3, we need to calculate the expected value of V given the public information. We have two dice rolled: Die #1 shows 6 and Die #2 shows 3.\n\nThe expected value of V given only the public information is the average of the possible values, which is (6 + 3 + 2*3.5) / 8 = 4.5.\n\nHowever, we also need to consider the possible values of V given the public information. The possible values are:\n\n- 6 + 3 + x1 + x2 + x3 + x4 + x5 + x6, where xi is the value of the ith die\n- 6 + 3 + x1 + x2 + x3 + x4 + x5 + x7, where xi is the value of the ith die\n- 6 + 3 + x1 + x2 + x3 + x4 + x6 + x7, where xi is the value of the ith die\n\nWe can calculate the expected value of V given the public information by taking the average of these possible values.\n\nHowever, since we don't know the values of the hidden dice, we can't calculate the exact expected value. But we can calculate the minimum and maximum possible values of V given the public information.\n\nThe minimum possible value of V is 6 + 3 + 1 + 1 + 1 + 1 + 1 + 1 = 16\nThe maximum possible value of V is 6 + 3 + 6 + 6 + 6 + 6 + 6 + 6 = 48\n\nSince the expected value of V is between the minimum and maximum possible values, we can assume that the expected value of V is around 32.\n\nNow, we need to post a quote for round 3. We have a position of +0 and cash of +0.0. We want to maximize our expected profit.\n\nWe can post a bid price of 20 and a bid size of 5, and an ask price of 30 and an ask size of 5.\n\nThis quote is aggressive, but it's a good starting point. We can adjust our quote based on the counterparty's behavior in round 3.\n\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+      "reasoning": "",
+      "finish_reason": "stop",
+      "completion_tokens": 499,
+      "prompt_tokens": 576,
+      "served_model": "meta/llama-3.2-11b-vision-instruct",
+      "system_fingerprint": null,
+      "latency": 25.838995933532715,
+      "cached": true
+    },
+    "usable": true,
+    "probe_wall_seconds": 0.00044083595275878906,
+    "dice": {
+      "error": "RuntimeError: giving up after 3 attempts: NotFoundError(404): Error code: 404",
+      "wall_seconds": 16.27915072441101,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+        "config": {
+          "model": "meta/llama-3.2-11b-vision-instruct",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 4096,
+          "timeout": 600,
+          "extra_body": {},
+          "label": "meta/llama-3.2-11b-vision-instruct (text-only)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": [
+              "nvidia/nemotron-3.5-bolt-e4b",
+              "meta/llama-3.2-11b-vision-instruct"
+            ],
+            "protocol_file": "protocol-intermittent-resume.json",
+            "reduced_reasoning": false,
+            "ultra_medium": false
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+        "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+        "started_at": "2026-10-30T14:23:08.670030+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    },
+    "evaluation_attempts": [
+      {
+        "game": "dice",
+        "error": "RuntimeError: giving up after 3 attempts: NotFoundError(404): Error code: 404",
+        "wall_seconds": 16.27915072441101,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+          "config": {
+            "model": "meta/llama-3.2-11b-vision-instruct",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {},
+            "label": "meta/llama-3.2-11b-vision-instruct (text-only)",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": [
+                "nvidia/nemotron-3.5-bolt-e4b",
+                "meta/llama-3.2-11b-vision-instruct"
+              ],
+              "protocol_file": "protocol-intermittent-resume.json",
+              "reduced_reasoning": false,
+              "ultra_medium": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+          "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+          "started_at": "2026-10-30T14:23:08.670030+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      },
+      {
+        "game": "cards",
+        "error": "RuntimeError: giving up after 3 attempts: NotFoundError(404): Error code: 404",
+        "wall_seconds": 15.785094738006592,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+          "config": {
+            "model": "meta/llama-3.2-11b-vision-instruct",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {},
+            "label": "meta/llama-3.2-11b-vision-instruct (text-only)",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": [
+                "nvidia/nemotron-3.5-bolt-e4b",
+                "meta/llama-3.2-11b-vision-instruct"
+              ],
+              "protocol_file": "protocol-intermittent-resume.json",
+              "reduced_reasoning": false,
+              "ultra_medium": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+          "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+          "started_at": "2026-10-30T14:23:08.670030+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    ],
+    "cards": {
+      "error": "RuntimeError: giving up after 3 attempts: NotFoundError(404): Error code: 404",
+      "wall_seconds": 15.785094738006592,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+        "config": {
+          "model": "meta/llama-3.2-11b-vision-instruct",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 4096,
+          "timeout": 600,
+          "extra_body": {},
+          "label": "meta/llama-3.2-11b-vision-instruct (text-only)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": [
+              "nvidia/nemotron-3.5-bolt-e4b",
+              "meta/llama-3.2-11b-vision-instruct"
+            ],
+            "protocol_file": "protocol-intermittent-resume.json",
+            "reduced_reasoning": false,
+            "ultra_medium": false
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+        "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+        "started_at": "2026-10-30T14:23:08.670030+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    }
+  },
+  "canonical_receipt": "results/expansion/bolt_dice_complete_canonical.json",
+  "canonical_sha256": "fc6570ebccd971c20dc745103867fb5119e0869f82d5e5e44889bfd2bdf64d80",
+  "scope": "Acquisition only; no held-out aggregate opened. Bolt cards continue missing-only. Llama-11B remains incomplete after three 404 attempts on each game."
+}

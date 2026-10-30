@@ -2549,3 +2549,17 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   the same immutable-selection assertion. Exact failed check:
   `results/ci_local_round3_rloo384_initial_failure.json`; this is a test-fixture
   correction, not a training or trading outcome.
+
+### Bolt dice acquisition complete; Llama-11B bounded retries fail
+
+- Missing-only Bolt recovery adds 62 dice episodes in 6,038.942450761795
+  seconds and completes seeds 200–399. The exact saved 138-episode prefix
+  and all critical decoder settings are unchanged. Canonical hidden values,
+  reveals and six-round episode structure pass; no aggregate score is opened.
+- Command, raw/prefix hashes, canonical checks and exact Llama-11B retry
+  failures: `results/expansion/bolt_dice_complete_cohort.json`. Llama-11B
+  retries stop after three HTTP 404 attempts in each game; its partial cohort
+  remains unscored. Bolt cards recovery is still running.
+- The corrected local CI fixture passes all 136 tests, native Release,
+  ASan/UBSan and the Kaggle CPU dry-run. Proof:
+  `results/ci_local_round3_rloo384.json`; the initial failed run is retained.
