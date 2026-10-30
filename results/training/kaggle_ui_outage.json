@@ -190,6 +190,23 @@
         ]
       },
       "interpretation": "No recovered access or additional Qwen3.8 outputs. GPU budget remains closed."
+    },
+    {
+      "observed_between_utc": [
+        "2026-10-30T11:56:48Z",
+        "2026-10-30T11:57:35.361987+00:00"
+      ],
+      "tool": "mcp__cua_repl.js",
+      "command": "await cua.getState();",
+      "result": {
+        "apps": [],
+        "browsers": [],
+        "errors": [
+          "Native apps: Error: Sky Computer Use native pipe startup failed",
+          "Browsers: Error: The browser access host is unavailable"
+        ]
+      },
+      "interpretation": "Output recovery still blocked. No GPU allocation or next-quota submission; existing budget closure unchanged."
     }
   ],
   "official_sdk_fallback": {

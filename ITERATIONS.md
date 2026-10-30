@@ -2309,3 +2309,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   The interrupted batch is explicitly marked rescheduled, never complete in
   the sense of a finished cohort. This is scheduling from validation runtime,
   not selection on test outcomes or discarded slow/negative episodes.
+
+### API priority transition verified; output recovery remains unavailable
+
+- Preserve Llama-3.2-90B's seven completed dice episodes and cache before
+  rescheduling its original batch. The paused raw-file hash matches the
+  registered transition receipt, `results/expansion/baseline_priority_plan.json`.
+  Its unfinished 200/game cohort is unscored; GPT-OSS resumes its existing
+  125-card prefix under the shared slot, ahead of the slower additional cohort.
+- At the next browser inventory check after 11:56 UTC, both native-pipe startup
+  and browser-host errors persist. Retain the exact errors and observation
+  bounds in `results/training/kaggle_ui_outage.json`. No newest-model output
+  recovery, GPU restart or new-quota submission occurred.

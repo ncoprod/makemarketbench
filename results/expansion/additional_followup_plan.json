@@ -46,7 +46,7 @@
       "protocol-gpt-resume2.json"
     ]
   ],
-  "status": "acquiring_slot_then_running",
+  "status": "finished",
   "model_licence_verification": "results/licenses_nim_followup_20261030.json",
   "catalogue_sha256": "a774655132526c9ab16222c4c021a727df36f868750f7f0ce1f6a02b4832f7db",
   "gpt_existing_prefix_sha256": "d6649676ea4362cf526f0c7aeeb3b39f83344ffe28abf7107749d1f228516414",
@@ -68,5 +68,32 @@
     "ibm/granite-3.0-8b-instruct",
     "--protocol-file",
     "protocol-additional.json"
-  ]
+  ],
+  "outcome": "interrupted_and_requeued_for_baseline_priority",
+  "replacement_plan": "results/expansion/baseline_priority_plan.json",
+  "pending_gpt_command_moved_to": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "openai/gpt-oss-20b",
+    "--protocol-file",
+    "protocol-gpt-priority.json"
+  ],
+  "llama90_resume_command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "meta/llama-3.2-90b-vision-instruct",
+    "--protocol-file",
+    "protocol-llama90-resume.json"
+  ],
+  "limitation": "Supervisor terminated after a completed episode; the full additional cohort and original queued GPT command did not finish here. Preserved cache/raw data are resumed by the replacement plan."
 }
