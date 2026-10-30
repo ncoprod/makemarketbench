@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-30T01:34:15.416444+00:00",
+  "recorded_at": "2026-10-30T01:36:34.246554+00:00",
   "provenance": {
     "command": [
       "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
@@ -7,7 +7,7 @@
     ],
     "seed": null,
     "model_revision": null,
-    "git_commit": "56303f201cb6900fa6d35f144e15ded790fb8861",
+    "git_commit": "57ed3d9a208bca4e8ea44816430370bc57130cd5",
     "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
   },
   "reset_at": "2026-10-31T00:00:00Z",
@@ -882,6 +882,26 @@
         "gpu_seconds_reserved": 0.0,
         "gpu_seconds_total": 108000.0
       }
+    },
+    {
+      "recorded_at": "2026-10-30T01:36:34.246554+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "provenance": {
+        "command": [
+          "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+          "scripts/kaggle_quota.py"
+        ],
+        "seed": null,
+        "model_revision": null,
+        "git_commit": "57ed3d9a208bca4e8ea44816430370bc57130cd5",
+        "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
+      },
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00+00:00",
+        "gpu_seconds_used": 107594.130345,
+        "gpu_seconds_reserved": 0.0,
+        "gpu_seconds_total": 108000.0
+      }
     }
   ],
   "sessions": [
@@ -1232,6 +1252,22 @@
       "hours_basis": "Downloaded script runtime; exact allocation billing boundaries unavailable.",
       "observed_complete_at": "2026-10-30T01:33:52.405167+00:00",
       "result_file": "results/kaggle/composition-ablation-v1/pair_runtime.json"
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-padding-ablation",
+      "version": 1,
+      "accelerator": "T4 x2 requested",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "submitted_at": "2026-10-30T01:36:34.858057+00:00",
+      "purpose": "Compare native and explicitly left-padded single prompts, plus four identical padded copies. Compilation disabled, same pinned adapters/decoder, development states only.",
+      "private": true,
+      "status": "submitted_private_verified",
+      "source_commit": "57ed3d9a208bca4e8ea44816430370bc57130cd5",
+      "receipt": "results/training/kaggle_padding_ablation.json",
+      "wall_cap_seconds": 350,
+      "session_timeout_seconds": 380
     }
   ],
   "accounting_notes": [

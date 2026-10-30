@@ -1806,3 +1806,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   seconds. A final focused padding-invariance check can fit a 350-second script
   and 380-second session bound. Remaining time cannot support another full
   policy cohort, training seed or newest-family pipeline.
+
+### T20 — final bounded padding check on discrepant development prompts
+
+- Hypothesis: left padding alone can explain the mixed-batch changes. For SFT
+  states 2 and 13 and GRPO state 7, compare native single generation, explicitly
+  left-padded single generation to the original mixed-batch maximum length, and
+  four identical padded copies. Keep the frozen weights, greedy decoder and
+  disabled compilation. Retain input shapes, mask counts, texts, parsed quotes,
+  latency and peak VRAM. No policy/test changes or held-out aggregation.
+- Commands: `.venv/bin/python runs/prepare_padding_ablation.py`;
+  `.venv/bin/python runs/submit_padding_ablation.py`. Private version 1 accepted,
+  remote source hash verified using its actual metadata code_file. The settled
+  405.86965500000224-second quota covers a 350-second script / 380-second
+  session bound. Monitor sleeps 610 seconds, including when a short job could
+  finish sooner. Full sources/admission: `results/training/kaggle_padding_ablation.json`.
