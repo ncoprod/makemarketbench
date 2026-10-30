@@ -1544,3 +1544,15 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   quota arithmetic: `results/training/kaggle_staged_sft_complete.json`.
   Monitor sleeps 610 seconds between status checks and retrieves terminal
   outputs into `runs/kaggle_staged_sft_complete_output`.
+
+### T17 full-run progress: full validation before iteration 400
+
+- The next complete 480-example validation pass improves loss from
+  0.4035864770412445 to 0.32049041986465454, taking 1253.209341665999 seconds.
+  The upstream callback is 399 consumed microbatches and 199 optimizer updates;
+  the trainer then reports microbatch 400. Keep those distinct counts.
+- Preserve the unchanged 800-microbatch recipe's training/guard snapshots and
+  best-adapter hash in `results/training/qwen35_uniform_validation399.json`.
+  Command: `.venv/bin/python runs/retain_mlx_step400.py`; full source is embedded.
+- This is teacher-loss progress under the same shared lock and memory guard,
+  not evidence of market-making PnL. No held-out aggregate is opened.
