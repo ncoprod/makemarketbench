@@ -1978,3 +1978,24 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The 02:51:36–02:54:53 UTC computer-use recheck still returns empty surfaces
   and identical transport failures. Exact observation is appended to
   `results/training/kaggle_ui_outage.json`; GPU submissions remain closed.
+
+### Larger DAgger collection completes; registered training begins
+
+- Hypothesis and change remain the registered follow-up: exact labels on more
+  actor-reached states may address the local SFT policy's sequential errors.
+  Collect 150 episodes per game on seeds 30000–30149: 1,800 new states, mixed
+  with the first 4,000 original teacher examples. Collection takes
+  5164.821201791994 seconds; peak MLX allocated memory is 4065234612 bytes.
+- Commands: the exact collection/audit/training commands are retained in
+  `results/training/qwen35_followup_plan.json`;
+  `.venv/bin/python runs/retain_dagger_collection.py` verifies every episode,
+  seed, label count, actor identity and dataset hash. Result and source:
+  `results/training/qwen35_dagger_collection.json`.
+- The full token audit passes: 5,800 training and 480 validation examples,
+  maximum lengths 976 and 966, no inference-prefix mismatches. The existing
+  fixed padding of 1,025 tokens needs no change. Start the registered
+  800-microbatch continuation from SFT under the shared heavy-ML lock and
+  physical-memory guard. Policy validation remains pending; no improvement
+  is inferred from successful collection or teacher loss.
+- A 04:08 UTC computer-use check still returns empty inventories and the same
+  native-pipe/browser-host errors. No new observation of the Qwen3.8 draft.

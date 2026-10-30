@@ -1,0 +1,111 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_dagger_collection.py",
+    "config": {
+      "purpose": "verify completed registered DAgger collection"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+    "uncommitted_diff_sha256": "3ee349a695c2ad8a9e3c7373c58de86ec62943a9d1ecb0c3123e20c79637847d",
+    "started_at": "2026-10-30T04:18:20.295101+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom collections import Counter\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('train/data_dagger_qwen35')\ncollection = json.loads((root / 'collection.json').read_text())\nraw = root / 'on_policy.jsonl'\nrows = [json.loads(line) for line in raw.read_text().splitlines()]\nassert len(rows) == 300\nassert len({(r['game'], r['seed']) for r in rows}) == 300\nassert all(len(r['examples']) == 6 for r in rows)\nfor game in ('dice', 'cards'):\n    assert sorted(r['seed'] for r in rows if r['game'] == game) == list(range(30000, 30150))\nassert len({r['provenance']['adapter_sha256'] for r in rows}) == 1\nassert collection['on_policy_states'] == 1800 and collection['original_states'] == 4000\nassert collection['data_sha256'] == file_sha256(root / 'train.jsonl')\naudit_path = Path('results/training/qwen35_dagger_token_audit.json')\naudit = json.loads(audit_path.read_text())\nassert all(not split['prefix_mismatch_rows'] and split['max_tokens'] <= 1025 for split in audit['splits'].values())\nrecord = {'provenance': receipt({'purpose': 'verify completed registered DAgger collection'}, collection['model_revision']),\n          'source': Path(__file__).read_text(), 'collection': collection,\n          'episodes_by_game': dict(Counter(r['game'] for r in rows)),\n          'states_by_game': {g: sum(len(r['examples']) for r in rows if r['game'] == g) for g in ('dice', 'cards')},\n          'input_sha256': {str(p): file_sha256(p) for p in (raw, root/'train.jsonl', root/'valid.jsonl', root/'collection.json', audit_path)},\n          'token_audit': audit, 'status': 'collection_complete_training_started',\n          'interpretation': 'Training states only. No held-out or policy-validation score; greedy actor and exact teacher use the frozen completed SFT adapter.'}\nPath('results/training/qwen35_dagger_collection.json').write_text(json.dumps(record, indent=2)+'\\n')\nprint(json.dumps({k: record[k] for k in ('episodes_by_game', 'states_by_game', 'status')}))\n",
+  "collection": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_dagger.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --adapter train/runs/qwen3.5-4b-sft --episodes 150 --out train/data_dagger_qwen35",
+    "config": {
+      "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "adapter": "train/runs/qwen3.5-4b-sft",
+      "out": "train/data_dagger_qwen35",
+      "episodes": 150
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "c5ee2f30d2978f041594a101f3f6b2c9629c5b52",
+    "uncommitted_diff_sha256": "dc624f92c7d599ecb8cabcd4971b339b455c87c0f69521c45b6e02d61a48ae87",
+    "started_at": "2026-10-30T02:51:01.243151+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    },
+    "source_sha256": "c798229a710bb5d2c320d6d745e5f0dbbf542d7c3033a4737263491f1dfe5d62",
+    "adapter_sha256": "3b819dcf29dc686712fb27d14c46ef03e23fdcb6cc366cc4e38aa4af551706f5",
+    "on_policy_states": 1800,
+    "original_states": 4000,
+    "seed_range": [
+      30000,
+      30149
+    ],
+    "wall_seconds": 5164.821201791994,
+    "peak_memory_bytes": 4065234612,
+    "data_sha256": "d736bae95d98481ea66ca77d95b0efbbcf3ba1a434ef88db5cf51691b5fc0896"
+  },
+  "episodes_by_game": {
+    "dice": 150,
+    "cards": 150
+  },
+  "states_by_game": {
+    "dice": 900,
+    "cards": 900
+  },
+  "input_sha256": {
+    "train/data_dagger_qwen35/on_policy.jsonl": "c92def1c469f5c97cfeced88547f9c582565f202feb45d4cdf4187085bedda7e",
+    "train/data_dagger_qwen35/train.jsonl": "d736bae95d98481ea66ca77d95b0efbbcf3ba1a434ef88db5cf51691b5fc0896",
+    "train/data_dagger_qwen35/valid.jsonl": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62",
+    "train/data_dagger_qwen35/collection.json": "bbf717d45bb520cc9ec03782562c64799d6e88fdc6911d6276cf3d1ff723c31a",
+    "results/training/qwen35_dagger_token_audit.json": "5a241f448c39c118f3e1c7f0187d74de9a71b09c258aff812ac1235fcbfc203f"
+  },
+  "token_audit": {
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/audit_tokens.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --data train/data_dagger_qwen35 --out results/training/qwen35_dagger_token_audit.json",
+      "config": {
+        "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "data": "train/data_dagger_qwen35",
+        "out": "results/training/qwen35_dagger_token_audit.json"
+      },
+      "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+      "uncommitted_diff_sha256": "163e059506ed1f3cd30114ccbaa52c3805a44b64ceaa73da669fc25048af578a",
+      "started_at": "2026-10-30T04:17:09.421988+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "splits": {
+      "train": {
+        "rows": 5800,
+        "max_tokens": 976,
+        "over_1536_tokens": 0,
+        "prefix_mismatch_rows": [],
+        "sha256": "d736bae95d98481ea66ca77d95b0efbbcf3ba1a434ef88db5cf51691b5fc0896"
+      },
+      "valid": {
+        "rows": 480,
+        "max_tokens": 966,
+        "over_1536_tokens": 0,
+        "prefix_mismatch_rows": [],
+        "sha256": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
+      }
+    },
+    "source_sha256": "b2b76171c1d45125736947072a4d811267797f3e05101f95428eea0908c33f89"
+  },
+  "status": "collection_complete_training_started",
+  "interpretation": "Training states only. No held-out or policy-validation score; greedy actor and exact teacher use the frozen completed SFT adapter."
+}

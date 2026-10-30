@@ -117,6 +117,23 @@
         ]
       },
       "interpretation": "Transport still unavailable; no trained-output observation or allocation restart. Weekly GPU submission loop remains closed."
+    },
+    {
+      "observed_between_utc": [
+        "2026-10-30T04:08:00Z",
+        "2026-10-30T04:08:30Z"
+      ],
+      "tool": "mcp__cua_repl.js",
+      "command": "await cua.getState();",
+      "result": {
+        "apps": [],
+        "browsers": [],
+        "errors": [
+          "Native apps: Error: Sky Computer Use native pipe startup failed",
+          "Browsers: Error: The browser access host is unavailable"
+        ]
+      },
+      "interpretation": "Transport remains unavailable. No trained-output observation or allocation restart; weekly GPU submission loop remains closed."
     }
   ],
   "official_sdk_fallback": {

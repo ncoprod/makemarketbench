@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/audit_tokens.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --data train/data_dagger_qwen35 --out results/training/qwen35_dagger_token_audit.json",
+    "config": {
+      "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "data": "train/data_dagger_qwen35",
+      "out": "results/training/qwen35_dagger_token_audit.json"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+    "uncommitted_diff_sha256": "163e059506ed1f3cd30114ccbaa52c3805a44b64ceaa73da669fc25048af578a",
+    "started_at": "2026-10-30T04:17:09.421988+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "splits": {
+    "train": {
+      "rows": 5800,
+      "max_tokens": 976,
+      "over_1536_tokens": 0,
+      "prefix_mismatch_rows": [],
+      "sha256": "d736bae95d98481ea66ca77d95b0efbbcf3ba1a434ef88db5cf51691b5fc0896"
+    },
+    "valid": {
+      "rows": 480,
+      "max_tokens": 966,
+      "over_1536_tokens": 0,
+      "prefix_mismatch_rows": [],
+      "sha256": "c3a5d6a7a88a1f2b12767370f57f6e8d6812fefc6821ee16571d54e41a75ed62"
+    }
+  },
+  "source_sha256": "b2b76171c1d45125736947072a4d811267797f3e05101f95428eea0908c33f89"
+}
