@@ -2342,3 +2342,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The cards point estimate is positive but its lower bound remains negative.
   Dice-only reward training and remaining numerical/flow-inference errors
   remain plausible bottlenecks; no format/JSON failure explains the gap.
+
+### Make the final scoring and figure reproducible before unsealing
+
+- Promote the prepared orchestration to `scripts/score_frozen_candidates.py`
+  and `scripts/plot_final.py`. The scorer requires the frozen local selection
+  and verifies its adapter hash before opening any new held-out score.
+  Complete candidates retain the nine-candidate correction; partial cards
+  remain unscored and unavailable newest-model candidates remain counted.
+- The figure uses complete 200-episode cohorts, marginal 95% intervals and
+  explicit missing-game markers. Add concise model/decoder labels, including
+  every registered local budget and the two-adapter router.
+- Verification: `.venv/bin/ruff check scripts/score_frozen_candidates.py
+  scripts/plot_final.py --fix` and `.venv/bin/python -m py_compile` on both
+  scripts pass. Neither scoring nor plotting has run; all new held-out
+  aggregates remain sealed. Visual verification follows actual result creation.
