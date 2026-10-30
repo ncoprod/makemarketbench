@@ -2487,3 +2487,9 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Verification: `pytest -q tests/test_mlx_evaluate.py` passes. The regression
   makes aggregation raise if called and verifies acquisition metadata exists
   without any leaderboard. No trained policy or selection rule changes.
+- The final scoring entry point also requires both frozen selections and
+  checks their adapter hashes before reading test cohorts. The 27B selector
+  verifies both complete serial validation cohorts against the actual saved
+  adapters, uses the registered max-min rule, and refuses to overwrite its
+  frozen decision. `pytest -q tests/test_qwen38_selection.py` exercises a
+  mismatched adapter, the SFT tie rule, and immutable selection.

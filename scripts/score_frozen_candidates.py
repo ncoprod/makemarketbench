@@ -1,4 +1,4 @@
-"""Score every registered complete candidate after freezing local selection."""
+"""Score registered complete candidates after freezing local and 27B selections."""
 
 import json
 import subprocess
@@ -10,7 +10,11 @@ from makemarket.scoring import summarize
 selection_path = Path('results/training/selection.json')
 selection = json.loads(selection_path.read_text())
 assert file_sha256(Path(selection['adapter']) / 'adapters.safetensors') == selection['adapter_sha256']
-# Freeze local validation selection before opening any other new test scores.
+newest_path = Path('results/training/qwen38_selection.json')
+newest = json.loads(newest_path.read_text())
+assert newest['status'] == 'frozen' and newest['final_candidate_family'] == 9
+assert file_sha256(newest['adapter_file']) == newest['adapter_sha256']
+# Both validation decisions precede opening any new aggregate test score.
 candidates = [
     ('qwen3-1.7b-sft800', 'results/final/qwen17-sft800'),
     (selection['label'], 'results/final/selected'),
@@ -18,13 +22,14 @@ candidates = [
     ('qwen3.5-4b-grpo', 'results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results'),
     ('qwen3.5-4b-staged-grpo', 'results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results'),
     ('qwen3.5-4b-staged-routed', 'results/final/staged-routed'),
+    (newest['label'], newest['test_root']),
 ]
 record = {'provenance': receipt({'purpose': 'report every complete registered frozen candidate with the nine-candidate correction'}),
           'source': Path(__file__).read_text(), 'selection_sha256': file_sha256(selection_path),
+          'newest_selection_sha256': file_sha256(newest_path),
           'candidates_registered': 9, 'commands': [], 'results': {}, 'unavailable': {
               'qwen3.5-4b-staged-sft': 'Dice 200 complete; cards 100 saved, other worker failed its development batching gate. Cards not scored.',
-              'qwen3.8-27b-sft': '500 SFT updates downloaded; later trained outputs inaccessible after computer-use transport failure.',
-              'qwen3.8-27b-grpo': 'No verified completed full-pipeline GRPO adapter or policy evaluation retrieved.'}}
+              'qwen3.8-27b-unselected': 'The other newest-family adapter remains validation-only under the registered selection rule; its trial still counts in the conservative family correction.'}}
 for label, root in candidates:
     out = f'results/final/scores/{label}.json'
     command = ['.venv/bin/python', 'scripts/score_final.py', '--local', root, '--label', label,
