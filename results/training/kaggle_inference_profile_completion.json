@@ -1,0 +1,350 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_inference_profiles.py",
+    "config": {
+      "purpose": "retain both fixed development-state inference profiles without reading held-out scores"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "79730ed7b21d7c97905c3c026fc51d60b12056e2",
+    "uncommitted_diff_sha256": "28afd61e94b31b4adcf049038a417a034d1ffc020c9a84113740fdf1ec2122e4",
+    "started_at": "2026-10-30T00:57:03.741695+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport shutil\nfrom pathlib import Path\nfrom statistics import median\n\nfrom makemarket.provenance import file_sha256, receipt\n\nrecord = {'provenance': receipt({'purpose': 'retain both fixed development-state inference profiles without reading held-out scores'}, '3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636'),\n          'source': Path(__file__).read_text(), 'sessions': [], 'comparisons': {},\n          'interpretation': 'Descriptive timings from two cold allocations, two randomized repeats each; fixed development states and adapters. Not training-seed replication, policy PnL or a benchmark confidence interval. Compiler and allocator history remain part of execution.'}\nprofiles = {}\nledger_path = Path('results/training/kaggle_budget.json')\nledger = json.loads(ledger_path.read_text())\nfor suffix in ('', '_repeat'):\n    name = 'kaggle_inference_profile' + suffix\n    pull = json.loads(Path('results/training/' + name + '.json').read_text())\n    assert pull['status'] == 'outputs_retrieved'\n    source = Path('runs/' + name + '_output')\n    out = Path('results/kaggle/inference-profile' + ('-repeat' if suffix else '') + '-v1')\n    shutil.copytree(source, out, dirs_exist_ok=True)\n    pair = json.loads((out / 'pair_runtime.json').read_text())\n    record['sessions'].append({'kernel': pull['metadata']['id'], 'version': 1, 'pair_runtime': pair,\n                               'download_receipt': 'results/training/' + name + '.json',\n                               'files_sha256': {str(p): file_sha256(p) for p in out.rglob('*') if p.is_file()}})\n    for stage in ('sft', 'grpo'):\n        p = out / stage / 'inference_profile.json'\n        if p.exists():\n            profiles[(suffix, stage)] = json.loads(p.read_text())\n    for session in ledger['sessions']:\n        if session['kernel'] == pull['metadata']['id'] and session['version'] == 1:\n            session.update(status='completed_outputs_retrieved' if pair['exit_codes'] == [0, 0] else 'partial_outputs_retrieved',\n                           script_wall_seconds=pair['wall_seconds'], hours=pair['wall_seconds'] / 3600,\n                           hours_basis='Downloaded script runtime; allocation startup/finalization billing boundaries unavailable.',\n                           observed_complete_at=pull['polls'][-1]['at'], result_file=str(out / 'pair_runtime.json'))\nfor stage in ('sft', 'grpo'):\n    available = [(suffix, p) for (suffix, s), p in profiles.items() if s == stage]\n    if not available:\n        continue\n    assert len({p['prompts_sha256'] for _, p in available}) == 1\n    assert len({p['profile_driver_sha256'] for _, p in available}) == 1\n    summaries = {}\n    for size in (1, 2, 4, 8, 16):\n        cases = [m for _, p in available for m in p['measurements'] if m['batch_size'] == size]\n        if cases:\n            summaries[size] = {'measurements': len(cases), 'wall_seconds': [m['wall_seconds'] for m in cases],\n                               'median_wall_seconds': median(m['wall_seconds'] for m in cases),\n                               'peak_allocated_bytes': max(m['peak_allocated_bytes'] for m in cases),\n                               'peak_reserved_bytes': max(m['peak_reserved_bytes'] for m in cases),\n                               'quote_mismatches_vs_same_session_initial_serial': [m['quote_mismatch_indices'] for m in cases]}\n    baseline = available[0][1]['initial_serial_baseline_including_warmup']['quotes']\n    cold = {suffix or 'first': [i for i, (a, b) in enumerate(zip(baseline, p['initial_serial_baseline_including_warmup']['quotes'])) if a != b]\n            for suffix, p in available}\n    record['comparisons'][stage] = {'profile_statuses': {suffix or 'first': p['status'] for suffix, p in available},\n                                     'unique_prompts': available[0][1]['unique_prompts'],\n                                     'observations': len(available[0][1]['states']), 'batch_sizes': summaries,\n                                     'cold_initial_serial_mismatch_indices': cold}\nledger_path.write_text(json.dumps(ledger, indent=2) + '\\n')\nPath('results/training/kaggle_inference_profile_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint(json.dumps(record['comparisons'], indent=2))\n",
+  "sessions": [
+    {
+      "kernel": "nicolascoquelet/makemarketbench-inference-profile",
+      "version": 1,
+      "pair_runtime": {
+        "wall_seconds": 879.2537151480001,
+        "budget_seconds": 1050,
+        "exit_codes": [
+          0,
+          0
+        ],
+        "source_commit": "c1ea340695c0e55b2bf64e97408d558e4caae747",
+        "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+        "seed": 0,
+        "purpose": "Development-state batch latency, VRAM and numerical quote agreement; no held-out policy episodes.",
+        "command": [
+          "/usr/bin/python3",
+          "/kaggle/src/script.py"
+        ]
+      },
+      "download_receipt": "results/training/kaggle_inference_profile.json",
+      "files_sha256": {
+        "results/kaggle/inference-profile-v1/inference_profile.py": "8e43e9da9afb8a4a58f6e2769bc804cb61a724041b3441d087c1bfd31e2ca66d",
+        "results/kaggle/inference-profile-v1/evaluate_core.py": "f8c0a384d72e4b8ec3658c2df0a6e0b82239fd0e68752eb2a4b0d4b5e1d95a29",
+        "results/kaggle/inference-profile-v1/makemarketbench-inference-profile.log": "61da6f0ba84a4a3b600e80bec76220b8fa9dd926c646f9107295f5122cb22dde",
+        "results/kaggle/inference-profile-v1/pair_runtime.json": "4b9b835000aea30b8837046689191cf3bca553baceecec3b393de1de360c197f",
+        "results/kaggle/inference-profile-v1/__pycache__/inference_profile.cpython-313.pyc": "69823af6a2778e10e0f1e9775b8b5b37b9fd2ca0c70a74a09a8e1daaa8f1cef1",
+        "results/kaggle/inference-profile-v1/grpo/runtime.json": "fcccd22b42ea657dd369797aa6e71d9cac65a3e540f5dff9dc78dd72b4bfbef4",
+        "results/kaggle/inference-profile-v1/grpo/inference_profile.json": "d860971bc110330c865012b34b3c81ab62468b2faa9ee888499ee36507f553b7",
+        "results/kaggle/inference-profile-v1/sft/runtime.json": "1151c9ae0bc33cf2eb7e3fbd004a6ff94923fb627e0e074c9293edf771d6a896",
+        "results/kaggle/inference-profile-v1/sft/inference_profile.json": "855600525f3ab881543189ebfd2459550392fc90c6c7350fe6dd2294324c1a30"
+      }
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-inference-profile-repeat",
+      "version": 1,
+      "pair_runtime": {
+        "wall_seconds": 974.645657264,
+        "budget_seconds": 1050,
+        "exit_codes": [
+          0,
+          0
+        ],
+        "source_commit": "c1ea340695c0e55b2bf64e97408d558e4caae747",
+        "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+        "seed": 0,
+        "purpose": "Development-state batch latency, VRAM and numerical quote agreement; no held-out policy episodes.",
+        "command": [
+          "/usr/bin/python3",
+          "/kaggle/src/script.py"
+        ]
+      },
+      "download_receipt": "results/training/kaggle_inference_profile_repeat.json",
+      "files_sha256": {
+        "results/kaggle/inference-profile-repeat-v1/inference_profile.py": "8e43e9da9afb8a4a58f6e2769bc804cb61a724041b3441d087c1bfd31e2ca66d",
+        "results/kaggle/inference-profile-repeat-v1/evaluate_core.py": "f8c0a384d72e4b8ec3658c2df0a6e0b82239fd0e68752eb2a4b0d4b5e1d95a29",
+        "results/kaggle/inference-profile-repeat-v1/pair_runtime.json": "2306ae2357e74c04c4cbf046a648033f59be4687a8082b442231364b3f39a281",
+        "results/kaggle/inference-profile-repeat-v1/makemarketbench-inference-profile-repeat.log": "5c569ffeda83ac4f6ddac923db62e31b47dcf72994f818a475e457080a25539c",
+        "results/kaggle/inference-profile-repeat-v1/__pycache__/inference_profile.cpython-313.pyc": "83bce69465646e288cd0e0ea5cf6e4777bd1d768bb7a4f0852e5fc29710c2db1",
+        "results/kaggle/inference-profile-repeat-v1/grpo/runtime.json": "6d5c0ad354b3bf35f2436a2480620520624f9f826a366438fac2c41502f3ffcb",
+        "results/kaggle/inference-profile-repeat-v1/grpo/inference_profile.json": "d846ffdb59fa4d4a9a5222ba8cda3eb72bc56e304a761888e9ca50424309b390",
+        "results/kaggle/inference-profile-repeat-v1/sft/runtime.json": "d21f0093380053cae2f13baaf386c7adbc6f0222d128de8a5fbf31ae0a7df638",
+        "results/kaggle/inference-profile-repeat-v1/sft/inference_profile.json": "8e131332c6f85a4aee931353f6c49f4021f33931345c31a99def11b85529c98f"
+      }
+    }
+  ],
+  "comparisons": {
+    "sft": {
+      "profile_statuses": {
+        "first": "completed",
+        "_repeat": "completed"
+      },
+      "unique_prompts": 14,
+      "observations": 16,
+      "batch_sizes": {
+        "1": {
+          "measurements": 4,
+          "wall_seconds": [
+            105.60588919299994,
+            105.60626011399995,
+            122.23844855799996,
+            118.58459892500002
+          ],
+          "median_wall_seconds": 112.09542951949999,
+          "peak_allocated_bytes": 4184992256,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "2": {
+          "measurements": 4,
+          "wall_seconds": [
+            64.222124313,
+            64.30000665300008,
+            74.20466578999992,
+            70.83507424999993
+          ],
+          "median_wall_seconds": 67.56754045150001,
+          "peak_allocated_bytes": 4298545152,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "4": {
+          "measurements": 4,
+          "wall_seconds": [
+            50.56706994000001,
+            37.39429182599997,
+            57.11289449399999,
+            41.75416927200001
+          ],
+          "median_wall_seconds": 46.16061960600001,
+          "peak_allocated_bytes": 4707593216,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [
+              2,
+              13
+            ],
+            [
+              2,
+              13
+            ],
+            [
+              2,
+              13
+            ],
+            [
+              2,
+              13
+            ]
+          ]
+        },
+        "8": {
+          "measurements": 4,
+          "wall_seconds": [
+            23.859010313999875,
+            23.966693419999956,
+            26.724775838999903,
+            25.184782530999883
+          ],
+          "median_wall_seconds": 24.57573797549992,
+          "peak_allocated_bytes": 5329110528,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [
+              2
+            ],
+            [
+              2
+            ],
+            [
+              2
+            ],
+            [
+              2
+            ]
+          ]
+        },
+        "16": {
+          "measurements": 4,
+          "wall_seconds": [
+            18.03381733399999,
+            18.005467859999953,
+            19.28514331000008,
+            19.571871359999932
+          ],
+          "median_wall_seconds": 18.659480322000036,
+          "peak_allocated_bytes": 6775993344,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [
+              13
+            ],
+            [
+              13
+            ],
+            [
+              13
+            ],
+            [
+              13
+            ]
+          ]
+        }
+      },
+      "cold_initial_serial_mismatch_indices": {
+        "first": [],
+        "_repeat": []
+      }
+    },
+    "grpo": {
+      "profile_statuses": {
+        "first": "completed",
+        "_repeat": "completed"
+      },
+      "unique_prompts": 14,
+      "observations": 16,
+      "batch_sizes": {
+        "1": {
+          "measurements": 4,
+          "wall_seconds": [
+            106.26153015099999,
+            107.38766910799995,
+            125.17921842700002,
+            121.71118382599991
+          ],
+          "median_wall_seconds": 114.54942646699993,
+          "peak_allocated_bytes": 4184992256,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "2": {
+          "measurements": 4,
+          "wall_seconds": [
+            65.0146904259999,
+            65.29138212399994,
+            76.75182650900001,
+            71.49290510800006
+          ],
+          "median_wall_seconds": 68.392143616,
+          "peak_allocated_bytes": 4298545152,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [
+              2
+            ],
+            [
+              2
+            ],
+            [
+              2
+            ],
+            [
+              2
+            ]
+          ]
+        },
+        "4": {
+          "measurements": 4,
+          "wall_seconds": [
+            51.79888213200002,
+            38.518808547999924,
+            54.63383294799996,
+            44.29352247700001
+          ],
+          "median_wall_seconds": 48.046202304500014,
+          "peak_allocated_bytes": 4707593216,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [],
+            [],
+            [],
+            []
+          ]
+        },
+        "8": {
+          "measurements": 4,
+          "wall_seconds": [
+            24.57983268999999,
+            24.33566105800014,
+            27.734383278999985,
+            26.86944617800009
+          ],
+          "median_wall_seconds": 25.72463943400004,
+          "peak_allocated_bytes": 5329110528,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [
+              7
+            ],
+            [
+              7
+            ],
+            [
+              7
+            ],
+            [
+              7
+            ]
+          ]
+        },
+        "16": {
+          "measurements": 4,
+          "wall_seconds": [
+            18.661416488999976,
+            18.59666587600009,
+            21.569720542000027,
+            20.446251549999943
+          ],
+          "median_wall_seconds": 19.55383401949996,
+          "peak_allocated_bytes": 6775993344,
+          "peak_reserved_bytes": 8294236160,
+          "quote_mismatches_vs_same_session_initial_serial": [
+            [
+              7
+            ],
+            [
+              7
+            ],
+            [
+              7
+            ],
+            [
+              7
+            ]
+          ]
+        }
+      },
+      "cold_initial_serial_mismatch_indices": {
+        "first": [],
+        "_repeat": []
+      }
+    }
+  },
+  "interpretation": "Descriptive timings from two cold allocations, two randomized repeats each; fixed development states and adapters. Not training-seed replication, policy PnL or a benchmark confidence interval. Compiler and allocator history remain part of execution."
+}

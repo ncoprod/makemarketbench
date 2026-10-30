@@ -1671,3 +1671,24 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Ruff and CLI help pass; `.venv/bin/pytest -q` reports 112 passed in 6.05 seconds.
   Verification receipt: `results/verification_nim_resume.json`. No new policy or
   test score inspected.
+
+### Development profiles complete: speed and numerical agreement differ
+
+- Command: `.venv/bin/python runs/retain_inference_profiles.py`. Both private
+  kernels complete; pair runtimes are 879.2537151480001 and 974.645657264 seconds.
+  Full downloaded logs, per-case timings/VRAM/quotes and hashes are retained in
+  `results/training/kaggle_inference_profile_completion.json`.
+- Sixteen observations yield fourteen distinct prompts. Across two cold
+  allocations, serial baselines agree; four randomized measurements per batch
+  size show consistent within-stage quote changes, not evidence of training-seed
+  uncertainty. SFT batch4 changes two quotes each time; GRPO batch4 changes none.
+  SFT batch2 matches these serial quotes; GRPO batch2 changes one quote each time.
+- Median serial → batch4 times: SFT 112.09542951949999 → 46.16061960600001
+  seconds; GRPO 114.54942646699993 → 48.046202304500014 seconds. Treat these as
+  descriptive development timings with cache/compiler/allocator history, no
+  significance or general-policy equivalence claim.
+- Official quota after retrieval: 106349.971345 / 108000 GPU seconds used,
+  leaving 1650.028655 seconds. A subsequent settled quota read with both batch
+  kernels complete is retained before considering one bounded compiler ablation.
+  The newest-family live draft remains inaccessible; do not infer its end time
+  or final training state from this account-wide billing observation.

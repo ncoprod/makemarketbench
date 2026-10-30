@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-30T00:36:23.344065+00:00",
+  "recorded_at": "2026-10-30T00:59:11.311407+00:00",
   "provenance": {
     "command": [
       "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
@@ -7,7 +7,7 @@
     ],
     "seed": null,
     "model_revision": null,
-    "git_commit": "c1ea340695c0e55b2bf64e97408d558e4caae747",
+    "git_commit": "79730ed7b21d7c97905c3c026fc51d60b12056e2",
     "source_sha256": "7047ac1e8b7c5d48e899f428a4a551c4e0f858cea461960f1e29cc3849684946"
   },
   "reset_at": "2026-10-31T00:00:00Z",
@@ -722,6 +722,46 @@
         "gpu_seconds_reserved": 0.0,
         "gpu_seconds_total": 108000.0
       }
+    },
+    {
+      "recorded_at": "2026-10-30T00:57:04.393654+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "provenance": {
+        "command": [
+          "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+          "scripts/kaggle_quota.py"
+        ],
+        "seed": null,
+        "model_revision": null,
+        "git_commit": "79730ed7b21d7c97905c3c026fc51d60b12056e2",
+        "source_sha256": "7047ac1e8b7c5d48e899f428a4a551c4e0f858cea461960f1e29cc3849684946"
+      },
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00",
+        "gpu_seconds_used": 106349.971345,
+        "gpu_seconds_reserved": 0.0,
+        "gpu_seconds_total": 108000.0
+      }
+    },
+    {
+      "recorded_at": "2026-10-30T00:59:11.311407+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "provenance": {
+        "command": [
+          "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+          "scripts/kaggle_quota.py"
+        ],
+        "seed": null,
+        "model_revision": null,
+        "git_commit": "79730ed7b21d7c97905c3c026fc51d60b12056e2",
+        "source_sha256": "7047ac1e8b7c5d48e899f428a4a551c4e0f858cea461960f1e29cc3849684946"
+      },
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00",
+        "gpu_seconds_used": 106349.971345,
+        "gpu_seconds_reserved": 0.0,
+        "gpu_seconds_total": 108000.0
+      }
     }
   ],
   "sessions": [
@@ -999,15 +1039,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 0.2442371430966667,
       "submitted_at": "2026-10-30T00:36:12.432135+00:00",
       "purpose": "Fixed development-state inference latency/VRAM and exact quote agreement across batch sizes 1,2,4,8,16; no held-out PnL.",
       "private": true,
-      "status": "submitted_private_verified",
+      "status": "completed_outputs_retrieved",
       "source_commit": "c1ea340695c0e55b2bf64e97408d558e4caae747",
       "receipt": "results/training/kaggle_inference_profile.json",
       "wall_cap_seconds": 1050,
-      "session_timeout_seconds": 1100
+      "session_timeout_seconds": 1100,
+      "script_wall_seconds": 879.2537151480001,
+      "hours_basis": "Downloaded script runtime; allocation startup/finalization billing boundaries unavailable.",
+      "observed_complete_at": "2026-10-30T00:56:34.119184+00:00",
+      "result_file": "results/kaggle/inference-profile-v1/pair_runtime.json"
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-inference-profile-repeat",
@@ -1015,15 +1059,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 0.27073490479555556,
       "submitted_at": "2026-10-30T00:36:23.681413+00:00",
       "purpose": "Fixed development-state inference latency/VRAM and exact quote agreement across batch sizes 1,2,4,8,16; no held-out PnL.",
       "private": true,
-      "status": "submitted_private_verified",
+      "status": "completed_outputs_retrieved",
       "source_commit": "c1ea340695c0e55b2bf64e97408d558e4caae747",
       "receipt": "results/training/kaggle_inference_profile_repeat.json",
       "wall_cap_seconds": 1050,
-      "session_timeout_seconds": 1100
+      "session_timeout_seconds": 1100,
+      "script_wall_seconds": 974.645657264,
+      "hours_basis": "Downloaded script runtime; allocation startup/finalization billing boundaries unavailable.",
+      "observed_complete_at": "2026-10-30T00:56:45.394087+00:00",
+      "result_file": "results/kaggle/inference-profile-repeat-v1/pair_runtime.json"
     }
   ],
   "accounting_notes": [

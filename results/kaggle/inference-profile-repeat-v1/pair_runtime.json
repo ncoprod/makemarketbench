@@ -1,0 +1,16 @@
+{
+  "wall_seconds": 974.645657264,
+  "budget_seconds": 1050,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "source_commit": "c1ea340695c0e55b2bf64e97408d558e4caae747",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "purpose": "Development-state batch latency, VRAM and numerical quote agreement; no held-out policy episodes.",
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ]
+}

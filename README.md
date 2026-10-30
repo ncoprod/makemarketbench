@@ -140,6 +140,11 @@ while the other fails on one quote before testing
 ([downloaded outcomes](results/training/kaggle_staged_sft_complete_completion.json),
 [router provenance](results/final/staged-routed/cohorts.json)). A passing small
 training-state check is not proof of numerical equivalence on every state.
+Two fresh development profiles agree across allocations, but SFT batch4 changes
+two of sixteen quotes in each repeat; GRPO batch4 changes none. Median profile
+latency falls from 112.10 to 46.16 seconds for SFT and 114.55 to 48.05 seconds
+for GRPO. These are descriptive fixed-state timings, including prompt caching,
+not held-out scores ([all observations and resource measurements](results/training/kaggle_inference_profile_completion.json)).
 
 A separate original CUDA pipeline also completes training and both 200-episode
 SFT tests. Its frozen GRPO continuation now completes both 200-episode games,
