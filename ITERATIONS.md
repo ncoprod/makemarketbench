@@ -2399,3 +2399,21 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   (Ruff, native extension, Python suite, release native, ASan/UBSan, kernel
   reward/export dry run) is required by `.githooks/pre-push`. LeakSanitizer is
   disabled locally on macOS; hosted Linux coverage remains unavailable.
+
+### Preserve early stopping and reject torn checkpoint saves
+
+- The required pre-push fallback passes all 131 Python tests, Ruff, native
+  release, ASan/UBSan and kernel dry run on `f374a5f`. Receipt:
+  `results/ci_local_round3.json`; hosted Actions minutes remain exhausted.
+- Restore the SFT early-stopping callback state on resume; Transformers
+  v5.16.1 otherwise defaults to discarding it. Primary source:
+  https://github.com/huggingface/transformers/blob/v5.16.1/src/transformers/training_args.py.
+  Pin the 27B Python/CUDA stack to the versions in the successful downloaded
+  fit/step-500 receipts, rather than silently upgrading between batch sessions.
+- Require checkpoint file hashes from the post-save manifest. A present but
+  truncated optimizer is rejected, and a partial final manifest line is ignored.
+  CPU regression tests exercise both cases and final-step adapter recovery.
+- Newest-family evaluation uses serial decoding to avoid the measured
+  batch-composition sensitivity. The test builder requires an explicit
+  validation-selected SFT/GRPO adapter; default evaluation remains validation.
+  Sources: `train/build_kaggle_kernel.py`, `train/qwen38_continue.py`.

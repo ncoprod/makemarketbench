@@ -568,6 +568,15 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     for name in ['adapter_model.safetensors', 'adapter_config.json', 'trainer_state.json', 'optimizer.pt',
                  'scheduler.pt', 'rng_state.pth']:
         (complete / name).touch()
+    manifest = tmp_path / 'checkpoints.jsonl'
+
+    def saved_checkpoint(path, phase, step):
+        entry = {'phase': phase, 'step': step,
+                 'sha256': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in path.iterdir()}}
+        with manifest.open('a') as log:
+            log.write(json.dumps(entry) + '\n')
+
+    saved_checkpoint(complete, 'sft', 750)
     partial = tmp_path / 'sft/checkpoint-800'
     partial.mkdir()
     (partial / 'adapter_model.safetensors').touch()
@@ -583,6 +592,7 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
         for item in complete.iterdir():
             (grpo / item.name).touch()
         (grpo / 'trainer_state.json').write_text(json.dumps({'global_step': grpo_step}))
+        saved_checkpoint(grpo, 'grpo', grpo_step)
     calls = []
 
     def run(command, **kwargs):
@@ -607,3 +617,8 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     record = json.loads((tmp_path / 'continuation.json').read_text())
     assert record['status'] == 'completed'
     assert record['grpo_total_ceiling'] == 96
+    # File presence alone must not accept an interrupted/corrupt optimizer save.
+    (complete / 'optimizer.pt').write_text('truncated optimizer')
+    with manifest.open('a') as log:
+        log.write('{"phase":')
+    assert module.latest_checkpoint(tmp_path / 'sft') is None

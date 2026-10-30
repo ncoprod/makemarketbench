@@ -44,7 +44,11 @@ def main() -> None:
     ap.add_argument("--evaluation-split", choices=["validation", "test"], default="validation")
     ap.add_argument("--evaluation-budget-seconds", type=int, default=10800)
     ap.add_argument("--out", type=Path, help="output directory; useful for local CI without modifying tracked kernels")
+    ap.add_argument("--checkpoint-kernel", default="nicolascoquelet/makemarketbench-qwen3-8-27b-training")
+    ap.add_argument("--evaluate-adapter", choices=["sft", "grpo"], help="required for the selected newest-family test")
     args = ap.parse_args()
+    if args.qwen38_evaluate and args.evaluation_split == "test" and not args.evaluate_adapter:
+        ap.error("Freeze the validation winner first, then specify --evaluate-adapter for its test")
     assert 0 < args.evaluation_budget_seconds <= 43200
     out = (ROOT / "runs" / "kaggle_qwen38_continue" if args.qwen38_continue else
            ROOT / "runs" / "kaggle_qwen38_train" if args.qwen38_train else
@@ -83,6 +87,10 @@ def main() -> None:
         newest = args.qwen38_evaluate
         family = "qwen3.8-27b" if newest else "qwen3.5-4b-staged"
         seed, episodes = (200, 200) if args.evaluation_split == "test" else (80000, 100)
+        batch_size = 1 if newest else 4
+        adapters = [("warmstart_adapter", f"{family}-sft"), ("lora_adapter", f"{family}-grpo")]
+        if newest and args.evaluate_adapter:
+            adapters = [adapters[0 if args.evaluate_adapter == "sft" else 1]]
         model_flags = (["--model", "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
                         "--base-model", "Qwen/Qwen3.8-27B", "--revision",
                         "8aa5f05d26b7205477066e1449e0af13f762a299",
@@ -92,15 +100,11 @@ def main() -> None:
 from pathlib import Path
 
 started = time.monotonic()
-subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
 core = Path("/kaggle/working/evaluate_core.py")
 core.write_text({src!r})
 workers = []
 deadline = started + {args.evaluation_budget_seconds}
-for gpu, (directory, label) in enumerate([
-    ("warmstart_adapter", "{family}-sft"),
-    ("lora_adapter", "{family}-grpo"),
-]):
+for gpu, (directory, label) in enumerate({adapters!r}):
     adapters = list(Path("/kaggle/input").rglob(directory + "/adapter_config.json"))
     assert len(adapters) == 1, (directory, adapters)
     work = Path("/kaggle/working") / label
@@ -110,7 +114,7 @@ for gpu, (directory, label) in enumerate([
         env["CUDA_VISIBLE_DEVICES"] = str(gpu)
     command = [sys.executable, str(core), "--eval-only", "--adapter", str(adapters[0].parent),
                "--label", label, "--eval-seed", "{seed}", "--eval-episodes", "{episodes}",
-               "--eval-batch-size", "4", "--check-batching",
+               "--eval-batch-size", "{batch_size}", *{([] if newest else ['--check-batching'])!r},
                "--budget-seconds", str(max(1, int(deadline - time.monotonic()))),
                *{model_flags!r}]
     workers.append(subprocess.Popen(command, env=env, cwd=work))
@@ -133,7 +137,7 @@ finally:
         "exit_codes": [worker.returncode for worker in workers],
         "command": [sys.executable, *sys.argv], "source_commit": {commit!r},
         "seed": 0, "model_revision": {revision!r}, "evaluation_seed": {seed},
-        "episodes_per_game": {episodes}, "batch_size": 4,
+        "episodes_per_game": {episodes}, "batch_size": {batch_size},
     }}, indent=2) + "\\n")
 if any(codes):
     raise RuntimeError(f"Evaluation worker exit codes: {{codes}}")
@@ -198,12 +202,12 @@ with Path("/kaggle/working/train.log").open("w") as log:
     elif args.qwen38_continue:
         meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-continue",
                     title="MakeMarketBench Qwen3.8 27B continuation",
-                    kernel_sources=["nicolascoquelet/makemarketbench-qwen3-8-27b-training"])
+                    kernel_sources=[args.checkpoint_kernel])
     elif args.qwen38_evaluate:
         suffix = "final" if args.evaluation_split == "test" else "validate"
         meta.update(id=f"nicolascoquelet/makemarketbench-qwen3-8-27b-{suffix}",
                     title=f"MakeMarketBench Qwen3.8 27B {suffix}",
-                    kernel_sources=["nicolascoquelet/makemarketbench-qwen3-8-27b-training"])
+                    kernel_sources=[args.checkpoint_kernel])
     elif args.qwen38_train:
         meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-training",
                     title="MakeMarketBench Qwen3.8 27B training")

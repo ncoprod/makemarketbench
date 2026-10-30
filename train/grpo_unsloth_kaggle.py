@@ -276,7 +276,8 @@ def train(args, report_runtime) -> None:
             callbacks.append(EarlyStoppingCallback(early_stopping_patience=2))
         evaluation = (dict(eval_strategy="steps", eval_steps=min(50, args.save_steps),
                            load_best_model_at_end=True, metric_for_best_model="eval_loss",
-                           greater_is_better=False, per_device_eval_batch_size=1)
+                           greater_is_better=False, per_device_eval_batch_size=1,
+                           restore_callback_states_from_checkpoint=True)
                       if validation else {})
         sft = _trainer(SFTTrainer, tokenizer, model=model, train_dataset=Dataset.from_list(sft_rows),
                        callbacks=callbacks, **validation,
@@ -558,7 +559,14 @@ def main() -> None:
 
     report_runtime()
     try:
-        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "unsloth"], check=True)
+        packages = ["unsloth"]
+        if args.model == "unsloth/Qwen3.8-27B-unsloth-bnb-4bit":
+            # Reuse the stack that actually completed updates on two T4s.
+            packages = ["unsloth==2026.10.10", "unsloth_zoo==2026.10.10", "trl==1.15.0",
+                        "transformers==5.16.1", "peft==0.20.0", "bitsandbytes==0.50.2",
+                        "datasets==4.8.5", "accelerate==1.14.0", "triton==3.6.0",
+                        "torch==2.11.0+cu128", "--extra-index-url", "https://download.pytorch.org/whl/cu128"]
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", *packages], check=True)
         import torch
 
         if not torch.cuda.is_available():

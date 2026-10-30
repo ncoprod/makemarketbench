@@ -18,8 +18,20 @@ from pathlib import Path
 def latest_checkpoint(directory):
     required = ['adapter_model.safetensors', 'adapter_config.json', 'trainer_state.json', 'optimizer.pt',
                 'scheduler.pt', 'rng_state.pth']
-    complete = [p for p in directory.glob('checkpoint-*')
-                if all((p / name).is_file() for name in required)]
+    manifest = directory.parent / 'checkpoints.jsonl'
+    complete = []
+    for line in manifest.read_text().splitlines() if manifest.exists() else []:
+        try:
+            entry = json.loads(line)
+        except json.JSONDecodeError:
+            continue  # A killed save can leave its final manifest line incomplete.
+        if entry['phase'] != directory.name:
+            continue
+        path = directory / f"checkpoint-{entry['step']}"
+        if all((path / name).is_file() and
+               hashlib.sha256((path / name).read_bytes()).hexdigest() == entry['sha256'].get(name)
+               for name in required):
+            complete.append(path)
     return max(complete, key=lambda p: int(p.name.split('-')[-1]), default=None)
 
 

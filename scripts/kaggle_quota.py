@@ -43,7 +43,7 @@ def main():
     path = folder / "kaggle_budget.json"
     ledger = json.loads(path.read_text())
     ledger["quota_snapshots"].append(record)
-    ledger.update(recorded_at=started, provenance=record["provenance"])
+    ledger.update(recorded_at=started, provenance=record["provenance"], reset_at=refresh.isoformat())
     path.write_text(json.dumps(ledger, indent=2) + "\n")
     print(json.dumps(record["quota"]))
 
