@@ -2060,3 +2060,16 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/qwen35_dagger_completion.json` and linked training/guard
   results. The original follow-up launcher proceeds to its registered policy
   validation, then RLOO and the amended final-selection sequence.
+
+### Local native safety verification while hosted runners are unavailable
+
+- Command: `.venv/bin/python runs/verify_ci_local.py`. Repository-wide Ruff,
+  native Release rebuild/tests, ASan/UBSan rebuild/tests and C++ extension
+  availability all pass. Actual outputs, elapsed times, source hashes and
+  environment: `results/verification_ci_local_fallback.json`.
+- This is macOS verification with local LeakSanitizer disabled, not a green
+  hosted Ubuntu/Python-version matrix. The complete local Python suite remains
+  the 114-pass run in `results/verification_validation_amendment.json`.
+  Hosted CI still refuses jobs for account billing; the owner request is pending.
+- The 07:18 UTC browser inventory check still has the same transport errors;
+  retain it in `results/training/kaggle_ui_outage.json`. No new GPU submission.

@@ -120,9 +120,11 @@ Bayes on dice and **8.9% [−35.1, 42.7]** on cards
 ([complete cohorts and scores](results/validation/qwen35-sft/cohorts.json),
 [numerical-rationale diagnosis](results/validation/qwen35-sft/dice_rationale_diagnosis.json)).
 Teacher loss does not establish policy quality. Local heavy work holds the
-shared ML lock. The final local selection also checks the fixed last DAgger
-checkpoint alongside its teacher-loss-selected checkpoint, before opening the
-test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
+shared ML lock. The larger DAgger continuation stops after **599 microbatches /
+299 updates** without improving validation loss; its selected adapter is
+byte-identical to SFT ([complete training outcome](results/training/qwen35_dagger_completion.json)).
+The final local selection also checks the distinct last saved DAgger checkpoint
+before opening the test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
