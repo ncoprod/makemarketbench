@@ -1,0 +1,64 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_sft_serial_partial.py",
+    "config": {
+      "purpose": "retain all serial SFT episodes and exact wall-cap failure without scoring"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "c848918208f24a49085c68b81f7f60ab0365884d",
+    "uncommitted_diff_sha256": "17bcdb7d4b26e81797f658a67fecf40a6e86c01942b8a174ba822fbc6b6ce7b3",
+    "started_at": "2026-10-30T00:00:35.440659+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "download_receipt": "results/training/kaggle_staged_sft_serial.json",
+  "kernel": "nicolascoquelet/makemarketbench-staged-sft-dice-serial",
+  "version": 2,
+  "status": "partial_at_wall_cap",
+  "saved_episodes": 187,
+  "required_episodes": 200,
+  "cohorts": {
+    "results/kaggle/staged-sft-serial-v2/shard-200/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": {
+      "episodes": 92,
+      "missing_seeds": [
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299
+      ],
+      "sha256": "3593e16293944c1d529991345d58918386d5ef48e11734528f6a0a95372740dc"
+    },
+    "results/kaggle/staged-sft-serial-v2/shard-300/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": {
+      "episodes": 95,
+      "missing_seeds": [
+        395,
+        396,
+        397,
+        398,
+        399
+      ],
+      "sha256": "096b5571aa60ffe4c109ea4dc03a489bc68a71861e134c57888f58ee2d35ef7b"
+    }
+  },
+  "files_sha256": {
+    "results/kaggle/staged-sft-serial-v2/evaluate_core.py": "b9be41520ac35b2e8252c1d0881aa96bdd358880a4dc103eadd9b79d7a69fb0b",
+    "results/kaggle/staged-sft-serial-v2/makemarketbench-staged-sft-dice-serial.log": "1553562e05f7e8cc5df7c1f47865cdd400200adbcd75d4e6acc91d43b431c836",
+    "results/kaggle/staged-sft-serial-v2/pair_runtime.json": "065e35ff6777c845b12c860a2d6224a1ee5c16acee6e8e373fd8ee0d35838eb5",
+    "results/kaggle/staged-sft-serial-v2/shard-200/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": "3593e16293944c1d529991345d58918386d5ef48e11734528f6a0a95372740dc",
+    "results/kaggle/staged-sft-serial-v2/shard-200/runtime.json": "ca0bc19841cf5553f9e259c4d7059834954af0936b6829318eb096ec2c4687f2",
+    "results/kaggle/staged-sft-serial-v2/shard-300/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": "096b5571aa60ffe4c109ea4dc03a489bc68a71861e134c57888f58ee2d35ef7b",
+    "results/kaggle/staged-sft-serial-v2/shard-300/runtime.json": "d01df30c6b2fb6c44834c7fae6eaa42abaf006fd7f71064dba7a427980f26209"
+  },
+  "calculation_source": "import json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nsource = Path('runs/kaggle_staged_sft_serial_output')\nout = Path('results/kaggle/staged-sft-serial-v2')\npull = Path('results/training/kaggle_staged_sft_serial.json')\ndownload = json.loads(pull.read_text())\nassert download['version'] == 2 and download['status'] == 'outputs_retrieved'\nshutil.copytree(source, out, dirs_exist_ok=True)\npair = json.loads((out / 'pair_runtime.json').read_text())\ncohorts = {}\nfor seed, count in [(200, 92), (300, 95)]:\n    raw = out / f'shard-{seed}/results/raw/dice/qwen3.5-4b-staged-sft.jsonl'\n    rows = [json.loads(line) for line in raw.read_text().splitlines()]\n    assert [r['seed'] for r in rows] == list(range(seed, seed + count))\n    assert all(len(r['rounds']) == 6 and r['provenance']['config']['adapter_sha256'] == pair['adapter_sha256'] for r in rows)\n    runtime = json.loads((out / f'shard-{seed}/runtime.json').read_text())\n    assert runtime['status'] == 'failed' and runtime['error'] == 'TimeoutError: Registered training wall budget exhausted'\n    cohorts[str(raw)] = {'episodes': len(rows), 'missing_seeds': list(range(seed + count, seed + 100)), 'sha256': file_sha256(raw)}\nr = {'provenance': receipt({'purpose': 'retain all serial SFT episodes and exact wall-cap failure without scoring'}, pair['model_revision']),\n     'download_receipt': str(pull), 'kernel': download['metadata']['id'], 'version': 2,\n     'status': 'partial_at_wall_cap', 'saved_episodes': 187, 'required_episodes': 200, 'cohorts': cohorts,\n     'files_sha256': {str(p): file_sha256(p) for p in sorted(out.rglob('*')) if p.is_file()},\n     'calculation_source': Path(__file__).read_text(),\n     'interpretation': 'Both serial workers reach the registered cap. Preserve all 187 episode bytes; evaluate only the missing 13 next. This is not a complete policy cohort or a quality nonimprovement.'}\nPath('results/training/kaggle_staged_sft_serial_completion.json').write_text(json.dumps(r,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');d=json.loads(p.read_text())\nfor session in d['sessions']:\n if session['kernel']==r['kernel'] and session['version']==2:\n  session.update(status='partial_at_wall_cap',script_wall_seconds=pair['wall_seconds'],hours=pair['wall_seconds']/3600,\n                 hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.',observed_complete_at=download['polls'][-1]['at'],result_file=str(out/'pair_runtime.json'))\np.write_text(json.dumps(d,indent=2)+'\\n')\nprint('Retained 187 complete episodes; 13 missing; scores sealed.')\n",
+  "interpretation": "Both serial workers reach the registered cap. Preserve all 187 episode bytes; evaluate only the missing 13 next. This is not a complete policy cohort or a quality nonimprovement."
+}

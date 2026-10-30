@@ -61,7 +61,74 @@
   "generated_source_compiles": true,
   "validation_timing_source": "results/kaggle/staged-validation-v1/makemarketbench-grpo-qwen3-validate-staged.log",
   "validation_first_100_dice_completed_at_log_seconds": 3257.641215616,
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-29T23:08:34.231295+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-dice-serial"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-dice-serial has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:18:45.151409+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-dice-serial"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-dice-serial has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:28:56.046151+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-dice-serial"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-dice-serial has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:39:06.906960+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-dice-serial"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-dice-serial has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:49:18.014923+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-dice-serial"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-dice-serial has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:59:28.897796+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-dice-serial"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-dice-serial has status \"KernelWorkerStatus.ERROR\""
+    }
+  ],
   "push": {
     "exit_code": 0,
     "output": "Kernel version 2 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-staged-sft-dice-serial\n"
@@ -79,6 +146,22 @@
     "exit_code": 0,
     "output": "Source code and metadata downloaded to runs/kaggle_staged_sft_serial_remote\n"
   },
-  "status": "submitted_private_verified",
-  "version": 2
+  "status": "outputs_retrieved",
+  "version": 2,
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-staged-sft-dice-serial",
+      "-p",
+      "runs/kaggle_staged_sft_serial_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to runs/kaggle_staged_sft_serial_output\n\nOutput file downloaded to runs/kaggle_staged_sft_serial_output/evaluate_core.py\nDownloading pair_runtime.json to runs/kaggle_staged_sft_serial_output\n\nOutput file downloaded to runs/kaggle_staged_sft_serial_output/pair_runtime.json\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_staged_sft_serial_output/shard-200/results/raw/dice\n\nOutput file downloaded to runs/kaggle_staged_sft_serial_output/shard-200/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\nDownloading runtime.json to runs/kaggle_staged_sft_serial_output/shard-200\n\nOutput file downloaded to runs/kaggle_staged_sft_serial_output/shard-200/runtime.json\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_staged_sft_serial_output/shard-300/results/raw/dice\n\nOutput file downloaded to runs/kaggle_staged_sft_serial_output/shard-300/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\nDownloading runtime.json to runs/kaggle_staged_sft_serial_output/shard-300\n\nOutput file downloaded to runs/kaggle_staged_sft_serial_output/shard-300/runtime.json\nKernel log downloaded to runs/kaggle_staged_sft_serial_output/makemarketbench-staged-sft-dice-serial.log \n\n  0%|          | 0.00/63.6k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.6k/63.6k [00:00<00:00, 668kB/s]\n\n  0%|          | 0.00/598 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 598/598 [00:00<00:00, 3.40MB/s]\n\n  0%|          | 0.00/431k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 431k/431k [00:00<00:00, 10.5MB/s]\n\n  0%|          | 0.00/2.72k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.72k/2.72k [00:00<00:00, 13.1MB/s]\n\n  0%|          | 0.00/445k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 445k/445k [00:00<00:00, 1.20MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 445k/445k [00:00<00:00, 1.20MB/s]\n\n  0%|          | 0.00/2.72k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.72k/2.72k [00:00<00:00, 15.4MB/s]"
+  }
 }

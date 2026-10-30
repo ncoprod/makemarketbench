@@ -1,0 +1,24 @@
+{
+  "wall_seconds": 3300.733895038,
+  "budget_seconds": 3300,
+  "exit_codes": [
+    -9,
+    -9
+  ],
+  "source_commit": "6e46e31654fb89ccc34af1b35b5d0b375beb97a5",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "evaluation_seeds": [
+    200,
+    399
+  ],
+  "game": "dice",
+  "episodes_per_shard": 100,
+  "batch_size": 1,
+  "adapter_sha256": "dff5ed68e4c07474ac8640b04f318632ed750781e4095a983f71d2cfb9bf4025",
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ],
+  "core_sha256": "b9be41520ac35b2e8252c1d0881aa96bdd358880a4dc103eadd9b79d7a69fb0b"
+}

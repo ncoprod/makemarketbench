@@ -1,0 +1,338 @@
+[{"stream_name":"stderr","time":24.902780359,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":24.902829314,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stderr","time":24.902835435,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":24.902839662,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stdout","time":90.206752432,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":90.206798003,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":90.206802659,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":90.206806437,"data":"   \\\\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":90.206810089,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":90.206813759,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":90.206817269,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":90.20682075,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":90.225379253,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":90.225405505,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":90.225410862,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":90.225415717,"data":"   \\\\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":90.225420571,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":90.225425646,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":90.225430274,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":90.225435577,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":91.651965197,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stdout","time":91.699535222,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stderr","time":91.981433788,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":91.981484079,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":91.995468506,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":91.995504533,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":92.428998489,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":92.444704299,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":152.275513831,"data":"\rLoading weights:   0%|          | 0/723 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 0/723 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/723 [00:00\u003c03:56,  3.05it/s]\rLoading weights:   0%|          | 1/723 [00:00\u003c04:02,  2.98it/s]\rLoading weights:   1%|          | 6/723 [00:00\u003c00:47, 15.11it/s]\rLoading weights:   1%|          | 6/723 [00:00\u003c00:46, 15.34it/s]\rLoading weights:   3%|▎         | 25/723 [00:00\u003c00:11, 62.38it/s]\rLoading weights:   3%|▎         | 25/723 [00:00\u003c00:11, 63.05it/s]\rLoading weights:   6%|▌         | 41/723 [00:00\u003c00:07, 88.13it/s]\rLoading weights:   6%|▌         | 41/723 [00:00\u003c00:07, 87.33it/s]\rLoading weights:   9%|▊         | 62/723 [00:00\u003c00:05, 121.53it/s]\rLoading weights:   9%|▊         | 62/723 [00:00\u003c00:05, 120.60it/s]\rLoading weights:  11%|█         | 80/723 [00:00\u003c00:04, 135.67it/s]\rLoading weights:  11%|█         | 80/723 [00:00\u003c00:04, 135.25it/s]\rLoading weights:  14%|█▎        | 98/723 [00:01\u003c00:04, 146.47it/s]\rLoading weights:  14%|█▎        | 98/723 [00:00\u003c00:04, 146.70it/s]\rLoading weights:  16%|█▋        | 119/723 [00:01\u003c00:03, 158.79it/s]\rLoading weights:  16%|█▋        | 119/723 [00:01\u003c00:03, 158.46it/s]\rLoading weights:  20%|█▉        | 142/723 [00:01\u003c00:03, 177.94it/s]\rLoading weights:  20%|█▉        | 142/723 [00:01\u003c00:03, 177.83it/s]\rLoading weights:  22%|██▏       | 161/723 [00:01\u003c00:03, 168.63it/s]\rLoading weights:  22%|██▏       | 161/723 [00:01\u003c00:03, 168.68it/s]\rLoading weights:  25%|██▌       | 184/723 [00:01\u003c00:02, 185.27it/s]\rLoading weights:  25%|██▌       | 184/723 [00:01\u003c00:02, 185.32it/s]\rLoading weights:  28%|██▊       | 204/723 [00:01\u003c00:03, 172.99it/s]\rLoading weights:  28%|██▊       | 204/723 [00:01\u003c00:03, 172.95it/s]\rLoading weights:  31%|███       | 225/723 [00:01\u003c00:02, 177.42it/s]\rLoading weights:  31%|███       | 225/723 [00:01\u003c00:02, 177.45it/s]\rLoading weights:  34%|███▍      | 248/723 [00:01\u003c00:02, 187.97it/s]\rLoading weights:  34%|███▍      | 248/723 [00:01\u003c00:02, 187.93it/s]\rLoading weights:  37%|███▋      | 268/723 [00:01\u003c00:02, 175.33it/s]\rLoading weights:  37%|███▋      | 268/723 [00:01\u003c00:02, 175.30it/s]\rLoading weights:  40%|████      | 290/723 [00:02\u003c00:02, 186.36it/s]\rLoading weights:  40%|████      | 290/723 [00:02\u003c00:02, 186.36it/s]\rLoading weights:  43%|████▎     | 310/723 [00:02\u003c00:02, 175.29it/s]\rLoading weights:  43%|████▎     | 310/723 [00:02\u003c00:02, 175.29it/s]\rLoading weights:  46%|████▌     | 331/723 [00:02\u003c00:02, 179.54it/s]\rLoading weights:  46%|████▌     | 331/723 [00:02\u003c00:02, 179.54it/s]\rLoading weights:  49%|████▉     | 354/723 [00:02\u003c00:01, 192.37it/s]\rLoading weights:  49%|████▉     | 354/723 [00:02\u003c00:01, 192.35it/s]\rLoading weights:  52%|█████▏    | 374/723 [00:02\u003c00:01, 181.95it/s]\rLoading weights:  52%|█████▏    | 374/723 [00:02\u003c00:01, 181.92it/s]\rLoading weights:  55%|█████▍    | 397/723 [00:02\u003c00:01, 187.92it/s]\rLoading weights:  55%|█████▍    | 397/723 [00:02\u003c00:01, 187.93it/s]\rLoading weights:  58%|█████▊    | 417/723 [00:02\u003c00:01, 177.18it/s]\rLoading weights:  58%|█████▊    | 417/723 [00:02\u003c00:01, 177.16it/s]\rLoading weights:  70%|██████▉   | 504/723 [00:02\u003c00:00, 359.05it/s]\rLoading weights:  70%|██████▉   | 504/723 [00:02\u003c00:00, 358.98it/s]\rLoading weights:  88%|████████▊ | 634/723 [00:02\u003c00:00, 615.61it/s]\rLoading weights:  88%|████████▊ | 634/723 [00:02\u003c00:00, 615.62it/s]\rLoading weights: 100%|██████████| 723/723 [00:03\u003c00:00, 239.26it/s]\rLoading weights: 100%|██████████| 723/723 [00:03\u003c00:00, 238.62it/s]\n"}
+,{"stream_name":"stderr","time":152.275654871,"data":"\n"}
+,{"stream_name":"stdout","time":158.527207378,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":158.530400972,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":471.260590417,"data":"[qwen3.5-4b-staged-sft] 5/100 episodes, 313s\n"}
+,{"stream_name":"stdout","time":474.323812456,"data":"[qwen3.5-4b-staged-sft] 5/100 episodes, 316s\n"}
+,{"stream_name":"stdout","time":644.208997603,"data":"[qwen3.5-4b-staged-sft] 10/100 episodes, 486s\n"}
+,{"stream_name":"stdout","time":651.972621069,"data":"[qwen3.5-4b-staged-sft] 10/100 episodes, 493s\n"}
+,{"stream_name":"stdout","time":832.792456942,"data":"[qwen3.5-4b-staged-sft] 15/100 episodes, 674s\n"}
+,{"stream_name":"stdout","time":838.163552216,"data":"[qwen3.5-4b-staged-sft] 15/100 episodes, 680s\n"}
+,{"stream_name":"stdout","time":974.138389469,"data":"[qwen3.5-4b-staged-sft] 20/100 episodes, 816s\n"}
+,{"stream_name":"stdout","time":1008.530475217,"data":"[qwen3.5-4b-staged-sft] 20/100 episodes, 850s\n"}
+,{"stream_name":"stdout","time":1138.554280183,"data":"[qwen3.5-4b-staged-sft] 25/100 episodes, 980s\n"}
+,{"stream_name":"stdout","time":1161.984097967,"data":"[qwen3.5-4b-staged-sft] 25/100 episodes, 1003s\n"}
+,{"stream_name":"stdout","time":1287.78302822,"data":"[qwen3.5-4b-staged-sft] 30/100 episodes, 1129s\n"}
+,{"stream_name":"stdout","time":1338.952542052,"data":"[qwen3.5-4b-staged-sft] 30/100 episodes, 1180s\n"}
+,{"stream_name":"stdout","time":1435.744343081,"data":"[qwen3.5-4b-staged-sft] 35/100 episodes, 1277s\n"}
+,{"stream_name":"stdout","time":1499.282500005,"data":"[qwen3.5-4b-staged-sft] 35/100 episodes, 1341s\n"}
+,{"stream_name":"stdout","time":1593.561008085,"data":"[qwen3.5-4b-staged-sft] 40/100 episodes, 1435s\n"}
+,{"stream_name":"stdout","time":1683.134275696,"data":"[qwen3.5-4b-staged-sft] 40/100 episodes, 1525s\n"}
+,{"stream_name":"stdout","time":1761.487777624,"data":"[qwen3.5-4b-staged-sft] 45/100 episodes, 1603s\n"}
+,{"stream_name":"stdout","time":1836.207043897,"data":"[qwen3.5-4b-staged-sft] 45/100 episodes, 1678s\n"}
+,{"stream_name":"stdout","time":1944.591857834,"data":"[qwen3.5-4b-staged-sft] 50/100 episodes, 1786s\n"}
+,{"stream_name":"stdout","time":2006.625609845,"data":"[qwen3.5-4b-staged-sft] 50/100 episodes, 1848s\n"}
+,{"stream_name":"stdout","time":2101.635511222,"data":"[qwen3.5-4b-staged-sft] 55/100 episodes, 1943s\n"}
+,{"stream_name":"stdout","time":2167.942198556,"data":"[qwen3.5-4b-staged-sft] 55/100 episodes, 2009s\n"}
+,{"stream_name":"stdout","time":2259.349065866,"data":"[qwen3.5-4b-staged-sft] 60/100 episodes, 2101s\n"}
+,{"stream_name":"stdout","time":2312.590780742,"data":"[qwen3.5-4b-staged-sft] 60/100 episodes, 2154s\n"}
+,{"stream_name":"stdout","time":2416.074693784,"data":"[qwen3.5-4b-staged-sft] 65/100 episodes, 2258s\n"}
+,{"stream_name":"stdout","time":2458.712585645,"data":"[qwen3.5-4b-staged-sft] 65/100 episodes, 2300s\n"}
+,{"stream_name":"stdout","time":2556.511854818,"data":"[qwen3.5-4b-staged-sft] 70/100 episodes, 2398s\n"}
+,{"stream_name":"stdout","time":2627.801187224,"data":"[qwen3.5-4b-staged-sft] 70/100 episodes, 2469s\n"}
+,{"stream_name":"stdout","time":2690.082358266,"data":"[qwen3.5-4b-staged-sft] 75/100 episodes, 2532s\n"}
+,{"stream_name":"stdout","time":2779.477922218,"data":"[qwen3.5-4b-staged-sft] 75/100 episodes, 2621s\n"}
+,{"stream_name":"stdout","time":2830.386559922,"data":"[qwen3.5-4b-staged-sft] 80/100 episodes, 2672s\n"}
+,{"stream_name":"stdout","time":2948.769440489,"data":"[qwen3.5-4b-staged-sft] 80/100 episodes, 2790s\n"}
+,{"stream_name":"stdout","time":2979.914673743,"data":"[qwen3.5-4b-staged-sft] 85/100 episodes, 2821s\n"}
+,{"stream_name":"stdout","time":3086.134596988,"data":"[qwen3.5-4b-staged-sft] 85/100 episodes, 2928s\n"}
+,{"stream_name":"stdout","time":3137.789729766,"data":"[qwen3.5-4b-staged-sft] 90/100 episodes, 2979s\n"}
+,{"stream_name":"stdout","time":3222.604177041,"data":"[qwen3.5-4b-staged-sft] 90/100 episodes, 3064s\n"}
+,{"stream_name":"stdout","time":3287.046521489,"data":"[qwen3.5-4b-staged-sft] 95/100 episodes, 3128s\n"}
+,{"stream_name":"stderr","time":3300.917628769,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":3300.917657591,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":3300.921753926,"data":"  File \"/kaggle/working/evaluate_core.py\", line 573, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3300.921775394,"data":"    main()\n"}
+,{"stream_name":"stderr","time":3300.921781928,"data":"    ~~~~^^\n"}
+,{"stream_name":"stderr","time":3300.921787411,"data":"  File \"/kaggle/working/evaluate_core.py\", line 562, in main\n"}
+,{"stream_name":"stderr","time":3300.921793096,"data":"    train(args, report_runtime)\n"}
+,{"stream_name":"stderr","time":3300.921798547,"data":"    ~~~~~^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.921831335,"data":"  File \"/kaggle/working/evaluate_core.py\", line 249, in train\n"}
+,{"stream_name":"stderr","time":3300.92183706,"data":"    evaluate(model, tokenizer, args)\n"}
+,{"stream_name":"stderr","time":3300.921842116,"data":"    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922063244,"data":"  File \"/kaggle/working/evaluate_core.py\", line 449, in evaluate\n"}
+,{"stream_name":"stderr","time":3300.922082483,"data":"    eps = run_player(make_game(g), lambda: player, seeds, out,\n"}
+,{"stream_name":"stderr","time":3300.922127872,"data":"                     workers=1, backend=\"py\", provenance=provenance)\n"}
+,{"stream_name":"stderr","time":3300.922133864,"data":"  File \"/kaggle/working/shard-200/mmb_src/makemarket/evaluate.py\", line 109, in run_player\n"}
+,{"stream_name":"stderr","time":3300.92213948,"data":"    work(s)\n"}
+,{"stream_name":"stderr","time":3300.922144424,"data":"    ~~~~^^^\n"}
+,{"stream_name":"stderr","time":3300.922149199,"data":"  File \"/kaggle/working/shard-200/mmb_src/makemarket/evaluate.py\", line 99, in work\n"}
+,{"stream_name":"stderr","time":3300.922154509,"data":"    res = episode_to_dict(play_episode(game, seed, make_player(), backend))\n"}
+,{"stream_name":"stderr","time":3300.92215998,"data":"                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922170063,"data":"  File \"/kaggle/working/shard-200/mmb_src/makemarket/market.py\", line 94, in play_episode\n"}
+,{"stream_name":"stderr","time":3300.922212394,"data":"    answer = player.quote(obs)\n"}
+,{"stream_name":"stderr","time":3300.922218315,"data":"  File \"/kaggle/working/evaluate_core.py\", line 342, in quote\n"}
+,{"stream_name":"stderr","time":3300.922222555,"data":"    return self.quote_many([obs])[0]\n"}
+,{"stream_name":"stderr","time":3300.922226479,"data":"           ~~~~~~~~~~~~~~~^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922318143,"data":"  File \"/kaggle/working/evaluate_core.py\", line 369, in quote_many\n"}
+,{"stream_name":"stderr","time":3300.922330856,"data":"    texts = self._gen_many([pending[key][\"messages\"] for key in keys])\n"}
+,{"stream_name":"stderr","time":3300.922336672,"data":"  File \"/kaggle/working/evaluate_core.py\", line 573, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3300.922341966,"data":"    main()\n"}
+,{"stream_name":"stderr","time":3300.922346375,"data":"    ~~~~^^\n"}
+,{"stream_name":"stderr","time":3300.92237486,"data":"  File \"/kaggle/working/evaluate_core.py\", line 346, in _gen_many\n"}
+,{"stream_name":"stderr","time":3300.922385946,"data":"    return [self._gen(messages[0])]\n"}
+,{"stream_name":"stderr","time":3300.922390289,"data":"            ~~~~~~~~~^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922424623,"data":"  File \"/kaggle/working/evaluate_core.py\", line 562, in main\n"}
+,{"stream_name":"stderr","time":3300.922434162,"data":"    train(args, report_runtime)\n"}
+,{"stream_name":"stderr","time":3300.922438838,"data":"    ~~~~~^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922445829,"data":"  File \"/kaggle/working/evaluate_core.py\", line 338, in _gen\n"}
+,{"stream_name":"stderr","time":3300.922450401,"data":"    out = self.model.generate(**ids, max_new_tokens=self.max_new, do_sample=False)\n"}
+,{"stream_name":"stderr","time":3300.922519635,"data":"  File \"/kaggle/working/evaluate_core.py\", line 249, in train\n"}
+,{"stream_name":"stderr","time":3300.922527976,"data":"    evaluate(model, tokenizer, args)\n"}
+,{"stream_name":"stderr","time":3300.922532533,"data":"    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922657976,"data":"  File \"/usr/local/lib/python3.13/dist-packages/peft/peft_model.py\", line 2223, in generate\n"}
+,{"stream_name":"stderr","time":3300.922666485,"data":"    outputs = self.base_model.generate(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.922670705,"data":"  File \"/kaggle/working/evaluate_core.py\", line 449, in evaluate\n"}
+,{"stream_name":"stderr","time":3300.922674944,"data":"    eps = run_player(make_game(g), lambda: player, seeds, out,\n"}
+,{"stream_name":"stderr","time":3300.922679393,"data":"                     workers=1, backend=\"py\", provenance=provenance)\n"}
+,{"stream_name":"stderr","time":3300.922684445,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 2155, in unsloth_base_fast_generate\n"}
+,{"stream_name":"stderr","time":3300.922688991,"data":"    output = self._old_generate(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.922693196,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n"}
+,{"stream_name":"stderr","time":3300.922697781,"data":"    return func(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.922701912,"data":"  File \"/kaggle/working/shard-300/mmb_src/makemarket/evaluate.py\", line 109, in run_player\n"}
+,{"stream_name":"stderr","time":3300.922706681,"data":"    work(s)\n"}
+,{"stream_name":"stderr","time":3300.922710659,"data":"    ~~~~^^^\n"}
+,{"stream_name":"stderr","time":3300.922762442,"data":"  File \"/kaggle/working/shard-300/mmb_src/makemarket/evaluate.py\", line 99, in work\n"}
+,{"stream_name":"stderr","time":3300.922768331,"data":"    res = episode_to_dict(play_episode(game, seed, make_player(), backend))\n"}
+,{"stream_name":"stderr","time":3300.922772546,"data":"                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922777976,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py\", line 2668, in generate\n"}
+,{"stream_name":"stderr","time":3300.922782766,"data":"    result = decoding_method(\n"}
+,{"stream_name":"stderr","time":3300.92278701,"data":"        self,\n"}
+,{"stream_name":"stderr","time":3300.922791599,"data":"    ...\u003c5 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.922795525,"data":"        **model_kwargs,\n"}
+,{"stream_name":"stderr","time":3300.922831222,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.922838884,"data":"  File \"/kaggle/working/shard-300/mmb_src/makemarket/market.py\", line 94, in play_episode\n"}
+,{"stream_name":"stderr","time":3300.922843416,"data":"    answer = player.quote(obs)\n"}
+,{"stream_name":"stderr","time":3300.922847582,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py\", line 2882, in _sample\n"}
+,{"stream_name":"stderr","time":3300.922851987,"data":"    outputs = model_forward(**model_inputs, return_dict=True)\n"}
+,{"stream_name":"stderr","time":3300.922861276,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.922877373,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.922881584,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.92293444,"data":"  File \"/kaggle/working/evaluate_core.py\", line 342, in quote\n"}
+,{"stream_name":"stderr","time":3300.922959192,"data":"    return self.quote_many([obs])[0]\n"}
+,{"stream_name":"stderr","time":3300.922963107,"data":"           ~~~~~~~~~~~~~~~^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.922966814,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.922970804,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":3300.923033142,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":3300.923040622,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.92304429,"data":"  File \"/kaggle/working/evaluate_core.py\", line 369, in quote_many\n"}
+,{"stream_name":"stderr","time":3300.923048123,"data":"    texts = self._gen_many([pending[key][\"messages\"] for key in keys])\n"}
+,{"stream_name":"stderr","time":3300.923107535,"data":"  File \"/kaggle/working/evaluate_core.py\", line 346, in _gen_many\n"}
+,{"stream_name":"stderr","time":3300.923113015,"data":"    return [self._gen(messages[0])]\n"}
+,{"stream_name":"stderr","time":3300.923116481,"data":"            ~~~~~~~~~^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.923120075,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 1518, in forward\n"}
+,{"stream_name":"stderr","time":3300.923124286,"data":"    return step(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923174591,"data":"  File \"/kaggle/working/evaluate_core.py\", line 338, in _gen\n"}
+,{"stream_name":"stderr","time":3300.923179917,"data":"    out = self.model.generate(**ids, max_new_tokens=self.max_new, do_sample=False)\n"}
+,{"stream_name":"stderr","time":3300.923191,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 1509, in _forward\n"}
+,{"stream_name":"stderr","time":3300.923195086,"data":"    return self.forward(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923198582,"data":"           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.923249579,"data":"  File \"/kaggle/working/shard-200/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 1425, in forward\n"}
+,{"stream_name":"stderr","time":3300.923259758,"data":"    return Qwen3_5ForConditionalGeneration_forward(self, input_ids=input_ids, attention_mask=attention_mask, position_ids=position_ids, past_key_values=past_key_values, inputs_embeds=inputs_embeds, labels=labels, pixel_values=pixel_values, pixel_values_videos=pixel_values_videos, image_grid_thw=image_grid_thw, video_grid_thw=video_grid_thw, mm_token_type_ids=mm_token_type_ids, logits_to_keep=logits_to_keep, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923265844,"data":"  File \"/usr/local/lib/python3.13/dist-packages/peft/peft_model.py\", line 2223, in generate\n"}
+,{"stream_name":"stderr","time":3300.923269602,"data":"    outputs = self.base_model.generate(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923281873,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/utils.py\", line 2282, in forward\n"}
+,{"stream_name":"stderr","time":3300.923286182,"data":"    return func(*args, **kwargs)  # nothing is tracing: skip the disable wrapper\n"}
+,{"stream_name":"stderr","time":3300.923302309,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 2155, in unsloth_base_fast_generate\n"}
+,{"stream_name":"stderr","time":3300.923307402,"data":"    output = self._old_generate(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.92331878,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n"}
+,{"stream_name":"stderr","time":3300.923322938,"data":"    return func(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923397636,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py\", line 2668, in generate\n"}
+,{"stream_name":"stderr","time":3300.923403886,"data":"    result = decoding_method(\n"}
+,{"stream_name":"stderr","time":3300.923407586,"data":"        self,\n"}
+,{"stream_name":"stderr","time":3300.923410962,"data":"    ...\u003c5 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.92341461,"data":"        **model_kwargs,\n"}
+,{"stream_name":"stderr","time":3300.923417982,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.923421306,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 939, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.923425505,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923437083,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py\", line 2882, in _sample\n"}
+,{"stream_name":"stderr","time":3300.923441365,"data":"    outputs = model_forward(**model_inputs, return_dict=True)\n"}
+,{"stream_name":"stderr","time":3300.923445153,"data":"  File \"/kaggle/working/shard-200/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 1189, in Qwen3_5ForConditionalGeneration_forward\n"}
+,{"stream_name":"stderr","time":3300.923449107,"data":"    outputs = self.model(\n"}
+,{"stream_name":"stderr","time":3300.923452423,"data":"        input_ids=input_ids,\n"}
+,{"stream_name":"stderr","time":3300.923456033,"data":"    ...\u003c9 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.923459949,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":3300.923473116,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.923507638,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.923513074,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923516744,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.923520249,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.923524136,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923527592,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.923562721,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.923571806,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":3300.923575517,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.923579497,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":3300.923625311,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":3300.923631459,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923635021,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":3300.923638879,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923642309,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 939, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.923646139,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923696788,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 1518, in forward\n"}
+,{"stream_name":"stderr","time":3300.92370365,"data":"    return step(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923707338,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 1562, in forward\n"}
+,{"stream_name":"stderr","time":3300.923711249,"data":"    outputs = self.language_model(\n"}
+,{"stream_name":"stderr","time":3300.923714923,"data":"        input_ids=None,\n"}
+,{"stream_name":"stderr","time":3300.923718376,"data":"    ...\u003c4 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.923722224,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":3300.923725682,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.923737146,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 1509, in _forward\n"}
+,{"stream_name":"stderr","time":3300.923741187,"data":"    return self.forward(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923744703,"data":"           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.923785809,"data":"  File \"/kaggle/working/shard-300/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 1425, in forward\n"}
+,{"stream_name":"stderr","time":3300.923821469,"data":"    return Qwen3_5ForConditionalGeneration_forward(self, input_ids=input_ids, attention_mask=attention_mask, position_ids=position_ids, past_key_values=past_key_values, inputs_embeds=inputs_embeds, labels=labels, pixel_values=pixel_values, pixel_values_videos=pixel_values_videos, image_grid_thw=image_grid_thw, video_grid_thw=video_grid_thw, mm_token_type_ids=mm_token_type_ids, logits_to_keep=logits_to_keep, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923837841,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.923841844,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.923845288,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.923848804,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/utils.py\", line 2282, in forward\n"}
+,{"stream_name":"stderr","time":3300.923876285,"data":"    return func(*args, **kwargs)  # nothing is tracing: skip the disable wrapper\n"}
+,{"stream_name":"stderr","time":3300.923922596,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.923964671,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":3300.923969944,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 939, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.923974051,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924009541,"data":"  File \"/kaggle/working/shard-300/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 1189, in Qwen3_5ForConditionalGeneration_forward\n"}
+,{"stream_name":"stderr","time":3300.924015428,"data":"    outputs = self.model(\n"}
+,{"stream_name":"stderr","time":3300.92401895,"data":"        input_ids=input_ids,\n"}
+,{"stream_name":"stderr","time":3300.924022279,"data":"    ...\u003c9 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.924025897,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":3300.924029368,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.924032727,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":3300.92403657,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924043554,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.924047666,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924051152,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.924101316,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 1068, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.924106965,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924110405,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.924113859,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":3300.924117284,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/output_capturing.py\", line 262, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.924121238,"data":"    outputs = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924144376,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":3300.924149057,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924161031,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 1203, in forward\n"}
+,{"stream_name":"stderr","time":3300.92417254,"data":"    position_embeddings = self.rotary_emb(hidden_states, position_ids)\n"}
+,{"stream_name":"stderr","time":3300.924204847,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 939, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.924209066,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.92422176,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 1562, in forward\n"}
+,{"stream_name":"stderr","time":3300.92425337,"data":"    outputs = self.language_model(\n"}
+,{"stream_name":"stderr","time":3300.924257979,"data":"        input_ids=None,\n"}
+,{"stream_name":"stderr","time":3300.924261702,"data":"    ...\u003c4 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.924265352,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":3300.924268835,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.924272148,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.924275966,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924279575,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.924292939,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.924297184,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924300809,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.924304279,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.924308973,"data":"    return forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924374857,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.924380709,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":3300.924385359,"data":"  File \"/kaggle/working/shard-200/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 320, in forward\n"}
+,{"stream_name":"stderr","time":3300.924389721,"data":"    return Qwen3_5TextRotaryEmbedding_forward(self, x=x, position_ids=position_ids)\n"}
+,{"stream_name":"stderr","time":3300.924393475,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":3300.924397134,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924419412,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/utils.py\", line 2236, in dispatch\n"}
+,{"stream_name":"stderr","time":3300.924423981,"data":"    return func(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924427557,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 1068, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.924431231,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924443101,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/output_capturing.py\", line 262, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.924447557,"data":"    outputs = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924450984,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n"}
+,{"stream_name":"stderr","time":3300.924487167,"data":"    return func(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924501692,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/modeling_rope_utils.py\", line 128, in wrapper\n"}
+,{"stream_name":"stderr","time":3300.924506205,"data":"    return rope_forward(self, x, position_ids, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924509786,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 1206, in forward\n"}
+,{"stream_name":"stderr","time":3300.9245336,"data":"    hidden_states = decoder_layer(\n"}
+,{"stream_name":"stderr","time":3300.924537392,"data":"        hidden_states,\n"}
+,{"stream_name":"stderr","time":3300.924540729,"data":"    ...\u003c5 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.924544615,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":3300.924548221,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.924559335,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/misc.py\", line 2660, in __call__\n"}
+,{"stream_name":"stderr","time":3300.924589997,"data":"    return original(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924595185,"data":"  File \"/kaggle/working/shard-200/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 268, in Qwen3_5TextRotaryEmbedding_forward\n"}
+,{"stream_name":"stderr","time":3300.924599267,"data":"    freqs = self.apply_interleaved_mrope(freqs, self.mrope_section)\n"}
+,{"stream_name":"stderr","time":3300.92461796,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/modeling_layers.py\", line 114, in __call__\n"}
+,{"stream_name":"stderr","time":3300.924645077,"data":"    return super().__call__(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.92464869,"data":"           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.924652296,"data":"  File \"/kaggle/working/shard-200/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 336, in apply_interleaved_mrope\n"}
+,{"stream_name":"stderr","time":3300.924656481,"data":"    freqs_t[..., idx] = freqs[dim, ..., idx]\n"}
+,{"stream_name":"stderr","time":3300.924659971,"data":"    ~~~~~~~^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.92469093,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.92469629,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.92469979,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.924703357,"data":"  File \"/kaggle/working/evaluate_core.py\", line 525, in expire\n"}
+,{"stream_name":"stderr","time":3300.924707236,"data":"    raise TimeoutError(\"Registered training wall budget exhausted\")\n"}
+,{"stream_name":"stderr","time":3300.924737525,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.924742627,"data":"    return forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924746204,"data":"TimeoutError: Registered training wall budget exhausted\n"}
+,{"stream_name":"stderr","time":3300.924789698,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 771, in forward\n"}
+,{"stream_name":"stderr","time":3300.92479518,"data":"    hidden_states = self.linear_attn(\n"}
+,{"stream_name":"stderr","time":3300.924798692,"data":"        hidden_states=hidden_states,\n"}
+,{"stream_name":"stderr","time":3300.924808278,"data":"    ...\u003c2 lines\u003e...\n"}
+,{"stream_name":"stderr","time":3300.924811711,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":3300.924814988,"data":"    )\n"}
+,{"stream_name":"stderr","time":3300.924850535,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":3300.924855552,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924859206,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3300.924863003,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n"}
+,{"stream_name":"stderr","time":3300.924866433,"data":"    return forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924914418,"data":"  File \"/kaggle/working/shard-300/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 732, in forward\n"}
+,{"stream_name":"stderr","time":3300.924924129,"data":"    return Qwen3_5GatedDeltaNet_forward(self, hidden_states=hidden_states, cache_params=cache_params, attention_mask=attention_mask, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.924998407,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/utils.py\", line 2282, in forward\n"}
+,{"stream_name":"stderr","time":3300.925005712,"data":"    return func(*args, **kwargs)  # nothing is tracing: skip the disable wrapper\n"}
+,{"stream_name":"stderr","time":3300.92504861,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/integrations/accelerate.py\", line 1010, in wrapped\n"}
+,{"stream_name":"stderr","time":3300.925092333,"data":"    output = forward_func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":3300.925097216,"data":"  File \"/kaggle/working/shard-300/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 633, in Qwen3_5GatedDeltaNet_forward\n"}
+,{"stream_name":"stderr","time":3300.925101178,"data":"    g = -self.A_log.float().exp() * F.softplus(a.float() + self.dt_bias)\n"}
+,{"stream_name":"stderr","time":3300.925104306,"data":"                                               ~~~~~~~^^\n"}
+,{"stream_name":"stderr","time":3300.925146192,"data":"  File \"/kaggle/working/evaluate_core.py\", line 525, in expire\n"}
+,{"stream_name":"stderr","time":3300.925152365,"data":"    raise TimeoutError(\"Registered training wall budget exhausted\")\n"}
+,{"stream_name":"stderr","time":3300.925244388,"data":"TimeoutError: Registered training wall budget exhausted\n"}
+,{"stream_name":"stderr","time":3301.777409663,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":3301.778878857,"data":"  File \"/kaggle/src/script.py\", line 25, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3301.778917055,"data":"    codes = [p.wait(timeout=max(1, deadline - time.monotonic())) for p in workers]\n"}
+,{"stream_name":"stderr","time":3301.77892582,"data":"             ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3301.7789307,"data":"  File \"/usr/lib/python3.13/subprocess.py\", line 1280, in wait\n"}
+,{"stream_name":"stderr","time":3301.778935517,"data":"    return self._wait(timeout=timeout)\n"}
+,{"stream_name":"stderr","time":3301.778939914,"data":"           ~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3301.77894369,"data":"  File \"/usr/lib/python3.13/subprocess.py\", line 2077, in _wait\n"}
+,{"stream_name":"stderr","time":3301.778947627,"data":"    raise TimeoutExpired(self.args, timeout)\n"}
+,{"stream_name":"stderr","time":3301.778952542,"data":"subprocess.TimeoutExpired: Command '['/usr/bin/python3', '/kaggle/working/evaluate_core.py', '--eval-only', '--adapter', '/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter', '--label', 'qwen3.5-4b-staged-sft', '--games', 'dice', '--eval-seed', '200', '--eval-episodes', '100', '--eval-batch-size', '1', '--budget-seconds', '3276']' timed out after 3276.226883497 seconds\n"}
+,{"stream_name":"stderr","time":3304.149837881,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3304.149875291,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3304.434807052,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3304.434833433,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3305.342411785,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3305.867042901,"data":"[NbConvertApp] Writing 375083 bytes to __results__.html\n"}
+]

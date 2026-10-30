@@ -1500,3 +1500,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   files for a single-file input. Allow explicit files as well as directories;
   the real 200-episode cohort and Ruff now pass. Preserve this failed command
   as a utility-interface failure, not a policy-quality iteration.
+
+### Serial SFT dice reaches its wall cap with 187 saved episodes
+
+- The 3300-second script budget stops both serial workers: 92 episodes on
+  seeds 200–291 and 95 on seeds 300–394. Retain every byte, both exact
+  `TimeoutError: Registered training wall budget exhausted` errors, and the
+  3300.733895038-second pair runtime. Peak allocated memory is 4,219,314,688
+  bytes per worker, as recorded in the downloaded runtime files.
+- The runtime estimate from validation was too tight for these test states;
+  no score was inspected. This is an incomplete infrastructure outcome,
+  not a substantive validation nonimprovement.
+- Command: `.venv/bin/python runs/retain_sft_serial_partial.py`. Exact source
+  and downloaded-file hashes are retained in
+  `results/training/kaggle_staged_sft_serial_completion.json`.
+- Next priority: preserve and reuse these 187 episodes and evaluate only the
+  missing 13. The planned SFT cards ablation is secondary to completing the
+  already-registered dice/router cohort within the remaining GPU allowance.
