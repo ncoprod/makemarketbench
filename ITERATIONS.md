@@ -2417,3 +2417,20 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   batch-composition sensitivity. The test builder requires an explicit
   validation-selected SFT/GRPO adapter; default evaluation remains validation.
   Sources: `train/build_kaggle_kernel.py`, `train/qwen38_continue.py`.
+
+### T24 — registered saved-batch Qwen3.8-27B rerun (waiting for reset)
+
+- Source-only Kaggle version 4 is saved with `--no-run`; pullback verifies
+  exact source hash, private script type, internet and GPU settings. No new
+  GPU allocation is requested. Receipt: `qwen38_round3_source_save.json`.
+- Exact command, pinned model/revision, seed, 800/96 recipe, checkpoint
+  persistence and admission bounds: `qwen38_round3_batch_plan.json`. Start
+  after 2026-10-31T00:00Z only once official quota confirms the new allowance.
+- Measure both SFT and GRPO on all 100 validation episodes/game, serially.
+  Freeze the same max-min validation winner (SFT wins ties), then run its one
+  200/game test. Both local and newest-family selection must precede opening
+  any new aggregate test score. Nine final candidate slots remain counted.
+- The prior week's 29.9773192625-hour account closure remains historical.
+  `kaggle_budget.json` separately records the owner's new-window authorization;
+  source-save time is not invented GPU runtime. No existing paper/main.tex or
+  paper/main.pdf is present, so there is no paper artifact to regenerate.

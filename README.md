@@ -1,5 +1,10 @@
 # MakeMarketBench
 
+**TL;DR:** A fast matching engine and a hard, synthetic market-making benchmark.
+The newest model, Qwen3.8-27B, is prepared as a private saved batch for the
+next GPU allocation; its lost draft supplies no verified final policy result
+([registered rerun](results/training/qwen38_round3_batch_plan.json)).
+
 **Can language models quote profitable markets against an informed trader?**
 The C++20 engine now processes **24.61M events/s**, up from **20.21M** on the
 same seeded benchmark ([before](results/engine_bench.json),
@@ -281,7 +286,7 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **130 Python tests**
+Current local verification passes **131 Python tests**
 ([resume fault-injection and full-suite receipt](results/verification_rloo_checkpoint_storage.json)),
 plus native Release and ASan/UBSan checks
 ([local verification](results/verification_ci_local_fallback.json)). Hosted

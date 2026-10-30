@@ -124,6 +124,33 @@
       "at": "2026-10-30T09:40:26.490310+00:00",
       "reason": "RLOO24 improves dice validation but remains below target. Before any local selection/test, register fixed 96/192-group continuations with unchanged seed/reward/decoder/lr and widen validation contrasts to fourteen. Preserve earlier six-contrast results. One selected local test candidate remains; nine final candidates total.",
       "source": "results/training/qwen35_rloo_extensions_plan.json; ITERATIONS.md"
+    },
+    {
+      "at": "2026-10-30T13:30:18.935671+00:00",
+      "reason": "Owner-authorized round-3 saved-batch 27B rerun, replacing the lost interactive draft; no new held-out aggregate inspected.",
+      "newest_family_selection": {
+        "validation_seeds": [
+          80000,
+          80099
+        ],
+        "validation_episodes_per_game": 100,
+        "candidates": [
+          "minimum-teacher-validation-loss SFT adapter",
+          "final registered GRPO96 adapter"
+        ],
+        "rule": "max min(dice percent of Bayes - 80, cards percent of Bayes); SFT wins ties",
+        "test_seeds": [
+          200,
+          399
+        ],
+        "test_episodes_per_game": 200,
+        "test_policy": "Freeze adapter hash after validation, then evaluate only the selected newest-family candidate once, missing-only on interruption. Keep the other checkpoint validation result; do not inspect an unselected held-out score.",
+        "inference_batch_size": 1,
+        "reason_for_serial_inference": "Earlier 4B diagnostics demonstrated batch-composition-dependent quotes; serial inference avoids that uncertainty for the new primary experiment.",
+        "final_candidate_family": 9,
+        "all_new_test_aggregates": "Remain sealed until local and newest-family selections are frozen."
+      },
+      "source": "results/training/qwen38_round3_batch_plan.json"
     }
   ]
 }

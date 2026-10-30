@@ -1,0 +1,117 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "register the owner-authorized saved-batch 27B rerun before any new final score"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
+    "uncommitted_diff_sha256": "d8589b69aef8f07ca5014661b6044a092eb5e96824d79aba3f785301ab5bb03a",
+    "started_at": "2026-10-30T13:30:18.906999+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "saved_without_running_waiting_for_quota_reset",
+  "gpu_window_start": "2026-10-31T00:00:00Z",
+  "new_account_quota_hours": 30,
+  "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+  "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+  "seed": 0,
+  "source_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
+  "source_sha256": "2dd43ba750f6b732b526624bd8181f168998760bc7b4cd0dabe25b245d482370",
+  "saved_source_version": 4,
+  "source_receipt": "results/training/qwen38_round3_source_save.json",
+  "builder_command": [
+    ".venv/bin/python",
+    "train/build_kaggle_kernel.py",
+    "--qwen38-train"
+  ],
+  "training_command": [
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "runs/kaggle_qwen38_train",
+    "--accelerator",
+    "NvidiaTeslaT4",
+    "--timeout",
+    "41400"
+  ],
+  "recipe": {
+    "sft_steps_ceiling": 800,
+    "sft_validation_every": 50,
+    "sft_validation_episodes_per_game": 4,
+    "sft_validation_seed_start": 60000,
+    "early_stopping_patience": 2,
+    "restore_early_stopping_state_on_resume": true,
+    "grpo_steps": 96,
+    "grpo_save_every": 5,
+    "generations_per_group": 2,
+    "learning_rate_grpo": 5e-06,
+    "lora_rank": 8,
+    "max_sequence_length": 1024,
+    "device_map": "unsloth_balanced",
+    "core_wall_seconds": 37800,
+    "wrapper_wall_seconds": 39000,
+    "platform_requested_seconds": 41400,
+    "starts_from": "Fresh pinned quantized base; the lost step-500 adapter/optimizer are unavailable."
+  },
+  "persistence": {
+    "mode": "saved batch, not an interactive draft",
+    "directory": "/kaggle/working",
+    "files": [
+      "train_core.py",
+      "train.log",
+      "runtime.json",
+      "checkpoints.jsonl",
+      "sft_config.json",
+      "grpo_config.json",
+      "sft/checkpoint-*",
+      "grpo/checkpoint-*",
+      "warmstart_adapter",
+      "lora_adapter"
+    ],
+    "checkpoint_retention": "Two rolling checkpoints, plus trainer-preserved best SFT checkpoint where applicable. Post-save file hashes reject torn optimizer/RNG/scheduler saves.",
+    "resume": "Run train/qwen38_continue.py with the exact persisted core, adapter, optimizer, scheduler, RNG and early-stopping state. Keep the 800/96 ceilings."
+  },
+  "selection": {
+    "validation_seeds": [
+      80000,
+      80099
+    ],
+    "validation_episodes_per_game": 100,
+    "candidates": [
+      "minimum-teacher-validation-loss SFT adapter",
+      "final registered GRPO96 adapter"
+    ],
+    "rule": "max min(dice percent of Bayes - 80, cards percent of Bayes); SFT wins ties",
+    "test_seeds": [
+      200,
+      399
+    ],
+    "test_episodes_per_game": 200,
+    "test_policy": "Freeze adapter hash after validation, then evaluate only the selected newest-family candidate once, missing-only on interruption. Keep the other checkpoint validation result; do not inspect an unselected held-out score.",
+    "inference_batch_size": 1,
+    "reason_for_serial_inference": "Earlier 4B diagnostics demonstrated batch-composition-dependent quotes; serial inference avoids that uncertainty for the new primary experiment.",
+    "final_candidate_family": 9,
+    "all_new_test_aggregates": "Remain sealed until local and newest-family selections are frozen."
+  },
+  "budget_admission": "Recheck the official refreshed account quota at/after reset. Reserve room for validation/test and checkpoint recovery; never submit while only the old 81.650655 seconds remain. Use measured stage times for later seed/cards decisions.",
+  "followups": "Only meaningful train/validation seed or cards-weakness changes after the full saved pipeline is measured, with every trial registered before its outcomes. No filler runs.",
+  "poll_interval_seconds": 610,
+  "runtime_and_vram": "Only downloaded runtime.json/config/checkpoint/log files establish actual runtime, devices and memory; planned caps are not measured usage.",
+  "verification": {
+    "source_pull_hash_matches": true,
+    "private": true,
+    "kernel_type": "script",
+    "internet": true,
+    "local_ci": "results/ci_local_round3.json",
+    "dry_run": "Extracted persisted training core and executed --dry-run; rewards/export checks passed without CUDA."
+  }
+}

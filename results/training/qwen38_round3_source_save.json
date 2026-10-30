@@ -1,0 +1,86 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "save the private round-3 batch source without allocating a GPU before reset"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
+    "uncommitted_diff_sha256": "f6c105e171bcefc81d78d75dc246fcbdc9ba6cf2fade2d5816f30efc2241b670",
+    "started_at": "2026-10-30T13:29:02.813998+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": [
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "runs/kaggle_qwen38_train",
+    "--accelerator",
+    "NvidiaTeslaT4",
+    "--no-run"
+  ],
+  "exit_code": 0,
+  "output": "Kernel version 4 successfully saved without running.  See https://www.kaggle.com/code/nicolascoquelet/makemarketbench-qwen3-8-27b-training\n",
+  "error": "",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+    "title": "MakeMarketBench Qwen3.8 27B training",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": []
+  },
+  "source_sha256": "2dd43ba750f6b732b526624bd8181f168998760bc7b4cd0dabe25b245d482370",
+  "at": "2026-10-30T13:29:02.921474+00:00",
+  "scope": "Code save only, --no-run. No GPU allocation requested.",
+  "verification": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "pull",
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+      "-p",
+      "runs/qwen38_round3_saved_remote",
+      "-m"
+    ],
+    "exit_code": 0,
+    "private": true,
+    "kernel_type": "script",
+    "internet": true,
+    "source_sha256_matches": true,
+    "metadata": {
+      "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+      "id_no": 141529807,
+      "title": "MakeMarketBench Qwen3.8 27B training",
+      "code_file": "makemarketbench-qwen3-8-27b-training.py",
+      "language": "python",
+      "kernel_type": "script",
+      "is_private": true,
+      "enable_gpu": true,
+      "enable_tpu": false,
+      "enable_internet": true,
+      "keywords": [],
+      "dataset_sources": [],
+      "kernel_sources": [],
+      "competition_sources": [],
+      "model_sources": [],
+      "docker_image": "gcr.io/kaggle-images/python@sha256:17b2fc7f27c25c6c2fd4230ec8e66097ab2b89fc88e1e4d6f338b72e1ee0bc3e",
+      "machine_shape": "NvidiaTeslaT4"
+    }
+  }
+}
