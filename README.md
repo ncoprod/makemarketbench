@@ -143,8 +143,13 @@ not ([all contrasts](results/validation/qwen35-rloo/vs_sft.json)). Fixed
 [registered before selection or test](results/training/qwen35_rloo_extensions_plan.json).
 The 96-group run finishes its 72 new groups in 3,952.699 seconds, with exact
 history-prefix preservation and bounded checkpoint storage
-([completion receipt](results/training/qwen35_rloo96_completion.json)); policy
-validation remains pending.
+([completion receipt](results/training/qwen35_rloo96_completion.json)). Its
+complete validation reaches **66.3% [49.0, 80.6]** on dice and
+**16.2% [−28.9, 50.0]** on cards
+([cohorts](results/validation/qwen35-rloo96/cohorts.json)). The paired dice
+increment over 24 groups survives the registered correction; the cards change
+does not ([both contrasts](results/validation/qwen35-rloo96/vs_rloo.json)). The
+fixed 192-group continuation follows before local selection.
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4

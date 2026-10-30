@@ -2321,3 +2321,24 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   and browser-host errors persist. Retain the exact errors and observation
   bounds in `results/training/kaggle_ui_outage.json`. No newest-model output
   recovery, GPU restart or new-quota submission occurred.
+
+### T22 outcome — another real dice gain, cards uncertainty remains
+
+- All 100 validation episodes per game finish. Dice: 66.25064949045698%
+  [49.00663830949743, 80.6395849872454] of Bayes; cards:
+  16.16959522093798% [−28.850103662534124, 50.03337429112936].
+  No format failures. Exact raw/adapter hashes and commands:
+  `results/validation/qwen35-rloo96/cohorts.json`.
+- Versus RLOO24, paired expected-PnL increments are +2.563565815263349
+  with 14-contrast CI [0.4496906368066986, 5.030294604695359] on dice,
+  −0.5937238841614036 [−4.1196724311990325, 2.701148282975692] on cards.
+  Source: `results/validation/qwen35-rloo96/vs_rloo.json`; versus-SFT
+  contrasts remain in `vs_sft.json`.
+- Max-min score rises −31.304956723846956 → −13.74935050954302. The
+  17.555606214303936-point gain, positive corrected dice increment and
+  non-significant cards contrast meet T22's registered material-improvement
+  criterion. This is validation conditional on one training seed, not a test
+  claim. Targets remain unmet; T23 continues to 192 groups as registered.
+- The cards point estimate is positive but its lower bound remains negative.
+  Dice-only reward training and remaining numerical/flow-inference errors
+  remain plausible bottlenecks; no format/JSON failure explains the gap.

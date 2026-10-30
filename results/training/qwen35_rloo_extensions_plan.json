@@ -100,6 +100,50 @@
       "100",
       "--out",
       "results/validation/qwen35-rloo96"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/retain_local_validation.py",
+      "rloo96"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "rloo96"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "rloo96",
+      "--baseline",
+      "rloo"
+    ],
+    [
+      "bash",
+      "scripts/with_resource.sh",
+      "heavy-ml",
+      ".venv/bin/python",
+      "-u",
+      "train/with_memory_guard.py",
+      "--result",
+      "results/training/qwen35_rloo192_memory.json",
+      ".venv/bin/python",
+      "-u",
+      "train/mlx_rloo.py",
+      "--model",
+      "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "--revision",
+      "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "--adapter",
+      "train/runs/qwen3.5-4b-sft",
+      "--out",
+      "train/runs/qwen3.5-4b-rloo192",
+      "--result",
+      "results/training/qwen35_rloo192.json",
+      "--steps",
+      "192",
+      "--seed",
+      "5"
     ]
   ],
   "budgets": [
@@ -129,21 +173,26 @@
     "heavy-ml",
     ".venv/bin/python",
     "-u",
-    "train/mlx_evaluate.py",
+    "train/with_memory_guard.py",
+    "--result",
+    "results/training/qwen35_rloo192_memory.json",
+    ".venv/bin/python",
+    "-u",
+    "train/mlx_rloo.py",
     "--model",
     "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
     "--revision",
     "32f3e8ecf65426fc3306969496342d504bfa13f3",
     "--adapter",
-    "train/runs/qwen3.5-4b-rloo96",
-    "--label",
-    "qwen3.5-4b-rloo96",
-    "--seed",
-    "80000",
-    "--episodes",
-    "100",
+    "train/runs/qwen3.5-4b-sft",
     "--out",
-    "results/validation/qwen35-rloo96"
+    "train/runs/qwen3.5-4b-rloo192",
+    "--result",
+    "results/training/qwen35_rloo192.json",
+    "--steps",
+    "192",
+    "--seed",
+    "5"
   ],
   "completed_commands": [
     {
@@ -216,6 +265,57 @@
         "5"
       ],
       "wall_seconds": 3957.8433856670017
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/with_resource.sh",
+        "heavy-ml",
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_evaluate.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--adapter",
+        "train/runs/qwen3.5-4b-rloo96",
+        "--label",
+        "qwen3.5-4b-rloo96",
+        "--seed",
+        "80000",
+        "--episodes",
+        "100",
+        "--out",
+        "results/validation/qwen35-rloo96"
+      ],
+      "wall_seconds": 3693.3648081249994
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/retain_local_validation.py",
+        "rloo96"
+      ],
+      "wall_seconds": 0.2236241669888841
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "rloo96"
+      ],
+      "wall_seconds": 0.32381741699646227
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "rloo96",
+        "--baseline",
+        "rloo"
+      ],
+      "wall_seconds": 0.24868516699643806
     }
   ],
   "initialization": {
@@ -226,6 +326,14 @@
       "completed_groups": 24,
       "adapter_sha256": "5e8e8da8803a611e815f7d280465d6d06b2f6cb18c7232b20d7610f2bf503398",
       "optimizer_sha256": "ab7a11bf7861e080825aeaa5db26b717bb5221b76b0d721732fc96b5a511c292"
+    },
+    "rloo192": {
+      "history_source": "results/training/qwen35_rloo96.json",
+      "history_sha256": "82447f8b7002273a0cb2ddd8db7319144c81315990b676f297673fea7ab12ad8",
+      "checkpoint": "train/runs/qwen3.5-4b-rloo96/step_0096",
+      "completed_groups": 96,
+      "adapter_sha256": "2b1722e9d1123d5b88868c056ad765aa7d08b32b815a86ecac4eda8f1aef19e3",
+      "optimizer_sha256": "44dbf9f61921cc4e68747a7531bb3f36fedf09f4db0069acf13e7f1ca4241164"
     }
   }
 }
