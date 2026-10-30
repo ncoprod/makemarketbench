@@ -38,8 +38,9 @@
     }
   },
   "source_sha256": "41a2bd36ae6deafe8b81942ece393723daf167fb091fc888e81d15202552f404",
-  "status": "running",
+  "status": "completed",
   "sampled_footprint_peak_bytes_approx": 6712983552.0,
   "child_pid": 54204,
-  "wall_seconds": 11077.001679458
+  "wall_seconds": 14025.138223708003,
+  "returncode": 0
 }

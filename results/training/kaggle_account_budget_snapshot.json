@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-30T01:47:03.004921+00:00",
+  "recorded_at": "2026-10-30T01:48:32.885211+00:00",
   "quota_method": "official SDK GetAcceleratorQuotaStatistics",
   "provenance": {
     "command": [
@@ -8,7 +8,7 @@
     ],
     "seed": null,
     "model_revision": null,
-    "git_commit": "0a531343d7371d10028387d8b43045b38e95fd41",
+    "git_commit": "67ab3f5423ed1b43c7f5322cb57d0479ef99eae3",
     "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
   },
   "quota": {

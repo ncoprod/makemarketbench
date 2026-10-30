@@ -1836,3 +1836,46 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   frozen hash constants before submitting a shorter 320-second script /
   350-second session retry within the remaining 370.069655 seconds. No quality
   result or stopping-rule nonimprovement is inferred from this failed probe.
+
+### T17 completes — full local SFT under the unchanged memory guard
+
+- Command: `.venv/bin/python runs/retain_mlx_sft_completion.py`. The registered
+  run completes 800 consumed microbatches / 400 optimizer updates in
+  14021.710419917003 seconds. Full 480-example validation loss improves from
+  2.1129567623138428 initially to 0.2795637547969818 at callback 799, whose
+  complete pass takes 1254.1336007499995 seconds. The best adapter is copied
+  for frozen policy validation, with its hash checked in the receipt.
+- Sampled physical footprint remains 6712983552 bytes, below seven GiB; the
+  guard completes successfully. This is an approximate process-footprint peak,
+  distinct from MLX allocator measurements. Warm-start/restarted-optimizer
+  provenance is retained, not represented as a fresh-base seed replicate.
+- Source, exact command/config/model revision and snapshots:
+  `results/training/qwen35_sft_completion.json`. The queued launcher proceeds
+  to 100 validation episodes per game; DAgger/RLOO recipes remain unchanged.
+  No held-out aggregate or policy-quality conclusion is drawn from teacher loss.
+
+### Fresh release and API discovery checks
+
+- Command: `.venv/bin/python runs/check_qwen_task_catalogues.py`. Task-filtered
+  official Qwen catalogues confirm the newest general-purpose family remains
+  Qwen3.8; inspect both text and multimodal tags rather than only the newest
+  unfiltered uploads. Full responses/source:
+  `results/training/qwen_task_catalogues_20261030.json`. Existing pinned weights,
+  permissive licence and measured two-T4 fit evidence remain authoritative.
+- Queue a dated GET /v1/models refresh under the global NIM mutex, with three
+  sequential attempts and transient-error backoff. Plan/source:
+  `results/expansion/catalogue_recheck_plan.json`. It does not replace the
+  original batch's catalogue. Evaluate a newly listed Qwen3.8 only if discovered.
+
+### T20 version 2 — corrected guard, same padding diagnostic
+
+- Correct the expected frozen hash using an exact-string replacement and verify
+  both adapter constants before building. Replace only the literal deadline and
+  recorded budget, then submit private version 2 of the same kernel. Commands:
+  `.venv/bin/python runs/prepare_padding_ablation.py`;
+  `.venv/bin/python runs/submit_padding_retry.py`. Remote private metadata, input
+  source and source hash verified. Session 350 seconds / script 320 seconds fit
+  the observed 370.06965499999933 seconds left.
+- Keep the failed version-one receipt unchanged. Retry source, admission and
+  polls: `results/training/kaggle_padding_retry.json`. This remains a systems
+  diagnostic, not a policy trial or a change to held-out evaluation.

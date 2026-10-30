@@ -1,0 +1,32 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "queue dated NIM model catalogue discovery under the same global slot rule"
+    },
+    "model_revision": null,
+    "git_commit": "0a531343d7371d10028387d8b43045b38e95fd41",
+    "uncommitted_diff_sha256": "013725b781b7dfea0de0bb0cb0ff83546342902677cd3fc85a2da1aebaaeac61",
+    "started_at": "2026-10-30T01:40:15.993873+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "runs/refresh_nim_catalogue.py"
+  ],
+  "source": "import json\nimport time\nfrom pathlib import Path\n\nfrom makemarket.llm import ChatClient, LLMConfig, Throttle\nfrom makemarket.provenance import receipt\n\nclient = ChatClient(LLMConfig(model='discovery', timeout=60), throttle=Throttle(1))\nrecord = {'provenance': receipt({'method': 'GET /v1/models', 'purpose': 'fresh dated discovery of a possible Qwen3.8 API deployment'}),\n          'source': Path(__file__).read_text()}\ntry:\n    record['attempts'] = []\n    for attempt in range(3):\n        try:\n            record['data'] = client.client.models.list().model_dump()\n            break\n        except Exception as exc:\n            status = getattr(exc, 'status_code', None)\n            record['attempts'].append({'error_type': type(exc).__name__, 'http_status': status})\n            if attempt == 2 or (status is not None and status < 500 and status not in (408, 409, 429)):\n                raise\n            time.sleep(2 ** (attempt + 1))\n    ids = [r['id'] for r in record['data']['data']]\n    record.update(status='completed', count=len(ids), qwen_models=[s for s in ids if 'qwen' in s.lower()])\nexcept Exception as exc:\n    record.update(status='failed', error_type=type(exc).__name__, http_status=getattr(exc, 'status_code', None))\nPath('results/expansion/models_20261030.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint(json.dumps({k: record[k] for k in ('status', 'count', 'qwen_models') if k in record}))\n",
+  "pid": 92737,
+  "status": "queued_for_global_nim_slot",
+  "note": "Three sequential attempts with backoff on transient HTTP/network errors; queued source updated before acquisition (both global slots held by other live wrapper PIDs)."
+}

@@ -110,12 +110,13 @@ small RLOO-style trial. The [token audit](results/training/qwen35_token_audit.js
 checks non-thinking prefixes and sequence limits. Earlier attempts stopped at
 reboot or memory guards; all are retained in [ITERATIONS.md](ITERATIONS.md).
 Projecting only answer positions preserves the full causal loss/gradients;
-fixed training shapes then permit complete validation passes after 199, 399
-and 599 microbatches: loss **2.113 → 0.404 → 0.320 → 0.289**, sampled physical footprint
-**6.713 GB** ([first pass](results/training/qwen35_uniform_validation199.json),
-[latest counts, loss and memory](results/training/qwen35_uniform_validation599.json)).
-The registered 800-microbatch run continues. These are training measurements,
-not policy-quality results. Local heavy work holds the shared ML lock.
+fixed training shapes complete **800 microbatches / 400 optimizer updates** in
+**14,021.710 seconds**. Full validation loss falls **2.113 → 0.280** on all
+**480 examples**, with sampled physical footprint **6.713 GB**
+([completed run, memory guard and adapter hash](results/training/qwen35_sft_completion.json)).
+The frozen best adapter now undergoes policy validation on 100 episodes per
+game. Teacher loss does not establish policy quality. Local heavy work holds
+the shared ML lock.
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
@@ -166,7 +167,8 @@ differences prevent interpreting these runs as a pure model-size comparison.
 
 **Newest-family Qwen3.8-27B:** the smallest general-purpose Qwen3.8 release is
 27B, Apache-2.0 ([pinned model details](results/training/qwen_latest_details.json),
-[official catalogue recheck](results/training/qwen_latest_recheck_20261030.json)).
+[official catalogue recheck](results/training/qwen_latest_recheck_20261030.json),
+[text and multimodal catalogues](results/training/qwen_task_catalogues_20261030.json)).
 Its Unsloth NF4 checkpoint occupies **22,344,833,801 bytes (20.81 GiB)** against
 approximately **29.12 GiB** across two T4s, before activation, optimizer and
 loader overhead ([weight metadata](results/training/qwen38_quantized.json)).
