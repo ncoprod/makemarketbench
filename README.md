@@ -151,7 +151,8 @@ trainer, adapter-initialization and prompt-shuffle seeds. Backend and recipe
 differences prevent interpreting these runs as a pure model-size comparison.
 
 **Newest-family Qwen3.8-27B:** the smallest general-purpose Qwen3.8 release is
-27B, Apache-2.0 ([official catalogue](results/training/qwen_latest_details.json)).
+27B, Apache-2.0 ([pinned model details](results/training/qwen_latest_details.json),
+[official catalogue recheck](results/training/qwen_latest_recheck_20261030.json)).
 Its Unsloth NF4 checkpoint occupies **22,344,833,801 bytes (20.81 GiB)** against
 approximately **29.12 GiB** across two T4s, before activation, optimizer and
 loader overhead ([weight metadata](results/training/qwen38_quantized.json)).

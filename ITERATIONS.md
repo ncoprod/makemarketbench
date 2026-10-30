@@ -1597,3 +1597,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Computer-use inventory still returns the native-pipe startup and browser-host
   errors. Preserve this check in `results/training/kaggle_ui_outage.json`; the
   newest-family draft's later training phase and outputs remain unknown.
+
+### Official Qwen catalogue recheck after the UTC date change
+
+- Command: `.venv/bin/python runs/recheck_qwen_catalogue.py`. Query the Qwen
+  organisation's latest-created models and all Qwen3.8 model IDs directly from
+  the Hugging Face API. The general-purpose family still lists 27B, Flash-Next
+  and 2.4T-A95B with their FP8 variants; no smaller Qwen3.8 is listed.
+- Retain the exact query URLs, IDs, revisions, tags and source in
+  `results/training/qwen_latest_recheck_20261030.json`. Image, speech and driving
+  specialists are distinct releases; they do not replace the general-purpose
+  quote-policy family selection. No training recipe changes or extra trial.
