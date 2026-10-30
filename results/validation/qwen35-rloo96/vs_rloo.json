@@ -6,9 +6,9 @@
       "baseline": "rloo"
     },
     "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
-    "git_commit": "731b95651d1661bbda395f758bfb506bcfb4fdee",
-    "uncommitted_diff_sha256": "9ceaff99a6cd5d7a710247c89b19278f4acabcc0f80ed1c7960da1b91105c5d1",
-    "started_at": "2026-10-30T12:49:30.718024+00:00",
+    "git_commit": "8f2faf39d60fc3f9baf3980c33a982f24741a52e",
+    "uncommitted_diff_sha256": "cc621c434df11f6dc9ea772eb38ee9c325fcd76a6d03e8038d3595216e1fb119",
+    "started_at": "2026-10-30T15:27:28.573471+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -18,7 +18,7 @@
       "mlx-lm": "0.32.2"
     }
   },
-  "source_sha256": "90574a7bd9b71a92103d4b0deec1a15bf3e96f6e290948f38ef216b343d8fd59",
+  "source_sha256": "b3c9be2fe73150ae2be40c00601fa8826679f72b805cc6bdf56c8da4464cdafa",
   "input_sha256": {
     "results/validation/qwen35-rloo/raw/dice/qwen3.5-4b-rloo.jsonl": "0c8485b6e57d209d415d701a7ae6088ab18b80a21e70bc7a307bd24c637155e1",
     "results/validation/qwen35-rloo96/raw/dice/qwen3.5-4b-rloo96.jsonl": "eaf3d2b27d1484eed0ed868f6b0ddb8a01e23e2166325dcf24fd5a4407724a45",
@@ -35,8 +35,8 @@
         4.165955500040438
       ],
       "family_ci": [
-        0.4496906368066986,
-        5.030294604695359
+        0.3644293199414446,
+        5.085026181519611
       ]
     },
     "cards": {
@@ -46,8 +46,8 @@
         1.5693227726306833
       ],
       "family_ci": [
-        -4.1196724311990325,
-        2.701148282975692
+        -4.203739003809572,
+        2.7308853978986143
       ]
     }
   },
@@ -55,6 +55,6 @@
     "rloo": -31.304956723846956,
     "rloo96": -13.74935050954302
   },
-  "family": "Fourteen validation contrasts: DAgger-best, DAgger-last, RLOO24, RLOO96 and RLOO192 versus SFT; RLOO96 versus RLOO24 and RLOO192 versus RLOO96; each on dice/cards. Bonferroni level 1-0.05/14; 56000 resamples, seed 0. Budget extension registered after observing RLOO24 validation; earlier six-contrast receipts retained separately.",
+  "family": "Eighteen validation contrasts: six follow-ups versus SFT on both games; RLOO96 versus RLOO24, RLOO192 versus RLOO96, and RLOO384 versus RLOO192 on both games. Bonferroni level 1-0.05/18; 72000 resamples, seed 0. RLOO384 registered after the uncertain RLOO192 gain; earlier six- and fourteen-contrast receipts retained separately.",
   "interpretation": "Validation diagnostics conditional on the registered recipes and frozen weights. These seeds select the local winner; no held-out claim, fresh-cache variance or training-seed inference."
 }

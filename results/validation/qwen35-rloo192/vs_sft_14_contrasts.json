@@ -1,0 +1,60 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/compare_local_validation.py rloo192",
+    "config": {
+      "method": "rloo192",
+      "baseline": "sft"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "8f2faf39d60fc3f9baf3980c33a982f24741a52e",
+    "uncommitted_diff_sha256": "7d5e4f702409b731853bf24fbbaed8576f4544e3c7202efd2fb4ed2bae28d594",
+    "started_at": "2026-10-30T15:26:02.217393+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "90574a7bd9b71a92103d4b0deec1a15bf3e96f6e290948f38ef216b343d8fd59",
+  "input_sha256": {
+    "results/validation/qwen35-sft/raw/dice/qwen3.5-4b-sft.jsonl": "189ab8c00b7b618dcb36b659bbd65717e813df3da15e6e8ba8780612476369af",
+    "results/validation/qwen35-rloo192/raw/dice/qwen3.5-4b-rloo192.jsonl": "3230dd557f914e9f96eb2960466fd252662027f6e5362aa8e64b1664d69de217",
+    "results/validation/qwen35-sft/raw/cards/qwen3.5-4b-sft.jsonl": "a0fc6cdd1a75b914c57bebaec6a0d12ce93a02711b9b0b495366e3f841ab155b",
+    "results/validation/qwen35-rloo192/raw/cards/qwen3.5-4b-rloo192.jsonl": "b279db4597cbeae34d6e26945571a6873a174369f6f961b24a70e6af1de8fa5f",
+    "results/validation/qwen35-sft/cohorts.json": "44a0e905b18ec0ddf4edf5aeb240d62eace5c6aaee60d5a742b1acd9194d5673",
+    "results/validation/qwen35-rloo192/cohorts.json": "f2bd3c895bd948e6b87148389e184064f5482e6da9e742308fc0fd3d1405122e"
+  },
+  "games": {
+    "dice": {
+      "mean_expected_pnl_change": 6.903952899490206,
+      "ci_95": [
+        3.5234475637991864,
+        10.422665860934703
+      ],
+      "family_ci": [
+        1.7682397092237012,
+        12.025381013499448
+      ]
+    },
+    "cards": {
+      "mean_expected_pnl_change": 1.2713427544511884,
+      "ci_95": [
+        -1.4471342590687746,
+        4.004577688273663
+      ],
+      "family_ci": [
+        -2.846372999284839,
+        5.467387210619276
+      ]
+    }
+  },
+  "selection_scores": {
+    "sft": -56.865370624563894,
+    "rloo192": -9.58627300830041
+  },
+  "family": "Fourteen validation contrasts: DAgger-best, DAgger-last, RLOO24, RLOO96 and RLOO192 versus SFT; RLOO96 versus RLOO24 and RLOO192 versus RLOO96; each on dice/cards. Bonferroni level 1-0.05/14; 56000 resamples, seed 0. Budget extension registered after observing RLOO24 validation; earlier six-contrast receipts retained separately.",
+  "interpretation": "Validation diagnostics conditional on the registered recipes and frozen weights. These seeds select the local winner; no held-out claim, fresh-cache variance or training-seed inference."
+}

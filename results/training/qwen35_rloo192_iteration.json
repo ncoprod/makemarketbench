@@ -1,0 +1,88 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/record_rloo192_iteration.py",
+    "config": {
+      "purpose": "assess T23 against its registered material-improvement criterion"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "8f2faf39d60fc3f9baf3980c33a982f24741a52e",
+    "uncommitted_diff_sha256": "d1f390683a5b7025079248dff1d71108fa25954c41bc0ffc0568a38d18628952",
+    "started_at": "2026-10-30T15:28:21.494241+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/validation')\nold = json.loads((root / 'qwen35-rloo96/cohorts.json').read_text())\nnew = json.loads((root / 'qwen35-rloo192/cohorts.json').read_text())\ncontrast = root / 'qwen35-rloo192/vs_rloo96.json'\ngames = json.loads(contrast.read_text())['games']\ngain = new['selection_score'] - old['selection_score']\npositive = any(g['family_ci'][0] > 0 for g in games.values())\nharm = any(g['family_ci'][1] < 0 for g in games.values())\nr = {'provenance': receipt({'purpose': 'assess T23 against its registered material-improvement criterion'}, new['provenance']['model_revision']),\n     'source': Path(__file__).read_text(), 'trial': 'T23', 'groups_before_after': [96, 192],\n     'selection_score_gain_points': gain, 'required_gain_points': 5,\n     'one_corrected_paired_lower_above_zero': positive, 'one_corrected_paired_upper_below_zero': harm,\n     'real_improvement': gain >= 5 and positive and not harm,\n     'validation_percentages': {g: {k: row[k] for k in ('pct_of_bayes', 'pct_of_bayes_ci', 'epnl', 'epnl_ci')} for g,row in new['games'].items()},\n     'paired_contrasts': games, 'family_contrasts': 18,\n     'input_sha256': {str(p):file_sha256(p) for p in [root/'qwen35-rloo96/cohorts.json',root/'qwen35-rloo192/cohorts.json',contrast]},\n     'interpretation': 'First consecutive nonimprovement after T22. Dice point estimate rises, but the selection-score gain is below five points and paired corrected intervals include zero. Cards expected PnL remains uncertain; positive realized PnL is not the registered target. One final budget doubling is registered before any held-out scoring.'}\nPath('results/training/qwen35_rloo192_iteration.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint({'selection_score_gain_points':gain,'real_improvement':r['real_improvement']})\n",
+  "trial": "T23",
+  "groups_before_after": [
+    96,
+    192
+  ],
+  "selection_score_gain_points": 4.163077501242611,
+  "required_gain_points": 5,
+  "one_corrected_paired_lower_above_zero": false,
+  "one_corrected_paired_upper_below_zero": false,
+  "real_improvement": false,
+  "validation_percentages": {
+    "dice": {
+      "pct_of_bayes": 70.41372699169959,
+      "pct_of_bayes_ci": [
+        55.808478838433615,
+        83.15306147971803
+      ],
+      "epnl": 10.282198246969749,
+      "epnl_ci": [
+        7.634552256197142,
+        12.663832132802634
+      ]
+    },
+    "cards": {
+      "pct_of_bayes": 16.120801203144943,
+      "pct_of_bayes_ci": [
+        -27.79451657152036,
+        48.847228568152445
+      ],
+      "epnl": 2.827254115390925,
+      "epnl_ci": [
+        -4.375163821186687,
+        9.313879630874697
+      ]
+    }
+  },
+  "paired_contrasts": {
+    "dice": {
+      "mean_expected_pnl_change": 0.6079153882924281,
+      "ci_95": [
+        -0.9796878204438095,
+        2.393181384385175
+      ],
+      "family_ci": [
+        -1.8483240284748852,
+        3.350567247350194
+      ]
+    },
+    "cards": {
+      "mean_expected_pnl_change": -0.008557458520417853,
+      "ci_95": [
+        -1.1773777205201075,
+        1.3329397755509187
+      ],
+      "family_ci": [
+        -1.7433412999031286,
+        2.094770897415791
+      ]
+    }
+  },
+  "family_contrasts": 18,
+  "input_sha256": {
+    "results/validation/qwen35-rloo96/cohorts.json": "05067488a29f57aba8bbd043c98673d700b403399fe77b031774604c41306f6c",
+    "results/validation/qwen35-rloo192/cohorts.json": "f2bd3c895bd948e6b87148389e184064f5482e6da9e742308fc0fd3d1405122e",
+    "results/validation/qwen35-rloo192/vs_rloo96.json": "48938cc04667bfc6a142f37e34c39f796c95697bad8b0011cbf5aa70855a9c76"
+  },
+  "interpretation": "First consecutive nonimprovement after T22. Dice point estimate rises, but the selection-score gain is below five points and paired corrected intervals include zero. Cards expected PnL remains uncertain; positive realized PnL is not the registered target. One final budget doubling is registered before any held-out scoring."
+}

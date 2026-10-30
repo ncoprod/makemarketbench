@@ -2510,3 +2510,37 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   refreshes existing OAuth scopes, and requires official refreshed quota
   before submission. Its receipt is `qwen38_round3_batch.json`; current
   `waiting_for_reset` status is not an executed GPU run.
+
+### T23 outcome — a smaller, uncertain gain
+
+- Both games complete all 100 validation episodes. Dice is
+  70.41372699169959% of Bayes [55.808478838433615, 83.15306147971803]; cards
+  is 16.120801203144943% [-27.79451657152036, 48.847228568152445]. There are
+  no format failures. Source: `results/validation/qwen35-rloo192/cohorts.json`.
+- The max-min selection score gains 4.163077501242611 points over RLOO96,
+  below the registered five-point threshold. Both corrected paired intervals
+  include zero. This is the first consecutive real nonimprovement after T22,
+  not a claim that the policy got worse. Expected cards PnL remains uncertain;
+  its positive realized-PnL interval does not satisfy the expected-PnL target.
+- Full assessment and exact inputs: `qwen35_rloo192_iteration.json`. Earlier
+  fourteen-contrast receipts remain alongside the expanded comparisons.
+
+### T26 — one final RLOO budget doubling, 192 to 384 groups (registered)
+
+- Hypothesis: one more fixed-budget doubling can distinguish insufficient
+  updates from diminishing returns on the unchanged dice-only reward.
+- Continue the exact RLOO192 adapter, Adam state and 192-group history; add
+  192 groups. Keep seed 5, lr 1e-6, four generations and the same training
+  prompts. Commands, checkpoint hashes and full controls are registered in
+  `results/training/qwen35_rloo384_plan.json` before new validation.
+- Validate 100 episodes/game on seeds 80000–80099. Count six follow-ups versus
+  SFT and all three successive RLOO budget contrasts on both games: eighteen
+  contrasts, Bonferroni 1-0.05/18, 72000 draws, seed 0. Preserve earlier six-
+  and fourteen-contrast receipts. T22's positive dice increment also survives
+  this wider family; T23 remains uncertain.
+- Require a max-min score gain of at least five points over RLOO192, one
+  corrected paired lower bound above zero, and no game with a corrected upper
+  bound below zero. If this also fails, T23/T26 are two consecutive genuine
+  nonimprovements. Diagnose the gap, freeze the max-min winner across all
+  seven local trials, and acquire its single raw-only 200/game test. The
+  final nine-candidate family still contains only one selected local policy.

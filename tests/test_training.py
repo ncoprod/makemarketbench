@@ -142,7 +142,7 @@ def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_pa
     assert scoring.cohort(path) is None
 
 
-@pytest.mark.parametrize("missing_last", ["dagger-last", "rloo96", "rloo192", None])
+@pytest.mark.parametrize("missing_last", ["dagger-last", "rloo96", "rloo192", "rloo384", None])
 def test_local_selection_requires_every_trial_and_uses_both_validation_games(tmp_path, monkeypatch, missing_last):
     import sys
 
@@ -153,7 +153,7 @@ def test_local_selection_requires_every_trial_and_uses_both_validation_games(tmp
     monkeypatch.chdir(tmp_path)
     (tmp_path / "results/training").mkdir(parents=True)
     candidates = {"sft": (95, -5), "dagger": (82, 2), "dagger-last": (88, 8),
-                  "rloo": (99, 3), "rloo96": (99, 4), "rloo192": (97, 5)}
+                  "rloo": (99, 3), "rloo96": (99, 4), "rloo192": (97, 5), "rloo384": (99, 6)}
     for method, scores in candidates.items():
         if method == missing_last:
             continue

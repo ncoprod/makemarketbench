@@ -18,7 +18,7 @@
     }
   },
   "source": "import json\nimport shutil\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nmodel = str(Path.home() / '.cache/mmb_models/Qwen3.5-4B-MLX-4bit')\nrevision = '32f3e8ecf65426fc3306969496342d504bfa13f3'\npath = Path('results/training/qwen35_rloo_extensions_plan.json')\nrecord = json.loads(path.read_text()) if path.exists() else {\n    'provenance': receipt({'purpose': 'extend the improving local RLOO budget before freezing the one local held-out candidate'}, revision),\n    'source': Path(__file__).read_text(), 'status': 'registered', 'commands': [],\n    'budgets': [96, 192], 'seed': 5, 'learning_rate': 1e-6,\n    'train_prompt_episodes': 100, 'train_seed_offset': 20000, 'prompt_shuffle_seed': 0,\n    'validation_seeds': [80000, 80099], 'validation_episodes_per_game': 100,\n    'rule': 'Continue adapter and Adam state from the preceding fixed budget. Same rewards, decoder and learning rate. Evaluate both fixed budgets; max-min selection among all six local trials remains unchanged. Only one local candidate enters the nine-candidate held-out family.',\n    'evidence': {'rloo24_validation': file_sha256('results/validation/qwen35-rloo/cohorts.json'),\n                 'rloo24_contrast_before_extension': file_sha256('results/validation/qwen35-rloo/vs_sft_6_contrasts.json')},\n    'validation_family': 'Fourteen contrasts: five follow-ups versus SFT on both games; RLOO96 versus RLOO24 and RLOO192 versus RLOO96 on both games. Bonferroni 1-0.05/14, 56000 resamples, seed 0.',\n    'interpretation': 'Registered after RLOO24 validation improves dice but misses the target. No held-out aggregate inspected and no local test started. Conditional training-budget trials, not independent training seeds.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\n\n\ndef run(command, heavy=False):\n    if heavy:\n        command = ['bash', 'scripts/with_resource.sh', 'heavy-ml', *command]\n    record.update(status='running', current_command=command)\n    record['commands'].append(command)\n    path.write_text(json.dumps(record, indent=2) + '\\n')\n    started = time.monotonic()\n    subprocess.run(command, check=True)\n    record.setdefault('completed_commands', []).append({'command': command, 'wall_seconds': time.monotonic() - started})\n    path.write_text(json.dumps(record, indent=2) + '\\n')\n\n\ndef validate(method):\n    run(['.venv/bin/python', '-u', 'train/mlx_evaluate.py', '--model', model, '--revision', revision,\n         '--adapter', f'train/runs/qwen3.5-4b-{method}', '--label', f'qwen3.5-4b-{method}',\n         '--seed', '80000', '--episodes', '100', '--out', f'results/validation/qwen35-{method}'], heavy=True)\n    run(['.venv/bin/python', 'scripts/retain_local_validation.py', method])\n    run(['.venv/bin/python', 'scripts/compare_local_validation.py', method])\n\n\ntry:\n    if not Path('results/training/selection.json').exists():\n        validate('dagger-last')\n        previous, previous_steps = 'rloo', 24\n        for steps in (96, 192):\n            method = f'rloo{steps}'\n            result = Path(f'results/training/qwen35_{method}.json')\n            if not result.exists():\n                source = Path(f'results/training/qwen35_{previous}.json')\n                prior = json.loads(source.read_text())\n                assert prior['status'] == 'completed' and len(prior['history']) == previous_steps\n                assert prior['model_revision'] == revision and prior['config']['seed'] == 5\n                checkpoint = Path(f'train/runs/qwen3.5-4b-{previous}/step_{previous_steps:04d}')\n                target = Path(f'train/runs/qwen3.5-4b-{method}') / checkpoint.name\n                shutil.copytree(checkpoint, target, dirs_exist_ok=True)\n                record.setdefault('initialization', {})[method] = {\n                    'history_source': str(source), 'history_sha256': file_sha256(source),\n                    'checkpoint': str(checkpoint), 'completed_groups': previous_steps,\n                    'adapter_sha256': file_sha256(checkpoint / 'adapters.safetensors'),\n                    'optimizer_sha256': file_sha256(checkpoint / 'optimizer.safetensors')}\n                result.write_text(source.read_text())\n            if len(json.loads(result.read_text())['history']) < steps:\n                run(['.venv/bin/python', '-u', 'train/with_memory_guard.py', '--result',\n                     f'results/training/qwen35_{method}_memory.json', '.venv/bin/python', '-u',\n                     'train/mlx_rloo.py', '--model', model, '--revision', revision, '--adapter',\n                     'train/runs/qwen3.5-4b-sft', '--out', f'train/runs/qwen3.5-4b-{method}',\n                     '--result', str(result), '--steps', str(steps), '--seed', '5'], heavy=True)\n            validate(method)\n            run(['.venv/bin/python', 'scripts/compare_local_validation.py', method, '--baseline', previous])\n            previous, previous_steps = method, steps\n    record['status'] = 'validation_completed_before_selection'\nexcept Exception as exc:\n    record.update(status='failed', error=f'{type(exc).__name__}: {exc}')\n    raise\nfinally:\n    path.write_text(json.dumps(record, indent=2) + '\\n')\n",
-  "status": "running",
+  "status": "validation_completed_before_selection",
   "commands": [
     [
       "bash",
@@ -144,6 +144,45 @@
       "192",
       "--seed",
       "5"
+    ],
+    [
+      "bash",
+      "scripts/with_resource.sh",
+      "heavy-ml",
+      ".venv/bin/python",
+      "-u",
+      "train/mlx_evaluate.py",
+      "--model",
+      "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "--revision",
+      "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "--adapter",
+      "train/runs/qwen3.5-4b-rloo192",
+      "--label",
+      "qwen3.5-4b-rloo192",
+      "--seed",
+      "80000",
+      "--episodes",
+      "100",
+      "--out",
+      "results/validation/qwen35-rloo192"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/retain_local_validation.py",
+      "rloo192"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "rloo192"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "rloo192",
+      "--baseline",
+      "rloo96"
     ]
   ],
   "budgets": [
@@ -168,31 +207,11 @@
   "validation_family": "Fourteen contrasts: five follow-ups versus SFT on both games; RLOO96 versus RLOO24 and RLOO192 versus RLOO96 on both games. Bonferroni 1-0.05/14, 56000 resamples, seed 0.",
   "interpretation": "Registered after RLOO24 validation improves dice but misses the target. No held-out aggregate inspected and no local test started. Conditional training-budget trials, not independent training seeds.",
   "current_command": [
-    "bash",
-    "scripts/with_resource.sh",
-    "heavy-ml",
     ".venv/bin/python",
-    "-u",
-    "train/with_memory_guard.py",
-    "--result",
-    "results/training/qwen35_rloo192_memory.json",
-    ".venv/bin/python",
-    "-u",
-    "train/mlx_rloo.py",
-    "--model",
-    "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
-    "--revision",
-    "32f3e8ecf65426fc3306969496342d504bfa13f3",
-    "--adapter",
-    "train/runs/qwen3.5-4b-sft",
-    "--out",
-    "train/runs/qwen3.5-4b-rloo192",
-    "--result",
-    "results/training/qwen35_rloo192.json",
-    "--steps",
-    "192",
-    "--seed",
-    "5"
+    "scripts/compare_local_validation.py",
+    "rloo192",
+    "--baseline",
+    "rloo96"
   ],
   "completed_commands": [
     {
@@ -316,6 +335,87 @@
         "rloo"
       ],
       "wall_seconds": 0.24868516699643806
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/with_resource.sh",
+        "heavy-ml",
+        ".venv/bin/python",
+        "-u",
+        "train/with_memory_guard.py",
+        "--result",
+        "results/training/qwen35_rloo192_memory.json",
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_rloo.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--adapter",
+        "train/runs/qwen3.5-4b-sft",
+        "--out",
+        "train/runs/qwen3.5-4b-rloo192",
+        "--result",
+        "results/training/qwen35_rloo192.json",
+        "--steps",
+        "192",
+        "--seed",
+        "5"
+      ],
+      "wall_seconds": 5739.218348000009
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/with_resource.sh",
+        "heavy-ml",
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_evaluate.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--adapter",
+        "train/runs/qwen3.5-4b-rloo192",
+        "--label",
+        "qwen3.5-4b-rloo192",
+        "--seed",
+        "80000",
+        "--episodes",
+        "100",
+        "--out",
+        "results/validation/qwen35-rloo192"
+      ],
+      "wall_seconds": 3651.3848109160026
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/retain_local_validation.py",
+        "rloo192"
+      ],
+      "wall_seconds": 0.26224570799968205
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "rloo192"
+      ],
+      "wall_seconds": 0.42780874999880325
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "rloo192",
+        "--baseline",
+        "rloo96"
+      ],
+      "wall_seconds": 0.2864612919947831
     }
   ],
   "initialization": {
