@@ -1999,3 +1999,28 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   is inferred from successful collection or teacher loss.
 - A 04:08 UTC computer-use check still returns empty inventories and the same
   native-pipe/browser-host errors. No new observation of the Qwen3.8 draft.
+
+### T21 — validate the fixed last DAgger checkpoint as well as the teacher-selected one
+
+- Diagnosis: DAgger teacher loss is 0.4232971966266632 at callback 199 and
+  0.32471534609794617 at 399, versus 0.27956369519233704 initially. The current
+  best checkpoint is therefore unchanged SFT. This does not test whether the
+  trained DAgger weights improve policy PnL on actor-reached states.
+- Focused change: register the last numbered saved DAgger checkpoint before
+  any follow-up policy-validation cohort or new held-out aggregate is inspected.
+  Its identity is fixed by training order, never by policy scores. Preserve the
+  teacher-selected checkpoint and its planned validation as a separate trial.
+- Command: the existing `train/final_candidate.py --model ... --revision ...`
+  first prepares and evaluates that fixed checkpoint on 100 validation episodes
+  per game, seeds 80000–80099, then selects among all four local validation
+  trials using the unchanged max-min score. It refuses to freeze when any
+  trial's validation is missing. No extra held-out candidate: one local winner
+  is evaluated, so the nine-candidate correction remains unchanged.
+- Widen the validation contrast family from four to six before any follow-up
+  contrast is observed: 1−0.05/6 intervals, 24,000 resamples, seed zero. Both
+  previous and amended registrations remain in this log. Plan, training snapshot
+  and protocol amendment: `results/training/qwen35_dagger_last_plan.json`,
+  `results/protocol.json`. Actual policy result is pending.
+- Add regression checks for refusing incomplete validation and selecting the
+  balanced two-game winner rather than the highest dice score. Targeted tests
+  and Ruff pass; full CI follows the milestone commit.

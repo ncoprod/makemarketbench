@@ -58,7 +58,8 @@
       "resampling": "Sorted episode seeds, non-overlapping complete inference groups; resample group means with common indices for local/reference/API comparisons.",
       "decision_rule": "Require positive primary and inference-group family lower bounds for cards and paired API superiority. No choice between methods after seeing scores.",
       "scope": "Conditional on frozen weights and recorded response cache; does not estimate fresh-cache or training-seed variation."
-    }
+    },
+    "local_validation_contrast_family": "Six DAgger-best/DAgger-last/RLOO versus SFT game contrasts; 1-0.05/6 intervals, 24000 resamples, seed 0. Local winner still selected only by the registered max-min validation score; one local held-out candidate, nine total."
   },
   "training": {
     "teacher_episodes_per_game": 800,
@@ -68,7 +69,14 @@
     "lora_layers": 16,
     "max_steps": 800,
     "dagger_episodes_per_game": 150,
-    "rloo_steps": 24
+    "rloo_steps": 24,
+    "local_validation_candidates": [
+      "sft",
+      "dagger",
+      "dagger-last",
+      "rloo"
+    ],
+    "dagger_last_rule": "Last numbered saved DAgger checkpoint; evaluate on 100 validation episodes per game before freezing the one local test candidate. Keep teacher-loss-selected checkpoint as a separate validation trial."
   },
   "amendments": [
     {
@@ -100,6 +108,11 @@
       "at": "2026-10-29T23:27:12.178135+00:00",
       "reason": "Before new held-out aggregate inspection: a training-state serial/batch quote mismatch motivates whole-inference-group bootstrap sensitivity. Require both primary and sensitivity positivity; retain nine candidates.",
       "source": "scripts/score_final.py; results/kaggle/staged-final-v1/qwen3.5-4b-staged-sft/batch_parity.json; ITERATIONS.md"
+    },
+    {
+      "at": "2026-10-30T07:03:22.183238+00:00",
+      "reason": "DAgger teacher validation at 199/399 is worse than the initial SFT adapter; testing only its teacher-selected checkpoint may therefore test unchanged weights. Register the fixed last saved training checkpoint as another validation trial before any DAgger/RLOO policy validation or held-out aggregate. No held-out candidate added: one local validation winner remains. Widen the validation contrast family from four to six before any follow-up contrast is observed.",
+      "source": "train/final_candidate.py; results/training/qwen35_dagger_last_plan.json; ITERATIONS.md"
     }
   ]
 }

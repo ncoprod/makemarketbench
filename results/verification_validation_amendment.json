@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain full local verification after the validation checkpoint amendment"
+    },
+    "model_revision": null,
+    "git_commit": "8e45e77b91a40266ee4b9f7ba8bbd993e51374db",
+    "uncommitted_diff_sha256": "92f72eef50c0dc344b045fee9ad9fd02c0f1ad756cfa6e563dae3327d9b813eb",
+    "started_at": "2026-10-30T07:05:39.438776+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": ".venv/bin/pytest -q",
+  "exit_code": 0,
+  "observed_summary": "114 passed in 5.47s",
+  "observation": "Unified exec session 62362 completed successfully; summary retained from its tool output, no reconstructed full stdout hash.",
+  "ruff": {
+    "command": ".venv/bin/ruff check train/final_candidate.py scripts/retain_local_validation.py scripts/compare_local_validation.py tests/test_training.py",
+    "exit_code": 0,
+    "observed_summary": "All checks passed!"
+  },
+  "source_sha256": {
+    "train/final_candidate.py": "809ba188deab43f456b4a43602fcf151a14d7988063a86f400e13da2a333120e",
+    "scripts/retain_local_validation.py": "df02e4d734f842b8448f749a2db5e1082b2c007ef163a2353cf63f82e8259998",
+    "scripts/compare_local_validation.py": "722077b1ff474278d20573d067ecd83fb5a2e4eaf782e46304d4574eb8fe029d",
+    "tests/test_training.py": "fd3dd6427c915cb07bc84b81f3c6c8b13e8fff4c0d33afaa71a8c97f01358b4c"
+  },
+  "statistical_guards_tested": [
+    "Missing one registered validation trial prevents frozen selection and held-out evaluation.",
+    "Max-min selection uses both games rather than the largest dice percentage.",
+    "Changing validation files after freezing does not reselect the test candidate."
+  ]
+}

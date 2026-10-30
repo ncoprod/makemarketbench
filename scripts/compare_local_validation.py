@@ -1,4 +1,4 @@
-"""Paired validation contrasts for the two registered local follow-up trials."""
+"""Paired validation contrasts for the registered local follow-up trials."""
 
 import argparse
 import json
@@ -12,7 +12,7 @@ from makemarket.scoring import bootstrap_ci, episode_metrics
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("method", choices=("dagger", "rloo"))
+    parser.add_argument("method", choices=("dagger", "dagger-last", "rloo"))
     args = parser.parse_args()
     hashes, games = {}, {}
     for game in ("dice", "cards"):
@@ -27,7 +27,7 @@ def main():
         delta = values[args.method] - values["sft"]
         games[game] = {"mean_expected_pnl_change": float(delta.mean()),
                        "ci_95": bootstrap_ci(delta),
-                       "family_ci": bootstrap_ci(delta, level=0.9875, n_boot=16000)}
+                       "family_ci": bootstrap_ci(delta, level=1 - 0.05 / 6, n_boot=24000)}
     manifests = {}
     for method in ("sft", args.method):
         path = Path(f"results/validation/qwen35-{method}/cohorts.json")
@@ -36,7 +36,7 @@ def main():
     record = {"provenance": receipt(vars(args), manifests[args.method]["provenance"]["model_revision"]),
               "source_sha256": file_sha256(__file__), "input_sha256": hashes, "games": games,
               "selection_scores": {m: r["selection_score"] for m, r in manifests.items()},
-              "family": "Four registered contrasts: DAgger/RLOO versus SFT, each on dice/cards. Bonferroni level 1-0.05/4; 16000 resamples, seed 0.",
+              "family": "Six registered contrasts: teacher-selected DAgger, last-saved DAgger and RLOO versus SFT, each on dice/cards. Bonferroni level 1-0.05/6; 24000 resamples, seed 0.",
               "interpretation": "Validation diagnostics conditional on the registered recipes and frozen weights. These seeds select the local winner; no held-out claim, fresh-cache variance or training-seed inference."}
     path = Path(f"results/validation/qwen35-{args.method}/vs_sft.json")
     path.write_text(json.dumps(record, indent=2) + "\n")

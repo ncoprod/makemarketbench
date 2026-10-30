@@ -2,11 +2,32 @@
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 from makemarket.provenance import file_sha256, receipt
+
+
+def evaluate_last_dagger(args):
+    source = Path("train/runs/qwen3.5-4b-dagger")
+    training = json.loads(Path("results/training/qwen35_dagger.json").read_text())
+    assert training["status"] in ("completed", "validation_plateau")
+    checkpoint = sorted(source.glob("[0-9]*_adapters.safetensors"))[-1]
+    target = Path("train/runs/qwen3.5-4b-dagger-last")
+    target.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(checkpoint, target / "adapters.safetensors")
+    shutil.copyfile(source / "adapter_config.json", target / "adapter_config.json")
+    record = {"provenance": receipt(vars(args), args.revision), "checkpoint": str(checkpoint),
+              "checkpoint_sha256": file_sha256(checkpoint),
+              "training_result_sha256": file_sha256("results/training/qwen35_dagger.json"),
+              "rule": "Last numbered saved DAgger checkpoint, fixed before its policy validation; retain teacher-loss-selected DAgger separately."}
+    Path("results/training/qwen35_dagger_last_checkpoint.json").write_text(json.dumps(record, indent=2) + "\n")
+    subprocess.run([sys.executable, "train/mlx_evaluate.py", "--model", args.model,
+                    "--revision", args.revision, "--adapter", str(target),
+                    "--label", "qwen3.5-4b-dagger-last", "--seed", "80000",
+                    "--episodes", "100", "--out", "results/validation/qwen35-dagger-last"], check=True)
 
 
 def main():
@@ -18,8 +39,9 @@ def main():
     if frozen.exists():
         selection = json.loads(frozen.read_text())
     else:
+        evaluate_last_dagger(args)
         trials = []
-        for method in ("sft", "dagger", "rloo"):
+        for method in ("sft", "dagger", "dagger-last", "rloo"):
             label = f"qwen3.5-4b-{method}"
             scores, inputs = {}, {}
             for game in ("dice", "cards"):

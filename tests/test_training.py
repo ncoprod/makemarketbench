@@ -142,6 +142,45 @@ def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_pa
     assert scoring.cohort(path) is None
 
 
+@pytest.mark.parametrize("missing_last", [True, False])
+def test_local_selection_requires_every_trial_and_uses_both_validation_games(tmp_path, monkeypatch, missing_last):
+    import sys
+
+    spec = importlib.util.spec_from_file_location(
+        "final_candidate", Path(__file__).parents[1] / "train/final_candidate.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "results/training").mkdir(parents=True)
+    candidates = {"sft": (95, -5), "dagger": (82, 2), "dagger-last": (88, 8), "rloo": (99, 3)}
+    for method, scores in candidates.items():
+        if missing_last and method == "dagger-last":
+            continue
+        root = tmp_path / f"results/validation/qwen35-{method}"
+        root.mkdir(parents=True)
+        adapter = tmp_path / f"train/runs/qwen3.5-4b-{method}"
+        adapter.mkdir(parents=True)
+        (adapter / "adapters.safetensors").write_bytes(method.encode())
+        for game, score in zip(("dice", "cards"), scores):
+            (root / f"leaderboard_{game}.json").write_text(json.dumps({
+                "seeds": list(range(80000, 80100)), "rows": [{"player": f"qwen3.5-4b-{method}",
+                "episodes": 100, "pct_of_bayes": score}]}))
+    calls = []
+    monkeypatch.setattr(module, "evaluate_last_dagger", lambda args: None)
+    monkeypatch.setattr(module, "receipt", lambda config, revision: {"model_revision": revision})
+    monkeypatch.setattr(module.subprocess, "run", lambda command, **kwargs: calls.append(command))
+    monkeypatch.setattr(sys, "argv", ["final_candidate.py", "--model", "model", "--revision", "revision"])
+    frozen = tmp_path / "results/training/selection.json"
+    if missing_last:
+        with pytest.raises(FileNotFoundError):
+            module.main()
+        assert not frozen.exists() and not calls
+    else:
+        module.main()
+        assert json.loads(frozen.read_text())["label"] == "qwen3.5-4b-dagger-last"
+        assert len(calls) == 1 and calls[0][calls[0].index("--seed") + 1] == "200"
+
+
 def test_inference_group_bootstrap_preserves_mean_and_detects_dependence():
     import numpy as np
 
@@ -219,11 +258,12 @@ def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, mon
     selection = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(selection)
     monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(selection, "evaluate_last_dagger", lambda args: None)
     monkeypatch.setattr(selection, "receipt", lambda config, revision: {"model_revision": revision})
     calls = []
     monkeypatch.setattr(selection.subprocess, "run", lambda command, **kw: calls.append(command))
     monkeypatch.setattr("sys.argv", ["final_candidate.py", "--model", "test-model", "--revision", "fixed"])
-    for method, percent in (("sft", 90), ("dagger", 80), ("rloo", 70)):
+    for method, percent in (("sft", 90), ("dagger", 80), ("dagger-last", 75), ("rloo", 70)):
         label = f"qwen3.5-4b-{method}"
         adapter = tmp_path / f"train/runs/{label}"
         adapter.mkdir(parents=True)

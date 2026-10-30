@@ -134,6 +134,20 @@
         ]
       },
       "interpretation": "Transport remains unavailable. No trained-output observation or allocation restart; weekly GPU submission loop remains closed."
+    },
+    {
+      "observed_at": "2026-10-30T05:37:49.895086+00:00",
+      "tool": "mcp__cua_repl.js",
+      "command": "await cua.getState();",
+      "result": {
+        "apps": [],
+        "browsers": [],
+        "errors": [
+          "Native apps: Error: Sky Computer Use native pipe startup failed",
+          "Browsers: Error: The browser access host is unavailable"
+        ]
+      },
+      "interpretation": "Still no browser access or newer Qwen3.8 progress. No GPU restart or submission."
     }
   ],
   "official_sdk_fallback": {

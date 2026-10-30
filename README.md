@@ -110,7 +110,8 @@ small RLOO-style trial. The [token audit](results/training/qwen35_token_audit.js
 checks non-thinking prefixes and sequence limits. Earlier attempts stopped at
 reboot or memory guards; all are retained in [ITERATIONS.md](ITERATIONS.md).
 Projecting only answer positions preserves the full causal loss/gradients;
-fixed training shapes complete **800 microbatches / 400 optimizer updates** in
+starting from the interrupted adapter, fixed training shapes complete
+**800 microbatches / 400 optimizer updates** in
 **14,021.710 seconds**. Full validation loss falls **2.113 → 0.280** on all
 **480 examples**, with sampled physical footprint **6.713 GB**
 ([completed run, memory guard and adapter hash](results/training/qwen35_sft_completion.json)).
@@ -119,7 +120,9 @@ Bayes on dice and **8.9% [−35.1, 42.7]** on cards
 ([complete cohorts and scores](results/validation/qwen35-sft/cohorts.json),
 [numerical-rationale diagnosis](results/validation/qwen35-sft/dice_rationale_diagnosis.json)).
 Teacher loss does not establish policy quality. Local heavy work holds the
-shared ML lock.
+shared ML lock. The final local selection also checks the fixed last DAgger
+checkpoint alongside its teacher-loss-selected checkpoint, before opening the
+test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
