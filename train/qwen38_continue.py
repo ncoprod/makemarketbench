@@ -1,7 +1,7 @@
 """Resume the registered newest-family recipe from retained Kaggle checkpoints.
 
-Run only after downloading and preserving the preceding attempt. SFT keeps its
-original validation cadence; GRPO saves more often within the remaining budget.
+Run after downloading the preceding saved batch outputs. Keep both original
+optimizer schedules and resume only a complete checkpoint.
 """
 
 import argparse
@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 def latest_checkpoint(directory):
-    required = ['adapter_model.safetensors', 'trainer_state.json', 'optimizer.pt',
+    required = ['adapter_model.safetensors', 'adapter_config.json', 'trainer_state.json', 'optimizer.pt',
                 'scheduler.pt', 'rng_state.pth']
     complete = [p for p in directory.glob('checkpoint-*')
                 if all((p / name).is_file() for name in required)]
@@ -27,7 +27,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--core', default='/kaggle/working/train_core.py')
     ap.add_argument('--source-commit', required=True)
-    ap.add_argument('--budget-seconds', type=int, default=6300)
+    ap.add_argument('--budget-seconds', type=int, default=37800)
     args = ap.parse_args()
     work = Path(args.core).parent
     previous = json.loads((work / 'runtime.json').read_text())
@@ -37,24 +37,12 @@ def main():
     core_sha256 = hashlib.sha256(Path(args.core).read_bytes()).hexdigest()
     assert core_sha256 == previous['source_file_sha256'], 'The core differs from the preceding run'
     shutil.copyfile(work / 'runtime.json', work / 'preceding_runtime.json')
-    # The deployed core predates bounded checkpoint retention. Preserve it and
-    # apply only that setting plus the continuation's producing commit.
-    core = Path(args.core).read_text()
-    old = 'save_steps=args.save_steps, report_to="none"'
-    assert core.count(old) == 1, 'Unexpected GRPO checkpoint configuration'
-    core = core.replace(old, 'save_steps=args.save_steps, save_total_limit=2, report_to="none"', 1)
-    old_commit = 'SOURCE_COMMIT = ' + json.dumps(previous['source_commit'])
-    assert core.count(old_commit) == 1
-    core = core.replace(old_commit, 'SOURCE_COMMIT = ' + json.dumps(args.source_commit), 1)
-    resumed_core = work / 'continuation_core.py'
-    resumed_core.write_text(core)
     started = time.monotonic()
     deadline = started + args.budget_seconds
     record = {'source_commit': args.source_commit, 'command': [sys.executable, *sys.argv],
               'source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'preceding_core_sha256': core_sha256,
-              'continuation_core_sha256': hashlib.sha256(resumed_core.read_bytes()).hexdigest(),
-              'core_change': 'GRPO save_total_limit=2 and SOURCE_COMMIT only',
+              'core_change': 'None. Run the exact retained core; this receipt identifies the continuation producer.',
               'model_revision': previous['model_revision'],
               'seed': previous['seed'], 'config': vars(args),
               'preceding_runtime_sha256': hashlib.sha256((work / 'preceding_runtime.json').read_bytes()).hexdigest(),
@@ -64,7 +52,7 @@ def main():
         remaining = int(deadline - time.monotonic())
         if remaining <= 0:
             raise TimeoutError('Continuation wall budget exhausted')
-        command = [sys.executable, str(resumed_core), '--train-only', '--budget-seconds', str(remaining), *flags]
+        command = [sys.executable, args.core, '--train-only', '--budget-seconds', str(remaining), *flags]
         record['stages'].append({'stage': name, 'command': command})
         with (work / f'continuation_{name}.log').open('w') as log:
             try:
@@ -86,10 +74,17 @@ def main():
             flags = ['--resume', str(checkpoint), '--adapter', str(checkpoint)]
         else:
             step, flags = 0, ['--adapter', str(warm)]
-        assert step < 96, 'The original GRPO checkpoint already reached its ceiling'
         record['grpo_start_step'] = step
-        record['grpo_total_ceiling'] = min(96, step + 32)
-        run('grpo', [*flags, '--grpo-steps', str(record['grpo_total_ceiling']), '--save-steps', '5'])
+        record['grpo_total_ceiling'] = 96
+        if step < 96:
+            run('grpo', [*flags, '--grpo-steps', '96', '--grpo-save-steps', '5'])
+        else:
+            assert step == 96, 'Checkpoint exceeds the registered GRPO ceiling'
+            final = work / 'lora_adapter'
+            final.mkdir(exist_ok=True)
+            for name in ['adapter_model.safetensors', 'adapter_config.json']:
+                shutil.copyfile(checkpoint / name, final / name)
+            record['recovered_final_adapter_from_checkpoint'] = str(checkpoint)
         record['status'] = 'completed'
     except Exception as exc:
         record.update(status='failed', error=f'{type(exc).__name__}: {exc}')

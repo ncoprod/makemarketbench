@@ -2357,3 +2357,45 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   scripts/plot_final.py --fix` and `.venv/bin/python -m py_compile` on both
   scripts pass. Neither scoring nor plotting has run; all new held-out
   aggregates remain sealed. Visual verification follows actual result creation.
+
+## Round 3 — saved 27B training, complete baselines, local CI, clear reporting
+
+The owner reopens GPU work for the 30-hour allocation resetting at
+2026-10-31T00:00Z. The preceding week's closure remains valid. Four priorities:
+
+1. Finish the already registered RLOO96/192 validation and API cohorts. Verify
+   complete seeds and preserved prefixes before scoring; keep partials unscored.
+2. Rerun the newest-family recipe as a private **saved batch version**. Preserve
+   the exact training core, runtime, trainer logs and complete checkpoints under
+   `/kaggle/working`. SFT keeps its 800-update ceiling, 50-step validation and
+   patience two; GRPO keeps 96 updates, with checkpoints every five. A 37,800-s
+   core cap and 39,000-s wrapper cap leave room before the 12-hour platform cap.
+   If interrupted, resume adapter, Adam, scheduler and RNG state from the latest
+   complete checkpoint, retaining the original 96-step scheduler ceiling.
+3. Use the same max-min validation criterion to select the newest-family
+   checkpoint before its one 200/game sealed test. Keep all validation trials;
+   the final family still conservatively counts nine candidate slots, including
+   any untested/unavailable checkpoint. No new held-out aggregate has been read.
+4. Add `scripts/ci_local.sh` and install the tracked pre-push hook, then reduce
+   README to a TL;DR, current diagram and one main results table. The local
+   macOS checks do not replace the unavailable hosted Ubuntu/Python matrix.
+
+### Batch recovery implementation and local CI fallback
+
+- Remove the unused interactive-notebook alternative from the newest training
+  builder. The batch writes `train_core.py` and `train.log` into persisted
+  working output, alongside checkpoints, configs and atomic runtime receipts.
+  Each save records checkpoint file hashes. GRPO save cadence is independent
+  of SFT validation cadence. This is persistence/recovery work, not a claimed
+  model-quality improvement. GPU submission waits for the explicit reset.
+- Simplify continuation: run the exact retained core instead of patching source
+  strings, preserve the original 96-update schedule, reject incomplete optimizer
+  checkpoints, and recover the final adapter if checkpoint 96 was saved just
+  before interruption. Earlier unsaved-draft outputs remain lost; do not claim
+  the rerun starts from its step-500 weights.
+- Meaningful CPU regression checks cover incomplete/newest checkpoints, exact
+  core reuse, original SFT cadence, GRPO ceiling and final-adapter recovery.
+  `pytest -q tests/test_training.py`: 35 passed; Ruff passes. Full local CI
+  (Ruff, native extension, Python suite, release native, ASan/UBSan, kernel
+  reward/export dry run) is required by `.githooks/pre-push`. LeakSanitizer is
+  disabled locally on macOS; hosted Linux coverage remains unavailable.

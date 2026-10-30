@@ -209,6 +209,16 @@ def train(args, report_runtime) -> None:
         def on_log(self, args, state, control, **kwargs):
             report_runtime(self.phase, state.global_step)
 
+        def on_save(self, args, state, control, **kwargs):
+            checkpoint = Path(args.output_dir) / f"checkpoint-{state.global_step}"
+            files = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                     for p in checkpoint.iterdir() if p.is_file()}
+            with (WORK / "checkpoints.jsonl").open("a") as log:
+                log.write(json.dumps({"phase": self.phase, "step": state.global_step,
+                                      "checkpoint": str(checkpoint), "sha256": files,
+                                      "recorded_at": datetime.now(timezone.utc).isoformat()}) + "\n")
+            report_runtime(self.phase, state.global_step)
+
     load_options = {"offload_layers": args.offload_layers} if args.offload_layers else {}
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=args.model, revision=args.revision, max_seq_length=args.max_seq_len, load_in_4bit=True,
@@ -303,7 +313,7 @@ def train(args, report_runtime) -> None:
         per_device_train_batch_size=args.num_generations, gradient_accumulation_steps=1,
         num_generations=args.num_generations, max_prompt_length=args.max_seq_len - args.max_completion,
         max_completion_length=args.max_completion, temperature=1.0, logging_steps=5,
-        save_steps=args.save_steps, save_total_limit=2, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
+        save_steps=args.grpo_save_steps or args.save_steps, save_total_limit=2, report_to="none", lr_scheduler_type="cosine", warmup_ratio=0.05,
         optim="adamw_8bit", seed=args.seed, data_seed=args.seed)
     trainer = _trainer(GRPOTrainer, tokenizer, model=model, reward_funcs=make_reward_fns(),
                        callbacks=[RuntimeCallback("grpo")],
@@ -490,6 +500,7 @@ def main() -> None:
     ap.add_argument("--sft-accumulation", type=int, default=2)
     ap.add_argument("--sft-validation-episodes", type=int, default=0)
     ap.add_argument("--save-steps", type=int, default=100)
+    ap.add_argument("--grpo-save-steps", type=int, help="GRPO checkpoint cadence, independent of SFT validation")
     ap.add_argument("--budget-seconds", type=int, default=0, help="wall cap, preserving periodic checkpoints")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device-map", default="sequential", help="balanced splits a large model across GPUs")

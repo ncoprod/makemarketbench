@@ -43,6 +43,7 @@ def main() -> None:
     stage.add_argument("--qwen38-evaluate", action="store_true", help="evaluate saved newest-family adapters")
     ap.add_argument("--evaluation-split", choices=["validation", "test"], default="validation")
     ap.add_argument("--evaluation-budget-seconds", type=int, default=10800)
+    ap.add_argument("--out", type=Path, help="output directory; useful for local CI without modifying tracked kernels")
     args = ap.parse_args()
     assert 0 < args.evaluation_budget_seconds <= 43200
     out = (ROOT / "runs" / "kaggle_qwen38_continue" if args.qwen38_continue else
@@ -51,6 +52,8 @@ def main() -> None:
            ROOT / "runs" / "kaggle_evaluate_staged" if args.evaluate_staged else
            ROOT / "runs" / "kaggle_smoke" if args.smoke else
            ROOT / "runs" / "kaggle_train_only" if args.train_only else OUT)
+    if args.out:
+        out = args.out
     out.mkdir(parents=True, exist_ok=True)
     src = (ROOT / "train" / "grpo_unsloth_kaggle.py").read_text()
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -67,8 +70,9 @@ def main() -> None:
                  "--base-model", "Qwen/Qwen3.8-27B", "--revision", "8aa5f05d26b7205477066e1449e0af13f762a299",
                  "--device-map", "unsloth_balanced", "--sft-steps", "800", "--sft-batch", "1",
                  "--sft-accumulation", "1", "--sft-validation-episodes", "4", "--save-steps", "50",
+                 "--grpo-save-steps", "5",
                  "--grpo-steps", "96", "--num-generations", "2", "--max-seq-len", "1024",
-                 "--lora-rank", "8", "--seed", "0", "--budget-seconds", "14400",
+                 "--lora-rank", "8", "--seed", "0", "--budget-seconds", "37800",
                  "--train-only", "--label", "qwen3.8-27b-sft-grpo"]
     if flags:
         src = src.replace("    main()\n", f"    sys.argv[1:1] = {flags!r}\n    main()\n")
@@ -143,7 +147,7 @@ sources = list(Path("/kaggle/input").rglob("train_core.py"))
 assert len(sources) == 1, sources
 source = sources[0].parent
 work = Path("/kaggle/working")
-for name in ["train_core.py", "runtime.json", "warmstart_adapter", "lora_adapter", "sft", "grpo"]:
+for name in ["train_core.py", "runtime.json", "checkpoints.jsonl", "warmstart_adapter", "lora_adapter", "sft", "grpo"]:
     item = source / name
     if item.is_dir():
         shutil.copytree(item, work / name)
@@ -152,6 +156,20 @@ for name in ["train_core.py", "runtime.json", "warmstart_adapter", "lora_adapter
 launcher = work / "continue.py"
 launcher.write_text({continuation!r})
 subprocess.run([sys.executable, str(launcher), "--source-commit", {commit!r}], check=True)
+'''
+    if args.qwen38_train:
+        src = f'''import subprocess, sys
+from pathlib import Path
+
+core = Path("/kaggle/working/train_core.py")
+core.write_text({src!r})
+with Path("/kaggle/working/train.log").open("w") as log:
+    try:
+        subprocess.run([sys.executable, str(core)], check=True, timeout=39000,
+                       stdout=log, stderr=subprocess.STDOUT)
+    finally:
+        log.flush()
+        print(Path("/kaggle/working/train.log").read_text()[-8000:])
 '''
     (out / "grpo_unsloth_kaggle.py").write_text(src)
     meta = {
@@ -189,20 +207,6 @@ subprocess.run([sys.executable, str(launcher), "--source-commit", {commit!r}], c
     elif args.qwen38_train:
         meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-training",
                     title="MakeMarketBench Qwen3.8 27B training")
-        cell = ("from pathlib import Path\nimport subprocess, sys\n"
-                f"Path('/kaggle/working/train_core.py').write_text({src!r})\n"
-                "with open('/kaggle/working/train.log', 'w') as log:\n"
-                "    try:\n"
-                "        subprocess.run([sys.executable, '/kaggle/working/train_core.py'], "
-                "check=True, timeout=15000, stdout=log, stderr=subprocess.STDOUT)\n"
-                "    finally:\n"
-                "        log.flush()\n"
-                "        print(Path('/kaggle/working/train.log').read_text()[-8000:])\n")
-        notebook = dict(nbformat=4, nbformat_minor=5,
-                        metadata={"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}},
-                        cells=[dict(cell_type="code", metadata={}, execution_count=None, outputs=[],
-                                    source=cell.splitlines(True))])
-        (out / "train.ipynb").write_text(json.dumps(notebook) + "\n")
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"wrote {out}/grpo_unsloth_kaggle.py and kernel-metadata.json")
 

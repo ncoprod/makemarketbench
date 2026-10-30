@@ -546,9 +546,9 @@ def test_gpu_batch_check_uses_training_states_and_keeps_failures(kernel, monkeyp
     assert seen[:8] == [(game, t) for game in args.games for t in (0, 1, 3, 5)]
 
 
-@pytest.mark.parametrize('warm_exists', [False, True])
+@pytest.mark.parametrize('warm_exists,grpo_step', [(False, 0), (True, 20), (True, 96)])
 def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoints(
-        monkeypatch, tmp_path, warm_exists):
+        monkeypatch, tmp_path, warm_exists, grpo_step):
     import hashlib
 
     spec = importlib.util.spec_from_file_location(
@@ -565,7 +565,7 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     }))
     complete = tmp_path / 'sft/checkpoint-750'
     complete.mkdir(parents=True)
-    for name in ['adapter_model.safetensors', 'trainer_state.json', 'optimizer.pt',
+    for name in ['adapter_model.safetensors', 'adapter_config.json', 'trainer_state.json', 'optimizer.pt',
                  'scheduler.pt', 'rng_state.pth']:
         (complete / name).touch()
     partial = tmp_path / 'sft/checkpoint-800'
@@ -578,11 +578,11 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
         for name in ['adapter_model.safetensors', 'adapter_config.json']:
             (warm / name).touch()
     if warm_exists:
-        grpo = tmp_path / 'grpo/checkpoint-20'
+        grpo = tmp_path / f'grpo/checkpoint-{grpo_step}'
         grpo.mkdir(parents=True)
         for item in complete.iterdir():
             (grpo / item.name).touch()
-        (grpo / 'trainer_state.json').write_text(json.dumps({'global_step': 20}))
+        (grpo / 'trainer_state.json').write_text(json.dumps({'global_step': grpo_step}))
     calls = []
 
     def run(command, **kwargs):
@@ -593,17 +593,17 @@ def test_newest_continuation_preserves_sft_cadence_and_rejects_partial_checkpoin
     monkeypatch.setattr('sys.argv', ['qwen38_continue.py', '--core', str(core),
                                     '--source-commit', 'test-commit'])
     module.main()
-    assert len(calls) == (1 if warm_exists else 2)
+    assert len(calls) == (0 if grpo_step == 96 else 1 if warm_exists else 2)
     if not warm_exists:
         assert calls[0][calls[0].index('--adapter') + 1] == str(complete)
         assert calls[0][-6:] == ['--sft-resume', str(complete), '--grpo-steps', '0', '--save-steps', '50']
-    ceiling = 52 if warm_exists else 32
-    assert calls[-1][-4:] == ['--grpo-steps', str(ceiling), '--save-steps', '5']
-    if warm_exists:
+    if grpo_step < 96:
+        assert calls[-1][-4:] == ['--grpo-steps', '96', '--grpo-save-steps', '5']
+    if warm_exists and grpo_step < 96:
         assert calls[-1][calls[-1].index('--resume') + 1] == str(grpo)
-    patched = (tmp_path / 'continuation_core.py').read_text()
-    assert 'save_total_limit=2' in patched
-    assert 'SOURCE_COMMIT = "test-commit"' in patched
+    assert core.read_text() == 'SOURCE_COMMIT = "original"\nconfig = dict(save_steps=args.save_steps, report_to="none")\n'
+    if grpo_step == 96:
+        assert (tmp_path / 'lora_adapter/adapter_model.safetensors').is_file()
     record = json.loads((tmp_path / 'continuation.json').read_text())
     assert record['status'] == 'completed'
-    assert record['grpo_total_ceiling'] == ceiling
+    assert record['grpo_total_ceiling'] == 96
