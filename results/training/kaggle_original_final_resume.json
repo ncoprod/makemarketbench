@@ -85,6 +85,72 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:21:45.900671+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:31:56.766045+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:42:07.453891+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-29T23:52:18.291731+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-30T00:02:29.123891+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-30T00:12:40.040023+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-frozen-grpo-final-resume"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "policy_note": "Frozen original 300-update GRPO weights. Retain the 120 completed dice episodes byte for byte; run missing seeds only, serial greedy 128 tokens, one independent game per T4. Cache repeated prompts within each frozen worker.",
@@ -129,5 +195,19 @@
   "kernel_version": 2,
   "kernel_id": 141578574,
   "training_seed_correction": "results/training/original_seed_correction.json",
-  "version": 2
+  "version": 2,
+  "monitor": {
+    "restarted_at": "2026-10-30T00:14:28.453963+00:00",
+    "command": [
+      ".venv/bin/python",
+      "-u",
+      "scripts/watch_kaggle.py",
+      "--receipt",
+      "results/training/kaggle_original_final_resume.json",
+      "--out",
+      "runs/kaggle_original_final_resume_output"
+    ],
+    "git_commit": "eee0b948771c3b881957b2c66dc45bf9b4819beb",
+    "source_sha256": "f677227d83fa847c9ffeead00cc5c69f2e547b694c69a5380c9facd385e6de33"
+  }
 }

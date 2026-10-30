@@ -56,6 +56,23 @@
       "at": null,
       "result": "Sky Computer Use native pipe startup failed",
       "timestamp_note": "Exact call timestamp not persisted; this was attempted after the 23:35 UTC reconnect and before the 23:36:20 UTC clock read."
+    },
+    {
+      "recorded_at": "2026-10-30T00:19:23.622413+00:00",
+      "action": "cua.rewriteDocumentation(); cua.getState()",
+      "attempt_window_utc": [
+        "2026-10-30T00:18:14Z",
+        "2026-10-30T00:19:23.622413+00:00"
+      ],
+      "result": {
+        "apps": [],
+        "browsers": [],
+        "errors": [
+          "Native apps: Error: Sky Computer Use native pipe startup failed",
+          "Browsers: Error: The browser access host is unavailable"
+        ]
+      },
+      "timestamp_note": "Exact tool-call timestamp unavailable; bounds are the preceding clock read and subsequent receipt timestamp."
     }
   ],
   "official_sdk_fallback": {

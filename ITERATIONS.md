@@ -1582,3 +1582,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   and accept actual terminal statuses. Ruff passes and the full local suite
   reports **112 passed in 6.31 seconds**; exact output and hashes are in
   `results/verification_full_112.json`.
+
+### Resume the incomplete GPT-OSS cards cohort
+
+- The completed 200-episode dice cohort is unchanged. Cards saves three episodes,
+  then stops after three HTTP 504 retries in 1239.676654100418 seconds. Preserve
+  the exact error and attempt duration in `results/expansion/protocol.json`.
+- Queue `runs/resume_gpt_cards.py` after both existing protocol writers finish,
+  then acquire a global NIM slot before `scripts/expand_nim.py --models
+  openai/gpt-oss-20b`. The endpoint, decoding and game settings are unchanged;
+  cache replay and existing raw rows avoid repeating completed episodes.
+- Exact launcher and queue dependencies: `results/expansion/gpt_resume_plan.json`.
+  Availability failures do not count as substantive policy nonimprovements.
+- Computer-use inventory still returns the native-pipe startup and browser-host
+  errors. Preserve this check in `results/training/kaggle_ui_outage.json`; the
+  newest-family draft's later training phase and outputs remain unknown.

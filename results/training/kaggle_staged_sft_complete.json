@@ -118,5 +118,19 @@
     "at": "2026-10-30T00:14:21.175985+00:00",
     "reason": "The previous substring matcher read COMPLETE in the kernel slug as a terminal status. Actual status was RUNNING; the premature pull returned no files. Kernel execution was not interrupted. Resume from last poll + 610 seconds.",
     "source": "scripts/watch_kaggle.py"
+  },
+  "monitor": {
+    "restarted_at": "2026-10-30T00:14:28.457259+00:00",
+    "command": [
+      ".venv/bin/python",
+      "-u",
+      "scripts/watch_kaggle.py",
+      "--receipt",
+      "results/training/kaggle_staged_sft_complete.json",
+      "--out",
+      "runs/kaggle_staged_sft_complete_output"
+    ],
+    "git_commit": "eee0b948771c3b881957b2c66dc45bf9b4819beb",
+    "source_sha256": "f677227d83fa847c9ffeead00cc5c69f2e547b694c69a5380c9facd385e6de33"
   }
 }

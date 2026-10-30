@@ -181,8 +181,10 @@ models receive no score. Lightning and Ultra with thinking disabled complete
 fresh 200-episode cohorts in both games
 ([Lightning](results/expansion/lightning_cohorts.json),
 [Ultra](results/expansion/ultra_cohorts.json)). GPT-OSS completes its fresh dice
-cohort ([receipt](results/expansion/gpt_dice_cohort.json)); its cards cohort,
-Bolt and additional responsive models remain in progress. The corrected final comparison is pending.
+cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards run saves
+three episodes before three HTTP 504 failures; a missing-only
+[resume is queued](results/expansion/gpt_resume_plan.json). Bolt and additional
+responsive models remain in progress. The corrected final comparison is pending.
 
 ## Engine performance and correctness
 
