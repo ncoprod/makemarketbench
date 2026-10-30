@@ -1,0 +1,734 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/final_candidate.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "config": {
+      "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "85a7f79863d3c0e883cc1d06559238e5bbe3a604",
+    "uncommitted_diff_sha256": "c7a269efd1b16a4e4fe76c47139c2df330853bcdd727ff5d0960f73c3cf15759",
+    "started_at": "2026-10-30T19:27:30.328918+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "trials": [
+    {
+      "label": "qwen3.5-4b-sft",
+      "adapter": "train/runs/qwen3.5-4b-sft",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-sft",
+          "episodes": 100,
+          "pct_of_bayes": 23.134629375436102,
+          "pct_of_bayes_ci": [
+            -4.187352895527057,
+            48.005063619931335
+          ],
+          "epnl": 3.3782453474795444,
+          "epnl_ci": [
+            -0.6220414708649687,
+            6.953221967179836
+          ],
+          "realized_pnl": 2.2740000000000005,
+          "realized_pnl_ci": [
+            -3.586,
+            7.735
+          ],
+          "realized_pnl_sd": 28.995041791396822,
+          "noise_edge": 10.985645347479547,
+          "adverse_cost": 7.6074,
+          "spread": 8.107666666666667,
+          "coverage": 0.6766666666666667,
+          "mean_size": 4.704166666666667,
+          "abs_final_position": 5.91,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            1.3698462537870733,
+            2.113087139812314
+          ],
+          "posterior_edge_pct": 24.258965634461237,
+          "flow_shift": -0.5697178930755591,
+          "mid_error": 1.890888401085412,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 1.7233415265808851,
+          "regret_by_round": [
+            0.0,
+            0.49485900651896403,
+            0.9803862080508573,
+            1.9284248201743008,
+            3.014970971371988,
+            3.921408153369202
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-sft",
+          "episodes": 100,
+          "pct_of_bayes": 8.87169554476217,
+          "pct_of_bayes_ci": [
+            -35.13311349022747,
+            42.71311186729823
+          ],
+          "epnl": 1.555911360939736,
+          "epnl_ci": [
+            -5.485642180841259,
+            8.046854681414676
+          ],
+          "realized_pnl": 9.12,
+          "realized_pnl_ci": [
+            1.5397500000000022,
+            16.52
+          ],
+          "realized_pnl_sd": 38.25678259003773,
+          "noise_edge": 14.125911360939734,
+          "adverse_cost": 12.57,
+          "spread": 11.81166666666667,
+          "coverage": 0.635,
+          "mean_size": 4.5,
+          "abs_final_position": 5.33,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            2.3287494083227718,
+            3.4699795291972304
+          ],
+          "posterior_edge_pct": 10.519580313869888,
+          "flow_shift": -4.357149977599479,
+          "mid_error": 2.9770250121357096,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 2.886289498491802,
+          "regret_by_round": [
+            0.0,
+            0.9521581240312728,
+            2.618072620269404,
+            3.568506828664413,
+            5.154726277661898,
+            5.024273140323827
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-sft/leaderboard_dice.json": "c5c8f4cb656d628e215798f0f3b4b9f5f2d6b5c2f34852cae2bca1d163475165",
+        "results/validation/qwen35-sft/leaderboard_cards.json": "247280034a8d74407160137882bad727289cffa7111ed457d9b114e3c7db7133"
+      },
+      "selection_score": -56.865370624563894
+    },
+    {
+      "label": "qwen3.5-4b-dagger",
+      "adapter": "train/runs/qwen3.5-4b-dagger",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-dagger",
+          "episodes": 100,
+          "pct_of_bayes": 23.134629375436102,
+          "pct_of_bayes_ci": [
+            -4.187352895527057,
+            48.005063619931335
+          ],
+          "epnl": 3.3782453474795444,
+          "epnl_ci": [
+            -0.6220414708649687,
+            6.953221967179836
+          ],
+          "realized_pnl": 2.2740000000000005,
+          "realized_pnl_ci": [
+            -3.586,
+            7.735
+          ],
+          "realized_pnl_sd": 28.995041791396822,
+          "noise_edge": 10.985645347479547,
+          "adverse_cost": 7.6074,
+          "spread": 8.107666666666667,
+          "coverage": 0.6766666666666667,
+          "mean_size": 4.704166666666667,
+          "abs_final_position": 5.91,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            1.3698462537870733,
+            2.113087139812314
+          ],
+          "posterior_edge_pct": 24.258965634461237,
+          "flow_shift": -0.5697178930755591,
+          "mid_error": 1.890888401085412,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 1.7233415265808851,
+          "regret_by_round": [
+            0.0,
+            0.49485900651896403,
+            0.9803862080508573,
+            1.9284248201743008,
+            3.014970971371988,
+            3.921408153369202
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-dagger",
+          "episodes": 100,
+          "pct_of_bayes": 8.87169554476217,
+          "pct_of_bayes_ci": [
+            -35.13311349022747,
+            42.71311186729823
+          ],
+          "epnl": 1.555911360939736,
+          "epnl_ci": [
+            -5.485642180841259,
+            8.046854681414676
+          ],
+          "realized_pnl": 9.12,
+          "realized_pnl_ci": [
+            1.5397500000000022,
+            16.52
+          ],
+          "realized_pnl_sd": 38.25678259003773,
+          "noise_edge": 14.125911360939734,
+          "adverse_cost": 12.57,
+          "spread": 11.81166666666667,
+          "coverage": 0.635,
+          "mean_size": 4.5,
+          "abs_final_position": 5.33,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            2.3287494083227718,
+            3.4699795291972304
+          ],
+          "posterior_edge_pct": 10.519580313869888,
+          "flow_shift": -4.357149977599479,
+          "mid_error": 2.9770250121357096,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 2.886289498491802,
+          "regret_by_round": [
+            0.0,
+            0.9521581240312728,
+            2.618072620269404,
+            3.568506828664413,
+            5.154726277661898,
+            5.024273140323827
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-dagger/leaderboard_dice.json": "cc8b09d4b63802c58c662060c19a038331da243dbbe0e0ec0bf48b3e20ed1188",
+        "results/validation/qwen35-dagger/leaderboard_cards.json": "e9e4507b2663bd9ce1ae2029bc133df2df7fc61f507cecf896e5dc9928266d00"
+      },
+      "selection_score": -56.865370624563894
+    },
+    {
+      "label": "qwen3.5-4b-dagger-last",
+      "adapter": "train/runs/qwen3.5-4b-dagger-last",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-dagger-last",
+          "episodes": 100,
+          "pct_of_bayes": 37.07467210510954,
+          "pct_of_bayes_ci": [
+            7.38244956873757,
+            60.641507063954734
+          ],
+          "epnl": 5.413846771256302,
+          "epnl_ci": [
+            1.0352937562471651,
+            9.221307044163876
+          ],
+          "realized_pnl": 5.09,
+          "realized_pnl_ci": [
+            0.2619999999999999,
+            9.531025
+          ],
+          "realized_pnl_sd": 24.030143107725713,
+          "noise_edge": 11.720446771256304,
+          "adverse_cost": 6.3066,
+          "spread": 8.347499999999998,
+          "coverage": 0.7433333333333333,
+          "mean_size": 4.705,
+          "abs_final_position": 4.58,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            1.1766381053596464,
+            1.9048287809654514
+          ],
+          "posterior_edge_pct": 31.32306996017605,
+          "flow_shift": -0.3017361111111114,
+          "mid_error": 1.8178628795124863,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 1.5158611758706475,
+          "regret_by_round": [
+            0.0,
+            0.8379786964390958,
+            1.3176309763983016,
+            1.9149451288460355,
+            2.298088026012605,
+            2.7265242275278467
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-dagger-last",
+          "episodes": 100,
+          "pct_of_bayes": -39.7077063429703,
+          "pct_of_bayes_ci": [
+            -92.01579810008809,
+            1.486122090191159
+          ],
+          "epnl": -6.963907981756888,
+          "epnl_ci": [
+            -14.741338367390245,
+            0.2926939345137471
+          ],
+          "realized_pnl": -0.99,
+          "realized_pnl_ci": [
+            -9.580249999999998,
+            7.5
+          ],
+          "realized_pnl_sd": 43.34230559794269,
+          "noise_edge": 10.223092018243113,
+          "adverse_cost": 17.187,
+          "spread": 11.143333333333333,
+          "coverage": 0.57,
+          "mean_size": 4.4783333333333335,
+          "abs_final_position": 6.02,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            3.644369652536755,
+            5.318407701061764
+          ],
+          "posterior_edge_pct": -38.33904862181169,
+          "flow_shift": -3.5892891969977114,
+          "mid_error": 3.559452393083737,
+          "median_spread_ratio": 0.9646401985111663,
+          "regret_per_round": 4.449719420421824,
+          "regret_by_round": [
+            0.0,
+            1.4787890812197253,
+            3.537220821312806,
+            5.481061154412246,
+            7.166458654884386,
+            9.034786810701776
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-dagger-last/leaderboard_dice.json": "430af201420387938eb68d78e633aafce6d6599be26dc056bbe172811d7cc996",
+        "results/validation/qwen35-dagger-last/leaderboard_cards.json": "953067513dba898f1c44119f20852573a04996f0b3626c675a3f5eb98a5c6541"
+      },
+      "selection_score": -42.92532789489046
+    },
+    {
+      "label": "qwen3.5-4b-rloo",
+      "adapter": "train/runs/qwen3.5-4b-rloo",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-rloo",
+          "episodes": 100,
+          "pct_of_bayes": 48.695043276153044,
+          "pct_of_bayes_ci": [
+            27.272506633012938,
+            67.54042280735207
+          ],
+          "epnl": 7.110717043413974,
+          "epnl_ci": [
+            3.913993227845733,
+            9.938540205700363
+          ],
+          "realized_pnl": 6.12,
+          "realized_pnl_ci": [
+            0.602875000000002,
+            11.3441
+          ],
+          "realized_pnl_sd": 27.37582801662736,
+          "noise_edge": 12.826317043413974,
+          "adverse_cost": 5.7156,
+          "spread": 8.4115,
+          "coverage": 0.7216666666666667,
+          "mean_size": 4.705,
+          "abs_final_position": 5.0,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.8311109948127073,
+            1.3647366849173768
+          ],
+          "posterior_edge_pct": 52.613656304179194,
+          "flow_shift": -0.28101104502973795,
+          "mid_error": 1.4827373639683652,
+          "median_spread_ratio": 1.0121951219512193,
+          "regret_per_round": 1.083870971267981,
+          "regret_by_round": [
+            0.0,
+            0.4525548943778681,
+            0.7479661451079259,
+            1.026693147715177,
+            1.7818955264316807,
+            2.4941161139752337
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-rloo",
+          "episodes": 100,
+          "pct_of_bayes": 19.55496643819823,
+          "pct_of_bayes_ci": [
+            -22.795936689301705,
+            51.995157276363095
+          ],
+          "epnl": 3.4295354580727464,
+          "epnl_ci": [
+            -3.6055735784929652,
+            9.830429414518012
+          ],
+          "realized_pnl": 9.44,
+          "realized_pnl_ci": [
+            1.82,
+            16.930249999999997
+          ],
+          "realized_pnl_sd": 38.882968669139096,
+          "noise_edge": 14.946535458072747,
+          "adverse_cost": 11.517000000000001,
+          "spread": 12.221666666666668,
+          "coverage": 0.6666666666666665,
+          "mean_size": 4.5,
+          "abs_final_position": 4.91,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            2.0839404347395223,
+            3.147288399021395
+          ],
+          "posterior_edge_pct": 19.314431523216417,
+          "flow_shift": -4.28032371874408,
+          "mid_error": 2.9034288205372194,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 2.599734852656664,
+          "regret_by_round": [
+            0.0,
+            0.9089012344447905,
+            2.44705793977943,
+            3.1404196920846386,
+            4.570503647004241,
+            4.5315266026268874
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-rloo/leaderboard_dice.json": "4149ae83fdd26c2ec628ae934088548a2f723d1f5b745e7cbb4b7c24f58b204e",
+        "results/validation/qwen35-rloo/leaderboard_cards.json": "73947263ec84665127f09bb1766acfe573eebb5cccfa6f78efc194dfbb2477a3"
+      },
+      "selection_score": -31.304956723846956
+    },
+    {
+      "label": "qwen3.5-4b-rloo96",
+      "adapter": "train/runs/qwen3.5-4b-rloo96",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-rloo96",
+          "episodes": 100,
+          "pct_of_bayes": 66.25064949045698,
+          "pct_of_bayes_ci": [
+            49.00663830949743,
+            80.6395849872454
+          ],
+          "epnl": 9.674282858677323,
+          "epnl_ci": [
+            6.808649304194047,
+            12.092456915164503
+          ],
+          "realized_pnl": 8.304,
+          "realized_pnl_ci": [
+            3.323875000000001,
+            12.839174999999997
+          ],
+          "realized_pnl_sd": 24.671403803929874,
+          "noise_edge": 14.682782858677319,
+          "adverse_cost": 5.008499999999999,
+          "spread": 8.299166666666668,
+          "coverage": 0.7583333333333332,
+          "mean_size": 4.816666666666666,
+          "abs_final_position": 4.79,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.5957884630803275,
+            0.9912531434390995
+          ],
+          "posterior_edge_pct": 66.11338640595575,
+          "flow_shift": 0.07099018003273333,
+          "mid_error": 1.2370504449040212,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 0.7831088504585675,
+          "regret_by_round": [
+            0.0,
+            0.3852795760382753,
+            0.842985717769396,
+            0.8938499988971909,
+            1.1269085493365103,
+            1.449629260710032
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-rloo96",
+          "episodes": 100,
+          "pct_of_bayes": 16.16959522093798,
+          "pct_of_bayes_ci": [
+            -28.850103662534124,
+            50.03337429112936
+          ],
+          "epnl": 2.835811573911343,
+          "epnl_ci": [
+            -4.448396593168282,
+            9.456723529330832
+          ],
+          "realized_pnl": 7.63,
+          "realized_pnl_ci": [
+            0.24950000000000444,
+            14.68
+          ],
+          "realized_pnl_sd": 37.529962440802954,
+          "noise_edge": 14.517811573911342,
+          "adverse_cost": 11.681999999999999,
+          "spread": 12.201666666666664,
+          "coverage": 0.6716666666666667,
+          "mean_size": 4.5,
+          "abs_final_position": 5.18,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            2.28038498721483,
+            3.4130700204910482
+          ],
+          "posterior_edge_pct": 12.334693175582006,
+          "flow_shift": -4.746151143554426,
+          "mid_error": 2.9912529420673377,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 2.8349115534929985,
+          "regret_by_round": [
+            0.0,
+            0.8761196219045558,
+            2.6995634177389065,
+            3.423171900142315,
+            5.092473886783645,
+            4.9181404943885685
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-rloo96/leaderboard_dice.json": "cdd1be28da9456f7098d51ae98726040182ebc73d5e55ed57dfb4a7b772377d3",
+        "results/validation/qwen35-rloo96/leaderboard_cards.json": "e2337bb2a7cf7be41af2839d0ca026a3f6de1630f0199a299d63a231b21fb66e"
+      },
+      "selection_score": -13.74935050954302
+    },
+    {
+      "label": "qwen3.5-4b-rloo192",
+      "adapter": "train/runs/qwen3.5-4b-rloo192",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-rloo192",
+          "episodes": 100,
+          "pct_of_bayes": 70.41372699169959,
+          "pct_of_bayes_ci": [
+            55.808478838433615,
+            83.15306147971803
+          ],
+          "epnl": 10.282198246969749,
+          "epnl_ci": [
+            7.634552256197142,
+            12.663832132802634
+          ],
+          "realized_pnl": 9.629000000000001,
+          "realized_pnl_ci": [
+            5.722925000000001,
+            13.536074999999999
+          ],
+          "realized_pnl_sd": 20.144409430736143,
+          "noise_edge": 14.951698246969752,
+          "adverse_cost": 4.6695,
+          "spread": 8.3185,
+          "coverage": 0.75,
+          "mean_size": 4.723333333333334,
+          "abs_final_position": 4.13,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.506572866218373,
+            0.888937261012806
+          ],
+          "posterior_edge_pct": 69.99071499466787,
+          "flow_shift": -0.10607843137254858,
+          "mid_error": 1.1622228628217086,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 0.6834118480331536,
+          "regret_by_round": [
+            0.0,
+            0.38334787478679905,
+            0.8136581688056518,
+            0.8088381982328235,
+            0.9725424616437067,
+            1.1220843847299407
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-rloo192",
+          "episodes": 100,
+          "pct_of_bayes": 16.120801203144943,
+          "pct_of_bayes_ci": [
+            -27.79451657152036,
+            48.847228568152445
+          ],
+          "epnl": 2.827254115390925,
+          "epnl_ci": [
+            -4.375163821186687,
+            9.313879630874697
+          ],
+          "realized_pnl": 8.09,
+          "realized_pnl_ci": [
+            0.51,
+            15.34
+          ],
+          "realized_pnl_sd": 38.346926443676914,
+          "noise_edge": 14.398254115390925,
+          "adverse_cost": 11.571000000000002,
+          "spread": 12.275,
+          "coverage": 0.6633333333333333,
+          "mean_size": 4.5,
+          "abs_final_position": 5.12,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            2.275576929623003,
+            3.3897099210401276
+          ],
+          "posterior_edge_pct": 13.24230982667865,
+          "flow_shift": -4.362413404830658,
+          "mid_error": 3.018358880902211,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 2.8173677122449474,
+          "regret_by_round": [
+            0.0,
+            0.8942855439940746,
+            2.5693313100634008,
+            3.2740640755783046,
+            5.079242601001696,
+            5.0872827428322065
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-rloo192/leaderboard_dice.json": "26dfddd7b576bd73db97bf673e6fa39f4a9bc86facf36212fc772b826176efbc",
+        "results/validation/qwen35-rloo192/leaderboard_cards.json": "57f4bde797d15e61adf0099cf1c256d357fdaa33a07af62978c0243a55dc0765"
+      },
+      "selection_score": -9.58627300830041
+    },
+    {
+      "label": "qwen3.5-4b-rloo384",
+      "adapter": "train/runs/qwen3.5-4b-rloo384",
+      "scores": {
+        "dice": {
+          "player": "qwen3.5-4b-rloo384",
+          "episodes": 100,
+          "pct_of_bayes": 53.84989289132041,
+          "pct_of_bayes_ci": [
+            34.307230697573544,
+            70.82023861812797
+          ],
+          "epnl": 7.8634564301917065,
+          "epnl_ci": [
+            4.870027840568415,
+            10.535794617654714
+          ],
+          "realized_pnl": 6.3309999999999995,
+          "realized_pnl_ci": [
+            0.6938000000000004,
+            11.649399999999993
+          ],
+          "realized_pnl_sd": 28.263477861156446,
+          "noise_edge": 13.638456430191706,
+          "adverse_cost": 5.775000000000001,
+          "spread": 8.1415,
+          "coverage": 0.7150000000000002,
+          "mean_size": 4.6866666666666665,
+          "abs_final_position": 5.2,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.7883728097024866,
+            1.2432155905999396
+          ],
+          "posterior_edge_pct": 56.36900578508305,
+          "flow_shift": -0.5175213675213679,
+          "mid_error": 1.4109526159836434,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 1.0005683301043247,
+          "regret_by_round": [
+            0.0,
+            0.5301918982200672,
+            0.9918332457676848,
+            1.1599660647493457,
+            1.5136478371669575,
+            1.8077709347218922
+          ]
+        },
+        "cards": {
+          "player": "qwen3.5-4b-rloo384",
+          "episodes": 100,
+          "pct_of_bayes": 19.719289325188488,
+          "pct_of_bayes_ci": [
+            -20.72120237861287,
+            51.157889696036634
+          ],
+          "epnl": 3.458354283678355,
+          "epnl_ci": [
+            -3.2855830954499865,
+            9.586123331804377
+          ],
+          "realized_pnl": 8.4,
+          "realized_pnl_ci": [
+            1.2597500000000021,
+            15.24
+          ],
+          "realized_pnl_sd": 36.04654678819506,
+          "noise_edge": 14.993354283678354,
+          "adverse_cost": 11.534999999999998,
+          "spread": 12.013333333333335,
+          "coverage": 0.6599999999999998,
+          "mean_size": 4.5,
+          "abs_final_position": 5.12,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            2.155771612190613,
+            3.1872322780928553
+          ],
+          "posterior_edge_pct": 18.13884177415235,
+          "flow_shift": -4.083797408819776,
+          "mid_error": 2.8891797642417503,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 2.6549594306201687,
+          "regret_by_round": [
+            0.0,
+            0.9026300893865072,
+            2.6587668920299077,
+            3.166088272676539,
+            4.79469247319391,
+            4.407578856434148
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/validation/qwen35-rloo384/leaderboard_dice.json": "d4416b33d50067131cd200f8be313f2bfa6427246c09bc0368faabac8d1cbeec",
+        "results/validation/qwen35-rloo384/leaderboard_cards.json": "567eee43b505704f6030ec1306a9faf6c10505b32f314ff371a06a769aa123c6"
+      },
+      "selection_score": -26.15010710867959
+    }
+  ],
+  "rule": "max min(dice percentage - 80, cards percentage); earlier trial wins ties",
+  "label": "qwen3.5-4b-rloo192",
+  "adapter": "train/runs/qwen3.5-4b-rloo192",
+  "adapter_sha256": "ec4bc597877c4bb61c8becd0c21a33e495a3dacea46f2435464de61e98cd1686"
+}

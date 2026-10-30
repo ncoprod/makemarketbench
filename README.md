@@ -158,10 +158,16 @@ At 192 groups, validation reaches **70.4% [55.8, 83.2]** on dice and
 **16.1% [−27.8, 48.8]** on cards
 ([complete cohorts](results/validation/qwen35-rloo192/cohorts.json)). This
 increment misses the registered material-improvement criterion
-([assessment](results/training/qwen35_rloo192_iteration.json)). One final
-384-group continuation tests whether that smaller gain persists
-([registered controls](results/training/qwen35_rloo384_plan.json)); all
-eighteen validation contrasts are counted before local selection or test.
+([assessment](results/training/qwen35_rloo192_iteration.json)). The final
+384-group continuation falls to **53.8% [34.3, 70.8]** on dice and
+**19.7% [−20.7, 51.2]** on cards
+([complete validation](results/validation/qwen35-rloo384/cohorts.json)).
+Two consecutive iterations miss the registered improvement criterion, so this
+local recipe stops ([assessment and diagnosis](results/training/qwen35_rloo384_iteration.json)).
+The max-min rule freezes RLOO192 across all seven trials
+([selection](results/training/selection.json)); all eighteen validation
+contrasts count. Its fresh 200-episode-per-game test is collected without
+opening scores while the newest-model selection remains pending.
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4

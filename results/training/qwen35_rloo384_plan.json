@@ -18,7 +18,7 @@
     }
   },
   "source": "import json\nimport shutil\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nrevision = '32f3e8ecf65426fc3306969496342d504bfa13f3'\nmodel = str(Path.home() / '.cache/mmb_models/Qwen3.5-4B-MLX-4bit')\npath = Path('results/training/qwen35_rloo384_plan.json')\nprior_path = Path('results/training/qwen35_rloo192.json')\nprior = json.loads(prior_path.read_text())\nassert prior['status'] == 'completed' and len(prior['history']) == 192\ncheckpoint = Path('train/runs/qwen3.5-4b-rloo192/step_0192')\nrecord = json.loads(path.read_text()) if path.exists() else {\n    'provenance': receipt({'purpose': 'one final fixed-budget doubling after the uncertain 192-group increment'}, revision),\n    'source': Path(__file__).read_text(), 'status': 'registered', 'commands': [],\n    'hypothesis': 'The 96-to-192 increment misses the registered real-improvement rule. Doubling once more distinguishes an insufficient update budget from diminishing returns on this dice-only reward.',\n    'controls': 'Continue the exact RLOO192 adapter and Adam state to 384 cumulative groups; seed 5, lr 1e-6, four generations, same 600 shuffled dice train states and reward. No held-out score is inspected.',\n    'initialization_sha256': {str(p): file_sha256(p) for p in (prior_path, checkpoint / 'adapters.safetensors', checkpoint / 'optimizer.safetensors')},\n    'observed_validation_evidence': {str(p): file_sha256(p) for p in [Path('results/validation/qwen35-rloo192/cohorts.json'), Path('results/validation/qwen35-rloo192/vs_rloo96_14_contrasts.json')]},\n    'validation': {'seed_start': 80000, 'episodes_per_game': 100, 'family_contrasts': 18, 'bootstrap_resamples': 72000, 'bootstrap_seed': 0},\n    'real_improvement': 'Max-min selection-score gain >=5 points over RLOO192, one paired corrected lower bound >0, neither game corrected upper bound <0.',\n    'stopping': 'If this also fails the real-improvement criterion, T23 and this trial are two consecutive nonimprovements. Diagnose the remaining gap, freeze the max-min winner across all seven local trials, and acquire its one raw-only 200/game test.',\n    'selection': 'Same max min(dice percentage -80, cards percentage), earlier trial wins ties. One local candidate remains in the nine-candidate final family.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\nresult_path = Path('results/training/qwen35_rloo384.json')\nif not result_path.exists():\n    shutil.copytree(checkpoint, Path('train/runs/qwen3.5-4b-rloo384/step_0192'))\n    shutil.copyfile(prior_path, result_path)\nassert json.loads(result_path.read_text())['history'][:192] == prior['history']\ncommands = [\n    ['bash', 'scripts/with_resource.sh', 'heavy-ml', '.venv/bin/python', '-u', 'train/with_memory_guard.py', '--result', 'results/training/qwen35_rloo384_memory.json', '.venv/bin/python', '-u', 'train/mlx_rloo.py', '--model', model, '--revision', revision, '--adapter', 'train/runs/qwen3.5-4b-sft', '--out', 'train/runs/qwen3.5-4b-rloo384', '--result', str(result_path), '--steps', '384', '--seed', '5'],\n    ['bash', 'scripts/with_resource.sh', 'heavy-ml', '.venv/bin/python', '-u', 'train/mlx_evaluate.py', '--model', model, '--revision', revision, '--adapter', 'train/runs/qwen3.5-4b-rloo384', '--label', 'qwen3.5-4b-rloo384', '--seed', '80000', '--episodes', '100', '--out', 'results/validation/qwen35-rloo384'],\n    ['.venv/bin/python', 'scripts/retain_local_validation.py', 'rloo384'],\n    ['.venv/bin/python', 'scripts/compare_local_validation.py', 'rloo384'],\n    ['.venv/bin/python', 'scripts/compare_local_validation.py', 'rloo384', '--baseline', 'rloo192']]\ntry:\n    for command in commands:\n        record.update(status='running', current_command=command)\n        record['commands'].append(command)\n        path.write_text(json.dumps(record, indent=2) + '\\n')\n        started = time.monotonic()\n        subprocess.run(command, check=True)\n        record.setdefault('completed_commands', []).append({'command': command, 'wall_seconds': time.monotonic() - started})\n    record['status'] = 'validation_completed_before_selection'\nexcept Exception as exc:\n    record.update(status='failed', error=f'{type(exc).__name__}: {exc}')\n    raise\nfinally:\n    path.write_text(json.dumps(record, indent=2) + '\\n')\n",
-  "status": "running",
+  "status": "validation_completed_before_selection",
   "commands": [
     [
       "bash",
@@ -68,6 +68,23 @@
       "100",
       "--out",
       "results/validation/qwen35-rloo384"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/retain_local_validation.py",
+      "rloo384"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "rloo384"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "rloo384",
+      "--baseline",
+      "rloo192"
     ]
   ],
   "hypothesis": "The 96-to-192 increment misses the registered real-improvement rule. Doubling once more distinguishes an insufficient update budget from diminishing returns on this dice-only reward.",
@@ -92,26 +109,11 @@
   "stopping": "If this also fails the real-improvement criterion, T23 and this trial are two consecutive nonimprovements. Diagnose the remaining gap, freeze the max-min winner across all seven local trials, and acquire its one raw-only 200/game test.",
   "selection": "Same max min(dice percentage -80, cards percentage), earlier trial wins ties. One local candidate remains in the nine-candidate final family.",
   "current_command": [
-    "bash",
-    "scripts/with_resource.sh",
-    "heavy-ml",
     ".venv/bin/python",
-    "-u",
-    "train/mlx_evaluate.py",
-    "--model",
-    "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
-    "--revision",
-    "32f3e8ecf65426fc3306969496342d504bfa13f3",
-    "--adapter",
-    "train/runs/qwen3.5-4b-rloo384",
-    "--label",
-    "qwen3.5-4b-rloo384",
-    "--seed",
-    "80000",
-    "--episodes",
-    "100",
-    "--out",
-    "results/validation/qwen35-rloo384"
+    "scripts/compare_local_validation.py",
+    "rloo384",
+    "--baseline",
+    "rloo192"
   ],
   "completed_commands": [
     {
@@ -143,6 +145,57 @@
         "5"
       ],
       "wall_seconds": 10368.781156124998
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/with_resource.sh",
+        "heavy-ml",
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_evaluate.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--adapter",
+        "train/runs/qwen3.5-4b-rloo384",
+        "--label",
+        "qwen3.5-4b-rloo384",
+        "--seed",
+        "80000",
+        "--episodes",
+        "100",
+        "--out",
+        "results/validation/qwen35-rloo384"
+      ],
+      "wall_seconds": 3745.867455667001
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/retain_local_validation.py",
+        "rloo384"
+      ],
+      "wall_seconds": 0.2890490419958951
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "rloo384"
+      ],
+      "wall_seconds": 0.35679316699679475
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "rloo384",
+        "--baseline",
+        "rloo192"
+      ],
+      "wall_seconds": 0.27213612500054296
     }
   ]
 }

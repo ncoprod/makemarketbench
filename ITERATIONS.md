@@ -2576,3 +2576,28 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   `results/training/qwen35_rloo384_completion.json`.
 - Policy validation now runs on the registered 100 episodes/game. No
   improvement is inferred from completion or training reward.
+
+### T26 outcome — stop the local recipe and freeze RLOO192
+
+- Dice validation falls from 70.41372699169959% to 53.84989289132041%
+  [34.307230697573544, 70.82023861812797]; cards reaches
+  19.719289325188488% [-20.72120237861287, 51.157889696036634]. Both
+  cohorts complete 100 episodes. Neither corrected paired lower bound exceeds
+  zero; the max-min score falls 16.563834100379182 points. T23 and T26 are
+  two consecutive failures of the registered material-improvement rule.
+- Commands, exact results and inputs: `qwen35_rloo384_iteration.json`,
+  `results/validation/qwen35-rloo384/cohorts.json` and `vs_rloo192.json`.
+  Both games have zero format failures and median spread ratio one. Dice
+  midpoint error rises; regret grows after later reveals. Fixed teacher states
+  and dice-only contextual rewards leave a plausible sequential/cards inference
+  gap. This diagnosis does not establish causality or an impossibility result.
+- Stop this unchanged local recipe. `train/final_candidate.py` freezes the
+  max-min winner across all seven complete validation candidates: RLOO192.
+  Command: `bash scripts/with_resource.sh heavy-ml .venv/bin/python -u
+  train/final_candidate.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit
+  --revision 32f3e8ecf65426fc3306969496342d504bfa13f3`. Selection receipt:
+  `results/training/selection.json`; raw-only test: `results/final/selected`.
+  All fresh aggregates stay sealed until both model selections are frozen.
+- Reuse and verify the retained last-DAgger validation manifest rather than
+  rewriting the same scores with new provenance. A regression test checks
+  unchanged bytes and rejection of modified retained inputs.

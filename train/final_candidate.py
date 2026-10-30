@@ -15,6 +15,14 @@ def evaluate_last_dagger(args):
     training = json.loads(Path("results/training/qwen35_dagger.json").read_text())
     assert training["status"] in ("completed", "validation_plateau")
     checkpoint = sorted(source.glob("[0-9]*_adapters.safetensors"))[-1]
+    manifest = Path("results/validation/qwen35-dagger-last/cohorts.json")
+    if manifest.exists():
+        retained = json.loads(manifest.read_text())
+        assert retained["adapter_sha256"] == file_sha256(checkpoint)
+        assert retained["provenance"]["model_revision"] == args.revision
+        for path, expected in retained["input_sha256"].items():
+            assert file_sha256(path) == expected, f"Retained validation changed: {path}"
+        return
     target = Path("train/runs/qwen3.5-4b-dagger-last")
     target.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(checkpoint, target / "adapters.safetensors")

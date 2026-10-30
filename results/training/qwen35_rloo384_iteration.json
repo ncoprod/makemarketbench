@@ -1,0 +1,88 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/record_rloo384_iteration.py",
+    "config": {
+      "purpose": "assess T26 against its registered material-improvement criterion"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "85a7f79863d3c0e883cc1d06559238e5bbe3a604",
+    "uncommitted_diff_sha256": "c7a269efd1b16a4e4fe76c47139c2df330853bcdd727ff5d0960f73c3cf15759",
+    "started_at": "2026-10-30T19:27:49.144318+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/validation')\nold = json.loads((root / 'qwen35-rloo192/cohorts.json').read_text())\nnew = json.loads((root / 'qwen35-rloo384/cohorts.json').read_text())\ncontrast = root / 'qwen35-rloo384/vs_rloo192.json'\ngames = json.loads(contrast.read_text())['games']\ngain = new['selection_score'] - old['selection_score']\npositive = any(g['family_ci'][0] > 0 for g in games.values())\nharm = any(g['family_ci'][1] < 0 for g in games.values())\nr = {'provenance': receipt({'purpose': 'assess T26 against its registered material-improvement criterion'}, new['provenance']['model_revision']),\n     'source': Path(__file__).read_text(), 'trial': 'T26', 'groups_before_after': [192, 384],\n     'selection_score_gain_points': gain, 'required_gain_points': 5,\n     'one_corrected_paired_lower_above_zero': positive, 'one_corrected_paired_upper_below_zero': harm,\n     'real_improvement': gain >= 5 and positive and not harm,\n     'validation_percentages': {g: {k: row[k] for k in ('pct_of_bayes', 'pct_of_bayes_ci', 'epnl', 'epnl_ci')} for g,row in new['games'].items()},\n     'paired_contrasts': games, 'family_contrasts': 18,\n     'input_sha256': {str(p):file_sha256(p) for p in [root/'qwen35-rloo192/cohorts.json',root/'qwen35-rloo384/cohorts.json',contrast]},\n     'interpretation': 'Second consecutive nonimprovement after T23. The selection score falls and neither corrected paired lower bound exceeds zero. Stop this unchanged local recipe; freeze the max-min winner across all seven trials. Zero format errors, median spread ratio one and increasing late-round posterior errors point to a state-inference gap; dice-only contextual rewards on fixed teacher states do not train full on-policy cards inference. This is a diagnostic hypothesis, not proof of causality or impossibility. Collect the selected raw-only test; all fresh aggregates remain sealed until the newest-model selection is frozen.'}\nPath('results/training/qwen35_rloo384_iteration.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint({'selection_score_gain_points':gain,'real_improvement':r['real_improvement']})\n",
+  "trial": "T26",
+  "groups_before_after": [
+    192,
+    384
+  ],
+  "selection_score_gain_points": -16.563834100379182,
+  "required_gain_points": 5,
+  "one_corrected_paired_lower_above_zero": false,
+  "one_corrected_paired_upper_below_zero": false,
+  "real_improvement": false,
+  "validation_percentages": {
+    "dice": {
+      "pct_of_bayes": 53.84989289132041,
+      "pct_of_bayes_ci": [
+        34.307230697573544,
+        70.82023861812797
+      ],
+      "epnl": 7.8634564301917065,
+      "epnl_ci": [
+        4.870027840568415,
+        10.535794617654714
+      ]
+    },
+    "cards": {
+      "pct_of_bayes": 19.719289325188488,
+      "pct_of_bayes_ci": [
+        -20.72120237861287,
+        51.157889696036634
+      ],
+      "epnl": 3.458354283678355,
+      "epnl_ci": [
+        -3.2855830954499865,
+        9.586123331804377
+      ]
+    }
+  },
+  "paired_contrasts": {
+    "dice": {
+      "mean_expected_pnl_change": -2.4187418167780432,
+      "ci_95": [
+        -4.67481100099741,
+        -0.29098022458321615
+      ],
+      "family_ci": [
+        -5.8502098012717205,
+        0.8426132839001607
+      ]
+    },
+    "cards": {
+      "mean_expected_pnl_change": 0.6311001682874295,
+      "ci_95": [
+        -1.6221455737779265,
+        3.025187390463262
+      ],
+      "family_ci": [
+        -2.7520117742664976,
+        4.410632158633546
+      ]
+    }
+  },
+  "family_contrasts": 18,
+  "input_sha256": {
+    "results/validation/qwen35-rloo192/cohorts.json": "f2bd3c895bd948e6b87148389e184064f5482e6da9e742308fc0fd3d1405122e",
+    "results/validation/qwen35-rloo384/cohorts.json": "a718b1b837f804b732c71c2a2dd16228e882571df99a13c64888c8b934629049",
+    "results/validation/qwen35-rloo384/vs_rloo192.json": "49e287e992d4846b37079d160b494b5a976f4c4ff4360d0df3f73531bc6f171c"
+  },
+  "interpretation": "Second consecutive nonimprovement after T23. The selection score falls and neither corrected paired lower bound exceeds zero. Stop this unchanged local recipe; freeze the max-min winner across all seven trials. Zero format errors, median spread ratio one and increasing late-round posterior errors point to a state-inference gap; dice-only contextual rewards on fixed teacher states do not train full on-policy cards inference. This is a diagnostic hypothesis, not proof of causality or impossibility. Collect the selected raw-only test; all fresh aggregates remain sealed until the newest-model selection is frozen."
+}
