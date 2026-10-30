@@ -11,8 +11,9 @@ def test_raw_only_retains_acquisition_without_scoring(monkeypatch, tmp_path):
     monkeypatch.setattr(sys, "argv", ["mlx_evaluate.py", "--model", "test", "--revision", "fixed",
                                      "--label", "policy", "--episodes", "2", "--seed", "200",
                                      "--games", "dice", "--out", str(tmp_path), "--raw-only"])
-    monkeypatch.setitem(sys.modules, "mlx.core", SimpleNamespace(set_cache_limit=lambda _: None,
-                                                                 get_peak_memory=lambda: 123))
+    core = SimpleNamespace(set_cache_limit=lambda _: None, get_peak_memory=lambda: 123)
+    monkeypatch.setitem(sys.modules, "mlx", SimpleNamespace(core=core))
+    monkeypatch.setitem(sys.modules, "mlx.core", core)
     monkeypatch.setitem(sys.modules, "mlx_lm", SimpleNamespace(load=lambda *a, **kw: (None, None)))
     monkeypatch.setattr(mlx_evaluate, "run_player", lambda *a, **kw: [{"seed": 200}, {"seed": 201}])
 
