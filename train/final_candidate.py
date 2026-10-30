@@ -67,7 +67,7 @@ def main():
     command = [sys.executable, "train/mlx_evaluate.py", "--model", args.model,
                "--revision", args.revision, "--adapter", selection["adapter"],
                "--label", selection["label"], "--seed", "200", "--episodes", "200",
-               "--out", "results/final/selected"]
+               "--out", "results/final/selected", "--raw-only"]
     print("Frozen validation winner:", selection["label"], flush=True)
     subprocess.run(command, check=True)
 

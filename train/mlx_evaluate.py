@@ -68,6 +68,7 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=100)
     ap.add_argument("--games", nargs="+", default=["dice", "cards"])
     ap.add_argument("--out", required=True)
+    ap.add_argument("--raw-only", action="store_true", help="retain episodes and runtime without computing aggregate scores")
     args = ap.parse_args()
     record = receipt(vars(args), args.revision)
     record["source_sha256"] = file_sha256(__file__)
@@ -93,8 +94,15 @@ def main() -> None:
         for baseline in ("bayes", "bayes-public", "mean-sd", "fixed-prior", "random"):
             run_player(make_game(name), BASELINES[baseline], seeds, raw / f"{baseline}.jsonl",
                        provenance=receipt({"player": baseline, "seeds": seeds}))
-        run_player(make_game(name), lambda: player,
-                   seeds, raw / f"{args.label}.jsonl", provenance=record)
+        episodes = run_player(make_game(name), lambda: player,
+                              seeds, raw / f"{args.label}.jsonl", provenance=record)
+        if args.raw_only:
+            result = dict(game=name, seeds=seeds, episodes=len(episodes), provenance=record,
+                          wall_seconds=time.monotonic() - started, peak_memory_bytes=mx.get_peak_memory())
+            dest = Path(args.out) / f"acquisition_{name}.json"
+            dest.write_text(json.dumps(result, indent=2) + "\n")
+            print(f"{name}: {len(episodes)} episodes retained; aggregate scores sealed", flush=True)
+            continue
         players = {eps[0]["player"]: eps for f in sorted(raw.glob("*.jsonl"))
                    if (eps := load_results(f))}
         rows = summarize(players)

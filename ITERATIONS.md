@@ -2475,3 +2475,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Existing controls and Ultra thinking's 53 complete dice episodes followed
   by three HTTP 504s: `results/expansion/round3_api_failures.json`. No partial
   cohort score is computed; retain the negative acquisition result.
+
+### Seal the selected local test while the newest-family trial finishes
+
+- Diagnosis: `train/final_candidate.py` freezes the correct validation winner,
+  but its evaluator would immediately print test aggregate scores. Round 3
+  requires both local and 27B selections to be frozen first.
+- Change: selected local test acquisition now uses `--raw-only`, retaining
+  episode files, runtime, memory and provenance without calling the scorer.
+  Validation still produces its registered selection metrics.
+- Verification: `pytest -q tests/test_mlx_evaluate.py` passes. The regression
+  makes aggregation raise if called and verifies acquisition metadata exists
+  without any leaderboard. No trained policy or selection rule changes.
