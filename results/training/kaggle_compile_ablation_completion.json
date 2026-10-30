@@ -1,0 +1,124 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_compile_ablation.py",
+    "config": {
+      "purpose": "retain the focused compiler ablation on fixed development states only"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "1c67ebc043827a0bc7c07bf2f81ccc9439d7ec0d",
+    "uncommitted_diff_sha256": "f21dc947795df5d0d854848bd2a6c121fd1057901d00f4fa429c7aa32d553389",
+    "started_at": "2026-10-30T01:21:33.544818+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport shutil\nfrom pathlib import Path\nfrom statistics import median\n\nfrom makemarket.provenance import file_sha256, receipt\n\npull_path = Path('results/training/kaggle_compile_ablation.json')\npull = json.loads(pull_path.read_text())\nassert pull['status'] == 'outputs_retrieved'\nsource = Path('runs/kaggle_compile_ablation_output')\nout = Path('results/kaggle/compiler-ablation-v1')\nshutil.copytree(source, out, dirs_exist_ok=True)\npair = json.loads((out / 'pair_runtime.json').read_text())\nrecord = {'provenance': receipt({'purpose': 'retain the focused compiler ablation on fixed development states only'}, pair['model_revision']),\n          'source': Path(__file__).read_text(), 'download_receipt': str(pull_path), 'pair_runtime': pair,\n          'files_sha256': {str(p): file_sha256(p) for p in out.rglob('*') if p.is_file()}, 'stages': {},\n          'interpretation': 'Descriptive compiler ablation, not a new policy test or training trial. Baseline and case quotes, timing and memory retained even on failure.'}\nfor stage in ('sft', 'grpo'):\n    path = out / stage / 'inference_profile.json'\n    if not path.exists():\n        record['stages'][stage] = {'status': 'profile_not_saved', 'runtime_file': str(out / stage / 'runtime.json')}\n        continue\n    p = json.loads(path.read_text())\n    prior = json.loads(Path(f'results/kaggle/inference-profile-v1/{stage}/inference_profile.json').read_text())\n    assert p['prompts_sha256'] == prior['prompts_sha256'] and p['states'] == prior['states']\n    assert p['compiler_environment'] == {'UNSLOTH_COMPILE_DISABLE': '1'}\n    baseline = p['initial_serial_baseline_including_warmup']['quotes']\n    compiled_baseline = prior['initial_serial_baseline_including_warmup']['quotes']\n    summary = {'status': p['status'], 'initial_serial_changes_vs_compiled': [i for i, (a,b) in enumerate(zip(baseline, compiled_baseline)) if a != b], 'batch_sizes': {}}\n    for size in (1, 4):\n        cases = [m for m in p['measurements'] if m['batch_size'] == size]\n        if cases:\n            summary['batch_sizes'][size] = {'measurements': len(cases), 'median_wall_seconds': median(m['wall_seconds'] for m in cases),\n                                            'peak_allocated_bytes': max(m['peak_allocated_bytes'] for m in cases),\n                                            'quote_mismatches_vs_own_serial': [m['quote_mismatch_indices'] for m in cases],\n                                            'quote_mismatches_vs_compiled_serial': [[i for i,(a,b) in enumerate(zip(m['quotes'], compiled_baseline)) if a != b] for m in cases]}\n    record['stages'][stage] = summary\nPath('results/training/kaggle_compile_ablation_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\npath = Path('results/training/kaggle_budget.json')\nledger = json.loads(path.read_text())\nfor session in ledger['sessions']:\n    if session['kernel'] == pull['metadata']['id'] and session['version'] == 1:\n        session.update(status='completed_outputs_retrieved' if pair['exit_codes'] == [0,0] else 'partial_outputs_retrieved',\n                       script_wall_seconds=pair['wall_seconds'], hours=pair['wall_seconds']/3600,\n                       hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.',\n                       observed_complete_at=pull['polls'][-1]['at'], result_file=str(out / 'pair_runtime.json'))\npath.write_text(json.dumps(ledger, indent=2) + '\\n')\nprint(json.dumps({'runtime_seconds': pair['wall_seconds'], 'exit_codes': pair['exit_codes'], 'stages': record['stages']}, indent=2))\n",
+  "download_receipt": "results/training/kaggle_compile_ablation.json",
+  "pair_runtime": {
+    "wall_seconds": 692.7815337,
+    "budget_seconds": 1450,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "source_commit": "931b875ab308a4484564be2ee702fba76b1377b7",
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "seed": 0,
+    "purpose": "Development-state batch latency, VRAM and numerical quote agreement; no held-out policy episodes.",
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py"
+    ]
+  },
+  "files_sha256": {
+    "results/kaggle/compiler-ablation-v1/makemarketbench-compiler-ablation.log": "d589c9cebb0e93ab7ee0be854984f787435763996c774a0808f734a00f7c0b92",
+    "results/kaggle/compiler-ablation-v1/inference_profile.py": "60367d09c50e91262052e8b53076653245321dec8732aaeb156fbef1c2cefb55",
+    "results/kaggle/compiler-ablation-v1/evaluate_core.py": "752bad6d5cab419e0dbf9766bae06f1f65802b2043d39933681397ce7a8b52ec",
+    "results/kaggle/compiler-ablation-v1/pair_runtime.json": "7c464aa77dce95711afe20fa72ada77a0983e45b508a1ebc390a6ce5977fcb83",
+    "results/kaggle/compiler-ablation-v1/__pycache__/inference_profile.cpython-313.pyc": "ca61b32e17264c2afc85ddc070142a6ca0f661729fc5c26f2f6c8933286fd51c",
+    "results/kaggle/compiler-ablation-v1/grpo/runtime.json": "82bacbd6f526ff89248fefc8aee31c651f08f6b6629529dc7cfe6fc80389d1f4",
+    "results/kaggle/compiler-ablation-v1/grpo/inference_profile.json": "cc6ac880a8e8579e9a86d365d3d0b1ea1ac3d0a12dadd920c1e43d07928f3321",
+    "results/kaggle/compiler-ablation-v1/sft/runtime.json": "2a8afdbdec0ad03b70bce760aa7caf280dc1b82d7b640806692e1dc07e3bb13b",
+    "results/kaggle/compiler-ablation-v1/sft/inference_profile.json": "9c29eafb8a58e2c1e82b202e64135c4e8ce5010d98161bcf737482a9c38e3887"
+  },
+  "stages": {
+    "sft": {
+      "status": "completed",
+      "initial_serial_changes_vs_compiled": [],
+      "batch_sizes": {
+        "1": {
+          "measurements": 2,
+          "median_wall_seconds": 114.13674927350002,
+          "peak_allocated_bytes": 4183402496,
+          "quote_mismatches_vs_own_serial": [
+            [],
+            []
+          ],
+          "quote_mismatches_vs_compiled_serial": [
+            [],
+            []
+          ]
+        },
+        "4": {
+          "measurements": 2,
+          "median_wall_seconds": 42.67268226500005,
+          "peak_allocated_bytes": 4708064256,
+          "quote_mismatches_vs_own_serial": [
+            [
+              2
+            ],
+            [
+              2
+            ]
+          ],
+          "quote_mismatches_vs_compiled_serial": [
+            [
+              2
+            ],
+            [
+              2
+            ]
+          ]
+        }
+      }
+    },
+    "grpo": {
+      "status": "completed",
+      "initial_serial_changes_vs_compiled": [],
+      "batch_sizes": {
+        "1": {
+          "measurements": 2,
+          "median_wall_seconds": 114.512056331,
+          "peak_allocated_bytes": 4183402496,
+          "quote_mismatches_vs_own_serial": [
+            [],
+            []
+          ],
+          "quote_mismatches_vs_compiled_serial": [
+            [],
+            []
+          ]
+        },
+        "4": {
+          "measurements": 2,
+          "median_wall_seconds": 41.8277195915,
+          "peak_allocated_bytes": 4708064256,
+          "quote_mismatches_vs_own_serial": [
+            [],
+            []
+          ],
+          "quote_mismatches_vs_compiled_serial": [
+            [],
+            []
+          ]
+        }
+      }
+    }
+  },
+  "interpretation": "Descriptive compiler ablation, not a new policy test or training trial. Baseline and case quotes, timing and memory retained even on failure."
+}

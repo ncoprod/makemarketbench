@@ -1733,3 +1733,21 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Full sources, admission, exact local error, verified remote metadata and
   documented upstream flag: `results/training/kaggle_compile_ablation.json`.
   Monitor sleeps 610 seconds; no resubmission or allocation restart.
+
+### T18 outcome — compilation explains only part of the discrepancy
+
+- Command: `.venv/bin/python runs/retain_compile_ablation.py`. Both workers
+  complete; downloaded pair runtime is 692.7815337 seconds. Serial baselines
+  match the compiled profiles. SFT batch4 changes state index 2 in both repeats,
+  compared with two changed states under compilation. GRPO batch4 still matches
+  its serial baseline. Full quotes, attempts, timings, memory and hashes are in
+  `results/training/kaggle_compile_ablation_completion.json`.
+- The flag removes one discrepancy, but compilation is not the sole cause.
+  Numerical batch equivalence remains unestablished. No frozen policy, held-out
+  cohort or test score changes in response to this development-only ablation.
+- Official quota after collection is 107048.112345 / 108000 seconds, leaving
+  951.887655 seconds. Record the exact account debit separately from the
+  measured script wall time in `results/training/kaggle_budget.json`.
+- Refresh the existing OAuth access token with unchanged scopes before expiry;
+  retain only expiration, source and permissions metadata, never credentials:
+  `results/training/kaggle_oauth_refresh.json`.

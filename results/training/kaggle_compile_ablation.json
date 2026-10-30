@@ -107,7 +107,30 @@
     "interactive_overlap_assumption_seconds": 0,
     "inference": "Both known batch sessions are complete and official used quota is unchanged over the recorded interval. No action restarts an interactive session during this bounded job. This supports assuming no current allocation overlap, without establishing the inaccessible draft end time."
   },
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-30T01:11:11.872055+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-compiler-ablation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-compiler-ablation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-30T01:21:22.778433+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-compiler-ablation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-compiler-ablation has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
   "push": {
     "exit_code": 0,
     "output": "Your kernel title does not resolve to the specified id. This may result in surprising behavior. We suggest making your title something that resolves to the specified id. See https://en.wikipedia.org/wiki/Clean_URL#Slug for more information on how slugs are determined.\nKernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-compiler-ablation\n"
@@ -150,5 +173,21 @@
     "output": "Source code and metadata downloaded to runs/kaggle_compile_ablation_remote",
     "source_sha256_verified": true
   },
-  "status": "submitted_private_verified"
+  "status": "outputs_retrieved",
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-compiler-ablation",
+      "-p",
+      "runs/kaggle_compile_ablation_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading inference_profile.cpython-313.pyc to runs/kaggle_compile_ablation_output/__pycache__\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/__pycache__/inference_profile.cpython-313.pyc\nDownloading evaluate_core.py to runs/kaggle_compile_ablation_output\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/evaluate_core.py\nDownloading inference_profile.json to runs/kaggle_compile_ablation_output/grpo\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/grpo/inference_profile.json\nDownloading runtime.json to runs/kaggle_compile_ablation_output/grpo\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/grpo/runtime.json\nDownloading inference_profile.py to runs/kaggle_compile_ablation_output\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/inference_profile.py\nDownloading pair_runtime.json to runs/kaggle_compile_ablation_output\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/pair_runtime.json\nDownloading inference_profile.json to runs/kaggle_compile_ablation_output/sft\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/sft/inference_profile.json\nDownloading runtime.json to runs/kaggle_compile_ablation_output/sft\n\nOutput file downloaded to runs/kaggle_compile_ablation_output/sft/runtime.json\nKernel log downloaded to runs/kaggle_compile_ablation_output/makemarketbench-compiler-ablation.log \n\n  0%|          | 0.00/5.96k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.96k/5.96k [00:00<00:00, 10.1MB/s]\n\n  0%|          | 0.00/63.6k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.6k/63.6k [00:00<00:00, 611kB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.6k/63.6k [00:00<00:00, 610kB/s]\n\n  0%|          | 0.00/29.1k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 29.1k/29.1k [00:00<00:00, 765kB/s]\n\n  0%|          | 0.00/2.55k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.55k/2.55k [00:00<00:00, 12.3MB/s]\n\n  0%|          | 0.00/3.45k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.45k/3.45k [00:00<00:00, 14.0MB/s]\n\n  0%|          | 0.00/422 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 422/422 [00:00<00:00, 2.48MB/s]\n\n  0%|          | 0.00/29.1k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 29.1k/29.1k [00:00<00:00, 705kB/s]\n\n  0%|          | 0.00/2.56k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.56k/2.56k [00:00<00:00, 11.8MB/s]"
+  }
 }

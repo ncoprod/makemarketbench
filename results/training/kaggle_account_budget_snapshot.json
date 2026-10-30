@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-30T01:01:00.640084+00:00",
+  "recorded_at": "2026-10-30T01:21:34.241006+00:00",
   "quota_method": "official SDK GetAcceleratorQuotaStatistics",
   "provenance": {
     "command": [
@@ -8,12 +8,12 @@
     ],
     "seed": null,
     "model_revision": null,
-    "git_commit": "931b875ab308a4484564be2ee702fba76b1377b7",
+    "git_commit": "1c67ebc043827a0bc7c07bf2f81ccc9439d7ec0d",
     "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
   },
   "quota": {
     "refresh_at": "2026-10-31T00:00:00+00:00",
-    "gpu_seconds_used": 106349.971345,
+    "gpu_seconds_used": 107048.112345,
     "gpu_seconds_reserved": 0.0,
     "gpu_seconds_total": 108000.0
   }
