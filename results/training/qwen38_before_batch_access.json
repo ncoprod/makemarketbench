@@ -1,0 +1,38 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "confirm the registered newest-family base and quantized revision remain accessible before the reset-gated batch"
+    },
+    "model_revision": null,
+    "git_commit": "9adfa2d95ee84b6ca7ab703b5d0b9bda47d8ea5d",
+    "uncommitted_diff_sha256": "a60fe8e524c6932c576f4cda92e9c70c7ab8331fb90e12c322cae73e2f1901db",
+    "started_at": "2026-10-30T20:31:25.676129+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "models": {
+    "Qwen/Qwen3.8-27B": {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B",
+      "id": "Qwen/Qwen3.8-27B",
+      "sha": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "license": "apache-2.0",
+      "private": false,
+      "gated": false
+    },
+    "unsloth/Qwen3.8-27B-unsloth-bnb-4bit": {
+      "url": "https://huggingface.co/api/models/unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "id": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "sha": "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "license": "apache-2.0",
+      "private": false,
+      "gated": false
+    }
+  }
+}

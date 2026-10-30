@@ -1,0 +1,34 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain the rejected incomplete canonical-input verification before correcting file suffixes"
+    },
+    "model_revision": null,
+    "git_commit": "9adfa2d95ee84b6ca7ab703b5d0b9bda47d8ea5d",
+    "uncommitted_diff_sha256": "0f5ad06b300b7ff5f64f694679a26883a7ffcfb7eb5babde37a43e8b89c00b80",
+    "started_at": "2026-10-30T21:12:38.073332+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "rejected_incomplete_verification",
+  "observed_verified_cohorts": 4,
+  "required_cohorts": 8,
+  "missing_explicit_inputs": [
+    "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__thinking-off_.jsonl",
+    "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__thinking-off_.jsonl",
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning__thinking-off_.jsonl",
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-lightning__thinking-off_.jsonl"
+  ],
+  "source_commit": "9adfa2d95ee84b6ca7ab703b5d0b9bda47d8ea5d",
+  "source_sha256": "dc9c3fc3fc88db7c2cfedd241ca851ad76ce09c4a0a8192a7246c1ccb1111625",
+  "failure": "The old path loop treated nonexistent explicit paths as empty directories, so the initial command silently omitted four files. The explicit cohort-count inspection rejected this receipt before any completion claim.",
+  "replacement": "results/expansion/primary_api_canonical.json",
+  "change": "Assert every explicit input exists before discovering files; regression test tests/test_cohort_inputs.py."
+}

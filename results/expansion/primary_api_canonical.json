@@ -1,0 +1,95 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/check_cohort_games.py results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl results/expansion/raw/dice/openai_gpt-oss-20b.jsonl results/expansion/raw/cards/openai_gpt-oss-20b.jsonl results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl results/expansion/raw/cards/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl --out results/expansion/primary_api_canonical.json",
+    "config": {
+      "inputs": [
+        "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl",
+        "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl",
+        "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl",
+        "results/expansion/raw/cards/openai_gpt-oss-20b.jsonl",
+        "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+        "results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+        "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl",
+        "results/expansion/raw/cards/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl"
+      ],
+      "out": "results/expansion/primary_api_canonical.json"
+    },
+    "model_revision": null,
+    "git_commit": "9adfa2d95ee84b6ca7ab703b5d0b9bda47d8ea5d",
+    "uncommitted_diff_sha256": "0f5ad06b300b7ff5f64f694679a26883a7ffcfb7eb5babde37a43e8b89c00b80",
+    "started_at": "2026-10-30T21:12:20.180421+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "cohorts": {
+    "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+      "sha256": "66e0df44486cb4b347c6f1c18efae11f4ba01eb263a28538c558772f1bee70dc"
+    },
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "nvidia/nemotron-3.5-bolt-e4b",
+      "sha256": "a5aab040666a0374afe093ba7177528ed30d0a7b6be5b73605bcdc2d291b34cb"
+    },
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+      "sha256": "1b3790f492adfd210beb6f3de5774afc48e763a0384da4738b638ffc8f68d05e"
+    },
+    "results/expansion/raw/cards/openai_gpt-oss-20b.jsonl": {
+      "episodes": 200,
+      "game": "cards",
+      "player": "openai/gpt-oss-20b",
+      "sha256": "0e0e1bd8a870fbcc6d6d59d87c4ce1fb8fe4a69d11b21d48b6030b989ab82dee"
+    },
+    "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+      "sha256": "7fa324326209f79bd86d251ccdc650c6627704d1eb634b40fe9a72edc2b9b3fa"
+    },
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "nvidia/nemotron-3.5-bolt-e4b",
+      "sha256": "3d5d6be0034b37932998ed3c8f1c068e6d444c3fbce90e6378727910e90f4855"
+    },
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+      "sha256": "42b581fdafa0c1e7c7bf66ab51bb7603856adf6953b31ef2cdb22fe65d23b637"
+    },
+    "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl": {
+      "episodes": 200,
+      "game": "dice",
+      "player": "openai/gpt-oss-20b",
+      "sha256": "b8edf08ef06cfb3933de570f646edda2c9eb78b2b28241385542830d5af16250"
+    }
+  },
+  "incomplete_cohorts": [],
+  "source_sha256": "ed07948f14df82d2fe5a5e13ec020aab3e2c13d430cf1ff32a203a0a850f478b",
+  "game_source_sha256": {
+    "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+    "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+    "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+    "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+    "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc"
+  },
+  "checks": [
+    "200 distinct seeds 200-399",
+    "six rounds per episode",
+    "hidden value and public reveals match canonical seeded game"
+  ],
+  "interpretation": "Structural comparability only; no model scores inspected."
+}

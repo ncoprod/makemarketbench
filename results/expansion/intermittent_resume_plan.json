@@ -18,7 +18,7 @@
     }
   },
   "source": "import json\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('results/expansion/intermittent_resume_plan.json')\ncommand = ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u',\n           'scripts/expand_nim.py', '--models', 'nvidia/nemotron-3.5-bolt-e4b',\n           'meta/llama-3.2-11b-vision-instruct', '--protocol-file', 'protocol-intermittent-resume.json']\nrecord = {'provenance': receipt({'purpose': 'one missing-only resume of already responsive models after adding bounded NIM 404 backoff'}, 'NIM immutable deployment revision not exposed'),\n          'source': Path(__file__).read_text(), 'status': 'waiting_for_current_batches',\n          'command': command,\n          'evidence': ['results/expansion/bolt_partial_failure.json',\n                       'results/expansion/protocol-bolt-resume.json',\n                       'results/expansion/protocol-supplement.json'],\n          'rule': 'Preserve all valid episodes and cached responses; no decoder, prompt, game or seed change. At most three attempts per request, including intermittent NIM 404s. No partial-cohort scoring or test-based tuning.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\nfor name in ('bolt_resume_plan.json', 'additional_followup_plan.json'):\n    while json.loads((Path('results/expansion') / name).read_text())['status'] != 'finished':\n        time.sleep(10)\nprefixes = {p: p.read_bytes() for p in Path('results/expansion/raw').rglob('*.jsonl')\n            if p.name in ('nvidia_nemotron-3.5-bolt-e4b.jsonl',\n                          'meta_llama-3.2-11b-vision-instruct__text-only_.jsonl')}\nrecord.update(status='acquiring_slot_then_running',\n              existing_prefixes={str(p): {'bytes': len(data), 'sha256': file_sha256(p)}\n                                 for p, data in prefixes.items()})\npath.write_text(json.dumps(record, indent=2) + '\\n')\nresult = subprocess.run(command)\nassert all(p.read_bytes().startswith(data) for p, data in prefixes.items())\nrecord.update(status='finished', exit_code=result.returncode, existing_prefixes_preserved=True)\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
-  "status": "waiting_for_current_batches",
+  "status": "finished",
   "command": [
     "bash",
     "scripts/with_resource.sh",
@@ -37,5 +37,21 @@
     "results/expansion/protocol-bolt-resume.json",
     "results/expansion/protocol-supplement.json"
   ],
-  "rule": "Preserve all valid episodes and cached responses; no decoder, prompt, game or seed change. At most three attempts per request, including intermittent NIM 404s. No partial-cohort scoring or test-based tuning."
+  "rule": "Preserve all valid episodes and cached responses; no decoder, prompt, game or seed change. At most three attempts per request, including intermittent NIM 404s. No partial-cohort scoring or test-based tuning.",
+  "existing_prefixes": {
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl": {
+      "bytes": 893760,
+      "sha256": "36d7c7419c94ea90f191199a690ba7619fe7cfcc110de36e81ed3397db6d1f67"
+    },
+    "results/expansion/raw/dice/meta_llama-3.2-11b-vision-instruct__text-only_.jsonl": {
+      "bytes": 7134,
+      "sha256": "3c439d2b5602b234850de9d6fda14dd5f77d458883c68843892b168332778084"
+    },
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl": {
+      "bytes": 2875679,
+      "sha256": "abc5e19c1ca845203c2e360fa64966de9aff34426b9ddcbd3d56835693f5e1ac"
+    }
+  },
+  "exit_code": 0,
+  "existing_prefixes_preserved": true
 }

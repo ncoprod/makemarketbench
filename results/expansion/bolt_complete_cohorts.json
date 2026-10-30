@@ -1,0 +1,192 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_bolt_complete.py",
+    "config": {
+      "purpose": "retain complete Bolt acquisition without opening aggregate scores"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "9adfa2d95ee84b6ca7ab703b5d0b9bda47d8ea5d",
+    "uncommitted_diff_sha256": "c991d47f3c45667917107dc6284118213f248781fdee5c6c61818afb46aea325",
+    "started_at": "2026-10-30T21:11:46.510137+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import hashlib\nimport json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/expansion')\nplan = json.loads((root / 'intermittent_resume_plan.json').read_text())\nprotocol = root / 'protocol-intermittent-resume.json'\nentry = json.loads(protocol.read_text())['nvidia/nemotron-3.5-bolt-e4b']\ngames = {}\nfor game in ('dice', 'cards'):\n    raw = root / 'raw' / game / 'nvidia_nemotron-3.5-bolt-e4b.jsonl'\n    data = raw.read_bytes()\n    prefix = plan['existing_prefixes'][str(raw)]\n    assert hashlib.sha256(data[:prefix['bytes']]).hexdigest() == prefix['sha256']\n    rows = [json.loads(line) for line in data.splitlines()]\n    assert [row['seed'] for row in rows] == list(range(200, 400))\n    fields = ('model', 'base_url', 'temperature', 'max_tokens', 'timeout', 'extra_body', 'label')\n    configs = {json.dumps({k: row['provenance']['config'][k] for k in fields}, sort_keys=True) for row in rows}\n    assert len(configs) == 1\n    games[game] = {'episodes': len(rows), 'raw_file': str(raw), 'raw_sha256': file_sha256(raw),\n                   'prefix': prefix, 'prefix_preserved': True,\n                   'new_episodes': len(rows) - data[:prefix['bytes']].count(b'\\n'),\n                   'config': json.loads(configs.pop()), 'resume': entry[game]}\nrecord = {'provenance': receipt({'purpose': 'retain complete Bolt acquisition without opening aggregate scores'}, 'NIM immutable deployment revision not exposed'),\n          'source': Path(__file__).read_text(), 'games': games,\n          'protocol_file': str(protocol), 'protocol_sha256': file_sha256(protocol),\n          'canonical_receipt': str(root / 'bolt_complete_canonical.json'),\n          'canonical_sha256': file_sha256(root / 'bolt_complete_canonical.json'),\n          'interpretation': 'Both original cached prefixes and decoder settings are preserved. All 200 common seeds per game pass canonical state checks. Earlier failures remain retained. Acquisition only: scores sealed until both policy selections are frozen.'}\n(root / 'bolt_complete_cohorts.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint({g: {'episodes': r['episodes'], 'new_episodes': r['new_episodes']} for g, r in games.items()})\n",
+  "games": {
+    "dice": {
+      "episodes": 200,
+      "raw_file": "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+      "raw_sha256": "3d5d6be0034b37932998ed3c8f1c068e6d444c3fbce90e6378727910e90f4855",
+      "prefix": {
+        "bytes": 2875679,
+        "sha256": "abc5e19c1ca845203c2e360fa64966de9aff34426b9ddcbd3d56835693f5e1ac"
+      },
+      "prefix_preserved": true,
+      "new_episodes": 62,
+      "config": {
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "extra_body": {},
+        "label": "nvidia/nemotron-3.5-bolt-e4b",
+        "max_tokens": 4096,
+        "model": "nvidia/nemotron-3.5-bolt-e4b",
+        "temperature": 0.3,
+        "timeout": 600
+      },
+      "resume": {
+        "episodes": 200,
+        "wall_seconds": 6038.942450761795,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+          "config": {
+            "model": "nvidia/nemotron-3.5-bolt-e4b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {},
+            "label": "nvidia/nemotron-3.5-bolt-e4b",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": [
+                "nvidia/nemotron-3.5-bolt-e4b",
+                "meta/llama-3.2-11b-vision-instruct"
+              ],
+              "protocol_file": "protocol-intermittent-resume.json",
+              "reduced_reasoning": false,
+              "ultra_medium": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+          "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+          "started_at": "2026-10-30T14:23:08.670030+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    },
+    "cards": {
+      "episodes": 200,
+      "raw_file": "results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+      "raw_sha256": "a5aab040666a0374afe093ba7177528ed30d0a7b6be5b73605bcdc2d291b34cb",
+      "prefix": {
+        "bytes": 893760,
+        "sha256": "36d7c7419c94ea90f191199a690ba7619fe7cfcc110de36e81ed3397db6d1f67"
+      },
+      "prefix_preserved": true,
+      "new_episodes": 161,
+      "config": {
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "extra_body": {},
+        "label": "nvidia/nemotron-3.5-bolt-e4b",
+        "max_tokens": 4096,
+        "model": "nvidia/nemotron-3.5-bolt-e4b",
+        "temperature": 0.3,
+        "timeout": 600
+      },
+      "resume": {
+        "episodes": 200,
+        "wall_seconds": 18381.341181993484,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b meta/llama-3.2-11b-vision-instruct --protocol-file protocol-intermittent-resume.json",
+          "config": {
+            "model": "nvidia/nemotron-3.5-bolt-e4b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {},
+            "label": "nvidia/nemotron-3.5-bolt-e4b",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": [
+                "nvidia/nemotron-3.5-bolt-e4b",
+                "meta/llama-3.2-11b-vision-instruct"
+              ],
+              "protocol_file": "protocol-intermittent-resume.json",
+              "reduced_reasoning": false,
+              "ultra_medium": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+          "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+          "started_at": "2026-10-30T14:23:08.670030+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    }
+  },
+  "protocol_file": "results/expansion/protocol-intermittent-resume.json",
+  "protocol_sha256": "f647159ca90ab0c36a57861eb866929e6392fde1b403f886f81d0158474a7031",
+  "canonical_receipt": "results/expansion/bolt_complete_canonical.json",
+  "canonical_sha256": "ae22b19ffaf2683b1457968cc794e498e28429399db0a5ce89d3223e90a6f389",
+  "interpretation": "Both original cached prefixes and decoder settings are preserved. All 200 common seeds per game pass canonical state checks. Earlier failures remain retained. Acquisition only: scores sealed until both policy selections are frozen."
+}

@@ -266,9 +266,10 @@ Its earlier three-504 failures remain in the
 with 138 dice and 39 cards episodes after further 404s
 ([both preserved partials](results/expansion/bolt_resume_partial_completion.json));
 [bounded NIM backoff and missing-only recovery](results/expansion/intermittent_resume_plan.json)
-now completes all 200 dice episodes while preserving the exact saved
-138-episode prefix; cards recovery continues
-([verified cohort](results/expansion/bolt_dice_complete_cohort.json)).
+now completes **200 episodes in both games**, preserving both cached prefixes
+and decoder settings ([verified cohorts](results/expansion/bolt_complete_cohorts.json)).
+All eight original API cohorts pass canonical seeded-game checks
+([verification](results/expansion/primary_api_canonical.json)); scores remain sealed.
 Mistral-7B/Nemo fail with HTTP 404; Llama-3.2-11B saves
 one dice episode before the same error
 ([all attempts](results/expansion/protocol-supplement.json)). Mistral Large 4's
@@ -312,8 +313,8 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **136 Python tests**
-([local CI receipt](results/ci_local_round3_rloo384.json)), native Release and
+Current local verification passes **137 Python tests**
+([local CI receipt](results/ci_local_round3_local_selection.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
 requires these checks. Hosted Actions minutes are exhausted until about
 November 1 according to the owner; jobs refuse before any steps with the

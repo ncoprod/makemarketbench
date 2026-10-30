@@ -23,6 +23,7 @@ def main():
     games = {name: make_game(name) for name in ('dice', 'cards')}
     paths = set()
     for source in map(Path, args.inputs):
+        assert source.exists(), f"Missing cohort input: {source}"
         paths.update([source] if source.is_file() else source.rglob('*.jsonl'))
     for path in sorted(paths):
         data = path.read_bytes()

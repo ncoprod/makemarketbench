@@ -2601,3 +2601,20 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Reuse and verify the retained last-DAgger validation manifest rather than
   rewriting the same scores with new provenance. A regression test checks
   unchanged bytes and rejection of modified retained inputs.
+
+### Original API cohorts complete; preserve missing-input verification failure
+
+- Bolt cards recovery completes all 200 seeds, adding 161 episodes in
+  18,381.341181993484 seconds. The 39-episode prefix and all decoder settings
+  remain unchanged. Both games pass canonical hidden-value/reveal checks.
+  Exact command, prefixes, hashes and timings: `results/expansion/bolt_complete_cohorts.json`.
+- All four original API models now have 200 episodes in both games. Verify all
+  eight explicitly named files with `scripts/check_cohort_games.py`; receipt:
+  `results/expansion/primary_api_canonical.json`. No aggregate scores are opened.
+- An initial verification command misspells the Ultra/Lightning file suffixes
+  and verifies only four cohorts. The count check catches this before any
+  completion claim. Make an explicitly missing path fail immediately, with a
+  regression test, then rerun the correct eight paths. No raw data change.
+- A fresh Hugging Face API recheck confirms the registered Qwen3.8 base and
+  quantized checkpoint remain ungated and Apache-2.0; the quantized revision is
+  unchanged. Receipt: `results/training/qwen38_before_batch_access.json`.
