@@ -265,7 +265,7 @@ def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, mon
     monkeypatch.setattr(selection.subprocess, "run", lambda command, **kw: calls.append(command))
     monkeypatch.setattr("sys.argv", ["final_candidate.py", "--model", "test-model", "--revision", "fixed"])
     for method, percent in (("sft", 90), ("dagger", 80), ("dagger-last", 75),
-                            ("rloo", 70), ("rloo96", 65), ("rloo192", 60)):
+                            ("rloo", 70), ("rloo96", 65), ("rloo192", 60), ("rloo384", 55)):
         label = f"qwen3.5-4b-{method}"
         adapter = tmp_path / f"train/runs/{label}"
         adapter.mkdir(parents=True)

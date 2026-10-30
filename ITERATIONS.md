@@ -2544,3 +2544,8 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   nonimprovements. Diagnose the gap, freeze the max-min winner across all
   seven local trials, and acquire its single raw-only 200/game test. The
   final nine-candidate family still contains only one selected local policy.
+- The first pre-push run correctly refused an incomplete seventh-candidate
+  test fixture: one failure, 135 passes. Add RLOO384 to that fixture, keeping
+  the same immutable-selection assertion. Exact failed check:
+  `results/ci_local_round3_rloo384_initial_failure.json`; this is a test-fixture
+  correction, not a training or trading outcome.
