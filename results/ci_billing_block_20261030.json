@@ -1,0 +1,152 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_ci_billing_block.py",
+    "config": {
+      "purpose": "retain the exact external GitHub-hosted CI billing refusal"
+    },
+    "model_revision": null,
+    "git_commit": "1c8feccdbe496b8e4cfc2575aa830812197e5f51",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-30T07:07:26.983219+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nfrom pathlib import Path\nfrom makemarket.provenance import receipt\n\nrun=41017970170\ncommands=[['gh','run','view',str(run),'--json','status,conclusion,jobs,url']]\nfor check in (123938504302,123938504620):\n    commands.append(['gh','api',f'repos/ncoprod/makemarketbench/check-runs/{check}/annotations'])\ncommands.append(['gh','api','repos/ncoprod/makemarketbench/actions/runners'])\nobservations=[{'command':c,'result':json.loads(subprocess.check_output(c,text=True))} for c in commands]\nrecord={'provenance':receipt({'purpose':'retain the exact external GitHub-hosted CI billing refusal'}),'source':Path(__file__).read_text(),\n        'run_id':run,'commit':'1c8feccdbe496b8e4cfc2575aa830812197e5f51','status':'blocked_before_job_steps',\n        'observations':observations,'local_verification':'results/verification_validation_amendment.json',\n        'recovery':'Owner notified asynchronously to restore the account billing allowance. Continue training; rerun hosted CI after the account restriction is resolved. No payment or spending-limit change performed.'}\nPath('results/ci_billing_block_20261030.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint(record['status'])\nprint('Existing self-hosted runner count:',observations[-1]['result']['total_count'])\n",
+  "run_id": 41017970170,
+  "commit": "1c8feccdbe496b8e4cfc2575aa830812197e5f51",
+  "status": "blocked_before_job_steps",
+  "observations": [
+    {
+      "command": [
+        "gh",
+        "run",
+        "view",
+        "41017970170",
+        "--json",
+        "status,conclusion,jobs,url"
+      ],
+      "result": {
+        "conclusion": "failure",
+        "jobs": [
+          {
+            "completedAt": "2026-10-30T07:05:51Z",
+            "conclusion": "failure",
+            "databaseId": 123938504302,
+            "name": "sanitizers",
+            "startedAt": "2026-10-30T07:05:49Z",
+            "status": "completed",
+            "steps": [],
+            "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41017970170/job/123938504302"
+          },
+          {
+            "completedAt": "2026-10-30T07:05:51Z",
+            "conclusion": "cancelled",
+            "databaseId": 123938504384,
+            "name": "test (3.10)",
+            "startedAt": "2026-10-30T07:05:49Z",
+            "status": "completed",
+            "steps": [],
+            "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41017970170/job/123938504384"
+          },
+          {
+            "completedAt": "2026-10-30T07:05:51Z",
+            "conclusion": "failure",
+            "databaseId": 123938504620,
+            "name": "test (3.12)",
+            "startedAt": "2026-10-30T07:05:49Z",
+            "status": "completed",
+            "steps": [],
+            "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41017970170/job/123938504620"
+          }
+        ],
+        "status": "completed",
+        "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41017970170"
+      }
+    },
+    {
+      "command": [
+        "gh",
+        "api",
+        "repos/ncoprod/makemarketbench/check-runs/123938504302/annotations"
+      ],
+      "result": [
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/ncoprod/makemarketbench/blob/1c8feccdbe496b8e4cfc2575aa830812197e5f51/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "failure",
+          "title": "",
+          "message": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+          "raw_details": ""
+        },
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/ncoprod/makemarketbench/blob/1c8feccdbe496b8e4cfc2575aa830812197e5f51/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "notice",
+          "title": "",
+          "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\"",
+          "raw_details": ""
+        }
+      ]
+    },
+    {
+      "command": [
+        "gh",
+        "api",
+        "repos/ncoprod/makemarketbench/check-runs/123938504620/annotations"
+      ],
+      "result": [
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/ncoprod/makemarketbench/blob/1c8feccdbe496b8e4cfc2575aa830812197e5f51/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "failure",
+          "title": "",
+          "message": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+          "raw_details": ""
+        },
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/ncoprod/makemarketbench/blob/1c8feccdbe496b8e4cfc2575aa830812197e5f51/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "notice",
+          "title": "",
+          "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\"",
+          "raw_details": ""
+        }
+      ]
+    },
+    {
+      "command": [
+        "gh",
+        "api",
+        "repos/ncoprod/makemarketbench/actions/runners"
+      ],
+      "result": {
+        "total_count": 0,
+        "runners": []
+      }
+    }
+  ],
+  "local_verification": "results/verification_validation_amendment.json",
+  "recovery": "Owner notified asynchronously to restore the account billing allowance. Continue training; rerun hosted CI after the account restriction is resolved. No payment or spending-limit change performed."
+}

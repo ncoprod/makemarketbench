@@ -2024,3 +2024,19 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Add regression checks for refusing incomplete validation and selecting the
   balanced two-game winner rather than the highest dice score. Targeted tests
   and Ruff pass; full CI follows the milestone commit.
+
+### Hosted CI blocked by account billing before any job steps
+
+- CI run 41017970170 for commit `1c8fecc` fails before assigning a runner or
+  executing any steps. The exact annotation says: "The job was not started
+  because recent account payments have failed or your spending limit needs to
+  be increased. Please check the 'Billing & plans' section in your settings".
+- Commands and complete primary API receipts:
+  `.venv/bin/python runs/retain_ci_billing_block.py`;
+  `results/ci_billing_block_20261030.json`. There is no existing self-hosted
+  runner for this repository. The previous commit's hosted CI is green;
+  the amended code passes 114 local tests in 5.47 seconds and Ruff
+  (`results/verification_validation_amendment.json`). These are distinct facts.
+- Notify the owner asynchronously; do not change payments or account spending
+  limits. Continue experiments and rerun hosted CI after the restriction is
+  resolved. An unstarted workflow is neither a code regression nor a passing CI.
