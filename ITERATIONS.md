@@ -2229,3 +2229,28 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - The 09:42 browser recheck still fails. Hosted CI run 41035351043 for `ceb5528`
   still has zero job steps and the same account-billing refusal; append primary
   receipts to `results/ci_billing_block_20261030.json`. No owner response yet.
+
+### Bolt partials retained; one Mistral field-omission compatibility control
+
+- The original-import Bolt resume stops at 138 dice and 39 cards episodes.
+  Both errors are exactly `RuntimeError: NotFoundError(404): Error code: 404`.
+  Dice attempt wall time is 4020.912531375885 seconds, cards
+  5068.9419713020325 seconds. Preserve all valid episodes without scores:
+  `.venv/bin/python runs/retain_bolt_resume_completion.py`;
+  `results/expansion/bolt_resume_partial_completion.json`. The already queued
+  missing-only recovery will use the new bounded NIM 404 retries.
+- The additional batch begins. Llama-3.2-90B's text-only availability probe
+  succeeds; Mistral Large 4 returns HTTP 400, `Invalid request`, with the
+  documented `reasoning_effort=none`. Retain both in
+  `results/expansion/protocol-additional.json`; no test-based prompt choice.
+- Recheck the primary hosted schema at
+  https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer.
+  It documents none/high and says omission is served as none. Register one
+  field-omission compatibility control, preserving the failed explicit request
+  and separate labels/caches. Do not assume server modes are identical solely
+  from that documentation. Other request settings stay unchanged.
+- Source and exact command: `results/expansion/mistral_default_plan.json`,
+  `.venv/bin/python -u runs/mistral_default_followup.py`. It waits for the
+  additional-model/GPT batch, takes a shared slot, then evaluates a usable
+  configuration on the fixed 200/game cohort. Ruff passes for the one-row
+  endpoint-settings addition; this is availability recovery, not model tuning.

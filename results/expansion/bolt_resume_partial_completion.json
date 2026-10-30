@@ -1,0 +1,158 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_bolt_resume_completion.py",
+    "config": {
+      "purpose": "retain both partial Bolt cohorts and exact failures after the first conditional resume"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "3bfe21884a2c2315b04be6db407a6da600884d51",
+    "uncommitted_diff_sha256": "dc6ddcdffef9447d7d49fca94984ea5679d9444bd119b2c8245711a5d01fc94c",
+    "started_at": "2026-10-30T10:10:42.699885+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nprotocol = Path('results/expansion/protocol-bolt-resume.json')\nentry = json.loads(protocol.read_text())['nvidia/nemotron-3.5-bolt-e4b']\ngames = {}\nfor game, count in (('dice', 138), ('cards', 39)):\n    path = Path(f'results/expansion/raw/{game}/nvidia_nemotron-3.5-bolt-e4b.jsonl')\n    rows = [json.loads(line) for line in path.read_text().splitlines()]\n    assert sorted(r['seed'] for r in rows) == list(range(200, 200 + count))\n    assert all(r['game'] == game and len(r['rounds']) == 6 for r in rows)\n    assert entry[game]['error'] == 'RuntimeError: NotFoundError(404): Error code: 404'\n    games[game] = {'episodes_saved': count, 'raw_file': str(path),\n                   'raw_sha256': file_sha256(path), 'attempt': entry[game]}\nrecord = {'provenance': receipt({'purpose': 'retain both partial Bolt cohorts and exact failures after the first conditional resume'}, 'NIM immutable deployment revision not exposed'),\n          'source': Path(__file__).read_text(), 'games': games,\n          'protocol_file': str(protocol), 'protocol_sha256': file_sha256(protocol),\n          'interpretation': 'Both games stop on intermittent HTTP 404 under the original imported fail-fast client. Do not score partial cohorts or discard successful episodes. The registered missing-only recovery uses bounded NIM 404 retry; prompts, decoder and seeds stay fixed.'}\nPath('results/expansion/bolt_resume_partial_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint({game: row['episodes_saved'] for game, row in games.items()})\n",
+  "games": {
+    "dice": {
+      "episodes_saved": 138,
+      "raw_file": "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+      "raw_sha256": "abc5e19c1ca845203c2e360fa64966de9aff34426b9ddcbd3d56835693f5e1ac",
+      "attempt": {
+        "error": "RuntimeError: NotFoundError(404): Error code: 404",
+        "wall_seconds": 4020.912531375885,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b --protocol-file protocol-bolt-resume.json",
+          "config": {
+            "model": "nvidia/nemotron-3.5-bolt-e4b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {},
+            "label": "nvidia/nemotron-3.5-bolt-e4b",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": [
+                "nvidia/nemotron-3.5-bolt-e4b"
+              ],
+              "protocol_file": "protocol-bolt-resume.json",
+              "reduced_reasoning": false,
+              "ultra_medium": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "66a3d06154bd5d32ca5d0f8b95aebaefe48062f0",
+          "uncommitted_diff_sha256": "98f22fe3c0e1e4eef79117be928651e5876912e684bd4e2dc8ded88825917eb3",
+          "started_at": "2026-10-30T07:35:15.066895+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    },
+    "cards": {
+      "episodes_saved": 39,
+      "raw_file": "results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl",
+      "raw_sha256": "36d7c7419c94ea90f191199a690ba7619fe7cfcc110de36e81ed3397db6d1f67",
+      "attempt": {
+        "error": "RuntimeError: NotFoundError(404): Error code: 404",
+        "wall_seconds": 5068.9419713020325,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models nvidia/nemotron-3.5-bolt-e4b --protocol-file protocol-bolt-resume.json",
+          "config": {
+            "model": "nvidia/nemotron-3.5-bolt-e4b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 4096,
+            "timeout": 600,
+            "extra_body": {},
+            "label": "nvidia/nemotron-3.5-bolt-e4b",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": [
+                "nvidia/nemotron-3.5-bolt-e4b"
+              ],
+              "protocol_file": "protocol-bolt-resume.json",
+              "reduced_reasoning": false,
+              "ultra_medium": false
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "66a3d06154bd5d32ca5d0f8b95aebaefe48062f0",
+          "uncommitted_diff_sha256": "98f22fe3c0e1e4eef79117be928651e5876912e684bd4e2dc8ded88825917eb3",
+          "started_at": "2026-10-30T07:35:15.066895+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    }
+  },
+  "protocol_file": "results/expansion/protocol-bolt-resume.json",
+  "protocol_sha256": "3f2af06a2ea33ea0aa4327698c05dca54120c05fa0762fa2c685ae83576762c7",
+  "interpretation": "Both games stop on intermittent HTTP 404 under the original imported fail-fast client. Do not score partial cohorts or discard successful episodes. The registered missing-only recovery uses bounded NIM 404 retry; prompts, decoder and seeds stay fixed."
+}

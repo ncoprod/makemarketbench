@@ -18,7 +18,7 @@
     }
   },
   "source": "import json\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('results/expansion/bolt_resume_plan.json')\nrecord = {'provenance':receipt({'purpose':'one conditional missing-only Bolt resume after a fresh catalogue check'},'NIM immutable deployment revision not exposed'),\n          'source':Path(__file__).read_text(),'status':'waiting_for_dated_catalogue',\n          'prior_failure':'results/expansion/bolt_partial_failure.json'}\npath.write_text(json.dumps(record,indent=2)+'\\n')\ncatalogue = Path('results/expansion/models_20261030.json')\nwhile not catalogue.exists():\n    time.sleep(5)\ndata = json.loads(catalogue.read_text())\nrecord['catalogue_sha256'] = file_sha256(catalogue)\nids = {m['id'] for m in data.get('data',{}).get('data',[])}\nif data.get('status') != 'completed' or 'nvidia/nemotron-3.5-bolt-e4b' not in ids:\n    record['status'] = 'skipped_unlisted_or_failed_catalogue'\nelse:\n    command = ['bash','scripts/with_resource.sh','nim','.venv/bin/python','-u','scripts/expand_nim.py',\n               '--models','nvidia/nemotron-3.5-bolt-e4b','--protocol-file','protocol-bolt-resume.json']\n    record.update(status='acquiring_global_slot_then_resuming',command=command)\n    path.write_text(json.dumps(record,indent=2)+'\\n')\n    result = subprocess.run(command)\n    record.update(status='finished',exit_code=result.returncode)\npath.write_text(json.dumps(record,indent=2)+'\\n')\n",
-  "status": "acquiring_global_slot_then_resuming",
+  "status": "finished",
   "prior_failure": "results/expansion/bolt_partial_failure.json",
   "catalogue_sha256": "a774655132526c9ab16222c4c021a727df36f868750f7f0ce1f6a02b4832f7db",
   "command": [
@@ -32,5 +32,6 @@
     "nvidia/nemotron-3.5-bolt-e4b",
     "--protocol-file",
     "protocol-bolt-resume.json"
-  ]
+  ],
+  "exit_code": 0
 }

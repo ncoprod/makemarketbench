@@ -226,15 +226,19 @@ cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards retry reac
 ([unscored partial](results/expansion/gpt_cards_partial_failure.json)). Bolt stops with HTTP
 404 after 95 dice episodes and before cards
 ([partial failure](results/expansion/bolt_partial_failure.json)); a
-[conditional missing-only retry](results/expansion/bolt_resume_plan.json) is running
-after fresh discovery. Its dice resume also encounters 404 between successful
-generations ([preserved partial](results/expansion/bolt_resume_dice_failure.json));
+[conditional missing-only retry](results/expansion/bolt_resume_plan.json) ends
+with 138 dice and 39 cards episodes after further 404s
+([both preserved partials](results/expansion/bolt_resume_partial_completion.json));
 [bounded NIM backoff and missing-only recovery](results/expansion/intermittent_resume_plan.json)
 keep the same requests and successful responses. Mistral-7B/Nemo fail with HTTP 404; Llama-3.2-11B saves
 one dice episode before the same error
-([all attempts](results/expansion/protocol-supplement.json)). Licensed Mistral
-Large 4, Llama-3.2-90B and Granite-3.0-8B probes, followed by another GPT-OSS
-resume, are [queued](results/expansion/additional_followup_plan.json).
+([all attempts](results/expansion/protocol-supplement.json)). Mistral Large 4's
+documented non-reasoning request returns HTTP 400; Llama-3.2-90B passes its
+availability probe ([receipts](results/expansion/protocol-additional.json)).
+Granite-3.0-8B probing and another GPT-OSS resume are in the
+[additional batch](results/expansion/additional_followup_plan.json).
+A [Mistral compatibility control](results/expansion/mistral_default_plan.json)
+omits the rejected reasoning field, before any test-based choice.
 Partial cohorts remain unscored; the corrected final comparison is pending.
 
 ## Engine performance and correctness

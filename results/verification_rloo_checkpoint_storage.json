@@ -35,5 +35,16 @@
   },
   "fault_injection": "A failed progress-file replacement preserves the previous JSON and optimizer checkpoint. A successful retry commits the new state before removing its predecessor.",
   "retention": "Frozen adapters at each fixed budget and complete per-group JSON history remain; keep only the latest resume optimizer/adapter per continuation directory. Original RLOO24 files are unchanged.",
-  "scope": "Filesystem/resume behavior only; no reward, sampler, gradient, learning rate, seed, budget or model-policy change."
+  "scope": "Filesystem/resume behavior only; no reward, sampler, gradient, learning rate, seed, budget or model-policy change.",
+  "storage_measurement": {
+    "observed_at": "2026-10-30T10:09:13.277716+00:00",
+    "git_commit": "3bfe21884a2c2315b04be6db407a6da600884d51",
+    "command": "Path.stat().st_size for the original step_0024 files; shutil.disk_usage(Path.cwd()).free",
+    "checkpoint_file_bytes": {
+      "train/runs/qwen3.5-4b-rloo/step_0024/adapters.safetensors": 32495978,
+      "train/runs/qwen3.5-4b-rloo/step_0024/optimizer.safetensors": 64993265
+    },
+    "available_volume_bytes": 51307765760,
+    "extra_pairs_without_pruning": 168
+  }
 }

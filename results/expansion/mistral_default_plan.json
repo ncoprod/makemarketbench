@@ -1,0 +1,38 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/mistral_default_followup.py",
+    "config": {
+      "purpose": "one compatibility control for the documented Mistral request rejected with HTTP 400"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "3bfe21884a2c2315b04be6db407a6da600884d51",
+    "uncommitted_diff_sha256": "dc6ddcdffef9447d7d49fca94984ea5679d9444bd119b2c8245711a5d01fc94c",
+    "started_at": "2026-10-30T10:10:42.860078+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('results/expansion/mistral_default_plan.json')\ncommand = ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u',\n           'scripts/expand_nim.py', '--models', 'mistralai/mistral-large-4-1t-a52b',\n           '--protocol-file', 'protocol-mistral-default.json']\nrecord = {'provenance': receipt({'purpose': 'one compatibility control for the documented Mistral request rejected with HTTP 400'}, 'NIM immutable deployment revision not exposed'),\n          'source': Path(__file__).read_text(), 'command': command,\n          'status': 'waiting_for_additional_batch_and_gpt_resume',\n          'prior_failure_protocol': 'results/expansion/protocol-additional.json',\n          'documentation': 'https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer',\n          'change': 'Omit reasoning_effort. Official schema says an omitted field is served as none; the explicit none request returns HTTP 400. Preserve both labels/caches and failures, and do not presume the actual server mode is equivalent without response evidence.',\n          'controls': 'Same validation availability prompt, temperature 0.3, max_tokens 4096, timeout 600, three attempts, one request under the NIM mutex. If usable, the fixed 200/game test uses seeds 200-399. No test score selects this field.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\nwhile json.loads(Path('results/expansion/additional_followup_plan.json').read_text())['status'] != 'finished':\n    time.sleep(10)\nrecord.update(status='acquiring_slot_then_running',\n              prior_protocol_sha256=file_sha256('results/expansion/protocol-additional.json'))\npath.write_text(json.dumps(record, indent=2) + '\\n')\nresult = subprocess.run(command)\nrecord.update(status='finished', exit_code=result.returncode)\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "mistralai/mistral-large-4-1t-a52b",
+    "--protocol-file",
+    "protocol-mistral-default.json"
+  ],
+  "status": "waiting_for_additional_batch_and_gpt_resume",
+  "prior_failure_protocol": "results/expansion/protocol-additional.json",
+  "documentation": "https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer",
+  "change": "Omit reasoning_effort. Official schema says an omitted field is served as none; the explicit none request returns HTTP 400. Preserve both labels/caches and failures, and do not presume the actual server mode is equivalent without response evidence.",
+  "controls": "Same validation availability prompt, temperature 0.3, max_tokens 4096, timeout 600, three attempts, one request under the NIM mutex. If usable, the fixed 200/game test uses seeds 200-399. No test score selects this field."
+}
