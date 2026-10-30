@@ -1632,3 +1632,26 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/kaggle_staged_sft_complete_completion.json`,
   `results/final/staged-routed/cohorts.json`. Canonical seeded-game checks:
   `results/final/resumed_game_comparability.json`. No new held-out aggregates opened.
+
+### Development inference profiles in two fresh allocations
+
+- Hypothesis: the observed one-quote cards discrepancy depends on batching and
+  execution history rather than a changed adapter. Measure this directly before
+  claiming serial/batch numerical equivalence. The partial SFT cards cohort
+  remains incomplete; do not bypass its failed development-state gate.
+- Commands: `.venv/bin/python runs/submit_inference_profile.py` and the same
+  command with `--replicate`. Both accepted private version 1, requesting T4 x2,
+  with identical fixed sources and frozen SFT/GRPO adapter hashes. One stage per
+  GPU; two fresh allocations test cold-session reproducibility.
+- Sixteen fixed development states cover both games. Record an initial serial
+  baseline, then randomized batch sizes 1,2,4,8,16 twice each, exact quotes and
+  attempts, latency, cache counts and peak allocated/reserved VRAM. These are
+  descriptive systems measurements, not new training seeds or policy scores.
+- Each script is capped at 1050 seconds and each session at 1100. At the second
+  admission, 3507.709486000007 seconds remain; the first profile's remaining
+  bound is 1088.8721990585327 seconds. Both new/existing batch bounds plus 1100
+  seconds for unknown continued interactive allocation fit below that quota.
+- Full sources, private metadata, admission arithmetic, commands and later polls:
+  `results/training/kaggle_inference_profile.json` and
+  `results/training/kaggle_inference_profile_repeat.json`. Monitors sleep 610
+  seconds between status checks. Preserve outputs before any further admission.
