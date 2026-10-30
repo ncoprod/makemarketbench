@@ -1,0 +1,4266 @@
+{
+  "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/mlx_rloo.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 --adapter train/runs/qwen3.5-4b-sft --out train/runs/qwen3.5-4b-rloo192 --result results/training/qwen35_rloo192.json --steps 192 --seed 5",
+  "config": {
+    "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+    "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "adapter": "train/runs/qwen3.5-4b-sft",
+    "out": "train/runs/qwen3.5-4b-rloo192",
+    "result": "results/training/qwen35_rloo192.json",
+    "steps": 192,
+    "lr": 1e-06,
+    "seed": 5
+  },
+  "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "git_commit": "731b95651d1661bbda395f758bfb506bcfb4fdee",
+  "uncommitted_diff_sha256": "caa614c60ff84d05162f5f846e41461540f542fc8aee40116e89a0379471fc6b",
+  "started_at": "2026-10-30T12:49:31.172208+00:00",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "python": "3.13.17",
+  "versions": {
+    "numpy": "2.5.4",
+    "openai": "3.40.0",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2"
+  },
+  "source_sha256": "aab621042617f53540a49fd476cc308a42fa9a645d8cfcd41da2b7a7bfe18e89",
+  "initial_adapter_sha256": "3b819dcf29dc686712fb27d14c46ef03e23fdcb6cc366cc4e38aa4af551706f5",
+  "history": [
+    {
+      "step": 1,
+      "game": "dice",
+      "rewards": [
+        -0.424595419545313,
+        0.3705602022193334,
+        0.1850865457827649,
+        0.3705602022193334
+      ],
+      "advantages": [
+        -0.7333310696191235,
+        0.3268764260670716,
+        0.07957821748498033,
+        0.3268764260670716
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.87 (sd 3.34).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 3}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.37 (sd 3.30).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.72 (sd 2.87).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.3, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 29.28 (sd 2.86).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 2,
+      "game": "dice",
+      "rewards": [
+        0.44589990417181313,
+        0.41788921899379083,
+        0.17174846747797123,
+        -0.039955835102609694
+      ],
+      "advantages": [
+        0.2626726203820957,
+        0.22532504014473265,
+        -0.1028626285430268,
+        -0.3851350319838014
+      ],
+      "completions": [
+        "Public E[V] = 32.50; after my fills E[V] = 33.08 (sd 2.89).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 33.08 (sd 2.36).\n{\"bid\": 27.2, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.49 (sd 6.03).\n{\"bid\": 26.3, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 33.00; after my fills E[V] = 35.31 (sd 2.48).\n{\"bid\": 30.9, \"bid_size\": 5, \"ask\": 40.1, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 3,
+      "game": "dice",
+      "rewards": [
+        0.19325298430627047,
+        0.4968299348685602,
+        0.22275934415746412,
+        0.4718421992363098
+      ],
+      "advantages": [
+        -0.20389084178117423,
+        0.20087842563521208,
+        -0.16454902864624937,
+        0.16756144479221158
+      ],
+      "completions": [
+        "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 0.12).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 27.62 (sd 2.91).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 26.07 (sd 1.61).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.1, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 27.26 (sd 3.16).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 4,
+      "game": "dice",
+      "rewards": [
+        0.49568210369400134,
+        0.3921059792464804,
+        0.3480388495009896,
+        0.44751710584073534
+      ],
+      "advantages": [
+        0.09979479216459958,
+        -0.03830670709876177,
+        -0.09706288009274938,
+        0.03557479502691152
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.85 (sd 5.20).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 27.13 (sd 4.12).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.6, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.11 (sd 3.75).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.4, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.88 (sd 3.08).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 5,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.4839141062219627,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.005361964592679069,
+        -0.01608589377803732,
+        0.005361964592679069,
+        0.005361964592679069
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 6,
+      "game": "dice",
+      "rewards": [
+        0.44848749413526456,
+        0.19272210755701347,
+        0.44288663876979684,
+        0.4268211327327375
+      ],
+      "advantages": [
+        0.09434420111541525,
+        -0.2466763143222529,
+        0.08687639396145824,
+        0.06545571924537918
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.2, \"ask_size\": 4}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.20 (sd 4.08).\n{\"bid\": 26.0, \"bid_size\": 4, \"ask\": 34.1, \"ask_size\": 4}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.00 (sd 4.08).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 7,
+      "game": "dice",
+      "rewards": [
+        0.05083083040696368,
+        -0.06052524406922888,
+        0.23517433297627777,
+        0.05083083040696368
+      ],
+      "advantages": [
+        -0.024329142697707182,
+        -0.1728039086659639,
+        0.22146219406137826,
+        -0.024329142697707182
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.80 (sd 2.39).\n{\"bid\": 25.6, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.07 (sd 3.89).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.53 (sd 2.57).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.88 (sd 2.42).\n{\"bid\": 25.6, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 8,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 9,
+      "game": "dice",
+      "rewards": [
+        0.3705602022193334,
+        0.4540285435568131,
+        -0.5490246459492754,
+        0.4441046633762833
+      ],
+      "advantages": [
+        0.25419068189139304,
+        0.36548180367469935,
+        -0.9719224490000853,
+        0.3522499634339929
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.0, (sd 4.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.45 (sd 2.80).\n{\"bid\": 26.5, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.95 (sd 3.76).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.05 (sd 4.29).\n{\"bid\": 25.2, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 10,
+      "game": "dice",
+      "rewards": [
+        0.3474241364470434,
+        0.45088352954992644,
+        0.49194795795776514,
+        0.49194795795776514
+      ],
+      "advantages": [
+        -0.13083567870810892,
+        0.007110178762401831,
+        0.061862749972853404,
+        0.061862749972853404
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.48 (sd 3.12).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 28.98 (sd 3.15).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.9, \"ask_size\": 4}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.50 (sd 4.34).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.38 (sd 4.16).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 11,
+      "game": "dice",
+      "rewards": [
+        0.2769151849680691,
+        0.4690047277977961,
+        0.4759511333911513,
+        0.4844393557537427
+      ],
+      "advantages": [
+        -0.19954988734616097,
+        0.056569503093475026,
+        0.06583137721794863,
+        0.07714900703473715
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.71 (sd 4.19).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.2, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.80 (sd 3.30).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.90 (sd 4.08).\n{\"bid\": 23.1, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 26.66 (sd 4.21).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 12,
+      "game": "dice",
+      "rewards": [
+        0.4873122165474389,
+        0.4610793951288614,
+        -1.1711501845680363,
+        0.3835256371757482
+      ],
+      "advantages": [
+        0.5961606006352478,
+        0.5611835054104779,
+        -1.6151226008520525,
+        0.45777849480632693
+      ],
+      "completions": [
+        "Public E[V] = 31.00; after my fills E[V] = 27.35 (sd 2.37).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.1, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 27.22 (sd 3.11).\n{\"bid\": 23.1, \"bid_size\": 5, \"ask\": 31.5, \"ask_size\": 5}",
+        "Public E[V] = 34.00; after my fills E[V] = 31.72 (sd 3.09).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 27.48 (sd 3.12).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 31.7, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 13,
+      "game": "dice",
+      "rewards": [
+        0.3002713839100075,
+        0.09992759174153998,
+        0.1787466457103029,
+        -0.04877924306257764
+      ],
+      "advantages": [
+        0.22363971911358577,
+        -0.043485337111037636,
+        0.06160673484731294,
+        -0.24176111684986112
+      ],
+      "completions": [
+        "Public E[V] = 22.50; after my fills E[V] = 25.38 (sd 5.19).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 21.50; after my fills E[V] = 21.05 (sd 3.17).\n{\"bid\": 16.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}",
+        "Public E[V] = 23.00; after my fills E[V] = 21.84 (sd 2.90).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 26.77 (sd 3.36).\n{\"bid\": 22.2, \"bid_size\": 5, \"ask\": 31.3, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 14,
+      "game": "dice",
+      "rewards": [
+        0.4354393840751679,
+        -0.46288525547172554,
+        0.43410450523874367,
+        -1.129899693483787
+      ],
+      "advantages": [
+        0.8216661986474243,
+        -0.37609998741510037,
+        0.8198863601988585,
+        -1.2654525714311824
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 24.49 (sd 2.52).\n{\"bid\": 20.1, \"bid_size\": 5, \"ask\": 28.6, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.99 (sd 4.19).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 21.87 (sd 1.68).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 18.50; after my fills E[V] = 17.47 (sd 4.10).\n{\"bid\": 12.5, \"bid_size\": 5, \"ask\": 22.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 15,
+      "game": "dice",
+      "rewards": [
+        0.3884498638593596,
+        0.3779224205377205,
+        0.40087653683299457,
+        0.3790466035075485
+      ],
+      "advantages": [
+        0.002501343566605141,
+        -0.011535247528913661,
+        0.019070240864785037,
+        -0.01003633690247635
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 3.25).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 27.88 (sd 3.98).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.00 (sd 3.07).\n{\"bid\": 26.2, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 28.33 (sd 2.72).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 16,
+      "game": "dice",
+      "rewards": [
+        0.4172977520333473,
+        0.40530727027354313,
+        -0.06723913973331763,
+        0.4172977520333473
+      ],
+      "advantages": [
+        0.1655091245088231,
+        0.1495218154957509,
+        -0.4805400645133968,
+        0.1655091245088231
+      ],
+      "completions": [
+        "Public E[V] = 24.00; after my fills E[V] = 25.55 (sd 2.76).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 23.08 (sd 4.20).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 28.3, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 28.01 (sd 2.99).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.64 (sd 3.44).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 17,
+      "game": "dice",
+      "rewards": [
+        0.46175957267746004,
+        0.4926757568808015,
+        0.46175957267746004,
+        0.4676275062030316
+      ],
+      "advantages": [
+        -0.012261372576304441,
+        0.02896020636148422,
+        -0.012261372576304441,
+        -0.004437461208875615
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.00 (sd 4.08).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 32.8, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 18,
+      "game": "dice",
+      "rewards": [
+        0.4121240134754722,
+        -0.8172867525085048,
+        0.34168951654416146,
+        0.13141343918147413
+      ],
+      "advantages": [
+        0.5268519457364286,
+        -1.112362408908874,
+        0.4329392831613476,
+        0.15257118001109785
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 25.44 (sd 3.94).\n{\"bid\": 21.5, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 27.94 (sd 3.46).\n{\"bid\": 24.9, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 22.73 (sd 3.25).\n{\"bid\": 18.2, \"bid_size\": 5, \"ask\": 27.8, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 27.06 (sd 3.15).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.9, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 19,
+      "game": "dice",
+      "rewards": [
+        0.21764248621170673,
+        -0.0007944420369960792,
+        0.18514131686426893,
+        0.18909916247618086
+      ],
+      "advantages": [
+        0.09316047377722218,
+        -0.1980887638877149,
+        0.04982558131397177,
+        0.055102708796521016
+      ],
+      "completions": [
+        "Public E[V] = 24.50; after my fills E[V] = 25.18 (sd 3.32).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 23.59 (sd 3.50).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 22.93 (sd 3.27).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 28.33 (sd 3.17).\n{\"bid\": 23.7, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 20,
+      "game": "dice",
+      "rewards": [
+        0.12231300806644974,
+        0.3619330668773579,
+        0.05334315459938871,
+        0.05334315459938871
+      ],
+      "advantages": [
+        -0.03389345062559537,
+        0.28559996112228214,
+        -0.1258532552483434,
+        -0.1258532552483434
+      ],
+      "completions": [
+        "Public E[V] = 33.00; after my fills E[V] = 31.45 (sd 2.98).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 30.23 (sd 0.75).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 27.84 (sd 3.29).\n{\"bid\": 23.9, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 27.36 (sd 2.90).\n{\"bid\": 23.9, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 21,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.46733710617077395,
+        0.3819551701178668,
+        0.4236069763689997
+      ],
+      "advantages": [
+        0.07570024911411988,
+        0.0321497240084852,
+        -0.08169285739539112,
+        -0.026157115727213853
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 3.83).\n{\"bid\": 22.8, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.40 (sd 4.08).\n{\"bid\": 23.4, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.60 (sd 4.08).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.60 (sd 4.08).\n{\"bid\": 23.6, \"bid_size\": 4, \"ask\": 31.6, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 22,
+      "game": "dice",
+      "rewards": [
+        0.28577357012051774,
+        0.4986146983188133,
+        -0.25885785183924204,
+        0.4976367026780013
+      ],
+      "advantages": [
+        0.039975720401326825,
+        0.3237638913323876,
+        -0.6861995088783529,
+        0.3224598971446383
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 25.72 (sd 3.30).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.29 (sd 1.80).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 24.38 (sd 2.05).\n{\"bid\": 20.9, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.83 (sd 2.69).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.6, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 23,
+      "game": "dice",
+      "rewards": [
+        0.35652602425130103,
+        0.49288669933178453,
+        0.49288669933178453,
+        0.3261572176429541
+      ],
+      "advantages": [
+        -0.0807841811842066,
+        0.10103005225643796,
+        0.10103005225643796,
+        -0.12127592332866921
+      ],
+      "completions": [
+        "Public E[V] = 23.50; after my fills E[V] = 26.34 (sd 2.69).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.1, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 24.12 (sd 3.82).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 24.10 (sd 5.79).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 26.22 (sd 3.38).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 24,
+      "game": "dice",
+      "rewards": [
+        0.49033463694442625,
+        0.49033463694442625,
+        0.4073438228536143,
+        0.49033463694442625
+      ],
+      "advantages": [
+        0.027663604696937294,
+        0.027663604696937294,
+        -0.08299081409081199,
+        0.027663604696937294
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 28.96 (sd 2.15).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.44 (sd 3.13).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 6}",
+        "Public E[V] = 28.00; after my fills E[V] = 29.08 (sd 3.86).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 25,
+      "game": "dice",
+      "rewards": [
+        0.09233619181309854,
+        0.45354616454135277,
+        0.49437866642531186,
+        0.34174287682121685
+      ],
+      "advantages": [
+        -0.3375530441161953,
+        0.14406025285481033,
+        0.1985035887000891,
+        -0.005010797438704195
+      ],
+      "completions": [
+        "Public E[V] = 30.00; after my fills E[V] = 26.61 (sd 2.03).\n{\"bid\": 23.1, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 28.61 (sd 2.57).\n{\"bid\": 23.7, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.23 (sd 2.47).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 29.29 (sd 3.16).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 26,
+      "game": "dice",
+      "rewards": [
+        0.4257544768214122,
+        0.30934463152499875,
+        0.3735598477078129,
+        0.4743253716892792
+      ],
+      "advantages": [
+        0.040011193180715166,
+        -0.1152019338811694,
+        -0.02958164563741711,
+        0.10477238633787123
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.48 (sd 2.80).\n{\"bid\": 24.1, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.42 (sd 3.30).\n{\"bid\": 23.9, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.38 (sd 5.36).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 28.70 (sd 4.39).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.1, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 27,
+      "game": "dice",
+      "rewards": [
+        0.3068803708775286,
+        0.45590304197966713,
+        0.4427130327549356,
+        0.2849219259108492
+      ],
+      "advantages": [
+        -0.08763229600428862,
+        0.11106459879856267,
+        0.09347791983225401,
+        -0.1169102226265279
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 30.29 (sd 3.24).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.69 (sd 2.83).\n{\"bid\": 25.1, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 27.24 (sd 2.96).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.7, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.0 (sd 3.67).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 28,
+      "game": "dice",
+      "rewards": [
+        0.2824522713448959,
+        0.49891778947767984,
+        0.1873637774493141,
+        0.20472510913688474
+      ],
+      "advantages": [
+        -0.014549954009730304,
+        0.27407073683398153,
+        -0.14133461253717278,
+        -0.11818617028707856
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.07 (sd 2.97).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.44 (sd 2.85).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 24.80 (sd 3.41).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 29.9, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 26.85 (sd 4.26).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 29,
+      "game": "dice",
+      "rewards": [
+        0.4665640274534701,
+        0.4515748195801985,
+        0.4787077795249507,
+        0.487462072693832
+      ],
+      "advantages": [
+        -0.00601752981285697,
+        -0.026003140310552453,
+        0.01017413961578384,
+        0.021846530507625583
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 25.74 (sd 0.85).\n{\"bid\": 22.5, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 24.92 (sd 1.90).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.48 (sd 2.90).\n{\"bid\": 22.3, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.07 (sd 3.97).\n{\"bid\": 21.8, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 30,
+      "game": "dice",
+      "rewards": [
+        0.33351309475909496,
+        0.32524777027286345,
+        -0.15081631588804856,
+        0.4941945701738387
+      ],
+      "advantages": [
+        0.11063775323954372,
+        0.09961732059123504,
+        -0.5351347942899809,
+        0.3248797204592021
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 27.16 (sd 2.53).\n{\"bid\": 22.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 26.39 (sd 2.86).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 20.62 (sd 3.81).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.38 (sd 2.90).\n{\"bid\": 21.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 31,
+      "game": "dice",
+      "rewards": [
+        0.44861284161530607,
+        0.4575496912051056,
+        0.32722387347546844,
+        0.3451675132570873
+      ],
+      "advantages": [
+        0.07196581563608562,
+        0.08388161508915165,
+        -0.08988614188369787,
+        -0.06596128884153946
+      ],
+      "completions": [
+        "Public E[V] = 20.50; after my fills E[V] = 24.98 (sd 3.15).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.1, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 23.68 (sd 2.62).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 25.19 (sd 3.16).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.5, \"ask_size\": 5}",
+        "Public E[V] = 24.00; after my fills E[V] = 23.38 (sd 2.43).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 32,
+      "game": "dice",
+      "rewards": [
+        -0.836203247050791,
+        -0.40826574564884666,
+        -0.4976566419344459,
+        -1.5
+      ],
+      "advantages": [
+        -0.03422911785635996,
+        0.5363542173462323,
+        0.4171663556320999,
+        -0.9192914551219721
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 27.22 (sd 2.22).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 31.2, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.19 (sd 6.08).\n{\"bid\": 23.8, \"bid_size\": 3, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.08).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 24.97 (sd 5.08).\n{\"bid\": 20.5, \"bid_size\": 5, \"ask\": 29.4, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 33,
+      "game": "dice",
+      "rewards": [
+        0.49236620189449937,
+        0.26559097749673233,
+        0.359313659548421,
+        -0.43902454053959616
+      ],
+      "advantages": [
+        0.43040616972598034,
+        0.12803920386229095,
+        0.2530027799312092,
+        -0.8114481535194804
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.15 (sd 4.08).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.1, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.69 (sd 4.08).\n{\"bid\": 25.1, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.58 (sd 3.52).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.46 (sd 5.21).\n{\"bid\": 21.4, \"bid_size\": 5, \"ask\": 28.4, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 34,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 35,
+      "game": "dice",
+      "rewards": [
+        0.44641465665351754,
+        -0.34419289135964315,
+        0.418290542399437,
+        0.430309117104933
+      ],
+      "advantages": [
+        0.27827906727194196,
+        -0.775864330078939,
+        0.24078024826650127,
+        0.25680501454049587
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 27.77 (sd 1.95).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 30.26 (sd 3.74).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 27.45 (sd 2.68).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 26.31 (sd 5.84).\n{\"bid\": 22.6, \"bid_size\": 5, \"ask\": 30.4, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 36,
+      "game": "dice",
+      "rewards": [
+        0.22875525054721219,
+        0.3299758598524495,
+        0.44743134072092655,
+        0.3130336076464312
+      ],
+      "advantages": [
+        -0.13472501885939026,
+        0.0002357935475927886,
+        0.1568431013722289,
+        -0.022353876060431543
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 30.12 (sd 3.34).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.82 (sd 2.90).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.13 (sd 3.17).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.8, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 28.40 (sd 2.55).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 37,
+      "game": "dice",
+      "rewards": [
+        0.37746956051843383,
+        0.3779572687403233,
+        0.4995932631602516,
+        0.4995932631602516
+      ],
+      "advantages": [
+        -0.08157837116850825,
+        -0.08092809353932234,
+        0.08125323235391535,
+        0.08125323235391535
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 3.53).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.08).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 30.0, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.84 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 30.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 38,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 39,
+      "game": "dice",
+      "rewards": [
+        0.447775300423066,
+        0.3055696001433048,
+        0.4102104209952484,
+        0.42427870328477213
+      ],
+      "advantages": [
+        0.06775572561529092,
+        -0.12185187475772402,
+        0.017669219711534068,
+        0.036426929430899035
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 2.16).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.1, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.83 (sd 2.39).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.33 (sd 3.69).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.06 (sd 3.38).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.3, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 40,
+      "game": "dice",
+      "rewards": [
+        -0.4898088577058216,
+        -0.5071014641735743,
+        -0.5048958023664114,
+        -1.5
+      ],
+      "advantages": [
+        0.34752356447417365,
+        0.32446675585050333,
+        0.3274076382600538,
+        -0.9993979585847309
+      ],
+      "completions": [
+        "Public E[V] = 26.00; after my fills E[V] = 27.08 (sd 3.51).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 26.96 (sd 5.44).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.31 (sd 2.97).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 24.02 (sd 2.78).\n{\"bid\": 19.8, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 41,
+      "game": "dice",
+      "rewards": [
+        0.49874170513350885,
+        -0.07407719274408664,
+        0.41938293205662935,
+        0.30723417468240205
+      ],
+      "advantages": [
+        0.28122840046852726,
+        -0.4825301300349334,
+        0.17541670303268794,
+        0.025885026533718214
+      ],
+      "completions": [
+        "Public E[V] = 23.50; after my fills E[V] = 24.08 (sd 2.16).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 27.5, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 26.58 (sd 1.30).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.2, \"ask_size\": 5}",
+        "Public E[V] = 23.00; after my fills E[V] = 24.53 (sd 3.17).\n{\"bid\": 20.2, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.94 (sd 2.96).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 42,
+      "game": "dice",
+      "rewards": [
+        0.44848749413526456,
+        0.4268211327327375,
+        0.46175957267746004,
+        0.46175957267746004
+      ],
+      "advantages": [
+        -0.0016259318939546574,
+        -0.030514413763990722,
+        0.016070172828972606,
+        0.016070172828972606
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.2, \"ask_size\": 4}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.08 (sd 4.08).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 43,
+      "game": "dice",
+      "rewards": [
+        0.10975930129053518,
+        0.447760051828871,
+        0.3292461410150676,
+        0.41124639440599975
+      ],
+      "advantages": [
+        -0.28632489445944426,
+        0.16434277292500354,
+        0.006324225173265641,
+        0.11565789636117518
+      ],
+      "completions": [
+        "Public E[V] = 24.50; after my fills E[V] = 24.24 (sd 3.15).\n{\"bid\": 20.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.66 (sd 3.02).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.78 (sd 2.89).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.6, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.20 (sd 2.22).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.2, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 44,
+      "game": "dice",
+      "rewards": [
+        0.4007100076675155,
+        -0.5348409487015588,
+        0.4693105822823271,
+        0.4247320407405669
+      ],
+      "advantages": [
+        0.28097611622707047,
+        -0.9664251589316954,
+        0.3724435490468192,
+        0.31300549365780567
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 4.08).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 23.00; after my fills E[V] = 23.80 (sd 4.08).\n{\"bid\": 19.0, \"bid_size\": 4, \"ask\": 28.0, \"ask_size\": 4}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 4.83).\n{\"bid\": 22.8, \"bid_size\": 4, \"ask\": 30.3, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 30.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 45,
+      "game": "dice",
+      "rewards": [
+        0.4195792008024709,
+        0.49613441173554845,
+        0.33235878891482584,
+        0.38495651231830186
+      ],
+      "advantages": [
+        0.01509596314624545,
+        0.1171695777236822,
+        -0.10119791937061456,
+        -0.031067621499313247
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 4.48).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.28 (sd 4.60).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.80 (sd 2.87).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 32.8, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 46,
+      "game": "dice",
+      "rewards": [
+        0.3705416601908629,
+        0.4304857154417505,
+        0.17004786817394152,
+        0.35219787291373195
+      ],
+      "advantages": [
+        0.05296450801438829,
+        0.1328899150155718,
+        -0.21436054800817356,
+        0.0285061249782137
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.43 (sd 2.81).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 3.08).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.9, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.68 (sd 2.17).\n{\"bid\": 21.6, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.48 (sd 3.06).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 47,
+      "game": "dice",
+      "rewards": [
+        -0.15984370985105312,
+        0.13753011072248228,
+        0.2778136262410364,
+        0.39850706668819297
+      ],
+      "advantages": [
+        -0.43112731106829033,
+        -0.03462888363690983,
+        0.15241580372116234,
+        0.31334039098403776
+      ],
+      "completions": [
+        "Public E[V] = 37.00; after my fills E[V] = 39.07 (sd 2.14).\n{\"bid\": 33.0, \"bid_size\": 5, \"ask\": 43.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 32.05 (sd 6.61).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 33.50; after my fills E[V] = 33.14 (sd 3.27).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 33.50 (sd 3.48).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 48,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 49,
+      "game": "dice",
+      "rewards": [
+        0.35729296443966285,
+        0.29339443819268146,
+        0.4548612717642019,
+        0.47230667070399807
+      ],
+      "advantages": [
+        -0.04956116244729769,
+        -0.13475919744327286,
+        0.08052991398542103,
+        0.1037904459051493
+      ],
+      "completions": [
+        "Public E[V] = 29.00; after my fills E[V] = 28.62 (sd 3.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 3.55).\n{\"bid\": 22.7, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 2.87).\n{\"bid\": 23.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.60 (sd 2.85).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 50,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.40560822897920484
+      ],
+      "advantages": [
+        0.03146392367359835,
+        0.03146392367359835,
+        0.03146392367359835,
+        -0.09439177102079516
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 51,
+      "game": "dice",
+      "rewards": [
+        0.172671616378488,
+        0.4907716403598908,
+        0.44155193270603305,
+        0.3379928368081715
+      ],
+      "advantages": [
+        -0.25076718691287714,
+        0.17336617839565993,
+        0.1077399015238496,
+        -0.03033889300663245
+      ],
+      "completions": [
+        "Public E[V] = 30.50; after my fills E[V] = 29.24 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.20 (sd 5.05).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 30.08 (sd 6.26).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 30.32 (sd 3.95).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 52,
+      "game": "dice",
+      "rewards": [
+        0.43513292336634074,
+        0.4181478090296565,
+        0.4988542445623789,
+        0.48519805233217356
+      ],
+      "advantages": [
+        -0.03226711194172888,
+        -0.05491393105730791,
+        0.0526946496529887,
+        0.034486393346048194
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 25.48 (sd 3.77).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.38 (sd 2.70).\n{\"bid\": 21.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.20 (sd 4.35).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.20 (sd 3.55).\n{\"bid\": 23.2, \"bid_size\": 5, \"ask\": 31.1, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 53,
+      "game": "dice",
+      "rewards": [
+        0.46894327668058355,
+        0.22870877280853347,
+        0.45714060149329083,
+        0.47483888154095216
+      ],
+      "advantages": [
+        0.08204719139965816,
+        -0.238265480429742,
+        0.06631029114993447,
+        0.08990799788014958
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 25.97 (sd 3.44).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 4}",
+        "Public E[V] = 26.00; after my fills E[V] = 27.68 (sd 4.16).\n{\"bid\": 23.3, \"bid_size\": 5, \"ask\": 31.1, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 24.22 (sd 3.16).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.48 (sd 2.84).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 54,
+      "game": "dice",
+      "rewards": [
+        0.4782788026612947,
+        0.39225307025892925,
+        0.4718751715166747,
+        0.47037312050136537
+      ],
+      "advantages": [
+        0.033445015235638254,
+        -0.081255961300849,
+        0.024906840376144934,
+        0.022904105689065812
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 3.44).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.08 (sd 3.88).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.5, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.05 (sd 2.68).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 3.12).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 55,
+      "game": "dice",
+      "rewards": [
+        0.012076311018653363,
+        0.36186096039133686,
+        -0.14798003822070638,
+        0.2986313878678313
+      ],
+      "advantages": [
+        -0.1587611256608339,
+        0.30761840683607744,
+        -0.3721695913133135,
+        0.22331231013807
+      ],
+      "completions": [
+        "Public E[V] = 30.50; after my fills E[V] = 30.21 (sd 3.17).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 30.50 (sd 4.39).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 28.69 (sd 2.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.6, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.52 (sd 3.25).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 56,
+      "game": "dice",
+      "rewards": [
+        0.11990717448615801,
+        -1.5,
+        0.11990717448615801,
+        0.3843862410389171
+      ],
+      "advantages": [
+        0.45180936931113297,
+        -1.7080668633370777,
+        0.45180936931113297,
+        0.8044481247148119
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.48 (sd 3.20).\n{\"bid\": 23.4, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 29.04 (sd 3.69).\n{\"bid\": 26.2, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.23 (sd 3.76).\n{\"bid\": 23.4, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 25.48 (sd 2.72).\n{\"bid\": 21.9, \"bid_size\": 5, \"ask\": 28.8, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 57,
+      "game": "dice",
+      "rewards": [
+        -0.1375567675077336,
+        0.27030297822179217,
+        0.37272845687702594,
+        0.2773186697711221
+      ],
+      "advantages": [
+        -0.44434013579771364,
+        0.09947285850832069,
+        0.23604016338196573,
+        0.10882711390742725
+      ],
+      "completions": [
+        "Public E[V] = 23.50; after my fills E[V] = 25.62 (sd 3.68).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 24.00; after my fills E[V] = 23.85 (sd 2.73).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.8, \"ask_size\": 5}",
+        "Public E[V] = 22.00; after my fills E[V] = 22.45 (sd 3.15).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 24.10 (sd 2.85).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 28.3, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 58,
+      "game": "dice",
+      "rewards": [
+        0.058235051832586815,
+        0.4433572442220183,
+        -1.283322371773722,
+        -0.8587648151183174
+      ],
+      "advantages": [
+        0.6244783660559272,
+        1.1379746225751692,
+        -1.1642648654191514,
+        -0.598188123211945
+      ],
+      "completions": [
+        "Public E[V] = 30.00; after my fills E[V] = 29.08 (sd 4.41).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.08 (sd 3.24).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 4}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.02 (sd 4.06).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.28 (sd 4.58).\n{\"bid\": 23.8, \"bid_size\": 4, \"ask\": 31.4, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 59,
+      "game": "dice",
+      "rewards": [
+        0.4147486434169434,
+        0.45929178415000865,
+        -0.019834331686741757,
+        0.44306335484558657
+      ],
+      "advantages": [
+        0.12057504098065897,
+        0.1799658952914126,
+        -0.4588689258242546,
+        0.1583279895521832
+      ],
+      "completions": [
+        "Public E[V] = 22.50; after my fills E[V] = 23.28 (sd 3.51).\n{\"bid\": 18.2, \"bid_size\": 5, \"ask\": 28.6, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 21.98 (sd 4.36).\n{\"bid\": 17.7, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 21.50; after my fills E[V] = 21.17 (sd 2.60).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 22.08 (sd 3.80).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 60,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.40560822897920484
+      ],
+      "advantages": [
+        0.03146392367359835,
+        0.03146392367359835,
+        0.03146392367359835,
+        -0.09439177102079516
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 61,
+      "game": "dice",
+      "rewards": [
+        -0.3481880728771317,
+        0.37331445092196697,
+        -0.21337024955886774,
+        -0.6180884543667795
+      ],
+      "advantages": [
+        -0.19547332187590497,
+        0.76653004318956,
+        -0.015716224118219685,
+        -0.5553404971954353
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 32.12 (sd 3.19).\n{\"bid\": 27.6, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 33.36 (sd 3.18).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.22 (sd 4.18).\n{\"bid\": 23.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 25.47 (sd 3.28).\n{\"bid\": 21.3, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 62,
+      "game": "dice",
+      "rewards": [
+        0.443547174767318,
+        0.32039096341003587,
+        0.5,
+        0.34031726709375537
+      ],
+      "advantages": [
+        0.05664443126605423,
+        -0.10756385054365519,
+        0.13191486490963028,
+        -0.0809954456320292
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 27.67 (sd 2.59).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 31.7, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.49 (sd 2.94).\n{\"bid\": 23.3, \"bid_size\": 5, \"ask\": 31.2, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 28.13 (sd 2.59).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.2, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.28 (sd 2.85).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 63,
+      "game": "dice",
+      "rewards": [
+        0.3957415614445861,
+        0.49889678699582296,
+        0.48837496400454766,
+        0.49475738704640626
+      ],
+      "advantages": [
+        -0.09826815123767285,
+        0.039272149497309616,
+        0.025243052175609182,
+        0.03375294956475405
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.28 (sd 2.98).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.79 (sd 1.86).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.38 (sd 2.84).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 1.85).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 64,
+      "game": "dice",
+      "rewards": [
+        -3.0,
+        0.42530961813745816,
+        0.43603973019741105,
+        -0.480131263348055
+      ],
+      "advantages": [
+        -3.1270726949956047,
+        1.4400067958543397,
+        1.4543136119342768,
+        0.2327522872069886
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 21.72 (sd 5.37).\n{\"bid\": 17.1, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": !5}",
+        "Public E[V] = 25.50; after my fills E[V] = 26.80 (sd 2.84).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.99 (sd 3.57).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 28.93 (sd 3.10).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 65,
+      "game": "dice",
+      "rewards": [
+        -0.09576223988463373,
+        0.49676157610236743,
+        0.49033463694442675,
+        0.16901490539228203
+      ],
+      "advantages": [
+        -0.48113261269765906,
+        0.3088991419516758,
+        0.3003298897410882,
+        -0.12809641899510477
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 32.50 (sd 2.86).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.12 (sd 7.18).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 29.65; after my fills E[V] = 29.28 (sd 3.99).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 31.36 (sd 3.85).\n{\"bid\": 26.2, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 66,
+      "game": "dice",
+      "rewards": [
+        0.4941718638959095,
+        0.4912902319982942,
+        0.41975027806284854,
+        0.41953422257288736
+      ],
+      "advantages": [
+        0.0506469530178994,
+        0.046804777154412336,
+        -0.0485818280928485,
+        -0.0488699020794634
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.02 (sd 4.35).\n{\"bid\": 23.3, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.35 (sd 4.29).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.00 (sd 2.75).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 26.83 (sd 1.12).\n{\"bid\": 22.2, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 67,
+      "game": "dice",
+      "rewards": [
+        0.09340029725652477,
+        0.48232364158943414,
+        0.4643624307080295,
+        0.4892357399199095
+      ],
+      "advantages": [
+        -0.38524030681593285,
+        0.13332415229461292,
+        0.10937587111940672,
+        0.14254028340191338
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 3.52).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 2.92).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.36 (sd 3.34).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.3, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 3.42).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 68,
+      "game": "dice",
+      "rewards": [
+        -0.7844955606128798,
+        -0.8845938690886779,
+        0.1573925436765618,
+        0.48115762682323715
+      ],
+      "advantages": [
+        -0.7024809944165868,
+        -0.8359454057176509,
+        0.5533698113026686,
+        0.9850565888315691
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.15 (sd 1.33).\n{\"bid\": 21.5, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 17.50; after my fills E[V] = 17.50 (sd 2.99).\n{\"bid\": 13.7, \"bid_size\": 5, \"ask\": 21.2, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 23.35 (sd 2.59).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 20.50; after my fills E[V] = 21.26 (sd 3.11).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 69,
+      "game": "dice",
+      "rewards": [
+        -0.40894837811024853,
+        -0.46604704455611634,
+        -0.2297957891234097,
+        -1.5
+      ],
+      "advantages": [
+        0.3229992331162602,
+        0.2468676778551031,
+        0.5618693517653787,
+        -1.1317362627367418
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 3.28).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.3, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 3.51).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 30.2, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.00 (sd 4.38).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.98 (sd 3.17).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.9, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 70,
+      "game": "dice",
+      "rewards": [
+        0.46388132523593995,
+        0.30321340381867784,
+        0.17508508799525618,
+        0.3841997887438354
+      ],
+      "advantages": [
+        0.17638189838335022,
+        -0.03784199683966594,
+        -0.20867975127089483,
+        0.07013984972721082
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.58 (sd 1.96).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.7, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.25 (sd 2.36).\n{\"bid\": 23.7, \"bid_size\": 5, \"ask\": 32.4, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 2.94).\n{\"bid\": 24.4, \"bid_size\": 5, \"ask\": 32.4, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 28.17 (sd 2.85).\n{\"bid\": 23.9, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 71,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.4945455463105763,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.001818151229807885,
+        -0.0054544536894237106,
+        0.001818151229807885,
+        0.001818151229807885
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 72,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 73,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 74,
+      "game": "dice",
+      "rewards": [
+        0.36610958738485677,
+        -0.45728757768524486,
+        0.46159409558521514,
+        -1.5
+      ],
+      "advantages": [
+        0.8646740814181999,
+        -0.23318880534193553,
+        0.9919867590186778,
+        -1.6234720350949423
+      ],
+      "completions": [
+        "Public E[V] = 32.50; after my fills E[V] = 32.05 (sd 4.52).\n{\"bid\": 27.4, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.35 (sd 5.17).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 32.45 (sd 3.58).\n{\"bid\": 28.3, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 33.50; after my fills E[V] = 40.54 (sd 1.95).\n{\"bid\": 34.0, \"bid_size\": 5, \"ask\": 47.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 75,
+      "game": "dice",
+      "rewards": [
+        -1.5,
+        -1.5,
+        -1.5,
+        -0.7326004932055594
+      ],
+      "advantages": [
+        -0.2557998355981468,
+        -0.2557998355981468,
+        -0.2557998355981468,
+        0.7673995067944406
+      ],
+      "completions": [
+        "Public E[V] = 24.50; after my fills E[V] = 25.00 (sd 2.63).\n{\"bid\": 21.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 24.00; after my fills E[V] = 26.19 (sd 3.58).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.98 (sd 3.62).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 24.09 (sd 2.85).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 76,
+      "game": "dice",
+      "rewards": [
+        0.4285945302402021,
+        0.44731646871574654,
+        0.44963894928333126,
+        0.23380180919005827
+      ],
+      "advantages": [
+        0.051675454510490104,
+        0.07663803914454936,
+        0.07973467990132899,
+        -0.20804817355636834
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.48 (sd 3.58).\n{\"bid\": 23.2, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.98 (sd 3.06).\n{\"bid\": 22.2, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.66 (sd 3.57).\n{\"bid\": 22.4, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 3.09).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 77,
+      "game": "dice",
+      "rewards": [
+        0.13340579850362105,
+        0.5,
+        0.5,
+        0.40560822897920484
+      ],
+      "advantages": [
+        -0.3351302778227806,
+        0.15366199083905802,
+        0.15366199083905802,
+        0.02780629614466451
+      ],
+      "completions": [
+        "Public E[V] = 30.50; after my fills E[V] = 30.50 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 35.0, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 78,
+      "game": "dice",
+      "rewards": [
+        0.12966967328912765,
+        0.25014261035249696,
+        0.4107660181142319,
+        0.4537222888679543
+      ],
+      "advantages": [
+        -0.24187396582243337,
+        -0.08124338307127427,
+        0.13292116061103898,
+        0.19019618828266882
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 28.23 (sd 2.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.1, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 28.34 (sd 3.29).\n{\"bid\": 24.1, \"bid_size\": 5, \"ask\": 32.3, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.50 (sd 2.88).\n{\"bid\": 23.2, \"bid_size\": 5, \"ask\": 31.5, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.95 (sd 2.82).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 79,
+      "game": "dice",
+      "rewards": [
+        0.4007100076675155,
+        0.422240751084044,
+        0.3520140021805911,
+        -0.16675967628281074
+      ],
+      "advantages": [
+        0.19821164867357402,
+        0.22691930656227868,
+        0.1332836413576748,
+        -0.5584145965935277
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 4.08).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.40 (sd 4.08).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.80 (sd 4.83).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.8, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 80,
+      "game": "dice",
+      "rewards": [
+        -0.9671066707320171,
+        0.3759457636034384,
+        0.3759457636034384,
+        0.18903952870692142
+      ],
+      "advantages": [
+        -1.2807503560366165,
+        0.5099862230773241,
+        0.5099862230773241,
+        0.26077790988196814
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 28.60 (sd 4.35).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.4, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.08 (sd 6.46).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 30.09 (sd 3.82).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 32.00; after my fills E[V] = 32.24 (sd 3.12).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 81,
+      "game": "dice",
+      "rewards": [
+        -0.02363741946502529,
+        0.021579434503439632,
+        -0.5821979298037585,
+        -0.8475701993432929
+      ],
+      "advantages": [
+        0.4457588120828453,
+        0.5060479507074652,
+        -0.2989885350354657,
+        -0.6528182277548449
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.10 (sd 3.12).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.08 (sd 2.80).\n{\"bid\": 23.3, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 25.63 (sd 4.47).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 26.32 (sd 3.71).\n{\"bid\": 22.5, \"bid_size\": 5, \"ask\": 29.3, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 82,
+      "game": "dice",
+      "rewards": [
+        0.37316887425013434,
+        -0.7556030280575972,
+        0.2488805641491736,
+        0.006461826543900762
+      ],
+      "advantages": [
+        0.5399224200383086,
+        -0.9651067830386667,
+        0.3742046732370276,
+        0.050979689763330505
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.80 (sd 6.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 32.20 (sd 3.52).\n{\"bid\": 26.8, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.50 (sd 4.22).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 32.44 (sd 5.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 39.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 83,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 84,
+      "game": "dice",
+      "rewards": [
+        0.42419597716437424,
+        0.46550062550151305,
+        0.45546384257898914,
+        0.42419597716437424
+      ],
+      "advantages": [
+        -0.02419083791725124,
+        0.03088202653226718,
+        0.017499649302235354,
+        -0.02419083791725124
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 3.26).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.30 (sd 3.32).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 3.26).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.08 (sd 2.08).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 85,
+      "game": "dice",
+      "rewards": [
+        -0.0725431046575391,
+        -1.143094270370945,
+        0.4067708988885851,
+        -1.3199660241807445
+      ],
+      "advantages": [
+        0.612886693896829,
+        -0.8145148603877121,
+        1.251972031958328,
+        -1.0503438654674448
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.65 (sd 3.50).\n{\"bid\": 24.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.97 (sd 2.59).\n{\"bid\": 22.2, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 30.08 (sd 2.69).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 33.3, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 25.27 (sd 2.78).\n{\"bid\": 21.1, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 86,
+      "game": "dice",
+      "rewards": [
+        0.20133176501516076,
+        -0.782059097738484,
+        0.2511115750938132,
+        -0.09168792618968813
+      ],
+      "advantages": [
+        0.4088769146266138,
+        -0.902310902378246,
+        0.47524999473148366,
+        0.018183993020148573
+      ],
+      "completions": [
+        "Public E[V] = 31.00; after my fills E[V] = 31.72 (sd 3.50).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.88 (sd 2.88).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 32.00; after my fills E[V] = 32.40 (sd 3.89).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 31.16 (sd 3.04).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 87,
+      "game": "dice",
+      "rewards": [
+        0.32592857474057807,
+        0.4752863863164097,
+        0.4752863863164097,
+        0.17702016582428942
+      ],
+      "advantages": [
+        -0.04993573807845819,
+        0.14920801068931727,
+        0.14920801068931727,
+        -0.2484802833001764
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.50 (sd 2.67).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.40 (sd 2.85).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.28 (sd 2.92).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 2.75).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 88,
+      "game": "dice",
+      "rewards": [
+        0.46202941472671055,
+        -0.2939002044000777,
+        0.3221496198051984,
+        0.015044241981370055
+      ],
+      "advantages": [
+        0.4475981955978803,
+        -0.5603079632378374,
+        0.26109180236919743,
+        -0.1483820347292404
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 2.85).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.56 (sd 2.35).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.21 (sd 3.30).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.97 (sd 2.36).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 89,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 90,
+      "game": "dice",
+      "rewards": [
+        -0.07168100032468983,
+        0.33513035735411656,
+        0.3779572687403237,
+        -0.28131340693222207
+      ],
+      "advantages": [
+        -0.2156057400454292,
+        0.32680940352631266,
+        0.3839119520412555,
+        -0.4951156155221389
+      ],
+      "completions": [
+        "Public E[V] = 32.00; after my fills E[V] = 32.00 (sd 4.08).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 5.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.30 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 32.50; after my fills E[V] = 32.50 (sd 4.08).\n{\"bid\": 28.0, \"bid_size\": 4, \"ask\": 39.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 91,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 92,
+      "game": "dice",
+      "rewards": [
+        0.4200106639486816,
+        -0.9916054086536348,
+        -0.2962090218938812,
+        -0.19620889923275975
+      ],
+      "advantages": [
+        0.9146851072087736,
+        -0.9674696562609816,
+        -0.040274473914643505,
+        0.09305902296685176
+      ],
+      "completions": [
+        "Public E[V] = 31.00; after my fills E[V] = 31.08 (sd 2.96).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.05 (sd 3.29).\n{\"bid\": 23.2, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 29.07 (sd 3.52).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.64 (sd 2.80).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 93,
+      "game": "dice",
+      "rewards": [
+        0.061840164401891884,
+        -1.0154311009532975,
+        0.4869973858701093,
+        0.4070708258504589
+      ],
+      "advantages": [
+        0.10229446081280164,
+        -1.334067226327451,
+        0.6691707561037582,
+        0.562602009410891
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 28.74 (sd 2.62).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.6, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.88 (sd 3.39).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.8, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.49 (sd 2.69).\n{\"bid\": 27.4, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.00 (sd 3.22).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 94,
+      "game": "dice",
+      "rewards": [
+        -0.20938305021486692,
+        0.20241726947266098,
+        -0.25208111588793536,
+        -0.22773218852149923
+      ],
+      "advantages": [
+        -0.11691770523594237,
+        0.4321493876807615,
+        -0.1738484594667003,
+        -0.14138322297811878
+      ],
+      "completions": [
+        "Public E[V] = 24.50; after my fills E[V] = 25.00 (sd 2.38).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.78 (sd 2.98).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 22.00; after my fills E[V] = 23.5, \"be my fills E[V] = 26.08 (sd 3.47).\n{\"bid\": 22.7, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 26.02 (sd 3.15).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 95,
+      "game": "dice",
+      "rewards": [
+        0.33513035735411656,
+        0.3779572687403237,
+        0.33513035735411656,
+        0.3779572687403237
+      ],
+      "advantages": [
+        -0.028551274257471504,
+        0.028551274257471393,
+        -0.028551274257471504,
+        0.028551274257471393
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 96,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 97,
+      "game": "dice",
+      "rewards": [
+        0.17557073902981218,
+        0.40050569246730694,
+        0.42262090739601776,
+        0.10505521718857447
+      ],
+      "advantages": [
+        -0.13382319998748754,
+        0.16609007126250544,
+        0.19557702450078654,
+        -0.2278438957758045
+      ],
+      "completions": [
+        "Public E[V] = 21.00; after my fills E[V] = 21.38 (sd 3.67).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 27.1, \"ask_size\": 5}",
+        "Public E[V] = 20.50; after my fills E[V] = 20.08 (sd 2.54).\n{\"bid\": 16.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}",
+        "Public E[V] = 20.00; after my fills E[V] = 20.00 (sd 2.80).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}",
+        "Public E[V] = 21.50; after my fills E[V] = 22.50 (sd 1.99).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 98,
+      "game": "dice",
+      "rewards": [
+        0.421613102188753,
+        0.3322234058325093,
+        0.4169765810211614,
+        -0.362420431309332
+      ],
+      "advantages": [
+        0.2926865836739734,
+        0.17350032186564848,
+        0.286504555450518,
+        -0.7526914609901398
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 30.45 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.38 (sd 3.71).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.10 (sd 4.56).\n{\"bid\": 26.1, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 32.50; after my fills E[V] = 32.80 (sd 5.28).\n{\"bid\": 28.3, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 99,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.40560822897920484,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.03146392367359835,
+        -0.09439177102079516,
+        0.03146392367359835,
+        0.03146392367359835
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 100,
+      "game": "dice",
+      "rewards": [
+        0.49386753077413165,
+        0.16512426074932018,
+        0.49596776881322213,
+        0.4973601683751291
+      ],
+      "advantages": [
+        0.10771679812824125,
+        -0.3306075619048407,
+        0.11051711551369531,
+        0.11237364826290447
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 28.69 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.30 (sd 3.50).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.08 (sd 2.53).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.9, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.04 (sd 3.50).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 101,
+      "game": "dice",
+      "rewards": [
+        0.41685931866735976,
+        0.4995932631602516,
+        0.3116635313702152,
+        0.34656707411665677
+      ],
+      "advantages": [
+        0.030918029118318535,
+        0.141229955108841,
+        -0.10934302061120754,
+        -0.06280496361595211
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 30.0, \"ask_size\": 4}",
+        "Public E[V] = 24.50; after my fills E[V] = 24.80 (sd 4.08).\n{\"bid\": 21.5, \"bid_size\": 5, \"ask\": 28.8, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 4.08).\n{\"bid\": 22.8, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 102,
+      "game": "dice",
+      "rewards": [
+        0.021415233935888178,
+        0.48704788899568724,
+        0.48704788899568724,
+        0.43169479291878443
+      ],
+      "advantages": [
+        -0.4471816230341648,
+        0.17366191704556727,
+        0.17366191704556727,
+        0.09985778894303016
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.00 (sd 3.07).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 3.38).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 2.87).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 2.86).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 34.2, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 103,
+      "game": "dice",
+      "rewards": [
+        0.454469703894422,
+        0.471829706942908,
+        0.4949922052203838,
+        0.2798488538947909
+      ],
+      "advantages": [
+        0.03891278187506109,
+        0.06205945260637574,
+        0.09294278364301017,
+        -0.193915018124447
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.35 (sd 3.50).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 24.00; after my fills E[V] = 25.28 (sd 2.72).\n{\"bid\": 21.8, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 26.03 (sd 2.84).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.4, \"ask_size\": 5}",
+        "Public E[V] = 23.00; after my fills E[V] = 23.50 (sd 2.69).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 28.2, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 104,
+      "game": "dice",
+      "rewards": [
+        0.40560822897920484,
+        0.5,
+        0.5,
+        0.38837334278845037
+      ],
+      "advantages": [
+        -0.05718288528361193,
+        0.06867280941078158,
+        0.06867280941078158,
+        -0.08016273353795128
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 105,
+      "game": "dice",
+      "rewards": [
+        0.4776934867224789,
+        0.32116450006836306,
+        0.4776934867224789,
+        -0.10637610331965264
+      ],
+      "advantages": [
+        0.24686619223208242,
+        0.03816087669326129,
+        0.24686619223208242,
+        -0.5318932611574263
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 28.05 (sd 3.19).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.38 (sd 2.62).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.98 (sd 3.20).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.45 (sd 2.83).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 106,
+      "game": "dice",
+      "rewards": [
+        0.3787390272201972,
+        0.47269876377234343,
+        0.48447965338940074,
+        0.4070073867792139
+      ],
+      "advantages": [
+        -0.07598957409345547,
+        0.049290074642739545,
+        0.06499792746548261,
+        -0.03829842801476652
+      ],
+      "completions": [
+        "Public E[V] = 29.00; after my fills E[V] = 29.23 (sd 2.55).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.14 (sd 2.86).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.49 (sd 3.08).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.4, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.38 (sd 3.15).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 107,
+      "game": "dice",
+      "rewards": [
+        0.46293454951982377,
+        0.2338594352035469,
+        0.4510049204662743,
+        0.4979001181137264
+      ],
+      "advantages": [
+        0.06867972492530794,
+        -0.23675376082972793,
+        0.05277355285390861,
+        0.11530048305051144
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 28.50 (sd 4.08).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 4.08).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.80 (sd 4.08).\n{\"bid\": 23.8, \"bid_size\": 4, \"ask\": 31.8, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 108,
+      "game": "dice",
+      "rewards": [
+        -0.09616687609668728,
+        0.46110494998449886,
+        0.49975131982239723,
+        0.378788098839564
+      ],
+      "advantages": [
+        -0.5427149989788407,
+        0.20031410246274084,
+        0.2518425955799387,
+        0.09055830093616102
+      ],
+      "completions": [
+        "Public E[V] = 22.50; after my fills E[V] = 22.60 (sd 2.85).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 20.00; after my fills E[V] = 20.04 (sd 1.36).\n{\"bid\": 16.8, \"bid_size\": 5, \"ask\": 23.5, \"ask_size\": 5}",
+        "Public E[V] = 21.50; after my fills E[V] = 20.56 (sd 3.18).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 24.3, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 21.01 (sd 3.71).\n{\"bid\": 17.0, \"bid_size\": 4, \"ask\": 26.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 109,
+      "game": "dice",
+      "rewards": [
+        0.47453487605230327,
+        0.06521199894180241,
+        0.4162244813409546,
+        0.17904474845701168
+      ],
+      "advantages": [
+        0.2543744664723804,
+        -0.29138936967495405,
+        0.17662727352391547,
+        -0.13961237032134172
+      ],
+      "completions": [
+        "Public E[V] = 31.00; after my fills E[V] = 30.59 (sd 3.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.11 (sd 1.98).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 31.08 (sd 3.13).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.08 (sd 3.32).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 110,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.40560822897920484,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.03146392367359835,
+        -0.09439177102079516,
+        0.03146392367359835,
+        0.03146392367359835
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 111,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 112,
+      "game": "dice",
+      "rewards": [
+        0.4205832766552158,
+        0.4577769168848485,
+        0.4255814591398731,
+        0.39867149826744913
+      ],
+      "advantages": [
+        -0.00676001477550775,
+        0.04283150553066922,
+        -9.577146263123337e-05,
+        -0.03597571929252996
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.07 (sd 2.80).\n{\"bid\": 23.4, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.20 (sd 2.96).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.68).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.20 (sd 2.87).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 113,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 114,
+      "game": "dice",
+      "rewards": [
+        0.3294748732496495,
+        0.1426739849585114,
+        0.36201425742856363,
+        0.3051975709798188
+      ],
+      "advantages": [
+        0.05951293546068487,
+        -0.18955491559416593,
+        0.10289878103257033,
+        0.027143199100910564
+      ],
+      "completions": [
+        "Public E[V] = 32.50; after my fills E[V] = 33.23 (sd 2.84).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.70 (sd 3.48).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.88 (sd 2.69).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 32.50; after my fills E[V] = 32.88 (sd 3.25).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 115,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.40560822897920484,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.03146392367359835,
+        -0.09439177102079516,
+        0.03146392367359835,
+        0.03146392367359835
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 5.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 116,
+      "game": "dice",
+      "rewards": [
+        0.19203478069043983,
+        0.4946715383551965,
+        0.46378513275296185,
+        0.42564191715405886
+      ],
+      "advantages": [
+        -0.2693314153969659,
+        0.1341842614893763,
+        0.09300238735306343,
+        0.04214476655452609
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.83 (sd 2.88).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 2.85).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.20 (sd 4.08).\n{\"bid\": 24.1, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 2.94).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 117,
+      "game": "dice",
+      "rewards": [
+        0.4870478889956871,
+        0.49673928007341034,
+        0.4870478889956871,
+        0.4870478889956871
+      ],
+      "advantages": [
+        -0.0032304636925744035,
+        0.009691391077723266,
+        -0.0032304636925744035,
+        -0.0032304636925744035
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.77).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 2.81).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.08 (sd 2.83).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.50 (sd 2.85).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 118,
+      "game": "dice",
+      "rewards": [
+        -0.5050455402075904,
+        -0.27839488408908153,
+        0.3302271603604448,
+        0.0129276645205334
+      ],
+      "advantages": [
+        -0.5266321871382227,
+        -0.22443131231354413,
+        0.587064746952491,
+        0.16399875249927579
+      ],
+      "completions": [
+        "Public E[V] = 31.50; after my fills E[V] = 30.05 (sd 4.16).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.44 (sd 3.29).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.2, \"ask_size\": 5}",
+        "Public E[V] = 32.50; after my fills E[V] = 32.18 (sd 5.51).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 31.19 (sd 4.29).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 119,
+      "game": "dice",
+      "rewards": [
+        0.1322160289419635,
+        0.43598181648005274,
+        0.47087008659162183,
+        0.4274328036996064
+      ],
+      "advantages": [
+        -0.3125455399817968,
+        0.09247551006898885,
+        0.1389932035510809,
+        0.08107682636172708
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.80 (sd 3.88).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.80 (sd 3.18).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.48 (sd 3.47).\n{\"bid\": 23.7, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.71 (sd 2.55).\n{\"bid\": 24.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 120,
+      "game": "dice",
+      "rewards": [
+        0.4976342741926825,
+        0.4976342741926825,
+        0.4779069602828842,
+        0.4779069602828842
+      ],
+      "advantages": [
+        0.013151542606532174,
+        0.013151542606532174,
+        -0.013151542606532174,
+        -0.013151542606532174
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 5.83).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.80 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 3.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 121,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 122,
+      "game": "dice",
+      "rewards": [
+        -0.05703385180733467,
+        0.4910073629791159,
+        0.20060188184069772,
+        0.38599386497264593
+      ],
+      "advantages": [
+        -0.41623488840482115,
+        0.31448673131044624,
+        -0.07272057687411132,
+        0.1744687339684863
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 31.86 (sd 3.11).\n{\"bid\": 27.8, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.08 (sd 2.82).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 2.48).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.08 (sd 3.00).\n{\"bid\": 26.4, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 123,
+      "game": "dice",
+      "rewards": [
+        0.48811867144682974,
+        0.19601735287165317,
+        0.10581638463758897,
+        0.4436994300809043
+      ],
+      "advantages": [
+        0.2396076155834476,
+        -0.1498608091834545,
+        -0.27012876682887343,
+        0.18038196042888033
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 28.05 (sd 2.94).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.4, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 30.00 (sd 4.08).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.33 (sd 2.84).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 2.16).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 124,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 125,
+      "game": "dice",
+      "rewards": [
+        -0.33373727680793164,
+        0.2446574749361572,
+        0.16740901151017823,
+        0.133781479783661
+      ],
+      "advantages": [
+        -0.5156865988845971,
+        0.2555064034408547,
+        0.15250845220621603,
+        0.10767174323752642
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 24.08 (sd 2.35).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 22.09 (sd 2.58).\n{\"bid\": 18.3, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 22.08 (sd 2.68).\n{\"bid\": 18.8, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 22.04 (sd 1.76).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 126,
+      "game": "dice",
+      "rewards": [
+        0.4687358512510504,
+        0.4293664059817212,
+        0.4976404505597788,
+        0.43656288476870675
+      ],
+      "advantages": [
+        0.014212604147648134,
+        -0.03827998954479078,
+        0.052752069892619324,
+        -0.028684684495476787
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.70 (sd 3.12).\n{\"bid\": 22.7, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 26.50 (sd 2.95).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.88 (sd 3.08).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.84 (sd 2.55).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 127,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 128,
+      "game": "dice",
+      "rewards": [
+        0.40337081287100224,
+        0.10284039984669535,
+        0.21323421969285866,
+        -0.6904743835157672
+      ],
+      "advantages": [
+        0.5281707341964066,
+        0.12746351683066406,
+        0.2746552766255485,
+        -0.9302895276526193
+      ],
+      "completions": [
+        "Public E[V] = 21.00; after my fills E[V] = 21.00 (sd 4.34).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 22.25 (sd 1.43).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 21.40 (sd 3.17).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 27.4, \"ask_size\": 5}",
+        "Public E[V] = 17.50; after my fills E[V] = 17.92 (sd 3.28).\n{\"bid\": 14.0, \"bid_size\": 5, \"ask\": 21.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 129,
+      "game": "dice",
+      "rewards": [
+        0.37342382793045076,
+        0.0738788264445765,
+        0.1263388334554265,
+        0.4488265149929615
+      ],
+      "advantages": [
+        0.15707576963279593,
+        -0.2423175656817031,
+        -0.1723708896672364,
+        0.2576126857161436
+      ],
+      "completions": [
+        "Public E[V] = 32.50; after my fills E[V] = 32.15 (sd 2.56).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 34.43 (sd 3.87).\n{\"bid\": 31.9, \"bid_size\": 5, \"ask\": 38.1, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 31.18 (sd 3.06).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 33.00; after my fills E[V] = 32.54 (sd 3.37).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 130,
+      "game": "dice",
+      "rewards": [
+        0.058235051832586815,
+        0.058235051832586815,
+        0.058235051832586815,
+        0.421613102188753
+      ],
+      "advantages": [
+        -0.1211260167853887,
+        -0.1211260167853887,
+        -0.1211260167853887,
+        0.36337805035616616
+      ],
+      "completions": [
+        "Public E[V] = 30.50; after my fills E[V] = 29.50 (sd 4.48).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.06 (sd 3.86).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 3.10).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.05 (sd 6.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 131,
+      "game": "dice",
+      "rewards": [
+        0.37849695222036894,
+        0.46753371731280013,
+        0.46753371731280013,
+        0.37849695222036894
+      ],
+      "advantages": [
+        -0.059357843394954146,
+        0.05935784339495409,
+        0.05935784339495409,
+        -0.059357843394954146
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.30 (sd 3.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 30.08 (sd 2.93).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.00 (sd 3.69).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.30 (sd 3.18).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 132,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 133,
+      "game": "dice",
+      "rewards": [
+        -1.0518165419831198,
+        0.1753856235842029,
+        0.45957762345901815,
+        0.49564310372806525
+      ],
+      "advantages": [
+        -1.4286853255735485,
+        0.20758422851621505,
+        0.5865068950159688,
+        0.6345942020413649
+      ],
+      "completions": [
+        "Public E[V] = 31.50; after my fills E[V] = 33.43 (sd 3.13).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.4, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 31.50 (sd 1.84).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.17 (sd 3.39).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.08 (sd 3.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 134,
+      "game": "dice",
+      "rewards": [
+        0.36733376778369375,
+        0.45160492428961424,
+        0.2558810874515978,
+        0.466259125850244
+      ],
+      "advantages": [
+        -0.023914611413458187,
+        0.08844693059443576,
+        -0.17251818518958617,
+        0.10798586600860877
+      ],
+      "completions": [
+        "Public E[V] = 30.50; after my fills E[V] = 30.08 (sd 3.43).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 31.90 (sd 2.93).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}",
+        "Public E[V] = 32.50; after my fills E[V] = 32.28 (sd 2.50).\n{\"bid\": 28.2, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.03 (sd 2.30).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 135,
+      "game": "dice",
+      "rewards": [
+        0.23780566562933853,
+        0.4731042219218172,
+        0.4313945023608073,
+        0.3418311927943742
+      ],
+      "advantages": [
+        -0.17763764006299432,
+        0.13609376832697723,
+        0.08048080891229731,
+        -0.038936937176280106
+      ],
+      "completions": [
+        "Public E[V] = 31.00; after my fills E[V] = 32.56 (sd 3.36).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 30.00; after my fills E[V] = 30.32 (sd 2.73).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.67 (sd 2.56).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 30.80 (sd 3.42).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 136,
+      "game": "dice",
+      "rewards": [
+        0.4725058874355681,
+        0.4950254669236814,
+        0.4997256405777343,
+        0.2798110328600678
+      ],
+      "advantages": [
+        0.04765184064840694,
+        0.07767794663255795,
+        0.08394484483796189,
+        -0.20927463211892677
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.60 (sd 4.08).\n{\"bid\": 23.6, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 31.5, \"ask_size\": 4}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.6, (sd 4.08).\n{\"bid\": 23.6, \"bid_size\": 4, \"ask\": 31.8, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 137,
+      "game": "dice",
+      "rewards": [
+        0.394807859479093,
+        0.49844295847075804,
+        0.49854834207218823,
+        0.49962154293716654
+      ],
+      "advantages": [
+        -0.10406308834761135,
+        0.03411704364127538,
+        0.034257555109849014,
+        0.03568848959648674
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.08 (sd 3.29).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.7, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.67 (sd 3.83).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.20 (sd 3.50).\n{\"bid\": 23.2, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 2.85).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 138,
+      "game": "dice",
+      "rewards": [
+        0.33136335083152635,
+        0.33136335083152635,
+        0.19479655524033418,
+        0.4832614705945494
+      ],
+      "advantages": [
+        -0.0051104413906102875,
+        -0.0051104413906102875,
+        -0.18719950217886655,
+        0.19742038496008707
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 25.00 (sd 3.50).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.97 (sd 3.41).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 28.00 (sd 3.46).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 26.10 (sd 5.08).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 139,
+      "game": "dice",
+      "rewards": [
+        -0.2653318861824525,
+        0.4668591235048758,
+        -0.638634560612495,
+        -0.2547803671963109
+      ],
+      "advantages": [
+        -0.12314661808114247,
+        0.853108061501962,
+        -0.6208835173211992,
+        -0.10907792609962033
+      ],
+      "completions": [
+        "Public E[V] = 20.00; after my fills E[V] = 21.05 (sd 5.05).\n{\"bid\": 17.2, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 17.00; after my fills E[V] = 18.20 (sd 2.86).\n{\"bid\": 14.0, \"bid_size\": 5, \"ask\": 22.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 22.03 (sd 2.28).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 21.83 (sd 3.13).\n{\"bid\": 17.4, \"bid_size\": 5, \"ask\": 25.7, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 140,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 141,
+      "game": "dice",
+      "rewards": [
+        0.4370187746606758,
+        0.04279009154663521,
+        0.49581422857784063,
+        0.4902701002825581
+      ],
+      "advantages": [
+        0.0940606345249978,
+        -0.43157760962705627,
+        0.17245457308121764,
+        0.16506240202084088
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 27.20 (sd 2.39).\n{\"bid\": 23.3, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.07 (sd 2.86).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.10 (sd 2.71).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 27.20 (sd 2.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 142,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.40560822897920484,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.03146392367359835,
+        -0.09439177102079516,
+        0.03146392367359835,
+        0.03146392367359835
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 143,
+      "game": "dice",
+      "rewards": [
+        0.4840501153413055,
+        0.4976342741926825,
+        0.5,
+        0.4779069602828842
+      ],
+      "advantages": [
+        -0.007796962817216757,
+        0.010315248984619274,
+        0.013469550061042612,
+        -0.01598783622844513
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 5.83).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.2, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 3.30).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 144,
+      "game": "dice",
+      "rewards": [
+        0.08889365726545717,
+        0.15204043569231196,
+        0.033687219715047956,
+        -0.020158444537062836
+      ],
+      "advantages": [
+        0.03370392030869148,
+        0.1178996248778312,
+        -0.03990466309185414,
+        -0.11169888209466854
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.45 (sd 6.30).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.38 (sd 2.84).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.2, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 27.50 (sd 4.58).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 26.69 (sd 3.68).\n{\"bid\": 22.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 145,
+      "game": "dice",
+      "rewards": [
+        0.3651602429006152,
+        0.3976697221473695,
+        0.3976697221473695,
+        0.45530466538742087
+      ],
+      "advantages": [
+        -0.051721126993438005,
+        -0.008375154664432338,
+        -0.008375154664432338,
+        0.06847143632230285
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 27.48 (sd 3.95).\n{\"bid\": 23.2, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 27.08 (sd 4.08).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 27.18 (sd 2.84).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.98 (sd 2.30).\n{\"bid\": 21.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 146,
+      "game": "dice",
+      "rewards": [
+        0.3045213629895547,
+        0.44576809811195334,
+        0.42770235052786193,
+        0.45512994817395347
+      ],
+      "advantages": [
+        -0.13834543594836823,
+        0.04998354421482998,
+        0.02589588076937477,
+        0.06246601096416349
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.83).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.26 (sd 2.83).\n{\"bid\": 25.3, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 3.19).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 2.88).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 147,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 148,
+      "game": "dice",
+      "rewards": [
+        0.3581235675616339,
+        0.3581235675616339,
+        0.09985735892728043,
+        0.40837707398669004
+      ],
+      "advantages": [
+        0.0693375674030991,
+        0.0693375674030991,
+        -0.27501737744270555,
+        0.1363422426365073
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 8.03).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.80 (sd 4.08).\n{\"bid\": 23.8, \"bid_size\": 4, \"ask\": 31.8, \"ask_size\": 4}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 4.28).\n{\"bid\": 22.8, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 149,
+      "game": "dice",
+      "rewards": [
+        0.37695522937744097,
+        0.20054585646455197,
+        0.4629296062335021,
+        0.33114397201077345
+      ],
+      "advantages": [
+        0.04541541780783187,
+        -0.18979707940935348,
+        0.16004792028258003,
+        -0.0156662586810582
+      ],
+      "completions": [
+        "Public E[V] = 30.00; after my fills E[V] = 32.18 (sd 3.39).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.8, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.26 (sd 2.23).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 33.50; after my fills E[V] = 33.22 (sd 1.52).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.1, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 32.58 (sd 2.91).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 150,
+      "game": "dice",
+      "rewards": [
+        0.14267398495851102,
+        0.41805755557332164,
+        0.016683107294928445,
+        -0.3377586217844548
+      ],
+      "advantages": [
+        0.11034663793057922,
+        0.47752473208366003,
+        -0.057641198954197545,
+        -0.5302301710600419
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.68 (sd 2.77).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 31.04 (sd 2.87).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 35.08 (sd 2.79).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 29.25 (sd 3.48).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 151,
+      "game": "dice",
+      "rewards": [
+        0.4779069602828842,
+        0.48460017913045167,
+        0.41515298849773774,
+        0.4779069602828842
+      ],
+      "advantages": [
+        0.01868691764585967,
+        0.027611209442616302,
+        -0.0649850447343357,
+        0.01868691764585967
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 3.05).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.0, (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 32.8, \"ask_size\": 4}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 4.08).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 152,
+      "game": "dice",
+      "rewards": [
+        0.39195732485017437,
+        0.49917407817564385,
+        0.48925954516615583,
+        0.43278099938276177
+      ],
+      "advantages": [
+        -0.08178088272467943,
+        0.06117478837594653,
+        0.04795541102996248,
+        -0.027349316681229585
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 2.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.60 (sd 2.58).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.88 (sd 2.66).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 3.14).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 153,
+      "game": "dice",
+      "rewards": [
+        0.43868297638938647,
+        0.4021679210016278,
+        0.4233248791884416,
+        0.12579986190572484
+      ],
+      "advantages": [
+        0.12158542235745506,
+        0.07289868184044351,
+        0.10110795942286188,
+        -0.29559206362076046
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 2.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.20 (sd 2.88).\n{\"bid\": 23.4, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 2.83).\n{\"bid\": 23.7, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 2.83).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 154,
+      "game": "dice",
+      "rewards": [
+        0.1221315290854853,
+        0.224281336498245,
+        0.5,
+        0.224281336498245
+      ],
+      "advantages": [
+        -0.1940560285800113,
+        -0.057856285362998416,
+        0.3097685993060083,
+        -0.057856285362998416
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.08 (sd 3.08).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.88 (sd 2.85).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.84).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.98 (sd 2.84).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 155,
+      "game": "dice",
+      "rewards": [
+        0.4472629336213757,
+        0.4310035105615359,
+        0.4931407300732374,
+        0.4849697085438143
+      ],
+      "advantages": [
+        -0.022441716104820097,
+        -0.04412094685127316,
+        0.03872867916432876,
+        0.027833983791764716
+      ],
+      "completions": [
+        "Public E[V] = 26.00; after my fills E[V] = 26.00 (sd 2.50).\n{\"bid\": 22.7, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.08 (sd 3.28).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.63 (sd 3.08).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.71).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 156,
+      "game": "dice",
+      "rewards": [
+        0.45230987252730015,
+        0.44031953266551244,
+        0.45230987252730015,
+        0.4967615761023668
+      ],
+      "advantages": [
+        -0.010820454571092986,
+        -0.026807574386809974,
+        -0.010820454571092986,
+        0.04844848352899589
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 3.65).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 30.08 (sd 3.68).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.08 (sd 3.48).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 30.00 (sd 4.58).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 157,
+      "game": "dice",
+      "rewards": [
+        0.4097287664799013,
+        0.34718229597506867,
+        0.47580129516225866,
+        0.4892357399199095
+      ],
+      "advantages": [
+        -0.027677677205844187,
+        -0.11107297121228771,
+        0.06041902770396551,
+        0.07833162071416666
+      ],
+      "completions": [
+        "Public E[V] = 26.00; after my fills E[V] = 26.40 (sd 2.83).\n{\"bid\": 22.5, \"bid_size\": 5, \"ask\": 29.4, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.98 (sd 2.85).\n{\"bid\": 22.5, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.20 (sd 2.68).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.20 (sd 2.85).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 158,
+      "game": "dice",
+      "rewards": [
+        -0.2611142292084203,
+        0.2052864587343633,
+        0.24841035907018227,
+        0.3671877455496988
+      ],
+      "advantages": [
+        -0.5347424169931685,
+        0.08712516693054306,
+        0.14462370071163505,
+        0.3029935493509904
+      ],
+      "completions": [
+        "Public E[V] = 30.00; after my fills E[V] = 30.00 (sd 5.26).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 31.50; after my fills E[V] = 32.22 (sd 3.46).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 32.00; after my fills E[V] = 32.00 (sd 2.88).\n{\"bid\": 27.2, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 32.50; after my fills E[V] = 33.00 (sd 1.82).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 159,
+      "game": "dice",
+      "rewards": [
+        0.054761685515336445,
+        0.1356804843181152,
+        0.054761685515336445,
+        0.4920215138600133
+      ],
+      "advantages": [
+        -0.17272620904915184,
+        -0.06483447731211353,
+        -0.17272620904915184,
+        0.4102868954104173
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 3.26).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.85).\n{\"bid\": 23.7, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.46).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.26 (sd 2.77).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 160,
+      "game": "dice",
+      "rewards": [
+        -0.08958792908942959,
+        0.129280751863598,
+        0.09807382027428946,
+        0.15835225490373628
+      ],
+      "advantages": [
+        -0.2181568714366375,
+        0.07366803650073261,
+        0.03205879438165456,
+        0.11243004055425032
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.68 (sd 2.85).\n{\"bid\": 24.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.50 (sd 2.56).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 3.41).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.06 (sd 2.85).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 30.6, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 161,
+      "game": "dice",
+      "rewards": [
+        0.39831185160294885,
+        -0.38721169955907986,
+        0.5,
+        0.4413280750982734
+      ],
+      "advantages": [
+        0.2136063930898844,
+        -0.8337583417928205,
+        0.3491905909526193,
+        0.27096135775031704
+      ],
+      "completions": [
+        "Public E[V] = 24.50; after my fills E[V] = 25.08 (sd 2.49).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 28.98 (sd 2.52).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.4, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 26.48 (sd 2.86).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.00 (sd 2.92).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 162,
+      "game": "dice",
+      "rewards": [
+        0.03268983797972197,
+        0.4988542445623787,
+        0.4988542445623787,
+        0.46432840323891966
+      ],
+      "advantages": [
+        -0.45465579280817037,
+        0.16689674930203857,
+        0.16689674930203857,
+        0.12086229420409317
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.28 (sd 3.57).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.08 (sd 1.86).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.12 (sd 3.24).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.50 (sd 2.87).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 163,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 164,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.40560822897920484,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.03146392367359835,
+        -0.09439177102079516,
+        0.03146392367359835,
+        0.03146392367359835
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 165,
+      "game": "dice",
+      "rewards": [
+        -0.21514198593870193,
+        -0.0953878976979119,
+        0.06910120114709867,
+        -0.0953878976979119
+      ],
+      "advantages": [
+        -0.17458378785579357,
+        -0.014911670201406838,
+        0.20440712825860724,
+        -0.014911670201406838
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 30.06 (sd 2.57).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.00 (sd 3.22).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 30.50; after my fills E[V] = 30.42 (sd 3.38).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 30.05 (sd 3.13).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 166,
+      "game": "dice",
+      "rewards": [
+        0.46543176901497996,
+        0.42708191331434586,
+        0.43506987300364036,
+        0.4496296171299915
+      ],
+      "advantages": [
+        0.02817130119898731,
+        -0.022961839735191503,
+        -0.012311226816132115,
+        0.007101765352336031
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.60 (sd 4.08).\n{\"bid\": 23.8, \"bid_size\": 4, \"ask\": 31.9, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.20).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.08).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 4.18).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 31.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 167,
+      "game": "dice",
+      "rewards": [
+        0.37849695222036894,
+        0.37849695222036894,
+        0.37849695222036894,
+        0.37849695222036894
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 3.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 3.10).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 5.28).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 168,
+      "game": "dice",
+      "rewards": [
+        0.44048383860671847,
+        0.370819175744009,
+        0.46175957267746004,
+        0.46175957267746004
+      ],
+      "advantages": [
+        0.009037731573742047,
+        -0.08384848557653718,
+        0.037405377001397455,
+        0.037405377001397455
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 2.85).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 34.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 169,
+      "game": "dice",
+      "rewards": [
+        0.49194795795776514,
+        0.2939007869996657,
+        0.2939007869996657,
+        0.2939007869996657
+      ],
+      "advantages": [
+        0.19804717095809937,
+        -0.06601572365269986,
+        -0.06601572365269986,
+        -0.06601572365269986
+      ],
+      "completions": [
+        "Public E[V] = 29.00; after my fills E[V] = 28.42 (sd 3.48).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.20 (sd 3.22).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.90).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.20 (sd 4.19).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 170,
+      "game": "dice",
+      "rewards": [
+        0.44048383860671847,
+        0.4387073656987567,
+        0.44848749413526456,
+        0.44048383860671847
+      ],
+      "advantages": [
+        -0.0020757275401947495,
+        -0.004444358084143729,
+        0.008595813164533395,
+        -0.0020757275401947495
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 3.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.2, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 171,
+      "game": "dice",
+      "rewards": [
+        0.4704324584942193,
+        0.44173035303210456,
+        0.42604742401269613,
+        0.4846936084428036
+      ],
+      "advantages": [
+        0.01960866333168443,
+        -0.018660810617801782,
+        -0.03957138264367971,
+        0.03862352992979695
+      ],
+      "completions": [
+        "Public E[V] = 23.00; after my fills E[V] = 24.47 (sd 2.92).\n{\"bid\": 20.1, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 23.70 (sd 2.98).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 28.5, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.02 (sd 2.85).\n{\"bid\": 21.5, \"bid_size\": 5, \"ask\": 28.7, \"ask_size\": 5}",
+        "Public E[V] = 23.00; after my fills E[V] = 24.14 (sd 3.39).\n{\"bid\": 20.4, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 172,
+      "game": "dice",
+      "rewards": [
+        0.13237417973983756,
+        0.12305700466014224,
+        0.16839997204790041,
+        0.012892084444828145
+      ],
+      "advantages": [
+        0.03092449268888063,
+        0.0185015925826202,
+        0.07895888243296444,
+        -0.12838496770446525
+      ],
+      "completions": [
+        "Public E[V] = 27.50; after my fills E[V] = 27.68 (sd 5.65).\n{\"bid\": 23.8, \"bid_size\": 5, \"ask\": 31.9, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.08 (sd 3.50).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 5.68).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.50 (sd 6.83).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 173,
+      "game": "dice",
+      "rewards": [
+        0.3997510706573977,
+        0.4833773632641648,
+        0.43353764048784194,
+        0.43781782798382274
+      ],
+      "advantages": [
+        -0.05182653992121217,
+        0.05967518355447737,
+        -0.006777780147286527,
+        -0.0010708634859787902
+      ],
+      "completions": [
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 3.46).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 26.00; after my fills E[V] = 26.80 (sd 3.70).\n{\"bid\": 22.3, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.80 (sd 3.28).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.80 (sd 3.03).\n{\"bid\": 22.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 174,
+      "game": "dice",
+      "rewards": [
+        0.2179023952254699,
+        0.27606092222451173,
+        0.29390078699966454,
+        0.29390078699966454
+      ],
+      "advantages": [
+        -0.07005177018247705,
+        0.007492932482912051,
+        0.03127941884978247,
+        0.03127941884978247
+      ],
+      "completions": [
+        "Public E[V] = 29.00; after my fills E[V] = 29.20 (sd 4.08).\n{\"bid\": 25.2, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.20 (sd 3.50).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.2, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 3.55).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.40 (sd 3.46).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 175,
+      "game": "dice",
+      "rewards": [
+        0.2921046434718744,
+        0.3697381999009758,
+        0.39258865242879837,
+        0.29919432252603134
+      ],
+      "advantages": [
+        -0.0617357481467275,
+        0.041775660425407646,
+        0.07224293046250446,
+        -0.05228284274118489
+      ],
+      "completions": [
+        "Public E[V] = 32.00; after my fills E[V] = 32.44 (sd 2.96).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 32.64 (sd 2.35).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 33.50 (sd 2.85).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}",
+        "Public E[V] = 31.00; after my fills E[V] = 32.69 (sd 2.19).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 37.6, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 176,
+      "game": "dice",
+      "rewards": [
+        0.4375694515727122,
+        0.3388040764944893,
+        0.4988894836204082,
+        0.4988894836204082
+      ],
+      "advantages": [
+        -0.007958229672389738,
+        -0.13964539644335366,
+        0.07380181305787159,
+        0.07380181305787159
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 3.08).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.08 (sd 3.12).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 3.38).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 2.95).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 177,
+      "game": "dice",
+      "rewards": [
+        0.4690047277977961,
+        0.4690047277977961,
+        0.4950479099123686,
+        0.4945209147383449
+      ],
+      "advantages": [
+        -0.01718645635170707,
+        -0.01718645635170707,
+        0.01753778646772286,
+        0.016835126235691333
+      ],
+      "completions": [
+        "Public E[V] = 25.00; after my fills E[V] = 25.98 (sd 3.18).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.08 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.80 (sd 3.48).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.3, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.05 (sd 2.80).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 178,
+      "game": "dice",
+      "rewards": [
+        0.4559318301399776,
+        0.3692011403274003,
+        0.3951335337929991,
+        0.4559318301399776
+      ],
+      "advantages": [
+        0.04917632871985195,
+        -0.06646459103025121,
+        -0.0318880664094528,
+        0.04917632871985195
+      ],
+      "completions": [
+        "Public E[V] = 20.00; after my fills E[V] = 20.00 (sd 2.33).\n{\"bid\": 16.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}",
+        "Public E[V] = 21.00; after my fills E[V] = 21.50 (sd 2.83).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 21.50 (sd 2.38).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 26.0, \"ask_size\": 5}",
+        "Public E[V] = 19.50; after my fills E[V] = 20.48 (sd 2.94).\n{\"bid\": 16.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 179,
+      "game": "dice",
+      "rewards": [
+        0.3865113319072394,
+        0.47787361462565175,
+        0.13460546642844867,
+        0.3865113319072394
+      ],
+      "advantages": [
+        0.05351452758679276,
+        0.17533090454467587,
+        -0.28235995971826156,
+        0.05351452758679276
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 28.18 (sd 2.93).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 2.23).\n{\"bid\": 23.4, \"bid_size\": 5, \"ask\": 31.1, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.20 (sd 2.57).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.30 (sd 3.25).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 180,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 181,
+      "game": "dice",
+      "rewards": [
+        -0.3679199631302852,
+        -0.3277368572281161,
+        -0.18756407863921642,
+        -0.5238449051219862
+      ],
+      "advantages": [
+        -0.021538016133845594,
+        0.03203945840237993,
+        0.21893649652091274,
+        -0.22943793878944696
+      ],
+      "completions": [
+        "Public E[V] = 25.50; after my fills E[V] = 25.50 (sd 4.36).\n{\"bid\": 21.5, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.50 (sd 2.84).\n{\"bid\": 21.9, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.50 (sd 4.08).\n{\"bid\": 21.0, \"bid_size\": 4, \"ask\": 30.0, \"ask_size\": 4}",
+        "Public E[V] = 25.50; after my fills E[V] = 25.50 (sd 4.08).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 182,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 183,
+      "game": "dice",
+      "rewards": [
+        0.49628480597504077,
+        0.34176434932921085,
+        0.49482602377072976,
+        -0.6456459662630665
+      ],
+      "advantages": [
+        0.4326366703627494,
+        0.22660939483497616,
+        0.43069162742366807,
+        -1.0899376926213935
+      ],
+      "completions": [
+        "Public E[V] = 24.50; after my fills E[V] = 24.62 (sd 3.50).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.2, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.50 (sd 2.55).\n{\"bid\": 22.7, \"bid_size\": 5, \"ask\": 29.5, \"ask_size\": 5}",
+        "Public E[V] = 25.00; after my fills E[V] = 25.00 (sd 2.85).\n{\"bid\": 21.0, \"bid_size\": 5, \"ask\": 28.4, \"ask_size\": 5}",
+        "Public E[V] = 20.50; after my fills E[V] = 20.47 (sd 3.36).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 184,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 185,
+      "game": "dice",
+      "rewards": [
+        0.4504977334196015,
+        0.4504977334196015,
+        0.267438301980637,
+        0.4964525761211976
+      ],
+      "advantages": [
+        0.04570152957912277,
+        0.04570152957912277,
+        -0.19837771233949653,
+        0.10697465318125088
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.09 (sd 2.68).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.00; after my fills E[V] = 29.00 (sd 2.95).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.00 (sd 2.88).\n{\"bid\": 23.0, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 2.83).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 186,
+      "game": "dice",
+      "rewards": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "advantages": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "completions": [
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+      ]
+    },
+    {
+      "step": 187,
+      "game": "dice",
+      "rewards": [
+        0.4842005283909591,
+        0.3201555978542999,
+        0.4929539403613512,
+        0.4842005283909591
+      ],
+      "advantages": [
+        0.05176383952208907,
+        -0.16696273452678984,
+        0.0634350554826118,
+        0.05176383952208907
+      ],
+      "completions": [
+        "Public E[V] = 28.50; after my fills E[V] = 28.98 (sd 2.95).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.40 (sd 2.48).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.44 (sd 2.85).\n{\"bid\": 25.2, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}",
+        "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 3.25).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 32.8, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 188,
+      "game": "dice",
+      "rewards": [
+        0.2092156544704153,
+        0.36457574882676785,
+        0.36709065483852354,
+        0.4411207751191242
+      ],
+      "advantages": [
+        -0.18171340512438988,
+        0.02543338735074685,
+        0.028786595366421086,
+        0.12749342240722195
+      ],
+      "completions": [
+        "Public E[V] = 23.00; after my fills E[V] = 23.25 (sd 3.37).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.3, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 22.08 (sd 2.84).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 22.50; after my fills E[V] = 22.58 (sd 2.48).\n{\"bid\": 18.1, \"bid_size\": 5, \"ask\": 27.0, \"ask_size\": 5}",
+        "Public E[V] = 18.00; after my fills E[V] = 21.17 (sd 1.12).\n{\"bid\": 17.0, \"bid_size\": 5, \"ask\": 25.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 189,
+      "game": "dice",
+      "rewards": [
+        0.4976342741926825,
+        0.4779069602828842,
+        0.4976342741926825,
+        0.4779069602828842
+      ],
+      "advantages": [
+        0.013151542606532174,
+        -0.013151542606532174,
+        0.013151542606532174,
+        -0.013151542606532174
+      ],
+      "completions": [
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 4.21).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.08 (sd 5.83).\n{\"bid\": 25.0, \"bid_size\": 4, \"ask\": 33.0, \"ask_size\": 4}",
+        "Public E[V] = 29.50; after my fills E[V] = 29.50 (sd 4.08).\n{\"bid\": 25.0, \"bid_size\": 5, \"ask\": 33.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 190,
+      "game": "dice",
+      "rewards": [
+        -0.15062922385390853,
+        0.3768143408694175,
+        0.3027526533853159,
+        0.3348860114460708
+      ],
+      "advantages": [
+        -0.4887802257541766,
+        0.21447786054359144,
+        0.1157289438981226,
+        0.15857342131246246
+      ],
+      "completions": [
+        "Public E[V] = 31.50; after my fills E[V] = 31.06 (sd 3.62).\n{\"bid\": 27.3, \"bid_size\": 5, \"ask\": 35.0, \"ask_size\": 5}",
+        "Public E[V] = 32.00; after my fills E[V] = 32.58 (sd 2.68).\n{\"bid\": 28.8, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}",
+        "Public E[V] = 32.00; after my fills E[V] = 32.20 (sd 3.22).\n{\"bid\": 27.8, \"bid_size\": 5, \"ask\": 38.0, \"ask_size\": 5}",
+        "Public E[V] = 32.00; after my fills E[V] = 33.28 (sd 3.08).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 38.6, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 191,
+      "game": "dice",
+      "rewards": [
+        0.4668050055986902,
+        0.4943485351800764,
+        0.47045692478083123,
+        0.4607471716177093
+      ],
+      "advantages": [
+        -0.008379204927515371,
+        0.02834550118099949,
+        -0.0035099793513273525,
+        -0.016456316902156598
+      ],
+      "completions": [
+        "Public E[V] = 22.00; after my fills E[V] = 24.09 (sd 2.92).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 24.50; after my fills E[V] = 25.00 (sd 3.50).\n{\"bid\": 20.0, \"bid_size\": 5, \"ask\": 29.0, \"ask_size\": 5}",
+        "Public E[V] = 23.50; after my fills E[V] = 23.50 (sd 1.25).\n{\"bid\": 19.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}",
+        "Public E[V] = 23.00; after my fills E[V] = 22.37 (sd 2.52).\n{\"bid\": 18.0, \"bid_size\": 5, \"ask\": 28.0, \"ask_size\": 5}"
+      ]
+    },
+    {
+      "step": 192,
+      "game": "dice",
+      "rewards": [
+        0.49844295847075804,
+        0.47699343012711365,
+        0.402085201924547,
+        0.452586371305267
+      ],
+      "advantages": [
+        0.054554624018448794,
+        0.025955252893589575,
+        -0.07392238470983264,
+        -0.006587492202205891
+      ],
+      "completions": [
+        "Public E[V] = 27.00; after my fills E[V] = 27.68 (sd 4.41).\n{\"bid\": 23.6, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}",
+        "Public E[V] = 27.00; after my fills E[V] = 27.18 (sd 2.91).\n{\"bid\": 23.5, \"bid_size\": 5, \"ask\": 31.8, \"ask_size\": 5}",
+        "Public E[V] = 26.50; after my fills E[V] = 26.20 (sd 3.38).\n{\"bid\": 22.9, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}",
+        "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 3.60).\n{\"bid\": 24.0, \"bid_size\": 5, \"ask\": 32.0, \"ask_size\": 5}"
+      ]
+    }
+  ],
+  "initial_completed_groups": 96,
+  "checkpoint_retention": "Latest adapter/optimizer resume point; complete per-group history retained.",
+  "mlx_cache_limit_bytes": 268435456,
+  "previous_mlx_cache_limit_bytes": 16320875724,
+  "recurrence_training": {
+    "chunk_size": 64,
+    "source_sha256": "adb61ebaff874e1b38a091efc35a6aa549248e951770633b2d4d3079ed3ae68b",
+    "implementation": "parallel scalar/unmasked; checkpointed sequential otherwise",
+    "port_sha256": "e561e9fb23b8074f332ae931bd9b97bf96f5fbcb3959f9109d058e2d5604cac8"
+  },
+  "status": "completed",
+  "wall_seconds": 5736.486491417003,
+  "peak_memory_bytes": 4415212600
+}

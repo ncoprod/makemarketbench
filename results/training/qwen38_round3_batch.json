@@ -1,0 +1,41 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/qwen38_reset_launch.py",
+    "config": {
+      "purpose": "launch the exact private saved batch after verified new quota"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+    "uncommitted_diff_sha256": "4fa1686f24db4ceefd4f78c02c3df0278986dd846dd7e210edcbd245b13e763e",
+    "started_at": "2026-10-30T14:20:44.120504+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport os\nimport re\nimport subprocess\nimport time\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nplan = json.loads(Path('results/training/qwen38_round3_batch_plan.json').read_text())\npath = Path('results/training/qwen38_round3_batch.json')\nassert not path.exists(), 'Inspect the existing submission receipt before restarting; never submit twice'\nmetadata = json.loads(Path('runs/kaggle_qwen38_train/kernel-metadata.json').read_text())\nassert metadata['is_private'] and metadata['kernel_type'] == 'script'\nsource = Path('runs/kaggle_qwen38_train') / metadata['code_file']\nassert file_sha256(source) == plan['source_sha256']\nenv = {**os.environ, 'KAGGLE_CONFIG_DIR': str(Path('runs/kaggle_oauth_config').resolve())}\nfor key in ('KAGGLE_KEY', 'KAGGLE_API_TOKEN', 'KAGGLE_TOKEN_FILE'):\n    env.pop(key, None)\npython = '/Users/nico/.local/share/uv/tools/kaggle/bin/python'\nreset = datetime.fromisoformat(plan['gpu_window_start'].replace('Z', '+00:00'))\nrecord = {'provenance': receipt({'purpose': 'launch the exact private saved batch after verified new quota'}, plan['model_revision']),\n          'source': Path(__file__).read_text(), 'plan_sha256': file_sha256('results/training/qwen38_round3_batch_plan.json'),\n          'metadata': metadata, 'source_sha256': file_sha256(source),\n          'status': 'waiting_for_reset', 'polls': [], 'quota_checks': []}\npath.write_text(json.dumps(record, indent=2) + '\\n')\nwhile time.time() < reset.timestamp():\n    time.sleep(min(60, reset.timestamp() - time.time()))\nsubprocess.run([python, 'runs/refresh_kaggle_access.py'], env=env, check=True)\nwhile True:\n    subprocess.run([python, 'scripts/kaggle_quota.py'], env=env, check=True)\n    snapshot = json.loads(Path('results/training/kaggle_account_budget_snapshot.json').read_text())\n    quota = snapshot['quota']\n    available = quota['gpu_seconds_total'] - quota['gpu_seconds_used'] - quota['gpu_seconds_reserved']\n    record['quota_checks'].append(snapshot)\n    record.update(status='checking_refreshed_quota', available_seconds=available)\n    path.write_text(json.dumps(record, indent=2) + '\\n')\n    if datetime.fromisoformat(quota['refresh_at']) > reset and available >= 63000:\n        break\n    time.sleep(610)\nassert file_sha256(source) == plan['source_sha256'], 'Prepared source changed while waiting'\nrecord.update(status='submitting', submitted_at=datetime.now(timezone.utc).isoformat())\npath.write_text(json.dumps(record, indent=2) + '\\n')\nresult = subprocess.run(plan['training_command'], env=env, capture_output=True, text=True)\nrecord['push'] = {'command': plan['training_command'], 'exit_code': result.returncode,\n                  'output': result.stdout, 'error': result.stderr}\nmatch = re.search(r'Kernel version (\\d+)', result.stdout)\nrecord.update(status='submitted' if result.returncode == 0 and match else 'push_requires_inspection',\n              version=int(match[1]) if match else None)\npath.write_text(json.dumps(record, indent=2) + '\\n')\nassert record['status'] == 'submitted', 'Inspect the push result; do not retry an ambiguous submission'\nledger_path = Path('results/training/kaggle_budget.json')\nledger = json.loads(ledger_path.read_text())\nledger['sessions'].append({'kernel': metadata['id'], 'version': record['version'],\n    'accelerator': 'T4 x2 requested', 'start': None, 'end': None, 'hours': None,\n    'submitted_at': record['submitted_at'], 'purpose': 'Round 3 saved batch: full registered Qwen3.8-27B SFT then GRPO96, with optimizer checkpoints.',\n    'private': True, 'status': 'submitted', 'source_commit': plan['source_commit'],\n    'receipt': str(path), 'session_timeout_seconds': 41400,\n    'hours_basis': 'Pending downloaded runtime and official account debit; the cap is not measured usage.'})\nledger_path.write_text(json.dumps(ledger, indent=2) + '\\n')\nprint('Submitted private saved batch version', record['version'], flush=True)\nsubprocess.run(['.venv/bin/python', '-u', 'scripts/watch_kaggle.py', '--receipt', str(path),\n                '--out', f\"results/kaggle/qwen38-round3-training-v{record['version']}\"], check=True)\n",
+  "plan_sha256": "311c07656d36bf3e52d33cab96625623c2413b4cb0405dccb9850184dbfe9f16",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+    "title": "MakeMarketBench Qwen3.8 27B training",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": []
+  },
+  "source_sha256": "2dd43ba750f6b732b526624bd8181f168998760bc7b4cd0dabe25b245d482370",
+  "status": "waiting_for_reset",
+  "polls": [],
+  "quota_checks": []
+}

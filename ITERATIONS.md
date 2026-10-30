@@ -2493,3 +2493,20 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   adapters, uses the registered max-min rule, and refuses to overwrite its
   frozen decision. `pytest -q tests/test_qwen38_selection.py` exercises a
   mismatched adapter, the SFT tie rule, and immutable selection.
+
+### T23 training complete; validation still pending
+
+- The fixed RLOO192 continuation adds 96 groups in 5,736.486491417003 seconds,
+  preserving the complete 96-group prefix and its Adam state. Total training
+  chain time is 10,864.692398625994 seconds. MLX allocated peak is
+  4,415,212,600 bytes; sampled process footprint is 5,075,107,840 bytes.
+- Command, revision, seed, history, memory guard and adapter/checkpoint hashes:
+  `results/training/qwen35_rloo192_completion.json`. Only the latest resumable
+  optimizer plus the final adapter are retained (129,985,219 bytes).
+- Both 100-episode validation cohorts are running. Completion and training
+  reward do not establish a policy improvement; T23's registered criterion
+  will be assessed after both cohorts and corrected contrasts finish.
+- The reset-gated saved-batch launcher verifies the exact registered source,
+  refreshes existing OAuth scopes, and requires official refreshed quota
+  before submission. Its receipt is `qwen38_round3_batch.json`; current
+  `waiting_for_reset` status is not an executed GPU run.

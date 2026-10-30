@@ -1,0 +1,42 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_rloo192_training.py",
+    "config": {
+      "purpose": "retain the fixed 192-group RLOO continuation before policy validation"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "373a821f19be97a82eaceec02f1e5f621d3d49c4",
+    "uncommitted_diff_sha256": "8a9313748fbd41383e87a32a253e94bc342ad5ea9e2d95b67c5c2fb5245c17fe",
+    "started_at": "2026-10-30T14:26:02.046146+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\ntraining_path = Path('results/training/qwen35_rloo192.json')\nguard_path = Path('results/training/qwen35_rloo192_memory.json')\nprior_path = Path('results/training/qwen35_rloo96.json')\ntraining = json.loads(training_path.read_text())\nguard = json.loads(guard_path.read_text())\nprior = json.loads(prior_path.read_text())\nroot = Path('train/runs/qwen3.5-4b-rloo192')\nadapter = root / 'adapters.safetensors'\ncheckpoints = list(root.glob('step_*'))\nassert training['status'] == guard['status'] == 'completed'\nassert len(training['history']) == 192 and training['initial_completed_groups'] == 96\nassert training['history'][:96] == prior['history']\nassert len(checkpoints) == 1 and checkpoints[0].name == 'step_0192'\nassert file_sha256(adapter) == file_sha256(checkpoints[0] / 'adapters.safetensors')\nrecord = {\n    'provenance': receipt({'purpose': 'retain the fixed 192-group RLOO continuation before policy validation'}, training['model_revision']),\n    'source': Path(__file__).read_text(), 'status': 'completed',\n    'groups_completed_total': 192, 'groups_completed_before_segment': 96, 'new_groups': 96,\n    'training_segment_wall_seconds': training['wall_seconds'],\n    'prior_training_wall_seconds': json.loads(Path('results/training/qwen35_rloo96_completion.json').read_text())['training_chain_wall_seconds'],\n    'training_chain_wall_seconds': training['wall_seconds'] + json.loads(Path('results/training/qwen35_rloo96_completion.json').read_text())['training_chain_wall_seconds'],\n    'mlx_allocated_peak_bytes': training['peak_memory_bytes'],\n    'sampled_footprint_peak_bytes_approx': guard['sampled_footprint_peak_bytes_approx'],\n    'initial_history_preserved': True, 'latest_resume_checkpoint': str(checkpoints[0]),\n    'checkpoint_retention_verified': True,\n    'retained_adapter_optimizer_bytes': sum(p.stat().st_size for p in root.rglob('*.safetensors')),\n    'adapter_sha256': file_sha256(adapter),\n    'input_sha256': {str(p): file_sha256(p) for p in (training_path, guard_path, prior_path, adapter)},\n    'interpretation': '96 new groups resume the fixed RLOO96 adapter and Adam state; 192 cumulative groups is not 192 fresh groups. No validation improvement inferred from completion. All prior history is identical and frozen RLOO24 and RLOO96 files remain intact.'}\nPath('results/training/qwen35_rloo192_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint({k: record[k] for k in ('new_groups', 'training_segment_wall_seconds', 'retained_adapter_optimizer_bytes')})\n",
+  "status": "completed",
+  "groups_completed_total": 192,
+  "groups_completed_before_segment": 96,
+  "new_groups": 96,
+  "training_segment_wall_seconds": 5736.486491417003,
+  "prior_training_wall_seconds": 5128.2059072089905,
+  "training_chain_wall_seconds": 10864.692398625994,
+  "mlx_allocated_peak_bytes": 4415212600,
+  "sampled_footprint_peak_bytes_approx": 5075107840.0,
+  "initial_history_preserved": true,
+  "latest_resume_checkpoint": "train/runs/qwen3.5-4b-rloo192/step_0192",
+  "checkpoint_retention_verified": true,
+  "retained_adapter_optimizer_bytes": 129985219,
+  "adapter_sha256": "ec4bc597877c4bb61c8becd0c21a33e495a3dacea46f2435464de61e98cd1686",
+  "input_sha256": {
+    "results/training/qwen35_rloo192.json": "fb8a90cf24ea897426285e22aa0c1260db1e0ed67976e0b5d2ac203d78cabf69",
+    "results/training/qwen35_rloo192_memory.json": "4a4a824c57aedbcba0c5b67a7fa2c7c32bb1f4769994213d5ba3ff7c96b8a7e7",
+    "results/training/qwen35_rloo96.json": "82447f8b7002273a0cb2ddd8db7319144c81315990b676f297673fea7ab12ad8",
+    "train/runs/qwen3.5-4b-rloo192/adapters.safetensors": "ec4bc597877c4bb61c8becd0c21a33e495a3dacea46f2435464de61e98cd1686"
+  },
+  "interpretation": "96 new groups resume the fixed RLOO96 adapter and Adam state; 192 cumulative groups is not 192 fresh groups. No validation improvement inferred from completion. All prior history is identical and frozen RLOO24 and RLOO96 files remain intact."
+}
