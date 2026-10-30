@@ -111,9 +111,9 @@ checks non-thinking prefixes and sequence limits. Earlier attempts stopped at
 reboot or memory guards; all are retained in [ITERATIONS.md](ITERATIONS.md).
 Projecting only answer positions preserves the full causal loss/gradients;
 fixed training shapes then permit complete validation passes after 199 and
-399 microbatches: loss **2.113 → 0.404 → 0.320**, sampled physical footprint
+399 and 599 microbatches: loss **2.113 → 0.404 → 0.320 → 0.289**, sampled physical footprint
 **6.713 GB** ([first pass](results/training/qwen35_uniform_validation199.json),
-[latest counts, loss and memory](results/training/qwen35_uniform_validation399.json)).
+[latest counts, loss and memory](results/training/qwen35_uniform_validation599.json)).
 The registered 800-microbatch run continues. These are training measurements,
 not policy-quality results. Local heavy work holds the shared ML lock.
 

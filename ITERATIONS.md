@@ -1701,3 +1701,35 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   change. Command: the isolated Kaggle Python running `scripts/kaggle_quota.py`.
 - Ruff passes; the real API snapshot now explicitly reads
   `2026-10-31T00:00:00+00:00`. This is a timestamp-provenance correction.
+
+### T17 full-run progress: full validation before iteration 600
+
+- The next complete 480-example validation pass improves loss to
+  0.28865939378738403 from 0.32049041986465454, in 1253.5278436669978 seconds.
+  The callback is at 599 consumed microbatches and 299 optimizer updates; the
+  trainer subsequently reports microbatch 600. Sampled physical peak remains
+  6712983552 bytes, below the unchanged seven-GiB guard.
+- Command: `.venv/bin/python runs/retain_mlx_step600.py`. Snapshot, best-adapter
+  hash, full source and counts: `results/training/qwen35_uniform_validation599.json`.
+  Same registered recipe; no policy-quality result inferred from teacher loss.
+
+### T18 — focused compiler ablation on development states
+
+- Hypothesis: Unsloth auto compilation contributes to the repeatable batch-shape
+  quote differences. Set only `UNSLOTH_COMPILE_DISABLE=1` before imports, retaining
+  pinned bases/adapters, decoder, parser and sixteen development observations.
+  Repeat batch sizes 1 and 4 twice. No held-out scores or new policy candidate.
+- Commands: `.venv/bin/python runs/prepare_compile_ablation.py`;
+  `.venv/bin/python runs/submit_compile_ablation.py`. Accepted private version 1.
+  Script cap 1450 seconds, session cap 1500, below 1650.028655 seconds remaining.
+- Both prior batch sessions are complete; official account debit is unchanged
+  over the receipt's settled interval. Explicitly label the inferred no-current-
+  overlap assumption. The inaccessible draft's exact end remains unknown.
+- The new title resolved to `makemarketbench-compiler-ablation`, differing from
+  the requested slug. The initial metadata pull therefore failed locally with
+  FileNotFoundError; do not invent its unrecorded HTTP status. Pull the success
+  URL's actual slug, verify private metadata, inputs and the identical source
+  hash, correct receipt/ledger/monitor, and let the same useful job continue.
+- Full sources, admission, exact local error, verified remote metadata and
+  documented upstream flag: `results/training/kaggle_compile_ablation.json`.
+  Monitor sleeps 610 seconds; no resubmission or allocation restart.
