@@ -2563,3 +2563,16 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - The corrected local CI fixture passes all 136 tests, native Release,
   ASan/UBSan and the Kaggle CPU dry-run. Proof:
   `results/ci_local_round3_rloo384.json`; the initial failed run is retained.
+
+### T26 training complete; both validation games pending
+
+- The final doubling adds 192 groups in 10,365.784339457998 seconds, for
+  384 cumulative groups and 21,230.47673808399 seconds across the RLOO chain.
+  MLX allocated peak is 4,414,835,768 bytes; sampled process footprint is
+  5,140,119,552 bytes. Both the adapter and Adam state resumed from RLOO192.
+- All 192 prior history entries match exactly. Only the final adapter and
+  latest resumable checkpoint remain in this run (129,985,219 bytes); earlier
+  frozen budgets remain intact. Exact commands, memory and file hashes:
+  `results/training/qwen35_rloo384_completion.json`.
+- Policy validation now runs on the registered 100 episodes/game. No
+  improvement is inferred from completion or training reward.
