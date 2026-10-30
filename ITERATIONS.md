@@ -2040,3 +2040,23 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Notify the owner asynchronously; do not change payments or account spending
   limits. Continue experiments and rerun hosted CI after the restriction is
   resolved. An unstarted workflow is neither a code regression nor a passing CI.
+
+### DAgger continuation stops on the registered validation plateau
+
+- Run completes in 10750.590444499998 seconds. The validation callbacks are
+  0, 199, 399 and 599, with losses 0.27956369519233704,
+  0.4232971966266632, 0.32471534609794617 and 0.3136330544948578.
+  Three checks fail to improve on the initial adapter, triggering the existing
+  early-stopping rule at callback 599: 599 consumed microbatches and 299
+  completed optimizer updates, not a rounded 600/300.
+- Best step is zero; selected adapter hash is byte-identical to SFT. This
+  teacher-loss-selected policy has no weight improvement. The distinct last
+  numbered checkpoint is `0000500_adapters.safetensors`; its policy quality
+  remains unknown until the separately registered validation runs.
+- Memory guard completes normally: sampled physical footprint peak
+  6739197952 bytes, MLX allocated peak 4202603070 bytes. No memory-limit failure.
+  Commands, source, all validation points and identities:
+  `.venv/bin/python runs/retain_dagger_training.py`;
+  `results/training/qwen35_dagger_completion.json` and linked training/guard
+  results. The original follow-up launcher proceeds to its registered policy
+  validation, then RLOO and the amended final-selection sequence.
