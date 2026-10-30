@@ -1556,3 +1556,14 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   Command: `.venv/bin/python runs/retain_mlx_step400.py`; full source is embedded.
 - This is teacher-loss progress under the same shared lock and memory guard,
   not evidence of market-making PnL. No held-out aggregate is opened.
+
+### Complete local and hosted verification
+
+- Command: `.venv/bin/pytest -q` reports **111 passed in 6.24 seconds**, including
+  MLX loss/gradient and bounded-shape checks. These small tests do not load
+  heavy model weights or bypass the training lock.
+- Hosted run 40977684968 is green at `7af1272487d3edaf3e9125d12c7c573014890f14`:
+  each Python interpreter has 98 passed and 13 skipped, with native C++ and
+  ASan/UBSan also passing. Distinguish hosted skips from local execution.
+- Exact local output, source hashes, command and receipt-generation source:
+  `results/verification_full_111.json`.

@@ -1,0 +1,67 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_full_verification.py",
+    "config": {
+      "purpose": "retain complete local test verification including MLX"
+    },
+    "model_revision": null,
+    "git_commit": "7af1272487d3edaf3e9125d12c7c573014890f14",
+    "uncommitted_diff_sha256": "6389bde70616ffe7db1acf8a190823a8f1d64e16c8855dc1b4b7915f14c9f926",
+    "started_at": "2026-10-30T00:09:32.305789+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": ".venv/bin/pytest -q",
+  "exit_code": 0,
+  "output": "........................................................................ [ 64%]\n.......................................                                  [100%]\n111 passed in 6.24s\n",
+  "output_sha256": "caed86648497ce0d335540a8471cf11760e3048ce0416fa852aa645cee81ea9b",
+  "source_sha256": {
+    "tests/test_batch_evaluation.py": "d4601d6d0e2ae46c29201aa4c987fbeb234df989b1474366e7ab7f6ef9a98d6f",
+    "tests/test_engine.py": "0aaaa49a75b45f621304e6b82f259f6e46b4ca05dd5da3d87d0cf354723f06fb",
+    "tests/test_figgie.py": "7d5d44799a8b217d02f270c0890e56941e34773db02ae811653edb85753ef924",
+    "tests/test_games.py": "f9bcc5f51e06fc83caaafdfd244b965a6c37f97933b5ce7263a3fc7462b08aff",
+    "tests/test_llm_parsing.py": "3efa8f80b7a352736f9e26290f3e500ac2929b295514c6de393e61ce8c024b19",
+    "tests/test_parity.py": "f2f66c4bcd600a940d28faba229e3768d29f6c4fd61d5e79c4db8919b1aa384c",
+    "tests/test_scoring.py": "15dfefa63857cd6c877fc33128549e6b9713e2c28069f841a3ce5acd1e38f983",
+    "tests/test_training.py": "8179a13da32cb7f8fed71588e1a01c65da71d21bd0fd02a8c59dac0757d02f41",
+    "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+    "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+    "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+    "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+    "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+    "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+    "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+    "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+    "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+    "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+    "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+    "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+    "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+    "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+    "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+    "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+    "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+    "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+    "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4",
+    "cpp/bench/bench_book.cpp": "fff2956a3488c1901d29831f48050e54032c347049120269a49171da741d8387",
+    "cpp/bench/map_order_book.hpp": "6171713b92f1583e45df6f2225d92e4c9657bc808491234e7cbda07318f56391",
+    "cpp/include/mmb/order_book.hpp": "740207fd78b6962df3271681a0017ffd7117b46f9e9ed1a4d7d9d53f398df286",
+    "cpp/src/bindings.cpp": "34adce0ecd1777f18426f7d89f4e9dd8c266f08c3d09a2a1a357d2ad9c6e6f56",
+    "cpp/src/order_book.cpp": "0d657a67a872d635141925d850b51ec31bea4eda3fd84592d0e33b6a9f1501e2",
+    "cpp/tests/test_book.cpp": "859672fd0a26e8b5bd03976a882d5ff8397873eee1ff4bc6e49588d5fb0a103a"
+  },
+  "hosted_ci": {
+    "run_id": 40977684968,
+    "commit": "7af1272487d3edaf3e9125d12c7c573014890f14",
+    "status": "success",
+    "python": "98 passed, 13 skipped in each hosted interpreter; MLX unavailable there",
+    "native": "native tests and ASan/UBSan pass"
+  },
+  "calculation_source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nlog=Path('runs/full-tests-7af1272.log')\noutput=log.read_text()\nassert output.strip().endswith('111 passed in 6.24s')\nr={'provenance':receipt({'purpose':'retain complete local test verification including MLX'}),\n   'command':'.venv/bin/pytest -q','exit_code':0,'output':output,'output_sha256':file_sha256(log),\n   'source_sha256':{str(p):file_sha256(p) for root in ('tests','src','cpp') for p in sorted(Path(root).rglob('*')) if p.is_file() and p.suffix in ('.py','.hpp','.cpp')},\n   'hosted_ci':{'run_id':40977684968,'commit':'7af1272487d3edaf3e9125d12c7c573014890f14','status':'success','python':'98 passed, 13 skipped in each hosted interpreter; MLX unavailable there','native':'native tests and ASan/UBSan pass'},\n   'calculation_source':Path(__file__).read_text()}\nPath('results/verification_full_111.json').write_text(json.dumps(r,indent=2)+'\\n')\n"
+}
