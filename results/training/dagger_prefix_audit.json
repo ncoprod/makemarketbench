@@ -1,0 +1,59 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/audit_dagger_prefix.py",
+    "config": {
+      "purpose": "verify the registered DAgger prefix retains both games before collection; source-defined split audit only"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "56303f201cb6900fa6d35f144e15ded790fb8861",
+    "uncommitted_diff_sha256": "f8b80a80abe7620ee5f6f49f7211b4a3bf9c2631d03cf14b17023629c7ee5611",
+    "started_at": "2026-10-30T01:27:36.587316+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nrows = [json.loads(s) for s in Path('train/data/train.jsonl').read_text().splitlines()]\ncounts = {}\nfor name, selected in [('all', rows), ('dagger_retained_prefix', rows[:4000])]:\n    counts[name] = dict.fromkeys(('dice', 'cards', 'unknown'), 0)\n    for row in selected:\n        text = json.dumps(row['messages']).lower()\n        game = 'dice' if 'dice' in text else 'cards' if 'cards' in text else 'unknown'\n        counts[name][game] += 1\nrecord = {'provenance': receipt({'purpose': 'verify the registered DAgger prefix retains both games before collection; source-defined split audit only'}, '32f3e8ecf65426fc3306969496342d504bfa13f3'),\n          'source': Path(__file__).read_text(), 'counts': counts,\n          'data_sha256': file_sha256('train/data/train.jsonl'),\n          'generator_sha256': file_sha256('train/make_sft_data.py'),\n          'protocol_sha256': file_sha256('results/protocol.json'),\n          'split_ranges_from_generator_and_protocol': {'teacher_train': [10000, 10799], 'teacher_validation': [60000, 60039], 'dagger': [30000, 30149], 'policy_validation': [80000, 80099], 'fresh_test': [200, 399]},\n          'limitation': 'Game counts classified from complete prompt text; seed ranges checked from source/protocol, not per-row seed metadata (demonstration JSONL stores messages only).'}\nPath('results/training/dagger_prefix_audit.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint(counts)\n",
+  "counts": {
+    "all": {
+      "dice": 4800,
+      "cards": 4800,
+      "unknown": 0
+    },
+    "dagger_retained_prefix": {
+      "dice": 2033,
+      "cards": 1967,
+      "unknown": 0
+    }
+  },
+  "data_sha256": "b24b28867e8deb8df39903c045a9615350198391d789059fcb9db150e1c04bb9",
+  "generator_sha256": "78f0c47928fe3693abb26003118fd75a6a7ff00c8205b5194c074398e2c6f914",
+  "protocol_sha256": "8dc03ef7bd5830328793051e023838efb187ae02f281f89297dcb00e98012bcf",
+  "split_ranges_from_generator_and_protocol": {
+    "teacher_train": [
+      10000,
+      10799
+    ],
+    "teacher_validation": [
+      60000,
+      60039
+    ],
+    "dagger": [
+      30000,
+      30149
+    ],
+    "policy_validation": [
+      80000,
+      80099
+    ],
+    "fresh_test": [
+      200,
+      399
+    ]
+  },
+  "limitation": "Game counts classified from complete prompt text; seed ranges checked from source/protocol, not per-row seed metadata (demonstration JSONL stores messages only)."
+}

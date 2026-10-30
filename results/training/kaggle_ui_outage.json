@@ -83,6 +83,23 @@
         "2026-10-30T00:44:37.714041+00:00"
       ],
       "timestamp_note": "Read-only alternate browser path; bounds are the last clock read and this post-call receipt. No tab or new GPU session created."
+    },
+    {
+      "observed_between_utc": [
+        "2026-10-30T01:27:40Z",
+        "2026-10-30T01:28:00Z"
+      ],
+      "tool": "mcp__cua_repl.js",
+      "command": "await cua.getState();",
+      "result": {
+        "apps": [],
+        "browsers": [],
+        "errors": [
+          "Native apps: Error: Sky Computer Use native pipe startup failed",
+          "Browsers: Error: The browser access host is unavailable"
+        ]
+      },
+      "interpretation": "Transport remains unavailable; no browser tab, allocation restart or trained-output observation."
     }
   ],
   "official_sdk_fallback": {

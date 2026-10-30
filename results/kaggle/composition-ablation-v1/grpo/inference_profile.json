@@ -1,0 +1,1297 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/evaluate_core.py",
+    "--eval-only",
+    "--adapter",
+    "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/lora_adapter",
+    "--label",
+    "qwen3.5-4b-staged-grpo",
+    "--budget-seconds",
+    "823"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.5-4B",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "label": "qwen3.5-4b-staged-grpo",
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "episodes": 400,
+    "sft_steps": 150,
+    "sft_batch": 8,
+    "sft_accumulation": 2,
+    "sft_validation_episodes": 0,
+    "save_steps": 100,
+    "budget_seconds": 823,
+    "seed": 0,
+    "device_map": "sequential",
+    "offload_layers": null,
+    "grpo_steps": 300,
+    "num_generations": 8,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 16,
+    "lr": 5e-06,
+    "eval_episodes": 200,
+    "eval_batch_size": 1,
+    "check_batching": false,
+    "eval_seed": 200,
+    "resume": null,
+    "sft_resume": null,
+    "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/lora_adapter",
+    "train_only": false,
+    "eval_only": true,
+    "dry_run": false,
+    "adapter_sha256": "fe632766ed8600327330d8e46425b648dd45245e20bb8d568505ea5db3eb9f6a"
+  },
+  "seed": 0,
+  "source_commit": "a5177b806df6559b1d90e4e491ef8d4608c0c841",
+  "cuda_visible_devices": "1",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "source_file_sha256": "e1cea56e555b22a2dc372febb107afaf43d7d7a3684a15c3949753cbbd1df0a4",
+  "embedded_package_sha256": "f2fd75899b56ba595718d24c36557b5d1b2045599c4739031c662956e5397ab3",
+  "profile_output": "/kaggle/working/grpo/inference_profile.json",
+  "states": [
+    {
+      "game": "dice",
+      "seed": 20000,
+      "round": 0
+    },
+    {
+      "game": "dice",
+      "seed": 20001,
+      "round": 1
+    },
+    {
+      "game": "dice",
+      "seed": 20002,
+      "round": 3
+    },
+    {
+      "game": "dice",
+      "seed": 20003,
+      "round": 5
+    },
+    {
+      "game": "dice",
+      "seed": 20004,
+      "round": 0
+    },
+    {
+      "game": "dice",
+      "seed": 20005,
+      "round": 1
+    },
+    {
+      "game": "dice",
+      "seed": 20006,
+      "round": 3
+    },
+    {
+      "game": "dice",
+      "seed": 20007,
+      "round": 5
+    },
+    {
+      "game": "cards",
+      "seed": 20000,
+      "round": 0
+    },
+    {
+      "game": "cards",
+      "seed": 20001,
+      "round": 1
+    },
+    {
+      "game": "cards",
+      "seed": 20002,
+      "round": 3
+    },
+    {
+      "game": "cards",
+      "seed": 20003,
+      "round": 5
+    },
+    {
+      "game": "cards",
+      "seed": 20004,
+      "round": 0
+    },
+    {
+      "game": "cards",
+      "seed": 20005,
+      "round": 1
+    },
+    {
+      "game": "cards",
+      "seed": 20006,
+      "round": 3
+    },
+    {
+      "game": "cards",
+      "seed": 20007,
+      "round": 5
+    }
+  ],
+  "prompt_tokens": [
+    539,
+    587,
+    673,
+    759,
+    539,
+    572,
+    673,
+    772,
+    606,
+    662,
+    742,
+    889,
+    606,
+    663,
+    769,
+    858
+  ],
+  "prompts_sha256": "82555f71c8272318d223a4b94f65e802daab954206226f8e49f8461e41cb63e4",
+  "driver_sha256": "0f51811b33d44f43fd85dbe8395512d445b09ce5cf0b7dc1040220784e3f2dad",
+  "compiler_environment": {
+    "UNSLOTH_COMPILE_DISABLE": "1"
+  },
+  "cases": [
+    {
+      "name": "natural",
+      "batch_size": 4,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "answers": [
+        {
+          "state_index": 0,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 1,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 24.80 (sd 4.15).\n{\"bid\": 21.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 21.0,
+            "bid_size": 4,
+            "ask": 29.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 3,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.74 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 37.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 4,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 5,
+          "text": "Public E[V] = 28.0; after my fills E[V] = 28.0 (sd 4.85).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.2, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 24.0,
+            "bid_size": 4,
+            "ask": 32.2,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 6,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.20 (sd 4.08).\n{\"bid\": 22.4, \"bid_size\": 5, \"ask\": 30.7, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.4,
+            "bid_size": 5,
+            "ask": 30.7,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 7,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 8,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 9,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.15).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 10,
+          "text": "Public E[V] = 36.49; after my fills E[V] = 36.49 (sd 4.18).\n{\"bid\": 31.1, \"bid_size\": 5, \"ask\": 42.9, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 31.1,
+            "bid_size": 5,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 11,
+          "text": "Public E[V] = 32.47; after my fills E[V] = 32.47 (sd 2.75).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 27.0,
+            "bid_size": 5,
+            "ask": 39.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 12,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 14,
+          "text": "Public E[V] = 35.59; after my fills E[V] = 33.00 (sd 5.08).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 26.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 15,
+          "text": "Public E[V] = 36.47; after my fills E[V] = 36.47 (sd 2.81).\n{\"bid\": 32.1, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 32.1,
+            "bid_size": 5,
+            "ask": 41.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ],
+      "wall_seconds": 40.02748951000001,
+      "peak_allocated_bytes": 4708064256,
+      "peak_reserved_bytes": 4955570176,
+      "mismatch_positions": [
+        7
+      ]
+    },
+    {
+      "name": "reverse",
+      "batch_size": 4,
+      "indices": [
+        15,
+        14,
+        13,
+        12,
+        11,
+        10,
+        9,
+        8,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,
+        0
+      ],
+      "answers": [
+        {
+          "state_index": 15,
+          "text": "Public E[V] = 36.47; after my fills E[V] = 36.47 (sd 2.81).\n{\"bid\": 32.1, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 32.1,
+            "bid_size": 5,
+            "ask": 41.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 14,
+          "text": "Public E[V] = 35.59; after my fills E[V] = 33.00 (sd 5.08).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 26.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 12,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 11,
+          "text": "Public E[V] = 32.47; after my fills E[V] = 32.47 (sd 2.75).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 27.0,
+            "bid_size": 5,
+            "ask": 39.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 10,
+          "text": "Public E[V] = 36.49; after my fills E[V] = 36.49 (sd 4.18).\n{\"bid\": 31.1, \"bid_size\": 5, \"ask\": 42.9, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 31.1,
+            "bid_size": 5,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 9,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.15).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 8,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 7,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 6,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.20 (sd 4.08).\n{\"bid\": 22.4, \"bid_size\": 5, \"ask\": 30.7, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.4,
+            "bid_size": 5,
+            "ask": 30.7,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 5,
+          "text": "Public E[V] = 28.0; after my fills E[V] = 28.0 (sd 4.85).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.2, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 24.0,
+            "bid_size": 4,
+            "ask": 32.2,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 4,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 3,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.74 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 37.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 1,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 24.80 (sd 4.15).\n{\"bid\": 21.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 21.0,
+            "bid_size": 4,
+            "ask": 29.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 0,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        }
+      ],
+      "wall_seconds": 39.99306051000008,
+      "peak_allocated_bytes": 4708064256,
+      "peak_reserved_bytes": 4955570176,
+      "mismatch_positions": [
+        8
+      ]
+    },
+    {
+      "name": "length_ascending",
+      "batch_size": 4,
+      "indices": [
+        0,
+        4,
+        5,
+        1,
+        8,
+        12,
+        9,
+        13,
+        2,
+        6,
+        10,
+        3,
+        14,
+        7,
+        15,
+        11
+      ],
+      "answers": [
+        {
+          "state_index": 0,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 4,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 5,
+          "text": "Public E[V] = 28.0; after my fills E[V] = 28.0 (sd 4.85).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.2, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 24.0,
+            "bid_size": 4,
+            "ask": 32.2,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 1,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 24.80 (sd 4.15).\n{\"bid\": 21.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 21.0,
+            "bid_size": 4,
+            "ask": 29.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 8,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 12,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 9,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.15).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 6,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.20 (sd 4.08).\n{\"bid\": 22.4, \"bid_size\": 5, \"ask\": 30.7, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.4,
+            "bid_size": 5,
+            "ask": 30.7,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 10,
+          "text": "Public E[V] = 36.49; after my fills E[V] = 36.49 (sd 4.18).\n{\"bid\": 31.1, \"bid_size\": 5, \"ask\": 42.9, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 31.1,
+            "bid_size": 5,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 3,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.74 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 37.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 14,
+          "text": "Public E[V] = 35.59; after my fills E[V] = 33.00 (sd 5.08).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 26.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 7,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 15,
+          "text": "Public E[V] = 36.47; after my fills E[V] = 36.47 (sd 2.78).\n{\"bid\": 32.1, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 32.1,
+            "bid_size": 5,
+            "ask": 41.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 11,
+          "text": "Public E[V] = 32.47; after my fills E[V] = 32.47 (sd 2.75).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 27.0,
+            "bid_size": 5,
+            "ask": 39.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        }
+      ],
+      "wall_seconds": 38.431006034999996,
+      "peak_allocated_bytes": 4708064256,
+      "peak_reserved_bytes": 4955570176,
+      "mismatch_positions": []
+    },
+    {
+      "name": "length_descending",
+      "batch_size": 4,
+      "indices": [
+        11,
+        15,
+        7,
+        14,
+        3,
+        10,
+        2,
+        6,
+        13,
+        9,
+        8,
+        12,
+        1,
+        5,
+        0,
+        4
+      ],
+      "answers": [
+        {
+          "state_index": 11,
+          "text": "Public E[V] = 32.47; after my fills E[V] = 32.47 (sd 2.75).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 27.0,
+            "bid_size": 5,
+            "ask": 39.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 15,
+          "text": "Public E[V] = 36.47; after my fills E[V] = 36.47 (sd 2.78).\n{\"bid\": 32.1, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 32.1,
+            "bid_size": 5,
+            "ask": 41.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 7,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 36.5,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 14,
+          "text": "Public E[V] = 35.59; after my fills E[V] = 33.00 (sd 5.08).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 26.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 3,
+          "text": "Public E[V] = 33.00; after my fills E[V] = 31.74 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 5,
+            "ask": 37.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 10,
+          "text": "Public E[V] = 36.49; after my fills E[V] = 36.49 (sd 4.18).\n{\"bid\": 31.1, \"bid_size\": 5, \"ask\": 42.9, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 31.1,
+            "bid_size": 5,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 6,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.20 (sd 4.08).\n{\"bid\": 22.4, \"bid_size\": 5, \"ask\": 30.7, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.4,
+            "bid_size": 5,
+            "ask": 30.7,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 9,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.15).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 8,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 12,
+          "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 1,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 24.80 (sd 4.15).\n{\"bid\": 21.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 21.0,
+            "bid_size": 4,
+            "ask": 29.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 5,
+          "text": "Public E[V] = 28.0; after my fills E[V] = 28.0 (sd 4.85).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.2, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 24.0,
+            "bid_size": 4,
+            "ask": 32.2,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 0,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 4,
+          "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "parse_error": null
+        }
+      ],
+      "wall_seconds": 38.5392080690001,
+      "peak_allocated_bytes": 4708064256,
+      "peak_reserved_bytes": 4955570176,
+      "mismatch_positions": []
+    },
+    {
+      "name": "identical_known_discrepancies",
+      "batch_size": 4,
+      "indices": [
+        2,
+        2,
+        2,
+        2,
+        13,
+        13,
+        13,
+        13
+      ],
+      "answers": [
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 2,
+          "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+          "quote": {
+            "bid": 22.1,
+            "bid_size": 5,
+            "ask": 31.0,
+            "ask_size": 5
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        },
+        {
+          "state_index": 13,
+          "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 4,
+            "ask": 46.0,
+            "ask_size": 4
+          },
+          "parse_error": null
+        }
+      ],
+      "wall_seconds": 19.375751914000034,
+      "peak_allocated_bytes": 4768345600,
+      "peak_reserved_bytes": 5190451200,
+      "mismatch_positions": []
+    }
+  ],
+  "status": "completed",
+  "interpretation": "Fixed development states only; no held-out policy episodes or PnL. Direct first greedy generation bypasses prompt deduplication and repair so identical-prompt batches truly contain four sequences. Composition differences do not alone prove a padding or numerical-kernel bug.",
+  "serial": {
+    "name": "serial_including_warmup",
+    "batch_size": 1,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "answers": [
+      {
+        "state_index": 0,
+        "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+        "quote": {
+          "bid": 23.5,
+          "bid_size": 4,
+          "ask": 32.5,
+          "ask_size": 4
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 1,
+        "text": "Public E[V] = 25.50; after my fills E[V] = 24.80 (sd 4.15).\n{\"bid\": 21.0, \"bid_size\": 4, \"ask\": 29.0, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 21.0,
+          "bid_size": 4,
+          "ask": 29.0,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 2,
+        "text": "Public E[V] = 25.50; after my fills E[V] = 26.00 (sd 4.05).\n{\"bid\": 22.1, \"bid_size\": 5, \"ask\": 31.0, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 22.1,
+          "bid_size": 5,
+          "ask": 31.0,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 3,
+        "text": "Public E[V] = 33.00; after my fills E[V] = 31.74 (sd 3.15).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 37.0, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 28.0,
+          "bid_size": 5,
+          "ask": 37.0,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 4,
+        "text": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}\n",
+        "quote": {
+          "bid": 23.5,
+          "bid_size": 4,
+          "ask": 32.5,
+          "ask_size": 4
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 5,
+        "text": "Public E[V] = 28.0; after my fills E[V] = 28.0 (sd 4.85).\n{\"bid\": 24.0, \"bid_size\": 4, \"ask\": 32.2, \"ask_size\": 4}\n",
+        "quote": {
+          "bid": 24.0,
+          "bid_size": 4,
+          "ask": 32.2,
+          "ask_size": 4
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 6,
+        "text": "Public E[V] = 25.50; after my fills E[V] = 26.20 (sd 4.08).\n{\"bid\": 22.4, \"bid_size\": 5, \"ask\": 30.7, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 22.4,
+          "bid_size": 5,
+          "ask": 30.7,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 7,
+        "text": "Public E[V] = 33.00; after my fills E[V] = 31.68 (sd 3.45).\n{\"bid\": 28.0, \"bid_size\": 5, \"ask\": 36.5, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 28.0,
+          "bid_size": 5,
+          "ask": 36.5,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 8,
+        "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+        "quote": {
+          "bid": 28.0,
+          "bid_size": 3,
+          "ask": 42.0,
+          "ask_size": 3
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 9,
+        "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.15).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+        "quote": {
+          "bid": 31.0,
+          "bid_size": 4,
+          "ask": 46.0,
+          "ask_size": 4
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 10,
+        "text": "Public E[V] = 36.49; after my fills E[V] = 36.49 (sd 4.18).\n{\"bid\": 31.1, \"bid_size\": 5, \"ask\": 42.9, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 31.1,
+          "bid_size": 5,
+          "ask": 42.9,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 11,
+        "text": "Public E[V] = 32.47; after my fills E[V] = 32.47 (sd 2.75).\n{\"bid\": 27.0, \"bid_size\": 5, \"ask\": 39.0, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 27.0,
+          "bid_size": 5,
+          "ask": 39.0,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 12,
+        "text": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n",
+        "quote": {
+          "bid": 28.0,
+          "bid_size": 3,
+          "ask": 42.0,
+          "ask_size": 3
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 13,
+        "text": "Public E[V] = 36.00; after my fills E[V] = 38.71 (sd 8.08).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n",
+        "quote": {
+          "bid": 31.0,
+          "bid_size": 4,
+          "ask": 46.0,
+          "ask_size": 4
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 14,
+        "text": "Public E[V] = 35.59; after my fills E[V] = 33.00 (sd 5.08).\n{\"bid\": 26.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 26.0,
+          "bid_size": 5,
+          "ask": 40.0,
+          "ask_size": 5
+        },
+        "parse_error": null
+      },
+      {
+        "state_index": 15,
+        "text": "Public E[V] = 36.47; after my fills E[V] = 36.47 (sd 2.78).\n{\"bid\": 32.1, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n",
+        "quote": {
+          "bid": 32.1,
+          "bid_size": 5,
+          "ask": 41.0,
+          "ask_size": 5
+        },
+        "parse_error": null
+      }
+    ],
+    "wall_seconds": 212.828229223,
+    "peak_allocated_bytes": 4219314688,
+    "peak_reserved_bytes": 4366270464
+  }
+}

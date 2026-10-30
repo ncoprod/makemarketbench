@@ -148,6 +148,11 @@ not held-out scores ([all observations and resource measurements](results/traini
 Disabling Unsloth compilation removes one SFT discrepancy but leaves another;
 it does not establish batch equivalence
 ([compiler ablation](results/training/kaggle_compile_ablation_completion.json)).
+Direct-generation composition checks match serial on four identical copies of
+each previously discrepant SFT prompt, while some mixed batches change quotes.
+A GRPO quote also changes after bypassing cache deduplication. This narrows the
+systems diagnosis without identifying a unique numerical or padding cause
+([all composition cases](results/training/kaggle_composition_ablation_completion.json)).
 
 A separate original CUDA pipeline also completes training and both 200-episode
 SFT tests. Its frozen GRPO continuation now completes both 200-episode games,

@@ -1773,3 +1773,36 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   that actual code_file hash, private flag and inputs without resubmitting or
   restarting the useful job. Recovery source, full notebook and admission:
   `results/training/kaggle_composition_ablation.json`. Monitor sleeps 610 seconds.
+
+### Local DAgger preflight and newest-family output recovery recheck
+
+- Command: `.venv/bin/python runs/audit_dagger_prefix.py`. The original 9,600
+  demonstrations contain 4,800 decisions per game. The registered 4,000-row
+  replay prefix contains 2,033 dice and 1,967 cards decisions, retaining both
+  games before adding 1,800 on-policy states. Exact source, hashes and source-
+  defined disjoint seed ranges: `results/training/dagger_prefix_audit.json`.
+  Demonstration rows have no per-row seed metadata; do not claim a per-row
+  reconstruction from this audit. No recipe or policy changes.
+- Recheck computer-use inventory between 01:27:40 and 01:28:00 UTC on October
+  30. It still returns empty apps/browsers and the same native-pipe/browser-host
+  failures. No newest-family final weights retrieved or allocation restarted.
+  Keep the exact observation in `results/training/kaggle_ui_outage.json`.
+
+### T19 outcome — mixed companions matter; small parity gates are insufficient
+
+- Command: `.venv/bin/python runs/retain_composition_ablation.py`. Both workers
+  complete in 541.0333677 seconds. Serial quotes match the earlier profiles.
+  SFT natural/reverse batches change development states 2 and 13; length-sorted
+  batches change state 2. Four identical copies of each target match serial.
+  GRPO natural/reverse changes state 7; sorted orders and identical SFT-target
+  copies match serial. All cases parse. Exact quotes, timing, VRAM and hashes:
+  `results/training/kaggle_composition_ablation_completion.json`.
+- Cache/deduplication is explicitly bypassed in this experiment; do not compare
+  its grouping to cached profiles as though their execution were identical.
+  Mixed-companion sensitivity remains real in this configuration, but the probe
+  does not distinguish masked padding from floating-point kernel effects. No
+  frozen test policy is changed, and no held-out score is inspected.
+- Official account debit is 107594.130345 / 108000 seconds, leaving 405.869655
+  seconds. A final focused padding-invariance check can fit a 350-second script
+  and 380-second session bound. Remaining time cannot support another full
+  policy cohort, training seed or newest-family pipeline.

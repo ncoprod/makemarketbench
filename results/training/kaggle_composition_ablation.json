@@ -103,7 +103,19 @@
     "interactive_overlap_assumption_seconds": 0,
     "inference": "The compiler ablation is complete and official used quota is unchanged over the recorded interval. No action restarts an interactive session during this bounded job. This supports assuming no current allocation overlap, without establishing the inaccessible draft end time."
   },
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-30T01:33:52.405167+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-composition-ablation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-composition-ablation has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
   "push": {
     "exit_code": 0,
     "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-composition-ablation\n"
@@ -152,5 +164,21 @@
     "source": "import json\nimport subprocess\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256\n\npath = Path('results/training/kaggle_composition_ablation.json')\nrecord = json.loads(path.read_text())\nassert 'version 1 successfully pushed' in record['push']['output']\nfolder = Path('runs/kaggle_composition_ablation_remote')\nremote = json.loads((folder / 'kernel-metadata.json').read_text())\nassert remote['id'] == record['metadata']['id'] and remote['is_private'] is True\nassert remote['kernel_sources'] == record['metadata']['kernel_sources']\nassert file_sha256(folder / remote['code_file']) == record['source_sha256']\nrecord['privacy_verification'] = {'command': ['kaggle','kernels','pull',remote['id'],'-p',str(folder),'-m'],\n                                  'exit_code': 0, 'remote_metadata': remote, 'identical_source_sha256': True}\nrecord['post_push_local_error'] = 'FileNotFoundError: source-hash check assumed the upload filename; Kaggle pull uses the remote code_file name.'\nrecord['recovery'] = {'at': datetime.now(timezone.utc).isoformat(), 'command': ['.venv/bin/python',__file__],\n                      'source': Path(__file__).read_text(), 'action': 'Verify already-downloaded remote metadata code_file, without resubmitting or interrupting the GPU job.'}\nrecord['status'] = 'submitted_private_verified'\npath.write_text(json.dumps(record,indent=2)+'\\n')\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nassert not any(x['kernel'] == remote['id'] for x in ledger['sessions'])\nledger['sessions'].append({'kernel':remote['id'],'version':1,'accelerator':'T4 x2 requested','start':None,'end':None,'hours':None,\n                          'submitted_at':record['submitted_at'],'purpose':record['focused_change'],'private':True,\n                          'status':record['status'],'source_commit':record['provenance']['git_commit'],'receipt':str(path),\n                          'wall_cap_seconds':850,'session_timeout_seconds':900})\np.write_text(json.dumps(ledger,indent=2)+'\\n')\nlog = open('runs/kaggle_composition_ablation_watch.log','a')\ncommand = ['.venv/bin/python','-u','scripts/watch_kaggle.py','--receipt',str(path),'--out','runs/kaggle_composition_ablation_output']\nprocess = subprocess.Popen(command,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)\nPath('runs/kaggle_composition_ablation_watch.pid').write_text(str(process.pid)+'\\n')\nprint(json.dumps({'status':record['status'],'monitor_pid':process.pid,'submitted_at':record['submitted_at']}))\n",
     "action": "Verify already-downloaded remote metadata code_file, without resubmitting or interrupting the GPU job."
   },
-  "status": "submitted_private_verified"
+  "status": "outputs_retrieved",
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-composition-ablation",
+      "-p",
+      "runs/kaggle_composition_ablation_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading inference_profile.cpython-313.pyc to runs/kaggle_composition_ablation_output/__pycache__\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/__pycache__/inference_profile.cpython-313.pyc\nDownloading evaluate_core.py to runs/kaggle_composition_ablation_output\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/evaluate_core.py\nDownloading inference_profile.json to runs/kaggle_composition_ablation_output/grpo\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/grpo/inference_profile.json\nDownloading runtime.json to runs/kaggle_composition_ablation_output/grpo\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/grpo/runtime.json\nDownloading inference_profile.py to runs/kaggle_composition_ablation_output\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/inference_profile.py\nDownloading pair_runtime.json to runs/kaggle_composition_ablation_output\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/pair_runtime.json\nDownloading inference_profile.json to runs/kaggle_composition_ablation_output/sft\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/sft/inference_profile.json\nDownloading runtime.json to runs/kaggle_composition_ablation_output/sft\n\nOutput file downloaded to runs/kaggle_composition_ablation_output/sft/runtime.json\nKernel log downloaded to runs/kaggle_composition_ablation_output/makemarketbench-composition-ablation.log \n\n  0%|          | 0.00/6.97k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6.97k/6.97k [00:00<00:00, 13.8MB/s]\n\n  0%|          | 0.00/63.6k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.6k/63.6k [00:00<00:00, 3.83MB/s]\n\n  0%|          | 0.00/37.2k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 37.2k/37.2k [00:00<00:00, 712kB/s]\n\n  0%|          | 0.00/2.55k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.55k/2.55k [00:00<00:00, 9.18MB/s]\n\n  0%|          | 0.00/4.19k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4.19k/4.19k [00:00<00:00, 18.1MB/s]\n\n  0%|          | 0.00/418 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 418/418 [00:00<00:00, 2.65MB/s]\n\n  0%|          | 0.00/37.3k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 37.3k/37.3k [00:00<00:00, 721kB/s]\n\n  0%|          | 0.00/2.56k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.56k/2.56k [00:00<00:00, 11.3MB/s]"
+  }
 }

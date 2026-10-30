@@ -1,0 +1,148 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_composition_ablation.py",
+    "config": {
+      "purpose": "retain every batch-composition development case"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "56303f201cb6900fa6d35f144e15ded790fb8861",
+    "uncommitted_diff_sha256": "15bad9429c0618918b1f5b7d164c7be74853d3131b1f357271296ec886865ab7",
+    "started_at": "2026-10-30T01:34:14.769173+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport shutil\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\npull_path = Path('results/training/kaggle_composition_ablation.json')\npull = json.loads(pull_path.read_text())\nassert pull['status'] == 'outputs_retrieved'\nout = Path('results/kaggle/composition-ablation-v1')\nshutil.copytree('runs/kaggle_composition_ablation_output', out, dirs_exist_ok=True)\npair = json.loads((out / 'pair_runtime.json').read_text())\nrecord = {'provenance':receipt({'purpose':'retain every batch-composition development case'},pair['model_revision']),\n          'source':Path(__file__).read_text(),'download_receipt':str(pull_path),'pair_runtime':pair,\n          'files_sha256':{str(p):file_sha256(p) for p in out.rglob('*') if p.is_file()},'stages':{},\n          'interpretation':'Development-state composition diagnostics, not a policy candidate or test score. Direct generation bypasses caching/deduplication and repair; comparison is within this configuration. Changes do not alone identify padding versus floating-point kernel effects.'}\nfor stage in ('sft','grpo'):\n    path = out/stage/'inference_profile.json'\n    if not path.exists():\n        record['stages'][stage] = {'status':'profile_not_saved'}\n        continue\n    p = json.loads(path.read_text())\n    prior = json.loads(Path(f'results/kaggle/compiler-ablation-v1/{stage}/inference_profile.json').read_text())\n    assert p['prompts_sha256'] == prior['prompts_sha256'] and p['states'] == prior['states']\n    s = {'status':p['status'],'cases':[]}\n    if 'serial' in p:\n        s['serial_changes_vs_prior'] = [i for i,(a,b) in enumerate(zip(p['serial']['answers'],prior['initial_serial_baseline_including_warmup']['quotes'])) if a['quote'] != b]\n    for case in p['cases']:\n        s['cases'].append({'name':case['name'],'wall_seconds':case['wall_seconds'],\n                           'peak_allocated_bytes':case['peak_allocated_bytes'],\n                           'changed_state_indices':[case['answers'][i]['state_index'] for i in case['mismatch_positions']],\n                           'parse_errors':sum(a['parse_error'] is not None for a in case['answers'])})\n    record['stages'][stage] = s\nPath('results/training/kaggle_composition_ablation_completion.json').write_text(json.dumps(record,indent=2)+'\\n')\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nfor session in ledger['sessions']:\n    if session['kernel'] == pull['metadata']['id'] and session['version'] == 1:\n        session.update(status='completed_outputs_retrieved' if pair['exit_codes'] == [0,0] else 'partial_outputs_retrieved',\n                       script_wall_seconds=pair['wall_seconds'],hours=pair['wall_seconds']/3600,\n                       hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.',\n                       observed_complete_at=pull['polls'][-1]['at'],result_file=str(out/'pair_runtime.json'))\np.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint(json.dumps({'runtime_seconds':pair['wall_seconds'],'exit_codes':pair['exit_codes'],'stages':record['stages']},indent=2))\n",
+  "download_receipt": "results/training/kaggle_composition_ablation.json",
+  "pair_runtime": {
+    "wall_seconds": 541.0333677,
+    "budget_seconds": 850,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "source_commit": "a5177b806df6559b1d90e4e491ef8d4608c0c841",
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "seed": 0,
+    "purpose": "Development-state batch composition and prompt-length invariance; no held-out policy episodes.",
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py"
+    ]
+  },
+  "files_sha256": {
+    "results/kaggle/composition-ablation-v1/makemarketbench-composition-ablation.log": "37b1f499dc7d8cb9276f8dbbcc0ba1264eb858e92bdd2830a5421e39f3537153",
+    "results/kaggle/composition-ablation-v1/inference_profile.py": "0f51811b33d44f43fd85dbe8395512d445b09ce5cf0b7dc1040220784e3f2dad",
+    "results/kaggle/composition-ablation-v1/evaluate_core.py": "e1cea56e555b22a2dc372febb107afaf43d7d7a3684a15c3949753cbbd1df0a4",
+    "results/kaggle/composition-ablation-v1/pair_runtime.json": "2098a3dda0636f094bec438522678993b51e995a99b6ba5682afcb4d277f0851",
+    "results/kaggle/composition-ablation-v1/__pycache__/inference_profile.cpython-313.pyc": "efc33f5716eefe773d90acb0266d3b04c51a17fc8a5463900155b84d784e9e15",
+    "results/kaggle/composition-ablation-v1/grpo/runtime.json": "a44b6ca6990b1a7a29dc01bc8084475cc7fed994a598100bad4e7304f125633c",
+    "results/kaggle/composition-ablation-v1/grpo/inference_profile.json": "e53cee23b6f33f27d6854f048851073ea05b1ec3e8fcb1c50f7ee3b4828ac1a3",
+    "results/kaggle/composition-ablation-v1/sft/runtime.json": "a84f4c2ec5636af58a805e3c10ef9b511e02afe41d5b10f6bbe5a2d9e0927614",
+    "results/kaggle/composition-ablation-v1/sft/inference_profile.json": "145b577afde1b8de2ee24376c10e3b175f75ebe8c975d9a6da0b158983f67cdb"
+  },
+  "stages": {
+    "sft": {
+      "status": "completed",
+      "cases": [
+        {
+          "name": "natural",
+          "wall_seconds": 40.081726333999995,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [
+            2,
+            13
+          ],
+          "parse_errors": 0
+        },
+        {
+          "name": "reverse",
+          "wall_seconds": 39.69487869500006,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [
+            13,
+            2
+          ],
+          "parse_errors": 0
+        },
+        {
+          "name": "length_ascending",
+          "wall_seconds": 38.660054242,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [
+            2
+          ],
+          "parse_errors": 0
+        },
+        {
+          "name": "length_descending",
+          "wall_seconds": 38.472034427999915,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [
+            2
+          ],
+          "parse_errors": 0
+        },
+        {
+          "name": "identical_known_discrepancies",
+          "wall_seconds": 19.29947839800002,
+          "peak_allocated_bytes": 4768345600,
+          "changed_state_indices": [],
+          "parse_errors": 0
+        }
+      ],
+      "serial_changes_vs_prior": []
+    },
+    "grpo": {
+      "status": "completed",
+      "cases": [
+        {
+          "name": "natural",
+          "wall_seconds": 40.02748951000001,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [
+            7
+          ],
+          "parse_errors": 0
+        },
+        {
+          "name": "reverse",
+          "wall_seconds": 39.99306051000008,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [
+            7
+          ],
+          "parse_errors": 0
+        },
+        {
+          "name": "length_ascending",
+          "wall_seconds": 38.431006034999996,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [],
+          "parse_errors": 0
+        },
+        {
+          "name": "length_descending",
+          "wall_seconds": 38.5392080690001,
+          "peak_allocated_bytes": 4708064256,
+          "changed_state_indices": [],
+          "parse_errors": 0
+        },
+        {
+          "name": "identical_known_discrepancies",
+          "wall_seconds": 19.375751914000034,
+          "peak_allocated_bytes": 4768345600,
+          "changed_state_indices": [],
+          "parse_errors": 0
+        }
+      ],
+      "serial_changes_vs_prior": []
+    }
+  },
+  "interpretation": "Development-state composition diagnostics, not a policy candidate or test score. Direct generation bypasses caching/deduplication and repair; comparison is within this configuration. Changes do not alone identify padding versus floating-point kernel effects."
+}
