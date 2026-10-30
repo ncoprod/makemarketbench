@@ -1751,3 +1751,25 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Refresh the existing OAuth access token with unchanged scopes before expiry;
   retain only expiration, source and permissions metadata, never credentials:
   `results/training/kaggle_oauth_refresh.json`.
+
+### T19 — batch-composition diagnostic within the final quota minutes
+
+- Hypothesis: companion sequences and padding lengths contribute to the
+  remaining SFT quote discrepancy. Keep compilation disabled, frozen adapters,
+  decoder and sixteen development observations. Compare serial with natural,
+  reversed, increasing/decreasing prompt-length orders, plus true fourfold
+  identical-prompt batches for the two previously discrepant states.
+- Direct first-generation calls bypass cache deduplication and repair, making
+  the identical-prompt case a real four-sequence batch. Record that configuration
+  difference explicitly; no held-out episodes, rewards or policy selection.
+- Commands: `.venv/bin/python runs/prepare_composition_ablation.py`;
+  `.venv/bin/python runs/submit_composition_ablation.py`. Initial local admission
+  correctly refused adjacent quota reads less than sixty seconds apart. Use an
+  earlier settled read after the prior kernel completed; the account debit is
+  unchanged. Remaining 951.887655 seconds covers the 850-second script and
+  900-second session bounds. Private version 1 is accepted.
+- The post-push source hash check assumes the upload filename and fails locally;
+  the remote metadata instead names the pulled source after its slug. Verify
+  that actual code_file hash, private flag and inputs without resubmitting or
+  restarting the useful job. Recovery source, full notebook and admission:
+  `results/training/kaggle_composition_ablation.json`. Monitor sleeps 610 seconds.
