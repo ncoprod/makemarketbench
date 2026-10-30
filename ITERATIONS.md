@@ -1821,3 +1821,18 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   405.86965500000224-second quota covers a 350-second script / 380-second
   session bound. Monitor sleeps 610 seconds, including when a short job could
   finish sooner. Full sources/admission: `results/training/kaggle_padding_ablation.json`.
+
+### T20 version 1 failed — builder corrupted the guard's expected hash
+
+- The global numeric replacement from 850 to 350 also changed a substring in
+  the GRPO adapter digest. The checksum guard raises AssertionError before
+  comparison. The adapter itself is unchanged. SFT child started, but the main
+  loop failed before its wait/finally block, so pair runtime is missing.
+- Command: `.venv/bin/python runs/retain_padding_failure.py`. Retain all outputs
+  and exact error in `results/training/kaggle_padding_ablation_failure.json`.
+  Official account debit is 35.80000000000291 seconds during this isolated
+  failed allocation. This is billing, not an invented complete script runtime.
+- Restore the pinned hash and use exact deadline/budget replacements. Check all
+  frozen hash constants before submitting a shorter 320-second script /
+  350-second session retry within the remaining 370.069655 seconds. No quality
+  result or stopping-rule nonimprovement is inferred from this failed probe.

@@ -1,0 +1,14 @@
+[{"stream_name":"stderr","time":27.523539828,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":27.523581255,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stderr","time":29.202524508,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":29.202971816,"data":"  File \"/kaggle/src/script.py\", line 13, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":29.202991103,"data":"    adapter=adapters[0].parent;assert hashlib.sha256((adapter/'adapter_model.safetensors').read_bytes()).hexdigest()==digest\n"}
+,{"stream_name":"stderr","time":29.202995523,"data":"                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":29.20299903,"data":"AssertionError\n"}
+,{"stream_name":"stderr","time":32.194090679,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":32.194119818,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":32.568877817,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":32.568902628000004,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":33.64545296,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":34.808155007,"data":"[NbConvertApp] Writing 387368 bytes to __results__.html\n"}
+]

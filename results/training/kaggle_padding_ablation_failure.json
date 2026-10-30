@@ -1,0 +1,76 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_padding_failure.py",
+    "config": {
+      "purpose": "retain the failed padding probe before comparison"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "0a531343d7371d10028387d8b43045b38e95fd41",
+    "uncommitted_diff_sha256": "d20105a5665db03ff05c1e7b2a0fc95b2a9109f173455dcc7fbd531fcc01139e",
+    "started_at": "2026-10-30T01:48:07.096145+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\np = Path('results/training/kaggle_padding_ablation.json')\npull = json.loads(p.read_text())\nassert pull['status'] == 'outputs_retrieved' and 'KernelWorkerStatus.ERROR' in pull['polls'][-1]['output']\nroot = Path('results/kaggle/padding-ablation-v1')\ntext = (root/'makemarketbench-padding-ablation.log').read_text()\nassert 'AssertionError' in text and 'adapter_model.safetensors' in text\nq = json.loads(Path('results/training/kaggle_account_budget_snapshot.json').read_text())\nprevious = pull['quota_admission']['settled_snapshots'][-1]\ndebit = q['quota']['gpu_seconds_used'] - previous['quota']['gpu_seconds_used']\nrecord = {'provenance': receipt({'purpose':'retain the failed padding probe before comparison'},'3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636'),\n          'source':Path(__file__).read_text(),'download_receipt':str(p),\n          'status':'failed_before_comparison','exact_error':'AssertionError at the adapter_model.safetensors SHA256 guard',\n          'diagnosis':'The builder globally replaced 850 with 350, including that substring inside the frozen GRPO adapter hash. The actual adapter was not changed. SFT child had launched; main failed before entering its wait/finally block, so no pair_runtime.json or comparison was saved.',\n          'expected_grpo_hash':'fe632766ed8600327330d8e46425b648dd45245e20bb8d568505ea5db3eb9f6a',\n          'files_sha256':{str(f):file_sha256(f) for f in root.rglob('*') if f.is_file()},\n          'account_debit_seconds':debit,'quota_snapshots':[previous,q],\n          'runtime_limitation':'No complete script runtime saved. Account debit is observed in the isolated allocation interval; downloaded log event times retained separately.'}\nPath('results/training/kaggle_padding_ablation_failure.json').write_text(json.dumps(record,indent=2)+'\\n')\nledger_path=Path('results/training/kaggle_budget.json')\nledger=json.loads(ledger_path.read_text())\nfor s in ledger['sessions']:\n if s['kernel']==pull['metadata']['id'] and s['version']==1:\n  s.update(status='failed_outputs_retrieved',hours=debit/3600,hours_basis='Official account debit during this isolated failed allocation; script runtime missing.',account_debit_seconds=debit,result_file='results/training/kaggle_padding_ablation_failure.json',observed_complete_at=pull['polls'][-1]['at'])\nledger_path.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint({'account_debit_seconds':debit,'status':record['status']})\n",
+  "download_receipt": "results/training/kaggle_padding_ablation.json",
+  "status": "failed_before_comparison",
+  "exact_error": "AssertionError at the adapter_model.safetensors SHA256 guard",
+  "diagnosis": "The builder globally replaced 850 with 350, including that substring inside the frozen GRPO adapter hash. The actual adapter was not changed. SFT child had launched; main failed before entering its wait/finally block, so no pair_runtime.json or comparison was saved.",
+  "expected_grpo_hash": "fe632766ed8600327330d8e46425b648dd45245e20bb8d568505ea5db3eb9f6a",
+  "files_sha256": {
+    "results/kaggle/padding-ablation-v1/inference_profile.py": "ba62e43af2204fd2080febbdca99436dae9be04accbd3e732f0ed22e56390754",
+    "results/kaggle/padding-ablation-v1/evaluate_core.py": "b251bedc5a0bcb80a265c0e0ea8ceef4bdb8c29908597f3391f4ad796f2ac761",
+    "results/kaggle/padding-ablation-v1/makemarketbench-padding-ablation.log": "5843baa9a90fda8e91f86027069e587f458fd93dd72be108a70b127f80300707",
+    "results/kaggle/padding-ablation-v1/sft/runtime.json": "1612d30d2d8f0f15df45be4dbef2550e6e583e9450376423ca49b5aaff8321e6"
+  },
+  "account_debit_seconds": 35.80000000000291,
+  "quota_snapshots": [
+    {
+      "recorded_at": "2026-10-30T01:36:34.246554+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "provenance": {
+        "command": [
+          "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+          "scripts/kaggle_quota.py"
+        ],
+        "seed": null,
+        "model_revision": null,
+        "git_commit": "57ed3d9a208bca4e8ea44816430370bc57130cd5",
+        "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
+      },
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00+00:00",
+        "gpu_seconds_used": 107594.130345,
+        "gpu_seconds_reserved": 0.0,
+        "gpu_seconds_total": 108000.0
+      }
+    },
+    {
+      "recorded_at": "2026-10-30T01:47:03.004921+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "provenance": {
+        "command": [
+          "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+          "scripts/kaggle_quota.py"
+        ],
+        "seed": null,
+        "model_revision": null,
+        "git_commit": "0a531343d7371d10028387d8b43045b38e95fd41",
+        "source_sha256": "28b1355ac7f60a95c8079a7ed32a362b5603e8642e84f7522b670480cbde142e"
+      },
+      "quota": {
+        "refresh_at": "2026-10-31T00:00:00+00:00",
+        "gpu_seconds_used": 107629.930345,
+        "gpu_seconds_reserved": 0.0,
+        "gpu_seconds_total": 108000.0
+      }
+    }
+  ],
+  "runtime_limitation": "No complete script runtime saved. Account debit is observed in the isolated allocation interval; downloaded log event times retained separately."
+}
