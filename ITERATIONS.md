@@ -1964,3 +1964,17 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   and starts collecting 150 actor episodes per game, targeting 1,800 new
   labels, before the unchanged DAgger training/validation and RLOO trial.
   The verifier CLI adds no new selection rule or experimental configuration.
+
+### Register paired local validation contrasts before follow-up outcomes
+
+- Add `scripts/compare_local_validation.py` for the two already-registered
+  DAgger/RLOO trials against SFT on identical validation seeds. Retain expected-
+  PnL mean differences, marginal 95% intervals and 98.75% Bonferroni intervals
+  over four method/game contrasts (16,000 resamples, seed zero). The max-min
+  selection score and nine-candidate held-out correction are unchanged.
+- CLI help and Ruff pass. Actual contrasts wait for complete 100-episode
+  follow-up cohorts and their verified manifests; no placeholder numbers.
+  These are validation diagnostics, not a claim of independent test inference.
+- The 02:51:36–02:54:53 UTC computer-use recheck still returns empty surfaces
+  and identical transport failures. Exact observation is appended to
+  `results/training/kaggle_ui_outage.json`; GPU submissions remain closed.
