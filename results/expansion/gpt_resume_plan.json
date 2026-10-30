@@ -5,9 +5,9 @@
       "purpose": "resume incomplete GPT-OSS cards with identical endpoint/decoder settings"
     },
     "model_revision": null,
-    "git_commit": "eee0b948771c3b881957b2c66dc45bf9b4819beb",
-    "uncommitted_diff_sha256": "d408cc0740d52524c166c76080ecf8c634d26ed74e28d9c84a1dda9c8e5cbaab",
-    "started_at": "2026-10-30T00:19:23.753121+00:00",
+    "git_commit": "34d2f800076d30b2888147dc93cc1571cf6d9402",
+    "uncommitted_diff_sha256": "d1bb458e86079fdc4e3e3a270d7bcfb6d0f142e9f303a38f4674f900371e2d18",
+    "started_at": "2026-10-30T00:46:21.963675+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -17,8 +17,8 @@
       "mlx-lm": "0.32.2"
     }
   },
-  "source": "import json\nimport os\nimport subprocess\nimport time\nfrom pathlib import Path\nfrom makemarket.provenance import receipt\n\npath = Path('results/expansion/gpt_resume_plan.json')\nrecord = {'provenance': receipt({'purpose': 'resume incomplete GPT-OSS cards with identical endpoint/decoder settings'}),\n          'source': Path(__file__).read_text(), 'status': 'waiting_for_existing_protocol_writers',\n          'prior_failure': json.loads(Path('results/expansion/protocol.json').read_text())['openai/gpt-oss-20b']['cards'],\n          'wait_pids': [48273, 48292]}\npath.write_text(json.dumps(record, indent=2) + '\\n')\nfor pid in record['wait_pids']:\n    while True:\n        try:\n            os.kill(pid, 0)\n        except ProcessLookupError:\n            break\n        time.sleep(10)\ncommand = ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u', 'scripts/expand_nim.py',\n           '--models', 'openai/gpt-oss-20b']\nrecord.update(status='acquiring_slot_then_resuming', command=command)\npath.write_text(json.dumps(record, indent=2) + '\\n')\nr = subprocess.run(command)\nrecord.update(status='finished', exit_code=r.returncode)\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
-  "status": "waiting_for_existing_protocol_writers",
+  "source": "import json\nimport subprocess\nfrom pathlib import Path\nfrom makemarket.provenance import receipt\n\npath = Path('results/expansion/gpt_resume_plan.json')\nrecord = {'provenance': receipt({'purpose': 'resume incomplete GPT-OSS cards with identical endpoint/decoder settings'}),\n          'source': Path(__file__).read_text(), 'status': 'acquiring_global_slot',\n          'prior_failure': json.loads(Path('results/expansion/protocol.json').read_text())['openai/gpt-oss-20b']['cards'],\n          'previous_plan': 'results/expansion/gpt_resume_plan_initial.json',\n          'scheduling_change': 'Use an independent receipt file so this retry need not wait for supplementary model completion.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\ncommand = ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u', 'scripts/expand_nim.py',\n           '--models', 'openai/gpt-oss-20b', '--protocol-file', 'protocol-gpt-resume.json']\nrecord.update(status='acquiring_slot_then_resuming', command=command)\npath.write_text(json.dumps(record, indent=2) + '\\n')\nr = subprocess.run(command)\nrecord.update(status='finished', exit_code=r.returncode)\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
+  "status": "acquiring_slot_then_resuming",
   "prior_failure": {
     "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
     "wall_seconds": 1239.676654100418,
@@ -78,8 +78,18 @@
       }
     }
   },
-  "wait_pids": [
-    48273,
-    48292
+  "previous_plan": "results/expansion/gpt_resume_plan_initial.json",
+  "scheduling_change": "Use an independent receipt file so this retry need not wait for supplementary model completion.",
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "openai/gpt-oss-20b",
+    "--protocol-file",
+    "protocol-gpt-resume.json"
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain observed verification after isolated NIM resume receipt support"
+    },
+    "model_revision": null,
+    "git_commit": "34d2f800076d30b2888147dc93cc1571cf6d9402",
+    "uncommitted_diff_sha256": "7f9f75bedaecef5bc84d9c50db1b662a513c90b8489c22bed288d6ba2174c63a",
+    "started_at": "2026-10-30T00:46:43.809642+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "commands": [
+    ".venv/bin/ruff check scripts/expand_nim.py",
+    ".venv/bin/python scripts/expand_nim.py --help",
+    ".venv/bin/pytest -q"
+  ],
+  "results": {
+    "ruff": "passed",
+    "help": "--protocol-file present",
+    "pytest": {
+      "passed": 112,
+      "seconds": 6.05,
+      "exit_code": 0
+    }
+  },
+  "source_sha256": {
+    "scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046"
+  },
+  "measurement_source": "Observed terminal output from the commands above; no model weights loaded by these tests."
+}

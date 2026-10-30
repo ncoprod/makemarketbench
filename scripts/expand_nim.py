@@ -47,6 +47,7 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=200)
     ap.add_argument("--seed", type=int, default=200)
     ap.add_argument("--models", nargs="*")
+    ap.add_argument("--protocol-file", help="separate receipt filename for an independent resume batch")
     retry = ap.add_mutually_exclusive_group()
     retry.add_argument("--reduced-reasoning", action="store_true",
                     help="retry GLM at low effort and DeepSeek with thinking disabled")
@@ -72,6 +73,8 @@ def main() -> None:
         models = [("nvidia/nemotron-3-ultra-550b-a55b",
                    {"chat_template_kwargs": {"enable_thinking": True, "medium_effort": True}},
                    16384, "thinking-medium")]
+    if args.protocol_file:
+        filename = args.protocol_file
     path = OUT / filename
     protocol = json.loads(path.read_text()) if path.exists() else {}
     discovery = OUT / "models.json"

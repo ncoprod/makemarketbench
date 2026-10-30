@@ -73,6 +73,16 @@
         ]
       },
       "timestamp_note": "Exact tool-call timestamp unavailable; bounds are the preceding clock read and subsequent receipt timestamp."
+    },
+    {
+      "recorded_at": "2026-10-30T00:44:37.714041+00:00",
+      "action": "cua.createBrowserTab('iab', 'https://www.kaggle.com/code/nicolascoquelet/makemarketbench-qwen3-8-27b-training', {visible:false})",
+      "result": "The browser access host is unavailable",
+      "attempt_window_utc": [
+        "2026-10-30T00:39:22Z",
+        "2026-10-30T00:44:37.714041+00:00"
+      ],
+      "timestamp_note": "Read-only alternate browser path; bounds are the last clock read and this post-call receipt. No tab or new GPU session created."
     }
   ],
   "official_sdk_fallback": {

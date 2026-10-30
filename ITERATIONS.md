@@ -1655,3 +1655,19 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/kaggle_inference_profile.json` and
   `results/training/kaggle_inference_profile_repeat.json`. Monitors sleep 610
   seconds between status checks. Preserve outputs before any further admission.
+
+### Remove a receipt-writer dependency from the GPT cards retry
+
+- Diagnosis: the initial retry launcher waited for both the default and every
+  supplementary API batch because explicit-model batches shared a receipt file.
+  That could delay finishing an original API cohort behind optional coverage.
+- Add the single `--protocol-file` option to `scripts/expand_nim.py`. The queued
+  GPT retry now writes `protocol-gpt-resume.json`, allowing it to acquire a
+  global slot independently while retaining the same cache/raw paths and model
+  settings. No active request or shared slot was interrupted.
+- Stop only the old waiting retry launcher; retain its original plan as
+  `results/expansion/gpt_resume_plan_initial.json`. The new launcher/source is
+  in `results/expansion/gpt_resume_plan.json`. Other queued batches continue.
+- Ruff and CLI help pass; `.venv/bin/pytest -q` reports 112 passed in 6.05 seconds.
+  Verification receipt: `results/verification_nim_resume.json`. No new policy or
+  test score inspected.
