@@ -2254,3 +2254,25 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   additional-model/GPT batch, takes a shared slot, then evaluates a usable
   configuration on the fixed 200/game cohort. Ruff passes for the one-row
   endpoint-settings addition; this is availability recovery, not model tuning.
+
+### T21 outcome — distinct last DAgger weights do not solve the policy gap
+
+- All 100 validation episodes per game complete, including the four dice
+  episodes preserved across the intentional supervisor change. Exact commands,
+  base/adapter identity and raw-file hashes:
+  `results/validation/qwen35-dagger-last/cohorts.json`.
+- Dice is 37.07467210510954% [7.38244956873757, 60.641507063954734] of Bayes;
+  cards −39.7077063429703% [−92.01579810008809, 1.486122090191159]. No format
+  failures in either game. These are numerical quote decisions, not invalid JSON.
+- Paired expected-PnL changes versus SFT: dice +2.0356014237767592 with
+  14-contrast CI [−3.678260986447036, 7.894486999248122]; cards
+  −8.519819342696623 with CI [−18.31621571147791, 1.117073474115093]. Both
+  corrected intervals include zero. Preserve marginal CIs too; do not claim
+  corrected evidence of either dice improvement or cards degradation.
+- Max-min selection score −42.92532789489046 remains worse than RLOO24's
+  −31.304956723846956. Result: `results/validation/qwen35-dagger-last/vs_sft.json`.
+  The registered RLOO96 continuation starts from the exact RLOO24 adapter and
+  Adam-state hashes; no local selection or held-out test has started.
+- Granite-3.0-8B's probe fails after three bounded HTTP 404 attempts in
+  15.734764099121094 seconds; Llama-3.2-90B continues its complete-cohort attempt.
+  Primary receipt: `results/expansion/protocol-additional.json`.

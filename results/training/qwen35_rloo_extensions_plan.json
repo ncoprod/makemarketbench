@@ -41,6 +41,43 @@
       "100",
       "--out",
       "results/validation/qwen35-dagger-last"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/retain_local_validation.py",
+      "dagger-last"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/compare_local_validation.py",
+      "dagger-last"
+    ],
+    [
+      "bash",
+      "scripts/with_resource.sh",
+      "heavy-ml",
+      ".venv/bin/python",
+      "-u",
+      "train/with_memory_guard.py",
+      "--result",
+      "results/training/qwen35_rloo96_memory.json",
+      ".venv/bin/python",
+      "-u",
+      "train/mlx_rloo.py",
+      "--model",
+      "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "--revision",
+      "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "--adapter",
+      "train/runs/qwen3.5-4b-sft",
+      "--out",
+      "train/runs/qwen3.5-4b-rloo96",
+      "--result",
+      "results/training/qwen35_rloo96.json",
+      "--steps",
+      "96",
+      "--seed",
+      "5"
     ]
   ],
   "budgets": [
@@ -70,20 +107,78 @@
     "heavy-ml",
     ".venv/bin/python",
     "-u",
-    "train/mlx_evaluate.py",
+    "train/with_memory_guard.py",
+    "--result",
+    "results/training/qwen35_rloo96_memory.json",
+    ".venv/bin/python",
+    "-u",
+    "train/mlx_rloo.py",
     "--model",
     "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
     "--revision",
     "32f3e8ecf65426fc3306969496342d504bfa13f3",
     "--adapter",
-    "train/runs/qwen3.5-4b-dagger-last",
-    "--label",
-    "qwen3.5-4b-dagger-last",
-    "--seed",
-    "80000",
-    "--episodes",
-    "100",
+    "train/runs/qwen3.5-4b-sft",
     "--out",
-    "results/validation/qwen35-dagger-last"
-  ]
+    "train/runs/qwen3.5-4b-rloo96",
+    "--result",
+    "results/training/qwen35_rloo96.json",
+    "--steps",
+    "96",
+    "--seed",
+    "5"
+  ],
+  "completed_commands": [
+    {
+      "command": [
+        "bash",
+        "scripts/with_resource.sh",
+        "heavy-ml",
+        ".venv/bin/python",
+        "-u",
+        "train/mlx_evaluate.py",
+        "--model",
+        "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+        "--revision",
+        "32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "--adapter",
+        "train/runs/qwen3.5-4b-dagger-last",
+        "--label",
+        "qwen3.5-4b-dagger-last",
+        "--seed",
+        "80000",
+        "--episodes",
+        "100",
+        "--out",
+        "results/validation/qwen35-dagger-last"
+      ],
+      "wall_seconds": 3634.0199338329985
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/retain_local_validation.py",
+        "dagger-last"
+      ],
+      "wall_seconds": 0.22515416599344462
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/compare_local_validation.py",
+        "dagger-last"
+      ],
+      "wall_seconds": 0.32854608399793506
+    }
+  ],
+  "initialization": {
+    "rloo96": {
+      "history_source": "results/training/qwen35_rloo.json",
+      "history_sha256": "144e7580509deb9f8a4020984127229d37caaed6046301ec14767249d01be88e",
+      "checkpoint": "train/runs/qwen3.5-4b-rloo/step_0024",
+      "completed_groups": 24,
+      "adapter_sha256": "5e8e8da8803a611e815f7d280465d6d06b2f6cb18c7232b20d7610f2bf503398",
+      "optimizer_sha256": "ab7a11bf7861e080825aeaa5db26b717bb5221b76b0d721732fc96b5a511c292"
+    }
+  }
 }

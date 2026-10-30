@@ -129,6 +129,10 @@ paired expected-PnL changes are zero in both games
 [cohorts and identities](results/validation/qwen35-dagger/cohorts.json)).
 The final local selection also checks the distinct last saved DAgger checkpoint
 before opening the test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
+That checkpoint reaches **37.1% [7.4, 60.6]** on dice and
+**−39.7% [−92.0, 1.5]** on cards, with no format failures
+([complete validation](results/validation/qwen35-dagger-last/cohorts.json),
+[paired contrasts](results/validation/qwen35-dagger-last/vs_sft.json)).
 The dice-only RLOO-style trial completes all 24 groups in 1,175.507 seconds
 ([runtime, memory and adapter identity](results/training/qwen35_rloo_completion.json)).
 Validation rises to **48.7% of Bayes on dice** and **19.6% on cards**

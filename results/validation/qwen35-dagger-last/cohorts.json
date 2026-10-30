@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/retain_local_validation.py dagger-last",
+    "config": {
+      "method": "dagger-last"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "1a8a01f6e249e2c29f8bb021ad5fa7d195e84451",
+    "uncommitted_diff_sha256": "a25f84c2f831f7cfd212872077d1c4246a61a29207e240617567ecff42cfa41b",
+    "started_at": "2026-10-30T10:41:58.210162+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "89c0b80ac6956e9203eb73582079633bad94f9387e83ee672784a38538e2a25b",
+  "label": "qwen3.5-4b-dagger-last",
+  "adapter_sha256": "fff7bf47399a2e6f4ca58e195315f8946b90d1e63663e84b2196b9e145ab93c9",
+  "input_sha256": {
+    "results/validation/qwen35-dagger-last/raw/dice/qwen3.5-4b-dagger-last.jsonl": "a43848ec0b1ed128ffd66f1aeecc88d062a1c0190ed0a32ef95c7a46f6f04527",
+    "results/validation/qwen35-dagger-last/raw/dice/bayes.jsonl": "01e7b49454f8994006337b055a59cfbcfadef04e6747f209196dca4913e43f8a",
+    "results/validation/qwen35-dagger-last/leaderboard_dice.json": "430af201420387938eb68d78e633aafce6d6599be26dc056bbe172811d7cc996",
+    "results/validation/qwen35-dagger-last/raw/cards/qwen3.5-4b-dagger-last.jsonl": "884d33cf492aef35f28c7f6113ccf2b22ee4cb8c84398f7a0daa1cdbf9d7e06a",
+    "results/validation/qwen35-dagger-last/raw/cards/bayes.jsonl": "642bfd515b9020173096aaee5617f6a32ad2db9df7221c3aac4a776053665aab",
+    "results/validation/qwen35-dagger-last/leaderboard_cards.json": "953067513dba898f1c44119f20852573a04996f0b3626c675a3f5eb98a5c6541"
+  },
+  "games": {
+    "dice": {
+      "player": "qwen3.5-4b-dagger-last",
+      "episodes": 100,
+      "pct_of_bayes": 37.07467210510954,
+      "pct_of_bayes_ci": [
+        7.38244956873757,
+        60.641507063954734
+      ],
+      "epnl": 5.413846771256302,
+      "epnl_ci": [
+        1.0352937562471651,
+        9.221307044163876
+      ],
+      "realized_pnl": 5.09,
+      "realized_pnl_ci": [
+        0.2619999999999999,
+        9.531025
+      ],
+      "realized_pnl_sd": 24.030143107725713,
+      "noise_edge": 11.720446771256304,
+      "adverse_cost": 6.3066,
+      "spread": 8.347499999999998,
+      "coverage": 0.7433333333333333,
+      "mean_size": 4.705,
+      "abs_final_position": 4.58,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        1.1766381053596464,
+        1.9048287809654514
+      ],
+      "posterior_edge_pct": 31.32306996017605,
+      "flow_shift": -0.3017361111111114,
+      "mid_error": 1.8178628795124863,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 1.5158611758706475,
+      "regret_by_round": [
+        0.0,
+        0.8379786964390958,
+        1.3176309763983016,
+        1.9149451288460355,
+        2.298088026012605,
+        2.7265242275278467
+      ]
+    },
+    "cards": {
+      "player": "qwen3.5-4b-dagger-last",
+      "episodes": 100,
+      "pct_of_bayes": -39.7077063429703,
+      "pct_of_bayes_ci": [
+        -92.01579810008809,
+        1.486122090191159
+      ],
+      "epnl": -6.963907981756888,
+      "epnl_ci": [
+        -14.741338367390245,
+        0.2926939345137471
+      ],
+      "realized_pnl": -0.99,
+      "realized_pnl_ci": [
+        -9.580249999999998,
+        7.5
+      ],
+      "realized_pnl_sd": 43.34230559794269,
+      "noise_edge": 10.223092018243113,
+      "adverse_cost": 17.187,
+      "spread": 11.143333333333333,
+      "coverage": 0.57,
+      "mean_size": 4.4783333333333335,
+      "abs_final_position": 6.02,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        3.644369652536755,
+        5.318407701061764
+      ],
+      "posterior_edge_pct": -38.33904862181169,
+      "flow_shift": -3.5892891969977114,
+      "mid_error": 3.559452393083737,
+      "median_spread_ratio": 0.9646401985111663,
+      "regret_per_round": 4.449719420421824,
+      "regret_by_round": [
+        0.0,
+        1.4787890812197253,
+        3.537220821312806,
+        5.481061154412246,
+        7.166458654884386,
+        9.034786810701776
+      ]
+    }
+  },
+  "selection_score": -42.92532789489046,
+  "interpretation": "Completed validation only; 95% descriptive paired-bootstrap intervals. Same registered max-min selection rule; no held-out scoring or training-seed replication claim."
+}
