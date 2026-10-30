@@ -1928,3 +1928,20 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   remains DAgger on more actor-reached states; do not tune on new held-out
   scores or claim that backend/recipe differences isolate one causal factor.
   Cards validation and the queued DAgger/RLOO rounds continue.
+
+### Bolt endpoint fails mid-cohort with HTTP 404
+
+- Previously responsive Bolt stops after 95 complete dice episodes, seeds
+  200–294, with `RuntimeError: NotFoundError(404): Error code: 404`; cards
+  immediately returns the same error. Dice attempt wall time is
+  8304.971775054932 seconds; cards 0.09904932975769043 seconds. Preserve the
+  final protocol attempt, cached responses and every completed episode byte.
+- Command: `.venv/bin/python runs/retain_bolt_failure.py`. Exact structured
+  failure, provenance and raw hash: `results/expansion/bolt_partial_failure.json`.
+  No partial-cohort score or permanent-retirement claim.
+- Queue one missing-only retry conditional on successful fresh catalogue
+  discovery still listing the model. Same endpoint/decoder/cache settings,
+  independent protocol-bolt-resume receipt and global NIM mutex. Source/plan:
+  `results/expansion/bolt_resume_plan.json`. If absent, record that limitation.
+  Both shared NIM slots are now held by live trial-ledger wrappers; leave them
+  untouched and continue local work while our API jobs queue.

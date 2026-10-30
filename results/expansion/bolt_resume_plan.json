@@ -1,0 +1,23 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/resume_bolt_after_catalogue.py",
+    "config": {
+      "purpose": "one conditional missing-only Bolt resume after a fresh catalogue check"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "c228e9a1990e22c2a5114c189ed744f9b0f0d5b9",
+    "uncommitted_diff_sha256": "f40657c7b2e5b3c7be507b1e25d47387a3cb5dfad3b22e2382b87e7fc1511e9a",
+    "started_at": "2026-10-30T02:32:29.578241+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('results/expansion/bolt_resume_plan.json')\nrecord = {'provenance':receipt({'purpose':'one conditional missing-only Bolt resume after a fresh catalogue check'},'NIM immutable deployment revision not exposed'),\n          'source':Path(__file__).read_text(),'status':'waiting_for_dated_catalogue',\n          'prior_failure':'results/expansion/bolt_partial_failure.json'}\npath.write_text(json.dumps(record,indent=2)+'\\n')\ncatalogue = Path('results/expansion/models_20261030.json')\nwhile not catalogue.exists():\n    time.sleep(5)\ndata = json.loads(catalogue.read_text())\nrecord['catalogue_sha256'] = file_sha256(catalogue)\nids = {m['id'] for m in data.get('data',{}).get('data',[])}\nif data.get('status') != 'completed' or 'nvidia/nemotron-3.5-bolt-e4b' not in ids:\n    record['status'] = 'skipped_unlisted_or_failed_catalogue'\nelse:\n    command = ['bash','scripts/with_resource.sh','nim','.venv/bin/python','-u','scripts/expand_nim.py',\n               '--models','nvidia/nemotron-3.5-bolt-e4b','--protocol-file','protocol-bolt-resume.json']\n    record.update(status='acquiring_global_slot_then_resuming',command=command)\n    path.write_text(json.dumps(record,indent=2)+'\\n')\n    result = subprocess.run(command)\n    record.update(status='finished',exit_code=result.returncode)\npath.write_text(json.dumps(record,indent=2)+'\\n')\n",
+  "status": "waiting_for_dated_catalogue",
+  "prior_failure": "results/expansion/bolt_partial_failure.json"
+}

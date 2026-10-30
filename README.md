@@ -209,8 +209,12 @@ fresh 200-episode cohorts in both games
 [Ultra](results/expansion/ultra_cohorts.json)). GPT-OSS completes its fresh dice
 cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards run saves
 three episodes before three HTTP 504 failures; a missing-only
-[resume is queued](results/expansion/gpt_resume_plan.json). Bolt and additional
-responsive models remain in progress. The corrected final comparison is pending.
+[resume is queued](results/expansion/gpt_resume_plan.json). Bolt stops with HTTP
+404 after 95 dice episodes and before cards
+([partial failure](results/expansion/bolt_partial_failure.json)); a
+[conditional missing-only retry](results/expansion/bolt_resume_plan.json) waits
+for the fresh catalogue. Additional coverage and the corrected comparison remain
+pending.
 
 ## Engine performance and correctness
 
