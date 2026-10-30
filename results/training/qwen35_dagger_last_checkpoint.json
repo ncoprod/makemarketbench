@@ -1,0 +1,25 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python train/final_candidate.py --model /Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit --revision 32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "config": {
+      "model": "/Users/nico/.cache/mmb_models/Qwen3.5-4B-MLX-4bit",
+      "revision": "32f3e8ecf65426fc3306969496342d504bfa13f3"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "3f41ab9c1bb4fd7355bb656c15e7fb8ef510e9ce",
+    "uncommitted_diff_sha256": "3182e76312bb5fac24b3d0320ecc00b22549405d0241971f3030e8adb8a99345",
+    "started_at": "2026-10-30T09:36:13.006507+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "checkpoint": "train/runs/qwen3.5-4b-dagger/0000500_adapters.safetensors",
+  "checkpoint_sha256": "fff7bf47399a2e6f4ca58e195315f8946b90d1e63663e84b2196b9e145ab93c9",
+  "training_result_sha256": "c4d25c30031f86a005a35c3a13b4ac02f59947b5f9c68e546996e93f36da51a3",
+  "rule": "Last numbered saved DAgger checkpoint, fixed before its policy validation; retain teacher-loss-selected DAgger separately."
+}

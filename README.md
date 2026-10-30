@@ -125,13 +125,18 @@ shared ML lock. The larger DAgger continuation stops after **599 microbatches /
 byte-identical to SFT ([complete training outcome](results/training/qwen35_dagger_completion.json)).
 Its completed 100-episode-per-game policy validation reproduces SFT exactly:
 paired expected-PnL changes are zero in both games
-([all six-contrast-family intervals](results/validation/qwen35-dagger/vs_sft.json),
+([expanded contrast-family intervals](results/validation/qwen35-dagger/vs_sft.json),
 [cohorts and identities](results/validation/qwen35-dagger/cohorts.json)).
 The final local selection also checks the distinct last saved DAgger checkpoint
 before opening the test ([registered validation amendment](results/training/qwen35_dagger_last_plan.json)).
-The dice-only RLOO-style trial completes all 24 groups in 1,175.507 seconds;
-its policy validation is pending
+The dice-only RLOO-style trial completes all 24 groups in 1,175.507 seconds
 ([runtime, memory and adapter identity](results/training/qwen35_rloo_completion.json)).
+Validation rises to **48.7% of Bayes on dice** and **19.6% on cards**
+([full cohorts and CIs](results/validation/qwen35-rloo/cohorts.json)). The paired
+dice expected-PnL gain survives the expanded correction; the cards gain does
+not ([all contrasts](results/validation/qwen35-rloo/vs_sft.json)). Fixed
+96/192-group continuations are
+[registered before selection or test](results/training/qwen35_rloo_extensions_plan.json).
 
 **CUDA Qwen3.5-4B:** Unsloth QLoRA completes **150 SFT and 300 GRPO updates in
 17,983.032 seconds**, peaking at **6.327 GB allocated VRAM** on its training T4
@@ -256,8 +261,8 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **127 Python tests**
-([retry regression and full-suite receipt](results/verification_nim_404_retry.json)),
+Current local verification passes **129 Python tests**
+([selection regression and full-suite receipt](results/verification_rloo_extension_selection.json)),
 plus native Release and ASan/UBSan checks
 ([local verification](results/verification_ci_local_fallback.json)). Hosted
 GitHub Actions currently refuses jobs before any steps because of account

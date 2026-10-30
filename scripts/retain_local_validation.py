@@ -9,7 +9,7 @@ from makemarket.provenance import file_sha256, receipt
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("method", choices=("sft", "dagger", "dagger-last", "rloo"))
+    parser.add_argument("method", choices=("sft", "dagger", "dagger-last", "rloo", "rloo96", "rloo192"))
     args = parser.parse_args()
     root = Path(f"results/validation/qwen35-{args.method}")
     label = f"qwen3.5-4b-{args.method}"

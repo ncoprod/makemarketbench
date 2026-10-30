@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/retain_local_validation.py rloo",
+    "config": {
+      "method": "rloo"
+    },
+    "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "git_commit": "3f41ab9c1bb4fd7355bb656c15e7fb8ef510e9ce",
+    "uncommitted_diff_sha256": "3182e76312bb5fac24b3d0320ecc00b22549405d0241971f3030e8adb8a99345",
+    "started_at": "2026-10-30T09:36:18.665445+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "df02e4d734f842b8448f749a2db5e1082b2c007ef163a2353cf63f82e8259998",
+  "label": "qwen3.5-4b-rloo",
+  "adapter_sha256": "5e8e8da8803a611e815f7d280465d6d06b2f6cb18c7232b20d7610f2bf503398",
+  "input_sha256": {
+    "results/validation/qwen35-rloo/raw/dice/qwen3.5-4b-rloo.jsonl": "0c8485b6e57d209d415d701a7ae6088ab18b80a21e70bc7a307bd24c637155e1",
+    "results/validation/qwen35-rloo/raw/dice/bayes.jsonl": "3db71c8603d9458deaf7bc75a45676330501d013a1b35fbf22be0f8654ca6fa0",
+    "results/validation/qwen35-rloo/leaderboard_dice.json": "4149ae83fdd26c2ec628ae934088548a2f723d1f5b745e7cbb4b7c24f58b204e",
+    "results/validation/qwen35-rloo/raw/cards/qwen3.5-4b-rloo.jsonl": "b8d7de6bb7d1789ce52036d3b219c4bd7f8e4d0cd713a5bc2f63e900e41387c4",
+    "results/validation/qwen35-rloo/raw/cards/bayes.jsonl": "2b5b8ef9ca43e4387d43e3ddb7b481d0a2c6b039c76c36e22829ae49e14cea52",
+    "results/validation/qwen35-rloo/leaderboard_cards.json": "73947263ec84665127f09bb1766acfe573eebb5cccfa6f78efc194dfbb2477a3"
+  },
+  "games": {
+    "dice": {
+      "player": "qwen3.5-4b-rloo",
+      "episodes": 100,
+      "pct_of_bayes": 48.695043276153044,
+      "pct_of_bayes_ci": [
+        27.272506633012938,
+        67.54042280735207
+      ],
+      "epnl": 7.110717043413974,
+      "epnl_ci": [
+        3.913993227845733,
+        9.938540205700363
+      ],
+      "realized_pnl": 6.12,
+      "realized_pnl_ci": [
+        0.602875000000002,
+        11.3441
+      ],
+      "realized_pnl_sd": 27.37582801662736,
+      "noise_edge": 12.826317043413974,
+      "adverse_cost": 5.7156,
+      "spread": 8.4115,
+      "coverage": 0.7216666666666667,
+      "mean_size": 4.705,
+      "abs_final_position": 5.0,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        0.8311109948127073,
+        1.3647366849173768
+      ],
+      "posterior_edge_pct": 52.613656304179194,
+      "flow_shift": -0.28101104502973795,
+      "mid_error": 1.4827373639683652,
+      "median_spread_ratio": 1.0121951219512193,
+      "regret_per_round": 1.083870971267981,
+      "regret_by_round": [
+        0.0,
+        0.4525548943778681,
+        0.7479661451079259,
+        1.026693147715177,
+        1.7818955264316807,
+        2.4941161139752337
+      ]
+    },
+    "cards": {
+      "player": "qwen3.5-4b-rloo",
+      "episodes": 100,
+      "pct_of_bayes": 19.55496643819823,
+      "pct_of_bayes_ci": [
+        -22.795936689301705,
+        51.995157276363095
+      ],
+      "epnl": 3.4295354580727464,
+      "epnl_ci": [
+        -3.6055735784929652,
+        9.830429414518012
+      ],
+      "realized_pnl": 9.44,
+      "realized_pnl_ci": [
+        1.82,
+        16.930249999999997
+      ],
+      "realized_pnl_sd": 38.882968669139096,
+      "noise_edge": 14.946535458072747,
+      "adverse_cost": 11.517000000000001,
+      "spread": 12.221666666666668,
+      "coverage": 0.6666666666666665,
+      "mean_size": 4.5,
+      "abs_final_position": 4.91,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0,
+      "regret_per_round_ci": [
+        2.0839404347395223,
+        3.147288399021395
+      ],
+      "posterior_edge_pct": 19.314431523216417,
+      "flow_shift": -4.28032371874408,
+      "mid_error": 2.9034288205372194,
+      "median_spread_ratio": 1.0,
+      "regret_per_round": 2.599734852656664,
+      "regret_by_round": [
+        0.0,
+        0.9089012344447905,
+        2.44705793977943,
+        3.1404196920846386,
+        4.570503647004241,
+        4.5315266026268874
+      ]
+    }
+  },
+  "selection_score": -31.304956723846956,
+  "interpretation": "Completed validation only; 95% descriptive paired-bootstrap intervals. Same registered max-min selection rule; no held-out scoring or training-seed replication claim."
+}

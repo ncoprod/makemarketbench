@@ -142,7 +142,7 @@ def test_final_cohort_rejects_duplicates_missing_seeds_and_short_episodes(tmp_pa
     assert scoring.cohort(path) is None
 
 
-@pytest.mark.parametrize("missing_last", [True, False])
+@pytest.mark.parametrize("missing_last", ["dagger-last", "rloo96", "rloo192", None])
 def test_local_selection_requires_every_trial_and_uses_both_validation_games(tmp_path, monkeypatch, missing_last):
     import sys
 
@@ -152,9 +152,10 @@ def test_local_selection_requires_every_trial_and_uses_both_validation_games(tmp
     spec.loader.exec_module(module)
     monkeypatch.chdir(tmp_path)
     (tmp_path / "results/training").mkdir(parents=True)
-    candidates = {"sft": (95, -5), "dagger": (82, 2), "dagger-last": (88, 8), "rloo": (99, 3)}
+    candidates = {"sft": (95, -5), "dagger": (82, 2), "dagger-last": (88, 8),
+                  "rloo": (99, 3), "rloo96": (99, 4), "rloo192": (97, 5)}
     for method, scores in candidates.items():
-        if missing_last and method == "dagger-last":
+        if method == missing_last:
             continue
         root = tmp_path / f"results/validation/qwen35-{method}"
         root.mkdir(parents=True)
@@ -263,7 +264,8 @@ def test_final_candidate_stays_frozen_when_validation_files_change(tmp_path, mon
     calls = []
     monkeypatch.setattr(selection.subprocess, "run", lambda command, **kw: calls.append(command))
     monkeypatch.setattr("sys.argv", ["final_candidate.py", "--model", "test-model", "--revision", "fixed"])
-    for method, percent in (("sft", 90), ("dagger", 80), ("dagger-last", 75), ("rloo", 70)):
+    for method, percent in (("sft", 90), ("dagger", 80), ("dagger-last", 75),
+                            ("rloo", 70), ("rloo96", 65), ("rloo192", 60)):
         label = f"qwen3.5-4b-{method}"
         adapter = tmp_path / f"train/runs/{label}"
         adapter.mkdir(parents=True)

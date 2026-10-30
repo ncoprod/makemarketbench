@@ -2,12 +2,13 @@
   "provenance": {
     "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/compare_local_validation.py dagger",
     "config": {
-      "method": "dagger"
+      "method": "dagger",
+      "baseline": "sft"
     },
     "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
-    "git_commit": "7d99e6c976e4f8e5a6d8d646660dea919f293ac6",
-    "uncommitted_diff_sha256": "5a67b1378deaaef520e6b4e73bd04a3796e957fe20daf61bf1936f51c1dbadd5",
-    "started_at": "2026-10-30T08:15:21.096601+00:00",
+    "git_commit": "3f41ab9c1bb4fd7355bb656c15e7fb8ef510e9ce",
+    "uncommitted_diff_sha256": "98279197fd00dbc9955cfa6bb8a2f7720e0275f514150855d85231bd93a27d53",
+    "started_at": "2026-10-30T09:42:02.102049+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -17,7 +18,7 @@
       "mlx-lm": "0.32.2"
     }
   },
-  "source_sha256": "722077b1ff474278d20573d067ecd83fb5a2e4eaf782e46304d4574eb8fe029d",
+  "source_sha256": "90574a7bd9b71a92103d4b0deec1a15bf3e96f6e290948f38ef216b343d8fd59",
   "input_sha256": {
     "results/validation/qwen35-sft/raw/dice/qwen3.5-4b-sft.jsonl": "189ab8c00b7b618dcb36b659bbd65717e813df3da15e6e8ba8780612476369af",
     "results/validation/qwen35-dagger/raw/dice/qwen3.5-4b-dagger.jsonl": "154b14aa1e96decf6912e0c21c93f5206ed1aa9ef2f5e80fc087d7469fe917b8",
@@ -54,6 +55,6 @@
     "sft": -56.865370624563894,
     "dagger": -56.865370624563894
   },
-  "family": "Six registered contrasts: teacher-selected DAgger, last-saved DAgger and RLOO versus SFT, each on dice/cards. Bonferroni level 1-0.05/6; 24000 resamples, seed 0.",
+  "family": "Fourteen validation contrasts: DAgger-best, DAgger-last, RLOO24, RLOO96 and RLOO192 versus SFT; RLOO96 versus RLOO24 and RLOO192 versus RLOO96; each on dice/cards. Bonferroni level 1-0.05/14; 56000 resamples, seed 0. Budget extension registered after observing RLOO24 validation; earlier six-contrast receipts retained separately.",
   "interpretation": "Validation diagnostics conditional on the registered recipes and frozen weights. These seeds select the local winner; no held-out claim, fresh-cache variance or training-seed inference."
 }

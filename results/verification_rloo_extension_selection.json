@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify the widened validation selection before new RLOO budgets or local held-out evaluation"
+    },
+    "model_revision": null,
+    "git_commit": "3f41ab9c1bb4fd7355bb656c15e7fb8ef510e9ce",
+    "uncommitted_diff_sha256": "96fa7c143db096231fd1ee0c3efd355faa581a4af33c617f6eb66b916e0b8a23",
+    "started_at": "2026-10-30T09:40:26.537471+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check train/final_candidate.py scripts/retain_local_validation.py scripts/compare_local_validation.py tests/test_training.py",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/pytest -q",
+      "exit_code": 0,
+      "tests_passed": 129,
+      "pytest_seconds": 6.01
+    }
+  ],
+  "source_sha256": {
+    "train/final_candidate.py": "ecf7bd5dbf17cdc8a7217b55cf69211c531696fd76d91aa6b72e16ff57dc070b",
+    "scripts/retain_local_validation.py": "89c0b80ac6956e9203eb73582079633bad94f9387e83ee672784a38538e2a25b",
+    "scripts/compare_local_validation.py": "90574a7bd9b71a92103d4b0deec1a15bf3e96f6e290948f38ef216b343d8fd59",
+    "tests/test_training.py": "aeccd05082fa252c36878c900b3034b2ee7d66e172f3177d3c2cc3dfa98adf3f"
+  },
+  "selection_exists": false,
+  "scope": "Tests also refuse selection when either extended-budget validation is missing; no held-out score inspected."
+}

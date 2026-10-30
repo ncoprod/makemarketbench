@@ -2157,3 +2157,56 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   preservation checks: `results/expansion/intermittent_resume_plan.json`.
   This is infrastructure recovery, not another policy-tuning trial or an
   improvement inferred from a partial test cohort.
+
+### RLOO24 validation improves; continue the local self-improvement loop
+
+- Commands: `scripts/retain_local_validation.py rloo` and
+  `scripts/compare_local_validation.py rloo`, each via `.venv/bin/python`.
+  All 100 episodes per game complete. Dice rises from
+  23.134629375436102% to 48.695043276153044% of Bayes; cards from
+  8.87169554476217% to 19.55496643819823%.
+- Paired expected-PnL changes: dice +3.7324716959344295, marginal 95% CI
+  [1.9463066225400596, 5.594895028624427], originally registered six-contrast
+  CI [1.3507798115233602, 6.212015001267778]. Cards +1.8736240971330098,
+  marginal [0.39508384179146094, 3.4522276034022834], six-contrast
+  [-0.08127892992507649, 4.111049415684826]. The cards change does not survive
+  that correction. Sources: `results/validation/qwen35-rloo/cohorts.json` and
+  `vs_sft_6_contrasts.json`. Conditional on this one training seed and cache.
+- Dice improves while remaining below target, so stopping would violate the
+  requested loop. Stop only our old worker process group before local selection
+  or test starts; the last-Dagger validation has four saved dice episodes and
+  resumes missing-only. Its interrupted supervisor is explicitly superseded,
+  not recorded as a model-training failure. No held-out aggregate is opened.
+
+### T22 — extend the same RLOO recipe from 24 to 96 groups (registered)
+
+- Hypothesis: the short RLOO trial is update-budget limited. Change only its
+  fixed training budget; continue both adapter and Adam state, keeping seed 5,
+  lr 1e-6, four categorical samples, 128-token limit and exact rewards.
+- Command/source: `.venv/bin/python -u runs/qwen35_rloo_extensions.py`, retained
+  in `results/training/qwen35_rloo_extensions_plan.json`. It first resumes the
+  fixed last-Dagger validation, then runs the guarded 96-group continuation
+  and 100/game policy validation on seeds 80000–80099. Preserve RLOO24 weights,
+  history and cached validation. Never use test seeds for this decision.
+- Measure paired increments versus RLOO24 and SFT on both games. A material
+  improvement requires a max-min selection-score gain of at least five points
+  and a positive corrected lower bound for at least one game's paired gain,
+  without a corrected interval wholly below zero in the other game. Retain
+  all results even when this criterion fails.
+
+### T23 — extend the same RLOO recipe from 96 to 192 groups (registered)
+
+- Same focused hypothesis and controls as T22; continue the exact preceding
+  adapter/optimizer, measure against RLOO96 and SFT. Run both fixed budgets,
+  without selecting a favorable intermediate training step from policy scores.
+- Before either new outcome, enlarge the validation contrast family to fourteen:
+  five follow-ups versus SFT in both games, plus the two consecutive-budget
+  comparisons in both games. Bonferroni 1−0.05/14, 56,000 resamples, seed zero.
+  Preserve earlier six-contrast files and report the conservative enlarged
+  intervals too. Protocol amendment: `results/protocol.json`.
+- One final local winner is still selected by the same max-min rule, so the
+  final held-out family remains nine, including unavailable candidates. The
+  extended supervisor ends at validation, allowing the requested loop to be
+  assessed before freezing and testing once. Results are pending.
+- Selection regression checks and full suite pass: 129 tests in 6.01 seconds,
+  with Ruff clean (`results/verification_rloo_extension_selection.json`).

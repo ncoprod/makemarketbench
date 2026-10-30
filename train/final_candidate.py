@@ -41,7 +41,7 @@ def main():
     else:
         evaluate_last_dagger(args)
         trials = []
-        for method in ("sft", "dagger", "dagger-last", "rloo"):
+        for method in ("sft", "dagger", "dagger-last", "rloo", "rloo96", "rloo192"):
             label = f"qwen3.5-4b-{method}"
             scores, inputs = {}, {}
             for game in ("dice", "cards"):

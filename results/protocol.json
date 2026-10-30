@@ -59,7 +59,7 @@
       "decision_rule": "Require positive primary and inference-group family lower bounds for cards and paired API superiority. No choice between methods after seeing scores.",
       "scope": "Conditional on frozen weights and recorded response cache; does not estimate fresh-cache or training-seed variation."
     },
-    "local_validation_contrast_family": "Six DAgger-best/DAgger-last/RLOO versus SFT game contrasts; 1-0.05/6 intervals, 24000 resamples, seed 0. Local winner still selected only by the registered max-min validation score; one local held-out candidate, nine total."
+    "local_validation_contrast_family": "Fourteen contrasts: DAgger-best, DAgger-last, RLOO24, RLOO96 and RLOO192 versus SFT, and RLOO96 versus RLOO24, RLOO192 versus RLOO96, each on dice/cards; 1-0.05/14, 56000 resamples, seed 0. Registered after RLOO24 validation; earlier six-contrast receipts retained separately. One local test candidate, nine final candidates total."
   },
   "training": {
     "teacher_episodes_per_game": 800,
@@ -74,9 +74,15 @@
       "sft",
       "dagger",
       "dagger-last",
-      "rloo"
+      "rloo",
+      "rloo96",
+      "rloo192"
     ],
-    "dagger_last_rule": "Last numbered saved DAgger checkpoint; evaluate on 100 validation episodes per game before freezing the one local test candidate. Keep teacher-loss-selected checkpoint as a separate validation trial."
+    "dagger_last_rule": "Last numbered saved DAgger checkpoint; evaluate on 100 validation episodes per game before freezing the one local test candidate. Keep teacher-loss-selected checkpoint as a separate validation trial.",
+    "rloo_extension_steps": [
+      96,
+      192
+    ]
   },
   "amendments": [
     {
@@ -113,6 +119,11 @@
       "at": "2026-10-30T07:03:22.183238+00:00",
       "reason": "DAgger teacher validation at 199/399 is worse than the initial SFT adapter; testing only its teacher-selected checkpoint may therefore test unchanged weights. Register the fixed last saved training checkpoint as another validation trial before any DAgger/RLOO policy validation or held-out aggregate. No held-out candidate added: one local validation winner remains. Widen the validation contrast family from four to six before any follow-up contrast is observed.",
       "source": "train/final_candidate.py; results/training/qwen35_dagger_last_plan.json; ITERATIONS.md"
+    },
+    {
+      "at": "2026-10-30T09:40:26.490310+00:00",
+      "reason": "RLOO24 improves dice validation but remains below target. Before any local selection/test, register fixed 96/192-group continuations with unchanged seed/reward/decoder/lr and widen validation contrasts to fourteen. Preserve earlier six-contrast results. One selected local test candidate remains; nine final candidates total.",
+      "source": "results/training/qwen35_rloo_extensions_plan.json; ITERATIONS.md"
     }
   ]
 }
