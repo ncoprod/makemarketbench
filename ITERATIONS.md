@@ -1608,3 +1608,27 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/qwen_latest_recheck_20261030.json`. Image, speech and driving
   specialists are distinct releases; they do not replace the general-purpose
   quote-policy family selection. No training recipe changes or extra trial.
+
+### Frozen CUDA continuations retained; registered router complete
+
+- Commands: `.venv/bin/python runs/retain_original_final_resume.py`;
+  `.venv/bin/python runs/retain_sft_complete.py`;
+  `.venv/bin/python scripts/stitch_routed_policy.py --input
+  results/kaggle/staged-sft-complete-v1 results/kaggle/staged-final-v1`.
+- Original GRPO: 200 dice and 200 cards, pair runtime 6754.009554178 seconds,
+  both workers completed. Original 120 dice bytes remain identical. Legacy rows
+  lack an adapter hash; preserve that limitation rather than retrofit metadata.
+- Staged SFT: both dice shards complete, 200 episodes total, prior 187 bytes
+  preserved. Cards has 100 episodes on seeds 300–399. Worker 200 fails its
+  eight-development-state serial/batch4 gate; worker 300 passes the same states.
+  For development seed 20005, round 1, its failed batched quote is 31/45 versus
+  serial 33/47 (sizes 4); the other seven quotes agree. Record both outcomes.
+- Staged pair runtime 1753.499030631 seconds; exit codes [1,0]. This is a
+  partial secondary ablation, not a complete SFT cards result. Do not score it
+  or bypass the failed gate to consume quota. The registered SFT-dice/GRPO-cards
+  router now has two complete 200-episode cohorts without a policy change.
+- Retained sources, hashes, runtimes and raw episodes:
+  `results/training/kaggle_original_final_resume_completion.json`,
+  `results/training/kaggle_staged_sft_complete_completion.json`,
+  `results/final/staged-routed/cohorts.json`. Canonical seeded-game checks:
+  `results/final/resumed_game_comparability.json`. No new held-out aggregates opened.

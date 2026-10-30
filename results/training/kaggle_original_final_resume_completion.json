@@ -1,0 +1,96 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_original_final_resume.py",
+    "config": {
+      "purpose": "retain completed frozen original GRPO continuation without aggregate inspection"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "6fbd8f8b9645cc119d4a490e74e7a8e4a88bad06",
+    "uncommitted_diff_sha256": "aa314bcb98ce11cd0726ceac6c840f7cb16873470fd8ce5a3e6dff5b8ec9b7a9",
+    "started_at": "2026-10-30T00:33:29.066904+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "download_receipt": "results/training/kaggle_original_final_resume.json",
+  "kernel": "nicolascoquelet/makemarketbench-frozen-grpo-final-resume",
+  "version": 2,
+  "input_sha256": {
+    "runs/kaggle_original_final_resume_output/frozen_adapter.json": "1bd429950710ab918fc2016a742f6a8a867e3a6723b31745078463948b5f4a5f",
+    "runs/kaggle_original_final_resume_output/evaluate_core.py": "1133a460083cc378990c902cab17b0882debefaf77f4c09c343b6888f0d00032",
+    "runs/kaggle_original_final_resume_output/makemarketbench-frozen-grpo-final-resume.log": "8d1bc72088b1acd8f321a6a9302951ad3ecad9f6b5fd46a868d49c729f81da6a",
+    "runs/kaggle_original_final_resume_output/pair_runtime.json": "b7e939c532f2595a2f7743ad7a790c060ff9e6cfb58059a6a11c788a1cec4b8f",
+    "runs/kaggle_original_final_resume_output/resume-dice/runtime.json": "203ee1160d2288ca4a10dad2de588b65a14d983489fe0123f693bc991eb10617",
+    "runs/kaggle_original_final_resume_output/resume-cards/runtime.json": "3a12f4e5d7ad7171d27ea16645574a1bc78eb8c1233d76b2298e67bf73a41789",
+    "runs/kaggle_original_final_resume_output/resume-cards/results/leaderboard_cards.json": "be9f2ee9e99cb56f4dbeb26ee0d0839c384d3247c3467f4e7df7f2574b284eb5",
+    "runs/kaggle_original_final_resume_output/resume-cards/results/leaderboard_cards.md": "99a1acb82359802a57ca155040e8a0b04ce63d5522c0e67a3780df9000d70abf",
+    "runs/kaggle_original_final_resume_output/resume-dice/results/leaderboard_dice.json": "3eeac815583e24a7b3eb37649ca814bbf4f4530891532df68e55b9b2c4e8da1b",
+    "runs/kaggle_original_final_resume_output/resume-dice/results/leaderboard_dice.md": "94ed34c72d177c5219b334eb048a81a9a0cd1fe5045637e621d276f0d14f2c4c",
+    "runs/kaggle_original_final_resume_output/resume-dice/results/raw/dice/qwen3.5-4b-grpo.jsonl": "fc9e4042261a36e5e955390ae6af1d16c49fe53f6e7d0d6809bb480711190da6",
+    "runs/kaggle_original_final_resume_output/resume-dice/results/raw/dice/bayes.jsonl": "54a0dc6c9e3c6746d71c415038e2fb52faaa9a1e47eeb0e8247ae09048d4c84b",
+    "runs/kaggle_original_final_resume_output/resume-cards/results/raw/cards/qwen3.5-4b-grpo.jsonl": "0c8219c0f8a8e3eb38ae66befb70bd09543028fc1c0bc055c34ebe520e3f1c20",
+    "runs/kaggle_original_final_resume_output/resume-cards/results/raw/cards/bayes.jsonl": "2f022c5fdd4bd30b74d202f2e01064c5820e093e6733895c583dd86d254ac56f"
+  },
+  "output_sha256": {
+    "results/kaggle/original-resume-v2/frozen_adapter.json": "1bd429950710ab918fc2016a742f6a8a867e3a6723b31745078463948b5f4a5f",
+    "results/kaggle/original-resume-v2/evaluate_core.py": "1133a460083cc378990c902cab17b0882debefaf77f4c09c343b6888f0d00032",
+    "results/kaggle/original-resume-v2/makemarketbench-frozen-grpo-final-resume.log": "8d1bc72088b1acd8f321a6a9302951ad3ecad9f6b5fd46a868d49c729f81da6a",
+    "results/kaggle/original-resume-v2/pair_runtime.json": "b7e939c532f2595a2f7743ad7a790c060ff9e6cfb58059a6a11c788a1cec4b8f",
+    "results/kaggle/original-resume-v2/resume-dice/runtime.json": "203ee1160d2288ca4a10dad2de588b65a14d983489fe0123f693bc991eb10617",
+    "results/kaggle/original-resume-v2/resume-cards/runtime.json": "3a12f4e5d7ad7171d27ea16645574a1bc78eb8c1233d76b2298e67bf73a41789",
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/cards/qwen3.5-4b-grpo.jsonl": "0c8219c0f8a8e3eb38ae66befb70bd09543028fc1c0bc055c34ebe520e3f1c20",
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/cards/bayes.jsonl": "2f022c5fdd4bd30b74d202f2e01064c5820e093e6733895c583dd86d254ac56f",
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/dice/qwen3.5-4b-grpo.jsonl": "fc9e4042261a36e5e955390ae6af1d16c49fe53f6e7d0d6809bb480711190da6",
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/dice/bayes.jsonl": "54a0dc6c9e3c6746d71c415038e2fb52faaa9a1e47eeb0e8247ae09048d4c84b",
+    "results/kaggle/original-resume-v2/resume-cards/results/leaderboard_cards.json": "be9f2ee9e99cb56f4dbeb26ee0d0839c384d3247c3467f4e7df7f2574b284eb5",
+    "results/kaggle/original-resume-v2/resume-cards/results/leaderboard_cards.md": "99a1acb82359802a57ca155040e8a0b04ce63d5522c0e67a3780df9000d70abf",
+    "results/kaggle/original-resume-v2/resume-dice/results/leaderboard_dice.json": "3eeac815583e24a7b3eb37649ca814bbf4f4530891532df68e55b9b2c4e8da1b",
+    "results/kaggle/original-resume-v2/resume-dice/results/leaderboard_dice.md": "94ed34c72d177c5219b334eb048a81a9a0cd1fe5045637e621d276f0d14f2c4c"
+  },
+  "cohorts": {
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/dice/qwen3.5-4b-grpo.jsonl": {
+      "episodes": 200,
+      "seeds": [
+        200,
+        399
+      ],
+      "sha256": "fc9e4042261a36e5e955390ae6af1d16c49fe53f6e7d0d6809bb480711190da6"
+    },
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/dice/bayes.jsonl": {
+      "episodes": 200,
+      "seeds": [
+        200,
+        399
+      ],
+      "sha256": "54a0dc6c9e3c6746d71c415038e2fb52faaa9a1e47eeb0e8247ae09048d4c84b"
+    },
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/cards/qwen3.5-4b-grpo.jsonl": {
+      "episodes": 200,
+      "seeds": [
+        200,
+        399
+      ],
+      "sha256": "0c8219c0f8a8e3eb38ae66befb70bd09543028fc1c0bc055c34ebe520e3f1c20"
+    },
+    "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/cards/bayes.jsonl": {
+      "episodes": 200,
+      "seeds": [
+        200,
+        399
+      ],
+      "sha256": "2f022c5fdd4bd30b74d202f2e01064c5820e093e6733895c583dd86d254ac56f"
+    }
+  },
+  "prior_dice_file": "results/kaggle/original-v1/results/raw/dice/qwen3.5-4b-grpo.jsonl",
+  "prior_dice_sha256": "d45561d62a96cec457c3f0c210f13cf798da78e064c023ba179102296e090fdf",
+  "prior_120_dice_bytes_preserved": true,
+  "seed_correction": "results/training/original_seed_correction.json",
+  "legacy_provenance_note": "The original 120 dice rows do not record an adapter hash. Their bytes are preserved; resumed rows record the downloaded frozen adapter hash. Do not retrofit missing legacy provenance.",
+  "calculation_source": "import json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nsource = Path('runs/kaggle_original_final_resume_output')\nout = Path('results/kaggle/original-resume-v2')\npull = Path('results/training/kaggle_original_final_resume.json')\nsubmitted = json.loads(pull.read_text())\nassert submitted['version'] == 2 and submitted['status'] == 'outputs_retrieved'\npair = json.loads((source / 'pair_runtime.json').read_text())\nassert pair['exit_codes'] == [0, 0] and pair['checkpoint_updates'] == 300\nprevious = Path('results/kaggle/original-v1')\nprior = list(previous.rglob('dice/qwen3.5-4b-grpo.jsonl'))\nassert len(prior) == 1\nassert len(prior[0].read_bytes().splitlines()) == 120\nassert (source / 'resume-dice/results/raw/dice/qwen3.5-4b-grpo.jsonl').read_bytes().startswith(prior[0].read_bytes())\ninputs, outputs, cohorts = {}, {}, {}\nfor src in source.rglob('*'):\n    if src.is_file() and src.suffix != '.jsonl':\n        target = out / src.relative_to(source)\n        target.parent.mkdir(parents=True, exist_ok=True)\n        shutil.copyfile(src, target)\n        inputs[str(src)] = file_sha256(src)\nfor game in ('dice', 'cards'):\n    runtime = json.loads((source / f'resume-{game}/runtime.json').read_text())\n    assert runtime['status'] == 'completed'\n    for label in ('qwen3.5-4b-grpo', 'bayes'):\n        raw = source / f'resume-{game}/results/raw/{game}/{label}.jsonl'\n        rows = [json.loads(line) for line in raw.read_text().splitlines()]\n        assert sorted(row['seed'] for row in rows) == list(range(200, 400))\n        assert all(row['game'] == game and row['player'] == label and len(row['rounds']) == 6 for row in rows)\n        if label != 'bayes':\n            assert all(row['provenance']['model_revision'] == pair['model_revision'] for row in rows)\n            new_rows = rows[120:] if game == 'dice' else rows\n            assert all(row['provenance']['config']['adapter_sha256'] == pair['adapter_sha256'] for row in new_rows)\n        inputs[str(raw)] = file_sha256(raw)\n        target = out / f'qwen3.5-4b-grpo/results/raw/{game}/{label}.jsonl'\n        target.parent.mkdir(parents=True, exist_ok=True)\n        shutil.copyfile(raw, target)\n        cohorts[str(target)] = {'episodes': len(rows), 'seeds': [200, 399], 'sha256': file_sha256(target)}\nfor path in out.rglob('*'):\n    if path.is_file(): outputs[str(path)] = file_sha256(path)\nr = {'provenance': receipt({'purpose': 'retain completed frozen original GRPO continuation without aggregate inspection'}, pair['model_revision']),\n     'download_receipt': str(pull), 'kernel': submitted['metadata']['id'], 'version': 2,\n     'input_sha256': inputs, 'output_sha256': outputs, 'cohorts': cohorts,\n     'prior_dice_file': str(prior[0]), 'prior_dice_sha256': file_sha256(prior[0]), 'prior_120_dice_bytes_preserved': True,\n     'seed_correction': 'results/training/original_seed_correction.json',\n     'legacy_provenance_note': 'The original 120 dice rows do not record an adapter hash. Their bytes are preserved; resumed rows record the downloaded frozen adapter hash. Do not retrofit missing legacy provenance.',\n     'calculation_source': Path(__file__).read_text(),\n     'interpretation': 'Frozen trained adapter; only missing episodes evaluated. Original 120 dice episodes remain byte-identical. No aggregate held-out scores inspected.'}\nPath('results/training/kaggle_original_final_resume_completion.json').write_text(json.dumps(r, indent=2) + '\\n')\np = Path('results/training/kaggle_budget.json'); ledger = json.loads(p.read_text())\nfor session in ledger['sessions']:\n    if session['kernel'] == r['kernel'] and session['version'] == 2:\n        session.update(status='completed_outputs_retrieved', script_wall_seconds=pair['wall_seconds'],\n                       hours=pair['wall_seconds'] / 3600, hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.',\n                       observed_complete_at=submitted['polls'][-1]['at'], result_file=str(out / 'pair_runtime.json'))\np.write_text(json.dumps(ledger, indent=2) + '\\n')\nprint('Retained both complete 200-episode GRPO cohorts; prior 120 dice bytes preserved; scores sealed.')\n",
+  "interpretation": "Frozen trained adapter; only missing episodes evaluated. Original 120 dice episodes remain byte-identical. No aggregate held-out scores inspected."
+}

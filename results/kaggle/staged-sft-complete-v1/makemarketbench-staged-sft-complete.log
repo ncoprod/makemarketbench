@@ -1,0 +1,147 @@
+[{"stream_name":"stderr","time":23.693605877,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":23.693652655,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stderr","time":23.697024841,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":23.69704579,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stdout","time":85.228956173,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":85.228989299,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":85.228995099,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":85.228999905,"data":"   \\\\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":85.229004566,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":85.229009342,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":85.229014037,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":85.229019065,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":85.231645073,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":85.231665928,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":85.231671699,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":85.231693863,"data":"   \\\\   /|    Tesla T4. Num GPUs = 1. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":85.23170071,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":85.231705691,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":85.231710922,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":85.23171597,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":86.528191688,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stdout","time":86.535480697,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stderr","time":86.839904169,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":86.839933424,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":86.841432846,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":86.841467876,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":87.21664935,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":87.232182722,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":142.205872456,"data":"\rLoading weights:   0%|          | 0/723 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 0/723 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/723 [00:00\u003c03:53,  3.09it/s]\rLoading weights:   0%|          | 1/723 [00:00\u003c03:53,  3.09it/s]\rLoading weights:   1%|          | 6/723 [00:00\u003c00:43, 16.54it/s]\rLoading weights:   1%|          | 6/723 [00:00\u003c00:46, 15.44it/s]\rLoading weights:   3%|▎         | 25/723 [00:00\u003c00:11, 62.99it/s]\rLoading weights:   3%|▎         | 25/723 [00:00\u003c00:10, 66.09it/s]\rLoading weights:   6%|▌         | 41/723 [00:00\u003c00:07, 91.89it/s]\rLoading weights:   6%|▌         | 41/723 [00:00\u003c00:07, 88.83it/s]\rLoading weights:   8%|▊         | 61/723 [00:00\u003c00:05, 119.27it/s]\rLoading weights:   8%|▊         | 61/723 [00:00\u003c00:05, 122.15it/s]\rLoading weights:  11%|█         | 79/723 [00:00\u003c00:04, 136.82it/s]\rLoading weights:  11%|█         | 79/723 [00:00\u003c00:04, 134.54it/s]\rLoading weights:  13%|█▎        | 95/723 [00:00\u003c00:04, 141.04it/s]\rLoading weights:  13%|█▎        | 95/723 [00:00\u003c00:04, 139.40it/s]\rLoading weights:  16%|█▌        | 117/723 [00:01\u003c00:03, 162.94it/s]\rLoading weights:  16%|█▌        | 117/723 [00:01\u003c00:03, 161.45it/s]\rLoading weights:  19%|█▊        | 135/723 [00:01\u003c00:03, 157.12it/s]\rLoading weights:  19%|█▊        | 135/723 [00:01\u003c00:03, 157.94it/s]\rLoading weights:  21%|██        | 152/723 [00:01\u003c00:03, 157.60it/s]\rLoading weights:  21%|██        | 152/723 [00:01\u003c00:03, 158.19it/s]\rLoading weights:  24%|██▍       | 172/723 [00:01\u003c00:03, 169.33it/s]\rLoading weights:  24%|██▍       | 172/723 [00:01\u003c00:03, 168.88it/s]\rLoading weights:  27%|██▋       | 195/723 [00:01\u003c00:02, 184.71it/s]\rLoading weights:  27%|██▋       | 195/723 [00:01\u003c00:02, 184.48it/s]\rLoading weights:  30%|██▉       | 214/723 [00:01\u003c00:02, 170.09it/s]\rLoading weights:  30%|██▉       | 214/723 [00:01\u003c00:03, 169.57it/s]\rLoading weights:  33%|███▎      | 237/723 [00:01\u003c00:02, 183.53it/s]\rLoading weights:  33%|███▎      | 237/723 [00:01\u003c00:02, 183.31it/s]\rLoading weights:  35%|███▌      | 256/723 [00:01\u003c00:02, 168.60it/s]\rLoading weights:  35%|███▌      | 256/723 [00:01\u003c00:02, 167.76it/s]\rLoading weights:  38%|███▊      | 277/723 [00:01\u003c00:02, 174.30it/s]\rLoading weights:  38%|███▊      | 277/723 [00:02\u003c00:02, 173.18it/s]\rLoading weights:  41%|████      | 295/723 [00:02\u003c00:02, 175.00it/s]\rLoading weights:  41%|████      | 295/723 [00:02\u003c00:02, 173.59it/s]\rLoading weights:  43%|████▎     | 313/723 [00:02\u003c00:02, 169.03it/s]\rLoading weights:  43%|████▎     | 313/723 [00:02\u003c00:02, 167.91it/s]\rLoading weights:  47%|████▋     | 340/723 [00:02\u003c00:02, 190.17it/s]\rLoading weights:  47%|████▋     | 340/723 [00:02\u003c00:02, 189.68it/s]\rLoading weights:  50%|████▉     | 360/723 [00:02\u003c00:02, 178.15it/s]\rLoading weights:  50%|████▉     | 360/723 [00:02\u003c00:02, 178.74it/s]\rLoading weights:  53%|█████▎    | 383/723 [00:02\u003c00:01, 185.75it/s]\rLoading weights:  53%|█████▎    | 383/723 [00:02\u003c00:01, 186.19it/s]\rLoading weights:  56%|█████▌    | 402/723 [00:02\u003c00:01, 185.94it/s]\rLoading weights:  56%|█████▌    | 402/723 [00:02\u003c00:01, 185.91it/s]\rLoading weights:  58%|█████▊    | 421/723 [00:02\u003c00:01, 178.12it/s]\rLoading weights:  58%|█████▊    | 421/723 [00:02\u003c00:01, 177.63it/s]\rLoading weights:  73%|███████▎  | 530/723 [00:02\u003c00:00, 426.38it/s]\rLoading weights:  74%|███████▎  | 533/723 [00:02\u003c00:00, 434.71it/s]\rLoading weights:  93%|█████████▎| 672/723 [00:02\u003c00:00, 700.97it/s]\rLoading weights:  93%|█████████▎| 672/723 [00:03\u003c00:00, 700.83it/s]\rLoading weights: 100%|██████████| 723/723 [00:03\u003c00:00, 238.23it/s]\n"}
+,{"stream_name":"stderr","time":142.206385507,"data":"\rLoading weights: 100%|██████████| 723/723 [00:03\u003c00:00, 236.27it/s]\n"}
+,{"stream_name":"stdout","time":148.546874195,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":148.549075854,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":448.045788713,"data":"[qwen3.5-4b-staged-sft] 5/8 episodes, 299s\n"}
+,{"stream_name":"stdout","time":459.730017708,"data":"[qwen3.5-4b-staged-sft] 5/5 episodes, 311s\n"}
+,{"stream_name":"stdout","time":459.772721314,"data":"[eval] dice: 100 episodes, mean E[PnL]=12.19 (311s) -\u003e /kaggle/working/shard-300/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\n"}
+,{"stream_name":"stdout","time":459.772748001,"data":"[bayes] 5/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.801981951,"data":"[bayes] 10/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.830426773,"data":"[bayes] 15/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.859765364,"data":"[bayes] 20/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.88740343,"data":"[bayes] 25/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.915796251,"data":"[bayes] 30/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.943030023,"data":"[bayes] 35/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.969739516,"data":"[bayes] 40/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":459.997774505,"data":"[bayes] 45/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.026179728,"data":"[bayes] 50/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.055347133,"data":"[bayes] 55/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.08340085,"data":"[bayes] 60/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.110549486,"data":"[bayes] 65/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.139780043,"data":"[bayes] 70/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.167765956,"data":"[bayes] 75/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.196853031,"data":"[bayes] 80/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.226407736,"data":"[bayes] 85/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":460.254538493,"data":"[bayes] 90/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":460.282033103,"data":"[bayes] 95/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":460.309579766,"data":"[bayes] 100/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":533.207369147,"data":"[eval] dice: 100 episodes, mean E[PnL]=9.53 (385s) -\u003e /kaggle/working/shard-200/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\n"}
+,{"stream_name":"stdout","time":533.207505203,"data":"[bayes] 5/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.239738809,"data":"[bayes] 10/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.269278621,"data":"[bayes] 15/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.298987166,"data":"[bayes] 20/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.327462803,"data":"[bayes] 25/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.359624305,"data":"[bayes] 30/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.38854471,"data":"[bayes] 35/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.418728461,"data":"[bayes] 40/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.448498567,"data":"[bayes] 45/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.47648783,"data":"[bayes] 50/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.50560604,"data":"[bayes] 55/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.534424961,"data":"[bayes] 60/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.56277816,"data":"[bayes] 65/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.591589945,"data":"[bayes] 70/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.619779246,"data":"[bayes] 75/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.649352005,"data":"[bayes] 80/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.676971759,"data":"[bayes] 85/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":533.705325555,"data":"[bayes] 90/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":533.733547828,"data":"[bayes] 95/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":533.762054846,"data":"[bayes] 100/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":609.758864181,"data":"[qwen3.5-4b-staged-sft] 4/100 episodes, 61s\n"}
+,{"stream_name":"stderr","time":615.300069153,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":615.30085703,"data":"  File \"/kaggle/working/evaluate_core.py\", line 576, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":615.300878905,"data":"    main()\n"}
+,{"stream_name":"stderr","time":615.300884588,"data":"    ~~~~^^\n"}
+,{"stream_name":"stderr","time":615.300984866,"data":"  File \"/kaggle/working/evaluate_core.py\", line 565, in main\n"}
+,{"stream_name":"stderr","time":615.300996981,"data":"    train(args, report_runtime)\n"}
+,{"stream_name":"stderr","time":615.301001587,"data":"    ~~~~~^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":615.301005965,"data":"  File \"/kaggle/working/evaluate_core.py\", line 250, in train\n"}
+,{"stream_name":"stderr","time":615.301010271,"data":"    check_batching(model, tokenizer, args)\n"}
+,{"stream_name":"stderr","time":615.301014637,"data":"    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":615.301063341,"data":"  File \"/kaggle/working/evaluate_core.py\", line 429, in check_batching\n"}
+,{"stream_name":"stderr","time":615.301097016,"data":"    raise ValueError(\"Serial/batched quotes differ on training states; inspect batch_parity.json\")\n"}
+,{"stream_name":"stderr","time":615.301194287,"data":"ValueError: Serial/batched quotes differ on training states; inspect batch_parity.json\n"}
+,{"stream_name":"stdout","time":661.790167947,"data":"[qwen3.5-4b-staged-sft] 8/100 episodes, 113s\n"}
+,{"stream_name":"stdout","time":711.169442571,"data":"[qwen3.5-4b-staged-sft] 12/100 episodes, 162s\n"}
+,{"stream_name":"stdout","time":759.291028708,"data":"[qwen3.5-4b-staged-sft] 16/100 episodes, 210s\n"}
+,{"stream_name":"stdout","time":808.638978999,"data":"[qwen3.5-4b-staged-sft] 20/100 episodes, 260s\n"}
+,{"stream_name":"stdout","time":857.883718808,"data":"[qwen3.5-4b-staged-sft] 24/100 episodes, 309s\n"}
+,{"stream_name":"stdout","time":908.099986937,"data":"[qwen3.5-4b-staged-sft] 28/100 episodes, 359s\n"}
+,{"stream_name":"stdout","time":957.908111202,"data":"[qwen3.5-4b-staged-sft] 32/100 episodes, 409s\n"}
+,{"stream_name":"stdout","time":998.273962396,"data":"[qwen3.5-4b-staged-sft] 36/100 episodes, 449s\n"}
+,{"stream_name":"stdout","time":1045.928285431,"data":"[qwen3.5-4b-staged-sft] 40/100 episodes, 497s\n"}
+,{"stream_name":"stdout","time":1093.418902634,"data":"[qwen3.5-4b-staged-sft] 44/100 episodes, 545s\n"}
+,{"stream_name":"stdout","time":1134.05380028,"data":"[qwen3.5-4b-staged-sft] 48/100 episodes, 585s\n"}
+,{"stream_name":"stdout","time":1181.866298265,"data":"[qwen3.5-4b-staged-sft] 52/100 episodes, 633s\n"}
+,{"stream_name":"stdout","time":1229.642097875,"data":"[qwen3.5-4b-staged-sft] 56/100 episodes, 681s\n"}
+,{"stream_name":"stdout","time":1268.903872558,"data":"[qwen3.5-4b-staged-sft] 60/100 episodes, 720s\n"}
+,{"stream_name":"stdout","time":1316.681750608,"data":"[qwen3.5-4b-staged-sft] 64/100 episodes, 768s\n"}
+,{"stream_name":"stdout","time":1366.738347637,"data":"[qwen3.5-4b-staged-sft] 68/100 episodes, 818s\n"}
+,{"stream_name":"stdout","time":1416.733162438,"data":"[qwen3.5-4b-staged-sft] 72/100 episodes, 868s\n"}
+,{"stream_name":"stdout","time":1466.574800932,"data":"[qwen3.5-4b-staged-sft] 76/100 episodes, 918s\n"}
+,{"stream_name":"stdout","time":1507.173422124,"data":"[qwen3.5-4b-staged-sft] 80/100 episodes, 958s\n"}
+,{"stream_name":"stdout","time":1555.735417384,"data":"[qwen3.5-4b-staged-sft] 84/100 episodes, 1007s\n"}
+,{"stream_name":"stdout","time":1596.656146767,"data":"[qwen3.5-4b-staged-sft] 88/100 episodes, 1048s\n"}
+,{"stream_name":"stdout","time":1645.655861938,"data":"[qwen3.5-4b-staged-sft] 92/100 episodes, 1097s\n"}
+,{"stream_name":"stdout","time":1694.793221073,"data":"[qwen3.5-4b-staged-sft] 96/100 episodes, 1146s\n"}
+,{"stream_name":"stdout","time":1735.956673106,"data":"[qwen3.5-4b-staged-sft] 100/100 episodes, 1187s\n"}
+,{"stream_name":"stdout","time":1736.188042653,"data":"[eval] cards: 100 episodes, mean E[PnL]=6.21 (1187s) -\u003e /kaggle/working/shard-300/results/raw/cards/qwen3.5-4b-staged-sft.jsonl\n"}
+,{"stream_name":"stdout","time":1736.188075718,"data":"[bayes] 5/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":1736.421670007,"data":"[bayes] 10/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":1736.663090498,"data":"[bayes] 15/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":1736.904995123,"data":"[bayes] 20/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":1737.131793286,"data":"[bayes] 25/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":1737.365021167,"data":"[bayes] 30/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":1737.605824412,"data":"[bayes] 35/100 episodes, 2s\n"}
+,{"stream_name":"stdout","time":1737.8310035,"data":"[bayes] 40/100 episodes, 2s\n"}
+,{"stream_name":"stdout","time":1738.057963748,"data":"[bayes] 45/100 episodes, 2s\n"}
+,{"stream_name":"stdout","time":1738.293862161,"data":"[bayes] 50/100 episodes, 2s\n"}
+,{"stream_name":"stdout","time":1738.524582482,"data":"[bayes] 55/100 episodes, 3s\n"}
+,{"stream_name":"stdout","time":1738.760943139,"data":"[bayes] 60/100 episodes, 3s\n"}
+,{"stream_name":"stdout","time":1739.005516427,"data":"[bayes] 65/100 episodes, 3s\n"}
+,{"stream_name":"stdout","time":1739.233272283,"data":"[bayes] 70/100 episodes, 3s\n"}
+,{"stream_name":"stdout","time":1739.473337068,"data":"[bayes] 75/100 episodes, 4s\n"}
+,{"stream_name":"stdout","time":1739.709576803,"data":"[bayes] 80/100 episodes, 4s\n"}
+,{"stream_name":"stdout","time":1739.936437137,"data":"[bayes] 85/100 episodes, 4s\n"}
+,{"stream_name":"stdout","time":1740.166618196,"data":"[bayes] 90/100 episodes, 4s\n"}
+,{"stream_name":"stdout","time":1740.414963554,"data":"[bayes] 95/100 episodes, 4s\n"}
+,{"stream_name":"stdout","time":1740.645998384,"data":"[bayes] 100/100 episodes, 5s\n"}
+,{"stream_name":"stderr","time":1754.502133903,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":1754.50257669,"data":"  File \"/kaggle/src/script.py\", line 35, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":1754.502592294,"data":"    if any(codes):raise RuntimeError(f'Evaluation worker exit codes: {codes}')\n"}
+,{"stream_name":"stderr","time":1754.502597455,"data":"                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":1754.502601579,"data":"RuntimeError: Evaluation worker exit codes: [1, 0]\n"}
+,{"stream_name":"stderr","time":1756.762915392,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1756.762951571,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1757.053094349,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1757.053118543,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1757.935144072,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1758.522897559,"data":"[NbConvertApp] Writing 445882 bytes to __results__.html\n"}
+]

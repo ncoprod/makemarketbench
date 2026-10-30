@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/stitch_routed_policy.py --input results/kaggle/staged-sft-complete-v1 results/kaggle/staged-final-v1",
+    "config": {
+      "input": [
+        "results/kaggle/staged-sft-complete-v1",
+        "results/kaggle/staged-final-v1"
+      ],
+      "out": "results/final/staged-routed",
+      "plan": "results/training/staged_routing_plan.json"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "6fbd8f8b9645cc119d4a490e74e7a8e4a88bad06",
+    "uncommitted_diff_sha256": "d4b437efa29b4fef96cf81fdb3f9c6cc573ebe83c0fd80bd9139cd20808a8618",
+    "started_at": "2026-10-30T00:33:37.478953+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "134f0d9b8bd6aa98da6b8588fa98378299ce03a9af1bc148e6817bd0a64d48fc",
+  "plan_sha256": "ebb190cd17b1b7fba2edd38b296763c3bbeacd56c9c0db3b2990ee75b1adb082",
+  "input_sha256": {
+    "results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": "5f2ac64a519e00c329e37c263c13c28c90848f40b89960e59d39a35c6c54eb41",
+    "results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice/bayes.jsonl": "41768d609d6d895518aafbc8d902c8a02dabbc26c92a26a675fd20d9ef90216e",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": "46af35950fbc1f7960a84438aece21f3b2e5e1e3692f0764b7d5d5494c8e81c6",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": "3c869ac3372f13bca62567dd93d7a5984261d73115d66ec67c2abbcabc4b5365"
+  },
+  "output_sha256": {
+    "results/final/staged-routed/raw/dice/qwen3.5-4b-staged-routed.jsonl": "4b6ed154a062ed7686ccfdda7dc3e3455f45dedfd36f2a9536696ff36439a6c6",
+    "results/final/staged-routed/raw/dice/bayes.jsonl": "41768d609d6d895518aafbc8d902c8a02dabbc26c92a26a675fd20d9ef90216e",
+    "results/final/staged-routed/raw/cards/qwen3.5-4b-staged-routed.jsonl": "9061bd240b3053eefa24b4720c71e99c5da74066108efba08783e46c42d234bd",
+    "results/final/staged-routed/raw/cards/bayes.jsonl": "3c869ac3372f13bca62567dd93d7a5984261d73115d66ec67c2abbcabc4b5365"
+  },
+  "routes": {
+    "dice": "qwen3.5-4b-staged-sft",
+    "cards": "qwen3.5-4b-staged-grpo"
+  },
+  "interpretation": "Reused deterministic cohorts, not new model calls; one base model and two game-specific LoRA adapters."
+}

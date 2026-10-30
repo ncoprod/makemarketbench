@@ -75,6 +75,28 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-staged-sft-complete has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-30T00:22:09.984086+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-complete"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-complete has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-30T00:32:20.857387+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-staged-sft-complete"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-staged-sft-complete has status \"KernelWorkerStatus.ERROR\""
     }
   ],
   "version": 1,
@@ -95,7 +117,7 @@
     "exit_code": 0,
     "output": "Source code and metadata downloaded to runs/kaggle_staged_sft_complete_remote\n"
   },
-  "status": "submitted_private_verified",
+  "status": "outputs_retrieved",
   "source_provenance_note": "The frozen inference core retains its inherited SOURCE_COMMIT declaration; the producing wrapper commit is recorded separately, and the exact patched core SHA is recorded in execution provenance. All scheduling/parity patches and full source are retained here. No inherited declaration is rewritten after submission.",
   "preflight_failure": "First local compilation caught a broad COMMIT placeholder colliding with the embedded SOURCE_COMMIT identifier. Unique placeholders corrected it before any remote submission or GPU allocation.",
   "premature_output_pull": {
@@ -132,5 +154,21 @@
     ],
     "git_commit": "eee0b948771c3b881957b2c66dc45bf9b4819beb",
     "source_sha256": "f677227d83fa847c9ffeead00cc5c69f2e547b694c69a5380c9facd385e6de33"
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-staged-sft-complete",
+      "-p",
+      "runs/kaggle_staged_sft_complete_output",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to runs/kaggle_staged_sft_complete_output\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/evaluate_core.py\nDownloading pair_runtime.json to runs/kaggle_staged_sft_complete_output\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/pair_runtime.json\nDownloading batch_parity.json to runs/kaggle_staged_sft_complete_output/shard-200\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-200/batch_parity.json\nDownloading leaderboard_dice.json to runs/kaggle_staged_sft_complete_output/shard-200/results\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-200/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to runs/kaggle_staged_sft_complete_output/shard-200/results\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-200/results/leaderboard_dice.md\nDownloading bayes.jsonl to runs/kaggle_staged_sft_complete_output/shard-200/results/raw/dice\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-200/results/raw/dice/bayes.jsonl\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_staged_sft_complete_output/shard-200/results/raw/dice\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-200/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\nDownloading runtime.json to runs/kaggle_staged_sft_complete_output/shard-200\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-200/runtime.json\nDownloading batch_parity.json to runs/kaggle_staged_sft_complete_output/shard-300\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/batch_parity.json\nDownloading leaderboard_cards.json to runs/kaggle_staged_sft_complete_output/shard-300/results\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/leaderboard_cards.json\nDownloading leaderboard_cards.md to runs/kaggle_staged_sft_complete_output/shard-300/results\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/leaderboard_cards.md\nDownloading leaderboard_dice.json to runs/kaggle_staged_sft_complete_output/shard-300/results\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to runs/kaggle_staged_sft_complete_output/shard-300/results\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/leaderboard_dice.md\nDownloading bayes.jsonl to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/cards\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/cards/bayes.jsonl\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/cards\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/cards/qwen3.5-4b-staged-sft.jsonl\nDownloading bayes.jsonl to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/dice\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/dice/bayes.jsonl\nDownloading qwen3.5-4b-staged-sft.jsonl to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/dice\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/results/raw/dice/qwen3.5-4b-staged-sft.jsonl\nDownloading runtime.json to runs/kaggle_staged_sft_complete_output/shard-300\n\nOutput file downloaded to runs/kaggle_staged_sft_complete_output/shard-300/runtime.json\nKernel log downloaded to runs/kaggle_staged_sft_complete_output/makemarketbench-staged-sft-complete.log \n\n  0%|          | 0.00/63.8k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 63.8k/63.8k [00:00<00:00, 685kB/s]\n\n  0%|          | 0.00/1.10k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1.10k/1.10k [00:00<00:00, 5.24MB/s]\n\n  0%|          | 0.00/6.37k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6.37k/6.37k [00:00<00:00, 14.0MB/s]\n\n  0%|          | 0.00/5.12k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.12k/5.12k [00:00<00:00, 21.2MB/s]\n\n  0%|          | 0.00/580 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 580/580 [00:00<00:00, 1.98MB/s]\n\n  0%|          | 0.00/382k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 382k/382k [00:00<00:00, 1.15MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 382k/382k [00:00<00:00, 1.14MB/s]\n\n  0%|          | 0.00/468k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 468k/468k [00:00<00:00, 1.24MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 468k/468k [00:00<00:00, 1.23MB/s]\n\n  0%|          | 0.00/2.69k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.69k/2.69k [00:00<00:00, 13.0MB/s]\n\n  0%|          | 0.00/6.36k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6.36k/6.36k [00:00<00:00, 26.0MB/s]\n\n  0%|          | 0.00/5.10k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.10k/5.10k [00:00<00:00, 21.8MB/s]\n\n  0%|          | 0.00/582 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 582/582 [00:00<00:00, 2.92MB/s]\n\n  0%|          | 0.00/5.09k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.09k/5.09k [00:00<00:00, 18.2MB/s]\n\n  0%|          | 0.00/584 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 584/584 [00:00<00:00, 3.04MB/s]\n\n  0%|          | 0.00/393k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 393k/393k [00:00<00:00, 1.19MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 393k/393k [00:00<00:00, 1.18MB/s]\n\n  0%|          | 0.00/476k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 476k/476k [00:00<00:00, 1.21MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 476k/476k [00:00<00:00, 1.21MB/s]\n\n  0%|          | 0.00/382k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 382k/382k [00:00<00:00, 1.15MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 382k/382k [00:00<00:00, 1.15MB/s]\n\n  0%|          | 0.00/468k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 468k/468k [00:00<00:00, 1.19MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 468k/468k [00:00<00:00, 1.19MB/s]\n\n  0%|          | 0.00/2.60k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2.60k/2.60k [00:00<00:00, 13.9MB/s]"
   }
 }

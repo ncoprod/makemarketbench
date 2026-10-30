@@ -1,0 +1,26 @@
+{
+  "wall_seconds": 6754.009554178,
+  "budget_seconds": 7200,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "source_commit": "5cd74b9289195f22aac3fe564cbc87c714799e57",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "evaluation_seeds": [
+    200,
+    399
+  ],
+  "episodes_per_game": 200,
+  "batch_size": 1,
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ],
+  "adapter_sha256": "5e532ea652c3c1ee3d3d1bce81a2bf02dbd2bbacdf26d088d74712312baa06a6",
+  "adapter_config_sha256": "57819c8a01786cc2744979313c9000fc3ae6b49f44ede436250fe340e1c410d1",
+  "checkpoint_updates": 300,
+  "source_kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+  "source_version": 1
+}

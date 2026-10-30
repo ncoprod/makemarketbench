@@ -1,0 +1,37 @@
+{
+  "wall_seconds": 1753.499030631,
+  "budget_seconds": 2100,
+  "exit_codes": [
+    1,
+    0
+  ],
+  "source_commit": "ef884dc4e3e4b9018740801c106d9d2be1eb0e7c",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "seed": 0,
+  "adapter_sha256": "dff5ed68e4c07474ac8640b04f318632ed750781e4095a983f71d2cfb9bf4025",
+  "evaluation_seeds": [
+    200,
+    399
+  ],
+  "episodes_per_shard_per_game": 100,
+  "stage_order": [
+    "missing_dice_serial",
+    "cards_parity_8_train_states",
+    "cards_batch4"
+  ],
+  "retained_inputs": {
+    "200": {
+      "path": "results/kaggle/staged-sft-serial-v2/shard-200/results/raw/dice/qwen3.5-4b-staged-sft.jsonl",
+      "sha256": "3593e16293944c1d529991345d58918386d5ef48e11734528f6a0a95372740dc"
+    },
+    "300": {
+      "path": "results/kaggle/staged-sft-serial-v2/shard-300/results/raw/dice/qwen3.5-4b-staged-sft.jsonl",
+      "sha256": "096b5571aa60ffe4c109ea4dc03a489bc68a71861e134c57888f58ee2d35ef7b"
+    }
+  },
+  "core_sha256": "4c2ecd07cb51a2df620924f63cd44f69b6429cb517128232876e20956e28cae9",
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/src/script.py"
+  ]
+}

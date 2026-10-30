@@ -1,0 +1,261 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/evaluate_core.py",
+    "--eval-only",
+    "--adapter",
+    "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter",
+    "--label",
+    "qwen3.5-4b-staged-sft",
+    "--eval-seed",
+    "300",
+    "--eval-episodes",
+    "100",
+    "--budget-seconds",
+    "2077"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.5-4B",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "label": "qwen3.5-4b-staged-sft",
+    "games": [
+      "cards"
+    ],
+    "episodes": 400,
+    "sft_steps": 150,
+    "sft_batch": 8,
+    "sft_accumulation": 2,
+    "sft_validation_episodes": 0,
+    "save_steps": 100,
+    "budget_seconds": 2077,
+    "seed": 0,
+    "device_map": "sequential",
+    "offload_layers": null,
+    "grpo_steps": 300,
+    "num_generations": 8,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 16,
+    "lr": 5e-06,
+    "eval_episodes": 100,
+    "eval_batch_size": 4,
+    "check_batching": false,
+    "eval_seed": 300,
+    "resume": null,
+    "sft_resume": null,
+    "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-grpo-qwen3-train-only/warmstart_adapter",
+    "train_only": false,
+    "eval_only": true,
+    "dry_run": false,
+    "adapter_sha256": "dff5ed68e4c07474ac8640b04f318632ed750781e4095a983f71d2cfb9bf4025"
+  },
+  "seed": 0,
+  "source_commit": "9d4cca4f79c825a8a48b243efb4285e9e4480f0b",
+  "cuda_visible_devices": "1",
+  "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "source_file_sha256": "4c2ecd07cb51a2df620924f63cd44f69b6429cb517128232876e20956e28cae9",
+  "embedded_package_sha256": "f2fd75899b56ba595718d24c36557b5d1b2045599c4739031c662956e5397ab3",
+  "training_seeds": [
+    20000,
+    20007
+  ],
+  "rounds": [
+    0,
+    1,
+    3,
+    5,
+    0,
+    1,
+    3,
+    5
+  ],
+  "serial_seconds": 54.14342569099995,
+  "batch_seconds": 32.80343655699994,
+  "serial_quotes": [
+    {
+      "bid": 28.0,
+      "bid_size": 3,
+      "ask": 42.0,
+      "ask_size": 3
+    },
+    {
+      "bid": 31.0,
+      "bid_size": 4,
+      "ask": 46.0,
+      "ask_size": 4
+    },
+    {
+      "bid": 34.0,
+      "bid_size": 5,
+      "ask": 44.0,
+      "ask_size": 5
+    },
+    {
+      "bid": 32.0,
+      "bid_size": 5,
+      "ask": 42.0,
+      "ask_size": 5
+    },
+    {
+      "bid": 28.0,
+      "bid_size": 3,
+      "ask": 42.0,
+      "ask_size": 3
+    },
+    {
+      "bid": 33.0,
+      "bid_size": 4,
+      "ask": 47.0,
+      "ask_size": 4
+    },
+    {
+      "bid": 31.0,
+      "bid_size": 5,
+      "ask": 42.0,
+      "ask_size": 5
+    },
+    {
+      "bid": 33.0,
+      "bid_size": 5,
+      "ask": 41.0,
+      "ask_size": 5
+    }
+  ],
+  "batch_quotes": [
+    {
+      "bid": 28.0,
+      "bid_size": 3,
+      "ask": 42.0,
+      "ask_size": 3
+    },
+    {
+      "bid": 31.0,
+      "bid_size": 4,
+      "ask": 46.0,
+      "ask_size": 4
+    },
+    {
+      "bid": 34.0,
+      "bid_size": 5,
+      "ask": 44.0,
+      "ask_size": 5
+    },
+    {
+      "bid": 32.0,
+      "bid_size": 5,
+      "ask": 42.0,
+      "ask_size": 5
+    },
+    {
+      "bid": 28.0,
+      "bid_size": 3,
+      "ask": 42.0,
+      "ask_size": 3
+    },
+    {
+      "bid": 33.0,
+      "bid_size": 4,
+      "ask": 47.0,
+      "ask_size": 4
+    },
+    {
+      "bid": 31.0,
+      "bid_size": 5,
+      "ask": 42.0,
+      "ask_size": 5
+    },
+    {
+      "bid": 33.0,
+      "bid_size": 5,
+      "ask": 41.0,
+      "ask_size": 5
+    }
+  ],
+  "serial_attempts": [
+    [
+      {
+        "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 38.00; after my fills E[V] = 38.90 (sd 6.61).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 40.00; after my fills E[V] = 39.00 (sd 3.08).\n{\"bid\": 34.0, \"bid_size\": 5, \"ask\": 44.0, \"ask_size\": 5}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 37.00; after my fills E[V] = 37.00 (sd 2.00).\n{\"bid\": 32.0, \"bid_size\": 5, \"ask\": 42.0, \"ask_size\": 5}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 38.00; after my fills E[V] = 40.00 (sd 6.58).\n{\"bid\": 33.0, \"bid_size\": 4, \"ask\": 47.0, \"ask_size\": 4}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 37.00; after my fills E[V] = 37.00 (sd 4.08).\n{\"bid\": 31.0, \"bid_size\": 5, \"ask\": 42.0, \"ask_size\": 5}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 37.00; after my fills E[V] = 37.00 (sd 2.08).\n{\"bid\": 33.0, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n"
+      }
+    ]
+  ],
+  "batch_attempts": [
+    [
+      {
+        "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 38.00; after my fills E[V] = 38.90 (sd 6.61).\n{\"bid\": 31.0, \"bid_size\": 4, \"ask\": 46.0, \"ask_size\": 4}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 40.00; after my fills E[V] = 39.00 (sd 3.08).\n{\"bid\": 34.0, \"bid_size\": 5, \"ask\": 44.0, \"ask_size\": 5}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 37.00; after my fills E[V] = 37.00 (sd 2.00).\n{\"bid\": 32.0, \"bid_size\": 5, \"ask\": 42.0, \"ask_size\": 5}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 38.00; after my fills E[V] = 40.00 (sd 6.58).\n{\"bid\": 33.0, \"bid_size\": 4, \"ask\": 47.0, \"ask_size\": 4}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 37.00; after my fills E[V] = 37.00 (sd 4.08).\n{\"bid\": 31.0, \"bid_size\": 5, \"ask\": 42.0, \"ask_size\": 5}\n"
+      }
+    ],
+    [
+      {
+        "content": "Public E[V] = 37.00; after my fills E[V] = 37.00 (sd 2.08).\n{\"bid\": 33.0, \"bid_size\": 5, \"ask\": 41.0, \"ask_size\": 5}\n"
+      }
+    ]
+  ],
+  "timing_note": "Serial runs first and includes warm-up; diagnostic, not a steady-state speedup estimate.",
+  "quotes_equal": true
+}

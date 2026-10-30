@@ -132,19 +132,20 @@ PnL on cards and **−1.37 [−2.29, −0.53]** on dice after GRPO. These descri
 selection ([ablation and source](results/validation/staged_ablation.json)).
 A [registered game router](results/training/staged_routing_plan.json) therefore
 uses the SFT adapter on dice and GRPO on cards: one base model, two adapters.
-The staged GRPO test completes 200 episodes in each game. SFT fails its
-training-state batching check before test. Serial evaluation saves 187 dice
-episodes before its wall cap; a frozen continuation evaluates only the missing
-13 before the cards ablation ([continuation](results/training/kaggle_staged_sft_complete.json),
-[partial receipt](results/training/kaggle_staged_sft_serial_completion.json),
-[downloaded outcomes](results/training/kaggle_staged_final_completion.json),
-[serial continuation](results/training/kaggle_staged_sft_serial.json)).
+The staged GRPO test completes 200 episodes in each game. Serial SFT dice
+also completes all 200, preserving the earlier 187 episode bytes. The registered
+router now has both full cohorts; scores remain sealed. The secondary SFT cards
+ablation has only 100 episodes: one worker passes the eight-state batching gate,
+while the other fails on one quote before testing
+([downloaded outcomes](results/training/kaggle_staged_sft_complete_completion.json),
+[router provenance](results/final/staged-routed/cohorts.json)). A passing small
+training-state check is not proof of numerical equivalence on every state.
 
 A separate original CUDA pipeline also completes training and both 200-episode
-SFT tests, then reaches its platform limit with 120 GRPO dice episodes saved
-([outputs](results/training/kaggle_original_completion.json)). A private frozen
-continuation evaluates only missing episodes
-([receipt](results/training/kaggle_original_final_resume.json)). Its trainer
+SFT tests. Its frozen GRPO continuation now completes both 200-episode games,
+preserving the original 120 dice episode bytes
+([original outputs](results/training/kaggle_original_completion.json),
+[completed continuation](results/training/kaggle_original_final_resume_completion.json)). Its trainer
 configs specify seed 3407 despite outer metadata saying 0; the
 [correction](results/training/original_seed_correction.json) distinguishes
 trainer, adapter-initialization and prompt-shuffle seeds. Backend and recipe

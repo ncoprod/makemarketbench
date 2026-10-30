@@ -1,0 +1,7 @@
+{
+  "adapter_sha256": "5e532ea652c3c1ee3d3d1bce81a2bf02dbd2bbacdf26d088d74712312baa06a6",
+  "adapter_config_sha256": "57819c8a01786cc2744979313c9000fc3ae6b49f44ede436250fe340e1c410d1",
+  "checkpoint_updates": 300,
+  "source_kernel": "nicolascoquelet/makemarketbench-grpo-qwen3",
+  "source_version": 1
+}
