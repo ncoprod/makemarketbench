@@ -1517,3 +1517,30 @@ inspect reward, inference and data diagnostics before applying the stopping rule
 - Next priority: preserve and reuse these 187 episodes and evaluate only the
   missing 13. The planned SFT cards ablation is secondary to completing the
   already-registered dice/router cohort within the remaining GPU allowance.
+
+### Frozen SFT missing-only continuation, then cards ablation
+
+- Preserve all 187 saved dice episode bytes as compressed, hash-verified kernel
+  inputs. No extra dataset or rejected cancelled/error-kernel input is needed.
+  Each T4 loads the identical frozen SFT adapter once and first evaluates its
+  missing dice seeds only (eight on one GPU, five on the other).
+- Only after dice completes, compare serial/batch4 quotes on eight fixed cards
+  training states, seeds 20000–20007 and rounds 0,1,3,5 repeated. Cards test
+  starts only if that expanded gate passes. Two disjoint 100-seed cards shards
+  complete the registered SFT-only ablation; no policy/model/decoder changes.
+- Command: `.venv/bin/python runs/submit_sft_missing_then_cards.py`.
+  Accepted private version 1, T4 x2 requested, source compiles before submission.
+  The first local compile caught a placeholder collision with an embedded
+  source identifier; corrected before allocation. No GPU time spent on that
+  preflight failure.
+- Fresh quota has 6578.239610000004 seconds left. The 2150-second session bound,
+  remaining original batch allowance 2042.9443798065186 seconds and a further
+  2150-second allowance for unknown continued interactive allocation total
+  6342.944379806519, which fits. Script cap is 2100 seconds, below the platform
+  maximum and before the reset. Do not submit more unless another fresh check
+  admits useful work after these outputs are retained.
+- Full source, scheduling/parity patches, embedded-input hashes, producer
+  wrapper commit, inherited core provenance note, private remote metadata and
+  quota arithmetic: `results/training/kaggle_staged_sft_complete.json`.
+  Monitor sleeps 610 seconds between status checks and retrieves terminal
+  outputs into `runs/kaggle_staged_sft_complete_output`.

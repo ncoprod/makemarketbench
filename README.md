@@ -132,8 +132,11 @@ selection ([ablation and source](results/validation/staged_ablation.json)).
 A [registered game router](results/training/staged_routing_plan.json) therefore
 uses the SFT adapter on dice and GRPO on cards: one base model, two adapters.
 The staged GRPO test completes 200 episodes in each game. SFT fails its
-training-state batching check before test; serial dice evaluation is running
-([downloaded outcomes](results/training/kaggle_staged_final_completion.json),
+training-state batching check before test. Serial evaluation saves 187 dice
+episodes before its wall cap; a frozen continuation evaluates only the missing
+13 before the cards ablation ([continuation](results/training/kaggle_staged_sft_complete.json),
+[partial receipt](results/training/kaggle_staged_sft_serial_completion.json),
+[downloaded outcomes](results/training/kaggle_staged_final_completion.json),
 [serial continuation](results/training/kaggle_staged_sft_serial.json)).
 
 A separate original CUDA pipeline also completes training and both 200-episode
@@ -176,8 +179,9 @@ also fail ([receipts](results/expansion/protocol-reasoning.json)). Unavailable
 models receive no score. Lightning and Ultra with thinking disabled complete
 fresh 200-episode cohorts in both games
 ([Lightning](results/expansion/lightning_cohorts.json),
-[Ultra](results/expansion/ultra_cohorts.json)); GPT-OSS, Bolt and additional
-responsive models remain in progress. The corrected final comparison is pending.
+[Ultra](results/expansion/ultra_cohorts.json)). GPT-OSS completes its fresh dice
+cohort ([receipt](results/expansion/gpt_dice_cohort.json)); its cards cohort,
+Bolt and additional responsive models remain in progress. The corrected final comparison is pending.
 
 ## Engine performance and correctness
 
