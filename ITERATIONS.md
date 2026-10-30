@@ -1692,3 +1692,12 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   kernels complete is retained before considering one bounded compiler ablation.
   The newest-family live draft remains inaccessible; do not infer its end time
   or final training state from this account-wide billing observation.
+
+### Make the official quota reset timezone explicit
+
+- The SDK returns a naive reset timestamp. The owner specifies UTC. Attach UTC
+  when absent before serializing `refresh_at`; avoid local-time interpretation
+  in future admission arithmetic. Existing numeric quota measurements do not
+  change. Command: the isolated Kaggle Python running `scripts/kaggle_quota.py`.
+- Ruff passes; the real API snapshot now explicitly reads
+  `2026-10-31T00:00:00+00:00`. This is a timestamp-provenance correction.

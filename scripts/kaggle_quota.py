@@ -20,6 +20,9 @@ def main():
     started = datetime.now(timezone.utc).isoformat()
     with api.build_kaggle_client() as client:
         quota = client.kernels.kernels_api_client.get_accelerator_quota_statistics()
+    refresh = quota.quota_refresh_time
+    if refresh.tzinfo is None:
+        refresh = refresh.replace(tzinfo=timezone.utc)
     record = {
         "recorded_at": started,
         "quota_method": "official SDK GetAcceleratorQuotaStatistics",
@@ -29,7 +32,7 @@ def main():
             "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         },
         "quota": {
-            "refresh_at": quota.quota_refresh_time.isoformat(),
+            "refresh_at": refresh.isoformat(),
             "gpu_seconds_used": quota.gpu_quota.time_used.total_seconds(),
             "gpu_seconds_reserved": quota.gpu_quota.time_reserved.total_seconds(),
             "gpu_seconds_total": quota.gpu_quota.total_time_allowed.total_seconds(),
