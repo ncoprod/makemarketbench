@@ -1,0 +1,54 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_gpt_completion.py",
+    "config": {
+      "purpose": "retain complete GPT-OSS fresh-test acquisition without opening scores"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "f422e97a18cd45eacb0a140ed7771a60b5f707fa",
+    "uncommitted_diff_sha256": "34d44654222d26f71737f89fdd37e1efeedfe3b5591cd773c3aedc6cb284fed9",
+    "started_at": "2026-10-30T13:51:44.864065+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import hashlib\nimport json\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nroot=Path('results/expansion')\npriority=json.loads((root/'baseline_priority_plan.json').read_text())\nprior=json.loads((root/'additional_followup_plan.json').read_text())\nprotocol=json.loads((root/'protocol-gpt-priority.json').read_text())['openai/gpt-oss-20b']\ncard=root/'raw/cards/openai_gpt-oss-20b.jsonl'\nassert hashlib.sha256(card.read_bytes()[:prior['gpt_existing_prefix_bytes']]).hexdigest()==prior['gpt_existing_prefix_sha256']\nfields=('model','base_url','temperature','max_tokens','timeout','extra_body','label')\ncohorts={}; configs=set()\nfor game in ('dice','cards'):\n p=root/f'raw/{game}/openai_gpt-oss-20b.jsonl'\n rows=[json.loads(s) for s in p.read_text().splitlines()]\n assert [r['seed'] for r in rows]==list(range(200,400))\n assert all(r['game']==game and len(r['rounds'])==6 for r in rows)\n for row in rows:\n  cfg=row['provenance']['config']\n  configs.add(json.dumps({k:cfg[k] for k in fields},sort_keys=True))\n cohorts[game]={'episodes':len(rows),'file':str(p),'sha256':file_sha256(p)}\nassert len(configs)==1\nrecord={'provenance':receipt({'purpose':'retain complete GPT-OSS fresh-test acquisition without opening scores'},'NIM immutable deployment revision not exposed'),'source':Path(__file__).read_text(),'cohorts':cohorts,'config':json.loads(configs.pop()),'prior_125_card_prefix_preserved':True,'prefix_bytes':prior['gpt_existing_prefix_bytes'],'prefix_sha256':prior['gpt_existing_prefix_sha256'],'final_resume_wall_seconds':protocol['cards']['wall_seconds'],'resume_completed_new_card_episodes':75,'protocol_file':'results/expansion/protocol-gpt-priority.json','protocol_sha256':file_sha256(root/'protocol-gpt-priority.json'),'canonical_verification':'results/expansion/gpt_complete_canonical.json','canonical_sha256':file_sha256(root/'gpt_complete_canonical.json'),'scope':'Acquisition/structural checks only; no held-out aggregate inspected. Earlier three 504 failures and partial resumes remain retained.'}\n(root/'gpt_complete_cohorts.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint('GPT-OSS 200/game retained, same configuration, old 125-card prefix preserved; scores sealed.')\n",
+  "cohorts": {
+    "dice": {
+      "episodes": 200,
+      "file": "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl",
+      "sha256": "b8edf08ef06cfb3933de570f646edda2c9eb78b2b28241385542830d5af16250"
+    },
+    "cards": {
+      "episodes": 200,
+      "file": "results/expansion/raw/cards/openai_gpt-oss-20b.jsonl",
+      "sha256": "0e0e1bd8a870fbcc6d6d59d87c4ce1fb8fe4a69d11b21d48b6030b989ab82dee"
+    }
+  },
+  "config": {
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "extra_body": {
+      "reasoning_effort": "low"
+    },
+    "label": "openai/gpt-oss-20b",
+    "max_tokens": 4096,
+    "model": "openai/gpt-oss-20b",
+    "temperature": 0.3,
+    "timeout": 600
+  },
+  "prior_125_card_prefix_preserved": true,
+  "prefix_bytes": 882108,
+  "prefix_sha256": "d6649676ea4362cf526f0c7aeeb3b39f83344ffe28abf7107749d1f228516414",
+  "final_resume_wall_seconds": 7062.755683898926,
+  "resume_completed_new_card_episodes": 75,
+  "protocol_file": "results/expansion/protocol-gpt-priority.json",
+  "protocol_sha256": "57026f9403e4d47f81fe3ce36ed2351f63e81d1c8a190b98853c7f877e769150",
+  "canonical_verification": "results/expansion/gpt_complete_canonical.json",
+  "canonical_sha256": "c0fe27dd4feccea868dde27cf8bc69d74d01b45ba1519b8e60b57e3b29fdd023",
+  "scope": "Acquisition/structural checks only; no held-out aggregate inspected. Earlier three 504 failures and partial resumes remain retained."
+}

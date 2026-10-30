@@ -242,10 +242,11 @@ also fail ([receipts](results/expansion/protocol-reasoning.json)). Unavailable
 models receive no score. Lightning and Ultra with thinking disabled complete
 fresh 200-episode cohorts in both games
 ([Lightning](results/expansion/lightning_cohorts.json),
-[Ultra](results/expansion/ultra_cohorts.json)). GPT-OSS completes its fresh dice
-cohort ([receipt](results/expansion/gpt_dice_cohort.json)). Its cards retry reaches
-**125 complete episodes**, then stops after three HTTP 504s
-([unscored partial](results/expansion/gpt_cards_partial_failure.json)). Bolt stops with HTTP
+[Ultra](results/expansion/ultra_cohorts.json)). GPT-OSS now completes
+**200 episodes in both games**, preserving the earlier 125-card prefix and the
+same request settings ([complete acquisition and canonical checks](results/expansion/gpt_complete_cohorts.json)).
+Its earlier three-504 failures remain in the
+[partial-run receipt](results/expansion/gpt_cards_partial_failure.json). Bolt stops with HTTP
 404 after 95 dice episodes and before cards
 ([partial failure](results/expansion/bolt_partial_failure.json)); a
 [conditional missing-only retry](results/expansion/bolt_resume_plan.json) ends
@@ -257,8 +258,8 @@ one dice episode before the same error
 ([all attempts](results/expansion/protocol-supplement.json)). Mistral Large 4's
 documented non-reasoning request returns HTTP 400; Llama-3.2-90B passes its
 availability probe ([receipts](results/expansion/protocol-additional.json)).
-Granite-3.0-8B probing and another GPT-OSS resume are in the
-[additional batch](results/expansion/additional_followup_plan.json).
+Granite-3.0-8B also fails its bounded HTTP 404 probe
+([additional receipts](results/expansion/protocol-additional.json)).
 A [Mistral compatibility control](results/expansion/mistral_default_plan.json)
 omits the rejected reasoning field, before any test-based choice.
 [Baseline-first scheduling](results/expansion/baseline_priority_plan.json) preserves

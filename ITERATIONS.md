@@ -2446,3 +2446,16 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   total. The source-only version was explicitly saved with `--no-run`.
 - README now distinguishes the two observations. No current-window GPU run
   is submitted; actual refreshed availability must admit the next batch.
+
+### GPT-OSS original baseline acquisition complete
+
+- The final missing-only cards resume finishes all 200 episodes in
+  7062.755683898926 seconds, adding 75 to the exact saved 125-card prefix.
+  Dice's already complete cohort is reused. Both games match the canonical
+  seeds 200–399, six rounds, hidden values and public reveals.
+- Verify every row has the same model, endpoint, temperature, token cap,
+  timeout and reasoning settings. Prefix byte hash matches exactly. Commands,
+  source, raw hashes and complete protocol: `results/expansion/gpt_complete_cohorts.json`
+  and `gpt_complete_canonical.json`. Earlier failed attempts remain retained.
+- No aggregate test score is opened. The priority supervisor now waits for
+  the Bolt/Llama-11B and Mistral follow-ups before resuming the slower Llama-90B.
