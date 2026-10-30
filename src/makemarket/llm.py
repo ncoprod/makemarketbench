@@ -130,7 +130,9 @@ class ChatClient:
             except Exception as e:  # rate limits, 5xx, timeouts, connection resets
                 status = getattr(e, "status_code", None)
                 last_err = f"{type(e).__name__}({status}): {str(e)[:200]}"
-                if status is not None and status < 500 and status not in (408, 409, 429):
+                # Listed NIM models can return 404 between successful generations.
+                retry_404 = status == 404 and self.cfg.base_url.rstrip("/") == NIM_BASE_URL
+                if status is not None and status < 500 and status not in (408, 409, 429) and not retry_404:
                     raise RuntimeError(last_err) from e
                 time.sleep(delay + random.random())
                 delay = min(delay * 2, 90.0)

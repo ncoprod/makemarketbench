@@ -1,0 +1,38 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify bounded NIM 404 retry and unchanged request/cache behavior"
+    },
+    "model_revision": null,
+    "git_commit": "7bac9dffdd430344eb9c78fb5fe70fcd27e65e85",
+    "uncommitted_diff_sha256": "ef65332f1cfca34f5bad8183390a36a2385c774aa3f6237c4871542ca3755595",
+    "started_at": "2026-10-30T08:47:43.475013+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check src/makemarket/llm.py tests/test_llm_retries.py",
+      "exit_code": 0,
+      "stdout": "All checks passed!"
+    },
+    {
+      "command": ".venv/bin/pytest -q",
+      "exit_code": 0,
+      "tests_passed": 127,
+      "pytest_seconds": 6.07
+    }
+  ],
+  "source_sha256": {
+    "src/makemarket/llm.py": "e4e06984bffd644179291df2a6edb6bf22dc1c2aef143fc6986a0db99d45b006",
+    "tests/test_llm_retries.py": "b958003a5c85271f020f3100e3b3a47dff2aee25e401bfe118b717a5b2641e40"
+  },
+  "scope": "Transport retries, cache replay and complete Python suite; no model score inspected. Hosted CI remains separately blocked by billing."
+}

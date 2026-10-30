@@ -2134,3 +2134,26 @@ inspect reward, inference and data diagnostics before applying the stopping rule
   `results/training/qwen35_rloo_completion.json`.
   Policy validation starts under the heavy-ML lock; no validation or held-out
   improvement is inferred from successful optimization steps.
+
+### Intermittent NIM 404s: bounded transport retry, unchanged policies
+
+- Evidence: Bolt first stops after 95 dice episodes with HTTP 404, resumes
+  successfully to 138, hits 404 again, then generates valid cards episodes.
+  `results/expansion/protocol-bolt-resume.json` records the failed dice attempt
+  (4020.912531375885 seconds); its cards batch remains in progress. These
+  observations rule out treating every NIM 404 as permanent model retirement.
+- Focused change: retry NIM 404s with the existing bounded backoff, just like
+  timeouts/429/5xx. Other providers' 404s and permanent 400/401/403/410 errors
+  still fail immediately. No prompt, decoder, game seed or successful response
+  changes. Existing live clients finish with their original imported code.
+- Verification commands: `.venv/bin/ruff check src/makemarket/llm.py
+  tests/test_llm_retries.py` and `.venv/bin/pytest -q`: 127 pass in 6.07 seconds.
+  Regression tests verify identical retry requests, cached successful replay,
+  a hard three-attempt limit and immediate permanent-client-error failure.
+  Receipt: `results/verification_nim_404_retry.json`.
+- Queue one missing-only Bolt/Llama-3.2-11B follow-up after the current Bolt
+  and additional-model/GPT batches, under the same global NIM mutex. Both
+  have produced valid episodes before 404s. Exact command/source and prefix
+  preservation checks: `results/expansion/intermittent_resume_plan.json`.
+  This is infrastructure recovery, not another policy-tuning trial or an
+  improvement inferred from a partial test cohort.
