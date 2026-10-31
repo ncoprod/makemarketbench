@@ -3026,3 +3026,8 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Freeze `qwen3.8-27b-batch4-sft`, adapter SHA 96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e, using the unchanged max-min rule and explicit complete-dice bound certificate. Selection is immutable: `results/training/qwen38_selection.json`.
 - Prepare 200 episodes/game, test seeds200-399, greedy batch four, exactly one primary adapter. The predeclared quota-only formula gives a 16,740-second session cap / 16,440-second script cap. Keep the running serial GRPO full cap and 300 seconds of account headroom protected. `results/training/qwen38_selected_test_plan.json` records exact command, source, quota and selection hashes before submission.
 - All new aggregate test scores remained sealed until this newest-family decision and the earlier local RLOO192 decision were frozen. Partial GRPO cards are unscored; the completion-gate deviation is retained.
+
+### T33 private saved test submitted
+
+- Submit version1 of `nicolascoquelet/makemarketbench-qwen38-batch4-test`; saved-source SHA e4cca8db900b6296c4e8148203eaa036e3faf64f266de4d8999f5e51c6cbd2c7 and private metadata are independently pulled and verified. Exact quota, source and command: `results/training/qwen38_selected_test.json`.
+- Selected policy is fixed SFT, seed zero, batch four. No new model tuning follows held-out acquisition. Keep the useful native GRPO validation running to its cap, and collect all terminal outputs before any other GPU submission.

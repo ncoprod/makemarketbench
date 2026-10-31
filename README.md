@@ -3,9 +3,10 @@
 **TL;DR:** A fast matching engine and a hard, synthetic market-making benchmark.
 The newest model, Qwen3.8-27B, completes **800 SFT + 96 GRPO updates** in
 **17,901.346 seconds** as a private saved batch. A second training seed also
-completes; validation and held-out policy results are still pending
+completes. Validation selects SFT; its held-out acquisition is running
 ([primary receipt](results/training/qwen38_seed0_completion.json),
-[replication](results/training/qwen38_seed1_completion.json)).
+[replication](results/training/qwen38_seed1_completion.json),
+[frozen selection](results/training/qwen38_selection.json)).
 
 **Can language models quote profitable markets against an informed trader?**
 The C++20 engine now processes **24.61M events/s**, up from **20.21M** on the
@@ -155,6 +156,18 @@ both the local and newest-family decisions are frozen
   enters fresh validation as a separate policy; this is a small latency probe,
   not an equivalence proof or a held-out score
   ([probe receipt](results/training/qwen38_batch_probe_completion.json)).
+  Batch-four SFT validation reaches **94.54% [87.30, 101.02]** on dice and
+  **77.52% [61.00, 91.06]** on cards, on 100 episodes/game
+  ([downloaded validation](results/training/qwen38_b4_validation_completion.json)).
+  GRPO completes dice but only 76 cards episodes. Its complete dice score
+  mathematically caps its max-min selection score below SFT's, whatever the
+  missing cards would score. SFT is therefore frozen under the unchanged rule.
+  This explicitly departs from the planned both-cards completion gate;
+  partial cards remain unscored, and the bound proves the selection outcome,
+  not statistical superiority
+  ([certificate and deviation](results/training/qwen38_selection_bound_plan.json)).
+  The sole selected 200-episode/game test is a private saved batch
+  ([submission](results/training/qwen38_selected_test.json)).
 - **API baselines:** all four original NIM models now have **200 episodes/game**,
   with canonical seeds and states verified
   ([eight cohorts](results/expansion/primary_api_canonical.json)). GLM/DeepSeek
