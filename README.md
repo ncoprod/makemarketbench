@@ -255,6 +255,9 @@ kaggle kernels status nicolascoquelet/makemarketbench-grpo-qwen3
 kaggle kernels output nicolascoquelet/makemarketbench-grpo-qwen3 -p runs/kaggle_output
 ```
 
+For the newest-family saved batch, checkpoint resume and sealed evaluation, see
+[the Qwen3.8 reproduction steps](docs/reproduce_qwen38.md).
+
 For a local model path, use the snapshot downloaded at the recorded revision;
 for a Hugging Face ID, `--revision` pins the download. Keep Kaggle datasets and the
 kernel private. Long jobs write ignored `runs/` logs and save checkpoints.
