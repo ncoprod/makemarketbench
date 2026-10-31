@@ -3001,3 +3001,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   No optional replication is admitted ahead of this reserve. The returned
   canonical slug differs from the request and is retained with saved-source
   and private-metadata checks: `results/training/qwen38_b4_validation.json`.
+
+### Primary test budget and missing-only retention (registered)
+
+- Before validation completes, fix a quota-only admission rule for the selected
+  test. Preserve the running native GRPO full cap, keep 300 seconds of headroom,
+  floor the available session cap to a minute and cap it at twelve hours.
+  Require at least the original 15,900-second test reserve. No score enters this
+  allocation. Exact preparation source and canonical output path:
+  `results/training/qwen38_selected_test_budget_rule.json`.
+- Keep each downloaded version unchanged. Publish only complete verified test
+  cohorts to the frozen canonical path; a missing-only resume keeps acquired
+  groups and recorded greedy responses. No additional test candidate is created.
