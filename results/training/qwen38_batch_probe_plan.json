@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/build_qwen38_batch_probe.py",
+    "config": {
+      "purpose": "measure batch-four throughput, memory and quote changes on training states only"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "5f1f6bea305a98212f9299023ed66596ac9c9a36",
+    "uncommitted_diff_sha256": "a2ad73fbe085169526b6cd7661d05815bdff1fc26c08d79e5346bf9576621900",
+    "started_at": "2026-10-31T07:35:42.848018+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nroot=Path('results/kaggle/qwen38-seed1-sft-validation-v1')\ncore=(root/'evaluate_core.py').read_text()\ncommit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()\ncore=core.replace('SOURCE_COMMIT = \"75888b53519ceddc0dc804f06ef9d978ba966e02\"',f'SOURCE_COMMIT = \"{commit}\"')\nold='        evaluate(model, tokenizer, args)\\n        return'\nassert core.count(old)==1\ncore=core.replace(old,'        profile_batch(model, tokenizer, args)\\n        return')\nfunction=Path('runs/qwen38_batch_probe_function.txt').read_text()\ncore=core.replace('if __name__ == \"__main__\":',function+'\\nif __name__ == \"__main__\":')\nfolder=Path('runs/kaggle_qwen38_batch_probe');folder.mkdir(exist_ok=True)\nflags=['--eval-only','--model','unsloth/Qwen3.8-27B-unsloth-bnb-4bit','--base-model','Qwen/Qwen3.8-27B',\n       '--revision','8aa5f05d26b7205477066e1449e0af13f762a299','--device-map','unsloth_balanced',\n       '--lora-rank','8','--seed','0','--budget-seconds','1800','--label','qwen3.8-27b-batch-profile']\nsource=f'''import subprocess, sys\nfrom pathlib import Path\ncore=Path('/kaggle/working/dtype_core.py')\ncore.write_text({core!r})\nadapters=list(Path('/kaggle/input').rglob('warmstart_adapter/adapter_config.json'))\nassert len(adapters)==1, adapters\nsubprocess.run([sys.executable,str(core),*{flags!r},'--adapter',str(adapters[0].parent)],check=True)\n'''\n(folder/'grpo_unsloth_kaggle.py').write_text(source)\nmetadata=json.loads(Path('runs/kaggle_qwen38_primary_sft_validate/kernel-metadata.json').read_text())\nmetadata.update(id='nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe',title='MakeMarketBench Qwen3 8 27B batch probe')\n(folder/'kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\\n')\nplan={'provenance':receipt({'purpose':'measure batch-four throughput, memory and quote changes on training states only'},'8aa5f05d26b7205477066e1449e0af13f762a299'),\n      'source':Path(__file__).read_text(),'profile_function':function,'metadata':metadata,'source_sha256':file_sha256(folder/'grpo_unsloth_kaggle.py'),\n      'original_core_sha256':file_sha256(root/'evaluate_core.py'),'adapter_sha256':file_sha256(Path('results/kaggle/qwen38-round3-training-v5/warmstart_adapter/adapter_model.safetensors')),\n      'hypothesis':'Quantized matrix-vector work dominates the instrumented serial profile. Compare serial and batch-four on eight fixed training states, two repeats per mode. Require all valid quotes and at least 1.5x warm throughput. Any promoted batching is a new inference variant, never assumed numerically identical.',\n      'status':'registered_before_profile','session_timeout_seconds':2100,'script_cap_seconds':1800,\n      'promotion':'If eligible by training-state latency and validity, register a separate batch-four SFT/GRPO pair before validation, conservatively raise the final family to eleven, validate 100/game and select by the unchanged primary seed-zero max-min rule. Evaluate only that frozen winner on 200/game; retain all serial results. Whole-inference-group corrected intervals must also pass.',\n      'upstream_context':['https://github.com/unslothai/unsloth/issues/4970','https://raw.githubusercontent.com/unslothai/unsloth/main/unsloth/models/loader.py']}\npath=Path('results/training/qwen38_batch_probe_plan.json');assert not path.exists();path.write_text(json.dumps(plan,indent=2)+'\\n')\nprint('Prepared private training-state batch probe')\n",
+  "profile_function": "def profile_batch(model, tokenizer, args):\n    import torch\n    from makemarket.games import make_game\n    from makemarket.market import episode_steps\n    from makemarket.players import BayesQuoter\n\n    observations = []\n    for game in args.games:\n        for index, turn in enumerate((0, 1, 3, 5)):\n            teacher = BayesQuoter()\n            teacher.reset(20000 + index)\n            steps = episode_steps(make_game(game), 20000 + index, 'teacher', 'py')\n            observation = next(steps)\n            for _ in range(turn):\n                observation = steps.send(teacher.quote(observation))\n            observations.append(observation)\n    path = WORK / 'batch_profile.json'\n    record = {**execution(args), 'status': 'running', 'passes': [],\n              'scope': 'Eight fixed training states. Serial versus batch four latency, memory and quote changes only; no PnL.',\n              'timing_note': 'Ordered two repeats per mode; warm-pass ratio, not a causal alternating hardware benchmark.',\n              'promotion_rule': 'Require all valid quotes and at least 1.5x warm-pass throughput. Treat batching as a new inference policy even if these eight quotes agree.'}\n\n    def save():\n        path.write_text(json.dumps(record, indent=2) + '\\n')\n\n    def run(label, batch_size):\n        player = HFQuoter(model, tokenizer, label)\n        result = {'mode': label, 'batch_size': batch_size, 'outputs': []}\n        record['passes'].append(result)\n        for i in range(torch.cuda.device_count()):\n            torch.cuda.synchronize(i)\n        started = time.monotonic()\n        for offset in range(0, len(observations), batch_size):\n            for quote, info in player.quote_many(observations[offset:offset + batch_size]):\n                result['outputs'].append({'quote': quote.to_dict() if quote else None, **info})\n            result['seconds'] = time.monotonic() - started\n            save()\n        for i in range(torch.cuda.device_count()):\n            torch.cuda.synchronize(i)\n        result['seconds'] = time.monotonic() - started\n        save()\n\n    try:\n        save()\n        run('serial_1', 1)\n        run('serial_2', 1)\n        run('batch4_1', 4)\n        run('batch4_2', 4)\n        quotes = [[row['quote'] for row in p['outputs']] for p in record['passes']]\n        ratio = record['passes'][1]['seconds']/record['passes'][3]['seconds']\n        valid = all(q is not None for values in quotes for q in values)\n        record.update(status='completed', all_quotes_valid=valid,\n                      changed_quotes_serial_to_batch=sum(a != b for a,b in zip(quotes[1], quotes[3])),\n                      repeat_consistency_serial=quotes[0] == quotes[1],\n                      repeat_consistency_batch=quotes[2] == quotes[3],\n                      second_repeat_speedup=ratio, eligible=valid and ratio >= 1.5)\n    except Exception as exc:\n        record.update(status='failed', error=f'{type(exc).__name__}: {exc}')\n        raise\n    finally:\n        record['memory_by_gpu'] = [{'device': i, 'peak_allocated_bytes': torch.cuda.max_memory_allocated(i),\n                                   'peak_reserved_bytes': torch.cuda.max_memory_reserved(i)}\n                                  for i in range(torch.cuda.device_count())]\n        save()\n\n",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe",
+    "title": "MakeMarketBench Qwen3 8 27B batch probe",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "4f916c8dfe0444d092f74ccebb9180e1cd82e350258304aed61e4f20d20bcb55",
+  "original_core_sha256": "6fc11370492c093f049d0b8a4999ccc42461f0bbd2dfd1d509203e77a29e6351",
+  "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+  "hypothesis": "Quantized matrix-vector work dominates the instrumented serial profile. Compare serial and batch-four on eight fixed training states, two repeats per mode. Require all valid quotes and at least 1.5x warm throughput. Any promoted batching is a new inference variant, never assumed numerically identical.",
+  "status": "registered_before_profile",
+  "session_timeout_seconds": 2100,
+  "script_cap_seconds": 1800,
+  "promotion": "If eligible by training-state latency and validity, register a separate batch-four SFT/GRPO pair before validation, conservatively raise the final family to eleven, validate 100/game and select by the unchanged primary seed-zero max-min rule. Evaluate only that frozen winner on 200/game; retain all serial results. Whole-inference-group corrected intervals must also pass.",
+  "upstream_context": [
+    "https://github.com/unslothai/unsloth/issues/4970",
+    "https://raw.githubusercontent.com/unslothai/unsloth/main/unsloth/models/loader.py"
+  ]
+}

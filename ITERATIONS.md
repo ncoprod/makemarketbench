@@ -2905,3 +2905,19 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Optional Gemma probe fails all three attempts with HTTP 504 after
   921.9622022499971 seconds. No Gemma test cohort or score is created.
   Exact error/config/cache reference: `results/expansion/protocol-gemma4.json`.
+
+### T32 — batch-four throughput after the measured GEMV bottleneck (registered)
+
+- The first two toggles fail, while CUDA profiling identifies matrix work as
+  dominant. Test the existing batched evaluator on eight fixed training states:
+  two serial and two batch-four passes. Retain changed quotes and peak memory.
+- Promotion is determined only by training-state latency and parse validity:
+  require all quotes valid and at least 1.5x warm throughput. No PnL enters this
+  decision. A passing small parity probe never establishes policy equivalence.
+- If eligible, register batch-four SFT/GRPO as a separate pair and count eleven
+  final candidates before validation. Keep the same seed-zero adapters and
+  max-min selection rule; require both ordinary and whole-group corrected
+  intervals. The original serial results remain retained. No test score is open.
+- Source, fixed inputs, private metadata and 1,800-second script cap:
+  `results/training/qwen38_batch_probe_plan.json`. Admit only after the currently
+  useful primary SFT session finishes; preserve the remaining primary budget.
