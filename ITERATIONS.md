@@ -2714,3 +2714,14 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   request from its verified 24-episode prefix under the shared NIM mutex.
   Command and controller source are included in that receipt. Partial additional
   cohorts remain unscored; the four original API baselines remain complete.
+
+### Bound optional additional API coverage before final scores
+
+- All four original API baselines have complete 200/game cohorts. The additional
+  Llama and thinking-Ultra batches have much higher latency. Before newest-model
+  validation and final scores, register an acquisition-only cutoff: primary 27B
+  test completion or 2026-11-01 midnight UTC, whichever comes first. Retain cached
+  calls and complete episodes; incomplete cohorts stay unscored. This changes no
+  decoder, seed range, primary baseline or statistical rule.
+- Receipt: `results/expansion/optional_campaign_plan.json`. The cutoff is based
+  on elapsed time and acquisition completion, never on PnL or rank.

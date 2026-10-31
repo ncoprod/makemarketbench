@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "bound optional additional API acquisition before any final aggregate is opened"
+    },
+    "model_revision": null,
+    "git_commit": "d5ba821a4088be33564cb55410345716cdd30c19",
+    "uncommitted_diff_sha256": "23ca747cb0101280bf6f25781fecd5de4c570061e8a8466665fbaad74a8ecf6b",
+    "started_at": "2026-10-31T01:50:38.543910+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "primary_baselines": "All four original API models are already complete at 200 episodes per game.",
+  "optional_batches": [
+    "meta/llama-3.2-90b-vision-instruct (text-only)",
+    "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)"
+  ],
+  "stop_rule": "Stop starting additional optional episodes when the registered primary Qwen3.8 test acquisition completes, or at 2026-11-01T00:00:00Z, whichever occurs first. Preserve cached calls and complete saved episodes; incomplete cohorts remain unscored. A completed 200/game cohort remains eligible.",
+  "rationale": "Bound extra slow API coverage while prioritizing the saved newest-family pipeline and final report. The rule depends only on acquisition completion and time, never on PnL or model ranking.",
+  "heldout_aggregates_opened": false,
+  "status": "registered_before_newest_validation_and_final_scores"
+}
