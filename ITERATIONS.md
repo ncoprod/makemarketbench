@@ -3069,3 +3069,8 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Diagnose a reproduction obstacle before final reporting: `score_frozen_candidates.py` checks live private adapter files although it only computes statistics from committed raw episodes. A fresh checkout has those raw episodes but no ignored weights.
 - Focused change: verify recorded adapter hashes (MLX top-level or CUDA config) and pinned revisions against the two immutable selections. Remove the unnecessary live-binary dependency from numeric reporting; acquisition retains its original binary checks.
 - Plan/command/source: `results/final/cached_replay_plan.json`. After committing complete newest-policy test data, verify a tracked-file-only archive with no checkpoints reproduces every canonical games/targets object. No inference, API requests, additional model trial or selection change.
+
+### Reporting verification milestone
+
+- The mandatory pre-push local fallback passes 148 Python tests, native Release and ASan/UBSan checks, lint and the Kaggle CPU dry run on commit b89aa0c. Preserve the complete transcript and exact source/command in `results/ci_local_round3_reporting.json`. Hosted account-billing refusal remains a separate limitation.
+- Update the README pipeline to show the current Qwen families and direct quote-game evaluation → raw episodes → bootstrap/results. Remove the misleading implication that the independent C++ book timing benchmark sits inside every quote-game policy evaluation. Main fresh model table will land when the selected 27B acquisition is retained.

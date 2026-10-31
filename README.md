@@ -29,20 +29,16 @@ MLX / CUDA training. [ITERATIONS.md](ITERATIONS.md) records every optimisation
 attempt, selection rule and failed run.
 
 ```mermaid
-flowchart LR
-    S[Seeded synthetic dice and cards] --> B[Exact Bayes teacher]
-    S --> A[API agents and naive baselines]
-    B --> T[LoRA behaviour cloning and DAgger]
-    B --> R[Exact quote rewards: GRPO or RLOO]
-    T --> R
-    T --> V[Validation: freeze checkpoint or game router]
-    R --> V
-    V --> E[Common-seed held-out evaluation]
+flowchart TD
+    S["Seeded synthetic dice and cards"] --> B["Exact Bayes teacher"]
+    B --> M["Qwen3-1.7B / Qwen3.5-4B / Qwen3.8-27B<br/>LoRA SFT, DAgger, RLOO and GRPO"]
+    M --> V["Validation: freeze checkpoint or game router"]
+    S --> A["Cached NIM API opponents"]
+    V --> E["Common-seed held-out evaluation"]
     A --> E
-    E --> C[Python and C++ matching engines]
-    C --> F[Raw episode JSONL and provenance]
-    F --> P[Paired bootstrap CIs]
-    P --> O[Result JSON, tables and figures]
+    E --> R["Raw episode JSONL and provenance"]
+    R --> C["Paired and inference-group bootstrap CIs"]
+    C --> J["Result JSON, main table and leaderboard figure"]
 ```
 
 ## What is measured
@@ -206,8 +202,8 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **143 Python tests**
-([local CI receipt](results/ci_local_round3_batch_identity.json)), native Release and
+Current local verification passes **148 Python tests**
+([local CI receipt](results/ci_local_round3_reporting.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
 requires these checks. Hosted Actions minutes are exhausted until about
 November 1 according to the owner; jobs refuse before any steps with the

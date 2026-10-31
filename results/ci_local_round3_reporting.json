@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain successful pre-push local CI on current reporting source"
+    },
+    "model_revision": null,
+    "git_commit": "b89aa0c87222998abb1f236bc620f2650be850fe",
+    "uncommitted_diff_sha256": "794e2697692ffdd86a3258a5326c94c288f4d34e9625e723e6d6977b78877924",
+    "started_at": "2026-10-31T13:48:59.395803+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": [
+    "bash",
+    "scripts/ci_local.sh"
+  ],
+  "tested_commit": "b89aa0c87222998abb1f236bc620f2650be850fe",
+  "code_working_tree_clean": true,
+  "exit_code": 0,
+  "python_tests_passed": 148,
+  "checks": {
+    "ruff": "PASS",
+    "python": "PASS",
+    "native_release_ctest": "PASS",
+    "native_asan_ubsan_ctest": "PASS",
+    "kaggle_cpu_dry_run": "PASS"
+  },
+  "script_sha256": "9434b584799f75a968e0269b32c29e14cee129a472a43921317bc9595611e855",
+  "log_file": "results/ci_local_round3_reporting.log",
+  "log_sha256": "b2ec79739215d9eac2cf645b30e18d91e523023941cecf0b752e2ef7c83ff645",
+  "hosting_scope": "Local installed macOS/Python toolchain. Hosted Actions account minutes are exhausted; this is not a hosted Linux pass.",
+  "hosted_block_receipt": "results/ci_billing_block_20261030.json"
+}
