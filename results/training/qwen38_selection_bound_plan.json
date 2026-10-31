@@ -1,0 +1,187 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "certify unchanged max-min winner without using partial cards or any held-out score"
+    },
+    "model_revision": null,
+    "git_commit": "5b4576195848d85568a1f8d32f672f97ab5f7c68",
+    "uncommitted_diff_sha256": "fb575bc1614fb9aa2479a78c104559e94fc4ff794b9c94813dc37049f201f86e",
+    "started_at": "2026-10-31T13:04:57.567716+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "registered_before_test",
+  "inputs": {
+    "sft_dice": {
+      "row": {
+        "player": "qwen3.8-27b-batch4-sft",
+        "episodes": 100,
+        "pct_of_bayes": 94.54247462218751,
+        "pct_of_bayes_ci": [
+          87.29643572743466,
+          101.02103941214273
+        ],
+        "epnl": 13.805610189317642,
+        "epnl_ci": [
+          11.696737987647642,
+          15.592304923203216
+        ],
+        "realized_pnl": 12.794,
+        "realized_pnl_ci": [
+          9.700850000000003,
+          15.898049999999998
+        ],
+        "realized_pnl_sd": 15.84876644978397,
+        "noise_edge": 17.11791018931764,
+        "adverse_cost": 3.3123,
+        "spread": 8.199000000000002,
+        "coverage": 0.8033333333333335,
+        "mean_size": 4.629999999999999,
+        "abs_final_position": 2.86,
+        "format_error_rate": 0.0,
+        "fail_rate": 0.0,
+        "regret_per_round_ci": [
+          0.10968752547467987,
+          0.28168299267712305
+        ],
+        "posterior_edge_pct": 92.00755091264625,
+        "flow_shift": 1.439344262295083,
+        "mid_error": 0.5049306166822319,
+        "median_spread_ratio": 1.0,
+        "regret_per_round": 0.18287195139966705,
+        "regret_by_round": [
+          0.0,
+          0.049405144614333034,
+          0.14953251132975148,
+          0.25299235254020647,
+          0.2992127720760264,
+          0.34608892783768525
+        ]
+      },
+      "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.json",
+      "sha256": "6d6cae4a33d9c13760475fd6905beb5ae8f93f30a97166789c6432ed9f61284d"
+    },
+    "sft_cards": {
+      "row": {
+        "player": "qwen3.8-27b-batch4-sft",
+        "episodes": 100,
+        "pct_of_bayes": 77.52143757647197,
+        "pct_of_bayes_ci": [
+          60.99828364739681,
+          91.05627968723023
+        ],
+        "epnl": 13.595652018607087,
+        "epnl_ci": [
+          9.266526966301806,
+          17.44944322359597
+        ],
+        "realized_pnl": 18.064999999999998,
+        "realized_pnl_ci": [
+          13.174975000000002,
+          22.965274999999995
+        ],
+        "realized_pnl_sd": 25.372156754675753,
+        "noise_edge": 21.006852018607084,
+        "adverse_cost": 7.4112,
+        "spread": 11.777333333333333,
+        "coverage": 0.7349999999999999,
+        "mean_size": 4.489166666666667,
+        "abs_final_position": 3.29,
+        "format_error_rate": 0.0,
+        "fail_rate": 0.0,
+        "regret_per_round_ci": [
+          0.6545537749583846,
+          1.0401308503680537
+        ],
+        "posterior_edge_pct": 73.99197811415587,
+        "flow_shift": 1.0173276685967119,
+        "mid_error": 1.4148905530204607,
+        "median_spread_ratio": 1.0,
+        "regret_per_round": 0.8374930398221551,
+        "regret_by_round": [
+          0.0,
+          0.14999980033977053,
+          0.9542300972680461,
+          0.9939104746745504,
+          1.5526578160250133,
+          1.3741600506255502
+        ]
+      },
+      "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_cards.json",
+      "sha256": "2073ae510c3feeddffc0c8ec7b0d2c2b28e7c4b27470698e8dc6f9676bb3921c"
+    },
+    "grpo_dice": {
+      "row": {
+        "player": "qwen3.8-27b-batch4-grpo",
+        "episodes": 100,
+        "pct_of_bayes": 94.20685026876222,
+        "pct_of_bayes_ci": [
+          87.76313819441152,
+          100.06364916571977
+        ],
+        "epnl": 13.756600482178627,
+        "epnl_ci": [
+          11.649398675956066,
+          15.542417260318059
+        ],
+        "realized_pnl": 13.099,
+        "realized_pnl_ci": [
+          9.834900000000001,
+          16.360000000000003
+        ],
+        "realized_pnl_sd": 16.723500038429563,
+        "noise_edge": 17.074900482178624,
+        "adverse_cost": 3.3183,
+        "spread": 8.149333333333333,
+        "coverage": 0.7933333333333334,
+        "mean_size": 4.6308333333333325,
+        "abs_final_position": 3.12,
+        "format_error_rate": 0.0,
+        "fail_rate": 0.0,
+        "regret_per_round_ci": [
+          0.10391214851453832,
+          0.25125468185217253
+        ],
+        "posterior_edge_pct": 92.61650973236623,
+        "flow_shift": 1.4403880070546746,
+        "mid_error": 0.4783978589083591,
+        "median_spread_ratio": 1.0,
+        "regret_per_round": 0.16745160414854596,
+        "regret_by_round": [
+          0.0,
+          0.03520362765282663,
+          0.1503445807155825,
+          0.26581253212754663,
+          0.255800278624644,
+          0.2975486057706759
+        ]
+      },
+      "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/leaderboard_dice.json",
+      "sha256": "47ab2baca664f12748a7124bbe801a530ff611bb4d18679bdc6f538116262a31"
+    }
+  },
+  "sft_selection_score": 14.542474622187513,
+  "grpo_selection_score_upper_bound": 14.206850268762224,
+  "proof": "For every possible cards score c, min(GRPO_dice - 80, c) <= GRPO_dice - 80 < complete SFT score. Exact deterministic selection-rule implication, not evidence of statistical SFT superiority.",
+  "deviation": "Original completion gate required 100/game for both. GRPO cards76 remains unscored and is eliminated by a complete-dice bound. Change only the completion gate; preserve the original max-min rule, primary seed-zero adapters, decoder and eleven-trial family. The 200/game selected test is still unopened.",
+  "command": [
+    ".venv/bin/python",
+    "scripts/select_qwen38.py",
+    "--training-root",
+    "results/kaggle/qwen38-round3-training-v5",
+    "--validation-root",
+    "results/kaggle/qwen38-b4-validation-v1",
+    "--test-root",
+    "results/final/qwen38-selected",
+    "--batch-size",
+    "4",
+    "--certify-incomplete-loser"
+  ]
+}

@@ -328,6 +328,94 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T11:46:29.616405+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T11:56:40.531370+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:06:51.383113+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:17:02.370997+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:27:13.265143+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:37:24.114776+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:47:35.330087+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:57:46.240616+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
     }
   ],
   "submitted_at": "2026-10-31T07:31:56.324359+00:00",

@@ -61,7 +61,7 @@
   "remaining_native_grpo_cap_seconds": 17738.917377,
   "selected_test_reserve_seconds": 15900,
   "session_timeout_seconds": 15900,
-  "status": "submitted",
+  "status": "outputs_retrieved",
   "submitted_at": "2026-10-31T08:36:17.469301+00:00",
   "polls": [
     {
@@ -261,6 +261,94 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T11:49:45.486342+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T11:59:56.325955+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:10:07.259803+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:20:18.097393+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:30:30.232060+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:40:41.076180+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T12:50:51.922158+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T13:01:02.814241+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.ERROR\""
     }
   ],
   "push": {
@@ -303,5 +391,21 @@
     "private": true,
     "matches_submitted_source": true,
     "source_sha256": "e2521cf12cd3f1bb266d687c0b96452a8e65ced3ed9355165a06c7957edd2299"
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen38-batch4-validation",
+      "-p",
+      "results/kaggle/qwen38-b4-validation-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to results/kaggle/qwen38-b4-validation-v1\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/evaluate_core.py\nDownloading pair_runtime.json to results/kaggle/qwen38-b4-validation-v1\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/pair_runtime.json\nDownloading leaderboard_dice.json to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/leaderboard_dice.md\nDownloading qwen3.8-27b-batch4-grpo.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/cards\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/cards/qwen3.8-27b-batch4-grpo.jsonl\nDownloading bayes.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice/bayes.jsonl\nDownloading qwen3.8-27b-batch4-grpo.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice/qwen3.8-27b-batch4-grpo.jsonl\nDownloading runtime.json to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/runtime.json\nDownloading leaderboard_cards.json to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_cards.json\nDownloading leaderboard_cards.md to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_cards.md\nDownloading leaderboard_dice.json to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.md\nDownloading bayes.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards/bayes.jsonl\nDownloading qwen3.8-27b-batch4-sft.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl\nDownloading bayes.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl\nDownloading qwen3.8-27b-batch4-sft.jsonl to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl\nDownloading runtime.json to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft\n\nOutput file downloaded to results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/runtime.json\nKernel log downloaded to results/kaggle/qwen38-b4-validation-v1/makemarketbench-qwen38-batch4-validation.log \n\n  0%|          | 0.00/68.1k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 68.1k/68.1k [00:00<00:00, 56.2MB/s]\n\n  0%|          | 0.00/392 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 392/392 [00:00<00:00, 654kB/s]\n\n  0%|          | 0.00/5.69k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.69k/5.69k [00:00<00:00, 9.85MB/s]\n\n  0%|          | 0.00/587 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 587/587 [00:00<00:00, 1.08MB/s]\n\n  0%|          | 0.00/384k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 384k/384k [00:00<00:00, 1.41MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 384k/384k [00:00<00:00, 1.41MB/s]\n\n  0%|          | 0.00/412k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 412k/412k [00:00<00:00, 1.07MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 412k/412k [00:00<00:00, 1.07MB/s]\n\n  0%|          | 0.00/494k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 494k/494k [00:00<00:00, 11.8MB/s]\n\n  0%|          | 0.00/3.17k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.17k/3.17k [00:00<00:00, 2.50MB/s]\n\n  0%|          | 0.00/5.68k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.68k/5.68k [00:00<00:00, 7.19MB/s]\n\n  0%|          | 0.00/586 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 586/586 [00:00<00:00, 1.06MB/s]\n\n  0%|          | 0.00/5.69k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.69k/5.69k [00:00<00:00, 5.58MB/s]\n\n  0%|          | 0.00/586 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 586/586 [00:00<00:00, 1.26MB/s]\n\n  0%|          | 0.00/424k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 424k/424k [00:00<00:00, 8.47MB/s]\n\n  0%|          | 0.00/506k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 506k/506k [00:00<00:00, 1.25MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 506k/506k [00:00<00:00, 1.25MB/s]\n\n  0%|          | 0.00/413k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 413k/413k [00:00<00:00, 1.15MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 413k/413k [00:00<00:00, 1.15MB/s]\n\n  0%|          | 0.00/494k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 494k/494k [00:00<00:00, 1.19MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 494k/494k [00:00<00:00, 1.19MB/s]\n\n  0%|          | 0.00/3.11k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.11k/3.11k [00:00<00:00, 7.83MB/s]"
   }
 }

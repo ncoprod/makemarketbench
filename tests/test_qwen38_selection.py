@@ -60,3 +60,43 @@ def test_newest_selection_validates_adapter_identity_and_freezes_ties(monkeypatc
     with pytest.raises(AssertionError, match='already frozen'):
         select_qwen38.main()
     assert out.read_bytes() == frozen
+
+
+@pytest.mark.parametrize('grpo_dice', [93.5, 94, 94.5])
+def test_incomplete_cards_require_an_exact_loser_certificate(monkeypatch, tmp_path, grpo_dice):
+    revision = '8aa5f05d26b7205477066e1449e0af13f762a299'
+    (tmp_path / 'runtime.json').write_text(json.dumps({'seed': 0, 'model_revision': revision}))
+    for method, directory in [('sft', 'warmstart_adapter'), ('grpo', 'lora_adapter')]:
+        adapter = tmp_path / directory / 'adapter_model.safetensors'
+        adapter.parent.mkdir()
+        adapter.write_bytes(method.encode())
+        label = f'qwen3.8-27b-batch4-{method}'
+        root = tmp_path / label / 'results'
+        root.mkdir(parents=True)
+        for game in ('dice', 'cards'):
+            if method == 'grpo' and game == 'cards':
+                continue
+            score = (94 if method == 'sft' else grpo_dice) if game == 'dice' else 77
+            data = {'seeds': list(range(80000, 80100)), 'provenance': {'config': {
+                'revision': revision, 'adapter_sha256': file_sha256(adapter), 'eval_batch_size': 4, 'seed': 0}},
+                'rows': [{'player': label, 'episodes': 100, 'pct_of_bayes': score}]}
+            (root / f'leaderboard_{game}.json').write_text(json.dumps(data))
+    out = tmp_path / 'selection.json'
+    command = ['select_qwen38.py', '--training-root', str(tmp_path), '--validation-root', str(tmp_path),
+               '--test-root', str(tmp_path / 'test'), '--out', str(out), '--batch-size', '4']
+    monkeypatch.setattr(sys, 'argv', command)
+    with pytest.raises(FileNotFoundError):
+        select_qwen38.main()
+    monkeypatch.setattr(sys, 'argv', command + ['--certify-incomplete-loser'])
+    if grpo_dice > 94:
+        with pytest.raises(AssertionError, match='could still win'):
+            select_qwen38.main()
+        assert not out.exists()
+    else:
+        select_qwen38.main()
+        result = json.loads(out.read_text())
+        assert result['method'] == 'sft' and result['final_candidate_family'] == 11
+        loser = result['trials'][1]
+        assert loser['selection_score'] is None and 'cards' not in loser['scores']
+        assert loser['elimination_certificate']['selection_score_upper_bound'] <= 14
+        assert 'completion_gate_deviation' in result

@@ -3013,3 +3013,10 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Keep each downloaded version unchanged. Publish only complete verified test
   cohorts to the frozen canonical path; a missing-only resume keeps acquired
   groups and recorded greedy responses. No additional test candidate is created.
+
+### T33 — bound certificate saves irrelevant validation compute
+
+- Hypothesis: the registered max-min winner can be proved from complete SFT dice/cards and GRPO dice, without scoring partial GRPO cards. SFT score 14.542474622187513; GRPO upper bound 14.206850268762224. For any cards value, GRPO cannot win. This is a deterministic rule consequence, not statistical superiority.
+- Change: explicit opt-in completion-gate deviation, with tests rejecting a partial candidate that could still win and preserving the SFT tie rule. The selection formula, primary seed, decoder and eleven-trial family stay fixed. Original both-cards completion gate is disclosed rather than silently rewritten.
+- Run: the selector command in `results/training/qwen38_selection_bound_plan.json`; freeze only after this plan is committed. Preserve 100/100 SFT and 100/76 GRPO raw episodes, all hashes/runtime and unscored partial cards in `results/training/qwen38_b4_validation_completion.json`.
+- Result: complete SFT validation dice 94.54247462218751% [87.29643572743466, 101.02103941214273], cards 77.52143757647197% [60.99828364739681, 91.05627968723023], 100/game. Bound proof makes the missing 24 cards episodes unnecessary for selection and protects the final-test budget. No held-out aggregate opened.

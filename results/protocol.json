@@ -166,6 +166,11 @@
       "source": "results/training/qwen38_batch_probe_completion.json",
       "previous_final_candidates": 9,
       "final_candidates": 11
+    },
+    {
+      "at": "2026-10-31T13:04:57.580455+00:00",
+      "reason": "Before any held-out aggregate: record a transparent completion-gate deviation. Complete SFT scores and complete GRPO dice mathematically fix SFT under the unchanged max-min rule for every possible GRPO cards result. Preserve all eleven trials and unscored partial cards; no test-based tuning.",
+      "source": "results/training/qwen38_selection_bound_plan.json; scripts/select_qwen38.py"
     }
   ]
 }

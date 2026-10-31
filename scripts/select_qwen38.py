@@ -13,6 +13,8 @@ def main():
     ap.add_argument('--validation-root', required=True, type=Path)
     ap.add_argument('--test-root', required=True, type=Path)
     ap.add_argument('--batch-size', type=int, choices=[1, 4], default=1)
+    ap.add_argument('--certify-incomplete-loser', action='store_true',
+                    help='allow missing GRPO cards only when its complete dice score proves it cannot win')
     ap.add_argument('--out', type=Path, default=Path('results/training/qwen38_selection.json'))
     args = ap.parse_args()
     assert not args.out.exists(), 'Selection is already frozen; do not overwrite it'
@@ -30,6 +32,8 @@ def main():
         scores, inputs = {}, {}
         for game in ('dice', 'cards'):
             path = args.validation_root / label / 'results' / f'leaderboard_{game}.json'
+            if not path.exists() and args.certify_incomplete_loser and method == 'grpo' and game == 'cards':
+                continue
             data = json.loads(path.read_text())
             assert data['seeds'] == list(range(80000, 80100)), 'Wrong validation split'
             cfg = data['provenance']['config']
@@ -43,8 +47,16 @@ def main():
         trials.append({'label': label, 'method': method, 'adapter_file': str(adapter),
                        'adapter_sha256': adapter_hash, 'scores': scores, 'input_sha256': inputs,
                        'selection_score': min(scores['dice']['pct_of_bayes'] - 80,
-                                              scores['cards']['pct_of_bayes'])})
-    winner = max(trials, key=lambda t: t['selection_score'])
+                                              scores['cards']['pct_of_bayes']) if 'cards' in scores else None})
+    winner = max((t for t in trials if t['selection_score'] is not None), key=lambda t: t['selection_score'])
+    for trial in trials:
+        if trial['selection_score'] is None:
+            upper = trial['scores']['dice']['pct_of_bayes'] - 80
+            assert winner['method'] == 'sft' and upper <= winner['selection_score'], 'Incomplete candidate could still win'
+            trial['elimination_certificate'] = {
+                'selection_score_upper_bound': upper, 'winning_score': winner['selection_score'],
+                'proof': 'min(dice_percent - 80, cards_percent) <= dice_percent - 80. SFT also wins a tie.',
+                'scope': 'Exact selection-rule consequence, not statistical superiority. Partial cards are unscored.'}
     record = {'provenance': receipt({k: str(v) for k, v in vars(args).items()}, revision),
               'status': 'frozen', 'seed': 0, 'trials': trials,
               'training_runtime': str(runtime_path), 'training_runtime_sha256': file_sha256(runtime_path),
@@ -54,6 +66,11 @@ def main():
               'test_seeds': [200, 399], 'test_episodes_per_game': 200,
               'eval_batch_size': args.batch_size,
               'final_candidate_family': 11 if args.batch_size == 4 else 9}
+    if any(t['selection_score'] is None for t in trials):
+        record['completion_gate_deviation'] = (
+            'Original acquisition plan required 100/game for both adapters. Stop the incomplete GRPO cards '
+            'because its complete dice result mathematically precludes winning the unchanged max-min rule. '
+            'This certificate is recorded before any held-out aggregate; both trials still count.')
     args.out.write_text(json.dumps(record, indent=2) + '\n')
     print('Frozen newest-family validation winner:', winner['label'])
 

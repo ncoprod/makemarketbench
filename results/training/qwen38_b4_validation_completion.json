@@ -1,0 +1,388 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_qwen38_b4_validation.py",
+    "config": {
+      "purpose": "retain distinct batch-four primary SFT/GRPO validation, including any bounded partials"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "5b4576195848d85568a1f8d32f672f97ab5f7c68",
+    "uncommitted_diff_sha256": "ee1d236b655bb7714968407ee21ff3da60a61e05ceb20c6635c44d0128f30711",
+    "started_at": "2026-10-31T13:01:29.967369+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import file_sha256,receipt\n\npath=Path('results/training/qwen38_b4_validation_completion.json');assert not path.exists()\nroot=Path('results/kaggle/qwen38-b4-validation-v1')\nlaunch=json.loads(Path('results/training/qwen38_b4_validation.json').read_text());assert launch['status']=='outputs_retrieved'\nsource=Path('runs/kaggle_qwen38_b4_validation/grpo_unsloth_kaggle.py');assert file_sha256(source)==launch['source_sha256']\ncore=next(n.args[0].value for n in ast.walk(ast.parse(source.read_text())) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='write_text' and isinstance(n.args[0],ast.Constant))\nassert (root/'evaluate_core.py').read_text()==core\ntraining=Path('results/kaggle/qwen38-round3-training-v5');pair=json.loads((root/'pair_runtime.json').read_text())\ncohorts={};runtimes={}\nfor method,directory in [('sft','warmstart_adapter'),('grpo','lora_adapter')]:\n    label=f'qwen3.8-27b-batch4-{method}';work=root/label\n    adapter_hash=file_sha256(training/directory/'adapter_model.safetensors')\n    runtime_path=work/'runtime.json'\n    runtimes[method]=json.loads(runtime_path.read_text()) if runtime_path.exists() else None\n    cohorts[method]={}\n    for game in ('dice','cards'):\n        raw=work/'results/raw'/game/f'{label}.jsonl'\n        rows=[json.loads(line) for line in raw.read_text().splitlines()] if raw.exists() else []\n        assert [row['seed'] for row in rows]==list(range(80000,80000+len(rows)))\n        assert len(rows)%4==0\n        for row in rows:\n            assert row['player']==label and row['game']==game\n            canonical=make_game(game).episode(row['seed'])\n            assert row['value']==canonical.value and len(row['rounds'])==6\n            assert [r['reveal'] for r in row['rounds']]==canonical.reveals\n            cfg=row['provenance']['config']\n            assert cfg['seed']==0 and cfg['eval_batch_size']==4\n            assert cfg['revision']=='8aa5f05d26b7205477066e1449e0af13f762a299'\n            assert cfg['adapter_sha256']==adapter_hash\n        cohorts[method][game]={'episodes':len(rows),'complete':len(rows)==100,'canonical_games_verified':True,\n            'file':str(raw),'sha256':file_sha256(raw) if raw.exists() else None,'adapter_sha256':adapter_hash}\nrecord={'provenance':receipt({'purpose':'retain distinct batch-four primary SFT/GRPO validation, including any bounded partials'},'8aa5f05d26b7205477066e1449e0af13f762a299'),\n    'source':Path(__file__).read_text(),'status':'complete' if all(c['complete'] for games in cohorts.values() for c in games.values()) else 'partial_validation_retained',\n    'pair_runtime':pair,'runtimes':runtimes,'cohorts':cohorts,\n    'downloaded_files':{str(p):{'sha256':file_sha256(p),'bytes':p.stat().st_size} for p in root.rglob('*') if p.is_file()},\n    'scope':'Validation only; no incomplete game is scored and no held-out aggregate opened. Freeze only with both complete 100/game candidates.'}\npath.write_text(json.dumps(record,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text());session=next(s for s in ledger['sessions'] if s['kernel']==launch['metadata']['id'] and s['version']==launch['version'])\nsession.update(status=record['status'],hours=pair['wall_seconds']/3600,script_wall_seconds=pair['wall_seconds'],result_file=str(root/'pair_runtime.json'),hours_basis='Downloaded complete wrapper wall runtime. Exact allocation billing boundaries and wrapper UTC boundaries unavailable.')\np.write_text(json.dumps(ledger,indent=2)+'\\n');print('Retained batch-four validation', {m:{g:c['episodes'] for g,c in games.items()} for m,games in cohorts.items()},flush=True)\n",
+  "status": "partial_validation_retained",
+  "pair_runtime": {
+    "wall_seconds": 15600.364735142999,
+    "budget_seconds": 15600,
+    "exit_codes": [
+      0,
+      -9
+    ],
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py"
+    ],
+    "source_commit": "d6fb004b997c776ae07c89b043ebebbb93a67c3b",
+    "seed": 0,
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "evaluation_seed": 80000,
+    "episodes_per_game": 100,
+    "batch_size": 4
+  },
+  "runtimes": {
+    "sft": {
+      "command": [
+        "/usr/bin/python3",
+        "/kaggle/working/evaluate_core.py",
+        "--eval-only",
+        "--adapter",
+        "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter",
+        "--label",
+        "qwen3.8-27b-batch4-sft",
+        "--eval-seed",
+        "80000",
+        "--eval-episodes",
+        "100",
+        "--eval-batch-size",
+        "4",
+        "--budget-seconds",
+        "15598",
+        "--model",
+        "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+        "--base-model",
+        "Qwen/Qwen3.8-27B",
+        "--revision",
+        "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "--device-map",
+        "unsloth_balanced",
+        "--lora-rank",
+        "8"
+      ],
+      "config": {
+        "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+        "base_model": "Qwen/Qwen3.8-27B",
+        "revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "label": "qwen3.8-27b-batch4-sft",
+        "games": [
+          "dice",
+          "cards"
+        ],
+        "episodes": 400,
+        "sft_steps": 150,
+        "sft_batch": 8,
+        "sft_accumulation": 2,
+        "sft_validation_episodes": 0,
+        "save_steps": 100,
+        "grpo_save_steps": null,
+        "budget_seconds": 15598,
+        "seed": 0,
+        "device_map": "unsloth_balanced",
+        "offload_layers": null,
+        "grpo_steps": 300,
+        "num_generations": 8,
+        "max_completion": 96,
+        "max_seq_len": 1280,
+        "lora_rank": 8,
+        "lr": 5e-06,
+        "eval_episodes": 100,
+        "eval_batch_size": 4,
+        "check_batching": false,
+        "eval_seed": 80000,
+        "evaluation_prefix": null,
+        "resume": null,
+        "sft_resume": null,
+        "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter",
+        "train_only": false,
+        "eval_only": true,
+        "dry_run": false,
+        "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+      },
+      "seed": 0,
+      "source_commit": "d6fb004b997c776ae07c89b043ebebbb93a67c3b",
+      "cuda_visible_devices": null,
+      "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "source_file_sha256": "e3bd98d65df4a2ed6fae9041787b296e3a6302098f21e12145848de0725bacd4",
+      "embedded_package_sha256": "cd162c6954fe7290db366f1161d8626745ec519bb824b7dd0f1a2e32983bb307",
+      "status": "completed",
+      "execution_started_at": "2026-10-31T08:36:31.304256+00:00",
+      "recorded_at": "2026-10-31T10:55:47.883262+00:00",
+      "wall_seconds": 8356.580554962158,
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "gpu_capacity_bytes": [
+        15636037632,
+        15636037632
+      ],
+      "cuda_version": "12.8",
+      "versions": {
+        "torch": "2.11.0+cu128",
+        "unsloth": "2026.10.10",
+        "unsloth_zoo": "2026.10.10",
+        "trl": "1.15.0",
+        "transformers": "5.16.1",
+        "peft": "0.20.0",
+        "bitsandbytes": "0.50.2",
+        "datasets": "4.8.5",
+        "accelerate": "1.14.0",
+        "triton": "3.6.0"
+      },
+      "phase": "evaluation",
+      "phase_step": 0,
+      "peak_allocated_bytes": 12561052160,
+      "peak_reserved_bytes": 13262389248,
+      "memory_by_gpu": [
+        {
+          "device": 0,
+          "peak_allocated_bytes": 12561052160,
+          "peak_reserved_bytes": 13262389248
+        },
+        {
+          "device": 1,
+          "peak_allocated_bytes": 12610117120,
+          "peak_reserved_bytes": 13149143040
+        }
+      ],
+      "execution_finished_at": "2026-10-31T10:55:47.883207+00:00"
+    },
+    "grpo": {
+      "command": [
+        "/usr/bin/python3",
+        "/kaggle/working/evaluate_core.py",
+        "--eval-only",
+        "--adapter",
+        "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/lora_adapter",
+        "--label",
+        "qwen3.8-27b-batch4-grpo",
+        "--eval-seed",
+        "80000",
+        "--eval-episodes",
+        "100",
+        "--eval-batch-size",
+        "4",
+        "--budget-seconds",
+        "7232",
+        "--model",
+        "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+        "--base-model",
+        "Qwen/Qwen3.8-27B",
+        "--revision",
+        "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "--device-map",
+        "unsloth_balanced",
+        "--lora-rank",
+        "8"
+      ],
+      "config": {
+        "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+        "base_model": "Qwen/Qwen3.8-27B",
+        "revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "label": "qwen3.8-27b-batch4-grpo",
+        "games": [
+          "dice",
+          "cards"
+        ],
+        "episodes": 400,
+        "sft_steps": 150,
+        "sft_batch": 8,
+        "sft_accumulation": 2,
+        "sft_validation_episodes": 0,
+        "save_steps": 100,
+        "grpo_save_steps": null,
+        "budget_seconds": 7232,
+        "seed": 0,
+        "device_map": "unsloth_balanced",
+        "offload_layers": null,
+        "grpo_steps": 300,
+        "num_generations": 8,
+        "max_completion": 96,
+        "max_seq_len": 1280,
+        "lora_rank": 8,
+        "lr": 5e-06,
+        "eval_episodes": 100,
+        "eval_batch_size": 4,
+        "check_batching": false,
+        "eval_seed": 80000,
+        "evaluation_prefix": null,
+        "resume": null,
+        "sft_resume": null,
+        "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/lora_adapter",
+        "train_only": false,
+        "eval_only": true,
+        "dry_run": false,
+        "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04"
+      },
+      "seed": 0,
+      "source_commit": "d6fb004b997c776ae07c89b043ebebbb93a67c3b",
+      "cuda_visible_devices": null,
+      "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "source_file_sha256": "e3bd98d65df4a2ed6fae9041787b296e3a6302098f21e12145848de0725bacd4",
+      "embedded_package_sha256": "cd162c6954fe7290db366f1161d8626745ec519bb824b7dd0f1a2e32983bb307",
+      "status": "failed",
+      "execution_started_at": "2026-10-31T10:55:57.352869+00:00",
+      "recorded_at": "2026-10-31T12:56:29.364903+00:00",
+      "wall_seconds": 7232.012521266937,
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "gpu_capacity_bytes": [
+        15636037632,
+        15636037632
+      ],
+      "cuda_version": "12.8",
+      "versions": {
+        "torch": "2.11.0+cu128",
+        "unsloth": "2026.10.10",
+        "unsloth_zoo": "2026.10.10",
+        "trl": "1.15.0",
+        "transformers": "5.16.1",
+        "peft": "0.20.0",
+        "bitsandbytes": "0.50.2",
+        "datasets": "4.8.5",
+        "accelerate": "1.14.0",
+        "triton": "3.6.0"
+      },
+      "phase": "evaluation",
+      "phase_step": 0,
+      "peak_allocated_bytes": 12542537216,
+      "peak_reserved_bytes": 13258194944,
+      "memory_by_gpu": [
+        {
+          "device": 0,
+          "peak_allocated_bytes": 12542537216,
+          "peak_reserved_bytes": 13258194944
+        },
+        {
+          "device": 1,
+          "peak_allocated_bytes": 12591007232,
+          "peak_reserved_bytes": 13149143040
+        }
+      ],
+      "error": "TimeoutError: Registered training wall budget exhausted",
+      "execution_finished_at": "2026-10-31T12:56:29.364862+00:00"
+    }
+  },
+  "cohorts": {
+    "sft": {
+      "dice": {
+        "episodes": 100,
+        "complete": true,
+        "canonical_games_verified": true,
+        "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl",
+        "sha256": "0f3292d317e1eb7afb29b3379ebab77754a05266c546d393080a2a2db5578bc3",
+        "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+      },
+      "cards": {
+        "episodes": 100,
+        "complete": true,
+        "canonical_games_verified": true,
+        "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl",
+        "sha256": "cd8de6d6614592eae370fb04aaee5b0c62ff7aada41fcd9ca96ffaefbfda8ab3",
+        "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+      }
+    },
+    "grpo": {
+      "dice": {
+        "episodes": 100,
+        "complete": true,
+        "canonical_games_verified": true,
+        "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice/qwen3.8-27b-batch4-grpo.jsonl",
+        "sha256": "d74f44e4f22964772ec145d17bd593917eaf80bb7dcc73d4e51bd639e3526c15",
+        "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04"
+      },
+      "cards": {
+        "episodes": 76,
+        "complete": false,
+        "canonical_games_verified": true,
+        "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/cards/qwen3.8-27b-batch4-grpo.jsonl",
+        "sha256": "92948c32aa2a171a651979ffd8ddca399e76d0d5938c65ff37c08d4e50433f19",
+        "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04"
+      }
+    }
+  },
+  "downloaded_files": {
+    "results/kaggle/qwen38-b4-validation-v1/makemarketbench-qwen38-batch4-validation.log": {
+      "sha256": "494d5ec6be3e184cdbfce68a974e46c769eff29c90f25bf65c4525c7d5a98f2c",
+      "bytes": 72563
+    },
+    "results/kaggle/qwen38-b4-validation-v1/evaluate_core.py": {
+      "sha256": "e3bd98d65df4a2ed6fae9041787b296e3a6302098f21e12145848de0725bacd4",
+      "bytes": 69739
+    },
+    "results/kaggle/qwen38-b4-validation-v1/pair_runtime.json": {
+      "sha256": "f356b510514fd79eaeaf9dc2ade12c62360d06688112fe1eb1b4055804c38bf4",
+      "bytes": 392
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/runtime.json": {
+      "sha256": "14ff33463a9c69a4e1010170eef944fe088338582dda75eb339921c9715fffec",
+      "bytes": 3188
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/runtime.json": {
+      "sha256": "c722f0e1e50f6c38a81e4877c208e465f7a8fc7c06ce475c722fb3477b72c8ab",
+      "bytes": 3245
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/leaderboard_dice.json": {
+      "sha256": "47ab2baca664f12748a7124bbe801a530ff611bb4d18679bdc6f538116262a31",
+      "bytes": 5822
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/leaderboard_dice.md": {
+      "sha256": "4e3dce7f78b84bfa40203e8294cf5e34d9d05a851bc54771017ddbef935731a7",
+      "bytes": 587
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/cards/qwen3.8-27b-batch4-grpo.jsonl": {
+      "sha256": "92948c32aa2a171a651979ffd8ddca399e76d0d5938c65ff37c08d4e50433f19",
+      "bytes": 393140
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice/bayes.jsonl": {
+      "sha256": "5b1459b123725ae85f73463e7516575f934cd8eeb2f8c3e2aa793297ab28939f",
+      "bytes": 421990
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice/qwen3.8-27b-batch4-grpo.jsonl": {
+      "sha256": "d74f44e4f22964772ec145d17bd593917eaf80bb7dcc73d4e51bd639e3526c15",
+      "bytes": 505364
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.json": {
+      "sha256": "6d6cae4a33d9c13760475fd6905beb5ae8f93f30a97166789c6432ed9f61284d",
+      "bytes": 5830
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_cards.json": {
+      "sha256": "2073ae510c3feeddffc0c8ec7b0d2c2b28e7c4b27470698e8dc6f9676bb3921c",
+      "bytes": 5815
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_cards.md": {
+      "sha256": "03699b7195a5e0453508a7da72aa1b91cd20335e719527be2088351eb43862c1",
+      "bytes": 586
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.md": {
+      "sha256": "a12998616ea366d03f3850c9202c674d044d9d94745cf5c4a16f86d02f7b97c9",
+      "bytes": 586
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl": {
+      "sha256": "cd8de6d6614592eae370fb04aaee5b0c62ff7aada41fcd9ca96ffaefbfda8ab3",
+      "bytes": 517977
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards/bayes.jsonl": {
+      "sha256": "8d093224a50f1a49e5bd1a9437dde4a15d8cbc6d16f848a2a50f6d4102f54def",
+      "bytes": 434048
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl": {
+      "sha256": "0f3292d317e1eb7afb29b3379ebab77754a05266c546d393080a2a2db5578bc3",
+      "bytes": 506210
+    },
+    "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl": {
+      "sha256": "59fa3ba7ef3fee15111e0ed885aef8d2ae64b3a3d218fe57d4f594cd252e7012",
+      "bytes": 422890
+    }
+  },
+  "scope": "Validation only; no incomplete game is scored and no held-out aggregate opened. Freeze only with both complete 100/game candidates."
+}
