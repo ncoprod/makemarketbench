@@ -1,0 +1,59 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/register_qwen38_early_stop_ablation.py",
+    "config": {
+      "purpose": "register teacher-loss versus market-policy early-stopping ablation before any 27B validation policy score"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "3d6f9e126576c11bcb9c7a51352d63ab873e93ed",
+    "uncommitted_diff_sha256": "037b32da49c1cd3c8d128ced4385bbfc9bc1503f16371db357fecb3a090c930d",
+    "started_at": "2026-10-31T05:09:44.193282+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\npath=Path('results/training/qwen38_seed1_early_stop_ablation_plan.json')\nassert not path.exists()\nroot=Path('results/kaggle/qwen38-seed1-training-v1')\ncompletion=json.loads(Path('results/training/qwen38_seed1_completion.json').read_text())\nassert completion['best_sft_step']==150 and completion['sft_updates']==250\nrecord={'provenance':receipt({'purpose':'register teacher-loss versus market-policy early-stopping ablation before any 27B validation policy score'},'8aa5f05d26b7205477066e1449e0af13f762a299'),\n        'source':Path(__file__).read_text(),'status':'registered_pending_measured_evaluation_costs',\n        'hypothesis':'On a fixed training seed, lower teacher-validation loss may not select higher game expected PnL, especially after card hints. Compare the restored best SFT checkpoint with the last saved SFT update.',\n        'seed':1,'model':'unsloth/Qwen3.8-27B-unsloth-bnb-4bit',\n        'inputs':{name:{'file':str(root/relative),'sha256':file_sha256(root/relative)} for name,relative in {\n            'best_sft150':'warmstart_adapter/adapter_model.safetensors',\n            'last_sft250':'sft/checkpoint-250/adapter_model.safetensors'}.items()},\n        'validation':{'episodes_per_game':100,'games':['dice','cards'],'seeds':[80000,80099],'batch_size':1,'decoding':'identical greedy decoder and repair rule'},\n        'comparisons':'SFT versus GRPO within each of two training seeds; seed zero versus one at each method; best versus last SFT within seed one. Five paired contrasts on each of two games.',\n        'paired_interval_policy':{'descriptive_level':0.95,'family_contrasts':10,'family_level':1-0.05/10,'family_bootstrap_draws':40000,'bootstrap_seed':0},\n        'admission':'Run only if measured quota permits after reserving the entire remaining primary validation/test budget. Do not submit filler if the next complete useful cohort will not fit.',\n        'selection':'Validation-only diagnostic. Neither seed one nor its last checkpoint may replace the primary seed-zero candidate. No extra held-out evaluation; the existing nine-candidate family remains unchanged.',\n        'training_seed_uncertainty':'Two training seeds cannot give a precise population-level training-seed CI. Paired episode intervals condition on these frozen weights.'}\npath.write_text(json.dumps(record,indent=2)+'\\n')\nprint(record['status'])\n",
+  "status": "registered_pending_measured_evaluation_costs",
+  "hypothesis": "On a fixed training seed, lower teacher-validation loss may not select higher game expected PnL, especially after card hints. Compare the restored best SFT checkpoint with the last saved SFT update.",
+  "seed": 1,
+  "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+  "inputs": {
+    "best_sft150": {
+      "file": "results/kaggle/qwen38-seed1-training-v1/warmstart_adapter/adapter_model.safetensors",
+      "sha256": "c443368dd3cd0a8beb6d6228f48a7a8f3b3a8fd2ba19535bc8b88439edc0fef3"
+    },
+    "last_sft250": {
+      "file": "results/kaggle/qwen38-seed1-training-v1/sft/checkpoint-250/adapter_model.safetensors",
+      "sha256": "32472debfb6e3f141f42540b526450b81623258dafb5e044b6662c8e765711ee"
+    }
+  },
+  "validation": {
+    "episodes_per_game": 100,
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "seeds": [
+      80000,
+      80099
+    ],
+    "batch_size": 1,
+    "decoding": "identical greedy decoder and repair rule"
+  },
+  "comparisons": "SFT versus GRPO within each of two training seeds; seed zero versus one at each method; best versus last SFT within seed one. Five paired contrasts on each of two games.",
+  "paired_interval_policy": {
+    "descriptive_level": 0.95,
+    "family_contrasts": 10,
+    "family_level": 0.995,
+    "family_bootstrap_draws": 40000,
+    "bootstrap_seed": 0
+  },
+  "admission": "Run only if measured quota permits after reserving the entire remaining primary validation/test budget. Do not submit filler if the next complete useful cohort will not fit.",
+  "selection": "Validation-only diagnostic. Neither seed one nor its last checkpoint may replace the primary seed-zero candidate. No extra held-out evaluation; the existing nine-candidate family remains unchanged.",
+  "training_seed_uncertainty": "Two training seeds cannot give a precise population-level training-seed CI. Paired episode intervals condition on these frozen weights."
+}

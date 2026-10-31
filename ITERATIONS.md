@@ -2771,3 +2771,27 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   time, distinct from account billing; the budget ledger retains both.
 - Validation and held-out policy claims remain pending. Evaluate the primary
   SFT and GRPO adapters on the registered validation split before freezing one.
+
+### Primary SFT validation launched
+
+- Submit private saved SFT validation version one, serial batch one, 100/game
+  seeds 80000–80099. Official available quota: 72,703.51589499999 seconds.
+  Reserve the other running validation session's remaining full cap and 33,000
+  seconds for primary GRPO validation plus the selected held-out test.
+- Exact builder output hash, submission command, controller source and pulled
+  private saved-source verification: `results/training/qwen38_primary_sft_validation.json`.
+  Policy scores remain pending; no selection rule or test candidate changes.
+
+### T29 — teacher-loss versus market-policy early stopping (registered)
+
+- Hypothesis: the seed-one minimum teacher-loss checkpoint may select a
+  different market-making policy than its final SFT update, especially on cards.
+  Compare saved step 150 against saved step 250 on the common 100/game
+  validation split. Neither can replace the primary seed-zero test candidate.
+- Register before any 27B validation policy score is inspected. Admit only after
+  measured inference costs and the remaining primary validation/test reserve
+  leave enough quota for a complete useful cohort. Otherwise record not run.
+- Config, exact adapter hashes and source: `results/training/qwen38_seed1_early_stop_ablation_plan.json`.
+  Report all available within-seed SFT/GRPO, between-seed method and best/last
+  contrasts on both games, using a conservative ten-contrast family correction.
+  Two training seeds do not yield a precise population-level training-seed CI.
