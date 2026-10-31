@@ -62,8 +62,207 @@
   "remaining_primary_evaluation_reserve_seconds": 33000,
   "session_timeout_seconds": 11100,
   "scope": "Registered primary SFT validation, 100 episodes/game on seeds 80000-80099. Freeze only after both primary adapters complete validation.",
-  "status": "submitted",
-  "polls": [],
+  "status": "outputs_retrieved",
+  "polls": [
+    {
+      "at": "2026-10-31T05:19:18.172489+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T05:29:28.991468+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T05:39:39.850977+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T05:49:50.730537+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:00:01.602659+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:10:12.451384+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:20:23.316581+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:30:34.177836+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:40:45.070637+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:50:56.029545+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:01:07.191927+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:11:18.083083+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:21:29.231639+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:31:39.936655+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:41:50.835887+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:52:01.769759+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T08:02:12.658281+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T08:12:23.614792+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation has status \"KernelWorkerStatus.ERROR\""
+    }
+  ],
   "submitted_at": "2026-10-31T05:09:07.329053+00:00",
   "push": {
     "command": [
@@ -105,5 +304,21 @@
     "private": true,
     "source_sha256": "0e491f37a2815ddfa36fbc015c06b2fbbb63538001fcd8d6f9462c7cb501ce6b",
     "matches_submitted_source": true
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-primary-sft-validation",
+      "-p",
+      "results/kaggle/qwen38-primary-sft-validation-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to results/kaggle/qwen38-primary-sft-validation-v1\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/evaluate_core.py\nDownloading pair_runtime.json to results/kaggle/qwen38-primary-sft-validation-v1\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/pair_runtime.json\nDownloading leaderboard_dice.json to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/leaderboard_dice.md\nDownloading qwen3.8-27b-sft.jsonl to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/raw/cards\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/raw/cards/qwen3.8-27b-sft.jsonl\nDownloading bayes.jsonl to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/raw/dice/bayes.jsonl\nDownloading qwen3.8-27b-sft.jsonl to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/results/raw/dice/qwen3.8-27b-sft.jsonl\nDownloading runtime.json to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft\n\nOutput file downloaded to results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/runtime.json\nKernel log downloaded to results/kaggle/qwen38-primary-sft-validation-v1/makemarketbench-qwen3-8-27b-primary-sft-validation.log \n\n  0%|          | 0.00/65.2k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 65.2k/65.2k [00:00<00:00, 855kB/s]\n\n  0%|          | 0.00/385 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 385/385 [00:00<00:00, 1.47MB/s]\n\n  0%|          | 0.00/5.62k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.62k/5.62k [00:00<00:00, 5.82MB/s]\n\n  0%|          | 0.00/579 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 579/579 [00:00<00:00, 1.12MB/s]\n\n  0%|          | 0.00/20.0k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 20.0k/20.0k [00:00<00:00, 1.17MB/s]\n\n  0%|          | 0.00/408k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 408k/408k [00:00<00:00, 1.12MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 408k/408k [00:00<00:00, 1.11MB/s]\n\n  0%|          | 0.00/489k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 489k/489k [00:00<00:00, 1.25MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 489k/489k [00:00<00:00, 1.24MB/s]\n\n  0%|          | 0.00/3.14k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.14k/3.14k [00:00<00:00, 5.93MB/s]"
   }
 }

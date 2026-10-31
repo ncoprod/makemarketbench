@@ -2944,3 +2944,12 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   only a promoted batch-four pair would widen the final family to eleven.
 - Local CI passes 143 tests, native Release, sanitizers and the CPU kernel check:
   `results/ci_local_round3_batch_identity.json`.
+
+### Primary serial SFT validation — bounded outputs retained
+
+- Download and verify all saved episode seeds, canonical states and primary
+  adapter identity after the registered three-hour cap. Preserve partial
+  cards without scoring it. Exact cohort counts, measured runtime, failure
+  and file hashes: `results/training/qwen38_primary_sft_validation_completion.json`.
+- Commit these outputs before using the released slot for T32. Primary native
+  GRPO validation continues; no held-out aggregate is open.

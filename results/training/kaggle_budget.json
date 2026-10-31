@@ -1638,15 +1638,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 2.9994496275981266,
       "submitted_at": "2026-10-31T05:09:07.329053+00:00",
       "private": true,
-      "status": "submitted",
+      "status": "partial_validation_retained",
       "source_commit": "3d6f9e126576c11bcb9c7a51352d63ab873e93ed",
       "receipt": "results/training/qwen38_primary_sft_validation.json",
       "session_timeout_seconds": 11100,
       "purpose": "Primary seed-zero SFT validation, serial inference, registered common validation split.",
-      "hours_basis": "Pending downloaded runtime; session cap is not measured usage."
+      "hours_basis": "Downloaded script runtime; exact allocation billing boundaries unavailable.",
+      "script_wall_seconds": 10798.018659353256,
+      "script_started_at": "2026-10-31T05:09:20.882387+00:00",
+      "script_finished_at": "2026-10-31T08:09:18.899740+00:00",
+      "result_file": "results/kaggle/qwen38-primary-sft-validation-v1/qwen3.8-27b-sft/runtime.json"
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe",
