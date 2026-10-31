@@ -84,9 +84,11 @@ def test_cuda_evaluation_resumes_exact_prefix_and_rejects_changed_policy(kernel,
                provenance={"config": vars(args).copy()})
     original = path.read_bytes()
     visited = []
+    quoter_class = kernel.HFQuoter
 
     def oracle(*_):
         player.reset = lambda seed: visited.append(seed)
+        player.cache = {}
         return player
 
     monkeypatch.setattr(kernel, "WORK", work)
@@ -95,6 +97,13 @@ def test_cuda_evaluation_resumes_exact_prefix_and_rejects_changed_policy(kernel,
     assert visited == [201, 202]
     assert (work / "results/raw/cards/test-policy.jsonl").read_bytes().startswith(original)
     assert len(args.evaluation_prefix_sha256["cards"]) == 64
+    cached = quoter_class(None, None, args.label)
+    kernel.restore_evaluation_cache(cached, args.games)
+    cached._gen = lambda _: pytest.fail("Recorded responses must replay without model calls")
+    from makemarket.market import episode_steps
+    observation = next(episode_steps(make_game("cards"), 200, args.label, "py"))
+    quote, info = cached.quote(observation)
+    assert quote is not None and info["cached"]
     monkeypatch.setattr(kernel, "WORK", tmp_path / "wrong")
     args.adapter_sha256 = "different"
     with pytest.raises(AssertionError, match="adapter_sha256"):

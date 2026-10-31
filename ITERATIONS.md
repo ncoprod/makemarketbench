@@ -2885,3 +2885,23 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   quantization/backend replacement would introduce another policy experiment.
 - Exact source/runtime/hashes: `results/training/qwen38_compile_probe_completion.json`;
   native tables and all pass outputs: `results/kaggle/qwen38-compile-probe-v1`.
+
+### Primary GRPO validation and exact response replay
+
+- Launch unchanged native GRPO96 validation on 100/game, seeds 80000–80099,
+  with a 21,300-second script and 21,600-second session cap. Reserve 9,000
+  seconds for missing SFT validation and 21,600 seconds for the selected test.
+- An admission literal typo was rejected before submission. A subsequent
+  SaveKernel HTTP 400 produced no listed version; shorten the 51-character
+  metadata. Retain both failures and the canonical returned saved reference.
+  Receipt: `results/training/qwen38_primary_grpo_validation.json`.
+- Restore the greedy prompt cache by replaying retained raw episodes before
+  acquiring missing seeds. This reuses the recorded answers without another
+  model call, keeping responses and repairs exact across session boundaries.
+  No adapter, decoding rule or candidate count changes.
+- Verification: `bash scripts/ci_local.sh`, 139 tests plus native Release,
+  ASan/UBSan and Kaggle CPU checks pass. The regression checks that an acquired
+  prompt replays with generation disabled: `results/ci_local_round3_replay.json`.
+- Optional Gemma probe fails all three attempts with HTTP 504 after
+  921.9622022499971 seconds. No Gemma test cohort or score is created.
+  Exact error/config/cache reference: `results/expansion/protocol-gemma4.json`.

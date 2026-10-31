@@ -471,6 +471,29 @@ def resume_evaluation(args, label) -> None:
         args.evaluation_prefix_sha256[game] = hashlib.sha256(source.read_bytes()).hexdigest()
 
 
+def restore_evaluation_cache(player, games) -> None:
+    from makemarket.cli import slug
+    from makemarket.evaluate import load_results
+    from makemarket.games import make_game
+    from makemarket.games.base import Quote
+    from makemarket.market import episode_steps
+    from makemarket.prompts import messages_for
+
+    for game in games:
+        path = WORK / "results/raw" / game / f"{slug(player.name)}.jsonl"
+        for row in load_results(path):
+            steps = episode_steps(make_game(game), row["seed"], player.name, "py")
+            observation = next(steps)
+            for round_ in row["rounds"]:
+                quote = Quote(**round_["quote"]) if round_["quote"] else None
+                info = round_.get("info", {})
+                player.cache.setdefault(json.dumps(messages_for(observation)), (quote, info))
+                try:
+                    observation = steps.send((quote, info))
+                except StopIteration:
+                    break
+
+
 def evaluate(model, tokenizer, args, label=None) -> None:
     from makemarket.analysis import player_diagnostics
     from makemarket.cli import slug
@@ -484,6 +507,8 @@ def evaluate(model, tokenizer, args, label=None) -> None:
     provenance = {**execution(args), "label": label}
     # Greedy decoding permits reuse of identical prompts within this adapter.
     player = HFQuoter(model, tokenizer, label)
+    if getattr(args, "evaluation_prefix", None):
+        restore_evaluation_cache(player, args.games)
 
     for g in args.games:
         out = WORK / "results" / "raw" / g / f"{slug(label)}.jsonl"
