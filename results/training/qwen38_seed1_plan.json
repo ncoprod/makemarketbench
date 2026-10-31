@@ -1,0 +1,58 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/register_qwen38_seed1.py",
+    "config": {
+      "purpose": "register an independent training-seed replication before either new outcome"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "28804d349d82863e7fbaa10e6b7f9f7c55fb0e47",
+    "uncommitted_diff_sha256": "0fad497856ac7cb2856fb6c898090a58b11a8315d65f06711254a400cc67de1a",
+    "started_at": "2026-10-31T00:02:29.883829+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nplan = json.loads(Path('results/training/qwen38_round3_batch_plan.json').read_text())\nsource = Path('runs/kaggle_qwen38_train/grpo_unsloth_kaggle.py')\nassert file_sha256(source) == plan['source_sha256']\ntext = source.read_text()\ncalls = [n for n in ast.walk(ast.parse(text)) if isinstance(n, ast.Call)\n         and isinstance(n.func, ast.Attribute) and n.func.attr == 'write_text'\n         and isinstance(n.func.value, ast.Name) and n.func.value.id == 'core']\nassert len(calls) == 1\ncore = ast.literal_eval(calls[0].args[0])\nold, new = \"'--seed', '0'\", \"'--seed', '1'\"\nassert core.count(old) == 1\nupdated = core.replace(old, new)\nassert text.count(repr(core)) == 1\nfolder = Path('runs/kaggle_qwen38_seed1')\nfolder.mkdir(exist_ok=True)\ntarget = folder / source.name\ntarget.write_text(text.replace(repr(core), repr(updated)))\nmetadata = json.loads(source.with_name('kernel-metadata.json').read_text())\nmetadata.update(id=metadata['id']+'-seed1', title=metadata['title']+' seed 1')\nassert metadata['is_private']\n(folder / 'kernel-metadata.json').write_text(json.dumps(metadata, indent=2)+'\\n')\nrecord = {'provenance': receipt({'purpose':'register an independent training-seed replication before either new outcome'}, plan['model_revision']),\n          'source': Path(__file__).read_text(), 'status':'registered_before_outcomes',\n          'primary_plan':'results/training/qwen38_round3_batch_plan.json',\n          'primary_source_sha256':file_sha256(source), 'replication_source_sha256':file_sha256(target),\n          'source_commit':plan['source_commit'], 'seed':1, 'metadata':metadata,\n          'change':'Only the embedded command seed changes from 0 to 1. Keep exact primary core, package payload, model revision, recipe, optimizer schedules, checkpoints and environment. The retained generator identifies the producing commit and byte transformation.',\n          'training_command':['kaggle','kernels','push','-p',str(folder),'--accelerator','NvidiaTeslaT4','--timeout','41400'],\n          'admission':'Submit only after the primary saved batch reports RUNNING and official available quota is at least 63,000 seconds: 41,400 session cap plus 21,600 reserved for primary validation/test. At most two concurrent batch sessions.',\n          'evaluation':'Validation only: both SFT and GRPO on all 100 common seeds 80000-80099 per game with serial inference, subject to measured remaining quota. Report all outcomes, including partials/failures. Same max-min score is descriptive; never use seed 1 to replace the registered seed-0 test winner.',\n          'test_policy':'No seed-1 held-out evaluation is authorized by this registration. Primary nine-candidate family and seed-0 SFT/GRPO selection remain unchanged.',\n          'hypothesis':'Repeat the exact recipe with a different training random seed to expose training instability rather than promoting only the best run. Two seeds cannot establish a precise population-level training-seed confidence interval.'}\nPath('results/training/qwen38_seed1_plan.json').write_text(json.dumps(record,indent=2)+'\\n')\ncompile(target.read_text(),str(target),'exec')\ncompile(updated,'seed1_core','exec')\nprint({'seed':1,'private':metadata['is_private'],'source_sha256':file_sha256(target),'only_seed_changed':updated.replace(new,old)==core})\n",
+  "status": "registered_before_outcomes",
+  "primary_plan": "results/training/qwen38_round3_batch_plan.json",
+  "primary_source_sha256": "2dd43ba750f6b732b526624bd8181f168998760bc7b4cd0dabe25b245d482370",
+  "replication_source_sha256": "96bd33e4a433351a4b32bd330f45f87cb3157385059a6a96020d415ef6682df8",
+  "source_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
+  "seed": 1,
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed1",
+    "title": "MakeMarketBench Qwen3.8 27B training seed 1",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": []
+  },
+  "change": "Only the embedded command seed changes from 0 to 1. Keep exact primary core, package payload, model revision, recipe, optimizer schedules, checkpoints and environment. The retained generator identifies the producing commit and byte transformation.",
+  "training_command": [
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "runs/kaggle_qwen38_seed1",
+    "--accelerator",
+    "NvidiaTeslaT4",
+    "--timeout",
+    "41400"
+  ],
+  "admission": "Submit only after the primary saved batch reports RUNNING and official available quota is at least 63,000 seconds: 41,400 session cap plus 21,600 reserved for primary validation/test. At most two concurrent batch sessions.",
+  "evaluation": "Validation only: both SFT and GRPO on all 100 common seeds 80000-80099 per game with serial inference, subject to measured remaining quota. Report all outcomes, including partials/failures. Same max-min score is descriptive; never use seed 1 to replace the registered seed-0 test winner.",
+  "test_policy": "No seed-1 held-out evaluation is authorized by this registration. Primary nine-candidate family and seed-0 SFT/GRPO selection remain unchanged.",
+  "hypothesis": "Repeat the exact recipe with a different training random seed to expose training instability rather than promoting only the best run. Two seeds cannot establish a precise population-level training-seed confidence interval."
+}

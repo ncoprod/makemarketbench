@@ -2646,3 +2646,20 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   status is not completed training or proof of allocated hardware. Periodic
   adapter/optimizer/scheduler/RNG checkpoints persist under `/kaggle/working`.
   Runtime, VRAM and policy claims await downloaded artifacts.
+
+### T28 — independent 27B training-seed replication (registered)
+
+- Hypothesis: repeating the unchanged SFT/GRPO recipe with training seed 1
+  exposes instability that episode bootstrap intervals cannot measure.
+- Change only the embedded seed argument in the exact registered batch source;
+  preserve its full core, payload, revisions, schedules and checkpoints. The
+  source transformation is reversible byte-for-byte. Command, generator,
+  private metadata and both hashes: `results/training/qwen38_seed1_plan.json`.
+- Submit through the second permitted batch session only after primary RUNNING
+  status and official quota leave its session cap plus six hours for primary
+  evaluation. Poll every 610 seconds; retrieve all outputs and measured usage.
+- Validate both adapters on the same complete 100/game validation split if
+  measured quota permits. Report every outcome; do not promote seed 1 to the
+  primary sealed test. The registered seed-0 selection and nine-candidate test
+  correction remain unchanged. Two seeds do not support a precise
+  population-level training-seed confidence interval. Outcome pending.
