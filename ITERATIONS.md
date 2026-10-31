@@ -3020,3 +3020,9 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Change: explicit opt-in completion-gate deviation, with tests rejecting a partial candidate that could still win and preserving the SFT tie rule. The selection formula, primary seed, decoder and eleven-trial family stay fixed. Original both-cards completion gate is disclosed rather than silently rewritten.
 - Run: the selector command in `results/training/qwen38_selection_bound_plan.json`; freeze only after this plan is committed. Preserve 100/100 SFT and 100/76 GRPO raw episodes, all hashes/runtime and unscored partial cards in `results/training/qwen38_b4_validation_completion.json`.
 - Result: complete SFT validation dice 94.54247462218751% [87.29643572743466, 101.02103941214273], cards 77.52143757647197% [60.99828364739681, 91.05627968723023], 100/game. Bound proof makes the missing 24 cards episodes unnecessary for selection and protects the final-test budget. No held-out aggregate opened.
+
+### T33 selected test admission
+
+- Freeze `qwen3.8-27b-batch4-sft`, adapter SHA 96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e, using the unchanged max-min rule and explicit complete-dice bound certificate. Selection is immutable: `results/training/qwen38_selection.json`.
+- Prepare 200 episodes/game, test seeds200-399, greedy batch four, exactly one primary adapter. The predeclared quota-only formula gives a 16,740-second session cap / 16,440-second script cap. Keep the running serial GRPO full cap and 300 seconds of account headroom protected. `results/training/qwen38_selected_test_plan.json` records exact command, source, quota and selection hashes before submission.
+- All new aggregate test scores remained sealed until this newest-family decision and the earlier local RLOO192 decision were frozen. Partial GRPO cards are unscored; the completion-gate deviation is retained.

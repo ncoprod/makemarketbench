@@ -1,0 +1,211 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/select_qwen38.py --training-root results/kaggle/qwen38-round3-training-v5 --validation-root results/kaggle/qwen38-b4-validation-v1 --test-root results/final/qwen38-selected --batch-size 4 --certify-incomplete-loser",
+    "config": {
+      "training_root": "results/kaggle/qwen38-round3-training-v5",
+      "validation_root": "results/kaggle/qwen38-b4-validation-v1",
+      "test_root": "results/final/qwen38-selected",
+      "batch_size": "4",
+      "certify_incomplete_loser": "True",
+      "out": "results/training/qwen38_selection.json"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "99a747a0f77cfb436b61ef0e55b513eec0525b75",
+    "uncommitted_diff_sha256": null,
+    "started_at": "2026-10-31T13:05:30.949546+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "frozen",
+  "seed": 0,
+  "trials": [
+    {
+      "label": "qwen3.8-27b-batch4-sft",
+      "method": "sft",
+      "adapter_file": "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/adapter_model.safetensors",
+      "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+      "scores": {
+        "dice": {
+          "player": "qwen3.8-27b-batch4-sft",
+          "episodes": 100,
+          "pct_of_bayes": 94.54247462218751,
+          "pct_of_bayes_ci": [
+            87.29643572743466,
+            101.02103941214273
+          ],
+          "epnl": 13.805610189317642,
+          "epnl_ci": [
+            11.696737987647642,
+            15.592304923203216
+          ],
+          "realized_pnl": 12.794,
+          "realized_pnl_ci": [
+            9.700850000000003,
+            15.898049999999998
+          ],
+          "realized_pnl_sd": 15.84876644978397,
+          "noise_edge": 17.11791018931764,
+          "adverse_cost": 3.3123,
+          "spread": 8.199000000000002,
+          "coverage": 0.8033333333333335,
+          "mean_size": 4.629999999999999,
+          "abs_final_position": 2.86,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.10968752547467987,
+            0.28168299267712305
+          ],
+          "posterior_edge_pct": 92.00755091264625,
+          "flow_shift": 1.439344262295083,
+          "mid_error": 0.5049306166822319,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 0.18287195139966705,
+          "regret_by_round": [
+            0.0,
+            0.049405144614333034,
+            0.14953251132975148,
+            0.25299235254020647,
+            0.2992127720760264,
+            0.34608892783768525
+          ]
+        },
+        "cards": {
+          "player": "qwen3.8-27b-batch4-sft",
+          "episodes": 100,
+          "pct_of_bayes": 77.52143757647197,
+          "pct_of_bayes_ci": [
+            60.99828364739681,
+            91.05627968723023
+          ],
+          "epnl": 13.595652018607087,
+          "epnl_ci": [
+            9.266526966301806,
+            17.44944322359597
+          ],
+          "realized_pnl": 18.064999999999998,
+          "realized_pnl_ci": [
+            13.174975000000002,
+            22.965274999999995
+          ],
+          "realized_pnl_sd": 25.372156754675753,
+          "noise_edge": 21.006852018607084,
+          "adverse_cost": 7.4112,
+          "spread": 11.777333333333333,
+          "coverage": 0.7349999999999999,
+          "mean_size": 4.489166666666667,
+          "abs_final_position": 3.29,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.6545537749583846,
+            1.0401308503680537
+          ],
+          "posterior_edge_pct": 73.99197811415587,
+          "flow_shift": 1.0173276685967119,
+          "mid_error": 1.4148905530204607,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 0.8374930398221551,
+          "regret_by_round": [
+            0.0,
+            0.14999980033977053,
+            0.9542300972680461,
+            0.9939104746745504,
+            1.5526578160250133,
+            1.3741600506255502
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.json": "6d6cae4a33d9c13760475fd6905beb5ae8f93f30a97166789c6432ed9f61284d",
+        "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/leaderboard_cards.json": "2073ae510c3feeddffc0c8ec7b0d2c2b28e7c4b27470698e8dc6f9676bb3921c"
+      },
+      "selection_score": 14.542474622187513
+    },
+    {
+      "label": "qwen3.8-27b-batch4-grpo",
+      "method": "grpo",
+      "adapter_file": "results/kaggle/qwen38-round3-training-v5/lora_adapter/adapter_model.safetensors",
+      "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04",
+      "scores": {
+        "dice": {
+          "player": "qwen3.8-27b-batch4-grpo",
+          "episodes": 100,
+          "pct_of_bayes": 94.20685026876222,
+          "pct_of_bayes_ci": [
+            87.76313819441152,
+            100.06364916571977
+          ],
+          "epnl": 13.756600482178627,
+          "epnl_ci": [
+            11.649398675956066,
+            15.542417260318059
+          ],
+          "realized_pnl": 13.099,
+          "realized_pnl_ci": [
+            9.834900000000001,
+            16.360000000000003
+          ],
+          "realized_pnl_sd": 16.723500038429563,
+          "noise_edge": 17.074900482178624,
+          "adverse_cost": 3.3183,
+          "spread": 8.149333333333333,
+          "coverage": 0.7933333333333334,
+          "mean_size": 4.6308333333333325,
+          "abs_final_position": 3.12,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0,
+          "regret_per_round_ci": [
+            0.10391214851453832,
+            0.25125468185217253
+          ],
+          "posterior_edge_pct": 92.61650973236623,
+          "flow_shift": 1.4403880070546746,
+          "mid_error": 0.4783978589083591,
+          "median_spread_ratio": 1.0,
+          "regret_per_round": 0.16745160414854596,
+          "regret_by_round": [
+            0.0,
+            0.03520362765282663,
+            0.1503445807155825,
+            0.26581253212754663,
+            0.255800278624644,
+            0.2975486057706759
+          ]
+        }
+      },
+      "input_sha256": {
+        "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/leaderboard_dice.json": "47ab2baca664f12748a7124bbe801a530ff611bb4d18679bdc6f538116262a31"
+      },
+      "selection_score": null,
+      "elimination_certificate": {
+        "selection_score_upper_bound": 14.206850268762224,
+        "winning_score": 14.542474622187513,
+        "proof": "min(dice_percent - 80, cards_percent) <= dice_percent - 80. SFT also wins a tie.",
+        "scope": "Exact selection-rule consequence, not statistical superiority. Partial cards are unscored."
+      }
+    }
+  ],
+  "training_runtime": "results/kaggle/qwen38-round3-training-v5/runtime.json",
+  "training_runtime_sha256": "7de89c925e0d3a3819f7e97f0652753d693890ad5d02238d82c9daa9ff4186f0",
+  "rule": "max min(dice percentage - 80, cards percentage); SFT wins ties",
+  "label": "qwen3.8-27b-batch4-sft",
+  "method": "sft",
+  "adapter_file": "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/adapter_model.safetensors",
+  "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+  "test_root": "results/final/qwen38-selected/qwen3.8-27b-batch4-sft/results",
+  "test_seeds": [
+    200,
+    399
+  ],
+  "test_episodes_per_game": 200,
+  "eval_batch_size": 4,
+  "final_candidate_family": 11,
+  "completion_gate_deviation": "Original acquisition plan required 100/game for both adapters. Stop the incomplete GRPO cards because its complete dice result mathematically precludes winning the unchanged max-min rule. This certificate is recorded before any held-out aggregate; both trials still count."
+}
