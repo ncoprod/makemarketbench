@@ -4,9 +4,11 @@ import json
 import time
 from pathlib import Path
 
+import numpy as np
+
+from makemarket.evaluate import load_results
 from makemarket.provenance import file_sha256, receipt
-from makemarket.scoring import bootstrap_ci
-from scripts.score_final import cohort, epnl, group_means
+from makemarket.scoring import bootstrap_ci, episode_metrics
 
 started = time.monotonic()
 manifest_path = Path('results/final/summary.json')
@@ -22,14 +24,15 @@ for label, entry in manifest['results'].items():
     data = json.loads(path.read_text())
     raw = Path(data['provenance']['config']['local']) / f'raw/cards/{label}.jsonl'
     assert file_sha256(raw) == data['input_sha256'][str(raw)]
-    episodes = cohort(raw)
-    assert episodes is not None
-    values = epnl(episodes)
+    episodes = sorted(load_results(raw), key=lambda row: row['seed'])
+    assert [row['seed'] for row in episodes] == list(range(200, 400))
+    assert all(len(row['rounds']) == 6 for row in episodes)
+    values = np.array([episode_metrics(row)['epnl'] for row in episodes])
     primary = data['games']['cards']
     draws = primary['family_bootstrap_resamples'] * 10
     interval = bootstrap_ci(values, n_boot=draws, level=primary['family_level'], seed=0)
     size = primary['inference_group_size']
-    grouped = interval if size == 1 else bootstrap_ci(group_means(values, size), n_boot=draws,
+    grouped = interval if size == 1 else bootstrap_ci(values.reshape(-1, size).mean(axis=1), n_boot=draws,
                                                      level=primary['family_level'], seed=0)
     positive = interval[0] > 0 and grouped[0] > 0
     record['candidates'][label] = {'score_file': str(path), 'score_sha256': file_sha256(path),
