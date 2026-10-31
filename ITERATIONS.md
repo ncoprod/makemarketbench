@@ -2725,3 +2725,19 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   decoder, seed range, primary baseline or statistical rule.
 - Receipt: `results/expansion/optional_campaign_plan.json`. The cutoff is based
   on elapsed time and acquisition completion, never on PnL or rank.
+
+### T28 — saved seed-one training completed and retrieved
+
+- Downloaded saved version 1 completes in 10,116.505320549011 seconds. SFT
+  stops after 250 updates with registered patience two and restores step 150
+  (teacher-validation loss 0.30412158370018005); GRPO completes all 96 updates.
+- Command: `.venv/bin/python runs/retain_qwen38_training.py
+  results/kaggle/qwen38-seed1-training-v1
+  results/training/qwen38_seed1_batch.json 1`. Exact verification source,
+  downloaded file hashes, latest optimizer checkpoints and adapter identities:
+  `results/training/qwen38_seed1_completion.json`.
+- Peak allocated bytes are 12,228,000,768 and 12,251,459,072 on the two T4s.
+  Runtime includes installation/loading; exact allocation billing boundaries
+  remain unknown. The budget ledger records measured script hours separately.
+- These are training receipts, not policy scores. The seed-one replication
+  remains validation-only and cannot replace the primary seed-zero candidate.
