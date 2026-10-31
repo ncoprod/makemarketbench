@@ -1,0 +1,211 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_qwen38_primary_grpo_validation.py",
+    "config": {
+      "purpose": "retain saved primary GRPO validation, including any bounded timeout"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "0ca04720ba71adbf2762a9eb2e13686c4790d71e",
+    "uncommitted_diff_sha256": "29b41161664a2caa7f17a6ba44d416ef9fb15809dd6e1451272c903b2f23003c",
+    "started_at": "2026-10-31T13:28:47.554365+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('results/training/qwen38_primary_grpo_validation_completion.json')\nassert not path.exists()\nroot = Path('results/kaggle/qwen38-primary-grpo-validation-v1')\nlaunch_path = Path('results/training/qwen38_primary_grpo_validation.json')\nlaunch = json.loads(launch_path.read_text())\nassert launch['status'] == 'outputs_retrieved'\nsource = Path('runs/kaggle_qwen38_primary_grpo_validate/grpo_unsloth_kaggle.py')\nassert file_sha256(source) == launch['source_sha256']\ncore = next(n.args[0].value for n in ast.walk(ast.parse(source.read_text())) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='write_text' and isinstance(n.args[0],ast.Constant))\nassert (root / 'evaluate_core.py').read_text() == core\nwork = root / 'qwen3.8-27b-grpo'\nruntime = json.loads((work / 'runtime.json').read_text())\npair = json.loads((root / 'pair_runtime.json').read_text())\ncohorts = {}\nfor game in ('dice', 'cards'):\n    raw = work / 'results/raw' / game / 'qwen3.8-27b-grpo.jsonl'\n    rows = [json.loads(line) for line in raw.read_text().splitlines()] if raw.exists() else []\n    assert [r['seed'] for r in rows] == list(range(80000, 80000 + len(rows)))\n    for row in rows:\n        canonical = make_game(game).episode(row['seed'])\n        assert row['value'] == canonical.value and len(row['rounds']) == 6\n        assert [r['reveal'] for r in row['rounds']] == canonical.reveals\n        cfg = row['provenance']['config']\n        assert cfg['eval_batch_size'] == 1 and cfg['seed'] == 0\n        assert cfg['adapter_sha256'] == file_sha256(Path('results/kaggle/qwen38-round3-training-v5/lora_adapter/adapter_model.safetensors'))\n        assert cfg['revision'] == '8aa5f05d26b7205477066e1449e0af13f762a299'\n    cohorts[game] = {'episodes': len(rows), 'complete': len(rows) == 100, 'canonical_games_verified': True,\n                     'file': str(raw), 'sha256': file_sha256(raw) if raw.exists() else None}\nrecord = {'provenance': receipt({'purpose': 'retain saved primary GRPO validation, including any bounded timeout'}, runtime['model_revision']),\n    'source': Path(__file__).read_text(), 'status': 'complete' if all(c['complete'] for c in cohorts.values()) else 'partial_validation_retained',\n    'runtime': runtime, 'pair_runtime': pair, 'cohorts': cohorts,\n    'downloaded_files': {str(p): {'sha256': file_sha256(p), 'bytes': p.stat().st_size} for p in root.rglob('*') if p.is_file()},\n    'scope': 'Validation split only. Any incomplete game remains unscored; no held-out aggregate opened.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nsession = next(s for s in ledger['sessions'] if s['kernel'] == launch['metadata']['id'] and s['version'] == 1)\nsession.update(status=record['status'], hours=runtime['wall_seconds']/3600, script_wall_seconds=runtime['wall_seconds'],\n    script_started_at=runtime['execution_started_at'], script_finished_at=runtime.get('execution_finished_at'), result_file=str(work/'runtime.json'),\n    hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.')\np.write_text(json.dumps(ledger, indent=2) + '\\n')\nprint('Retained primary GRPO', {g: c['episodes'] for g,c in cohorts.items()}, flush=True)\n",
+  "status": "partial_validation_retained",
+  "runtime": {
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/working/evaluate_core.py",
+      "--eval-only",
+      "--adapter",
+      "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/lora_adapter",
+      "--label",
+      "qwen3.8-27b-grpo",
+      "--eval-seed",
+      "80000",
+      "--eval-episodes",
+      "100",
+      "--eval-batch-size",
+      "1",
+      "--budget-seconds",
+      "21298",
+      "--model",
+      "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "--base-model",
+      "Qwen/Qwen3.8-27B",
+      "--revision",
+      "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "--device-map",
+      "unsloth_balanced",
+      "--lora-rank",
+      "8"
+    ],
+    "config": {
+      "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "base_model": "Qwen/Qwen3.8-27B",
+      "revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "label": "qwen3.8-27b-grpo",
+      "games": [
+        "dice",
+        "cards"
+      ],
+      "episodes": 400,
+      "sft_steps": 150,
+      "sft_batch": 8,
+      "sft_accumulation": 2,
+      "sft_validation_episodes": 0,
+      "save_steps": 100,
+      "grpo_save_steps": null,
+      "budget_seconds": 21298,
+      "seed": 0,
+      "device_map": "unsloth_balanced",
+      "offload_layers": null,
+      "grpo_steps": 300,
+      "num_generations": 8,
+      "max_completion": 96,
+      "max_seq_len": 1280,
+      "lora_rank": 8,
+      "lr": 5e-06,
+      "eval_episodes": 100,
+      "eval_batch_size": 1,
+      "check_batching": false,
+      "eval_seed": 80000,
+      "evaluation_prefix": null,
+      "resume": null,
+      "sft_resume": null,
+      "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/lora_adapter",
+      "train_only": false,
+      "eval_only": true,
+      "dry_run": false,
+      "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04"
+    },
+    "seed": 0,
+    "source_commit": "3c0d8298c2047ded3fc19d349a0177c1d286a4d7",
+    "cuda_visible_devices": null,
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "source_file_sha256": "34ad5fe7084a3739baad10e61c730f89564b412be1df6807b80d8bcdc53935b5",
+    "embedded_package_sha256": "f472c32d9a12d9dff1338582aa6709e31b58a2756b3e8e6404f14a4c817c249c",
+    "status": "failed",
+    "execution_started_at": "2026-10-31T07:32:10.415758+00:00",
+    "recorded_at": "2026-10-31T13:27:08.428694+00:00",
+    "wall_seconds": 21298.01468038559,
+    "gpus": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "gpu_capacity_bytes": [
+      15636037632,
+      15636037632
+    ],
+    "cuda_version": "12.8",
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "unsloth": "2026.10.10",
+      "unsloth_zoo": "2026.10.10",
+      "trl": "1.15.0",
+      "transformers": "5.16.1",
+      "peft": "0.20.0",
+      "bitsandbytes": "0.50.2",
+      "datasets": "4.8.5",
+      "accelerate": "1.14.0",
+      "triton": "3.6.0"
+    },
+    "phase": "evaluation",
+    "phase_step": 0,
+    "peak_allocated_bytes": 11725501952,
+    "peak_reserved_bytes": 12002000896,
+    "memory_by_gpu": [
+      {
+        "device": 0,
+        "peak_allocated_bytes": 11725501952,
+        "peak_reserved_bytes": 12002000896
+      },
+      {
+        "device": 1,
+        "peak_allocated_bytes": 11755259392,
+        "peak_reserved_bytes": 12008292352
+      }
+    ],
+    "error": "TimeoutError: Registered training wall budget exhausted",
+    "execution_finished_at": "2026-10-31T13:27:08.428655+00:00"
+  },
+  "pair_runtime": {
+    "wall_seconds": 21300.426814741,
+    "budget_seconds": 21300,
+    "exit_codes": [
+      -9
+    ],
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py"
+    ],
+    "source_commit": "3c0d8298c2047ded3fc19d349a0177c1d286a4d7",
+    "seed": 0,
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "evaluation_seed": 80000,
+    "episodes_per_game": 100,
+    "batch_size": 1
+  },
+  "cohorts": {
+    "dice": {
+      "episodes": 100,
+      "complete": true,
+      "canonical_games_verified": true,
+      "file": "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice/qwen3.8-27b-grpo.jsonl",
+      "sha256": "a160160e75a63e036144671a57f56ba235bb4ba8aad47cd287ccfcb48182d370"
+    },
+    "cards": {
+      "episodes": 97,
+      "complete": false,
+      "canonical_games_verified": true,
+      "file": "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/cards/qwen3.8-27b-grpo.jsonl",
+      "sha256": "e2f0cce4a33df99df043f619e1a3af3b81a9071eea172373b5123805fd5a24ba"
+    }
+  },
+  "downloaded_files": {
+    "results/kaggle/qwen38-primary-grpo-validation-v1/makemarketbench-qwen38-grpo-validation.log": {
+      "sha256": "286fe5fe6cd5b5f88f6477dbb943eb5e34f924e6f7cfa418c1e70167769dd7d4",
+      "bytes": 46488
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/evaluate_core.py": {
+      "sha256": "34ad5fe7084a3739baad10e61c730f89564b412be1df6807b80d8bcdc53935b5",
+      "bytes": 68580
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/pair_runtime.json": {
+      "sha256": "c140be6f2c0cddcd28b9e3e3a2a321841146ad075db19a230ca2e7315eddd4ef",
+      "bytes": 382
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/runtime.json": {
+      "sha256": "8cb7ca51312b8be7fb4dbecec504a3484d2310971797cc61246a2e375ea613e0",
+      "bytes": 3233
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/leaderboard_dice.json": {
+      "sha256": "853ddac83eefc82b1b35a84659ef79b976b4fc730c39a2176e88de7c887f21f6",
+      "bytes": 5786
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/leaderboard_dice.md": {
+      "sha256": "1d17e3c503137bab5f07b0941467805f7e24b5b98769fbe35c8b98023be3e2a2",
+      "bytes": 580
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/cards/qwen3.8-27b-grpo.jsonl": {
+      "sha256": "e2f0cce4a33df99df043f619e1a3af3b81a9071eea172373b5123805fd5a24ba",
+      "bytes": 499229
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice/qwen3.8-27b-grpo.jsonl": {
+      "sha256": "a160160e75a63e036144671a57f56ba235bb4ba8aad47cd287ccfcb48182d370",
+      "bytes": 502732
+    },
+    "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice/bayes.jsonl": {
+      "sha256": "7c7f66770e16e5890357836d4de6780c53b54f3b91347eb0e7c6117f850821ec",
+      "bytes": 420090
+    }
+  },
+  "scope": "Validation split only. Any incomplete game remains unscored; no held-out aggregate opened."
+}

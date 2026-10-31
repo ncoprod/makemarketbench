@@ -3031,3 +3031,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 
 - Submit version1 of `nicolascoquelet/makemarketbench-qwen38-batch4-test`; saved-source SHA e4cca8db900b6296c4e8148203eaa036e3faf64f266de4d8999f5e51c6cbd2c7 and private metadata are independently pulled and verified. Exact quota, source and command: `results/training/qwen38_selected_test.json`.
 - Selected policy is fixed SFT, seed zero, batch four. No new model tuning follows held-out acquisition. Keep the useful native GRPO validation running to its cap, and collect all terminal outputs before any other GPU submission.
+
+### T29 available contrast — primary serial GRPO versus SFT dice
+
+- Native GRPO validation returns 100 dice / 97 cards episodes at the 21,300-second script cap. Retain every file, canonical state check, adapter hash and measured 21,298.01468038559-second core runtime in `results/training/qwen38_primary_grpo_validation_completion.json`; cards remain unscored.
+- Run the already registered within-primary-seed serial dice contrast, retaining the ten-contrast correction. GRPO minus SFT expected PnL: -0.045189794275597224; 95% CI [-0.3714131568382208, 0.31484327559998604]; corrected CI [-0.5129966748661644, 0.4694227463650733]. Exact source/config/inputs: `results/validation/qwen38_serial_sft_grpo_dice.json`.
+- This conditions on fixed primary adapters and caches; it supplies no evidence of a dice improvement. The selected batch-four SFT policy and its running test remain unchanged.
+
+### T34 — conditional completion of existing validation cohorts
+
+- Hypothesis: if the primary selected test finishes with spare quota, completing the existing unselected GRPO validation is more informative than a new undersized run. The batch-four cohort needs 24 cards episodes; the native cohort needs three. No test aggregate has yet been inspected.
+- Plan: exact missing-only builds and source hashes in `results/training/qwen38_optional_validation_finish_plan.json`. Finish the sole selected test first. Then prioritize complete batch-four validation only if an official 1,800-second session fits, otherwise native validation if 900 seconds fits. Script caps are 1,620 / 780 seconds. Keep all acquired prefixes/cached responses and the frozen policy choice.
+- No new training or selected candidate is introduced; both original validation trials already count in the eleven-candidate test family. Any validation intervals remain descriptive. If neither complete cohort fits, record the remaining quota and stop instead of filling it with uninformative work.

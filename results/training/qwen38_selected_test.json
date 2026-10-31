@@ -63,7 +63,30 @@
   "session_timeout_seconds": 16740,
   "status": "submitted",
   "submitted_at": "2026-10-31T13:06:45.202385+00:00",
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-31T13:16:56.087536+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T13:27:06.951797+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
   "push": {
     "command": [
       "kaggle",

@@ -60,6 +60,15 @@ one `--qwen38-evaluate --evaluation-split test` build. Test seeds and cohort siz
 come from the registered protocol. Do not inspect aggregate test scores to pick
 another adapter or training budget.
 
+The actual saved campaign uses batch four and the explicit
+`--certify-incomplete-loser` option. SFT's complete max-min score exceeds the
+upper bound supplied by GRPO's complete dice score, so no possible cards score
+can make GRPO win. The original both-cards completion gate is therefore waived,
+with the exact [bound and protocol deviation](../results/training/qwen38_selection_bound_plan.json)
+recorded before test acquisition. This option rejects an incomplete candidate
+that could still win; partial cards are never scored. It certifies the original
+selection outcome, rather than statistical superiority of SFT.
+
 If an evaluation hits its wall cap, retain the raw episodes and pass
 `--evaluation-resume-kernel <saved-evaluation-kernel>` to a new evaluation build.
 The resume checks policy identity and canonical game states, preserves the

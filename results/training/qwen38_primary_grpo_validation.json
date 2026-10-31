@@ -63,7 +63,7 @@
   "remaining_primary_evaluation_reserve_seconds": 30600,
   "session_timeout_seconds": 21600,
   "scope": "Registered primary GRPO validation, 100 episodes/game, seeds 80000-80099; unchanged native serial inference.",
-  "status": "submitted",
+  "status": "outputs_retrieved",
   "polls": [
     {
       "at": "2026-10-31T07:42:07.129123+00:00",
@@ -427,6 +427,28 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T13:18:08.119324+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T13:28:18.925600+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.ERROR\""
     }
   ],
   "submitted_at": "2026-10-31T07:31:56.324359+00:00",
@@ -465,5 +487,21 @@
   "reserve_breakdown_seconds": {
     "missing_sft_validation": 9000,
     "selected_test": 21600
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen38-grpo-validation",
+      "-p",
+      "results/kaggle/qwen38-primary-grpo-validation-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to results/kaggle/qwen38-primary-grpo-validation-v1\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/evaluate_core.py\nDownloading pair_runtime.json to results/kaggle/qwen38-primary-grpo-validation-v1\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/pair_runtime.json\nDownloading leaderboard_dice.json to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/leaderboard_dice.md\nDownloading qwen3.8-27b-grpo.jsonl to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/cards\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/cards/qwen3.8-27b-grpo.jsonl\nDownloading bayes.jsonl to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice/bayes.jsonl\nDownloading qwen3.8-27b-grpo.jsonl to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice/qwen3.8-27b-grpo.jsonl\nDownloading runtime.json to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo\n\nOutput file downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/runtime.json\nKernel log downloaded to results/kaggle/qwen38-primary-grpo-validation-v1/makemarketbench-qwen38-grpo-validation.log \n\n  0%|          | 0.00/67.0k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 67.0k/67.0k [00:00<00:00, 1.55MB/s]\n\n  0%|          | 0.00/382 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 382/382 [00:00<00:00, 1.14MB/s]\n\n  0%|          | 0.00/5.65k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 5.65k/5.65k [00:00<00:00, 8.07MB/s]\n\n  0%|          | 0.00/580 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 580/580 [00:00<00:00, 1.54MB/s]\n\n  0%|          | 0.00/488k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 488k/488k [00:00<00:00, 1.22MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 488k/488k [00:00<00:00, 1.22MB/s]\n\n  0%|          | 0.00/410k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 410k/410k [00:00<00:00, 1.06MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 410k/410k [00:00<00:00, 1.05MB/s]\n\n  0%|          | 0.00/491k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 491k/491k [00:00<00:00, 1.31MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 491k/491k [00:00<00:00, 1.31MB/s]\n\n  0%|          | 0.00/3.16k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.16k/3.16k [00:00<00:00, 4.78MB/s]"
   }
 }

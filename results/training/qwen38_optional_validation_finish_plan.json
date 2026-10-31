@@ -1,0 +1,114 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "cost-only optional completion of already registered validation cohorts after the sole selected test is complete"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "0ca04720ba71adbf2762a9eb2e13686c4790d71e",
+    "uncommitted_diff_sha256": "63eef7303dd1ae75b59f319913d4fc0d7a654f6076e95c6f50ef936301720b73",
+    "started_at": "2026-10-31T13:30:56.342516+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "conditional_registered_while_test_running_before_aggregate",
+  "selection_file": "results/training/qwen38_selection.json",
+  "selection_sha256": "7c142845dda4760e05a5df2b312b43133e9258aecc447caedba3a4ec7cd1e8d9",
+  "priority": [
+    {
+      "name": "batch4",
+      "command": [
+        ".venv/bin/python",
+        "train/build_kaggle_kernel.py",
+        "--qwen38-evaluate",
+        "--evaluate-adapter",
+        "grpo",
+        "--newest-batch-size",
+        "4",
+        "--evaluation-budget-seconds",
+        "1620",
+        "--evaluation-resume-kernel",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-validation",
+        "--out",
+        "runs/kaggle_qwen38_batch4_validation_finish"
+      ],
+      "folder": "runs/kaggle_qwen38_batch4_validation_finish",
+      "metadata": {
+        "id": "nicolascoquelet/makemarketbench-qwen38-batch4-cards-finish",
+        "title": "MakeMarketBench Qwen38 batch4 cards finish",
+        "code_file": "grpo_unsloth_kaggle.py",
+        "language": "python",
+        "kernel_type": "script",
+        "is_private": true,
+        "enable_gpu": true,
+        "enable_internet": true,
+        "machine_shape": "NvidiaTeslaT4",
+        "dataset_sources": [],
+        "competition_sources": [],
+        "kernel_sources": [
+          "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+          "nicolascoquelet/makemarketbench-qwen38-batch4-validation"
+        ],
+        "model_sources": []
+      },
+      "source_sha256": "902bd591ce4c46748f7be33df750b009930dd22b7f0afa0276e5f1e4a60fb7a6",
+      "missing_cards": 24,
+      "script_cap_seconds": 1620,
+      "session_timeout_seconds": 1800,
+      "source_kernel": "nicolascoquelet/makemarketbench-qwen38-batch4-validation",
+      "input_label": "qwen3.8-27b-batch4-grpo"
+    },
+    {
+      "name": "serial",
+      "command": [
+        ".venv/bin/python",
+        "train/build_kaggle_kernel.py",
+        "--qwen38-evaluate",
+        "--evaluate-adapter",
+        "grpo",
+        "--newest-batch-size",
+        "1",
+        "--evaluation-budget-seconds",
+        "780",
+        "--evaluation-resume-kernel",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation",
+        "--out",
+        "runs/kaggle_qwen38_serial_validation_finish"
+      ],
+      "folder": "runs/kaggle_qwen38_serial_validation_finish",
+      "metadata": {
+        "id": "nicolascoquelet/makemarketbench-qwen38-serial-cards-finish",
+        "title": "MakeMarketBench Qwen38 serial cards finish",
+        "code_file": "grpo_unsloth_kaggle.py",
+        "language": "python",
+        "kernel_type": "script",
+        "is_private": true,
+        "enable_gpu": true,
+        "enable_internet": true,
+        "machine_shape": "NvidiaTeslaT4",
+        "dataset_sources": [],
+        "competition_sources": [],
+        "kernel_sources": [
+          "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+          "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+        ],
+        "model_sources": []
+      },
+      "source_sha256": "0fb88de4758df5c73db9e02015172a5b71b7181337bc54327c14e4ed19e6305c",
+      "missing_cards": 3,
+      "script_cap_seconds": 780,
+      "session_timeout_seconds": 900,
+      "source_kernel": "nicolascoquelet/makemarketbench-qwen38-grpo-validation",
+      "input_label": "qwen3.8-27b-grpo"
+    }
+  ],
+  "admission": "First complete and retain the sole selected primary test, including any missing-only resume. Only then admit batch-four GRPO validation completion if official unreserved balance >=1800 seconds; otherwise consider serial GRPO completion if >=900. Recheck quota and commit each completed job before the next. Never exceed the account quota. No filler if neither complete missing cohort fits.",
+  "meaning": "Complete existing 100/game validation cohorts and improve the SFT/GRPO or inference-mode diagnostic; no new weights, decoder, seeds, selected test candidate or test tuning. All incomplete cards remain unscored. The immutable SFT selection cannot change regardless of these validation outcomes.",
+  "inference": "Any completed validation leaderboard intervals are descriptive and conditional on frozen weights; do not promote them to confirmatory test claims."
+}
