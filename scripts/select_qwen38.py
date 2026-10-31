@@ -35,7 +35,7 @@ def main():
             cfg = data['provenance']['config']
             assert cfg['revision'] == revision and cfg['adapter_sha256'] == adapter_hash
             assert cfg['eval_batch_size'] == args.batch_size, 'Wrong registered inference variant'
-            assert cfg['seed'] == 0, 'Wrong validation training seed'
+            assert cfg['seed'] == 0, 'Wrong validation inference seed'
             row = next(r for r in data['rows'] if r['player'] == label)
             assert row['episodes'] == 100, 'Incomplete validation cohort'
             scores[game] = row

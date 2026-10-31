@@ -198,3 +198,34 @@ the slow Llama-90B cohort, finishes missing GPT/Bolt baseline episodes first,
 then resumes it with the same settings and cache.
 Partial cohorts remain unscored; the corrected final comparison is pending.
 
+
+## Round 3 saved 27B replication and inference diagnosis
+
+The primary saved Qwen3.8-27B batch completes 800 SFT and 96 GRPO updates in
+17,901.34559750557 seconds. The second seed restores SFT step 150 after stopping
+at 250, then completes 96 GRPO updates in 10,116.505320549011 seconds
+([primary](../results/training/qwen38_seed0_completion.json),
+[replication](../results/training/qwen38_seed1_completion.json)).
+
+Serial SFT dice validation, 100 common episodes, reaches 94.575920754075% of
+Bayes [87.69126590056176, 100.88946539023392] for the primary and
+70.24443757136461% [53.04110568983144, 83.92028500027654] for the replication.
+The registered paired expected-PnL difference is 3.5530164985717927; its
+ten-contrast-corrected interval is [1.1251129936209707, 6.329603282166639]
+([source and identities](../results/validation/qwen38_sft_seed_dice.json)).
+These intervals condition on the two adapters. Two training seeds cannot give a
+precise population-level training-seed interval. Both cards cohorts stop at four
+episodes and remain unscored. Evaluation config.seed is the inference RNG seed;
+actual training seeds are verified separately through adapter hashes and saved
+training runtime. The replication cannot replace the primary test candidate.
+
+A generic BF16 warning did not describe the active inference weights. The
+[retained dtype probe](../results/training/qwen38_dtype_probe_completion.json)
+finds no effective dtype change and a warm ratio of 1.010168640792298.
+[Force-eager execution](../results/training/qwen38_compile_probe_completion.json)
+also brings no material improvement (ratio 1.0069778650347732). The native CUDA
+profile attributes 57.19% of instrumented self device time to bitsandbytes GEMV
+and 25.09% to matrix multiplication; those shares include profiling overhead.
+The [registered batch-four probe](../results/training/qwen38_batch_probe_plan.json)
+tests throughput and valid quotes on training states only. Any promoted batching
+is a separate inference policy, even if its small probe agrees with serial.

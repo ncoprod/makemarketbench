@@ -2963,3 +2963,16 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   Official account use at admission: 55,132.228578 of 108,000 seconds.
 - Returned reference, saved-source/private checks, exact command and quota:
   `results/training/qwen38_batch_probe.json`.
+
+### T29 available contrast — primary versus replication SFT dice
+
+- Both serial dice validation cohorts are complete. Compute the already
+  registered seed-zero versus seed-one SFT contrast, retaining the ten-contrast
+  correction. Mean expected-PnL difference: 3.5530164985717927; corrected CI
+  [1.1251129936209707, 6.329603282166639]. Source, inputs and adapter identities:
+  `results/validation/qwen38_sft_seed_dice.json`.
+- This conditions on two frozen adapters, with selected SFT steps 800 versus
+  150; it is not a population training-seed interval. Evaluation config.seed
+  denotes inference RNG, while actual training seed is checked through saved
+  training runtime and adapter hash. Preserve the raw provenance. Cards partials
+  remain unscored, and seed one cannot enter primary test selection.
