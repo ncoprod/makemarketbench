@@ -1,0 +1,49 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "retain the unscored Llama pause at a completed-episode boundary"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "8cb8f03b5e294382ed8db3f3247cd961ac4970b3",
+    "uncommitted_diff_sha256": "02da81f4ce09ff558f34b28a59eaa0f9d595311743a296d1e705124ed5a36fd1",
+    "started_at": "2026-10-31T01:16:50.581151+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "incomplete_unscored",
+  "episodes_saved": 24,
+  "raw_file": "results/expansion/raw/dice/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+  "raw_sha256": "a6077b6b1ae5a47f23da35c6fcb21ae0626c49b6c8d89f909f35a98fd3551b50",
+  "original_seven_episode_prefix_preserved": true,
+  "config": {
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "extra_body": {},
+    "label": "meta/llama-3.2-90b-vision-instruct (text-only)",
+    "max_tokens": 4096,
+    "model": "meta/llama-3.2-90b-vision-instruct",
+    "temperature": 0.3,
+    "timeout": 600
+  },
+  "canonical_partial_states_verified": true,
+  "pause_plan_sha256": "bc075ac4166680cc7eb0ceb17b54a6c6d266f3d7fa46b223df029f86c3c3180b",
+  "resume_command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "meta/llama-3.2-90b-vision-instruct",
+    "--protocol-file",
+    "protocol-llama90-resume.json"
+  ],
+  "interpretation": "Pause at a complete episode to prioritize the queued Mistral availability control. All settings and cached episodes stay fixed; resume missing-only if useful campaign budget permits. No partial-cohort aggregate computed."
+}

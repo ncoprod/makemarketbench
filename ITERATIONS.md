@@ -2685,3 +2685,17 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Pull the actual saved replication source and metadata: its private flag is
   true and its full script hash matches the preregistered seed-only transform.
   Exact command and verification: `qwen38_seed1_source_save.json`.
+
+### Prioritize the pending Mistral availability control
+
+- All original API baselines are complete, while Llama-90B's additional cohort
+  advances slowly. Pause its verified process group after the 24th complete
+  dice episode so the queued, already registered 16384-token Mistral control
+  can acquire the shared slot. No request settings or scores select this order.
+- Command: `.venv/bin/python runs/pause_llama_for_mistral.py`. Source, exact
+  boundary, signal and identical resume command are retained in
+  `results/expansion/llama_mistral_priority.json`. The original seven-episode
+  prefix, all 24 canonical states and decoder settings pass verification:
+  `results/expansion/llama90_mistral_pause_receipt.json`.
+- The partial Llama cohort remains unscored. Resume after the Mistral control
+  if campaign budget permits; Ultra thinking continues in the other slot.
