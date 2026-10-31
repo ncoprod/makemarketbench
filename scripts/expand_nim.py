@@ -10,6 +10,7 @@ import argparse
 import dataclasses
 import json
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 from makemarket.cli import slug
@@ -52,6 +53,8 @@ def main() -> None:
     ap.add_argument("--episodes", type=int, default=200)
     ap.add_argument("--seed", type=int, default=200)
     ap.add_argument("--models", nargs="*")
+    ap.add_argument("--games", nargs="+", choices=["dice", "cards"], default=["dice", "cards"])
+    ap.add_argument("--stop-at", help="UTC/offset ISO timestamp; finish the current episode before stopping")
     ap.add_argument("--protocol-file", help="separate receipt filename for an independent resume batch")
     retry = ap.add_mutually_exclusive_group()
     retry.add_argument("--reduced-reasoning", action="store_true",
@@ -59,6 +62,11 @@ def main() -> None:
     retry.add_argument("--ultra-medium", action="store_true",
                        help="retry Ultra with the documented medium-effort thinking mode")
     args = ap.parse_args()
+    cutoff = datetime.fromisoformat(args.stop_at) if args.stop_at else None
+    if cutoff:
+        assert cutoff.tzinfo is not None, "--stop-at requires a timezone"
+        if datetime.now(timezone.utc) >= cutoff:
+            return
     OUT.mkdir(parents=True, exist_ok=True)
     models = list(MODELS + SUPPLEMENT if args.models else MODELS)
     batch = receipt({"args": vars(args)}, "NIM immutable deployment revision not exposed")
@@ -130,10 +138,15 @@ def main() -> None:
             ready.append((label, client, entry, provenance))
     # Establish availability first; finish faster cohorts before slower ones.
     for label, client, entry, provenance in sorted(ready, key=lambda item: item[2]["probe_wall_seconds"]):
-        for name in ("dice", "cards"):
+        for name in args.games:
             started = time.time()
             try:
-                eps = run_player(make_game(name), lambda c=client: LLMQuoter(c),
+                def make_player(c=client):
+                    if cutoff and datetime.now(timezone.utc) >= cutoff:
+                        raise TimeoutError("Registered optional API acquisition cutoff")
+                    return LLMQuoter(c)
+
+                eps = run_player(make_game(name), make_player,
                                  list(range(args.seed, args.seed + args.episodes)),
                                  OUT / "raw" / name / f"{slug(label)}.jsonl", workers=1,
                                  provenance=provenance)

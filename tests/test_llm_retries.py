@@ -7,8 +7,8 @@ from makemarket.llm import NIM_BASE_URL, ChatClient, LLMConfig, Throttle
 
 
 class RequestError(Exception):
-    def __init__(self, status):
-        super().__init__(f"HTTP {status}")
+    def __init__(self, status, message=None):
+        super().__init__(message or f"HTTP {status}")
         self.status_code = status
 
 
@@ -51,6 +51,33 @@ def test_persistent_nim_404_stops_at_retry_limit(tmp_path, monkeypatch):
         client.chat([])
     assert create.call_count == 3
     assert not list(tmp_path.iterdir())
+
+
+def test_nim_duplicate_request_retries_without_changing_prompt(tmp_path, monkeypatch):
+    error = RequestError(400, "Request chatcmpl-example already exists")
+    client, create = client_for(tmp_path, monkeypatch, [error, response()])
+    messages = [{"role": "user", "content": "quote"}]
+    result = client.chat(messages)
+    assert create.call_count == 2
+    assert create.call_args_list[0] == create.call_args_list[1]
+    assert client.chat(messages) == {**result, "cached": True}
+    assert create.call_count == 2
+
+
+def test_nim_duplicate_request_remains_bounded(tmp_path, monkeypatch):
+    error = RequestError(400, "Request chatcmpl-example already exists")
+    client, create = client_for(tmp_path, monkeypatch, [error] * 3)
+    with pytest.raises(RuntimeError, match="giving up after 3 attempts"):
+        client.chat([])
+    assert create.call_count == 3
+
+
+def test_duplicate_request_exception_does_not_apply_to_other_providers(tmp_path, monkeypatch):
+    error = RequestError(400, "Request chatcmpl-example already exists")
+    client, create = client_for(tmp_path, monkeypatch, [error], "https://example.com/v1")
+    with pytest.raises(RuntimeError):
+        client.chat([])
+    assert create.call_count == 1
 
 
 @pytest.mark.parametrize("status,base_url", [

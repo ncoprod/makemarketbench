@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "command": "bash scripts/ci_local.sh",
+      "purpose": "narrow NIM duplicate-request retry and bounded independent game acquisition"
+    },
+    "model_revision": null,
+    "git_commit": "1f43b6d7c6ab238d3ec9f368cc09a118cc7ff50a",
+    "uncommitted_diff_sha256": "60159efc5a294eb7812cad3c089b9784fedd7ad79d0953f9cb4d83b53b738b16",
+    "started_at": "2026-10-31T07:44:14.736167+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "passed",
+  "tests": 142,
+  "log": "+ date -u\nSat Oct 31 07:39:15 UTC 2026\n+ git rev-parse HEAD\n1f43b6d7c6ab238d3ec9f368cc09a118cc7ff50a\n+ .venv/bin/python --version\nPython 3.13.17\n+ .venv/bin/ruff check src tests scripts train\nAll checks passed!\n+ .venv/bin/python -c 'from makemarket.engine import cpp_available; assert cpp_available()'\n+ .venv/bin/python -m pytest -q\n........................................................................ [ 50%]\n......................................................................   [100%]\n142 passed in 6.41s\n+ cmake -S . -B build/native -DMMB_BUILD_NATIVE=ON -DCMAKE_BUILD_TYPE=Release\n-- Configuring done (0.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /Users/nico/Documents/AI/makemarketbench/build/native\n+ cmake --build build/native -j 2\n[ 33%] Built target mmb_core\n[ 66%] Built target test_book\n[100%] Built target bench_book\n+ ctest --test-dir build/native --output-on-failure\nTest project /Users/nico/Documents/AI/makemarketbench/build/native\n    Start 1: test_book\n1/1 Test #1: test_book ........................   Passed    0.01 sec\n\n100% tests passed, 0 tests failed out of 1\n\nTotal Test time (real) =   0.01 sec\n+ cmake -S . -B build/sanitize -DMMB_BUILD_NATIVE=ON -DMMB_SANITIZE=ON -DCMAKE_BUILD_TYPE=Debug\n-- Configuring done (0.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /Users/nico/Documents/AI/makemarketbench/build/sanitize\n+ cmake --build build/sanitize -j 2\n[ 33%] Built target mmb_core\n[ 66%] Built target test_book\n[100%] Built target bench_book\n+ ctest --test-dir build/sanitize --output-on-failure\nTest project /Users/nico/Documents/AI/makemarketbench/build/sanitize\n    Start 1: test_book\n1/1 Test #1: test_book ........................   Passed    0.18 sec\n\n100% tests passed, 0 tests failed out of 1\n\nTotal Test time (real) =   0.18 sec\n+ .venv/bin/python train/build_kaggle_kernel.py --out build/kaggle_ci\nwrote build/kaggle_ci/grpo_unsloth_kaggle.py and kernel-metadata.json\n+ MMB_WORK=build/kaggle_dry\n+ .venv/bin/python build/kaggle_ci/grpo_unsloth_kaggle.py --dry-run\nstates: 36\nformat: [0.5, -1.0, 0.5, 0.5]\nedge:   [0.0, -2.0, -1.0, 0.0]\n+ date -u\nSat Oct 31 07:39:23 UTC 2026\n",
+  "source_sha256": {
+    "src/makemarket/llm.py": "3185755dfb5cdf01b5b1f5e4757fb2d427cc38964aaee655b85aab3e07025ee4",
+    "scripts/expand_nim.py": "fda6e0d238c71840cacd79b509b8bc540b33637c45bca76c8bc31544aa93f02a",
+    "tests/test_llm_retries.py": "14cde24a2f080f188dca859cf5adad25d37d5cf725d9491c39a9ec87b7c1649f"
+  }
+}

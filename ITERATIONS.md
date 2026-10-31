@@ -2921,3 +2921,17 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Source, fixed inputs, private metadata and 1,800-second script cap:
   `results/training/qwen38_batch_probe_plan.json`. Admit only after the currently
   useful primary SFT session finishes; preserve the remaining primary budget.
+
+### A9 — specific NIM duplicate-request rejection and independent game resumes
+
+- Llama-90B dice stops after 64 complete episodes: HTTP 400,
+  `Request chatcmpl-… already exists`, after 21,233.312069892883 seconds.
+  Preserve the exact server error and cached responses; partial cohorts remain
+  unscored. Retry this specific NIM rejection with the existing bounded backoff,
+  while permanent HTTP 400 errors still fail immediately.
+- Resume dice and cards separately under the two global mutex slots, after a
+  completed cards episode. Keep the registered acquisition cutoff and request
+  configuration. Commands, source and initial hashes:
+  `results/expansion/llama_duplicate_retry_plan.json`.
+- Verification: local CI passes 142 tests, native Release, ASan/UBSan and Kaggle
+  CPU checks: `results/ci_local_round3_duplicate_retry.json`.

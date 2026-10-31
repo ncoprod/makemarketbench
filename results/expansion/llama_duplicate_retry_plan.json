@@ -1,0 +1,63 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/restart_llama_duplicate_retry.py",
+    "config": {
+      "purpose": "resume the identical cached Llama requests after a specific transient duplicate-request rejection"
+    },
+    "model_revision": null,
+    "git_commit": "1f43b6d7c6ab238d3ec9f368cc09a118cc7ff50a",
+    "uncommitted_diff_sha256": "60159efc5a294eb7812cad3c089b9784fedd7ad79d0953f9cb4d83b53b738b16",
+    "started_at": "2026-10-31T07:44:14.623933+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport os\nimport signal\nimport subprocess\nimport time\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/expansion')\npath = root / 'llama_duplicate_retry_plan.json'\nraw = root / 'raw/cards/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl'\ninitial = raw.read_bytes()\ncommands = {game: ['bash', 'scripts/with_resource.sh', 'nim', '.venv/bin/python', '-u',\n    'scripts/expand_nim.py', '--models', 'meta/llama-3.2-90b-vision-instruct',\n    '--games', game, '--stop-at', '2026-11-01T00:00:00Z',\n    '--protocol-file', f'protocol-llama90-{game}-duplicate-retry.json'] for game in ('dice', 'cards')}\nif not path.exists():\n    record = {'provenance': receipt({'purpose': 'resume the identical cached Llama requests after a specific transient duplicate-request rejection'}),\n        'source': Path(__file__).read_text(), 'status': 'registered_waiting_for_commit_and_completed_episode',\n        'old_supervisor_pid': 60439, 'commands': commands,\n        'old_failure_protocol': 'results/expansion/protocol-llama90-resume.json',\n        'old_failure_protocol_sha256': file_sha256(root / 'protocol-llama90-resume.json'),\n        'initial_cards_episodes': initial.count(b'\\n'), 'initial_cards_sha256': file_sha256(raw),\n        'cutoff': 'primary newest-family test acquisition completion or 2026-11-01T00:00:00Z, whichever is earlier',\n        'inclusion': 'Only complete 200-episode cohorts may be scored. No outcome-dependent stopping. Same request config and cache; at most two global mutex slots, one sequential process per game.'}\n    path.write_text(json.dumps(record, indent=2) + '\\n')\n    raise SystemExit('Registered; create runs/llama_duplicate_retry_ready after commit/push to resume.')\nrecord = json.loads(path.read_text())\nassert record['status'] == 'registered_waiting_for_commit_and_completed_episode'\nwhile not Path('runs/llama_duplicate_retry_ready').exists():\n    time.sleep(5)\nwhile True:\n    command = subprocess.run(['ps', '-p', '60439', '-o', 'command='], capture_output=True, text=True).stdout\n    if 'runs/resume_llama_after_mistral.py' not in command:\n        record['old_process'] = 'already_finished'\n        break\n    data = raw.read_bytes()\n    if len(data) > len(initial) and data.endswith(b'\\n'):\n        assert data.startswith(initial)\n        assert os.getpgid(60439) == 60439\n        os.killpg(60439, signal.SIGTERM)\n        record.update(old_process='paused_at_complete_episode', cards_episodes_at_pause=data.count(b'\\n'),\n            pause_at=datetime.now(timezone.utc).isoformat(), preserved_prefix=True)\n        break\n    time.sleep(1)\nold_path = root / 'protocol-llama90-resume.json'\nold = json.loads(old_path.read_text())\nlabel = 'meta/llama-3.2-90b-vision-instruct (text-only)'\nfields = ('model', 'label', 'timeout_seconds', 'probe_seed', 'probe_round', 'max_tokens', 'temperature',\n          'extra_body', 'provenance', 'probe', 'usable', 'probe_wall_seconds')\nchildren = []\nfor game, command in commands.items():\n    protocol = root / f'protocol-llama90-{game}-duplicate-retry.json'\n    assert not protocol.exists()\n    entry = {k: old[label][k] for k in fields}\n    entry['availability_source'] = {'path': str(old_path), 'sha256': file_sha256(old_path)}\n    protocol.write_text(json.dumps({label: entry}, indent=2) + '\\n')\n    log = open(f'runs/llama90_{game}_duplicate_retry.log', 'ab', buffering=0)\n    process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)\n    children.append((game, process))\nrecord.update(status='running', started_at=datetime.now(timezone.utc).isoformat(),\n              launch_provenance=receipt({'commands': commands}), children={g: p.pid for g,p in children})\npath.write_text(json.dumps(record, indent=2) + '\\n')\nwhile any(p.poll() is None for _,p in children):\n    selection_path = Path('results/training/qwen38_selection.json')\n    completed = False\n    if selection_path.exists():\n        selection = json.loads(selection_path.read_text())\n        files = [Path(selection['test_root']) / 'raw' / g / f\"{selection['label']}.jsonl\" for g in ('dice', 'cards')]\n        completed = all(f.exists() and len(f.read_text().splitlines()) == 200 for f in files)\n    if completed:\n        for _, process in children:\n            if process.poll() is None:\n                assert os.getpgid(process.pid) == process.pid\n                os.killpg(process.pid, signal.SIGTERM)\n        record['stopped_at_primary_test_complete'] = datetime.now(timezone.utc).isoformat()\n        break\n    time.sleep(30)\nrecord.update(status='finished', finished_at=datetime.now(timezone.utc).isoformat(),\n              exit_codes={g: p.wait() for g,p in children})\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
+  "status": "registered_waiting_for_commit_and_completed_episode",
+  "old_supervisor_pid": 60439,
+  "commands": {
+    "dice": [
+      "bash",
+      "scripts/with_resource.sh",
+      "nim",
+      ".venv/bin/python",
+      "-u",
+      "scripts/expand_nim.py",
+      "--models",
+      "meta/llama-3.2-90b-vision-instruct",
+      "--games",
+      "dice",
+      "--stop-at",
+      "2026-11-01T00:00:00Z",
+      "--protocol-file",
+      "protocol-llama90-dice-duplicate-retry.json"
+    ],
+    "cards": [
+      "bash",
+      "scripts/with_resource.sh",
+      "nim",
+      ".venv/bin/python",
+      "-u",
+      "scripts/expand_nim.py",
+      "--models",
+      "meta/llama-3.2-90b-vision-instruct",
+      "--games",
+      "cards",
+      "--stop-at",
+      "2026-11-01T00:00:00Z",
+      "--protocol-file",
+      "protocol-llama90-cards-duplicate-retry.json"
+    ]
+  },
+  "old_failure_protocol": "results/expansion/protocol-llama90-resume.json",
+  "old_failure_protocol_sha256": "cdcea140b74fb94a48ffe21d7d0dc3011e6a552e90197d58793560b05c608deb",
+  "initial_cards_episodes": 3,
+  "initial_cards_sha256": "692a77d98e9e236255b0ed0c3e45a762cbdd749b6ef5fa239a1635ede473a919",
+  "cutoff": "primary newest-family test acquisition completion or 2026-11-01T00:00:00Z, whichever is earlier",
+  "inclusion": "Only complete 200-episode cohorts may be scored. No outcome-dependent stopping. Same request config and cache; at most two global mutex slots, one sequential process per game."
+}

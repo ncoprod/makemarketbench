@@ -132,7 +132,10 @@ class ChatClient:
                 last_err = f"{type(e).__name__}({status}): {str(e)[:200]}"
                 # Listed NIM models can return 404 between successful generations.
                 retry_404 = status == 404 and self.cfg.base_url.rstrip("/") == NIM_BASE_URL
-                if status is not None and status < 500 and status not in (408, 409, 429) and not retry_404:
+                duplicate_request = (status == 400 and self.cfg.base_url.rstrip("/") == NIM_BASE_URL
+                                     and "Request chatcmpl-" in str(e) and "already exists" in str(e))
+                if (status is not None and status < 500 and status not in (408, 409, 429)
+                        and not retry_404 and not duplicate_request):
                     raise RuntimeError(last_err) from e
                 time.sleep(delay + random.random())
                 delay = min(delay * 2, 90.0)
