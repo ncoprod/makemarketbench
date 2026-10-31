@@ -2741,3 +2741,16 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   remain unknown. The budget ledger records measured script hours separately.
 - These are training receipts, not policy scores. The seed-one replication
   remains validation-only and cannot replace the primary seed-zero candidate.
+
+### T28 — seed-one SFT validation admitted with primary reserve
+
+- Submit only the replication's SFT adapter for serial validation on the fixed
+  100/game split. Requested cap: 11,100 seconds, including finalization buffer;
+  script cap: 10,800 seconds. Retain a 44,100-second allowance for primary
+  validation/test plus the primary training session's full remaining cap.
+- Official available quota is 86,579.293711 seconds at admission; exact commands,
+  source, private saved-source verification and accounting are in
+  `results/training/qwen38_seed1_sft_validation.json`. No validation outcome is
+  known at admission; the primary seed-zero selection rule remains unchanged.
+- Update the README with the downloaded seed-one training result. Optimizer and
+  tokenizer binaries stay local/Kaggle; committed hashes preserve their identity.

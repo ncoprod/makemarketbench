@@ -1,10 +1,10 @@
 # MakeMarketBench
 
 **TL;DR:** A fast matching engine and a hard, synthetic market-making benchmark.
-The newest model, Qwen3.8-27B, is submitted as a private saved batch after
-the GPU quota reset; its lost draft supplies no verified final policy result
-([registered rerun](results/training/qwen38_round3_batch_plan.json),
-[saved batch receipt](results/training/qwen38_round3_batch.json)).
+The newest model, Qwen3.8-27B, completes a private saved SFT → GRPO replication
+in **10,116.505 seconds**. Its primary validation and held-out policy results
+are still pending ([downloaded training receipt](results/training/qwen38_seed1_completion.json),
+[primary batch](results/training/qwen38_round3_batch.json)).
 
 **Can language models quote profitable markets against an informed trader?**
 The C++20 engine now processes **24.61M events/s**, up from **20.21M** on the
@@ -140,11 +140,13 @@ both the local and newest-family decisions are frozen
   completes SFT and GRPO updates with **11.994 / 12.018 GB** peak allocations
   ([measured runtime](results/kaggle/qwen38-fit-v3/runtime.json)). The lost
   interactive draft supplies no recovered adapter. Its registered rerun is now
-  private saved batch version 5, now RUNNING, with periodic optimizer checkpoints
-  ([submission](results/training/qwen38_round3_batch.json)). A separate seed-1
-  validation replication is submitted after quota admission; it cannot replace
-  the primary test candidate ([controls](results/training/qwen38_seed1_plan.json),
-  [submission](results/training/qwen38_seed1_batch.json)).
+  private saved batch version 5, still RUNNING, with periodic optimizer checkpoints
+  ([submission](results/training/qwen38_round3_batch.json)). The separate seed-1
+  replication completes **250 SFT + 96 GRPO updates**, restoring the best SFT
+  checkpoint at step 150. Peak allocations are **12.228 / 12.251 GB** on two
+  T4s ([downloaded receipt](results/training/qwen38_seed1_completion.json)).
+  It remains validation-only and cannot replace the primary test candidate
+  ([controls](results/training/qwen38_seed1_plan.json)).
 - **API baselines:** all four original NIM models now have **200 episodes/game**,
   with canonical seeds and states verified
   ([eight cohorts](results/expansion/primary_api_canonical.json)). GLM/DeepSeek

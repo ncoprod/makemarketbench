@@ -19,3 +19,8 @@ train/data/*.jsonl
 .DS_Store
 train/data_dagger/
 train/data_dagger_*/
+results/kaggle/**/optimizer.pt
+results/kaggle/**/scheduler.pt
+results/kaggle/**/rng_state.pth
+results/kaggle/**/training_args.bin
+results/kaggle/**/tokenizer.json
