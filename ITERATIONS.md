@@ -2953,3 +2953,13 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   and file hashes: `results/training/qwen38_primary_sft_validation_completion.json`.
 - Commit these outputs before using the released slot for T32. Primary native
   GRPO validation continues; no held-out aggregate is open.
+
+### T32 saved execution submitted
+
+- Retained primary serial validation: 100 dice episodes, 4 cards episodes,
+  10,798.018659353256 seconds, bounded timeout. Cards remain unscored.
+- Submit the private saved batch probe after committing those outputs. Its
+  admission reserves the running GRPO cap and the selected-test budget.
+  Official account use at admission: 55,132.228578 of 108,000 seconds.
+- Returned reference, saved-source/private checks, exact command and quota:
+  `results/training/qwen38_batch_probe.json`.

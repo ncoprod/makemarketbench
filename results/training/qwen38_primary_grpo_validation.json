@@ -64,7 +64,52 @@
   "session_timeout_seconds": 21600,
   "scope": "Registered primary GRPO validation, 100 episodes/game, seeds 80000-80099; unchanged native serial inference.",
   "status": "submitted",
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-31T07:42:07.129123+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:52:18.076682+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T08:02:28.867666+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T08:12:39.668195+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-grpo-validation"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
   "submitted_at": "2026-10-31T07:31:56.324359+00:00",
   "push": {
     "command": [
