@@ -53,6 +53,24 @@
       "credentials_mode_0600": true,
       "status": "refreshed",
       "source": "import hashlib\nimport json\nimport os\nimport subprocess\nimport sys\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nfrom kaggle.api.kaggle_api_extended import KaggleApi\nfrom kagglesdk import KaggleCredentials\n\nrecord = {'at': datetime.now(timezone.utc).isoformat(), 'command': [sys.executable, *sys.argv],\n          'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),\n          'source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),\n          'purpose': 'Refresh the existing OAuth access token with unchanged scopes before output collection.',\n          'model_revision': None, 'seed': None}\napi = KaggleApi()\napi.authenticate()\nwith api.build_kaggle_client() as client:\n    credentials = KaggleCredentials.load(client)\n    assert credentials is not None\n    scopes = tuple(credentials._scopes)\n    record['previous_expiration'] = credentials._access_token_expiration.isoformat()\n    credentials.refresh_access_token()\n    assert tuple(credentials._scopes) == scopes\n    record['new_expiration'] = credentials._access_token_expiration.isoformat()\nrecord['unchanged_scopes'] = True\nrecord['credentials_mode_0600'] = os.stat(Path.home() / '.kaggle/credentials.json').st_mode & 0o777 == 0o600\nassert record['credentials_mode_0600']\nrecord['status'] = 'refreshed'\nrecord['source'] = Path(__file__).read_text()\np = Path('results/training/kaggle_oauth_refresh.json')\nhistory = json.loads(p.read_text()) if p.exists() else {'events': []}\nhistory['events'].append(record)\np.write_text(json.dumps(history, indent=2) + '\\n')\nprint(json.dumps({k: record[k] for k in ('status', 'new_expiration', 'unchanged_scopes', 'credentials_mode_0600')}))\n"
+    },
+    {
+      "at": "2026-10-31T11:40:00.712175+00:00",
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "runs/refresh_kaggle_access.py"
+      ],
+      "git_commit": "9b265cb6f16b86bd3c810506571ad3811414d2bb",
+      "source_sha256": "e9db3400bd97ae0a0ca6765020cb430bddfbb77a052c9acef9947f006153ece4",
+      "purpose": "Refresh the existing OAuth access token with unchanged scopes before output collection.",
+      "model_revision": null,
+      "seed": null,
+      "previous_expiration": "2026-10-31T12:00:00.982350+00:00",
+      "new_expiration": "2026-10-31T23:40:00.933978+00:00",
+      "unchanged_scopes": true,
+      "credentials_mode_0600": true,
+      "status": "refreshed",
+      "source": "import hashlib\nimport json\nimport os\nimport subprocess\nimport sys\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nfrom kaggle.api.kaggle_api_extended import KaggleApi\nfrom kagglesdk import KaggleCredentials\n\nrecord = {'at': datetime.now(timezone.utc).isoformat(), 'command': [sys.executable, *sys.argv],\n          'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),\n          'source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),\n          'purpose': 'Refresh the existing OAuth access token with unchanged scopes before output collection.',\n          'model_revision': None, 'seed': None}\napi = KaggleApi()\napi.authenticate()\nwith api.build_kaggle_client() as client:\n    credentials = KaggleCredentials.load(client)\n    assert credentials is not None\n    scopes = tuple(credentials._scopes)\n    record['previous_expiration'] = credentials._access_token_expiration.isoformat()\n    credentials.refresh_access_token()\n    assert tuple(credentials._scopes) == scopes\n    record['new_expiration'] = credentials._access_token_expiration.isoformat()\nrecord['unchanged_scopes'] = True\nrecord['credentials_mode_0600'] = os.stat(Path.home() / '.kaggle/credentials.json').st_mode & 0o777 == 0o600\nassert record['credentials_mode_0600']\nrecord['status'] = 'refreshed'\nrecord['source'] = Path(__file__).read_text()\np = Path('results/training/kaggle_oauth_refresh.json')\nhistory = json.loads(p.read_text()) if p.exists() else {'events': []}\nhistory['events'].append(record)\np.write_text(json.dumps(history, indent=2) + '\\n')\nprint(json.dumps({k: record[k] for k in ('status', 'new_expiration', 'unchanged_scopes', 'credentials_mode_0600')}))\n"
     }
   ]
 }

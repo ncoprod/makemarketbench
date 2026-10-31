@@ -1,0 +1,42 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_round3_midday.py",
+    "config": {
+      "purpose": "retain structural API acquisition progress without partial scores"
+    },
+    "model_revision": "NIM immutable deployment revision not exposed",
+    "git_commit": "9b265cb6f16b86bd3c810506571ad3811414d2bb",
+    "uncommitted_diff_sha256": "c9c99b1ce4c28178ae50c196078ca6cbee30d3f0aaceb8062cc69468346fd19f",
+    "started_at": "2026-10-31T11:41:57.886774+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import hashlib\nimport json\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import receipt,file_sha256\n\npath=Path('results/expansion/llama_midday_acquisition.json');assert not path.exists()\ncohorts={}\nfor game in ('dice','cards'):\n    raw=Path(f'results/expansion/raw/{game}/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl')\n    data=raw.read_bytes();rows=[json.loads(line) for line in data.splitlines()]\n    assert [r['seed'] for r in rows]==list(range(200,200+len(rows)))\n    for row in rows:\n        canonical=make_game(game).episode(row['seed'])\n        assert row['game']==game and len(row['rounds'])==6 and row['value']==canonical.value\n        assert [r['reveal'] for r in row['rounds']]==canonical.reveals\n        cfg=row['provenance']['config'];assert cfg['model']=='meta/llama-3.2-90b-vision-instruct'\n        assert cfg['temperature']==.3 and cfg['max_tokens']==4096 and cfg['extra_body']=={}\n    cohorts[game]={'episodes':len(rows),'canonical_games_verified':True,'file':str(raw),'observed_prefix_bytes':len(data),'observed_prefix_sha256':hashlib.sha256(data).hexdigest(),'complete':len(rows)==200}\nr={'provenance':receipt({'purpose':'retain structural API acquisition progress without partial scores'},'NIM immutable deployment revision not exposed'),\n    'source':Path(__file__).read_text(),'cohorts':cohorts,'resume_plan':'results/expansion/llama_duplicate_retry_plan.json','resume_plan_sha256':file_sha256('results/expansion/llama_duplicate_retry_plan.json'),\n    'scope':'Prefixes may continue to grow; hashes identify the exact captured bytes. No partial cohort or held-out aggregate is scored. Original four API models remain complete at 200/game.'}\npath.write_text(json.dumps(r,indent=2)+'\\n');print({g:c['episodes'] for g,c in cohorts.items()})\n",
+  "cohorts": {
+    "dice": {
+      "episodes": 88,
+      "canonical_games_verified": true,
+      "file": "results/expansion/raw/dice/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+      "observed_prefix_bytes": 1117756,
+      "observed_prefix_sha256": "c98d1bf70ec87795bc3638dcba16f128bfbd51a0f48a748517b0f66e0b9b6cdd",
+      "complete": false
+    },
+    "cards": {
+      "episodes": 24,
+      "canonical_games_verified": true,
+      "file": "results/expansion/raw/cards/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+      "observed_prefix_bytes": 331958,
+      "observed_prefix_sha256": "d892bc51154fb0279c7bf69b3acc1a48d6b297e2dc7f5061a9407e5336c9282a",
+      "complete": false
+    }
+  },
+  "resume_plan": "results/expansion/llama_duplicate_retry_plan.json",
+  "resume_plan_sha256": "b210ef78c534f349a4eb47017d375509687b2a3de625b6435dc797a4fff5e1ba",
+  "scope": "Prefixes may continue to grow; hashes identify the exact captured bytes. No partial cohort or held-out aggregate is scored. Original four API models remain complete at 200/game."
+}
