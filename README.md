@@ -188,7 +188,7 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **138 Python tests**
+Current local verification passes **139 Python tests**
 ([local CI receipt](results/ci_local_round3_resume.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
 requires these checks. Hosted Actions minutes are exhausted until about

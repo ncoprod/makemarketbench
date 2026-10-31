@@ -1574,15 +1574,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 0.525085652006997,
       "submitted_at": "2026-10-31T06:23:23.293161+00:00",
       "private": true,
-      "status": "submitted",
+      "status": "completed_no_effective_dtype_change",
       "source_commit": "49537a0427b04ef58a327a2c7f982882b29d2b91",
       "receipt": "results/training/qwen38_dtype_probe.json",
       "session_timeout_seconds": 3000,
       "purpose": "Registered training-state dtype probe, no policy score.",
-      "hours_basis": "Pending downloaded runtime; session cap is not measured usage."
+      "hours_basis": "Downloaded script runtime; exact allocation billing boundaries unavailable.",
+      "script_wall_seconds": 1890.3083472251892,
+      "script_started_at": "2026-10-31T06:23:54.735268+00:00",
+      "script_finished_at": "2026-10-31T06:55:25.042460+00:00",
+      "result_file": "results/kaggle/qwen38-dtype-probe-v1/runtime.json"
     }
   ],
   "accounting_notes": [

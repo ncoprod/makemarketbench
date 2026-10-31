@@ -63,8 +63,53 @@
   "remaining_primary_evaluation_reserve_seconds": 33000,
   "session_timeout_seconds": 3000,
   "scope": "Training-state latency only, 16 fixed states; no validation or test PnL.",
-  "status": "submitted",
-  "polls": [],
+  "status": "outputs_retrieved",
+  "polls": [
+    {
+      "at": "2026-10-31T06:33:34.416220+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:43:45.287662+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T06:53:56.434374+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:04:07.267769+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
   "submitted_at": "2026-10-31T06:23:23.293161+00:00",
   "push": {
     "command": [
@@ -97,5 +142,21 @@
     "private": true,
     "source_sha256": "73ace7c961f434e767e6b97927796a21d3cc4885f60cbe4ef242c01ec98b4f10",
     "matches_registered_source": true
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe",
+      "-p",
+      "results/kaggle/qwen38-dtype-probe-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading dtype_core.py to results/kaggle/qwen38-dtype-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-dtype-probe-v1/dtype_core.py\nDownloading dtype_profile.json to results/kaggle/qwen38-dtype-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-dtype-probe-v1/dtype_profile.json\nDownloading runtime.json to results/kaggle/qwen38-dtype-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-dtype-probe-v1/runtime.json\nKernel log downloaded to results/kaggle/qwen38-dtype-probe-v1/makemarketbench-qwen3-8-27b-dtype-probe.log \n\n  0%|          | 0.00/69.1k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 69.1k/69.1k [00:00<00:00, 727kB/s]\n\n  0%|          | 0.00/32.5k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 32.5k/32.5k [00:00<00:00, 782kB/s]\n\n  0%|          | 0.00/3.01k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.01k/3.01k [00:00<00:00, 3.64MB/s]"
   }
 }

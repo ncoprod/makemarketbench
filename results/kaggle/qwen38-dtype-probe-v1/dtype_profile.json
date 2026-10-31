@@ -1,0 +1,1165 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/dtype_core.py",
+    "--eval-only",
+    "--model",
+    "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+    "--base-model",
+    "Qwen/Qwen3.8-27B",
+    "--revision",
+    "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "--device-map",
+    "unsloth_balanced",
+    "--lora-rank",
+    "8",
+    "--seed",
+    "0",
+    "--budget-seconds",
+    "2700",
+    "--label",
+    "qwen3.8-27b-dtype-profile",
+    "--adapter",
+    "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter"
+  ],
+  "config": {
+    "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+    "base_model": "Qwen/Qwen3.8-27B",
+    "revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "label": "qwen3.8-27b-dtype-profile",
+    "games": [
+      "dice",
+      "cards"
+    ],
+    "episodes": 400,
+    "sft_steps": 150,
+    "sft_batch": 8,
+    "sft_accumulation": 2,
+    "sft_validation_episodes": 0,
+    "save_steps": 100,
+    "grpo_save_steps": null,
+    "budget_seconds": 2700,
+    "seed": 0,
+    "device_map": "unsloth_balanced",
+    "offload_layers": null,
+    "grpo_steps": 300,
+    "num_generations": 8,
+    "max_completion": 96,
+    "max_seq_len": 1280,
+    "lora_rank": 8,
+    "lr": 5e-06,
+    "eval_episodes": 200,
+    "eval_batch_size": 1,
+    "check_batching": false,
+    "eval_seed": 200,
+    "resume": null,
+    "sft_resume": null,
+    "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter",
+    "train_only": false,
+    "eval_only": true,
+    "dry_run": false,
+    "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+  },
+  "seed": 0,
+  "source_commit": "d8d44eb86d873a01012c109235ac41ff7c135c53",
+  "cuda_visible_devices": null,
+  "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+  "source_file_sha256": "23b2c3c5168ea960940ca90b42acc0db26e48ad67fbd74cfb55e1ea16f282c67",
+  "embedded_package_sha256": "f472c32d9a12d9dff1338582aa6709e31b58a2756b3e8e6404f14a4c817c249c",
+  "status": "completed",
+  "passes": [
+    {
+      "mode": "original_1",
+      "outputs": [
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.0,
+            "bid_size": 4,
+            "ask": 32.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.55).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.8,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 26.00; after my fills E[V] = 26.40 (sd 3.00).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.5,
+            "bid_size": 5,
+            "ask": 38.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 34.90 (sd 2.30).\n{\"bid\": 31.5, \"bid_size\": 5, \"ask\": 38.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 24.2,
+            "bid_size": 4,
+            "ask": 32.4,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 4.05).\n{\"bid\": 24.2, \"bid_size\": 4, \"ask\": 32.4, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 29.8,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 25.50; after my fills E[V] = 25.90 (sd 3.10).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 32.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 36.00 (sd 2.45).\n{\"bid\": 32.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.9,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 38.49 (sd 6.68).\n{\"bid\": 31.9, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 5,
+            "ask": 43.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 36.88 (sd 4.18).\n{\"bid\": 31.0, \"bid_size\": 5, \"ask\": 43.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 29.0,
+            "bid_size": 5,
+            "ask": 39.4,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 34.34; after my fills E[V] = 34.34 (sd 2.40).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.4, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 36.9,
+            "bid_size": 5,
+            "ask": 51.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 44.00 (sd 6.48).\n{\"bid\": 36.9, \"bid_size\": 5, \"ask\": 51.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 4,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 35.97 (sd 4.48).\n{\"bid\": 30.0, \"bid_size\": 4, \"ask\": 42.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 2.45).\n{\"bid\": 30.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        }
+      ],
+      "seconds": 499.81007428199996
+    },
+    {
+      "mode": "original_2",
+      "outputs": [
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.0,
+            "bid_size": 4,
+            "ask": 32.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.55).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.8,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 26.00; after my fills E[V] = 26.40 (sd 3.00).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.5,
+            "bid_size": 5,
+            "ask": 38.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 34.90 (sd 2.30).\n{\"bid\": 31.5, \"bid_size\": 5, \"ask\": 38.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 24.2,
+            "bid_size": 4,
+            "ask": 32.4,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 4.05).\n{\"bid\": 24.2, \"bid_size\": 4, \"ask\": 32.4, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 29.8,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 25.50; after my fills E[V] = 25.90 (sd 3.10).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 32.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 36.00 (sd 2.45).\n{\"bid\": 32.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.9,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 38.49 (sd 6.68).\n{\"bid\": 31.9, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 5,
+            "ask": 43.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 36.88 (sd 4.18).\n{\"bid\": 31.0, \"bid_size\": 5, \"ask\": 43.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 29.0,
+            "bid_size": 5,
+            "ask": 39.4,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 34.34; after my fills E[V] = 34.34 (sd 2.40).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.4, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 36.9,
+            "bid_size": 5,
+            "ask": 51.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 44.00 (sd 6.48).\n{\"bid\": 36.9, \"bid_size\": 5, \"ask\": 51.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 4,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 35.97 (sd 4.48).\n{\"bid\": 30.0, \"bid_size\": 4, \"ask\": 42.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 2.45).\n{\"bid\": 30.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        }
+      ],
+      "seconds": 361.9773425939999
+    },
+    {
+      "mode": "fp32_1",
+      "outputs": [
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.0,
+            "bid_size": 4,
+            "ask": 32.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.55).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.8,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 26.00; after my fills E[V] = 26.40 (sd 3.00).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.5,
+            "bid_size": 5,
+            "ask": 38.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 34.90 (sd 2.30).\n{\"bid\": 31.5, \"bid_size\": 5, \"ask\": 38.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 24.2,
+            "bid_size": 4,
+            "ask": 32.4,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 4.05).\n{\"bid\": 24.2, \"bid_size\": 4, \"ask\": 32.4, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 29.8,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 25.50; after my fills E[V] = 25.90 (sd 3.10).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 32.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 36.00 (sd 2.45).\n{\"bid\": 32.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.9,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 38.49 (sd 6.68).\n{\"bid\": 31.9, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 5,
+            "ask": 43.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 36.88 (sd 4.18).\n{\"bid\": 31.0, \"bid_size\": 5, \"ask\": 43.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 29.0,
+            "bid_size": 5,
+            "ask": 39.4,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 34.34; after my fills E[V] = 34.34 (sd 2.40).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.4, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 36.9,
+            "bid_size": 5,
+            "ask": 51.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 44.00 (sd 6.48).\n{\"bid\": 36.9, \"bid_size\": 5, \"ask\": 51.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 4,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 35.97 (sd 4.48).\n{\"bid\": 30.0, \"bid_size\": 4, \"ask\": 42.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 2.45).\n{\"bid\": 30.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        }
+      ],
+      "seconds": 359.08320211800014
+    },
+    {
+      "mode": "fp32_2",
+      "outputs": [
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.0,
+            "bid_size": 4,
+            "ask": 32.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 27.50; after my fills E[V] = 27.50 (sd 4.55).\n{\"bid\": 23.0, \"bid_size\": 4, \"ask\": 32.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.8,
+            "bid_size": 5,
+            "ask": 30.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 26.00; after my fills E[V] = 26.40 (sd 3.00).\n{\"bid\": 22.8, \"bid_size\": 5, \"ask\": 30.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.5,
+            "bid_size": 5,
+            "ask": 38.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 34.90 (sd 2.30).\n{\"bid\": 31.5, \"bid_size\": 5, \"ask\": 38.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 23.5,
+            "bid_size": 4,
+            "ask": 32.5,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.00; after my fills E[V] = 28.00 (sd 4.83).\n{\"bid\": 23.5, \"bid_size\": 4, \"ask\": 32.5, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 24.2,
+            "bid_size": 4,
+            "ask": 32.4,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 28.50; after my fills E[V] = 28.40 (sd 4.05).\n{\"bid\": 24.2, \"bid_size\": 4, \"ask\": 32.4, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 22.0,
+            "bid_size": 5,
+            "ask": 29.8,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 25.50; after my fills E[V] = 25.90 (sd 3.10).\n{\"bid\": 22.0, \"bid_size\": 5, \"ask\": 29.8, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 32.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.50; after my fills E[V] = 36.00 (sd 2.45).\n{\"bid\": 32.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.9,
+            "bid_size": 4,
+            "ask": 45.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 38.49 (sd 6.68).\n{\"bid\": 31.9, \"bid_size\": 4, \"ask\": 45.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 31.0,
+            "bid_size": 5,
+            "ask": 43.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 36.88 (sd 4.18).\n{\"bid\": 31.0, \"bid_size\": 5, \"ask\": 43.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 29.0,
+            "bid_size": 5,
+            "ask": 39.4,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 34.34; after my fills E[V] = 34.34 (sd 2.40).\n{\"bid\": 29.0, \"bid_size\": 5, \"ask\": 39.4, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 28.0,
+            "bid_size": 3,
+            "ask": 42.0,
+            "ask_size": 3
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 8.03).\n{\"bid\": 28.0, \"bid_size\": 3, \"ask\": 42.0, \"ask_size\": 3}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": true
+        },
+        {
+          "quote": {
+            "bid": 36.9,
+            "bid_size": 5,
+            "ask": 51.0,
+            "ask_size": 4
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.49; after my fills E[V] = 44.00 (sd 6.48).\n{\"bid\": 36.9, \"bid_size\": 5, \"ask\": 51.0, \"ask_size\": 4}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 4,
+            "ask": 42.9,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 38.00; after my fills E[V] = 35.97 (sd 4.48).\n{\"bid\": 30.0, \"bid_size\": 4, \"ask\": 42.9, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        },
+        {
+          "quote": {
+            "bid": 30.0,
+            "bid_size": 5,
+            "ask": 40.0,
+            "ask_size": 5
+          },
+          "attempts": [
+            {
+              "content": "Public E[V] = 35.00; after my fills E[V] = 35.00 (sd 2.45).\n{\"bid\": 30.0, \"bid_size\": 5, \"ask\": 40.0, \"ask_size\": 5}"
+            }
+          ],
+          "format_error": false,
+          "failed": false,
+          "cached": false
+        }
+      ],
+      "seconds": 358.33357716399996
+    }
+  ],
+  "training_seeds": [
+    20000,
+    20007
+  ],
+  "rounds": [
+    0,
+    1,
+    3,
+    5
+  ],
+  "scope": "Training-state latency and quote agreement only; no validation or test PnL.",
+  "timing_note": "Ordered before/after probe, two repeats; first repeat includes warm-up. Not an alternating causal hardware benchmark.",
+  "parameters_before": {
+    "cuda:0:torch.float16": 2950113424,
+    "cuda:0:torch.float32": 18954368,
+    "cuda:0:torch.uint8": 5101322240,
+    "cuda:1:torch.float16": 2595432800,
+    "cuda:1:torch.float32": 21693056,
+    "cuda:1:torch.uint8": 5803868160
+  },
+  "converted_parameter_elements": 0,
+  "changed_compute_modules": 0,
+  "parameters_after": {
+    "cuda:0:torch.float16": 2950113424,
+    "cuda:0:torch.float32": 18954368,
+    "cuda:0:torch.uint8": 5101322240,
+    "cuda:1:torch.float16": 2595432800,
+    "cuda:1:torch.float32": 21693056,
+    "cuda:1:torch.uint8": 5803868160
+  },
+  "all_quotes_equal": true,
+  "all_quotes_valid": true,
+  "second_repeat_speedup": 1.010168640792298,
+  "memory_by_gpu": [
+    {
+      "device": 0,
+      "peak_allocated_bytes": 11715167232,
+      "peak_reserved_bytes": 12002000896
+    },
+    {
+      "device": 1,
+      "peak_allocated_bytes": 11747443200,
+      "peak_reserved_bytes": 11830034432
+    }
+  ]
+}

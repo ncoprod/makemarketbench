@@ -2835,3 +2835,25 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   release, ASan/UBSan and embedded Kaggle CPU checks pass.
 - Receipt: `results/ci_local_round3_resume.json`. This changes acquisition
   recovery only; it adds no policy candidate or tuning trial.
+
+### T30 result — BF16 warning was not the bottleneck
+
+- Downloaded all saved outputs. The actual model contains zero BF16 parameters
+  and zero BF16 compute modules; both conversion counts are zero. All quotes
+  are valid and identical across four passes. Warm repeat times: 361.977342594
+  versus 358.333577164 seconds, ratio 1.010168641. No credible improvement and
+  no precision change is promoted. Script runtime: 1,890.3083472251892 seconds.
+- Commands/source/hashes: `results/training/qwen38_dtype_probe_completion.json`;
+  raw measurements: `results/kaggle/qwen38-dtype-probe-v1/dtype_profile.json`.
+  Keep nine candidates: no effective new precision variant was created.
+
+### T31 — compilation overhead and actual kernel costs (registered)
+
+- Hypothesis: compilation or repeated dispatch contributes materially to the
+  slow serial inference. Compare native generation with `force_eager` on four
+  fixed training states, two repeats each. Retain a native CPU/CUDA profile.
+- No PnL, validation or test outcomes enter the probe. Bound script time to
+  1,800 seconds. Promote only a measured useful execution variant after fresh
+  validation; count an additional SFT/GRPO pair conservatively if promoted.
+- Exact source, fixed states and private metadata:
+  `results/training/qwen38_compile_probe_plan.json`.

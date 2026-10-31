@@ -1,0 +1,34 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "inspect pinned inference code while the registered dtype profile runs",
+      "source": "https://pypi.org/pypi/unsloth/2026.10.10/json"
+    },
+    "model_revision": null,
+    "git_commit": "b0c8264ea0ff1b27a3e0e8e0778708069edb9bd9",
+    "uncommitted_diff_sha256": "bf49d384bf8b63cb2a77de222f10b446e909700bfa52e257333c3a299273953b",
+    "started_at": "2026-10-31T06:37:21.255573+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "package": "unsloth==2026.10.10",
+  "wheel_sha256": "e0c0cd8f48d8880b6b76af2e7224c80e14b4be93ab8ff4dc140d93c282c73af0",
+  "source_files": {
+    "runs/unsloth_pinned_source/vision.py": "ee9f7a371e0cbcf642667887f92e7ca1c14c753cfaec98afe99a876d94702c26",
+    "runs/unsloth_pinned_source/loader.py": "79eb68a6fc9a9c471e6864eb89a7ed0af91016990834dd1f1eac5affc2786177"
+  },
+  "findings": [
+    "The generation wrapper uses FP16 autocast when _unsloth_forced_float32 is true. Its name does not establish the actual generation dtype.",
+    "The loader documents FP16 gradient instability for this hybrid model; this is a training warning, not a measured inference failure.",
+    "for_inference disables gradient checkpointing and attempts to restore training-disabled use_cache values.",
+    "The generation wrapper and per-block paths include compilation. Actual runtime flags and kernel costs must be measured, not inferred from the BF16 warning."
+  ],
+  "scope": "Static pinned-source context only. Does not establish which path executes or whether a precision or compilation change improves this run."
+}
