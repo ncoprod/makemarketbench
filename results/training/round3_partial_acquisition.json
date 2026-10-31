@@ -1,0 +1,179 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_round3_partials.py",
+    "config": {
+      "purpose": "retain bounded validation timeout and incomplete thinking API cohorts without partial-game scores"
+    },
+    "model_revision": null,
+    "git_commit": "d8d44eb86d873a01012c109235ac41ff7c135c53",
+    "uncommitted_diff_sha256": "652fb6f97d8dc9491b6ef308cd93ba47991e7718a2357dbb23a88ff207ba6b43",
+    "started_at": "2026-10-31T06:17:58.573822+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import file_sha256,receipt\n\nroot=Path('results/kaggle/qwen38-seed1-sft-validation-v1')\ncounts={}\nfor p in root.rglob('*.jsonl'):\n rows=[json.loads(s) for s in p.read_text().splitlines()]\n assert [r['seed'] for r in rows]==list(range(80000,80000+len(rows)))\n for row in rows:\n  canonical=make_game(row['game']).episode(row['seed'])\n  assert len(row['rounds'])==6 and row['value']==canonical.value\n  assert [r['reveal'] for r in row['rounds']]==canonical.reveals\n counts[str(p)]={'episodes':len(rows),'sha256':file_sha256(p)}\npair=json.loads((root/'pair_runtime.json').read_text())\nrecord={'provenance':receipt({'purpose':'retain bounded validation timeout and incomplete thinking API cohorts without partial-game scores'}),\n        'source':Path(__file__).read_text(),'validation':{'status':'partial_at_wall_cap','cohorts':counts,'wall_seconds':pair['wall_seconds'],\n        'runtime_sha256':file_sha256(root/'pair_runtime.json'),'error':'TimeoutError: Registered training wall budget exhausted',\n        'diagnosis':'Downloaded Unsloth log warns of remaining bfloat16 layers on T4s without native bfloat16. A training-state FP32 profile will test this bottleneck; no speedup is assumed.'},'ultra_thinking':{}}\nprotocol=Path('results/expansion/protocol-ultra-medium.json');entry=next(iter(json.loads(protocol.read_text()).values()))\nfor game,n in [('dice',53),('cards',74)]:\n p=Path(f'results/expansion/raw/{game}/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl')\n rows=[json.loads(s) for s in p.read_text().splitlines()]\n assert [r['seed'] for r in rows]==list(range(200,200+n))\n for row in rows:\n  canonical=make_game(game).episode(row['seed'])\n  assert len(row['rounds'])==6 and row['value']==canonical.value\n  assert [r['reveal'] for r in row['rounds']]==canonical.reveals\n record['ultra_thinking'][game]={'episodes':n,'raw_file':str(p),'raw_sha256':file_sha256(p),**entry[game]}\nrecord['scope']='Acquisition and canonical checks only. Incomplete cards validation and both incomplete API cohorts remain unscored. Original four API cohorts remain complete.'\nPath('results/training/round3_partial_acquisition.json').write_text(json.dumps(record,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text());session=next(s for s in ledger['sessions'] if s['kernel'].endswith('seed-1-sft-validation'))\nsession.update(status='partial_at_wall_cap',hours=pair['wall_seconds']/3600,script_wall_seconds=pair['wall_seconds'],result_file=str(root/'pair_runtime.json'),hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.')\np.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint('Verified validation 100 dice / 4 cards; Ultra thinking 53 dice / 74 cards. Partial cohorts unscored.')\n",
+  "validation": {
+    "status": "partial_at_wall_cap",
+    "cohorts": {
+      "results/kaggle/qwen38-seed1-sft-validation-v1/qwen3.8-27b-sft/results/raw/cards/qwen3.8-27b-sft.jsonl": {
+        "episodes": 4,
+        "sha256": "c4f546da8e464156085d49edbf3435858579e0dc7bf0bac1a95fd605b99fe01f"
+      },
+      "results/kaggle/qwen38-seed1-sft-validation-v1/qwen3.8-27b-sft/results/raw/dice/bayes.jsonl": {
+        "episodes": 100,
+        "sha256": "cda873a1cbb9dc74c1d90ba44379fac86c37f8171a3d96413a3091729a05023a"
+      },
+      "results/kaggle/qwen38-seed1-sft-validation-v1/qwen3.8-27b-sft/results/raw/dice/qwen3.8-27b-sft.jsonl": {
+        "episodes": 100,
+        "sha256": "ce910708b21d03e3220ba64ad3df10213059f31d129661015d51ba37782f24fe"
+      }
+    },
+    "wall_seconds": 10800.40096339,
+    "runtime_sha256": "3117121fe79c02eb09a8a9b2c606be6994dac6379d6f46178f0d62ea016707df",
+    "error": "TimeoutError: Registered training wall budget exhausted",
+    "diagnosis": "Downloaded Unsloth log warns of remaining bfloat16 layers on T4s without native bfloat16. A training-state FP32 profile will test this bottleneck; no speedup is assumed."
+  },
+  "ultra_thinking": {
+    "dice": {
+      "episodes": 53,
+      "raw_file": "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl",
+      "raw_sha256": "4646f88ee546e85c3f0696c9043c859b268138534f9a86000ed416bf10eaa268",
+      "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+      "wall_seconds": 36983.421605825424,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+        "config": {
+          "model": "nvidia/nemotron-3-ultra-550b-a55b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 16384,
+          "timeout": 600,
+          "extra_body": {
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "medium_effort": true
+            }
+          },
+          "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": null,
+            "protocol_file": null,
+            "reduced_reasoning": false,
+            "ultra_medium": true
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+        "uncommitted_diff_sha256": null,
+        "started_at": "2026-10-30T03:44:34.060089+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    },
+    "cards": {
+      "episodes": 74,
+      "raw_file": "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl",
+      "raw_sha256": "9eff482d4b5ed27187f40a25525c839d6291e319b19b42519f5d78cd44ac628f",
+      "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+      "wall_seconds": 54977.2845249176,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+        "config": {
+          "model": "nvidia/nemotron-3-ultra-550b-a55b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 16384,
+          "timeout": 600,
+          "extra_body": {
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "medium_effort": true
+            }
+          },
+          "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": null,
+            "protocol_file": null,
+            "reduced_reasoning": false,
+            "ultra_medium": true
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+        "uncommitted_diff_sha256": null,
+        "started_at": "2026-10-30T03:44:34.060089+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    }
+  },
+  "scope": "Acquisition and canonical checks only. Incomplete cards validation and both incomplete API cohorts remain unscored. Original four API cohorts remain complete."
+}

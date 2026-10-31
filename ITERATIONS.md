@@ -2795,3 +2795,31 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   Report all available within-seed SFT/GRPO, between-seed method and best/last
   contrasts on both games, using a conservative ten-contrast family correction.
   Two training seeds do not yield a precise population-level training-seed CI.
+
+### T28 — validation cap and optional thinking failures retained
+
+- Seed-one SFT validation reaches its 10,800-second script cap with 100 dice
+  and 4 cards episodes. Dice inference alone takes 9,863 seconds. No format
+  failures occur on the complete dice cohort, so malformed-output retries do
+  not explain this cost. Cards remains incomplete and unscored.
+- Exact error: `TimeoutError: Registered training wall budget exhausted`.
+  Downloaded worker and wrapper runtime, raw episodes, log and canonical
+  checks are retained in `results/training/round3_partial_acquisition.json`.
+- Ultra thinking also finishes with three HTTP 504 attempts in each game:
+  53 dice episodes over 36,983.421605825424 seconds and 74 cards episodes over
+  54,977.2845249176 seconds. Both partial cohorts are retained and unscored;
+  all four original API baselines remain complete at 200/game.
+
+### T30 — diagnose unsupported BF16 compute on T4 (registered)
+
+- The downloaded Unsloth log explicitly warns that remaining BF16 layers run
+  slowly on T4s without native BF16. It also rejects a blanket FP16 load for
+  this model family. Test FP32 conversion of residual BF16 floating parameters,
+  buffers and bitsandbytes compute, preserving quantized and saved adapter weights.
+- Compare two serial passes before and after on 16 fixed training states,
+  including late cards rounds. Measure dtype counts, runtime, VRAM, valid quotes
+  and exact quote agreement. No validation/test PnL is computed by the probe.
+- Exact generator, transformation, bounded 2,700-second script, private metadata,
+  input hashes and upstream context: `results/training/qwen38_dtype_probe_plan.json`.
+  If adopted, validate both precision variants before primary selection and
+  increase the final family conservatively before any sealed aggregate opens.

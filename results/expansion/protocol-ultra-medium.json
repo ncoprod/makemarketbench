@@ -1,0 +1,350 @@
+{
+  "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)": {
+    "model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+    "timeout_seconds": 600,
+    "probe_seed": 80000,
+    "probe_round": 2,
+    "max_tokens": 16384,
+    "temperature": 0.3,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": true,
+        "medium_effort": true
+      }
+    },
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+      "config": {
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key_env": "NVIDIA_API_KEY",
+        "temperature": 0.3,
+        "max_tokens": 16384,
+        "timeout": 600,
+        "extra_body": {
+          "chat_template_kwargs": {
+            "enable_thinking": true,
+            "medium_effort": true
+          }
+        },
+        "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+        "batch": {
+          "episodes": 200,
+          "seed": 200,
+          "models": null,
+          "protocol_file": null,
+          "reduced_reasoning": false,
+          "ultra_medium": true
+        }
+      },
+      "model_revision": "NIM immutable deployment revision not exposed",
+      "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+      "uncommitted_diff_sha256": null,
+      "started_at": "2026-10-30T03:44:34.060089+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      },
+      "source_sha256": {
+        "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+        "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+        "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+        "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+        "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+        "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+        "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+        "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+        "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+        "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+        "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+        "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+        "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+        "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+        "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+        "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+        "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+        "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+        "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+        "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+      }
+    },
+    "probe": {
+      "content": "{\"bid\": 26.0, \"bid_size\": 4, \"ask\": 34.0, \"ask_size\": 4}",
+      "reasoning": "We need to compute expected value of V given public info: two dice revealed: 6 and 3. Remaining 6 dice unknown (since total 8 dice, 2 revealed, 6 hidden). Wait: \"Before round 2: Die #1 shows 6. Before round 3: Die #2 shows 3.\" So after round 2, one die revealed; after round 3, second die revealed. At round 3 start, we have two dice known: 6 and 3. There are 6 hidden dice. V = sum of all 8 dice. Expected value of each hidden die = 3.5. So expected V = 6+3 + 6*3.5 = 9 + 21 = 30. So M = 30.\n\nWe are market maker risk-neutral, maximize expected profit. Need to set bid and ask around M considering adverse selection from informed traders (30% chance) who know V exactly. Informed will trade if our quote is mispriced relative to true V. Since we don't know V, we face adverse selection. Classic market making: set spread to compensate for informed probability.\n\nWe also have noise traders with valuation u ~ N(M, 16). They trade if price within their limit. They buy if u > M (i.e., u > 30) and price <= u. They sell if u < 30 and price >= u. D uniform 1-5.\n\nWe can choose bid and ask sizes up to 10.\n\nWe want to maximize expected profit per round, considering future rounds? But risk-neutral and position carries over; but we can treat each round independently? Since future info will be revealed, but we can adjust later. For now, we just set quote for round 3.\n\nWe need to compute expected profit from posting bid b, ask a, sizes sb, sa.\n\nLet\u2019s denote probability informed = 0.3, noise = 0.7.\n\nIf informed arrives: they know V. They will buy at ask if V > a, selling us at ask (we sell). They will sell at bid if V < b (we buy). Otherwise no trade.\n\nIf noise arrives: they have valuation u ~ N(30,16). They want to buy if u > 30, up to D units at any price <= u. So they will buy from our ask if a <= u. They will sell to our bid if b >= u (since they want to sell at price down to u). Trade size = min(D, our size). D uniform 1-5 => expected D = 3.\n\nWe don't observe who trades.\n\nOur profit from a trade: If we sell at ask a, we receive a cash, position -1 (short). Later settlement at V gives -V per unit (since we are short). So profit per unit sold = a - V. If we buy at bid b, we pay b, position +1, later settlement +V => profit per unit = V - b.\n\nExpected profit conditional on V and trade.\n\nWe need to compute expected profit over distribution of V (given public info) and noise trader u and D, and informed arrival.\n\nWe can choose spread symmetrical around M? Typically optimal bid = M - k, ask = M + k. Spread 2k.\n\nInformed adverse selection: If V > a, informed buys from us at a, we lose (a - V) negative expected because V > a. Similarly if V < b, we buy at b > V, lose (V - b) negative.\n\nProbability informed arrives = 0.3. Conditional on informed, probability V > a = P(V > a). V distribution: sum of 6 hidden dice + 9. Sum of 6 dice: mean 21, variance 6*35/12 = 6*2.9167 = 17.5? Actually variance of one die = 35/12 \u22482.9167. So variance of sum 6 dice = 6*35/12 = 35/2 = 17.5. So V ~ 9 + sum6. So V mean 30, variance 17.5, sd \u22484.183.\n\nWe can approximate V as normal with mean 30, sd 4.18.\n\nSimilarly noise trader u ~ N(30,16) sd=4.\n\nWe need to choose a,b to maximize expected profit.\n\nLet\u2019s consider symmetric spread: b = 30 - s, a = 30 + s. Spread = 2s.\n\nSizes: choose maybe 1 each side? Could increase size to capture more noise volume but also more adverse selection from informed (they trade full size). Informed trades whole size if condition met. So expected loss from informed proportional to size.\n\nNoise expected trade size = min(D, size). If we set size large (10), expected trade size = E[D]=3 (since D max 5). So size >5 doesn't increase expected noise volume. So optimal size maybe 5 each side to capture full noise demand. But informed would trade full size (5) if condition met, causing larger loss. So trade-off.\n\nWe can compute expected profit per unit of size for each side separately, then choose size to maximize.\n\nLet\u2019s compute expected profit per unit on ask side (selling). For each unit we offer at ask a.\n\nScenarios:\n\n- Informed arrives (0.3). If V > a, they buy 1 unit at a. Our profit per unit = a - V (negative). If V <= a, no trade.\n\n- Noise arrives (0.7). Noise wants to buy if u > 30. They will buy at ask if a <= u. They buy quantity min(D, size). For per-unit analysis assuming size large enough that they can buy 1 unit (since D>=1 always). Probability they buy a given unit = P(u >= a) * P(D >=1) = P(u >= a) (since D>=1 always). Actually they buy up to D units; if we have many units, they will buy D units. Expected number of units bought = E[D * 1_{u>=a}] = E[D] * P(u>=a) = 3 * P(u>=a). So per unit expected fill probability = (3 * P(u>=a)) / size? But if size >=5, they can buy all D. So total expected units sold to noise = 3 * P(u>=a). Our profit per unit sold to noise = a - V (but V unknown to noise; they trade based on u). However our profit depends on actual V, not u. Since noise trader's valuation u is independent of V? u = M + e, independent of hidden dice? e ~ N(0,16) independent of dice. So V and u independent given public info? V depends on hidden dice; u independent noise. So conditional on noise trade occurring (u>=a), the distribution of V remains same as prior (mean 30). So expected profit per unit sold to noise = a - E[V] = a - 30 = s.\n\nThus noise trades give us expected profit s per unit (since we sell above fair value). Informed trades give expected loss conditional on V>a: E[a - V | V>a] * P(V>a). Since a = 30+s.\n\nSimilarly for bid side (buying at b = 30 - s). Noise sells if u <= b (since they want to sell when u<30, at price >= u). Probability noise sells = P(u <= b) = \u03a6((b-30)/4) = \u03a6(-s/4). Expected units bought from noise = 3 * \u03a6(-s/4). Profit per unit = V - b, expected = 30 - b = s.\n\nInformed sells to us if V < b. Probability = P(V < 30 - s). Expected loss per unit = E[V - b | V<b] = E[V - (30 - s) | V<30-s] = (E[V|V<30-s] -30 + s). Since V mean 30, this is negative (we overpay). Expected profit per unit from informed = - (30 - s - E[V|V<30-s]) = E[V|V<30-s] -30 + s (negative).\n\nOverall expected profit per unit offered on ask = 0.3 * ( - E[V - a | V>a] * P(V>a) ) + 0.7 * ( s * 3 * P(u>=a) / size? Wait per unit offered, the chance it gets filled by noise is (expected noise volume)/size. If we set size = S_a, expected noise fills = 3 * P(u>=a). So per unit expected profit from noise = s * (3 * P(u>=a) / S_a). Informed fills = if V>a then they take all S_a units. So per unit expected profit from informed = 0.3 * (a - E[V|V>a]) * P(V>a) (since they take all units). Actually if informed arrives and V>a, they buy entire ask size S_a. So total profit from informed on ask = 0.3 * S_a * (a - E[V|V>a]) * P(V>a). Per unit = 0.3 * (a - E[V|V>a]) * P(V>a).\n\nSimilarly for bid side: per unit profit = 0.3 * (E[V|V<b] - b) * P(V<b) + 0.7 * s * (3 * P(u<=b) / S_b).\n\nWe can choose sizes to balance. Since informed takes full size, larger size increases adverse selection linearly. Noise volume limited to ~3 units expected. So optimal size likely around 3 each side to capture noise but limit informed exposure. Could set size = 3.\n\nLet's compute needed probabilities using normal approximations.\n\nV ~ N(30, 17.5). sd_V = sqrt(17.5)=4.183.\n\nu ~ N(30,16). sd_u=4.\n\nDefine s variable.\n\nCompute for ask side:\n\nP(V > a) = 1 - \u03a6((a-30)/sd_V) = 1 - \u03a6(s/4.183).\n\nE[V | V>a] = 30 + sd_V * \u03bb(\u03b1) where \u03b1 = (a-30)/sd_V = s/4.183, \u03bb(\u03b1)= \u03c6(\u03b1)/(1-\u03a6(\u03b1)) (inverse Mills ratio). So a - E[V|V>a] = (30+s) - (30 + sd_V * \u03bb) = s - sd_V * \u03bb.\n\nThus informed expected profit per unit = 0.3 * (s - sd_V * \u03bb) * (1-\u03a6(\u03b1)).\n\nNoise: P(u >= a) = 1 - \u03a6((a-30)/4) = 1 - \u03a6(s/4). Expected noise volume = 3 * (1-\u03a6(s/4)). Per unit profit from noise = s * (3*(1-\u03a6(s/4))/S_a).\n\nSimilarly bid side:\n\nb = 30 - s.\n\nP(V < b) = \u03a6((-s)/sd_V) = \u03a6(-s/4.183).\n\nE[V | V<b] = 30 - sd_V * \u03bb'(\u03b2) where \u03b2 = (b-30)/sd_V = -s/4.183, \u03bb'(\u03b2)= \u03c6(\u03b2)/\u03a6(\u03b2) (since lower tail). So E[V|V<b] = 30 - sd_V * \u03c6(\u03b2)/\u03a6(\u03b2). Note \u03c6 symmetric, \u03c6(\u03b2)=\u03c6(s/4.183). \u03a6(\u03b2)=\u03a6(-s/4.183)=1-\u03a6(s/4.183).\n\nProfit per unit from informed on bid = 0.3 * (E[V|V<b] - b) * P(V<b) = 0.3 * ( (30 - sd_V * \u03c6/\u03a6) - (30 - s) ) * \u03a6(-s/4.183) = 0.3 * ( - sd_V * \u03c6/\u03a6 + s ) * \u03a6(-s/4.183).\n\nBut note \u03a6(-x)=1-\u03a6(x). Let \u03a6V = \u03a6(s/4.183). Then \u03a6(-s/4.183)=1-\u03a6V.\n\n\u03c6 = \u03c6(s/4.183).\n\nSo term = 0.3 * ( s - sd_V * \u03c6/(1-\u03a6V) ) * (1-\u03a6V) = 0.3 * ( s*(1-\u03a6V) - sd_V * \u03c6 ).\n\nSimilarly ask informed profit per unit = 0.3 * ( s - sd_V * \u03c6/(1-\u03a6V) ) * (1-\u03a6V) = 0.3 * ( s*(1-\u03a6V) - sd_V * \u03c6 ). Same expression! Good symmetry.\n\nSo informed expected profit per unit (negative) = 0.3 * ( s*(1-\u03a6V) - sd_V * \u03c6 ). Since sd_V*\u03c6 > s*(1-\u03a6V) for reasonable s? Let's compute numeric for some s.\n\nNoise per unit profit ask = 0.7 * s * (3*(1-\u03a6_u)/S_a) where \u03a6_u = \u03a6(s/4). Similarly bid noise per unit = 0.7 * s * (3*\u03a6_u_bid / S_b) where \u03a6_u_bid = \u03a6((-s)/4)=1-\u03a6(s/4). So same factor (1-\u03a6(s/4)). So noise per unit profit each side = 0.7 * s * 3 * (1-\u03a6(s/4)) / S_side.\n\nTotal expected profit = sum over sides (informed per unit * S_side + noise per unit * S_side) = For each side: S_side * [informed_per_unit + noise_per_unit].\n\nBut noise_per_unit * S_side = 0.7 * s * 3 * (1-\u03a6(s/4)). Independent of size! Because noise volume limited. Informed profit scales with size: S_side * informed_per_unit (negative). So to maximize, we want to choose size as small as possible to limit informed loss, but need at least 1 to capture noise? Actually noise volume expected 3*(1-\u03a6). If we set size = 1, we can only fill at most 1 unit per side per round, but noise may want up to 5. Expected noise fills = min(D,1) * indicator. Expected fills = P(trade) * E[min(D,1)] = P(trade)*1 (since min(D,1)=1). So expected noise volume = P(trade). That's less than 3*P(trade). So reducing size reduces noise profit linearly until size >= expected D (3). So optimal size maybe around 3 to capture most noise volume while limiting informed loss.\n\nWe can treat size as continuous; total profit per side = informed_per_unit * S + noise_total (which is 0.7 * s * 3 * (1-\u03a6_u) * min(1, S/3?) Actually expected noise fills = E[min(D, S)] * P(trade). For D uniform 1-5, E[min(D,S)] = if S>=5 then 3; if S between 1 and5, compute. Let's approximate optimal S=3 gives E[min(D,3)] = average of min(D,3) for D=1..5: values 1,2,3,3,3 sum=12/5=2.4. So expected noise volume = 2.4 * P(trade). For S=5, it's 3 * P(trade). So diminishing returns after 3.\n\nInformed loss scales with S linearly (they take all S if condition met). So we can compute total expected profit as function of S (same both sides). Since symmetry, total profit = 2 * [ informed_per_unit * S + 0.7 * s * E[min(D,S)] * (1-\u03a6_u) ].\n\nWe can choose S integer 0-10. Let's compute for a few s values.\n\nFirst compute constants:\n\nsd_V = 4.183.\nsd_u = 4.\n\nDefine \u03a6V = \u03a6(s/4.183). \u03c6V = \u03c6(s/4.183) = (1/\u221a(2\u03c0)) exp(-0.5*(s/4.183)^2).\n\n\u03a6u = \u03a6(s/4). \u03c6u = \u03c6(s/4).\n\nInformed per unit = 0.3 * ( s*(1-\u03a6V) - sd_V * \u03c6V ).\n\nNoise trade prob = 1-\u03a6u.\n\nE_min(D,S): compute for S=1..5.\n\nLet's make a small table manually approximate.\n\nWe can try s = 1, 2, 3.\n\nCompute for s=1:\n\nzV = 1/4.183 = 0.239. \u03a6V \u2248 0.5945. 1-\u03a6V = 0.4055. \u03c6V = (1/\u221a2\u03c0)*exp(-0.5*0.239^2)=0.3989*exp(-0.0286)=0.3989*0.9718=0.3876.\n\nInformed per unit = 0.3 * ( 1*0.4055 - 4.183*0.3876 ) = 0.3 * (0.4055 - 1.620) = 0.3 * (-1.2145) = -0.36435.\n\nNoise: zU = 1/4 =0.25. \u03a6u=0.5987. 1-\u03a6u=0.4013.\n\nNoise total per side = 0.7 * s * E_min * (1-\u03a6u) = 0.7*1*E_min*0.4013 = 0.2809 * E_min.\n\nFor S=1: E_min=1 (since min(D,1)=1). Noise profit =0.2809.\n\nTotal per side = S*informed_per_unit + noise = 1*(-0.36435)+0.2809 = -0.08345. Times 2 sides = -0.1669 negative.\n\nS=2: E_min for D uniform 1-5: min(D,2) values 1,2,2,2,2 sum=9/5=1.8. Noise =0.2809*1.8=0.5056. Informed loss =2*(-0.36435)=-0.7287. Sum per side = -0.2231. Total -0.446.\n\nS=3: E_min=2.4. Noise=0.2809*2.4=0.6742. Informed loss=3*(-0.36435)=-1.093. Sum per side=-0.4188. Total -0.8376.\n\nSo s=1 not good.\n\ns=2:\n\nzV=2/4.183=0.478. \u03a6V\u22480.683. 1-\u03a6V=0.317. \u03c6V=0.3989*exp(-0.5*0.228)=0.3989*0.896=0.357.\n\nInformed per unit =0.3*(2*0.317 -4.183*0.357)=0.3*(0.634 -1.493)=0.3*(-0.859)= -0.2577.\n\nNoise: zU=2/4=0.5. \u03a6u=0.6915. 1-\u03a6u=0.3085.\n\nNoise per side =0.7*2*E_min*0.3085 =0.432*E_min? compute 0.7*2=1.4; 1.4*0.3085=0.4319. So noise =0.4319*E_min.\n\nS=1: noise=0.4319. Informed loss=-0.2577. Sum=0.1742 per side. Total=0.3484 positive.\n\nS=2: E_min=1.8 => noise=0.7774. Informed loss=-0.5154. Sum=0.262 per side. Total=0.524.\n\nS=3: E_min=2.4 => noise=1.0366. Informed loss=-0.7731. Sum=0.2635 per side. Total=0.527.\n\nS=4: E_min for S=4: min(D,4) values 1,2,3,4,4 sum=14/5=2.8. noise=0.4319*2.8=1.209. Informed loss=4*-0.2577=-1.0308. Sum=0.1782 per side. Total=0.356.\n\nS=5: E_min=3. noise=1.2957. Informed loss=-1.2885. Sum=0.0072 per side. Total~0.014.\n\nSo optimal around S=2 or 3 gives total ~0.53 expected profit per round.\n\nNow s=3:\n\nzV=3/4.183=0.717. \u03a6V\u22480.763. 1-\u03a6V=0.237. \u03c6V=0.3989*exp(-0.5*0.514)=0.3989*0.777=0.310.\n\nInformed per unit =0.3*(3*0.237 -4.183*0.310)=0.3*(0.711 -1.297)=0.3*(-0.586)= -0.1758.\n\nNoise: zU=3/4=0.75. \u03a6u=0.7734. 1-\u03a6u=0.2266.\n\nNoise factor =0.7*3*0.2266 =0.4759. So noise =0.4759*E_min.\n\nS=1: noise=0.4759. Informed loss=-0.1758. Sum=0.3001 per side. Total=0.6002.\n\nS=2: E_min=1.8 => noise=0.8566. Informed loss=-0.3516. Sum=0.505 per side. Total=1.01.\n\nS=3: E_min=2.4 => noise=1.142. Informed loss=-0.5274. Sum=0.6146 per side. Total=1.229.\n\nS=4: E_min=2.8 => noise=1.3325. Informed loss=-0.7032. Sum=0.6293 per side. Total=1.259.\n\nS=5: E_min=3 => noise=1.4277. Informed loss=-0.879. Sum=0.5487 per side. Total=1.097.\n\nSo best around S=4 maybe 1.26 total.\n\ns=4:\n\nzV=4/4.183=0.956. \u03a6V\u22480.830. 1-\u03a6V=0.170. \u03c6V=0.3989*exp(-0.5*0.914)=0.3989*0.632=0.252.\n\nInformed per unit =0.3*(4*0.170 -4.183*0.252)=0.3*(0.68 -1.054)=0.3*(-0.374)= -0.1122.\n\nNoise: zU=1.0. \u03a6u=0.8413. 1-\u03a6u=0.1587.\n\nNoise factor =0.7*4*0.1587 =0.4444. Noise =0.4444*E_min.\n\nS=1: noise=0.4444. Informed loss=-0.1122. Sum=0.3322 per side. Total=0.664.\n\nS=2: noise=0.8 (0.4444*1.8). Informed loss=-0.2244. Sum=0.5756 per side. Total=1.151.\n\nS=3: noise=1.0666 (0.4444*2.4). Informed loss=-0.3366. Sum=0.73 per side. Total=1.46.\n\nS=4: noise=1.244 (0.4444*2.8). Informed loss=-0.4488. Sum=0.795 per side. Total=1.59.\n\nS=5: noise=1.333 (0.4444*3). Informed loss=-0.561. Sum=0.772 per side. Total=1.544.\n\nSo S=4 gives total ~1.59.\n\ns=5:\n\nzV=5/4.183=1.195. \u03a6V\u22480.884. 1-\u03a6V=0.116. \u03c6V=0.3989*exp(-0.5*1.428)=0.3989*0.488=0.195.\n\nInformed per unit =0.3*(5*0.116 -4.183*0.195)=0.3*(0.58 -0.815)=0.3*(-0.235)= -0.0705.\n\nNoise: zU=5/4=1.25. \u03a6u=0.8944. 1-\u03a6u=0.1056.\n\nNoise factor =0.7*5*0.1056 =0.3696. Noise =0.3696*E_min.\n\nS=4: E_min=2.8 => noise=1.0349. Informed loss=4*-0.0705=-0.282. Sum=0.7529 per side. Total=1.506.\n\nS=5: noise=1.1088. Informed loss=-0.3525. Sum=0.7563 per side. Total=1.512.\n\nS=3: noise=0.887. Informed loss=-0.2115. Sum=0.6755 per side. Total=1.351.\n\nSo around 1.5.\n\nThus best expected profit around s=4, S=4 each side gives ~1.59 per round.\n\nBut we must consider that we have 6 rounds total, and future info will reduce uncertainty. But for this round, we maximize immediate expected profit; risk-neutral and future rounds independent? Position carries over, but we can adjust later. Since we are risk-neutral, maximizing per-round expected profit is optimal.\n\nThus choose bid = 30 - s = 26, ask = 34? Wait s=4 => bid 26, ask 34. Spread 8. Sizes 4 each side.\n\nCheck constraints: bid < ask, sizes integer 0-10. Good.\n\nWe should output JSON with bid 26.0? Prices may have one decimal place. Use 26.0 and 34.0.\n\nBid size 4, ask size 4.\n\nLet's output.",
+      "finish_reason": "stop",
+      "completion_tokens": 6366,
+      "prompt_tokens": 560,
+      "served_model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "system_fingerprint": null,
+      "latency": 98.69797086715698,
+      "cached": false
+    },
+    "usable": true,
+    "probe_wall_seconds": 98.69974207878113,
+    "dice": {
+      "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+      "wall_seconds": 36983.421605825424,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+        "config": {
+          "model": "nvidia/nemotron-3-ultra-550b-a55b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 16384,
+          "timeout": 600,
+          "extra_body": {
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "medium_effort": true
+            }
+          },
+          "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": null,
+            "protocol_file": null,
+            "reduced_reasoning": false,
+            "ultra_medium": true
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+        "uncommitted_diff_sha256": null,
+        "started_at": "2026-10-30T03:44:34.060089+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    },
+    "evaluation_attempts": [
+      {
+        "game": "dice",
+        "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+        "wall_seconds": 36983.421605825424,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+          "config": {
+            "model": "nvidia/nemotron-3-ultra-550b-a55b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 16384,
+            "timeout": 600,
+            "extra_body": {
+              "chat_template_kwargs": {
+                "enable_thinking": true,
+                "medium_effort": true
+              }
+            },
+            "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": null,
+              "protocol_file": null,
+              "reduced_reasoning": false,
+              "ultra_medium": true
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+          "uncommitted_diff_sha256": null,
+          "started_at": "2026-10-30T03:44:34.060089+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      },
+      {
+        "game": "cards",
+        "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+        "wall_seconds": 54977.2845249176,
+        "provenance": {
+          "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+          "config": {
+            "model": "nvidia/nemotron-3-ultra-550b-a55b",
+            "base_url": "https://integrate.api.nvidia.com/v1",
+            "api_key_env": "NVIDIA_API_KEY",
+            "temperature": 0.3,
+            "max_tokens": 16384,
+            "timeout": 600,
+            "extra_body": {
+              "chat_template_kwargs": {
+                "enable_thinking": true,
+                "medium_effort": true
+              }
+            },
+            "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+            "batch": {
+              "episodes": 200,
+              "seed": 200,
+              "models": null,
+              "protocol_file": null,
+              "reduced_reasoning": false,
+              "ultra_medium": true
+            }
+          },
+          "model_revision": "NIM immutable deployment revision not exposed",
+          "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+          "uncommitted_diff_sha256": null,
+          "started_at": "2026-10-30T03:44:34.060089+00:00",
+          "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+          "python": "3.13.17",
+          "versions": {
+            "numpy": "2.5.4",
+            "openai": "3.40.0",
+            "mlx": "0.32.4",
+            "mlx-lm": "0.32.2"
+          },
+          "source_sha256": {
+            "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+            "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+            "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+            "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+            "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+            "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+            "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+            "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+            "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+            "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+            "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+            "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+            "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+            "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+            "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+            "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+            "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+            "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+            "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+            "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+          }
+        }
+      }
+    ],
+    "cards": {
+      "error": "RuntimeError: giving up after 3 attempts: InternalServerError(504): Error code: 504",
+      "wall_seconds": 54977.2845249176,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --ultra-medium",
+        "config": {
+          "model": "nvidia/nemotron-3-ultra-550b-a55b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 16384,
+          "timeout": 600,
+          "extra_body": {
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "medium_effort": true
+            }
+          },
+          "label": "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": null,
+            "protocol_file": null,
+            "reduced_reasoning": false,
+            "ultra_medium": true
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "7f53ad51833cb1c0651c9424b3f9853d4ee6f9d0",
+        "uncommitted_diff_sha256": null,
+        "started_at": "2026-10-30T03:44:34.060089+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "6f90a4290046658c72c53d92afae0b4a507ef8761ba89e9b701875b973402046",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "a6d4e716a845bda62588fd64f24601e86b7e8c18c2b07d4d140c902567220d7f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      }
+    }
+  }
+}

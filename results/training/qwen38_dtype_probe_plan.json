@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/build_qwen38_dtype_probe.py",
+    "config": {
+      "purpose": "diagnose slow T4 BF16 inference on training states only"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "d8d44eb86d873a01012c109235ac41ff7c135c53",
+    "uncommitted_diff_sha256": "466d3e766faa48f3471544e5d94e1dcf34015f35974324fea53651869aedaa54",
+    "started_at": "2026-10-31T06:19:54.210699+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nroot=Path('results/kaggle/qwen38-seed1-sft-validation-v1')\ncore=(root/'evaluate_core.py').read_text()\ncommit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()\ncore=core.replace('SOURCE_COMMIT = \"75888b53519ceddc0dc804f06ef9d978ba966e02\"',f'SOURCE_COMMIT = \"{commit}\"')\nold='        evaluate(model, tokenizer, args)\\n        return'\nassert core.count(old)==1\ncore=core.replace(old,'        profile_dtype(model, tokenizer, args)\\n        return')\nfunction=Path('runs/qwen38_dtype_probe_function.txt').read_text()\ncore=core.replace('if __name__ == \"__main__\":',function+'\\nif __name__ == \"__main__\":')\nfolder=Path('runs/kaggle_qwen38_dtype_probe');folder.mkdir(exist_ok=True)\nflags=['--eval-only','--model','unsloth/Qwen3.8-27B-unsloth-bnb-4bit','--base-model','Qwen/Qwen3.8-27B',\n       '--revision','8aa5f05d26b7205477066e1449e0af13f762a299','--device-map','unsloth_balanced',\n       '--lora-rank','8','--seed','0','--budget-seconds','2700','--label','qwen3.8-27b-dtype-profile']\nsource=f'''import subprocess, sys\nfrom pathlib import Path\ncore=Path('/kaggle/working/dtype_core.py')\ncore.write_text({core!r})\nadapters=list(Path('/kaggle/input').rglob('warmstart_adapter/adapter_config.json'))\nassert len(adapters)==1, adapters\nsubprocess.run([sys.executable,str(core),*{flags!r},'--adapter',str(adapters[0].parent)],check=True)\n'''\n(folder/'grpo_unsloth_kaggle.py').write_text(source)\nmetadata=json.loads(Path('runs/kaggle_qwen38_primary_sft_validate/kernel-metadata.json').read_text())\nmetadata.update(id='nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe',title='MakeMarketBench Qwen3 8 27B dtype probe')\n(folder/'kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\\n')\nplan={'provenance':receipt({'purpose':'diagnose slow T4 BF16 inference on training states only'},'8aa5f05d26b7205477066e1449e0af13f762a299'),\n      'source':Path(__file__).read_text(),'profile_function':function,'metadata':metadata,'source_sha256':file_sha256(folder/'grpo_unsloth_kaggle.py'),\n      'original_core_sha256':file_sha256(root/'evaluate_core.py'),'adapter_sha256':file_sha256(Path('results/kaggle/qwen38-round3-training-v5/warmstart_adapter/adapter_model.safetensors')),\n      'hypothesis':'Convert residual BF16 floating parameters/buffers and BF16 bitsandbytes compute to FP32; avoid emulated BF16 on T4 without changing saved adapter weights. Measure speed, memory, valid quotes and exact quote agreement before any promotion.',\n      'status':'registered_before_profile','session_timeout_seconds':3000,'script_cap_seconds':2700,\n      'promotion':'No speedup or policy identity is assumed. If adopted, validate the precision variant on both games before selection and conservatively increase the final family before opening held-out aggregates.',\n      'upstream_context':['https://github.com/unslothai/unsloth/issues/4970','https://raw.githubusercontent.com/unslothai/unsloth/main/unsloth/models/loader.py']}\npath=Path('results/training/qwen38_dtype_probe_plan.json');assert not path.exists();path.write_text(json.dumps(plan,indent=2)+'\\n')\nprint('Prepared private training-state dtype probe')\n",
+  "profile_function": "def profile_dtype(model, tokenizer, args):\n    from collections import Counter\n    import torch\n    from makemarket.games import make_game\n    from makemarket.market import episode_steps\n    from makemarket.players import BayesQuoter\n\n    observations = []\n    for game in args.games:\n        for index in range(8):\n            teacher = BayesQuoter()\n            teacher.reset(20000 + index)\n            steps = episode_steps(make_game(game), 20000 + index, 'teacher', 'py')\n            obs = next(steps)\n            for _ in range((0, 1, 3, 5)[index % 4]):\n                obs = steps.send(teacher.quote(obs))\n            observations.append(obs)\n    path = WORK / 'dtype_profile.json'\n    record = {**execution(args), 'status': 'running', 'passes': [],\n              'training_seeds': [20000, 20007], 'rounds': [0, 1, 3, 5],\n              'scope': 'Training-state latency and quote agreement only; no validation or test PnL.',\n              'timing_note': 'Ordered before/after probe, two repeats; first repeat includes warm-up. Not an alternating causal hardware benchmark.'}\n\n    def inventory():\n        counts = Counter()\n        for parameter in model.parameters():\n            counts[f'{parameter.device}:{parameter.dtype}'] += parameter.numel()\n        return dict(counts)\n\n    def save():\n        path.write_text(json.dumps(record, indent=2) + '\\n')\n\n    def run(label):\n        player = HFQuoter(model, tokenizer, label)\n        result = {'mode': label, 'outputs': []}\n        record['passes'].append(result)\n        for i in range(torch.cuda.device_count()):\n            torch.cuda.synchronize(i)\n        started = time.monotonic()\n        for observation in observations:\n            quote, info = player.quote(observation)\n            result['outputs'].append({'quote': quote.to_dict() if quote else None, **info})\n            result['seconds'] = time.monotonic() - started\n            save()\n        for i in range(torch.cuda.device_count()):\n            torch.cuda.synchronize(i)\n        result['seconds'] = time.monotonic() - started\n        save()\n\n    try:\n        record['parameters_before'] = inventory()\n        save()\n        run('original_1')\n        run('original_2')\n        converted = 0\n        for parameter in model.parameters():\n            if parameter.dtype == torch.bfloat16:\n                converted += parameter.numel()\n                parameter.data = parameter.data.float()\n        changed_compute = 0\n        for module in model.modules():\n            for name, buffer in module.named_buffers(recurse=False):\n                if buffer.dtype == torch.bfloat16:\n                    setattr(module, name, buffer.float())\n            if getattr(module, 'compute_dtype', None) == torch.bfloat16:\n                module.compute_dtype = torch.float32\n                changed_compute += 1\n        for config in (model.config, getattr(model.config, 'text_config', None)):\n            if config is not None:\n                config.dtype = torch.float32\n        record.update(converted_parameter_elements=converted, changed_compute_modules=changed_compute,\n                      parameters_after=inventory())\n        save()\n        run('fp32_1')\n        run('fp32_2')\n        quotes = [[row['quote'] for row in p['outputs']] for p in record['passes']]\n        record.update(status='completed', all_quotes_equal=all(q == quotes[0] for q in quotes[1:]),\n                      all_quotes_valid=all(q is not None for values in quotes for q in values),\n                      second_repeat_speedup=record['passes'][1]['seconds']/record['passes'][3]['seconds'])\n    except Exception as exc:\n        record.update(status='failed', error=f'{type(exc).__name__}: {exc}')\n        raise\n    finally:\n        record['memory_by_gpu'] = [{'device': i, 'peak_allocated_bytes': torch.cuda.max_memory_allocated(i),\n                                   'peak_reserved_bytes': torch.cuda.max_memory_reserved(i)}\n                                  for i in range(torch.cuda.device_count())]\n        save()\n\n",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-dtype-probe",
+    "title": "MakeMarketBench Qwen3 8 27B dtype probe",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "73ace7c961f434e767e6b97927796a21d3cc4885f60cbe4ef242c01ec98b4f10",
+  "original_core_sha256": "6fc11370492c093f049d0b8a4999ccc42461f0bbd2dfd1d509203e77a29e6351",
+  "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+  "hypothesis": "Convert residual BF16 floating parameters/buffers and BF16 bitsandbytes compute to FP32; avoid emulated BF16 on T4 without changing saved adapter weights. Measure speed, memory, valid quotes and exact quote agreement before any promotion.",
+  "status": "registered_before_profile",
+  "session_timeout_seconds": 3000,
+  "script_cap_seconds": 2700,
+  "promotion": "No speedup or policy identity is assumed. If adopted, validate the precision variant on both games before selection and conservatively increase the final family before opening held-out aggregates.",
+  "upstream_context": [
+    "https://github.com/unslothai/unsloth/issues/4970",
+    "https://raw.githubusercontent.com/unslothai/unsloth/main/unsloth/models/loader.py"
+  ]
+}

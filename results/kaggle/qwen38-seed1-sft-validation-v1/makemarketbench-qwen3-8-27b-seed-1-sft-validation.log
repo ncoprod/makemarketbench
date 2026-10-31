@@ -1,0 +1,223 @@
+[{"stream_name":"stderr","time":1.566216838,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":1.5662543580000001,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stdout","time":106.398146808,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":106.398206153,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":106.398212326,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":106.398217872,"data":"   \\\\   /|    Tesla T4. Num GPUs = 2. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":106.398223607,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":106.398229265,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":106.398235174,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":106.398240779,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":109.342702713,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stdout","time":109.342728686,"data":"total weights      : 20.487 GiB\n"}
+,{"stream_name":"stdout","time":109.342734407,"data":"no_split classes   : ['Qwen3_5DecoderLayer', 'Qwen3_5VisionBlock']\n"}
+,{"stream_name":"stdout","time":109.342739095,"data":"output head        : lm_head -\u003e cuda:1\n"}
+,{"stream_name":"stdout","time":109.342743874,"data":"head headroom      : 0.428 GiB\n"}
+,{"stream_name":"stdout","time":109.342748151,"data":"activation reserve : 2.534 GiB requested\n"}
+,{"stream_name":"stdout","time":109.342752556,"data":"  cuda:0  budget  12.97 GiB  weights 10.247 GiB  free  2.723 GiB  reserve  2.534 GiB\n"}
+,{"stream_name":"stdout","time":109.342774635,"data":"  cuda:1  budget  13.01 GiB  weights 10.240 GiB  free  2.773 GiB  reserve  2.343 GiB   \u003c- output head\n"}
+,{"stream_name":"stdout","time":109.342780304,"data":"note: Bnb4BitHfQuantizer.adjust_max_memory lowered the budget on cuda:0 14.411 -\u003e 12.970 GiB, cuda:1 14.460 -\u003e 13.014 GiB (memory the quantiser keeps for its own load-time buffers)\n"}
+,{"stream_name":"stdout","time":109.342787456,"data":"note: sub-model towers ['model.visual']: placed whole on one device\n"}
+,{"stream_name":"stderr","time":109.602275346,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":109.602309726,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":110.073393525,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":317.269727907,"data":"\rLoading weights:   0%|          | 0/1184 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/1184 [00:22\u003c7:17:03, 22.17s/it]\rLoading weights:   0%|          | 2/1184 [00:22\u003c3:02:04,  9.24s/it]\rLoading weights:   1%|          | 10/1184 [00:22\u003c23:38,  1.21s/it] \rLoading weights:   1%|▏         | 15/1184 [00:22\u003c13:53,  1.40it/s]\rLoading weights:   2%|▏         | 24/1184 [00:23\u003c06:40,  2.90it/s]\rLoading weights:   2%|▏         | 28/1184 [00:23\u003c05:27,  3.53it/s]\rLoading weights:   3%|▎         | 31/1184 [00:23\u003c04:30,  4.26it/s]\rLoading weights:   3%|▎         | 38/1184 [00:23\u003c02:49,  6.74it/s]\rLoading weights:   3%|▎         | 41/1184 [00:23\u003c02:29,  7.65it/s]\rLoading weights:   4%|▎         | 44/1184 [00:24\u003c02:11,  8.70it/s]\rLoading weights:   4%|▍         | 47/1184 [00:24\u003c02:14,  8.45it/s]\rLoading weights:   4%|▍         | 49/1184 [00:24\u003c02:06,  9.00it/s]\rLoading weights:   4%|▍         | 51/1184 [00:24\u003c02:01,  9.34it/s]\rLoading weights:   4%|▍         | 53/1184 [00:25\u003c01:56,  9.70it/s]\rLoading weights:   5%|▍         | 55/1184 [00:25\u003c02:19,  8.10it/s]\rLoading weights:   6%|▌         | 68/1184 [00:25\u003c00:53, 20.79it/s]\rLoading weights:   8%|▊         | 91/1184 [00:25\u003c00:24, 43.86it/s]\rLoading weights:   8%|▊         | 97/1184 [00:26\u003c00:27, 39.76it/s]\rLoading weights:   9%|▊         | 102/1184 [00:26\u003c00:43, 25.06it/s]\rLoading weights:   9%|▉         | 106/1184 [00:26\u003c00:44, 24.39it/s]\rLoading weights:   9%|▉         | 110/1184 [00:26\u003c00:45, 23.74it/s]\rLoading weights:  10%|▉         | 118/1184 [00:27\u003c00:37, 28.25it/s]\rLoading weights:  10%|█         | 122/1184 [00:27\u003c00:50, 21.02it/s]\rLoading weights:  11%|█         | 130/1184 [00:27\u003c00:39, 26.79it/s]\rLoading weights:  11%|█▏        | 134/1184 [00:27\u003c00:41, 25.32it/s]\rLoading weights:  12%|█▏        | 137/1184 [00:27\u003c00:44, 23.70it/s]\rLoading weights:  12%|█▏        | 146/1184 [00:28\u003c00:34, 30.42it/s]\rLoading weights:  13%|█▎        | 150/1184 [00:28\u003c01:07, 15.21it/s]\rLoading weights:  13%|█▎        | 153/1184 [00:29\u003c01:18, 13.12it/s]\rLoading weights:  13%|█▎        | 155/1184 [00:29\u003c01:20, 12.81it/s]\rLoading weights:  14%|█▍        | 171/1184 [00:29\u003c00:37, 27.15it/s]\rLoading weights:  15%|█▌        | 183/1184 [00:29\u003c00:28, 35.73it/s]\rLoading weights:  16%|█▌        | 188/1184 [00:30\u003c00:30, 32.72it/s]\rLoading weights:  17%|█▋        | 197/1184 [00:30\u003c00:33, 29.22it/s]\rLoading weights:  17%|█▋        | 201/1184 [00:30\u003c00:42, 22.98it/s]\rLoading weights:  17%|█▋        | 204/1184 [00:30\u003c00:44, 22.04it/s]\rLoading weights:  17%|█▋        | 207/1184 [00:31\u003c00:47, 20.43it/s]\rLoading weights:  18%|█▊        | 210/1184 [00:31\u003c01:03, 15.24it/s]\rLoading weights:  18%|█▊        | 212/1184 [00:31\u003c01:05, 14.74it/s]\rLoading weights:  18%|█▊        | 214/1184 [00:31\u003c01:10, 13.72it/s]\rLoading weights:  19%|█▉        | 224/1184 [00:32\u003c00:39, 24.27it/s]\rLoading weights:  19%|█▉        | 227/1184 [00:32\u003c01:07, 14.15it/s]\rLoading weights:  20%|██        | 238/1184 [00:32\u003c00:39, 23.68it/s]\rLoading weights:  20%|██        | 242/1184 [00:33\u003c00:49, 19.07it/s]\rLoading weights:  21%|██        | 250/1184 [00:33\u003c00:38, 24.08it/s]\rLoading weights:  21%|██▏       | 254/1184 [00:33\u003c00:39, 23.30it/s]\rLoading weights:  22%|██▏       | 258/1184 [00:33\u003c00:40, 22.69it/s]\rLoading weights:  22%|██▏       | 266/1184 [00:33\u003c00:32, 27.88it/s]\rLoading weights:  23%|██▎       | 277/1184 [00:34\u003c00:24, 36.32it/s]\rLoading weights:  24%|██▎       | 281/1184 [00:34\u003c00:43, 20.85it/s]\rLoading weights:  25%|██▍       | 291/1184 [00:34\u003c00:32, 27.57it/s]\rLoading weights:  25%|██▍       | 295/1184 [00:34\u003c00:33, 26.28it/s]\rLoading weights:  26%|██▌       | 306/1184 [00:35\u003c00:25, 34.40it/s]\rLoading weights:  26%|██▋       | 311/1184 [00:35\u003c00:47, 18.49it/s]\rLoading weights:  27%|██▋       | 315/1184 [00:36\u003c00:45, 19.12it/s]\rLoading weights:  27%|██▋       | 318/1184 [00:36\u003c00:46, 18.69it/s]\rLoading weights:  27%|██▋       | 321/1184 [00:36\u003c00:59, 14.42it/s]\rLoading weights:  28%|██▊       | 328/1184 [00:36\u003c00:43, 19.66it/s]\rLoading weights:  28%|██▊       | 331/1184 [00:37\u003c00:44, 18.98it/s]\rLoading weights:  28%|██▊       | 334/1184 [00:37\u003c00:46, 18.33it/s]\rLoading weights:  29%|██▉       | 342/1184 [00:37\u003c00:33, 24.94it/s]\rLoading weights:  29%|██▉       | 345/1184 [00:37\u003c00:37, 22.56it/s]\rLoading weights:  30%|███       | 356/1184 [00:37\u003c00:25, 32.39it/s]\rLoading weights:  31%|███       | 365/1184 [00:37\u003c00:22, 36.05it/s]\rLoading weights:  31%|███       | 369/1184 [00:38\u003c00:39, 20.52it/s]\rLoading weights:  31%|███▏      | 372/1184 [00:38\u003c00:41, 19.62it/s]\rLoading weights:  32%|███▏      | 375/1184 [00:38\u003c00:42, 19.04it/s]\rLoading weights:  32%|███▏      | 384/1184 [00:39\u003c00:29, 26.76it/s]\rLoading weights:  33%|███▎      | 388/1184 [00:39\u003c00:31, 24.94it/s]\rLoading weights:  33%|███▎      | 394/1184 [00:39\u003c00:37, 20.90it/s]\rLoading weights:  34%|███▎      | 397/1184 [00:39\u003c00:46, 16.87it/s]\rLoading weights:  34%|███▍      | 407/1184 [00:40\u003c00:30, 25.07it/s]\rLoading weights:  35%|███▍      | 411/1184 [00:41\u003c01:01, 12.58it/s]\rLoading weights:  35%|███▍      | 414/1184 [00:41\u003c01:07, 11.48it/s]\rLoading weights:  35%|███▌      | 417/1184 [00:41\u003c01:02, 12.27it/s]\rLoading weights:  36%|███▌      | 423/1184 [00:41\u003c00:48, 15.78it/s]\rLoading weights:  36%|███▋      | 432/1184 [00:41\u003c00:33, 22.60it/s]\rLoading weights:  37%|███▋      | 435/1184 [00:42\u003c00:59, 12.59it/s]\rLoading weights:  37%|███▋      | 438/1184 [00:43\u003c01:05, 11.43it/s]\rLoading weights:  37%|███▋      | 440/1184 [00:43\u003c01:04, 11.54it/s]\rLoading weights:  38%|███▊      | 447/1184 [00:43\u003c00:54, 13.45it/s]\rLoading weights:  38%|███▊      | 449/1184 [00:43\u003c00:54, 13.38it/s]\rLoading weights:  38%|███▊      | 451/1184 [00:43\u003c00:56, 12.93it/s]\rLoading weights:  38%|███▊      | 453/1184 [00:44\u003c00:57, 12.79it/s]\rLoading weights:  39%|███▉      | 461/1184 [00:44\u003c00:54, 13.25it/s]\rLoading weights:  39%|███▉      | 463/1184 [00:44\u003c00:54, 13.23it/s]\rLoading weights:  39%|███▉      | 465/1184 [00:45\u003c01:07, 10.72it/s]\rLoading weights:  39%|███▉      | 467/1184 [00:45\u003c01:20,  8.88it/s]\rLoading weights:  40%|███▉      | 472/1184 [00:45\u003c00:58, 12.27it/s]\rLoading weights:  40%|████      | 478/1184 [00:45\u003c00:42, 16.48it/s]\rLoading weights:  41%|████      | 486/1184 [00:46\u003c00:45, 15.29it/s]\rLoading weights:  41%|████      | 488/1184 [00:46\u003c00:46, 14.84it/s]\rLoading weights:  41%|████▏     | 490/1184 [00:46\u003c00:49, 14.05it/s]\rLoading weights:  42%|████▏     | 500/1184 [00:47\u003c00:50, 13.52it/s]\rLoading weights:  42%|████▏     | 502/1184 [00:47\u003c00:50, 13.48it/s]\rLoading weights:  43%|████▎     | 504/1184 [00:47\u003c00:51, 13.14it/s]\rLoading weights:  43%|████▎     | 506/1184 [00:48\u003c00:52, 12.89it/s]\rLoading weights:  43%|████▎     | 514/1184 [00:48\u003c00:49, 13.60it/s]\rLoading weights:  44%|████▎     | 516/1184 [00:48\u003c00:49, 13.53it/s]\rLoading weights:  44%|████▍     | 518/1184 [00:49\u003c01:01, 10.90it/s]\rLoading weights:  44%|████▍     | 520/1184 [00:49\u003c01:11,  9.35it/s]\rLoading weights:  45%|████▍     | 529/1184 [00:49\u003c00:38, 16.97it/s]\rLoading weights:  45%|████▌     | 537/1184 [00:49\u003c00:28, 22.33it/s]\rLoading weights:  46%|████▌     | 540/1184 [00:50\u003c00:52, 12.35it/s]\rLoading weights:  46%|████▌     | 542/1184 [00:50\u003c00:52, 12.16it/s]\rLoading weights:  46%|████▌     | 545/1184 [00:51\u003c00:48, 13.12it/s]\rLoading weights:  47%|████▋     | 553/1184 [00:51\u003c00:47, 13.29it/s]\rLoading weights:  47%|████▋     | 555/1184 [00:51\u003c00:47, 13.35it/s]\rLoading weights:  47%|████▋     | 557/1184 [00:52\u003c00:54, 11.47it/s]\rLoading weights:  47%|████▋     | 559/1184 [00:52\u003c00:55, 11.26it/s]\rLoading weights:  48%|████▊     | 567/1184 [00:52\u003c00:40, 15.18it/s]\rLoading weights:  48%|████▊     | 569/1184 [00:52\u003c00:40, 15.29it/s]\rLoading weights:  48%|████▊     | 571/1184 [00:53\u003c00:52, 11.75it/s]\rLoading weights:  48%|████▊     | 573/1184 [00:53\u003c01:03,  9.63it/s]\rLoading weights:  49%|████▉     | 582/1184 [00:53\u003c00:34, 17.62it/s]\rLoading weights:  50%|█████     | 592/1184 [00:54\u003c00:38, 15.46it/s]\rLoading weights:  50%|█████     | 594/1184 [00:54\u003c00:38, 15.27it/s]\rLoading weights:  50%|█████     | 596/1184 [00:54\u003c00:40, 14.54it/s]\rLoading weights:  51%|█████     | 606/1184 [00:55\u003c00:41, 13.91it/s]\rLoading weights:  51%|█████▏    | 608/1184 [00:55\u003c00:41, 13.76it/s]\rLoading weights:  52%|█████▏    | 610/1184 [00:55\u003c00:43, 13.30it/s]\rLoading weights:  52%|█████▏    | 612/1184 [00:55\u003c00:44, 12.80it/s]\rLoading weights:  52%|█████▏    | 620/1184 [00:56\u003c00:48, 11.63it/s]\rLoading weights:  53%|█████▎    | 622/1184 [00:56\u003c00:47, 11.92it/s]\rLoading weights:  53%|█████▎    | 624/1184 [00:57\u003c00:56,  9.91it/s]\rLoading weights:  53%|█████▎    | 626/1184 [00:57\u003c00:54, 10.22it/s]\rLoading weights:  54%|█████▎    | 635/1184 [00:57\u003c00:29, 18.35it/s]\rLoading weights:  54%|█████▍    | 645/1184 [00:58\u003c00:34, 15.42it/s]\rLoading weights:  55%|█████▍    | 647/1184 [00:58\u003c00:35, 15.13it/s]\rLoading weights:  55%|█████▍    | 649/1184 [00:58\u003c00:37, 14.43it/s]\rLoading weights:  55%|█████▍    | 651/1184 [00:58\u003c00:38, 13.80it/s]\rLoading weights:  56%|█████▌    | 659/1184 [00:59\u003c00:36, 14.23it/s]\rLoading weights:  56%|█████▌    | 661/1184 [00:59\u003c00:37, 14.12it/s]\rLoading weights:  56%|█████▌    | 663/1184 [00:59\u003c00:38, 13.50it/s]\rLoading weights:  56%|█████▌    | 665/1184 [00:59\u003c00:40, 12.82it/s]\rLoading weights:  57%|█████▋    | 673/1184 [01:00\u003c00:38, 13.40it/s]\rLoading weights:  57%|█████▋    | 675/1184 [01:00\u003c00:45, 11.13it/s]\rLoading weights:  57%|█████▋    | 677/1184 [01:00\u003c00:45, 11.12it/s]\rLoading weights:  57%|█████▋    | 679/1184 [01:01\u003c00:45, 11.01it/s]\rLoading weights:  58%|█████▊    | 682/1184 [01:01\u003c00:44, 11.29it/s]\rLoading weights:  58%|█████▊    | 684/1184 [01:01\u003c00:41, 12.03it/s]\rLoading weights:  58%|█████▊    | 691/1184 [01:01\u003c00:26, 18.55it/s]\rLoading weights:  59%|█████▉    | 698/1184 [01:02\u003c00:32, 15.08it/s]\rLoading weights:  59%|█████▉    | 700/1184 [01:02\u003c00:32, 14.75it/s]\rLoading weights:  59%|█████▉    | 702/1184 [01:02\u003c00:34, 13.94it/s]\rLoading weights:  59%|█████▉    | 704/1184 [01:02\u003c00:35, 13.34it/s]\rLoading weights:  60%|██████    | 712/1184 [01:03\u003c00:34, 13.60it/s]\rLoading weights:  60%|██████    | 714/1184 [01:03\u003c00:34, 13.62it/s]\rLoading weights:  60%|██████    | 716/1184 [01:03\u003c00:35, 13.07it/s]\rLoading weights:  61%|██████    | 718/1184 [01:03\u003c00:39, 11.68it/s]\rLoading weights:  61%|██████▏   | 726/1184 [01:04\u003c00:33, 13.58it/s]\rLoading weights:  61%|██████▏   | 728/1184 [01:04\u003c00:33, 13.54it/s]\rLoading weights:  62%|██████▏   | 730/1184 [01:04\u003c00:34, 13.00it/s]\rLoading weights:  62%|██████▏   | 732/1184 [01:05\u003c00:44, 10.13it/s]\rLoading weights:  62%|██████▏   | 735/1184 [01:05\u003c00:38, 11.58it/s]\rLoading weights:  63%|██████▎   | 741/1184 [01:05\u003c00:27, 16.20it/s]\rLoading weights:  63%|██████▎   | 751/1184 [01:06\u003c00:29, 14.46it/s]\rLoading weights:  64%|██████▎   | 753/1184 [01:06\u003c00:30, 14.30it/s]\rLoading weights:  64%|██████▍   | 755/1184 [01:06\u003c00:33, 12.81it/s]\rLoading weights:  65%|██████▍   | 765/1184 [01:07\u003c00:35, 11.96it/s]\rLoading weights:  65%|██████▍   | 767/1184 [01:07\u003c00:34, 12.14it/s]\rLoading weights:  65%|██████▌   | 770/1184 [01:07\u003c00:32, 12.87it/s]\rLoading weights:  66%|██████▌   | 779/1184 [01:08\u003c00:28, 14.22it/s]\rLoading weights:  66%|██████▌   | 781/1184 [01:08\u003c00:28, 14.16it/s]\rLoading weights:  66%|██████▌   | 783/1184 [01:08\u003c00:34, 11.54it/s]\rLoading weights:  66%|██████▋   | 785/1184 [01:09\u003c00:40,  9.75it/s]\rLoading weights:  67%|██████▋   | 790/1184 [01:09\u003c00:30, 13.03it/s]\rLoading weights:  67%|██████▋   | 797/1184 [01:09\u003c00:21, 18.30it/s]\rLoading weights:  68%|██████▊   | 804/1184 [01:10\u003c00:28, 13.20it/s]\rLoading weights:  68%|██████▊   | 806/1184 [01:10\u003c00:28, 13.10it/s]\rLoading weights:  68%|██████▊   | 808/1184 [01:10\u003c00:29, 12.60it/s]\rLoading weights:  69%|██████▉   | 818/1184 [01:11\u003c00:24, 14.85it/s]\rLoading weights:  69%|██████▉   | 820/1184 [01:11\u003c00:25, 14.53it/s]\rLoading weights:  69%|██████▉   | 822/1184 [01:11\u003c00:26, 13.83it/s]\rLoading weights:  70%|██████▉   | 824/1184 [01:11\u003c00:26, 13.47it/s]\rLoading weights:  70%|███████   | 832/1184 [01:12\u003c00:26, 13.45it/s]\rLoading weights:  70%|███████   | 834/1184 [01:12\u003c00:26, 13.35it/s]\rLoading weights:  71%|███████   | 836/1184 [01:12\u003c00:32, 10.58it/s]\rLoading weights:  71%|███████   | 838/1184 [01:13\u003c00:32, 10.63it/s]\rLoading weights:  71%|███████   | 841/1184 [01:13\u003c00:28, 11.95it/s]\rLoading weights:  72%|███████▏  | 847/1184 [01:13\u003c00:20, 16.56it/s]\rLoading weights:  72%|███████▏  | 855/1184 [01:13\u003c00:13, 24.79it/s]\rLoading weights:  73%|███████▎  | 869/1184 [01:13\u003c00:07, 42.00it/s]\rLoading weights:  74%|███████▍  | 881/1184 [01:13\u003c00:05, 54.95it/s]\rLoading weights:  75%|███████▌  | 893/1184 [01:14\u003c00:04, 60.24it/s]\rLoading weights:  77%|███████▋  | 907/1184 [01:14\u003c00:03, 69.55it/s]\rLoading weights:  78%|███████▊  | 927/1184 [01:14\u003c00:02, 90.55it/s]\rLoading weights:  79%|███████▉  | 939/1184 [01:14\u003c00:02, 94.20it/s]\rLoading weights:  80%|████████  | 950/1184 [01:14\u003c00:02, 94.23it/s]\rLoading weights:  81%|████████▏ | 963/1184 [01:14\u003c00:02, 98.24it/s]\rLoading weights:  82%|████████▏ | 975/1184 [01:14\u003c00:02, 99.50it/s]\rLoading weights:  83%|████████▎ | 986/1184 [01:14\u003c00:02, 95.24it/s]\rLoading weights:  84%|████████▍ | 999/1184 [01:15\u003c00:01, 98.83it/s]\rLoading weights:  85%|████████▌ | 1011/1184 [01:15\u003c00:01, 96.63it/s]\rLoading weights:  86%|████████▋ | 1023/1184 [01:15\u003c00:01, 96.72it/s]\rLoading weights:  87%|████████▋ | 1035/1184 [01:15\u003c00:01, 94.65it/s]\rLoading weights:  89%|████████▊ | 1049/1184 [01:15\u003c00:01, 92.51it/s]\rLoading weights:  90%|████████▉ | 1063/1184 [01:15\u003c00:01, 95.40it/s]\rLoading weights:  91%|█████████ | 1075/1184 [01:15\u003c00:01, 97.24it/s]\rLoading weights:  92%|█████████▏| 1085/1184 [01:16\u003c00:01, 94.44it/s]\rLoading weights:  93%|█████████▎| 1099/1184 [01:16\u003c00:00, 94.03it/s]\rLoading weights:  94%|█████████▍| 1114/1184 [01:16\u003c00:00, 107.63it/s]\rLoading weights:  95%|█████████▌| 1126/1184 [01:16\u003c00:00, 98.89it/s] \rLoading weights:  96%|█████████▌| 1137/1184 [01:16\u003c00:00, 97.57it/s]\rLoading weights:  97%|█████████▋| 1147/1184 [01:16\u003c00:00, 96.26it/s]\rLoading weights:  98%|█████████▊| 1159/1184 [01:16\u003c00:00, 94.68it/s]\rLoading weights:  99%|█████████▉| 1171/1184 [01:16\u003c00:00, 93.69it/s]\rLoading weights: 100%|█████████▉| 1181/1184 [01:17\u003c00:00, 60.60it/s]\rLoading weights: 100%|██████████| 1184/1184 [01:17\u003c00:00, 15.33it/s]\n"}
+,{"stream_name":"stdout","time":327.084949935,"data":"Unsloth: the model has bfloat16 layers on GPU 0 (Tesla T4), GPU 1 (Tesla T4), which has no native bfloat16, so they run slowly. Load with dtype = torch.float16, or keep the model on bfloat16 GPUs with CUDA_VISIBLE_DEVICES.\n"}
+,{"stream_name":"stdout","time":327.084989151,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed-1/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":1097.573326267,"data":"[qwen3.8-27b-sft] 5/100 episodes, 770s\n"}
+,{"stream_name":"stdout","time":1731.897738548,"data":"[qwen3.8-27b-sft] 10/100 episodes, 1405s\n"}
+,{"stream_name":"stdout","time":2237.810531636,"data":"[qwen3.8-27b-sft] 15/100 episodes, 1911s\n"}
+,{"stream_name":"stdout","time":2793.929618066,"data":"[qwen3.8-27b-sft] 20/100 episodes, 2467s\n"}
+,{"stream_name":"stdout","time":3273.882037765,"data":"[qwen3.8-27b-sft] 25/100 episodes, 2947s\n"}
+,{"stream_name":"stdout","time":3802.990993962,"data":"[qwen3.8-27b-sft] 30/100 episodes, 3476s\n"}
+,{"stream_name":"stdout","time":4258.349723477,"data":"[qwen3.8-27b-sft] 35/100 episodes, 3931s\n"}
+,{"stream_name":"stdout","time":4737.640634591,"data":"[qwen3.8-27b-sft] 40/100 episodes, 4411s\n"}
+,{"stream_name":"stdout","time":5215.835026554,"data":"[qwen3.8-27b-sft] 45/100 episodes, 4889s\n"}
+,{"stream_name":"stdout","time":5717.508317727,"data":"[qwen3.8-27b-sft] 50/100 episodes, 5390s\n"}
+,{"stream_name":"stdout","time":6144.07493848,"data":"[qwen3.8-27b-sft] 55/100 episodes, 5817s\n"}
+,{"stream_name":"stdout","time":6644.822302318,"data":"[qwen3.8-27b-sft] 60/100 episodes, 6318s\n"}
+,{"stream_name":"stdout","time":7072.203190503,"data":"[qwen3.8-27b-sft] 65/100 episodes, 6745s\n"}
+,{"stream_name":"stdout","time":7477.404542221,"data":"[qwen3.8-27b-sft] 70/100 episodes, 7150s\n"}
+,{"stream_name":"stdout","time":7980.594457629,"data":"[qwen3.8-27b-sft] 75/100 episodes, 7653s\n"}
+,{"stream_name":"stdout","time":8383.917789943,"data":"[qwen3.8-27b-sft] 80/100 episodes, 8057s\n"}
+,{"stream_name":"stdout","time":8785.735255679,"data":"[qwen3.8-27b-sft] 85/100 episodes, 8459s\n"}
+,{"stream_name":"stdout","time":9236.558295079,"data":"[qwen3.8-27b-sft] 90/100 episodes, 8909s\n"}
+,{"stream_name":"stdout","time":9737.513313105,"data":"[qwen3.8-27b-sft] 95/100 episodes, 9410s\n"}
+,{"stream_name":"stdout","time":10190.389806068,"data":"[qwen3.8-27b-sft] 100/100 episodes, 9863s\n"}
+,{"stream_name":"stdout","time":10190.44192109,"data":"[eval] dice: 100 episodes, mean E[PnL]=10.26 (9863s) -\u003e /kaggle/working/qwen3.8-27b-sft/results/raw/dice/qwen3.8-27b-sft.jsonl\n"}
+,{"stream_name":"stdout","time":10190.441963536,"data":"[bayes] 5/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.469160175,"data":"[bayes] 10/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.496811864,"data":"[bayes] 15/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.525041158,"data":"[bayes] 20/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.553600836,"data":"[bayes] 25/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.581493651,"data":"[bayes] 30/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.608070585,"data":"[bayes] 35/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.635230305,"data":"[bayes] 40/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.662119005,"data":"[bayes] 45/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.689563761,"data":"[bayes] 50/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.716512308,"data":"[bayes] 55/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.745545857,"data":"[bayes] 60/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.772386555,"data":"[bayes] 65/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.799077115,"data":"[bayes] 70/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.825839564,"data":"[bayes] 75/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.85262706,"data":"[bayes] 80/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.880128281,"data":"[bayes] 85/100 episodes, 0s\n"}
+,{"stream_name":"stdout","time":10190.907467976,"data":"[bayes] 90/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":10190.935742043,"data":"[bayes] 95/100 episodes, 1s\n"}
+,{"stream_name":"stdout","time":10190.96388082,"data":"[bayes] 100/100 episodes, 1s\n"}
+,{"stream_name":"stderr","time":10800.587661164,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10800.592368447,"data":"  File \"/kaggle/working/evaluate_core.py\", line 592, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":10800.592387363,"data":"    main()\n"}
+,{"stream_name":"stderr","time":10800.592392854,"data":"    ~~~~^^\n"}
+,{"stream_name":"stderr","time":10800.592397371,"data":"  File \"/kaggle/working/evaluate_core.py\", line 581, in main\n"}
+,{"stream_name":"stderr","time":10800.592402358,"data":"    train(args, report_runtime)\n"}
+,{"stream_name":"stderr","time":10800.592407066,"data":"    ~~~~~^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.592411364,"data":"  File \"/kaggle/working/evaluate_core.py\", line 259, in train\n"}
+,{"stream_name":"stderr","time":10800.59241639,"data":"    evaluate(model, tokenizer, args)\n"}
+,{"stream_name":"stderr","time":10800.592421031,"data":"    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.592425636,"data":"  File \"/kaggle/working/evaluate_core.py\", line 460, in evaluate\n"}
+,{"stream_name":"stderr","time":10800.592430587,"data":"    eps = run_player(make_game(g), lambda: player, seeds, out,\n"}
+,{"stream_name":"stderr","time":10800.592435851,"data":"                     workers=1, backend=\"py\", provenance=provenance)\n"}
+,{"stream_name":"stderr","time":10800.592444722,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/mmb_src/makemarket/evaluate.py\", line 109, in run_player\n"}
+,{"stream_name":"stderr","time":10800.592450519,"data":"    work(s)\n"}
+,{"stream_name":"stderr","time":10800.592455343,"data":"    ~~~~^^^\n"}
+,{"stream_name":"stderr","time":10800.592484988,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/mmb_src/makemarket/evaluate.py\", line 99, in work\n"}
+,{"stream_name":"stderr","time":10800.592498424,"data":"    res = episode_to_dict(play_episode(game, seed, make_player(), backend))\n"}
+,{"stream_name":"stderr","time":10800.592503619,"data":"                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.592542156,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/mmb_src/makemarket/market.py\", line 94, in play_episode\n"}
+,{"stream_name":"stderr","time":10800.592561948,"data":"    answer = player.quote(obs)\n"}
+,{"stream_name":"stderr","time":10800.592566155,"data":"  File \"/kaggle/working/evaluate_core.py\", line 353, in quote\n"}
+,{"stream_name":"stderr","time":10800.592569758,"data":"    return self.quote_many([obs])[0]\n"}
+,{"stream_name":"stderr","time":10800.592573612,"data":"           ~~~~~~~~~~~~~~~^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.592611295,"data":"  File \"/kaggle/working/evaluate_core.py\", line 380, in quote_many\n"}
+,{"stream_name":"stderr","time":10800.592616021,"data":"    texts = self._gen_many([pending[key][\"messages\"] for key in keys])\n"}
+,{"stream_name":"stderr","time":10800.592688709,"data":"  File \"/kaggle/working/evaluate_core.py\", line 357, in _gen_many\n"}
+,{"stream_name":"stderr","time":10800.59270506,"data":"    return [self._gen(messages[0])]\n"}
+,{"stream_name":"stderr","time":10800.592709782,"data":"            ~~~~~~~~~^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.59271887,"data":"  File \"/kaggle/working/evaluate_core.py\", line 349, in _gen\n"}
+,{"stream_name":"stderr","time":10800.592723247,"data":"    out = self.model.generate(**ids, max_new_tokens=self.max_new, do_sample=False)\n"}
+,{"stream_name":"stderr","time":10800.59285666,"data":"  File \"/usr/local/lib/python3.13/dist-packages/peft/peft_model.py\", line 2223, in generate\n"}
+,{"stream_name":"stderr","time":10800.592869177,"data":"    outputs = self.base_model.generate(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.59288088,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth/models/vision.py\", line 2155, in unsloth_base_fast_generate\n"}
+,{"stream_name":"stderr","time":10800.592884928,"data":"    output = self._old_generate(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.59299757,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py\", line 124, in decorate_context\n"}
+,{"stream_name":"stderr","time":10800.593007269,"data":"    return func(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593010854,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py\", line 2668, in generate\n"}
+,{"stream_name":"stderr","time":10800.59301452,"data":"    result = decoding_method(\n"}
+,{"stream_name":"stderr","time":10800.593017799,"data":"        self,\n"}
+,{"stream_name":"stderr","time":10800.593020985,"data":"    ...\u003c5 lines\u003e...\n"}
+,{"stream_name":"stderr","time":10800.593024494,"data":"        **model_kwargs,\n"}
+,{"stream_name":"stderr","time":10800.593028755,"data":"    )\n"}
+,{"stream_name":"stderr","time":10800.593059332,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py\", line 2882, in _sample\n"}
+,{"stream_name":"stderr","time":10800.593066747,"data":"    outputs = model_forward(**model_inputs, return_dict=True)\n"}
+,{"stream_name":"stderr","time":10800.593116942,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":10800.593124635,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593128274,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.593181527,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":10800.593187797,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":10800.593234684,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":10800.593264147,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.59327166,"data":"  File \"/usr/local/lib/python3.13/dist-packages/accelerate/hooks.py\", line 192, in new_forward\n"}
+,{"stream_name":"stderr","time":10800.593275612,"data":"    output = module._old_forward(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593347263,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 1425, in forward\n"}
+,{"stream_name":"stderr","time":10800.593353955,"data":"    return Qwen3_5ForConditionalGeneration_forward(self, input_ids=input_ids, attention_mask=attention_mask, position_ids=position_ids, past_key_values=past_key_values, inputs_embeds=inputs_embeds, labels=labels, pixel_values=pixel_values, pixel_values_videos=pixel_values_videos, image_grid_thw=image_grid_thw, video_grid_thw=video_grid_thw, mm_token_type_ids=mm_token_type_ids, logits_to_keep=logits_to_keep, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593390808,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/utils.py\", line 2283, in forward\n"}
+,{"stream_name":"stderr","time":10800.593395847,"data":"    return disabled(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593458015,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/_dynamo/external_utils.py\", line 227, in nonrecursive_disable_wrapper\n"}
+,{"stream_name":"stderr","time":10800.593463252,"data":"    return fn(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593502602,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 939, in wrapper\n"}
+,{"stream_name":"stderr","time":10800.593507526,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593570091,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 1189, in Qwen3_5ForConditionalGeneration_forward\n"}
+,{"stream_name":"stderr","time":10800.593575114,"data":"    outputs = self.model(\n"}
+,{"stream_name":"stderr","time":10800.593578642,"data":"        input_ids=input_ids,\n"}
+,{"stream_name":"stderr","time":10800.593582397,"data":"    ...\u003c9 lines\u003e...\n"}
+,{"stream_name":"stderr","time":10800.593586053,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":10800.593589463,"data":"    )\n"}
+,{"stream_name":"stderr","time":10800.59362514,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":10800.593633742,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593638733,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.593683589,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":10800.593689984,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":10800.593722897,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":10800.593729198,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593809799,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 939, in wrapper\n"}
+,{"stream_name":"stderr","time":10800.593826622,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593843575,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 1562, in forward\n"}
+,{"stream_name":"stderr","time":10800.593850572,"data":"    outputs = self.language_model(\n"}
+,{"stream_name":"stderr","time":10800.593872655,"data":"        input_ids=None,\n"}
+,{"stream_name":"stderr","time":10800.593876488,"data":"    ...\u003c4 lines\u003e...\n"}
+,{"stream_name":"stderr","time":10800.593880321,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":10800.593884058,"data":"    )\n"}
+,{"stream_name":"stderr","time":10800.593923954,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":10800.593931051,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.593934653,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.593956951,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1885, in _call_impl\n"}
+,{"stream_name":"stderr","time":10800.593962481,"data":"    return inner()\n"}
+,{"stream_name":"stderr","time":10800.594027264,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1833, in inner\n"}
+,{"stream_name":"stderr","time":10800.594033895,"data":"    result = forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594064745,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py\", line 1068, in wrapper\n"}
+,{"stream_name":"stderr","time":10800.59407995,"data":"    output = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594138437,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/utils/output_capturing.py\", line 262, in wrapper\n"}
+,{"stream_name":"stderr","time":10800.594145725,"data":"    outputs = func(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594191812,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 1206, in forward\n"}
+,{"stream_name":"stderr","time":10800.594199247,"data":"    hidden_states = decoder_layer(\n"}
+,{"stream_name":"stderr","time":10800.594203337,"data":"        hidden_states,\n"}
+,{"stream_name":"stderr","time":10800.594206977,"data":"    ...\u003c5 lines\u003e...\n"}
+,{"stream_name":"stderr","time":10800.59421089,"data":"        **kwargs,\n"}
+,{"stream_name":"stderr","time":10800.59421478,"data":"    )\n"}
+,{"stream_name":"stderr","time":10800.594229691,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/misc.py\", line 2660, in __call__\n"}
+,{"stream_name":"stderr","time":10800.594234567,"data":"    return original(self, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594295279,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/modeling_layers.py\", line 114, in __call__\n"}
+,{"stream_name":"stderr","time":10800.594318763,"data":"    return super().__call__(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594322942,"data":"           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.594343942,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":10800.594350802,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594354972,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.594414664,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n"}
+,{"stream_name":"stderr","time":10800.594422539,"data":"    return forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594463765,"data":"  File \"/usr/local/lib/python3.13/dist-packages/accelerate/hooks.py\", line 192, in new_forward\n"}
+,{"stream_name":"stderr","time":10800.594478284,"data":"    output = module._old_forward(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594518102,"data":"  File \"/usr/local/lib/python3.13/dist-packages/transformers/models/qwen3_5/modeling_qwen3_5.py\", line 793, in forward\n"}
+,{"stream_name":"stderr","time":10800.594523137,"data":"    hidden_states = self.mlp(hidden_states)\n"}
+,{"stream_name":"stderr","time":10800.594567424,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":10800.594572639,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594576109,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.594627902,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n"}
+,{"stream_name":"stderr","time":10800.594633042,"data":"    return forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594675339,"data":"  File \"/usr/local/lib/python3.13/dist-packages/accelerate/hooks.py\", line 192, in new_forward\n"}
+,{"stream_name":"stderr","time":10800.594680349,"data":"    output = module._old_forward(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594721118,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 934, in forward\n"}
+,{"stream_name":"stderr","time":10800.594725942,"data":"    return Qwen3_5MLP_forward(self, x=x)\n"}
+,{"stream_name":"stderr","time":10800.594803872,"data":"  File \"/usr/local/lib/python3.13/dist-packages/unsloth_zoo/temporary_patches/utils.py\", line 2237, in dispatch\n"}
+,{"stream_name":"stderr","time":10800.594815844,"data":"    return compiled(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594860415,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/_dynamo/eval_frame.py\", line 1024, in compile_wrapper\n"}
+,{"stream_name":"stderr","time":10800.594867147,"data":"    return fn(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594906761,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/unsloth_compiled_cache/unsloth_compiled_module_qwen3_5.py\", line 919, in Qwen3_5MLP_forward\n"}
+,{"stream_name":"stderr","time":10800.594924852,"data":"    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))\n"}
+,{"stream_name":"stderr","time":10800.594929312,"data":"                                           ~~~~~~~~~~~~~~^^^\n"}
+,{"stream_name":"stderr","time":10800.59495221,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n"}
+,{"stream_name":"stderr","time":10800.59495878,"data":"    return self._call_impl(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.594962774,"data":"           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":10800.595018024,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n"}
+,{"stream_name":"stderr","time":10800.595023907,"data":"    return forward_call(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.595063659,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/unsloth_compiled_cache/Linear4bit_peft_forward.py\", line 100, in unsloth_forward\n"}
+,{"stream_name":"stderr","time":10800.595069353,"data":"    result = self.base_layer(x, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.595114084,"data":"  File \"/kaggle/working/qwen3.8-27b-sft/unsloth_compiled_cache/Linear4bit_peft_forward.py\", line 100, in torch_dynamo_resume_in_unsloth_forward_at_100\n"}
+,{"stream_name":"stderr","time":10800.595119707,"data":"    result = self.base_layer(x, *args, **kwargs)\n"}
+,{"stream_name":"stderr","time":10800.595187274,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/_dynamo/eval_frame.py\", line 1240, in _fn\n"}
+,{"stream_name":"stderr","time":10800.595192179,"data":"    def _fn(*args: Any, **kwargs: Any) -\u003e Any:\n"}
+,{"stream_name":"stderr","time":10800.595195732,"data":"    \n"}
+,{"stream_name":"stderr","time":10800.595226861,"data":"  File \"/kaggle/working/evaluate_core.py\", line 537, in expire\n"}
+,{"stream_name":"stderr","time":10800.595232004,"data":"    raise TimeoutError(\"Registered training wall budget exhausted\")\n"}
+,{"stream_name":"stderr","time":10800.595298382,"data":"TimeoutError: Registered training wall budget exhausted\n"}
+,{"stream_name":"stderr","time":10801.658443913,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10801.659075901,"data":"  File \"/kaggle/src/script.py\", line 45, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":10801.659091408,"data":"    raise RuntimeError(f\"Evaluation worker exit codes: {codes}\")\n"}
+,{"stream_name":"stderr","time":10801.659098666,"data":"RuntimeError: Evaluation worker exit codes: [-9]\n"}
+,{"stream_name":"stderr","time":10804.539359567,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":10804.539405967,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":10804.935681007,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":10804.935706982,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":10806.071309049,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":10807.056649933,"data":"[NbConvertApp] Writing 377828 bytes to __results__.html\n"}
+]
