@@ -1430,7 +1430,7 @@
       "hours_basis": "Pending downloaded runtime and official account debit; the cap is not measured usage."
     },
     {
-      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed1",
+      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed-1",
       "version": 1,
       "accelerator": "T4 x2 requested",
       "start": null,
@@ -1443,7 +1443,8 @@
       "receipt": "results/training/qwen38_seed1_batch.json",
       "session_timeout_seconds": 41400,
       "purpose": "Independent seed-1 replication of the exact Qwen3.8-27B SFT/GRPO recipe; validation only, no seed promotion to primary test.",
-      "hours_basis": "Pending downloaded runtime and official account debit; session cap is not measured usage."
+      "hours_basis": "Pending downloaded runtime and official account debit; session cap is not measured usage.",
+      "requested_kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed1"
     }
   ],
   "accounting_notes": [

@@ -2677,3 +2677,11 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   failed ablations in `docs/training_history.md`, explicitly dated as a
   snapshot. All relative links in both documents resolve. The main page
   separates validation, completed sealed acquisition, and running batches.
+- Kaggle warns that the new replication title resolves to `training-seed-1`,
+  despite the requested `training-seed1` ID. Before its first status poll,
+  retain both references and use the authoritative returned push URL in the
+  watcher, prepared metadata and budget ledger. Do not resubmit or change
+  visibility. Resolution receipt is embedded in `qwen38_seed1_batch.json`.
+- Pull the actual saved replication source and metadata: its private flag is
+  true and its full script hash matches the preregistered seed-only transform.
+  Exact command and verification: `qwen38_seed1_source_save.json`.

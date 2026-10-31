@@ -1,0 +1,53 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify actual private saved replication source at its returned canonical reference"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "44e8877f521d52d2ce07ccb0d365f94ed1896782",
+    "uncommitted_diff_sha256": "56ad8c0e282d264ef43889a8f4c0c7a8abe7717df15be78d7d6b3a1d3b59680d",
+    "started_at": "2026-10-31T00:11:55.998931+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed-1",
+    "id_no": 141847854,
+    "title": "MakeMarketBench Qwen3.8 27B training seed 1",
+    "code_file": "makemarketbench-qwen3-8-27b-training-seed-1.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_tpu": false,
+    "enable_internet": true,
+    "keywords": [],
+    "dataset_sources": [],
+    "kernel_sources": [],
+    "competition_sources": [],
+    "model_sources": [],
+    "docker_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
+    "machine_shape": "NvidiaTeslaT4"
+  },
+  "source_sha256": "96bd33e4a433351a4b32bd330f45f87cb3157385059a6a96020d415ef6682df8",
+  "expected_sha256": "96bd33e4a433351a4b32bd330f45f87cb3157385059a6a96020d415ef6682df8",
+  "source_matches": true,
+  "private": true,
+  "command": [
+    "kaggle",
+    "kernels",
+    "pull",
+    "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed-1",
+    "-p",
+    "runs/qwen38_seed1_saved_remote",
+    "-m"
+  ],
+  "output": "Source code and metadata downloaded to runs/qwen38_seed1_saved_remote\n"
+}
