@@ -105,7 +105,7 @@ def main():
     dice, cards = (record["games"][g] for g in ("dice", "cards"))
     local_dice = next(r for r in dice["rows"] if r["player"] == args.label)
     record["targets"] = {
-        "dice_mean_at_least_80_percent": local_dice["pct_of_bayes"] >= 80,
+        "dice_mean_at_least_80_percent": bool(local_dice["pct_of_bayes"] >= 80),
         "dice_above_api_intervals": dice["lower_95_above_every_api_upper_95"] and
                                     dice["lower_percent_95_above_every_api_upper_percent_95"] and
                                     dice["all_paired_family_lower_bounds_positive"],

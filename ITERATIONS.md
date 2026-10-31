@@ -3043,3 +3043,9 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Hypothesis: if the primary selected test finishes with spare quota, completing the existing unselected GRPO validation is more informative than a new undersized run. The batch-four cohort needs 24 cards episodes; the native cohort needs three. No test aggregate has yet been inspected.
 - Plan: exact missing-only builds and source hashes in `results/training/qwen38_optional_validation_finish_plan.json`. Finish the sole selected test first. Then prioritize complete batch-four validation only if an official 1,800-second session fits, otherwise native validation if 900 seconds fits. Script caps are 1,620 / 780 seconds. Keep all acquired prefixes/cached responses and the frozen policy choice.
 - No new training or selected candidate is introduced; both original validation trials already count in the eleven-candidate test family. Any validation intervals remain descriptive. If neither complete cohort fits, record the remaining quota and stop instead of filling it with uninformative work.
+
+### T35 — final-report JSON serialization regression
+
+- Run the fixed-candidate scorer after both decisions froze; it fails before writing a score file because NumPy returns a scalar boolean for the dice threshold, which JSON cannot encode. The exact failing command/error and before/after source hashes are retained in `results/final/report_serialization_fix.json`.
+- Focused fix: convert only that target verdict to a built-in bool. Keep the unrounded comparison, every metric and eleven-candidate correction unchanged.
+- Verification: `python -m pytest -q tests/test_final_report.py`, two cases passing; complete toy cohorts exercise both true and false target verdict serialization. Repeat only deterministic report derivation on already acquired cached episodes, with no model calls, new candidate, selection change or test tuning.

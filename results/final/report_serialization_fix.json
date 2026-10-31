@@ -1,0 +1,53 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "record a reporting-only bug found after both policy decisions froze"
+    },
+    "model_revision": null,
+    "git_commit": "e471b72c6e63783f6bd0800ac69c0b1e5cbdbcad",
+    "uncommitted_diff_sha256": "ed0dafa34c66828d38f40fef96a1fd9fce4025a0f7f2fdd967fa7dc2e242218d",
+    "started_at": "2026-10-31T13:34:58.108273+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "failure": {
+    "command": [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/final/qwen17-sft800",
+      "--label",
+      "qwen3-1.7b-sft800",
+      "--candidates",
+      "11",
+      "--out",
+      "runs/frozen_preview/qwen3-1.7b-sft800.json"
+    ],
+    "error": "TypeError: Object of type bool is not JSON serializable",
+    "cause": "A NumPy scalar comparison yields numpy.bool_ instead of the built-in bool; JSON encoding fails after metric derivation. No final score file was written."
+  },
+  "change": "Cast only dice_mean_at_least_80_percent to built-in bool. Metric calculations, the unrounded >=80 comparison, family correction, episode data and selected policy are unchanged.",
+  "source_sha256_before": "9eedb6db849a2870815c9be215822bb77763e38318f974e692fa50e248be96cc",
+  "source_sha256_after": "69c840c7e6406d8269845f5cd2bd6da73587d0ec33041ea92be1b239606e1b3a",
+  "test_file": "tests/test_final_report.py",
+  "test_sha256": "2e6bd94fe8ac9f95c051907b74008de5b50dc320fc87a40678adbbf077475ef5",
+  "verification": {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_final_report.py"
+    ],
+    "tests_passed": 2,
+    "scope": "Real final-report CLI on complete toy cohorts; both passing and failing threshold verdicts must serialize as native booleans."
+  },
+  "statistical_scope": "No new model trial or held-out acquisition: this repeats deterministic metric arithmetic on the same frozen recorded episodes; eleven test candidates remain registered."
+}
