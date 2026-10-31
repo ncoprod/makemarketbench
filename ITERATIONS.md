@@ -2663,3 +2663,17 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   primary sealed test. The registered seed-0 selection and nine-candidate test
   correction remain unchanged. Two seeds do not support a precise
   population-level training-seed confidence interval. Outcome pending.
+
+### T28 admission and README clarity
+
+- The first scheduled 610-second primary status poll reports RUNNING. Official
+  quota admission permits the second saved private batch; seed 1 is submitted
+  as version 1. Exact available/reserved seconds and command are in
+  `results/training/qwen38_seed1_batch.json`. No policy outcome is inferred.
+- The exact extracted seed-1 core passes its CPU export/reward dry-run
+  (`results/training/qwen38_seed1_dry_run.json`). This does not prove GPU
+  training. The seed-only source transformation remains byte-reversible.
+- Shorten the README training section and retain all detailed receipts and
+  failed ablations in `docs/training_history.md`, explicitly dated as a
+  snapshot. All relative links in both documents resolve. The main page
+  separates validation, completed sealed acquisition, and running batches.

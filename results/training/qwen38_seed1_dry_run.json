@@ -1,0 +1,32 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "verify the exact seed-1 batch core export and rewards without CUDA",
+      "seed": 1
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "6c339240100c6a00648e83c8583110bd1018b8df",
+    "uncommitted_diff_sha256": "70f5aa0f5450d595ad9c42e620a9e3ed45cc471f5213988edc5e25364deb4044",
+    "started_at": "2026-10-31T00:05:17.251258+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": [
+    ".venv/bin/python",
+    "runs/qwen38_seed1_dry.py",
+    "--dry-run"
+  ],
+  "source_sha256": "96bd33e4a433351a4b32bd330f45f87cb3157385059a6a96020d415ef6682df8",
+  "core_sha256": "7ebe11426d553c4a6fc0c788d02255f77acf4a801f069b4a438cccf45272331a",
+  "exit_code": 0,
+  "output": "states: 36\nformat: [0.5, -1.0, 0.5, 0.5]\nedge:   [0.0, -2.0, -1.0, 0.0]\n",
+  "error": "",
+  "scope": "CPU dry-run only; does not establish allocated GPUs, training runtime or policy quality."
+}

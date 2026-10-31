@@ -1,0 +1,79 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/launch_qwen38_seed1.py",
+    "config": {
+      "purpose": "run the preregistered validation-only seed replication"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "6c339240100c6a00648e83c8583110bd1018b8df",
+    "uncommitted_diff_sha256": "0fad497856ac7cb2856fb6c898090a58b11a8315d65f06711254a400cc67de1a",
+    "started_at": "2026-10-31T00:03:14.292589+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport os\nimport re\nimport subprocess\nimport time\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\n\nplan_path = Path('results/training/qwen38_seed1_plan.json')\nplan = json.loads(plan_path.read_text())\npath = Path('results/training/qwen38_seed1_batch.json')\nassert not path.exists(), 'Inspect the existing receipt before any restart'\nsource = Path('runs/kaggle_qwen38_seed1/grpo_unsloth_kaggle.py')\nassert file_sha256(source) == plan['replication_source_sha256']\nassert plan['metadata']['is_private']\nrecord = {'provenance': receipt({'purpose':'run the preregistered validation-only seed replication'},plan['provenance']['model_revision']),\n          'source':Path(__file__).read_text(),'plan_sha256':file_sha256(plan_path),\n          'metadata':plan['metadata'],'source_sha256':file_sha256(source),\n          'status':'waiting_for_primary_running','polls':[]}\n\ndef save():\n    path.write_text(json.dumps(record,indent=2)+'\\n')\n\nsave()\nwhile True:\n    primary = json.loads(Path('results/training/qwen38_round3_batch.json').read_text())\n    polls = primary['polls']\n    if polls and 'KernelWorkerStatus.RUNNING' in polls[-1]['output']:\n        break\n    if primary['status'] in ('outputs_retrieved','output_pull_failed','push_requires_inspection'):\n        record['status']='not_submitted_primary_requires_inspection'\n        save()\n        raise SystemExit(0)\n    time.sleep(10)\nenv={**os.environ,'KAGGLE_CONFIG_DIR':str(Path('runs/kaggle_oauth_config').resolve())}\nfor name in ('KAGGLE_KEY','KAGGLE_API_TOKEN','KAGGLE_TOKEN_FILE'):\n    env.pop(name,None)\nsubprocess.run(['/Users/nico/.local/share/uv/tools/kaggle/bin/python','scripts/kaggle_quota.py'],env=env,check=True)\nsnapshot=json.loads(Path('results/training/kaggle_account_budget_snapshot.json').read_text())\nquota=snapshot['quota']\navailable=quota['gpu_seconds_total']-quota['gpu_seconds_used']-quota['gpu_seconds_reserved']\nrecord.update(quota_snapshot=snapshot,available_seconds=available)\nif available < 63000:\n    record['status']='not_submitted_insufficient_quota_with_primary_evaluation_reserve'\n    save()\n    raise SystemExit(0)\nassert file_sha256(source)==plan['replication_source_sha256']\nrecord.update(status='submitting',submitted_at=datetime.now(timezone.utc).isoformat())\nsave()\nresult=subprocess.run(plan['training_command'],env=env,capture_output=True,text=True)\nrecord['push']={'command':plan['training_command'],'exit_code':result.returncode,'output':result.stdout,'error':result.stderr}\nmatch=re.search(r'Kernel version (\\d+)',result.stdout)\nrecord.update(status='submitted' if result.returncode==0 and match else 'push_requires_inspection',version=int(match[1]) if match else None)\nsave()\nassert record['status']=='submitted','Inspect the result; do not retry an ambiguous submission'\nledger_path=Path('results/training/kaggle_budget.json')\nledger=json.loads(ledger_path.read_text())\nledger['sessions'].append({'kernel':plan['metadata']['id'],'version':record['version'],'accelerator':'T4 x2 requested',\n    'start':None,'end':None,'hours':None,'submitted_at':record['submitted_at'],'private':True,'status':'submitted',\n    'source_commit':plan['source_commit'],'receipt':str(path),'session_timeout_seconds':41400,\n    'purpose':'Independent seed-1 replication of the exact Qwen3.8-27B SFT/GRPO recipe; validation only, no seed promotion to primary test.',\n    'hours_basis':'Pending downloaded runtime and official account debit; session cap is not measured usage.'})\nledger_path.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint('Submitted private replication version',record['version'],flush=True)\nsubprocess.run(['.venv/bin/python','-u','scripts/watch_kaggle.py','--receipt',str(path),\n                '--out',f\"results/kaggle/qwen38-seed1-training-v{record['version']}\"],check=True)\n",
+  "plan_sha256": "be9230d5eb0c3bb3f43ece7500fde2e756bd586f6cf5a4e2ce7959faa1a680b9",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed1",
+    "title": "MakeMarketBench Qwen3.8 27B training seed 1",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": []
+  },
+  "source_sha256": "96bd33e4a433351a4b32bd330f45f87cb3157385059a6a96020d415ef6682df8",
+  "status": "submitted",
+  "polls": [],
+  "quota_snapshot": {
+    "recorded_at": "2026-10-31T00:10:15.193408+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "6c339240100c6a00648e83c8583110bd1018b8df",
+      "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
+    },
+    "quota": {
+      "refresh_at": "2026-11-07T00:00:00+00:00",
+      "gpu_seconds_used": 610.603642,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "available_seconds": 107389.396358,
+  "submitted_at": "2026-10-31T00:10:15.415325+00:00",
+  "push": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "push",
+      "-p",
+      "runs/kaggle_qwen38_seed1",
+      "--accelerator",
+      "NvidiaTeslaT4",
+      "--timeout",
+      "41400"
+    ],
+    "exit_code": 0,
+    "output": "Your kernel title does not resolve to the specified id. This may result in surprising behavior. We suggest making your title something that resolves to the specified id. See https://en.wikipedia.org/wiki/Clean_URL#Slug for more information on how slugs are determined.\nKernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed-1\n",
+    "error": ""
+  },
+  "version": 1
+}

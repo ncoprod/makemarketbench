@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-31T00:00:01.519800+00:00",
+  "recorded_at": "2026-10-31T00:10:15.193408+00:00",
   "provenance": {
     "command": [
       "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
@@ -7,7 +7,7 @@
     ],
     "seed": null,
     "model_revision": null,
-    "git_commit": "2403cb1cd21afb3bc3bc2ff3385490feccbcfdf5",
+    "git_commit": "6c339240100c6a00648e83c8583110bd1018b8df",
     "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
   },
   "reset_at": "2026-11-07T00:00:00+00:00",
@@ -1002,6 +1002,26 @@
         "gpu_seconds_reserved": 0.0,
         "gpu_seconds_total": 108000.0
       }
+    },
+    {
+      "recorded_at": "2026-10-31T00:10:15.193408+00:00",
+      "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+      "provenance": {
+        "command": [
+          "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+          "scripts/kaggle_quota.py"
+        ],
+        "seed": null,
+        "model_revision": null,
+        "git_commit": "6c339240100c6a00648e83c8583110bd1018b8df",
+        "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
+      },
+      "quota": {
+        "refresh_at": "2026-11-07T00:00:00+00:00",
+        "gpu_seconds_used": 610.603642,
+        "gpu_seconds_reserved": 0.0,
+        "gpu_seconds_total": 108000.0
+      }
     }
   ],
   "sessions": [
@@ -1408,6 +1428,22 @@
       "receipt": "results/training/qwen38_round3_batch.json",
       "session_timeout_seconds": 41400,
       "hours_basis": "Pending downloaded runtime and official account debit; the cap is not measured usage."
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed1",
+      "version": 1,
+      "accelerator": "T4 x2 requested",
+      "start": null,
+      "end": null,
+      "hours": null,
+      "submitted_at": "2026-10-31T00:10:15.415325+00:00",
+      "private": true,
+      "status": "submitted",
+      "source_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
+      "receipt": "results/training/qwen38_seed1_batch.json",
+      "session_timeout_seconds": 41400,
+      "purpose": "Independent seed-1 replication of the exact Qwen3.8-27B SFT/GRPO recipe; validation only, no seed promotion to primary test.",
+      "hours_basis": "Pending downloaded runtime and official account debit; session cap is not measured usage."
     }
   ],
   "accounting_notes": [

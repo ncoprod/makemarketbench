@@ -36,7 +36,19 @@
   },
   "source_sha256": "2dd43ba750f6b732b526624bd8181f168998760bc7b4cd0dabe25b245d482370",
   "status": "submitted",
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-31T00:10:12.643958+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-training"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-training has status \"KernelWorkerStatus.RUNNING\""
+    }
+  ],
   "quota_checks": [
     {
       "recorded_at": "2026-10-31T00:00:01.519800+00:00",
