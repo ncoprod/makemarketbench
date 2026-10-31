@@ -2823,3 +2823,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   input hashes and upstream context: `results/training/qwen38_dtype_probe_plan.json`.
   If adopted, validate both precision variants before primary selection and
   increase the final family conservatively before any sealed aggregate opens.
+
+### T30 support — resume retained evaluation episodes without policy mixing
+
+- A wall cap must not discard complete episodes. Add a saved-kernel raw-prefix
+  input to newest-family evaluation; verify adapter, revision, model, seed,
+  batch size, precision and canonical game states before copying raw episodes.
+  Acquire only missing seeds; never copy a previous aggregate leaderboard.
+- Verification: `bash scripts/ci_local.sh`. All 139 tests pass, including a
+  missing-only continuation and rejection of changed adapter/precision. Native
+  release, ASan/UBSan and embedded Kaggle CPU checks pass.
+- Receipt: `results/ci_local_round3_resume.json`. This changes acquisition
+  recovery only; it adds no policy candidate or tuning trial.

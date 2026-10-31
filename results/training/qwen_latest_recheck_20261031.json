@@ -1,0 +1,1357 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/recheck_qwen_catalogue_today.py",
+    "config": {
+      "purpose": "refresh official Qwen release catalogue after the UTC date change",
+      "urls": {
+        "latest_created": "https://huggingface.co/api/models?author=Qwen&sort=createdAt&direction=-1&limit=60",
+        "qwen38_family": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=100&full=true"
+      }
+    },
+    "model_revision": null,
+    "git_commit": "0b3fe6992302563cfe5ede4aba5c2cae2276bda9",
+    "uncommitted_diff_sha256": "63f5a1a96d23b8f4c50e30cdd4e0bdef9f212b24313264ac19b0a9730ea9d835",
+    "started_at": "2026-10-31T06:25:38.176362+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\nfrom urllib.request import urlopen\n\nfrom makemarket.provenance import receipt\n\nurls = {\n    'latest_created': 'https://huggingface.co/api/models?author=Qwen&sort=createdAt&direction=-1&limit=60',\n    'qwen38_family': 'https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=100&full=true',\n}\nrecord = {'provenance': receipt({'purpose': 'refresh official Qwen release catalogue after the UTC date change', 'urls': urls}),\n          'source': Path(__file__).read_text(), 'responses': {}}\nfields = ('id', 'sha', 'createdAt', 'lastModified', 'pipeline_tag', 'tags')\nfor name, url in urls.items():\n    with urlopen(url, timeout=45) as response:\n        rows = json.load(response)\n    record['responses'][name] = [{k: r[k] for k in fields if k in r} for r in rows]\nrecord['comparison_note'] = 'Primary catalogue refresh only; the full pinned model/weight/licence evidence remains in qwen_latest_details.json and qwen38_quantized.json. Do not infer policy quality from release recency.'\nPath('results/training/qwen_latest_recheck_20261031.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint(json.dumps({name: [r['id'] for r in rows] for name, rows in record['responses'].items()}))\n",
+  "responses": {
+    "latest_created": [
+      {
+        "id": "Qwen/Qwen-Image-2.1-Turbo",
+        "createdAt": "2026-10-09T04:50:01.000Z",
+        "pipeline_tag": "text-to-image",
+        "tags": [
+          "diffusers",
+          "safetensors",
+          "qwen",
+          "image-generation",
+          "image-editing",
+          "text-to-image",
+          "base_model:Qwen/Qwen-Image-2.1",
+          "base_model:finetune:Qwen/Qwen-Image-2.1",
+          "license:other",
+          "diffusers:QwenImage21Pipeline",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen-Image-2.1-PE-I2I",
+        "createdAt": "2026-09-20T08:46:47.000Z",
+        "tags": [
+          "safetensors",
+          "qwen3_5",
+          "qwen",
+          "prompt-rewriting",
+          "image-editing",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen-Image-2.1-PE-T2I",
+        "createdAt": "2026-09-20T08:45:29.000Z",
+        "pipeline_tag": "text-to-image",
+        "tags": [
+          "safetensors",
+          "qwen3_5",
+          "qwen",
+          "prompt-rewriting",
+          "text-to-image",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen-Image-2.1",
+        "createdAt": "2026-09-14T03:47:26.000Z",
+        "pipeline_tag": "text-to-image",
+        "tags": [
+          "diffusers",
+          "safetensors",
+          "qwen",
+          "image-generation",
+          "image-editing",
+          "rgba",
+          "text-to-image",
+          "license:other",
+          "diffusers:QwenImage21Pipeline",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen-Drive-1.0-4B",
+        "createdAt": "2026-08-27T08:14:27.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen_drive",
+          "autonomous-driving",
+          "motion-planning",
+          "3d-perception",
+          "visual-question-answering",
+          "qwen",
+          "image-text-to-text",
+          "conversational",
+          "arxiv:2609.00111",
+          "base_model:Qwen/Qwen3.5-4B",
+          "base_model:finetune:Qwen/Qwen3.5-4B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next-FP8",
+        "createdAt": "2026-08-24T08:25:23.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen4_exp",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.8-Flash-Next",
+          "base_model:quantized:Qwen/Qwen3.8-Flash-Next",
+          "license:other",
+          "endpoints_compatible",
+          "fp8",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next",
+        "createdAt": "2026-08-24T08:24:59.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen4_exp",
+          "image-text-to-text",
+          "conversational",
+          "license:other",
+          "eval-results",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B-FP8",
+        "createdAt": "2026-08-13T08:01:58.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.8-27B",
+          "base_model:quantized:Qwen/Qwen3.8-27B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-2.4T-A95B",
+        "createdAt": "2026-08-08T01:50:52.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe_text",
+          "text-generation",
+          "conversational",
+          "license:other",
+          "eval-results",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-2.4T-A95B-FP8",
+        "createdAt": "2026-08-08T01:49:49.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe_text",
+          "text-generation",
+          "conversational",
+          "base_model:Qwen/Qwen3.8-2.4T-A95B",
+          "base_model:quantized:Qwen/Qwen3.8-2.4T-A95B",
+          "license:other",
+          "endpoints_compatible",
+          "fp8",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "createdAt": "2026-08-05T08:22:59.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:azure",
+          "deploy:sagemaker",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+        "createdAt": "2026-06-26T08:42:01.000Z",
+        "pipeline_tag": "token-classification",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_asr",
+          "token-classification",
+          "zh",
+          "en",
+          "yue",
+          "fr",
+          "de",
+          "it",
+          "ja",
+          "ko",
+          "pt",
+          "ru",
+          "es",
+          "arxiv:2601.21337",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3-ASR-0.6B-hf",
+        "createdAt": "2026-06-26T08:39:00.000Z",
+        "pipeline_tag": "automatic-speech-recognition",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_asr",
+          "automatic-speech-recognition",
+          "zh",
+          "en",
+          "yue",
+          "ar",
+          "de",
+          "fr",
+          "es",
+          "pt",
+          "id",
+          "it",
+          "ko",
+          "ru",
+          "th",
+          "vi",
+          "ja",
+          "tr",
+          "hi",
+          "ms",
+          "nl",
+          "sv",
+          "da",
+          "fi",
+          "pl",
+          "cs",
+          "fil",
+          "fa",
+          "el",
+          "hu",
+          "mk",
+          "ro",
+          "arxiv:2601.21337",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3-ASR-1.7B-hf",
+        "createdAt": "2026-06-26T08:34:21.000Z",
+        "pipeline_tag": "automatic-speech-recognition",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_asr",
+          "automatic-speech-recognition",
+          "zh",
+          "en",
+          "yue",
+          "ar",
+          "de",
+          "fr",
+          "es",
+          "pt",
+          "id",
+          "it",
+          "ko",
+          "ru",
+          "th",
+          "vi",
+          "ja",
+          "tr",
+          "hi",
+          "ms",
+          "nl",
+          "sv",
+          "da",
+          "fi",
+          "pl",
+          "cs",
+          "fil",
+          "fa",
+          "el",
+          "hu",
+          "mk",
+          "ro",
+          "arxiv:2601.21337",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen-AgentWorld-35B-A3B",
+        "createdAt": "2026-06-22T14:49:37.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "qwen",
+          "world-model",
+          "agent",
+          "environment-simulation",
+          "text-generation",
+          "conversational",
+          "dataset:Qwen/AgentWorldBench",
+          "arxiv:2606.24597",
+          "base_model:Qwen/Qwen3.5-35B-A3B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-35B-A3B-Base",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "deploy:azure",
+          "deploy:sagemaker",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen-Image-Bench",
+        "createdAt": "2026-05-21T04:15:56.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "judge-model",
+          "text-to-image",
+          "evaluation",
+          "benchmark",
+          "qwen",
+          "conversational",
+          "en",
+          "zh",
+          "arxiv:2605.28091",
+          "base_model:Qwen/Qwen3.6-27B",
+          "base_model:finetune:Qwen/Qwen3.6-27B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us",
+          "deploy:azure"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-35B-A3B-Base-W128K-L0_100",
+        "createdAt": "2026-04-27T03:39:47.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-35B-A3B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-35B-A3B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-35B-A3B-Base-W32K-L0_50",
+        "createdAt": "2026-04-27T03:39:46.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-35B-A3B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-35B-A3B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3-30B-A3B-Base-W128K-L0_100",
+        "createdAt": "2026-04-27T03:39:45.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3-30B-A3B-Base",
+          "base_model:finetune:Qwen/Qwen3-30B-A3B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3-30B-A3B-Base-W32K-L0_50",
+        "createdAt": "2026-04-27T03:39:44.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3-30B-A3B-Base",
+          "base_model:finetune:Qwen/Qwen3-30B-A3B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-27B-W80K-L0_100",
+        "createdAt": "2026-04-27T03:39:43.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-27B",
+          "base_model:finetune:Qwen/Qwen3.5-27B",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-27B-W80K-L0_50",
+        "createdAt": "2026-04-27T03:39:42.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-27B",
+          "base_model:finetune:Qwen/Qwen3.5-27B",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-9B-Base-W64K-L0_100",
+        "createdAt": "2026-04-27T03:39:41.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-9B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-9B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-9B-Base-W64K-L0_50",
+        "createdAt": "2026-04-27T03:39:40.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-9B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-9B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_100",
+        "createdAt": "2026-04-27T03:39:40.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-2B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-2B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "createdAt": "2026-04-27T03:39:39.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3.5-2B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-2B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3-8B-Base-W64K-L0_100",
+        "createdAt": "2026-04-27T03:39:38.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3-8B-Base",
+          "base_model:finetune:Qwen/Qwen3-8B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3-8B-Base-W64K-L0_50",
+        "createdAt": "2026-04-27T03:39:37.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3-8B-Base",
+          "base_model:finetune:Qwen/Qwen3-8B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3-1.7B-Base-W32K-L0_100",
+        "createdAt": "2026-04-27T03:39:36.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3-1.7B-Base",
+          "base_model:finetune:Qwen/Qwen3-1.7B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/SAE-Res-Qwen3-1.7B-Base-W32K-L0_50",
+        "createdAt": "2026-04-27T03:39:35.000Z",
+        "tags": [
+          "topk_sae",
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887",
+          "en",
+          "base_model:Qwen/Qwen3-1.7B-Base",
+          "base_model:finetune:Qwen/Qwen3-1.7B-Base",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.6-27B-FP8",
+        "createdAt": "2026-04-21T07:51:33.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.6-27B",
+          "base_model:quantized:Qwen/Qwen3.6-27B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "region:us",
+          "deploy:azure",
+          "deploy:sagemaker"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.6-27B",
+        "createdAt": "2026-04-21T07:50:43.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.6-35B-A3B-FP8",
+        "createdAt": "2026-04-15T06:05:13.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.6-35B-A3B",
+          "base_model:quantized:Qwen/Qwen3.6-35B-A3B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "region:us",
+          "deploy:azure"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.6-35B-A3B",
+        "createdAt": "2026-04-15T05:59:19.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-35B-A3B-GPTQ-Int4",
+        "createdAt": "2026-03-03T07:18:32.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-35B-A3B",
+          "base_model:quantized:Qwen/Qwen3.5-35B-A3B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "4-bit",
+          "gptq",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-27B-GPTQ-Int4",
+        "createdAt": "2026-03-03T07:08:41.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "4-bit",
+          "gptq",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-397B-A17B-GPTQ-Int4",
+        "createdAt": "2026-03-03T06:25:36.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-397B-A17B",
+          "base_model:quantized:Qwen/Qwen3.5-397B-A17B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "4-bit",
+          "gptq",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-122B-A10B-GPTQ-Int4",
+        "createdAt": "2026-03-03T06:08:00.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "4-bit",
+          "gptq",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-0.8B-Base",
+        "createdAt": "2026-02-28T23:57:45.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us",
+          "deploy:sagemaker"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-2B-Base",
+        "createdAt": "2026-02-28T23:57:23.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us",
+          "deploy:sagemaker"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-0.8B",
+        "createdAt": "2026-02-28T23:57:01.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-0.8B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-0.8B-Base",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-2B",
+        "createdAt": "2026-02-28T23:56:16.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-2B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-2B-Base",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-4B",
+        "createdAt": "2026-02-27T14:45:03.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-4B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-4B-Base",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-4B-Base",
+        "createdAt": "2026-02-27T13:20:09.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us",
+          "deploy:sagemaker"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-9B",
+        "createdAt": "2026-02-27T12:58:26.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-9B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-9B-Base",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-9B-Base",
+        "createdAt": "2026-02-26T16:20:10.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us",
+          "deploy:sagemaker"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-35B-A3B-FP8",
+        "createdAt": "2026-02-25T13:34:21.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-35B-A3B",
+          "base_model:quantized:Qwen/Qwen3.5-35B-A3B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "region:us",
+          "deploy:azure"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-27B-FP8",
+        "createdAt": "2026-02-25T13:20:07.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-27B",
+          "base_model:quantized:Qwen/Qwen3.5-27B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-122B-A10B-FP8",
+        "createdAt": "2026-02-25T13:01:23.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-122B-A10B",
+          "base_model:quantized:Qwen/Qwen3.5-122B-A10B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-122B-A10B",
+        "createdAt": "2026-02-24T09:43:37.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:azure",
+          "deploy:sagemaker",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-35B-A3B-Base",
+        "createdAt": "2026-02-24T09:42:42.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-27B",
+        "createdAt": "2026-02-24T09:41:56.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:sagemaker",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-35B-A3B",
+        "createdAt": "2026-02-24T09:39:25.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-35B-A3B-Base",
+          "base_model:finetune:Qwen/Qwen3.5-35B-A3B-Base",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-397B-A17B-FP8",
+        "createdAt": "2026-02-18T13:01:57.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.5-397B-A17B",
+          "base_model:quantized:Qwen/Qwen3.5-397B-A17B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.5-397B-A17B",
+        "createdAt": "2026-02-16T04:55:12.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/WebWorld-32B",
+        "createdAt": "2026-02-13T14:14:13.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3",
+          "text-generation",
+          "WebWorld",
+          "web-agent",
+          "world-model",
+          "simulator",
+          "browser",
+          "a11y",
+          "html",
+          "xml",
+          "markdown",
+          "long-horizon",
+          "long-context",
+          "synthetic-trajectories",
+          "instruction-tuning",
+          "conversational",
+          "en",
+          "zh",
+          "dataset:Qwen/WebWorldData",
+          "arxiv:2602.14721",
+          "base_model:Qwen/Qwen3-8B",
+          "base_model:finetune:Qwen/Qwen3-8B",
+          "license:apache-2.0",
+          "text-generation-inference",
+          "endpoints_compatible",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/WebWorld-14B",
+        "createdAt": "2026-02-13T14:14:04.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3",
+          "text-generation",
+          "WebWorld",
+          "web-agent",
+          "world-model",
+          "simulator",
+          "browser",
+          "a11y",
+          "html",
+          "xml",
+          "markdown",
+          "long-horizon",
+          "long-context",
+          "synthetic-trajectories",
+          "instruction-tuning",
+          "conversational",
+          "en",
+          "zh",
+          "dataset:Qwen/WebWorldData",
+          "arxiv:2602.14721",
+          "base_model:Qwen/Qwen3-8B",
+          "base_model:finetune:Qwen/Qwen3-8B",
+          "license:apache-2.0",
+          "text-generation-inference",
+          "endpoints_compatible",
+          "deploy:azure",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/WebWorld-8B",
+        "createdAt": "2026-02-13T14:13:39.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3",
+          "text-generation",
+          "WebWorld",
+          "web-agent",
+          "world-model",
+          "simulator",
+          "browser",
+          "a11y",
+          "html",
+          "xml",
+          "markdown",
+          "long-horizon",
+          "long-context",
+          "synthetic-trajectories",
+          "instruction-tuning",
+          "conversational",
+          "en",
+          "zh",
+          "dataset:Qwen/WebWorldData",
+          "arxiv:2602.14721",
+          "base_model:Qwen/Qwen3-8B",
+          "base_model:finetune:Qwen/Qwen3-8B",
+          "license:apache-2.0",
+          "text-generation-inference",
+          "endpoints_compatible",
+          "region:us",
+          "deploy:azure"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3-Coder-Next-GGUF",
+        "createdAt": "2026-02-02T05:40:51.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "gguf",
+          "text-generation",
+          "arxiv:2309.00071",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us",
+          "conversational",
+          "deploy:azure"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3-Coder-Next-Base",
+        "createdAt": "2026-02-01T12:42:15.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_next",
+          "text-generation",
+          "conversational",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      }
+    ],
+    "qwen38_family": [
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "sha": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+        "createdAt": "2026-08-05T08:22:59.000Z",
+        "lastModified": "2026-08-14T15:00:01.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "license:apache-2.0",
+          "eval-results",
+          "endpoints_compatible",
+          "deploy:azure",
+          "deploy:sagemaker",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next",
+        "sha": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+        "createdAt": "2026-08-24T08:24:59.000Z",
+        "lastModified": "2026-08-27T05:03:36.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen4_exp",
+          "image-text-to-text",
+          "conversational",
+          "license:other",
+          "eval-results",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-2.4T-A95B",
+        "sha": "207bd685a7e3696cfaff12ded7c6a7ea0f88c996",
+        "createdAt": "2026-08-08T01:50:52.000Z",
+        "lastModified": "2026-08-12T10:24:04.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe_text",
+          "text-generation",
+          "conversational",
+          "license:other",
+          "eval-results",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B-FP8",
+        "sha": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+        "createdAt": "2026-08-13T08:01:58.000Z",
+        "lastModified": "2026-08-14T14:44:41.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.8-27B",
+          "base_model:quantized:Qwen/Qwen3.8-27B",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "fp8",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next-FP8",
+        "sha": "236dfdf285828023ca3bcd3f37366c58a3469b13",
+        "createdAt": "2026-08-24T08:25:23.000Z",
+        "lastModified": "2026-08-31T08:19:15.000Z",
+        "pipeline_tag": "image-text-to-text",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen4_exp",
+          "image-text-to-text",
+          "conversational",
+          "base_model:Qwen/Qwen3.8-Flash-Next",
+          "base_model:quantized:Qwen/Qwen3.8-Flash-Next",
+          "license:other",
+          "endpoints_compatible",
+          "fp8",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Qwen/Qwen3.8-2.4T-A95B-FP8",
+        "sha": "d2dc35658bcf77e66643428cb52e774cc3b5bd29",
+        "createdAt": "2026-08-08T01:49:49.000Z",
+        "lastModified": "2026-08-12T10:23:42.000Z",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen3_5_moe_text",
+          "text-generation",
+          "conversational",
+          "base_model:Qwen/Qwen3.8-2.4T-A95B",
+          "base_model:quantized:Qwen/Qwen3.8-2.4T-A95B",
+          "license:other",
+          "endpoints_compatible",
+          "fp8",
+          "region:us"
+        ]
+      }
+    ]
+  },
+  "comparison_note": "Primary catalogue refresh only; the full pinned model/weight/licence evidence remains in qwen_latest_details.json and qwen38_quantized.json. Do not infer policy quality from release recency."
+}

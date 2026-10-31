@@ -46,7 +46,10 @@ def main() -> None:
     ap.add_argument("--out", type=Path, help="output directory; useful for local CI without modifying tracked kernels")
     ap.add_argument("--checkpoint-kernel", default="nicolascoquelet/makemarketbench-qwen3-8-27b-training")
     ap.add_argument("--evaluate-adapter", choices=["sft", "grpo"], help="required for the selected newest-family test")
+    ap.add_argument("--evaluation-resume-kernel", help="saved newest-family evaluation with raw episodes to resume")
     args = ap.parse_args()
+    if args.evaluation_resume_kernel and not args.qwen38_evaluate:
+        ap.error("--evaluation-resume-kernel requires --qwen38-evaluate")
     if args.qwen38_evaluate and args.evaluation_split == "test" and not args.evaluate_adapter:
         ap.error("Freeze the validation winner first, then specify --evaluate-adapter for its test")
     assert 0 < args.evaluation_budget_seconds <= 43200
@@ -117,6 +120,10 @@ for gpu, (directory, label) in enumerate({adapters!r}):
                "--eval-batch-size", "{batch_size}", *{([] if newest else ['--check-batching'])!r},
                "--budget-seconds", str(max(1, int(deadline - time.monotonic()))),
                *{model_flags!r}]
+    if {bool(args.evaluation_resume_kernel)!r}:
+        prefixes = list(Path("/kaggle/input").rglob(label + "/results/raw"))
+        assert len(prefixes) == 1, prefixes
+        command += ["--evaluation-prefix", str(prefixes[0].parent.parent)]
     workers.append(subprocess.Popen(command, env=env, cwd=work))
     if {newest!r}:
         try:
@@ -211,6 +218,8 @@ with Path("/kaggle/working/train.log").open("w") as log:
     elif args.qwen38_train:
         meta.update(id="nicolascoquelet/makemarketbench-qwen3-8-27b-training",
                     title="MakeMarketBench Qwen3.8 27B training")
+    if args.evaluation_resume_kernel:
+        meta["kernel_sources"].append(args.evaluation_resume_kernel)
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"wrote {out}/grpo_unsloth_kaggle.py and kernel-metadata.json")
 

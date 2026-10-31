@@ -133,7 +133,7 @@ both the local and newest-family decisions are frozen
   validation diagnostics conditional on one training pipeline.
 - **Qwen3.8-27B:** the newest general-purpose Qwen family is permissively
   licensed, and its smallest model fits measured T4 x2 QLoRA
-  ([official catalogue](results/training/qwen_latest_recheck_20261030.json),
+  ([official catalogue](results/training/qwen_latest_recheck_20261031.json),
   [ungated Apache-2.0 revisions](results/training/qwen38_before_batch_access.json)).
   The quantized checkpoint occupies **20.81 GiB** against **29.12 GiB** across
   both GPUs, before other allocations
@@ -189,7 +189,7 @@ The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
 Current local verification passes **138 Python tests**
-([local CI receipt](results/ci_local_round3_api_complete.json)), native Release and
+([local CI receipt](results/ci_local_round3_resume.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
 requires these checks. Hosted Actions minutes are exhausted until about
 November 1 according to the owner; jobs refuse before any steps with the

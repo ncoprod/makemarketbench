@@ -437,6 +437,40 @@ def check_batching(model, tokenizer, args):
         raise ValueError("Serial/batched quotes differ on training states; inspect batch_parity.json")
 
 
+def resume_evaluation(args, label) -> None:
+    import shutil
+
+    from makemarket.cli import slug
+    from makemarket.evaluate import load_results
+    from makemarket.games import make_game
+
+    if not getattr(args, "evaluation_prefix", None):
+        return
+    args.evaluation_prefix_sha256 = {}
+    for game in args.games:
+        relative = Path("results/raw") / game / f"{slug(label)}.jsonl"
+        source, destination = Path(args.evaluation_prefix) / relative, WORK / relative
+        if not source.exists():
+            continue
+        rows = load_results(source)
+        seeds = [row["seed"] for row in rows]
+        assert len(set(seeds)) == len(seeds), "Duplicate resumed seeds"
+        assert set(seeds) <= set(range(args.eval_seed, args.eval_seed + args.eval_episodes))
+        for row in rows:
+            assert row["game"] == game and row["player"] == label
+            cfg = row["provenance"]["config"]
+            for key in ("model", "revision", "adapter_sha256", "eval_batch_size", "seed"):
+                assert cfg[key] == getattr(args, key), f"Resumed {key} differs"
+            assert cfg.get("inference_precision", "native") == getattr(args, "inference_precision", "native")
+            episode = make_game(game).episode(row["seed"])
+            assert row["value"] == episode.value and len(row["rounds"]) == 6
+            assert [r["reveal"] for r in row["rounds"]] == episode.reveals
+        assert not destination.exists(), "Do not overwrite acquired episodes"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, destination)
+        args.evaluation_prefix_sha256[game] = hashlib.sha256(source.read_bytes()).hexdigest()
+
+
 def evaluate(model, tokenizer, args, label=None) -> None:
     from makemarket.analysis import player_diagnostics
     from makemarket.cli import slug
@@ -446,6 +480,7 @@ def evaluate(model, tokenizer, args, label=None) -> None:
     from makemarket.scoring import markdown_table, summarize
 
     label = label or args.label
+    resume_evaluation(args, label)
     provenance = {**execution(args), "label": label}
     # Greedy decoding permits reuse of identical prompts within this adapter.
     player = HFQuoter(model, tokenizer, label)
@@ -516,6 +551,7 @@ def main() -> None:
     ap.add_argument("--eval-batch-size", type=int, default=1)
     ap.add_argument("--check-batching", action="store_true", help="compare serial/batched training-state quotes first")
     ap.add_argument("--eval-seed", type=int, default=200)
+    ap.add_argument("--evaluation-prefix", help="verified prior policy results; acquire missing seeds only")
     ap.add_argument("--resume", help="GRPO checkpoint directory, including optimizer state")
     ap.add_argument("--sft-resume", help="SFT checkpoint directory, including optimizer state")
     ap.add_argument("--adapter", help="explicit compatible PEFT adapter directory")

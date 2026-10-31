@@ -68,6 +68,44 @@ def test_greedy_cuda_cache_reuses_repairs_and_stays_with_one_adapter(kernel):
     assert not kernel.HFQuoter(None, None, "adapter-b").cache
 
 
+def test_cuda_evaluation_resumes_exact_prefix_and_rejects_changed_policy(kernel, monkeypatch, tmp_path):
+    from makemarket.evaluate import run_player
+    from makemarket.games import make_game
+    from makemarket.players import BayesQuoter
+
+    prefix, work = tmp_path / "prefix", tmp_path / "work"
+    args = Namespace(games=["cards"], eval_episodes=3, eval_seed=200, label="test-policy", seed=0,
+                     model="test", revision="revision", adapter_sha256="adapter", eval_batch_size=1,
+                     evaluation_prefix=str(prefix))
+    player = BayesQuoter()
+    player.name = args.label
+    path = prefix / "results/raw/cards/test-policy.jsonl"
+    run_player(make_game("cards"), lambda: player, [200], path, backend="py",
+               provenance={"config": vars(args).copy()})
+    original = path.read_bytes()
+    visited = []
+
+    def oracle(*_):
+        player.reset = lambda seed: visited.append(seed)
+        return player
+
+    monkeypatch.setattr(kernel, "WORK", work)
+    monkeypatch.setattr(kernel, "HFQuoter", oracle)
+    kernel.evaluate(None, None, args)
+    assert visited == [201, 202]
+    assert (work / "results/raw/cards/test-policy.jsonl").read_bytes().startswith(original)
+    assert len(args.evaluation_prefix_sha256["cards"]) == 64
+    monkeypatch.setattr(kernel, "WORK", tmp_path / "wrong")
+    args.adapter_sha256 = "different"
+    with pytest.raises(AssertionError, match="adapter_sha256"):
+        kernel.resume_evaluation(args, args.label)
+    args.adapter_sha256 = "adapter"
+    args.inference_precision = "fp32"
+    with pytest.raises(AssertionError):
+        kernel.resume_evaluation(args, args.label)
+    assert not (tmp_path / "wrong/results/raw/cards/test-policy.jsonl").exists()
+
+
 @pytest.mark.parametrize("last_response,failed", [
     ('{"bid": 1, "bid_size": 1, "ask": 99, "ask_size": 1}', False),
     ("still invalid", True),
