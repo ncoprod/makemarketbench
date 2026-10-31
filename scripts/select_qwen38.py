@@ -12,6 +12,7 @@ def main():
     ap.add_argument('--training-root', required=True, type=Path)
     ap.add_argument('--validation-root', required=True, type=Path)
     ap.add_argument('--test-root', required=True, type=Path)
+    ap.add_argument('--batch-size', type=int, choices=[1, 4], default=1)
     ap.add_argument('--out', type=Path, default=Path('results/training/qwen38_selection.json'))
     args = ap.parse_args()
     assert not args.out.exists(), 'Selection is already frozen; do not overwrite it'
@@ -22,7 +23,8 @@ def main():
     assert runtime['seed'] == 0, 'Only the registered primary training seed may enter test selection'
     assert runtime['model_revision'] == revision, 'Wrong training model revision'
     for method, directory in [('sft', 'warmstart_adapter'), ('grpo', 'lora_adapter')]:
-        label = f'qwen3.8-27b-{method}'
+        family = 'qwen3.8-27b-batch4' if args.batch_size == 4 else 'qwen3.8-27b'
+        label = f'{family}-{method}'
         adapter = args.training_root / directory / 'adapter_model.safetensors'
         adapter_hash = file_sha256(adapter)
         scores, inputs = {}, {}
@@ -32,7 +34,8 @@ def main():
             assert data['seeds'] == list(range(80000, 80100)), 'Wrong validation split'
             cfg = data['provenance']['config']
             assert cfg['revision'] == revision and cfg['adapter_sha256'] == adapter_hash
-            assert cfg['eval_batch_size'] == 1, 'Newest-family inference is registered as serial'
+            assert cfg['eval_batch_size'] == args.batch_size, 'Wrong registered inference variant'
+            assert cfg['seed'] == 0, 'Wrong validation training seed'
             row = next(r for r in data['rows'] if r['player'] == label)
             assert row['episodes'] == 100, 'Incomplete validation cohort'
             scores[game] = row
@@ -49,7 +52,8 @@ def main():
               **{k: winner[k] for k in ('label', 'method', 'adapter_file', 'adapter_sha256')},
               'test_root': str(args.test_root / winner['label'] / 'results'),
               'test_seeds': [200, 399], 'test_episodes_per_game': 200,
-              'final_candidate_family': 9}
+              'eval_batch_size': args.batch_size,
+              'final_candidate_family': 11 if args.batch_size == 4 else 9}
     args.out.write_text(json.dumps(record, indent=2) + '\n')
     print('Frozen newest-family validation winner:', winner['label'])
 

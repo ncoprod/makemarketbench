@@ -46,10 +46,14 @@ def main() -> None:
     ap.add_argument("--out", type=Path, help="output directory; useful for local CI without modifying tracked kernels")
     ap.add_argument("--checkpoint-kernel", default="nicolascoquelet/makemarketbench-qwen3-8-27b-training")
     ap.add_argument("--evaluate-adapter", choices=["sft", "grpo"], help="required for the selected newest-family test")
+    ap.add_argument("--newest-batch-size", type=int, choices=[1, 4], default=1,
+                    help="registered newest-family inference variant; batching changes the policy label")
     ap.add_argument("--evaluation-resume-kernel", help="saved newest-family evaluation with raw episodes to resume")
     args = ap.parse_args()
     if args.evaluation_resume_kernel and not args.qwen38_evaluate:
         ap.error("--evaluation-resume-kernel requires --qwen38-evaluate")
+    if args.newest_batch_size != 1 and not args.qwen38_evaluate:
+        ap.error("--newest-batch-size requires --qwen38-evaluate")
     if args.qwen38_evaluate and args.evaluation_split == "test" and not args.evaluate_adapter:
         ap.error("Freeze the validation winner first, then specify --evaluate-adapter for its test")
     assert 0 < args.evaluation_budget_seconds <= 43200
@@ -89,8 +93,10 @@ def main() -> None:
     if args.evaluate_staged or args.qwen38_evaluate:
         newest = args.qwen38_evaluate
         family = "qwen3.8-27b" if newest else "qwen3.5-4b-staged"
+        if newest and args.newest_batch_size == 4:
+            family += "-batch4"
         seed, episodes = (200, 200) if args.evaluation_split == "test" else (80000, 100)
-        batch_size = 1 if newest else 4
+        batch_size = args.newest_batch_size if newest else 4
         adapters = [("warmstart_adapter", f"{family}-sft"), ("lora_adapter", f"{family}-grpo")]
         if newest and args.evaluate_adapter:
             adapters = [adapters[0 if args.evaluate_adapter == "sft" else 1]]

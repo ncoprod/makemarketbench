@@ -2935,3 +2935,12 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   `results/expansion/llama_duplicate_retry_plan.json`.
 - Verification: local CI passes 142 tests, native Release, ASan/UBSan and Kaggle
   CPU checks: `results/ci_local_round3_duplicate_retry.json`.
+
+### T32 preparation — keep inference identities explicit
+
+- Build serial and batch-four newest-family kernels with different policy labels.
+  Selection rejects the wrong batch size, adapter or primary training seed.
+  Serial remains the active registered path until the throughput probe passes;
+  only a promoted batch-four pair would widen the final family to eleven.
+- Local CI passes 143 tests, native Release, sanitizers and the CPU kernel check:
+  `results/ci_local_round3_batch_identity.json`.
