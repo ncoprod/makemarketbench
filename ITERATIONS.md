@@ -3049,3 +3049,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Run the fixed-candidate scorer after both decisions froze; it fails before writing a score file because NumPy returns a scalar boolean for the dice threshold, which JSON cannot encode. The exact failing command/error and before/after source hashes are retained in `results/final/report_serialization_fix.json`.
 - Focused fix: convert only that target verdict to a built-in bool. Keep the unrounded comparison, every metric and eleven-candidate correction unchanged.
 - Verification: `python -m pytest -q tests/test_final_report.py`, two cases passing; complete toy cohorts exercise both true and false target verdict serialization. Repeat only deterministic report derivation on already acquired cached episodes, with no model calls, new candidate, selection change or test tuning.
+
+### T36 — figure merge checks at floating-point precision
+
+- Preview rendering fails because repeated CPU/GPU analytical reference summaries differ only in the last bit. Diagnose exact fields rather than dropping the consistency check: Bayes dice means 13.533273636482607 versus 13.533273636482608.
+- Focused change: numeric rtol=atol=1e-12, exact nonnumeric/key agreement; apply the guard to partial-result reference rows too. Recorded values are not rewritten.
+- Re-run the real-data preview, inspect the wide figure, and inject a clearly artificial 0.0001 reference discrepancy into an ignored fixture: the material discrepancy is rejected. Commands/source hashes/raw inputs/results: `results/final/figure_merge_check.json`. Final figure still needs complete newest-policy data and its own visual inspection.
+
+### T37 — fixed bootstrap numerical-precision audit (registered)
+
+- Some already frozen cards corrected lower bounds are near zero. Register a uniform tenfold draw audit for all complete policies, both ordinary and inference-group cards positivity, with seed zero; no outcome-based choice of seed or precision budget.
+- Keep original corrected intervals and verdicts; never upgrade a failed primary claim using the audit. Flag a sign disagreement and require both for an unqualified positive claim. This is deterministic numerical analysis of the same acquired episodes, not another model trial.
+- Exact source/command/scope before execution: `results/final/bootstrap_precision_plan.json`; final output will be `results/final/bootstrap_precision.json`.

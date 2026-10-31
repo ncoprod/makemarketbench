@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "record numeric-tolerance merge verification for repeated figure references"
+    },
+    "model_revision": null,
+    "git_commit": "7dbed3dbb5eec13c77b3415b72bf8d9edd2beb8c",
+    "uncommitted_diff_sha256": "f275491be7c82d11adc7119cf08b1759475574e4807df6e5c3f88f69fe630a9a",
+    "started_at": "2026-10-31T13:40:29.288442+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "failure": "Exact dict equality rejected last-bit CPU/GPU differences in repeated analytical reference summaries.",
+  "source_sha256_before": "8becaea203c707c37f6b1cfc34c2f833c964c5e6f2be1cc561c9dea49f071fb1",
+  "source_sha256_after": "7a953042cfcb807c8e58025596278157bc44f0f71e2fec6c24040ba2dd3cab7f",
+  "raw_reference_inputs": {
+    "results/final/selected/raw/dice/bayes.jsonl": "bf06e99f1c3ce63015070809157147bd154d43c40f8ee6d07da8fb388fdfdf3b",
+    "results/kaggle/original-v1/results/raw/dice/bayes.jsonl": "54a0dc6c9e3c6746d71c415038e2fb52faaa9a1e47eeb0e8247ae09048d4c84b"
+  },
+  "observed_dice_reference_epnl_means": [
+    13.533273636482607,
+    13.533273636482608
+  ],
+  "change": "Keep matching fields and nonnumeric values exact; require numeric values to agree at rtol=atol=1e-12. Apply the same check to partial-result reference rows. No result value is rewritten.",
+  "verification": {
+    "commands": [
+      ".venv/bin/python runs/frozen_preview/plot_preview.py",
+      ".venv/bin/ruff check scripts/plot_final.py"
+    ],
+    "real_data_render": "passed",
+    "perturbed_partial_reference_test": {
+      "artificial_epnl_change": 0.0001,
+      "result": "rejected with inconsistent duplicate cohort scores; fixture restored"
+    },
+    "wide_preview_visual_inspection": "passed; no clipped labels or intervals. Final seven-candidate figure still requires its own inspection."
+  }
+}

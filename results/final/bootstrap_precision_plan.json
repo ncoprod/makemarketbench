@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "register a fixed numerical precision audit before running it"
+    },
+    "model_revision": null,
+    "git_commit": "7dbed3dbb5eec13c77b3415b72bf8d9edd2beb8c",
+    "uncommitted_diff_sha256": "f275491be7c82d11adc7119cf08b1759475574e4807df6e5c3f88f69fe630a9a",
+    "started_at": "2026-10-31T13:40:29.215602+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "registered_before_audit",
+  "source": "\"\"\"Audit cards positivity with ten times the registered bootstrap draws.\"\"\"\n\nimport json\nimport time\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\nfrom makemarket.scoring import bootstrap_ci\nfrom scripts.score_final import cohort, epnl, group_means\n\nstarted = time.monotonic()\nmanifest_path = Path('results/final/summary.json')\nmanifest = json.loads(manifest_path.read_text())\nrecord = {'provenance': receipt({'purpose': 'fixed all-candidate Monte Carlo precision audit',\n                                 'draw_multiplier': 10, 'bootstrap_seed': 0}),\n          'source_sha256': file_sha256(__file__), 'manifest_sha256': file_sha256(manifest_path),\n          'candidates': {}, 'scope': 'Numerical sensitivity only; retain the registered primary intervals and verdicts. '\n                                    'Do not upgrade a failed primary claim on this audit.'}\nfor label, entry in manifest['results'].items():\n    path = Path(entry['file'])\n    assert file_sha256(path) == entry['sha256']\n    data = json.loads(path.read_text())\n    raw = Path(data['provenance']['config']['local']) / f'raw/cards/{label}.jsonl'\n    assert file_sha256(raw) == data['input_sha256'][str(raw)]\n    episodes = cohort(raw)\n    assert episodes is not None\n    values = epnl(episodes)\n    primary = data['games']['cards']\n    draws = primary['family_bootstrap_resamples'] * 10\n    interval = bootstrap_ci(values, n_boot=draws, level=primary['family_level'], seed=0)\n    size = primary['inference_group_size']\n    grouped = interval if size == 1 else bootstrap_ci(group_means(values, size), n_boot=draws,\n                                                     level=primary['family_level'], seed=0)\n    positive = interval[0] > 0 and grouped[0] > 0\n    record['candidates'][label] = {'score_file': str(path), 'score_sha256': file_sha256(path),\n        'raw_file': str(raw), 'raw_sha256': file_sha256(raw), 'draws': draws,\n        'model_revision': episodes[0]['provenance']['config'].get('revision'),\n        'family_level': primary['family_level'], 'inference_group_size': size,\n        'primary_cards_positive': data['targets']['cards_positive_with_family_lower_above_zero'],\n        'higher_precision_epnl_ci': interval, 'higher_precision_group_epnl_ci': grouped,\n        'higher_precision_cards_positive': bool(positive),\n        'positive_under_both': bool(positive and data['targets']['cards_positive_with_family_lower_above_zero'])}\nrecord['wall_seconds'] = time.monotonic() - started\nPath('results/final/bootstrap_precision.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint('Audited cards bootstrap precision for', len(record['candidates']), 'fixed policies')\n",
+  "source_sha256": "3cbedd8210956cd7d59e5d3dff8e3535b53959e6eff28c5f4ed322a8df35c39e",
+  "command": [
+    ".venv/bin/python",
+    "scripts/check_bootstrap_precision.py"
+  ],
+  "policy": "Run every complete fixed candidate, cards expected PnL and whole-inference-group positivity, with ten times its registered draws and seed zero. Preserve the original corrected intervals/verdicts. Never upgrade a failed primary claim from this audit; flag any sign discrepancy. No model calls or selection changes.",
+  "reason": "Some already frozen policies have corrected cards lower bounds near zero. Improve numerical precision uniformly rather than selecting a seed or bootstrap budget per outcome."
+}

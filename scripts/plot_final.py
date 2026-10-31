@@ -7,6 +7,7 @@ import matplotlib
 
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import numpy as np
 
 from makemarket.provenance import file_sha256, receipt
 
@@ -14,6 +15,21 @@ manifest_path = Path('results/final/summary.json')
 manifest = json.loads(manifest_path.read_text())
 rows = {'dice': {}, 'cards': {}}
 inputs = {str(manifest_path): file_sha256(manifest_path)}
+
+
+def add_row(game, row):
+    previous = rows[game].get(row['player'])
+    if previous is not None:
+        assert row.keys() == previous.keys()
+        for key, value in row.items():
+            if key == 'player' or value is None:
+                assert value == previous[key]
+            else:
+                np.testing.assert_allclose(value, previous[key], rtol=1e-12, atol=1e-12,
+                                           err_msg='inconsistent duplicate cohort scores')
+    rows[game][row['player']] = row
+
+
 for entry in manifest['results'].values():
     path = Path(entry['file'])
     assert file_sha256(path) == entry['sha256']
@@ -21,15 +37,13 @@ for entry in manifest['results'].values():
     data = json.loads(path.read_text())
     for game, result in data['games'].items():
         for row in result['rows']:
-            if row['player'] in rows[game]:
-                assert row == rows[game][row['player']], 'inconsistent duplicate cohort scores'
-            rows[game][row['player']] = row
+            add_row(game, row)
 entry = manifest['partial_result']
 path = Path(entry['file'])
 assert file_sha256(path) == entry['sha256']
 inputs[str(path)] = file_sha256(path)
 for row in json.loads(path.read_text())['rows']:
-    rows['dice'][row['player']] = row
+    add_row('dice', row)
 names = list(dict.fromkeys(['bayes', 'bayes-public', 'mean-sd', 'fixed-prior', 'random',
                            *manifest['results'], 'qwen3.5-4b-staged-sft',
                            *sorted(set(rows['dice']) | set(rows['cards']))]))
@@ -100,6 +114,7 @@ record = {'provenance': receipt({'purpose': 'plot every available complete final
           'source_sha256': file_sha256(__file__), 'source': Path(__file__).read_text(),
           'input_sha256': inputs, 'output': str(out), 'output_sha256': file_sha256(out),
           'plot': {'interval': '95% paired episode bootstrap', 'scale': 'symlog, linear between -100% and +100%',
-                   'names': names, 'missing_is_not_zero': True}, 'visual_inspection': 'pending'}
+                   'names': names, 'missing_is_not_zero': True,
+                   'duplicate_numeric_tolerance': {'rtol': 1e-12, 'atol': 1e-12}}, 'visual_inspection': 'pending'}
 Path('results/final/figure.json').write_text(json.dumps(record, indent=2) + '\n')
 print(out)
