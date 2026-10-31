@@ -9,12 +9,21 @@ from makemarket.scoring import summarize
 
 selection_path = Path('results/training/selection.json')
 selection = json.loads(selection_path.read_text())
-assert file_sha256(Path(selection['adapter']) / 'adapters.safetensors') == selection['adapter_sha256']
 newest_path = Path('results/training/qwen38_selection.json')
 newest = json.loads(newest_path.read_text())
 family = newest['final_candidate_family']
 assert newest['status'] == 'frozen' and family == (11 if newest['eval_batch_size'] == 4 else 9)
-assert file_sha256(newest['adapter_file']) == newest['adapter_sha256']
+# Reporting replays committed episodes; private weight files are not required.
+for frozen, root in [(selection, 'results/final/selected'), (newest, newest['test_root'])]:
+    for game in ('dice', 'cards'):
+        path = Path(root) / f"raw/{game}/{frozen['label']}.jsonl"
+        rows = [json.loads(line) for line in path.read_text().splitlines()]
+        assert len(rows) == 200
+        for row in rows:
+            provenance = row['provenance']
+            adapter_hash = provenance.get('adapter_sha256', provenance['config'].get('adapter_sha256'))
+            assert adapter_hash == frozen['adapter_sha256'], 'Recorded adapter differs from frozen choice'
+            assert provenance['config']['revision'] == frozen['provenance']['model_revision']
 # Both validation decisions precede opening any new aggregate test score.
 candidates = [
     ('qwen3-1.7b-sft800', 'results/final/qwen17-sft800'),
@@ -28,6 +37,7 @@ candidates = [
 record = {'provenance': receipt({'purpose': 'report every complete registered frozen candidate', 'candidate_family': family}),
           'source': Path(__file__).read_text(), 'selection_sha256': file_sha256(selection_path),
           'newest_selection_sha256': file_sha256(newest_path),
+          'identity_scope': 'Recorded episode adapter hashes and model revisions match both frozen choices; numerical replay does not load weights.',
           'candidates_registered': family, 'commands': [], 'results': {}, 'unavailable': {
               'qwen3.5-4b-staged-sft': 'Dice 200 complete; cards 100 saved, other worker failed its development batching gate. Cards not scored.',
               'qwen3.8-27b-unselected': 'The other newest-family adapter remains validation-only under the registered selection rule; its trial still counts in the conservative family correction.'}}

@@ -3063,3 +3063,9 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Exact source/command/scope before execution: `results/final/bootstrap_precision_plan.json`; final output will be `results/final/bootstrap_precision.json`.
 
 - T37 startup correction before any audit: the documented direct script command exposes a sibling-script import error. Remove that dependency and use installed package helpers with explicit array preparation. Verify the direct command now reaches its expected missing final manifest. Preserve original plan source and the corrected source/hash in `results/final/bootstrap_precision_plan.json`; numerical/statistical rules stay fixed.
+
+### T38 — cached results reproduce without private model weights
+
+- Diagnose a reproduction obstacle before final reporting: `score_frozen_candidates.py` checks live private adapter files although it only computes statistics from committed raw episodes. A fresh checkout has those raw episodes but no ignored weights.
+- Focused change: verify recorded adapter hashes (MLX top-level or CUDA config) and pinned revisions against the two immutable selections. Remove the unnecessary live-binary dependency from numeric reporting; acquisition retains its original binary checks.
+- Plan/command/source: `results/final/cached_replay_plan.json`. After committing complete newest-policy test data, verify a tracked-file-only archive with no checkpoints reproduces every canonical games/targets object. No inference, API requests, additional model trial or selection change.
