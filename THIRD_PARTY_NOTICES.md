@@ -5,7 +5,7 @@ not relicense model weights, hosted services, or their outputs. No third-party
 model weights or training frameworks are vendored in this repository.
 
 Model-card licence fields and immutable Hub revisions were retrieved on
-2026-10-29 and 2026-10-30; see [the original record](results/licenses.json) and
+2026-10-29 through 2026-10-31; see [the original record](results/licenses.json) and
 [additional API models](results/licenses_nim_followup_20261030.json). A Hub revision
 does **not** identify the unpublished backend revision served by NIM.
 
@@ -17,6 +17,7 @@ does **not** identify the unpublished backend revision served by NIM.
 | Qwen3.5-4B; `mlx-community/Qwen3.5-4B-MLX-4bit`; `unsloth/Qwen3.5-4B` | [Apache-2.0](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE) | Qwen Team, Alibaba Cloud; MLX Community and Unsloth conversions. Same retention/changed-file obligations. The Unsloth checkpoint is used by the executed CUDA smoke and full training job. |
 | `mlx-community/Qwen3.5-9B-MLX-4bit` | [Apache-2.0 model card](https://huggingface.co/mlx-community/Qwen3.5-9B-MLX-4bit) | Optional memory-dependent candidate; not an executed result unless recorded. |
 | Qwen3.8-27B; Unsloth NF4 derivative | [Apache-2.0 original](https://huggingface.co/Qwen/Qwen3.8-27B); [Apache-2.0 derivative](https://huggingface.co/unsloth/Qwen3.8-27B-unsloth-bnb-4bit) | Two-T4 LoRA SFT/GRPO fit verified; selected for training. Preserve Apache licence, attribution and modification notices when redistributing. Pinned revisions and weight metadata: `results/training/qwen38_quantized.json`. |
+| Gemma-4-31B-it | [Apache-2.0 official model card](https://huggingface.co/google/gemma-4-31B-it), verified in [the Hub receipt](results/expansion/gemma4_license.json) | Google DeepMind. Retain Apache licence and applicable notices and identify changes for covered redistribution. Hosted NIM inference only; no weights redistributed. Hub revision does not identify the NIM backend. |
 | `openai/gpt-oss-20b` | [Apache-2.0 model card](https://huggingface.co/openai/gpt-oss-20b) | OpenAI. API inference only; no weights redistributed. |
 | NVIDIA Nemotron-3-Ultra-550B-A55B; Nemotron-3.5-Lightning-30B-A3B; Nemotron-3.5-Bolt-E4B | [OpenMDW License Agreement 1.1](https://openmdw.ai/license/1-1/), verified through the [Ultra](https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16), [Lightning](https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16), and [Bolt](https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB) model cards | NVIDIA Corporation. Redistributed model materials require the agreement and applicable origin/copyright notices. API inference only here. |
 | `zai-org/GLM-5.3-Flash` | [MIT model card](https://huggingface.co/zai-org/GLM-5.3-Flash) | Z.ai; retain copyright and licence if redistributing model materials. Probe outcomes are recorded separately. |

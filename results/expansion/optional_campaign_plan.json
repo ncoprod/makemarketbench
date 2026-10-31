@@ -20,10 +20,19 @@
   "primary_baselines": "All four original API models are already complete at 200 episodes per game.",
   "optional_batches": [
     "meta/llama-3.2-90b-vision-instruct (text-only)",
-    "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)"
+    "nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)",
+    "google/gemma-4-31b-it (no-think)"
   ],
   "stop_rule": "Stop starting additional optional episodes when the registered primary Qwen3.8 test acquisition completes, or at 2026-11-01T00:00:00Z, whichever occurs first. Preserve cached calls and complete saved episodes; incomplete cohorts remain unscored. A completed 200/game cohort remains eligible.",
   "rationale": "Bound extra slow API coverage while prioritizing the saved newest-family pipeline and final report. The rule depends only on acquisition completion and time, never on PnL or model ranking.",
   "heldout_aggregates_opened": false,
-  "status": "registered_before_newest_validation_and_final_scores"
+  "status": "registered_before_newest_validation_and_final_scores",
+  "amendments": [
+    {
+      "at": "2026-10-31T07:07:53.632820+00:00",
+      "reason": "Use the released second NIM slot for a catalogue-listed Gemma baseline. Include based only on availability and fixed validation quote parsing; keep the same outcome-independent cutoff and 200/game completeness rule.",
+      "plan": "results/expansion/gemma4_plan.json",
+      "heldout_aggregates_opened": false
+    }
+  ]
 }

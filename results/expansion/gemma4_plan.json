@@ -1,0 +1,50 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "register availability-selected Gemma4 API baseline before probe or held-out outcomes"
+    },
+    "model_revision": null,
+    "git_commit": "0388997087e6803c2626cc9dd2511b21f2c4fe52",
+    "uncommitted_diff_sha256": "a2b644f0633f68972ee05aa25c2a6cbdcfd2cf9c2094816120c8c6b2e33f6412",
+    "started_at": "2026-10-31T07:07:30.416466+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import dataclasses,json,time\nfrom datetime import datetime,timezone\nfrom pathlib import Path\nfrom makemarket.cli import slug\nfrom makemarket.evaluate import run_player\nfrom makemarket.games import make_game\nfrom makemarket.llm import ChatClient,LLMConfig,LLMQuoter,Throttle,parse_quote\nfrom makemarket.market import Observation\nfrom makemarket.prompts import messages_for\nfrom makemarket.provenance import receipt,file_sha256\n\nroot=Path('results/expansion')\npath=root/'protocol-gemma4.json'\nassert not path.exists(), 'Inspect existing receipt and caches before resuming'\nlabel='google/gemma-4-31b-it (no-think)'\ncfg=LLMConfig(model='google/gemma-4-31b-it',label=label,timeout=600,max_tokens=4096,temperature=0.3,\n              extra_body={'chat_template_kwargs':{'enable_thinking':False}})\nprovenance={**receipt({'purpose':'availability-selected optional Gemma API baseline; outcomes remain sealed'},'NIM immutable deployment revision not exposed'),\n            'config':dataclasses.asdict(cfg),'source_sha256':file_sha256(Path(__file__)),\n            'plan_sha256':file_sha256(root/'gemma4_plan.json')}\nentry={'model':cfg.model,'label':label,'max_tokens':cfg.max_tokens,'temperature':cfg.temperature,\n       'extra_body':cfg.extra_body,'timeout_seconds':cfg.timeout,'provenance':provenance,'source':Path(__file__).read_text()}\ndef save():path.write_text(json.dumps({label:entry},indent=2)+'\\n')\nclient=ChatClient(cfg,cache_dir='cache/expansion',throttle=Throttle(1),max_retries=3)\ngame=make_game('dice');episode=game.episode(80000)\nobs=Observation(game,2,6,episode.reveals[:3],[],0,0.0,episode.public_beliefs[2],episode.public_beliefs[2].mean)\nstarted=time.monotonic()\ntry:\n entry['probe']=client.chat(messages_for(obs));parse_quote(entry['probe']['content'],game.params.max_size)\n entry['usable']=True\nexcept Exception as exc:entry.update(usable=False,error=f'{type(exc).__name__}: {exc}')\nentry['probe_wall_seconds']=time.monotonic()-started;save()\nprint('Gemma availability:',entry['usable'],flush=True)\nif entry['usable']:\n for name in ['dice','cards']:\n  started=time.monotonic();out=root/'raw'/name/f'{slug(label)}.jsonl';error=None\n  try:\n   for seed in range(200,400):\n    if datetime.now(timezone.utc)>=datetime(2026,11,1,tzinfo=timezone.utc):\n     error='Registered optional acquisition UTC cutoff';break\n    run_player(make_game(name),lambda:LLMQuoter(client),[seed],out,workers=1,provenance=provenance)\n    if (seed-199)%5==0:print(name,seed-199,'episodes',round(time.monotonic()-started),'seconds',flush=True)\n  except Exception as exc:error=f'{type(exc).__name__}: {exc}'\n  count=len(out.read_text().splitlines()) if out.exists() else 0\n  entry[name]={'episodes':count,'wall_seconds':time.monotonic()-started,'error':error};save()\nprint('Gemma optional batch finished; complete cohorts await frozen selections.',flush=True)\n",
+  "source_sha256": "be339f77a05721bf21f30b8e195033243821cd1f468ce5dd33d15d06c5910a80",
+  "model": "google/gemma-4-31b-it",
+  "seed": [
+    200,
+    399
+  ],
+  "episodes_per_game": 200,
+  "config": {
+    "thinking": false,
+    "temperature": 0.3,
+    "max_tokens": 4096,
+    "timeout": 600,
+    "max_retries": 3,
+    "concurrency": 1,
+    "cache": "cache/expansion"
+  },
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "runs/evaluate_gemma4.py"
+  ],
+  "selection": "Availability and parse validity on fixed validation seed 80000 round 2 only; no PnL-based inclusion. Every complete cohort eligible; incomplete cohorts unscored.",
+  "cutoff": "Stop starting new optional episodes at primary 27B test acquisition completion or 2026-11-01T00:00Z, whichever is earlier. The UTC cutoff is checked before each episode; parent agent enforces earlier acquisition completion.",
+  "licence_receipt": "results/expansion/gemma4_license.json",
+  "api_docs": "https://docs.api.nvidia.com/nim/reference/google-gemma-4-31b-it-infer",
+  "status": "registered_before_probe"
+}

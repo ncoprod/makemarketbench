@@ -1,0 +1,101 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/launch_qwen38_compile_probe.py",
+    "config": {
+      "purpose": "Training-state native versus eager performance profile; reserve primary validation and test"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "0388997087e6803c2626cc9dd2511b21f2c4fe52",
+    "uncommitted_diff_sha256": "bcb38a0c98ef6f255c8cc73c3a56bd705e71ac8595d1122eb60a5f5f449d9800",
+    "started_at": "2026-10-31T07:05:28.332350+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport os\nimport re\nimport subprocess\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\npath=Path('results/training/qwen38_compile_probe.json')\nassert not path.exists(), 'Inspect any existing submission before restarting'\ncompletion=Path('results/training/qwen38_seed0_completion.json')\nassert json.loads(completion.read_text())['status']=='completed_outputs_verified'\nfolder=Path('runs/kaggle_qwen38_compile_probe')\nmeta=json.loads((folder/'kernel-metadata.json').read_text())\nassert meta['is_private'] and meta['enable_internet'] and meta['enable_gpu']\nenv={**os.environ,'KAGGLE_CONFIG_DIR':str(Path('runs/kaggle_oauth_config').resolve())}\nfor name in ('KAGGLE_KEY','KAGGLE_API_TOKEN','KAGGLE_TOKEN_FILE'):\n    env.pop(name,None)\nsubprocess.run(['/Users/nico/.local/share/uv/tools/kaggle/bin/python','scripts/kaggle_quota.py'],env=env,check=True)\nsnapshot=json.loads(Path('results/training/kaggle_account_budget_snapshot.json').read_text())\nquota=snapshot['quota'];available=quota['gpu_seconds_total']-quota['gpu_seconds_used']-quota['gpu_seconds_reserved']\nother=json.loads(Path('results/training/qwen38_primary_sft_validation.json').read_text())\nremaining_other_cap=max(0,11100-(datetime.now(timezone.utc)-datetime.fromisoformat(other['submitted_at'])).total_seconds()) if other['status']=='submitted' else 0\nreserve=32100\ncommand=['kaggle','kernels','push','-p',str(folder),'--accelerator','NvidiaTeslaT4','--timeout','2100']\nrecord={'provenance':receipt({'purpose':'Training-state native versus eager performance profile; reserve primary validation and test'},'8aa5f05d26b7205477066e1449e0af13f762a299'),\n        'source':Path(__file__).read_text(),'completion_sha256':file_sha256(completion),\n        'plan_sha256':file_sha256(Path('results/training/qwen38_compile_probe_plan.json')),\n        'metadata':meta,'source_sha256':file_sha256(folder/meta['code_file']),\n        'quota_snapshot':snapshot,'available_seconds':available,'remaining_primary_sft_validation_cap_seconds':remaining_other_cap,\n        'remaining_primary_evaluation_reserve_seconds':reserve,'session_timeout_seconds':2100,\n        'scope':'Training-state latency only, four fixed states; no validation or test PnL.',\n        'status':'admission_check','polls':[]}\nassert available>=remaining_other_cap+reserve+2100,'Insufficient quota after primary reserve'\nrecord.update(status='submitting',submitted_at=datetime.now(timezone.utc).isoformat())\npath.write_text(json.dumps(record,indent=2)+'\\n')\nresult=subprocess.run(command,env=env,capture_output=True,text=True)\nrecord['push']={'command':command,'exit_code':result.returncode,'output':result.stdout,'error':result.stderr}\nmatch=re.search(r'Kernel version (\\d+)',result.stdout)\nactual=re.search(r'https://www.kaggle.com/code/([^/\\s]+/[^/\\s]+)',result.stdout)\nif actual:\n    record['requested_kernel']=meta['id'];meta['id']=actual[1];record['metadata']=meta\nrecord.update(status='submitted' if result.returncode==0 and match else 'push_requires_inspection',version=int(match[1]) if match else None)\npath.write_text(json.dumps(record,indent=2)+'\\n')\nassert record['status']=='submitted','Inspect ambiguous submission before any retry'\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text())\nledger['sessions'].append({'kernel':meta['id'],'version':record['version'],'accelerator':'T4 x2 requested',\n    'start':None,'end':None,'hours':None,'submitted_at':record['submitted_at'],'private':True,'status':'submitted',\n    'source_commit':record['provenance']['git_commit'],'receipt':str(path),'session_timeout_seconds':2100,\n    'purpose':'Registered training-state compilation probe, no policy score.',\n    'hours_basis':'Pending downloaded runtime; session cap is not measured usage.'})\np.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint('Submitted',meta['id'],'version',record['version'],flush=True)\nsubprocess.run(['.venv/bin/python','-u','scripts/watch_kaggle.py','--receipt',str(path),'--out',\n                f\"results/kaggle/qwen38-compile-probe-v{record['version']}\"],check=True)\n",
+  "completion_sha256": "a61b11b0f7dd732fbe28f4f895eab83aa4dd9ea1296e473eb6e64e738267dbdf",
+  "plan_sha256": "1d08edeb5ccf91c6e60c7e0e33917d3b3c0b7746d85a6cca26fceff4767ede81",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe",
+    "title": "MakeMarketBench Qwen3 8 27B compile probe",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "2dd1a9876f56c0dba3fa7bf25250db3eeacf1bc3cd9a1ceb321df04c778b3d85",
+  "quota_snapshot": {
+    "recorded_at": "2026-10-31T07:05:27.803008+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "0388997087e6803c2626cc9dd2511b21f2c4fe52",
+      "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
+    },
+    "quota": {
+      "refresh_at": "2026-11-07T00:00:00+00:00",
+      "gpu_seconds_used": 47735.942719,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "available_seconds": 60264.057281,
+  "remaining_primary_sft_validation_cap_seconds": 4119.050916,
+  "remaining_primary_evaluation_reserve_seconds": 32100,
+  "session_timeout_seconds": 2100,
+  "scope": "Training-state latency only, four fixed states; no validation or test PnL.",
+  "status": "submitted",
+  "polls": [],
+  "submitted_at": "2026-10-31T07:05:28.343562+00:00",
+  "push": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "push",
+      "-p",
+      "runs/kaggle_qwen38_compile_probe",
+      "--accelerator",
+      "NvidiaTeslaT4",
+      "--timeout",
+      "2100"
+    ],
+    "exit_code": 0,
+    "output": "Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe\n",
+    "error": ""
+  },
+  "requested_kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe",
+  "version": 1,
+  "saved_source_verification": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "pull",
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe",
+      "-p",
+      "runs/qwen38_compile_probe_saved",
+      "-m"
+    ],
+    "private": true,
+    "matches_registered_source": true,
+    "source_sha256": "2dd1a9876f56c0dba3fa7bf25250db3eeacf1bc3cd9a1ceb321df04c778b3d85"
+  }
+}

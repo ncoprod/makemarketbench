@@ -2857,3 +2857,15 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   validation; count an additional SFT/GRPO pair conservatively if promoted.
 - Exact source, fixed states and private metadata:
   `results/training/qwen38_compile_probe_plan.json`.
+
+### A8 — optional Gemma-4 API coverage in the released NIM slot
+
+- The four original baselines are complete. With Ultra thinking ended, probe
+  catalogue-listed Gemma-4-31B-it using its documented thinking-off parameter
+  on validation seed 80000 round 2. Include only on availability/quote validity,
+  never on PnL. If usable, acquire the common 200/game test cohort, still sealed.
+- Keep the existing optional acquisition cutoff: primary 27B test completion
+  or November 1 00:00 UTC, whichever is earlier. Partial cohorts remain unscored.
+- Commands/config/source: `results/expansion/gemma4_plan.json`. The hosted
+  model's Apache-2.0 card is retained in `gemma4_license.json`; the backend
+  immutable revision remains unavailable. The global two-slot mutex applies.
