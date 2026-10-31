@@ -8,6 +8,9 @@ from scripts import select_qwen38
 
 
 def test_newest_selection_validates_adapter_identity_and_freezes_ties(monkeypatch, tmp_path):
+    runtime_path = tmp_path / 'runtime.json'
+    runtime = {'seed': 0, 'model_revision': '8aa5f05d26b7205477066e1449e0af13f762a299'}
+    runtime_path.write_text(json.dumps(runtime))
     for method, directory in [('sft', 'warmstart_adapter'), ('grpo', 'lora_adapter')]:
         adapter = tmp_path / directory / 'adapter_model.safetensors'
         adapter.parent.mkdir()
@@ -30,9 +33,17 @@ def test_newest_selection_validates_adapter_identity_and_freezes_ties(monkeypatc
         select_qwen38.main()
     assert not out.exists()
     adapter.write_bytes(b'grpo')
+    runtime['seed'] = 1
+    runtime_path.write_text(json.dumps(runtime))
+    with pytest.raises(AssertionError, match='primary training seed'):
+        select_qwen38.main()
+    assert not out.exists()
+    runtime['seed'] = 0
+    runtime_path.write_text(json.dumps(runtime))
     select_qwen38.main()
     frozen = out.read_bytes()
     assert json.loads(frozen)['method'] == 'sft'
+    assert json.loads(frozen)['training_runtime_sha256'] == file_sha256(runtime_path)
     with pytest.raises(AssertionError, match='already frozen'):
         select_qwen38.main()
     assert out.read_bytes() == frozen

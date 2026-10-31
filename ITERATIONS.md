@@ -2699,3 +2699,18 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   `results/expansion/llama90_mistral_pause_receipt.json`.
 - The partial Llama cohort remains unscored. Resume after the Mistral control
   if campaign budget permits; Ultra thinking continues in the other slot.
+
+### Preserve seed identity and retain the bounded Mistral control
+
+- The primary 27B selector now requires the downloaded training runtime's seed
+  zero and pinned model revision, and retains that runtime's hash. This prevents
+  the separately registered seed-one validation replication from entering the
+  primary held-out selection. The max-min rule and trial count are unchanged.
+- Command: `.venv/bin/python -m pytest -q tests/test_qwen38_selection.py`.
+  Result: PASS, including wrong-seed rejection before any frozen file is written.
+- The 16384-token Mistral availability control also produces no usable quote;
+  retain the exact response metadata and failure alongside both earlier controls
+  in `results/expansion/llama_after_mistral_plan.json`. Resume the identical Llama
+  request from its verified 24-episode prefix under the shared NIM mutex.
+  Command and controller source are included in that receipt. Partial additional
+  cohorts remain unscored; the four original API baselines remain complete.

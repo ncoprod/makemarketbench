@@ -17,6 +17,10 @@ def main():
     assert not args.out.exists(), 'Selection is already frozen; do not overwrite it'
     trials = []
     revision = '8aa5f05d26b7205477066e1449e0af13f762a299'
+    runtime_path = args.training_root / 'runtime.json'
+    runtime = json.loads(runtime_path.read_text())
+    assert runtime['seed'] == 0, 'Only the registered primary training seed may enter test selection'
+    assert runtime['model_revision'] == revision, 'Wrong training model revision'
     for method, directory in [('sft', 'warmstart_adapter'), ('grpo', 'lora_adapter')]:
         label = f'qwen3.8-27b-{method}'
         adapter = args.training_root / directory / 'adapter_model.safetensors'
@@ -40,6 +44,7 @@ def main():
     winner = max(trials, key=lambda t: t['selection_score'])
     record = {'provenance': receipt({k: str(v) for k, v in vars(args).items()}, revision),
               'status': 'frozen', 'seed': 0, 'trials': trials,
+              'training_runtime': str(runtime_path), 'training_runtime_sha256': file_sha256(runtime_path),
               'rule': 'max min(dice percentage - 80, cards percentage); SFT wins ties',
               **{k: winner[k] for k in ('label', 'method', 'adapter_file', 'adapter_sha256')},
               'test_root': str(args.test_root / winner['label'] / 'results'),

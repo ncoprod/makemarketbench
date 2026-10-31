@@ -30,10 +30,11 @@
     "--protocol-file",
     "protocol-mistral-budget.json"
   ],
-  "status": "waiting_for_original_baseline_resume",
+  "status": "finished",
   "documentation": "https://docs.api.nvidia.com/nim/reference/mistralai-mistral-large-4-1t-a52b-infer",
   "hypothesis": "The 4096-token omitted-field control returned reasoning only with finish_reason=length. A 16384-token cap may permit final JSON. This is an availability change, not test-score tuning.",
   "controls": "Same validation availability state: dice seed 80000, round 2, temperature 0.3, 600-second timeout, three attempts. Preserve both earlier failed probes without repeating them. If usable, evaluate seeds 200-399 on both games with a distinct label. Preserve reasoning_content in repair conversations as required by the model API.",
   "prior_protocol": "results/expansion/protocol-mistral-default.json",
-  "prior_protocol_sha256": "150bab87f4bab0eda4c4d493bdf321e4f4e80b112d8b5cc02479995e864557d9"
+  "prior_protocol_sha256": "150bab87f4bab0eda4c4d493bdf321e4f4e80b112d8b5cc02479995e864557d9",
+  "exit_code": 0
 }

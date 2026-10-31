@@ -1,0 +1,261 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/resume_llama_after_mistral.py",
+    "config": {
+      "purpose": "retain bounded Mistral outcome and resume identical cached Llama cohort"
+    },
+    "model_revision": null,
+    "git_commit": "c65c37e91efbeb274ed6ca2f32775668be05a534",
+    "uncommitted_diff_sha256": "162bbb60962ea0e14ade547f80842bd0d41c9dbfc8370c09023374ae30b9089d",
+    "started_at": "2026-10-31T01:20:47.975992+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nroot = Path('results/expansion')\nplan_path = root / 'llama_mistral_priority.json'\nplan = json.loads(plan_path.read_text())\nassert plan['status'] == 'paused_awaiting_mistral_finish'\nassert json.loads((root / 'mistral_budget_plan.json').read_text())['status'] == 'finished'\nprotocol_path = root / 'protocol-mistral-budget.json'\nprobes = json.loads(protocol_path.read_text())\nsummary = {}\nfor label, entry in probes.items():\n    response = entry.get('probe', {})\n    summary[label] = {k: entry[k] for k in ('usable', 'error', 'probe_wall_seconds', 'provenance') if k in entry}\n    summary[label]['response_metadata'] = {k: response.get(k) for k in ('finish_reason', 'completion_tokens', 'prompt_tokens', 'served_model', 'system_fingerprint', 'latency', 'cached')}\n    summary[label]['content_chars'] = len(response.get('content') or '')\n    summary[label]['reasoning_chars'] = len(response.get('reasoning') or '')\nraw = root / 'raw/dice/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl'\nassert file_sha256(raw) == plan['raw_sha256']\nrecord = {'provenance': receipt({'purpose': 'retain bounded Mistral outcome and resume identical cached Llama cohort'}),\n          'source': Path(__file__).read_text(), 'mistral_probes': summary,\n          'mistral_protocol_sha256': file_sha256(protocol_path), 'command': plan['resume_command'],\n          'initial_dice_episodes': 24, 'initial_raw_sha256': file_sha256(raw),\n          'status': 'resuming_cached_prefix', 'started_at': datetime.now(timezone.utc).isoformat()}\npath = root / 'llama_after_mistral_plan.json'\nassert not path.exists()\npath.write_text(json.dumps(record, indent=2) + '\\n')\nplan.update(status='resuming_after_mistral_control', resume_receipt=str(path))\nplan_path.write_text(json.dumps(plan, indent=2) + '\\n')\nresult = subprocess.run(plan['resume_command'])\nrecord.update(status='finished', exit_code=result.returncode, finished_at=datetime.now(timezone.utc).isoformat())\npath.write_text(json.dumps(record, indent=2) + '\\n')\n",
+  "mistral_probes": {
+    "mistralai/mistral-large-4-1t-a52b (no-reasoning)": {
+      "usable": false,
+      "error": "RuntimeError: BadRequestError(400): Error code: 400 - Invalid request",
+      "probe_wall_seconds": 23.199573040008545,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models mistralai/mistral-large-4-1t-a52b --protocol-file protocol-mistral-default.json",
+        "config": {
+          "model": "mistralai/mistral-large-4-1t-a52b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 4096,
+          "timeout": 600,
+          "extra_body": {
+            "reasoning_effort": "none"
+          },
+          "label": "mistralai/mistral-large-4-1t-a52b (no-reasoning)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": [
+              "mistralai/mistral-large-4-1t-a52b"
+            ],
+            "protocol_file": "protocol-mistral-default.json",
+            "reduced_reasoning": false,
+            "ultra_medium": false
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "f422e97a18cd45eacb0a140ed7771a60b5f707fa",
+        "uncommitted_diff_sha256": "34d44654222d26f71737f89fdd37e1efeedfe3b5591cd773c3aedc6cb284fed9",
+        "started_at": "2026-10-30T13:50:43.647604+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "637ff7679e6f5d4ec72d603b42fba81ba01fc20d291af7a279ed3bb099df9be8",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "e4e06984bffd644179291df2a6edb6bf22dc1c2aef143fc6986a0db99d45b006",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      },
+      "response_metadata": {
+        "finish_reason": null,
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "served_model": null,
+        "system_fingerprint": null,
+        "latency": null,
+        "cached": null
+      },
+      "content_chars": 0,
+      "reasoning_chars": 0
+    },
+    "mistralai/mistral-large-4-1t-a52b (server-default)": {
+      "usable": false,
+      "error": "ValueError: no JSON object with a 'bid' field found",
+      "probe_wall_seconds": 842.9137778282166,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models mistralai/mistral-large-4-1t-a52b --protocol-file protocol-mistral-default.json",
+        "config": {
+          "model": "mistralai/mistral-large-4-1t-a52b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 4096,
+          "timeout": 600,
+          "extra_body": {},
+          "label": "mistralai/mistral-large-4-1t-a52b (server-default)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": [
+              "mistralai/mistral-large-4-1t-a52b"
+            ],
+            "protocol_file": "protocol-mistral-default.json",
+            "reduced_reasoning": false,
+            "ultra_medium": false
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "f422e97a18cd45eacb0a140ed7771a60b5f707fa",
+        "uncommitted_diff_sha256": "34d44654222d26f71737f89fdd37e1efeedfe3b5591cd773c3aedc6cb284fed9",
+        "started_at": "2026-10-30T13:50:43.647604+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "637ff7679e6f5d4ec72d603b42fba81ba01fc20d291af7a279ed3bb099df9be8",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "e4e06984bffd644179291df2a6edb6bf22dc1c2aef143fc6986a0db99d45b006",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      },
+      "response_metadata": {
+        "finish_reason": "length",
+        "completion_tokens": 4096,
+        "prompt_tokens": 546,
+        "served_model": "mistralai/mistral-large-4-1t-a52b",
+        "system_fingerprint": null,
+        "latency": 231.72479486465454,
+        "cached": false
+      },
+      "content_chars": 0,
+      "reasoning_chars": 13122
+    },
+    "mistralai/mistral-large-4-1t-a52b (server-default-16k)": {
+      "usable": false,
+      "error": "ValueError: no JSON object with a 'bid' field found",
+      "probe_wall_seconds": 198.43266105651855,
+      "provenance": {
+        "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/expand_nim.py --models mistralai/mistral-large-4-1t-a52b --protocol-file protocol-mistral-budget.json",
+        "config": {
+          "model": "mistralai/mistral-large-4-1t-a52b",
+          "base_url": "https://integrate.api.nvidia.com/v1",
+          "api_key_env": "NVIDIA_API_KEY",
+          "temperature": 0.3,
+          "max_tokens": 16384,
+          "timeout": 600,
+          "extra_body": {},
+          "label": "mistralai/mistral-large-4-1t-a52b (server-default-16k)",
+          "batch": {
+            "episodes": 200,
+            "seed": 200,
+            "models": [
+              "mistralai/mistral-large-4-1t-a52b"
+            ],
+            "protocol_file": "protocol-mistral-budget.json",
+            "reduced_reasoning": false,
+            "ultra_medium": false
+          }
+        },
+        "model_revision": "NIM immutable deployment revision not exposed",
+        "git_commit": "8cb8f03b5e294382ed8db3f3247cd961ac4970b3",
+        "uncommitted_diff_sha256": "02da81f4ce09ff558f34b28a59eaa0f9d595311743a296d1e705124ed5a36fd1",
+        "started_at": "2026-10-31T01:15:40.950411+00:00",
+        "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+        "python": "3.13.17",
+        "versions": {
+          "numpy": "2.5.4",
+          "openai": "3.40.0",
+          "mlx": "0.32.4",
+          "mlx-lm": "0.32.2"
+        },
+        "source_sha256": {
+          "/Users/nico/Documents/AI/makemarketbench/scripts/expand_nim.py": "e03b2c6d2ea173e9481cca365ce6a9806a8788702523c75902f01de66d210abf",
+          "src/makemarket/__init__.py": "df6668096a50915d5be9d2762d8896da49cc5b48354678f503e36a76f8350392",
+          "src/makemarket/analysis.py": "812f7516c59367c7a80342901b1f24cd9a3f133fe87717d447b15f47d6aa75a3",
+          "src/makemarket/cli.py": "daff7aae9a8e2f2f12d3dc3e8a7947c5a1bf5cb98f4e8d26290ac831abd5041b",
+          "src/makemarket/engine/__init__.py": "e097fd69248d8352e18572733cfd33988ffad2f50df2b8e96b3e13e6d0901103",
+          "src/makemarket/engine/pybook.py": "a7c89d30f54c428ed1b30b7becfcee686a23f9b4b40616a9eaa8aa5ec6226983",
+          "src/makemarket/engine/streams.py": "012bdd9dd9fe05f982862f914f6eb7f6c563c5c5d298dd51744c1dec036b7309",
+          "src/makemarket/evaluate.py": "12c27d1f6a4e6f5fd430d990d84e24b6594f5498e5502e96ac8cb45a99533b92",
+          "src/makemarket/figgie_eval.py": "26ec2782af814aed9e276c9e680a0defc4ba724e2806fbb035ece892baab895e",
+          "src/makemarket/games/__init__.py": "9696716236e4745708705689f302315c5507923e8e5fb2f9b4ef78d3c23c6e04",
+          "src/makemarket/games/base.py": "799dc671468585efa1d7d7904ffbc58abb0c1e7fec7481d06c1f6f46a827a865",
+          "src/makemarket/games/cards.py": "551e30618057bf95e6cf3932cd9c290a9697d4dddf94d6e6156ac75158dad15d",
+          "src/makemarket/games/dice.py": "f445b5bb378003449665da64a5c1bac190dad855bb918bba0a763ffce866b8c2",
+          "src/makemarket/games/figgie.py": "d5e3464402533434421fcc144f2d97b08841f1140310bffd9f587c683273cbcc",
+          "src/makemarket/llm.py": "0e5f5a4645ac91813bbe2dadbe803885b9ad91ac5c691e494ee57ea2a605186f",
+          "src/makemarket/market.py": "a0b052e2b09e1c93770b8c99fcbba2919a657a6d33c70003b13e2a5d1033921e",
+          "src/makemarket/players.py": "46e351ec327f19c53a8acac7fd7a7564b599aa198603a71f0cbae8a7727bdaee",
+          "src/makemarket/prompts.py": "a0f8500b6da049773879752c2af64e81d631f439dd900e2c9556afec717c14ba",
+          "src/makemarket/provenance.py": "efb3d6c9d8dc5624387b6962f2e247650b24fbf42cf46552ebad7f497174a83e",
+          "src/makemarket/scoring.py": "9977840b4f9f2ed0f4083c8afd60666e343ebf0ed71ddb12140849a5948b3ff4"
+        }
+      },
+      "response_metadata": {
+        "finish_reason": "length",
+        "completion_tokens": 16384,
+        "prompt_tokens": 546,
+        "served_model": "mistralai/mistral-large-4-1t-a52b",
+        "system_fingerprint": null,
+        "latency": 198.43017077445984,
+        "cached": false
+      },
+      "content_chars": 0,
+      "reasoning_chars": 35741
+    }
+  },
+  "mistral_protocol_sha256": "6844a32efd1c06a8bedaa6d5a4f18bb122255371c6616bb99106552c4b7fe4d6",
+  "command": [
+    "bash",
+    "scripts/with_resource.sh",
+    "nim",
+    ".venv/bin/python",
+    "-u",
+    "scripts/expand_nim.py",
+    "--models",
+    "meta/llama-3.2-90b-vision-instruct",
+    "--protocol-file",
+    "protocol-llama90-resume.json"
+  ],
+  "initial_dice_episodes": 24,
+  "initial_raw_sha256": "a6077b6b1ae5a47f23da35c6fcb21ae0626c49b6c8d89f909f35a98fd3551b50",
+  "status": "resuming_cached_prefix",
+  "started_at": "2026-10-31T01:20:47.989095+00:00"
+}
