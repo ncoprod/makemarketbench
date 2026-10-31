@@ -1,0 +1,317 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_qwen38_training.py results/kaggle/qwen38-round3-training-v5 results/training/qwen38_round3_batch.json 0",
+    "config": {
+      "root": "results/kaggle/qwen38-round3-training-v5",
+      "batch": "results/training/qwen38_round3_batch.json",
+      "seed": 0
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "1d8a32f1c703c237e2f82ce0ca538f3bb533b5ac",
+    "uncommitted_diff_sha256": "2a19530f41c782f4dd5b3e5e76969b716c89ba5a0ba56efb81376e2973ac7437",
+    "started_at": "2026-10-31T05:08:29.613332+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nimport sys\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\nsys.path.insert(0, str(Path.cwd()))\nfrom train.qwen38_continue import latest_checkpoint\n\nroot, batch_path, seed = Path(sys.argv[1]), Path(sys.argv[2]), int(sys.argv[3])\nruntime = json.loads((root / 'runtime.json').read_text())\nbatch = json.loads(batch_path.read_text())\nassert batch['status'] == 'outputs_retrieved'\nassert runtime['status'] == 'completed' and runtime['seed'] == seed\nassert runtime['model_revision'] == '8aa5f05d26b7205477066e1449e0af13f762a299'\nassert runtime['phase'] == 'grpo' and runtime['phase_step'] == 96\nassert runtime['source_file_sha256'] == file_sha256(root / 'train_core.py')\nplan = json.loads(Path('results/training/qwen38_seed1_plan.json' if seed else 'results/training/qwen38_round3_batch_plan.json').read_text())\nsource = Path('runs/kaggle_qwen38_seed1/grpo_unsloth_kaggle.py' if seed else 'runs/kaggle_qwen38_train/grpo_unsloth_kaggle.py')\nexpected_core = next(ast.literal_eval(n.value.args[0]) for n in ast.walk(ast.parse(source.read_text()))\n                     if isinstance(n, ast.Expr) and isinstance(n.value, ast.Call)\n                     and isinstance(n.value.func, ast.Attribute) and n.value.func.attr == 'write_text')\nassert (root / 'train_core.py').read_text() == expected_core\nsft, grpo = latest_checkpoint(root / 'sft'), latest_checkpoint(root / 'grpo')\nassert sft is not None and grpo is not None\nsft_state, grpo_state = [json.loads((p / 'trainer_state.json').read_text()) for p in (sft, grpo)]\nassert grpo_state['global_step'] == 96\nbest = root / 'sft' / Path(sft_state['best_model_checkpoint']).name\nassert file_sha256(best / 'adapter_model.safetensors') == file_sha256(root / 'warmstart_adapter/adapter_model.safetensors')\nassert file_sha256(grpo / 'adapter_model.safetensors') == file_sha256(root / 'lora_adapter/adapter_model.safetensors')\ninventory = {str(p): {'sha256': file_sha256(p), 'bytes': p.stat().st_size} for p in sorted(root.rglob('*')) if p.is_file()}\nrecord = {'provenance': receipt({'root': str(root), 'batch': str(batch_path), 'seed': seed}, runtime['model_revision']),\n          'source': Path(__file__).read_text(), 'status': 'completed_outputs_verified', 'seed': seed,\n          'runtime_file': str(root / 'runtime.json'), 'batch_sha256': file_sha256(batch_path),\n          'sft_updates': sft_state['global_step'], 'best_sft_step': sft_state['best_global_step'],\n          'best_sft_validation_loss': sft_state['best_metric'], 'grpo_updates': grpo_state['global_step'],\n          'sft_early_stopping': sft_state['stateful_callbacks'].get('EarlyStoppingCallback'),\n          'wall_seconds': runtime['wall_seconds'], 'memory_by_gpu': runtime['memory_by_gpu'],\n          'latest_complete_checkpoint_per_phase_verified': True, 'downloaded_files': inventory,\n          'scope': 'Training and artifact identity only. No policy evaluation score or held-out aggregate is opened.'}\nPath(f'results/training/qwen38_seed{seed}_completion.json').write_text(json.dumps(record, indent=2) + '\\n')\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text())\nsession=next(s for s in ledger['sessions'] if s['kernel']==batch['metadata']['id'] and s['version']==batch['version'])\nsession.update(status='completed_outputs_verified', script_started_at=runtime['execution_started_at'],\n               script_finished_at=runtime['execution_finished_at'], script_wall_seconds=runtime['wall_seconds'],\n               hours=runtime['wall_seconds']/3600, result_file=str(root/'runtime.json'),\n               hours_basis='Downloaded script runtime, including installation and loading. Exact allocation billing boundaries are unavailable.')\np.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint({k:record[k] for k in ('status','seed','sft_updates','best_sft_step','grpo_updates','wall_seconds')})\n",
+  "status": "completed_outputs_verified",
+  "seed": 0,
+  "runtime_file": "results/kaggle/qwen38-round3-training-v5/runtime.json",
+  "batch_sha256": "5f45f42780242cbfd89c6eb57e7e5beeee603056a1971bb7bf4c9cedf3a8f246",
+  "sft_updates": 800,
+  "best_sft_step": 800,
+  "best_sft_validation_loss": 0.2518160045146942,
+  "grpo_updates": 96,
+  "sft_early_stopping": {
+    "args": {
+      "early_stopping_patience": 2,
+      "early_stopping_threshold": 0.0
+    },
+    "attributes": {
+      "early_stopping_patience_counter": 0
+    }
+  },
+  "wall_seconds": 17901.34559750557,
+  "memory_by_gpu": [
+    {
+      "device": 0,
+      "peak_allocated_bytes": 12237604864,
+      "peak_reserved_bytes": 12784238592
+    },
+    {
+      "device": 1,
+      "peak_allocated_bytes": 12260877312,
+      "peak_reserved_bytes": 12694061056
+    }
+  ],
+  "latest_complete_checkpoint_per_phase_verified": true,
+  "downloaded_files": {
+    "results/kaggle/qwen38-round3-training-v5/checkpoints.jsonl": {
+      "sha256": "685e882777c038589e02104872b4a6df9bc2e4a66836a43573a7efa53fda0248",
+      "bytes": 40172
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/README.md": {
+      "sha256": "5a0f72126430fe517a0f1b49a81f062a39a3af7d43e190b3a720330f7203fef0",
+      "bytes": 1970
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/README.md": {
+      "sha256": "5074d86be3681517eca08f5ec8f1271f8179b41941c1fe89f7bae91ccad340d6",
+      "bytes": 5255
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/adapter_config.json": {
+      "sha256": "2e4196afca8df025b93a68de4f05d941445339607a1401f835821ac100f36831",
+      "bytes": 1560
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/adapter_model.safetensors": {
+      "sha256": "7eeccb406cc972834ed874481452ad01d7b10e4911be5d107fca81da42220fa5",
+      "bytes": 159458912
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/chat_template.jinja": {
+      "sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "bytes": 9993
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/optimizer.pt": {
+      "sha256": "94f7edb038cfd2c97f8ed445c0b140d7110a8627710c803f572a3be577198428",
+      "bytes": 81546535
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/rng_state.pth": {
+      "sha256": "28c7e91f3e3ffd807e17a11573958a3a10d1910a35bfea48e62f34275e722f63",
+      "bytes": 14581
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/scheduler.pt": {
+      "sha256": "f60fb797f2f3487586424f687628ee158ec5612325ff3584989b329a0a32b454",
+      "bytes": 1465
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/tokenizer.json": {
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/tokenizer_config.json": {
+      "sha256": "544513ce44826a6236bb2a95a073d19aa86df3ee1fbe54730adbcb8e90792ed8",
+      "bytes": 7187
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/trainer_state.json": {
+      "sha256": "e5f90e7f7107fb5ada478e7bf1d4d84e977fc9f3b68faa97370b1b6b0d73207a",
+      "bytes": 21041
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-95/training_args.bin": {
+      "sha256": "4101ae8e2b56dcf798b437f7c1f01fbc6a7857d6f3621648a63a305bd65cf711",
+      "bytes": 7825
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/README.md": {
+      "sha256": "5074d86be3681517eca08f5ec8f1271f8179b41941c1fe89f7bae91ccad340d6",
+      "bytes": 5255
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/adapter_config.json": {
+      "sha256": "2e4196afca8df025b93a68de4f05d941445339607a1401f835821ac100f36831",
+      "bytes": 1560
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/adapter_model.safetensors": {
+      "sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04",
+      "bytes": 159458912
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/chat_template.jinja": {
+      "sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "bytes": 9993
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/optimizer.pt": {
+      "sha256": "2314113969dac6349b198d9abf66ab98f057047cd8ca954fffa754cc2e836619",
+      "bytes": 81546535
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/rng_state.pth": {
+      "sha256": "168e7b35515a2fad628309f0ad5504bb26f316f4868cac67c6c022baa70ca4c0",
+      "bytes": 14581
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/scheduler.pt": {
+      "sha256": "ba147118486b3afa92bc431b7431b671201812ba2a8dff398439b044f7ec2864",
+      "bytes": 1465
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/tokenizer.json": {
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/tokenizer_config.json": {
+      "sha256": "544513ce44826a6236bb2a95a073d19aa86df3ee1fbe54730adbcb8e90792ed8",
+      "bytes": 7187
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/trainer_state.json": {
+      "sha256": "8c494f5ed1eb489d5df169ea4337dfd1584cf47c1f37487a2065d6c105d9fae5",
+      "bytes": 21038
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo/checkpoint-96/training_args.bin": {
+      "sha256": "4101ae8e2b56dcf798b437f7c1f01fbc6a7857d6f3621648a63a305bd65cf711",
+      "bytes": 7825
+    },
+    "results/kaggle/qwen38-round3-training-v5/grpo_config.json": {
+      "sha256": "9971e8f87ef8dbb3e84e05e22863121863e5aebc2e4d733a605496329bf3c4ca",
+      "bytes": 8478
+    },
+    "results/kaggle/qwen38-round3-training-v5/lora_adapter/README.md": {
+      "sha256": "5074d86be3681517eca08f5ec8f1271f8179b41941c1fe89f7bae91ccad340d6",
+      "bytes": 5255
+    },
+    "results/kaggle/qwen38-round3-training-v5/lora_adapter/adapter_config.json": {
+      "sha256": "2e4196afca8df025b93a68de4f05d941445339607a1401f835821ac100f36831",
+      "bytes": 1560
+    },
+    "results/kaggle/qwen38-round3-training-v5/lora_adapter/adapter_model.safetensors": {
+      "sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04",
+      "bytes": 159458912
+    },
+    "results/kaggle/qwen38-round3-training-v5/lora_adapter/chat_template.jinja": {
+      "sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "bytes": 9993
+    },
+    "results/kaggle/qwen38-round3-training-v5/lora_adapter/tokenizer.json": {
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    "results/kaggle/qwen38-round3-training-v5/lora_adapter/tokenizer_config.json": {
+      "sha256": "544513ce44826a6236bb2a95a073d19aa86df3ee1fbe54730adbcb8e90792ed8",
+      "bytes": 7187
+    },
+    "results/kaggle/qwen38-round3-training-v5/makemarketbench-qwen3-8-27b-training.log": {
+      "sha256": "e15189f796947f5ad39f1b46f5adb5b105097824f9e370759ead276891099679",
+      "bytes": 10383
+    },
+    "results/kaggle/qwen38-round3-training-v5/runtime.json": {
+      "sha256": "7de89c925e0d3a3819f7e97f0652753d693890ad5d02238d82c9daa9ff4186f0",
+      "bytes": 3057
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/README.md": {
+      "sha256": "51bab6bcc8cbf70328919f1e60a5396cb482d9586219a98a4b625ca66e8a5946",
+      "bytes": 1432
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/README.md": {
+      "sha256": "fb2a4b629be0a97a726b70e91930801cd3cbabdfc8e1b23d2381f0bc9b83949b",
+      "bytes": 5248
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/adapter_config.json": {
+      "sha256": "2e4196afca8df025b93a68de4f05d941445339607a1401f835821ac100f36831",
+      "bytes": 1560
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/adapter_model.safetensors": {
+      "sha256": "5b7c1553fa132e358bc88a6b888c46a4fc97553e25db65122d41b648ab5de616",
+      "bytes": 159458912
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/chat_template.jinja": {
+      "sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "bytes": 9993
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/optimizer.pt": {
+      "sha256": "18ea4ea128f92f918d12e6fa51cfd066a088e6cd924369249d165fa7d9ad389f",
+      "bytes": 81547047
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/rng_state.pth": {
+      "sha256": "129ff3b83e7b97b7f082f5cb5bca9fbeb83a2dea5f7cffa59d35c2323c4e845c",
+      "bytes": 14581
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/scheduler.pt": {
+      "sha256": "296f1ec18b331a56f4bcb68f68e231930134e564f5a092c848ac5889c626ba15",
+      "bytes": 1465
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/tokenizer.json": {
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/tokenizer_config.json": {
+      "sha256": "544513ce44826a6236bb2a95a073d19aa86df3ee1fbe54730adbcb8e90792ed8",
+      "bytes": 7187
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/trainer_state.json": {
+      "sha256": "d4dd5356f48f724a4ddb76229713b1d0c23276b16c2c776daa9137e9ffb6bf9f",
+      "bytes": 16915
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-750/training_args.bin": {
+      "sha256": "66876360b22a98a3a09a3488c9acb27d3f5a6798f7e0bbda7fafb1450b888546",
+      "bytes": 6097
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/README.md": {
+      "sha256": "fb2a4b629be0a97a726b70e91930801cd3cbabdfc8e1b23d2381f0bc9b83949b",
+      "bytes": 5248
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/adapter_config.json": {
+      "sha256": "2e4196afca8df025b93a68de4f05d941445339607a1401f835821ac100f36831",
+      "bytes": 1560
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/adapter_model.safetensors": {
+      "sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+      "bytes": 159458912
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/chat_template.jinja": {
+      "sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "bytes": 9993
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/optimizer.pt": {
+      "sha256": "2aab269ae7256681d91e3690436088c78a5e85a0bd7db36bb7c8a9b312a53214",
+      "bytes": 81547047
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/rng_state.pth": {
+      "sha256": "58afa0d968bff50d281ed512a99fe7b22952a6428280ce71deddd7579d771fa6",
+      "bytes": 14581
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/scheduler.pt": {
+      "sha256": "0e67e191a0c3a177e348022f7c64c7510f3adea207c166eeb099fb14073aea97",
+      "bytes": 1465
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/tokenizer.json": {
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/tokenizer_config.json": {
+      "sha256": "544513ce44826a6236bb2a95a073d19aa86df3ee1fbe54730adbcb8e90792ed8",
+      "bytes": 7187
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/trainer_state.json": {
+      "sha256": "d1eb24a4dfc765ea0b3f3450f12eead3c4981c7d56538eb223a0405db658628f",
+      "bytes": 17977
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft/checkpoint-800/training_args.bin": {
+      "sha256": "66876360b22a98a3a09a3488c9acb27d3f5a6798f7e0bbda7fafb1450b888546",
+      "bytes": 6097
+    },
+    "results/kaggle/qwen38-round3-training-v5/sft_config.json": {
+      "sha256": "26a69db03149121f2feac0c9ea6a3187a9f966217e0e50ba192496dc1bfe4d3e",
+      "bytes": 6669
+    },
+    "results/kaggle/qwen38-round3-training-v5/train.log": {
+      "sha256": "1725e2a3c3ef0f03a068d4f8c3b2416b5750f09fa1ec49946cc3afe7ef6ecd47",
+      "bytes": 175275
+    },
+    "results/kaggle/qwen38-round3-training-v5/train_core.py": {
+      "sha256": "610be82bf7bd89e198d872d3af3ea1b514e6f7d9b04da1e7c630cc4430317176",
+      "bytes": 67186
+    },
+    "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/README.md": {
+      "sha256": "fb2a4b629be0a97a726b70e91930801cd3cbabdfc8e1b23d2381f0bc9b83949b",
+      "bytes": 5248
+    },
+    "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/adapter_config.json": {
+      "sha256": "2e4196afca8df025b93a68de4f05d941445339607a1401f835821ac100f36831",
+      "bytes": 1560
+    },
+    "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/adapter_model.safetensors": {
+      "sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+      "bytes": 159458912
+    },
+    "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/chat_template.jinja": {
+      "sha256": "12827f24b742ea4e80cdc12dbcf9622227056b9f797252a3149263d4f9aaadce",
+      "bytes": 9993
+    },
+    "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/tokenizer.json": {
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    "results/kaggle/qwen38-round3-training-v5/warmstart_adapter/tokenizer_config.json": {
+      "sha256": "544513ce44826a6236bb2a95a073d19aa86df3ee1fbe54730adbcb8e90792ed8",
+      "bytes": 7187
+    }
+  },
+  "scope": "Training and artifact identity only. No policy evaluation score or held-out aggregate is opened."
+}

@@ -1459,15 +1459,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 4.972595999307103,
       "submitted_at": "2026-10-31T00:00:01.770369+00:00",
       "purpose": "Round 3 saved batch: full registered Qwen3.8-27B SFT then GRPO96, with optimizer checkpoints.",
       "private": true,
-      "status": "submitted",
+      "status": "completed_outputs_verified",
       "source_commit": "fddd01421ff55a76ada92cb65dbe04caaad5060c",
       "receipt": "results/training/qwen38_round3_batch.json",
       "session_timeout_seconds": 41400,
-      "hours_basis": "Pending downloaded runtime and official account debit; the cap is not measured usage."
+      "hours_basis": "Downloaded script runtime, including installation and loading. Exact allocation billing boundaries are unavailable.",
+      "script_started_at": "2026-10-31T00:00:14.091942+00:00",
+      "script_finished_at": "2026-10-31T04:58:35.435744+00:00",
+      "script_wall_seconds": 17901.34559750557,
+      "result_file": "results/kaggle/qwen38-round3-training-v5/runtime.json"
     },
     {
       "kernel": "nicolascoquelet/makemarketbench-qwen3-8-27b-training-seed-1",

@@ -2754,3 +2754,20 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   known at admission; the primary seed-zero selection rule remains unchanged.
 - Update the README with the downloaded seed-one training result. Optimizer and
   tokenizer binaries stay local/Kaggle; committed hashes preserve their identity.
+
+### T27 — primary saved training completed and retrieved
+
+- Primary seed zero completes the full 800 SFT updates and all 96 GRPO updates
+  in 17,901.34559750557 seconds. The best SFT checkpoint is the final step 800,
+  with teacher-validation loss 0.2518160045146942. This rerun starts fresh;
+  the earlier lost step-500 interactive draft is never claimed as recovered.
+- Command: `.venv/bin/python runs/retain_qwen38_training.py
+  results/kaggle/qwen38-round3-training-v5
+  results/training/qwen38_round3_batch.json 0`. Exact verification source,
+  all downloaded file hashes, latest optimizer checkpoint checks, adapter
+  identities and measured resource usage: `results/training/qwen38_seed0_completion.json`.
+- Peak allocated bytes: 12,237,604,864 / 12,260,877,312. Both runs persist as
+  private saved versions with complete outputs. Runtime is measured script
+  time, distinct from account billing; the budget ledger retains both.
+- Validation and held-out policy claims remain pending. Evaluate the primary
+  SFT and GRPO adapters on the registered validation split before freezing one.
