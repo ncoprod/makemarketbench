@@ -1614,15 +1614,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 0.29788507534397973,
       "submitted_at": "2026-10-31T07:05:28.343562+00:00",
       "private": true,
-      "status": "submitted",
+      "status": "completed_no_material_improvement",
       "source_commit": "0388997087e6803c2626cc9dd2511b21f2c4fe52",
       "receipt": "results/training/qwen38_compile_probe.json",
       "session_timeout_seconds": 2100,
       "purpose": "Registered training-state compilation probe, no policy score.",
-      "hours_basis": "Pending downloaded runtime; session cap is not measured usage."
+      "hours_basis": "Downloaded script runtime; exact allocation billing boundaries unavailable.",
+      "script_wall_seconds": 1072.386271238327,
+      "script_started_at": "2026-10-31T07:05:42.095642+00:00",
+      "script_finished_at": "2026-10-31T07:23:34.480795+00:00",
+      "result_file": "results/kaggle/qwen38-compile-probe-v1/runtime.json"
     }
   ],
   "accounting_notes": [

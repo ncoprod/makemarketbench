@@ -63,8 +63,31 @@
   "remaining_primary_evaluation_reserve_seconds": 32100,
   "session_timeout_seconds": 2100,
   "scope": "Training-state latency only, four fixed states; no validation or test PnL.",
-  "status": "submitted",
-  "polls": [],
+  "status": "outputs_retrieved",
+  "polls": [
+    {
+      "at": "2026-10-31T07:15:39.186814+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T07:25:50.004868+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
   "submitted_at": "2026-10-31T07:05:28.343562+00:00",
   "push": {
     "command": [
@@ -97,5 +120,21 @@
     "private": true,
     "matches_registered_source": true,
     "source_sha256": "2dd1a9876f56c0dba3fa7bf25250db3eeacf1bc3cd9a1ceb321df04c778b3d85"
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-compile-probe",
+      "-p",
+      "results/kaggle/qwen38-compile-probe-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading compile_profile.json to results/kaggle/qwen38-compile-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-compile-probe-v1/compile_profile.json\nDownloading dtype_core.py to results/kaggle/qwen38-compile-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-compile-probe-v1/dtype_core.py\nDownloading profile_cpu.txt to results/kaggle/qwen38-compile-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-compile-probe-v1/profile_cpu.txt\nDownloading profile_cuda.txt to results/kaggle/qwen38-compile-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-compile-probe-v1/profile_cuda.txt\nDownloading runtime.json to results/kaggle/qwen38-compile-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-compile-probe-v1/runtime.json\nKernel log downloaded to results/kaggle/qwen38-compile-probe-v1/makemarketbench-qwen3-8-27b-compile-probe.log \n\n  0%|          | 0.00/89.5k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 89.5k/89.5k [00:00<00:00, 2.23MB/s]\n\n  0%|          | 0.00/69.2k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 69.2k/69.2k [00:00<00:00, 13.9MB/s]\n\n  0%|          | 0.00/12.4k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 12.4k/12.4k [00:00<00:00, 2.88MB/s]\n\n  0%|          | 0.00/12.4k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 12.4k/12.4k [00:00<00:00, 28.1MB/s]\n\n  0%|          | 0.00/3.01k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.01k/3.01k [00:00<00:00, 3.58MB/s]"
   }
 }

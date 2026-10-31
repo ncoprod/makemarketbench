@@ -46,5 +46,34 @@
   "cutoff": "Stop starting new optional episodes at primary 27B test acquisition completion or 2026-11-01T00:00Z, whichever is earlier. The UTC cutoff is checked before each episode; parent agent enforces earlier acquisition completion.",
   "licence_receipt": "results/expansion/gemma4_license.json",
   "api_docs": "https://docs.api.nvidia.com/nim/reference/google-gemma-4-31b-it-infer",
-  "status": "registered_before_probe"
+  "status": "running_or_waiting_for_nim_slot",
+  "execution": {
+    "pid": 48202,
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+      "config": {
+        "command": [
+          "bash",
+          "scripts/with_resource.sh",
+          "nim",
+          ".venv/bin/python",
+          "-u",
+          "runs/evaluate_gemma4.py"
+        ],
+        "purpose": "start registered optional Gemma batch under NIM mutex"
+      },
+      "model_revision": null,
+      "git_commit": "3c0d8298c2047ded3fc19d349a0177c1d286a4d7",
+      "uncommitted_diff_sha256": "1588618e7dccaff2af9b4f769051035c04223d0fd4e609caead156a9ac53ede9",
+      "started_at": "2026-10-31T07:08:08.708756+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    }
+  }
 }

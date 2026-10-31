@@ -25,3 +25,4 @@ results/kaggle/**/rng_state.pth
 results/kaggle/**/training_args.bin
 results/kaggle/**/tokenizer.json
 *.kaggle-partial
+results/kaggle/qwen38-compile-probe-v1/compile_profile.json

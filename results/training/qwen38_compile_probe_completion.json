@@ -1,0 +1,79 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_qwen38_compile_probe.py",
+    "config": {
+      "purpose": "retain unsuccessful eager-execution hypothesis and native kernel profile; no policy selection changed"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "3c0d8298c2047ded3fc19d349a0177c1d286a4d7",
+    "uncommitted_diff_sha256": "0cc3e62bc1c998f86ba5f4c67ed064c146c0b4dc14f30a276ec16c10e7c8a118",
+    "started_at": "2026-10-31T07:27:33.785974+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast,json\nfrom pathlib import Path\nfrom makemarket.provenance import receipt,file_sha256\nroot=Path('results/kaggle/qwen38-compile-probe-v1')\nruntime=json.loads((root/'runtime.json').read_text());profile=json.loads((root/'compile_profile.json').read_text())\nplan=json.loads(Path('results/training/qwen38_compile_probe_plan.json').read_text())\nsource=Path('runs/kaggle_qwen38_compile_probe/grpo_unsloth_kaggle.py')\nassert file_sha256(source)==plan['source_sha256']\ncore=next(n.args[0].value for n in ast.walk(ast.parse(source.read_text())) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='write_text' and isinstance(n.args[0],ast.Constant))\nassert (root/'dtype_core.py').read_text()==core\nassert runtime['status']==profile['status']=='completed'\nassert profile['all_quotes_equal'] and profile['all_quotes_valid']\nresult={'provenance':receipt({'purpose':'retain unsuccessful eager-execution hypothesis and native kernel profile; no policy selection changed'},runtime['model_revision']),\n        'source':Path(__file__).read_text(),'status':'completed_no_material_improvement','passes':[{k:v for k,v in p.items() if k!='outputs'} for p in profile['passes']],\n        'second_repeat_speedup':profile['second_repeat_speedup'],'wall_seconds':runtime['wall_seconds'],\n        'diagnosis':'Native repeat 101.546809445s versus eager 100.843139627s, ratio 1.006977865. CUDA profiling attributes 57.19% self device time to bitsandbytes gemm_4bit and 25.09% to aten::mm; profiler timings include overhead and do not establish causal shares of uninstrumented wall time. No material warm-run improvement.',\n        'decision':'Two focused performance probes show no material improvement. Keep the registered native execution path and nine-candidate family. Preserve the training-state profiles; prioritize complete primary validation and selected held-out acquisition over further speculative backend changes.',\n        'downloaded_files':{str(p):{'sha256':file_sha256(p),'bytes':p.stat().st_size} for p in root.rglob('*') if p.is_file()}}\nPath('results/training/qwen38_compile_probe_completion.json').write_text(json.dumps(result,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text());s=next(s for s in ledger['sessions'] if s['kernel'].endswith('compile-probe'))\ns.update(status='completed_no_material_improvement',hours=runtime['wall_seconds']/3600,script_wall_seconds=runtime['wall_seconds'],script_started_at=runtime['execution_started_at'],script_finished_at=runtime['execution_finished_at'],result_file=str(root/'runtime.json'),hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.')\np.write_text(json.dumps(ledger,indent=2)+'\\n')\n",
+  "status": "completed_no_material_improvement",
+  "passes": [
+    {
+      "mode": "native_1",
+      "seconds": 226.200177735
+    },
+    {
+      "mode": "native_2",
+      "seconds": 101.54680944500001
+    },
+    {
+      "mode": "eager_1",
+      "seconds": 100.98917070700008
+    },
+    {
+      "mode": "eager_2",
+      "seconds": 100.84313962700003
+    }
+  ],
+  "second_repeat_speedup": 1.0069778650347732,
+  "wall_seconds": 1072.386271238327,
+  "diagnosis": "Native repeat 101.546809445s versus eager 100.843139627s, ratio 1.006977865. CUDA profiling attributes 57.19% self device time to bitsandbytes gemm_4bit and 25.09% to aten::mm; profiler timings include overhead and do not establish causal shares of uninstrumented wall time. No material warm-run improvement.",
+  "decision": "Two focused performance probes show no material improvement. Keep the registered native execution path and nine-candidate family. Preserve the training-state profiles; prioritize complete primary validation and selected held-out acquisition over further speculative backend changes.",
+  "downloaded_files": {
+    "results/kaggle/qwen38-compile-probe-v1/profile_cpu.txt": {
+      "sha256": "e7f199cb0ab86b717484ac2d568763b6f0ff1e48a85a69828a481dfeaca09e77",
+      "bytes": 12732
+    },
+    "results/kaggle/qwen38-compile-probe-v1/profile_cuda.txt": {
+      "sha256": "fce4be927d0abebb79c822e91838ccd90c377d7556f8b5a3184fcfd4fd47e14a",
+      "bytes": 12732
+    },
+    "results/kaggle/qwen38-compile-probe-v1/runtime.json": {
+      "sha256": "b70b0bbeed7157657870df4b92c3a08e05e99f727469383fffb3bf57ee6fcb86",
+      "bytes": 3083
+    },
+    "results/kaggle/qwen38-compile-probe-v1/makemarketbench-qwen3-8-27b-compile-probe.log": {
+      "sha256": "99257ae53e31eb48f2d7d1fbadbc937c3ed61978e5d392f68a32452423f1d29a",
+      "bytes": 20202
+    },
+    "results/kaggle/qwen38-compile-probe-v1/dtype_core.py": {
+      "sha256": "1f7b1635c472674430e56e75d345caadce6c4a3426d0b3f60d19ce363d791e2f",
+      "bytes": 70824
+    },
+    "results/kaggle/qwen38-compile-probe-v1/compile_profile.json": {
+      "sha256": "5503d9adaa6a733e61e82ee9ad11ee074304b77f7b93ee6c8c2d16d02387c918",
+      "bytes": 91688,
+      "stored_as": "results/kaggle/qwen38-compile-probe-v1/compile_profile.json.gz"
+    }
+  },
+  "compressed_artifacts": {
+    "results/kaggle/qwen38-compile-probe-v1/compile_profile.json": {
+      "stored_file": "results/kaggle/qwen38-compile-probe-v1/compile_profile.json.gz",
+      "decoded_sha256": "5503d9adaa6a733e61e82ee9ad11ee074304b77f7b93ee6c8c2d16d02387c918",
+      "stored_sha256": "7bed660884b3ab7971ccda7dc3b2832f5e3679d51275e2ad70969f503fadd088",
+      "reason": "Lossless storage of the unchanged downloaded profiler JSON. Its operator-name field is called key, which triggers the generic credential-field scan; all such fields were checked as profiler operator labels. No credentials found."
+    }
+  }
+}

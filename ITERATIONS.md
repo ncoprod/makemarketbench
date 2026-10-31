@@ -2869,3 +2869,19 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Commands/config/source: `results/expansion/gemma4_plan.json`. The hosted
   model's Apache-2.0 card is retained in `gemma4_license.json`; the backend
   immutable revision remains unavailable. The global two-slot mutex applies.
+
+### T31 result — eager execution also brings no material improvement
+
+- Native warm pass: 101.546809445 seconds; force-eager: 100.843139627 seconds,
+  ratio 1.006977865. All quotes remain valid and identical. Script runtime:
+  1,072.386271238327 seconds. Retain both cold passes as well.
+- Native CUDA profile: 57.19% self device time in bitsandbytes GEMV and 25.09%
+  in matrix multiplication. These instrumented percentages are diagnostic,
+  not causal shares of ordinary wall time. FP16 autocast is active; neither
+  a BF16 conversion nor a compiler toggle solves the measured cost.
+- Two consecutive focused performance changes fail to improve warm inference
+  materially. Stop this tuning branch, preserve nine candidates, and acquire
+  primary validation/test with the unchanged registered path. A wholesale
+  quantization/backend replacement would introduce another policy experiment.
+- Exact source/runtime/hashes: `results/training/qwen38_compile_probe_completion.json`;
+  native tables and all pass outputs: `results/kaggle/qwen38-compile-probe-v1`.
