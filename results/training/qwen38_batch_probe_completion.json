@@ -1,0 +1,80 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_promote_qwen38_batch.py",
+    "config": {
+      "purpose": "retain successful training-only batch throughput probe and register distinct inference pair before validation"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "d6fb004b997c776ae07c89b043ebebbb93a67c3b",
+    "uncommitted_diff_sha256": "3ba5ea608fcd68da7d9493e2044283455aff6cd40634cbbf598aa5c8c60c1ab8",
+    "started_at": "2026-10-31T08:34:56.160455+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nfrom datetime import datetime,timezone\nfrom pathlib import Path\nfrom makemarket.provenance import receipt,file_sha256\nroot=Path('results/kaggle/qwen38-batch-probe-v1')\nplan_path=Path('results/training/qwen38_batch_probe_plan.json')\nplan=json.loads(plan_path.read_text())\nsource=Path('runs/kaggle_qwen38_batch_probe/grpo_unsloth_kaggle.py')\nassert file_sha256(source)==plan['source_sha256']\ncore=next(n.args[0].value for n in ast.walk(ast.parse(source.read_text())) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='write_text' and isinstance(n.args[0],ast.Constant))\nassert (root/'dtype_core.py').read_text()==core\nruntime=json.loads((root/'runtime.json').read_text());profile=json.loads((root/'batch_profile.json').read_text())\nassert runtime['status']==profile['status']=='completed'\nassert profile['eligible'] and profile['all_quotes_valid'] and profile['second_repeat_speedup']>=1.5\npath=Path('results/training/qwen38_batch_probe_completion.json');assert not path.exists()\nrecord={'provenance':receipt({'purpose':'retain successful training-only batch throughput probe and register distinct inference pair before validation'},runtime['model_revision']),\n    'source':Path(__file__).read_text(),'status':'eligible_registered_for_validation','plan_sha256':file_sha256(plan_path),\n    'wall_seconds':runtime['wall_seconds'],'passes':[{k:v for k,v in p.items() if k!='outputs'} for p in profile['passes']],\n    'second_repeat_speedup':profile['second_repeat_speedup'],'all_quotes_valid':True,\n    'changed_quotes_serial_to_batch':profile['changed_quotes_serial_to_batch'],'memory_by_gpu':runtime['memory_by_gpu'],\n    'decision':'Promote only to fresh validation as a distinct inference policy. Eight agreeing training states do not establish numerical equivalence. Count eleven final candidates before any new validation or held-out aggregate.',\n    'downloaded_files':{str(p):{'sha256':file_sha256(p),'bytes':p.stat().st_size} for p in root.rglob('*') if p.is_file()}}\npath.write_text(json.dumps(record,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text());session=next(s for s in ledger['sessions'] if s['kernel'].endswith('batch-probe') and s['version']==1)\nsession.update(status=record['status'],hours=runtime['wall_seconds']/3600,script_wall_seconds=runtime['wall_seconds'],script_started_at=runtime['execution_started_at'],script_finished_at=runtime['execution_finished_at'],result_file=str(root/'runtime.json'),hours_basis='Downloaded script runtime; exact allocation billing boundaries unavailable.')\np.write_text(json.dumps(ledger,indent=2)+'\\n')\np=Path('results/protocol.json');protocol=json.loads(p.read_text());stats=protocol['statistics'] if 'statistics' in protocol else protocol['evaluation']\nprint('Protocol section',list(stats))\nassert stats['final_candidates']==9\nstats['final_candidates']=11\nstats['family_confidence']='1 - 0.05/(11 * (K + 2)); K is the number of complete API dice cohorts'\nstats['newest_family_selection']='Round 3 batch-four promotion: training-only throughput/validity rule passes; register distinct batch-four SFT and GRPO96 on primary seed-zero adapters, validate 100/game on seeds 80000-80099, freeze max min(dice percent -80, cards percent), SFT wins ties, then acquire only the winner on 200/game test seeds 200-399. Both old serial trials and the unselected batch-four adapter count in eleven final candidates. Require ordinary and whole-group corrected positivity. Both local and newest-family choices precede any new held-out aggregate.'\nprotocol['amendments'].append({'at':datetime.now(timezone.utc).isoformat(),'reason':'Before batch-four validation or any new held-out aggregate: training-only probe passes the preregistered 1.5x/validity rule (2.764067898942286x). Count distinct batch-four SFT/GRPO pair; preserve both serial trials. No validation or test PnL informs this promotion.','source':str(path),'previous_final_candidates':9,'final_candidates':11})\np.write_text(json.dumps(protocol,indent=2)+'\\n')\n",
+  "status": "eligible_registered_for_validation",
+  "plan_sha256": "64375200945106203ec66f1bd87f397a676e61a8d2f4f35f0e14038d50aadad5",
+  "wall_seconds": 1065.2006814479828,
+  "passes": [
+    {
+      "mode": "serial_1",
+      "batch_size": 1,
+      "seconds": 332.78768636999996
+    },
+    {
+      "mode": "serial_2",
+      "batch_size": 1,
+      "seconds": 205.957455881
+    },
+    {
+      "mode": "batch4_1",
+      "batch_size": 4,
+      "seconds": 107.500070779
+    },
+    {
+      "mode": "batch4_2",
+      "batch_size": 4,
+      "seconds": 74.51244448800003
+    }
+  ],
+  "second_repeat_speedup": 2.764067898942286,
+  "all_quotes_valid": true,
+  "changed_quotes_serial_to_batch": 0,
+  "memory_by_gpu": [
+    {
+      "device": 0,
+      "peak_allocated_bytes": 12536963072,
+      "peak_reserved_bytes": 13113491456
+    },
+    {
+      "device": 1,
+      "peak_allocated_bytes": 12584201728,
+      "peak_reserved_bytes": 13170114560
+    }
+  ],
+  "decision": "Promote only to fresh validation as a distinct inference policy. Eight agreeing training states do not establish numerical equivalence. Count eleven final candidates before any new validation or held-out aggregate.",
+  "downloaded_files": {
+    "results/kaggle/qwen38-batch-probe-v1/runtime.json": {
+      "sha256": "84a818cd6c38fc0551f3957588a133fd9ece52c877111b1d970e1c99160eb20c",
+      "bytes": 3080
+    },
+    "results/kaggle/qwen38-batch-probe-v1/batch_profile.json": {
+      "sha256": "1d00c297200ec60fcae4ac862352f81d095d7afd3a6bcc2d7c30bdf517c71b1c",
+      "bytes": 18203
+    },
+    "results/kaggle/qwen38-batch-probe-v1/makemarketbench-qwen3-8-27b-batch-probe.log": {
+      "sha256": "f82b0a88561a353840480836a3263d7f1e0d7bd0bb2935f0e1302c16a8264364",
+      "bytes": 16422
+    },
+    "results/kaggle/qwen38-batch-probe-v1/dtype_core.py": {
+      "sha256": "ddffbbb031d3d573362dd96c343baa1ec5908cd886b183e8b09a0df9815af8ab",
+      "bytes": 70007
+    }
+  }
+}

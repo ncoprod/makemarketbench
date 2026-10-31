@@ -12,7 +12,8 @@ selection = json.loads(selection_path.read_text())
 assert file_sha256(Path(selection['adapter']) / 'adapters.safetensors') == selection['adapter_sha256']
 newest_path = Path('results/training/qwen38_selection.json')
 newest = json.loads(newest_path.read_text())
-assert newest['status'] == 'frozen' and newest['final_candidate_family'] == 9
+family = newest['final_candidate_family']
+assert newest['status'] == 'frozen' and family == (11 if newest['eval_batch_size'] == 4 else 9)
 assert file_sha256(newest['adapter_file']) == newest['adapter_sha256']
 # Both validation decisions precede opening any new aggregate test score.
 candidates = [
@@ -24,16 +25,22 @@ candidates = [
     ('qwen3.5-4b-staged-routed', 'results/final/staged-routed'),
     (newest['label'], newest['test_root']),
 ]
-record = {'provenance': receipt({'purpose': 'report every complete registered frozen candidate with the nine-candidate correction'}),
+record = {'provenance': receipt({'purpose': 'report every complete registered frozen candidate', 'candidate_family': family}),
           'source': Path(__file__).read_text(), 'selection_sha256': file_sha256(selection_path),
           'newest_selection_sha256': file_sha256(newest_path),
-          'candidates_registered': 9, 'commands': [], 'results': {}, 'unavailable': {
+          'candidates_registered': family, 'commands': [], 'results': {}, 'unavailable': {
               'qwen3.5-4b-staged-sft': 'Dice 200 complete; cards 100 saved, other worker failed its development batching gate. Cards not scored.',
               'qwen3.8-27b-unselected': 'The other newest-family adapter remains validation-only under the registered selection rule; its trial still counts in the conservative family correction.'}}
+if family == 11:
+    record['unavailable'].pop('qwen3.8-27b-unselected')
+    record['unavailable'].update({
+        'qwen3.8-27b-sft': 'Original serial SFT trial retained on validation only; cards incomplete.',
+        'qwen3.8-27b-grpo': 'Original serial GRPO trial retained on validation only.',
+        'qwen3.8-27b-batch4-unselected': 'Unselected batch-four adapter remains validation-only; its trial counts.'})
 for label, root in candidates:
     out = f'results/final/scores/{label}.json'
     command = ['.venv/bin/python', 'scripts/score_final.py', '--local', root, '--label', label,
-               '--candidates', '9', '--out', out]
+               '--candidates', str(family), '--out', out]
     record['commands'].append(command)
     subprocess.run(command, check=True)
     record['results'][label] = {'file': out, 'sha256': file_sha256(out)}

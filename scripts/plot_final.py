@@ -44,6 +44,9 @@ aliases = {'bayes': 'Bayes reference', 'bayes-public': 'Public-posterior Bayes',
            'qwen3.5-4b-staged-routed': 'Qwen3.5-4B · router (two adapters)'}
 for method in ('sft', 'dagger', 'dagger-last', 'rloo', 'rloo96', 'rloo192'):
     aliases['qwen3.5-4b-' + method] = 'Qwen3.5-4B · local ' + method.upper()
+for method in ('sft', 'grpo'):
+    aliases['qwen3.8-27b-' + method] = 'Qwen3.8-27B · serial ' + method.upper()
+    aliases['qwen3.8-27b-batch4-' + method] = 'Qwen3.8-27B · batch 4 ' + method.upper()
 aliases.update({
     'nvidia/nemotron-3-ultra-550b-a55b (no-think)': 'Nemotron-3-Ultra · thinking off',
     'nvidia/nemotron-3-ultra-550b-a55b (thinking-medium)': 'Nemotron-3-Ultra · thinking medium',

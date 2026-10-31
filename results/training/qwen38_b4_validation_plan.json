@@ -1,0 +1,60 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "command": ".venv/bin/python train/build_kaggle_kernel.py --qwen38-evaluate --newest-batch-size 4 --evaluation-budget-seconds 15600 --out runs/kaggle_qwen38_b4_validation",
+      "purpose": "registered distinct batch-four primary SFT/GRPO validation pair"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "d6fb004b997c776ae07c89b043ebebbb93a67c3b",
+    "uncommitted_diff_sha256": "33bfe65ddf98ce9676b26b836ff359e9c48d91bf5b80a9e6c2b344f596178082",
+    "started_at": "2026-10-31T08:35:13.198692+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "registered_before_validation",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen38-b4-validation",
+    "title": "MakeMarketBench Qwen38 batch4 validation",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "e2521cf12cd3f1bb266d687c0b96452a8e65ced3ed9355165a06c7957edd2299",
+  "promotion_receipt": "results/training/qwen38_batch_probe_completion.json",
+  "promotion_sha256": "6e4c5ec73eecf583acb655b66a11734dc81c66dae66fa775fbbd15dcc8f7a762",
+  "labels": [
+    "qwen3.8-27b-batch4-sft",
+    "qwen3.8-27b-batch4-grpo"
+  ],
+  "training_seed": 0,
+  "inference_seed": 0,
+  "validation_seeds": [
+    80000,
+    80099
+  ],
+  "episodes_per_game": 100,
+  "batch_size": 4,
+  "script_cap_seconds": 15600,
+  "session_timeout_seconds": 15900,
+  "selected_test_reserve_seconds": 15900,
+  "candidate_family": 11,
+  "selection": "max min(dice percentage - 80, cards percentage); SFT wins ties; only primary seed-zero adapters are eligible. Freeze before acquiring the one selected test.",
+  "budget_estimate": "Serial primary dice validation costs about 10000 seconds per 100 episodes; two-game cost remains uncertain. Training-state warm throughput improves 2.764x. Both useful serial GRPO validation and the entire selected-test reserve remain protected at admission. Caps are not measured usage. Resume missing groups if needed; never score incomplete cohorts."
+}

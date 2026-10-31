@@ -61,9 +61,32 @@
   "remaining_primary_grpo_cap_seconds": 19130.780875,
   "selected_test_reserve_seconds": 21600,
   "session_timeout_seconds": 2100,
-  "status": "submitted",
+  "status": "outputs_retrieved",
   "submitted_at": "2026-10-31T08:13:05.602739+00:00",
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-10-31T08:23:16.459487+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T08:33:27.264942+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe has status \"KernelWorkerStatus.COMPLETE\""
+    }
+  ],
   "push": {
     "command": [
       "kaggle",
@@ -104,5 +127,21 @@
     "private": true,
     "source_sha256": "4f916c8dfe0444d092f74ccebb9180e1cd82e350258304aed61e4f20d20bcb55",
     "matches_submitted_source": true
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-batch-probe",
+      "-p",
+      "results/kaggle/qwen38-batch-probe-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading batch_profile.json to results/kaggle/qwen38-batch-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-batch-probe-v1/batch_profile.json\nDownloading dtype_core.py to results/kaggle/qwen38-batch-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-batch-probe-v1/dtype_core.py\nDownloading runtime.json to results/kaggle/qwen38-batch-probe-v1\n\nOutput file downloaded to results/kaggle/qwen38-batch-probe-v1/runtime.json\nKernel log downloaded to results/kaggle/qwen38-batch-probe-v1/makemarketbench-qwen3-8-27b-batch-probe.log \n\n  0%|          | 0.00/17.8k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 17.8k/17.8k [00:00<00:00, 20.9MB/s]\n\n  0%|          | 0.00/68.4k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 68.4k/68.4k [00:00<00:00, 613kB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 68.4k/68.4k [00:00<00:00, 610kB/s]\n\n  0%|          | 0.00/3.01k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.01k/3.01k [00:00<00:00, 3.69MB/s]"
   }
 }

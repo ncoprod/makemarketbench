@@ -2976,3 +2976,18 @@ The owner reopens GPU work for the 30-hour allocation resetting at
   denotes inference RNG, while actual training seed is checked through saved
   training runtime and adapter hash. Preserve the raw provenance. Cards partials
   remain unscored, and seed one cannot enter primary test selection.
+
+### T32 result — useful training-state batch-four throughput
+
+- Warm serial pass: 205.957455881 seconds; batch four: 74.51244448800003
+  seconds, ratio 2.764067898942286. All eight quotes are valid and agree across
+  modes/repeats. Script runtime: 1,065.2006814479828 seconds; peak allocations
+  12,536,963,072 and 12,584,201,728 bytes. These are ordered probe timings, not
+  a claim of universal wall-time speedup or policy equivalence.
+- The registered validity/1.5x rule passes. Add the distinct batch-four SFT/GRPO
+  pair before validation; widen the final family from nine to eleven, retaining
+  serial trials and the eventual unselected adapter. Whole-group corrected
+  intervals remain mandatory. No held-out aggregate has been opened.
+- Probe source/runtime: `results/training/qwen38_batch_probe_completion.json`.
+  Exact validation build/config: `results/training/qwen38_b4_validation_plan.json`.
+  Primary seed zero remains fixed; validation100/game; max-min choice, SFT ties.

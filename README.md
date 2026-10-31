@@ -150,6 +150,11 @@ both the local and newest-family decisions are frozen
   T4s ([downloaded receipt](results/training/qwen38_seed1_completion.json)).
   It remains validation-only and cannot replace the primary test candidate
   ([controls](results/training/qwen38_seed1_plan.json)).
+  A training-state inference probe reduces warm time from **205.96 to 74.51
+  seconds** (2.764x), with eight valid agreeing quotes. Batch four therefore
+  enters fresh validation as a separate policy; this is a small latency probe,
+  not an equivalence proof or a held-out score
+  ([probe receipt](results/training/qwen38_batch_probe_completion.json)).
 - **API baselines:** all four original NIM models now have **200 episodes/game**,
   with canonical seeds and states verified
   ([eight cohorts](results/expansion/primary_api_canonical.json)). GLM/DeepSeek

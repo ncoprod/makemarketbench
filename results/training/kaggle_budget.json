@@ -1734,15 +1734,19 @@
       "accelerator": "T4 x2 requested",
       "start": null,
       "end": null,
-      "hours": null,
+      "hours": 0.2958890781799952,
       "submitted_at": "2026-10-31T08:13:05.602739+00:00",
       "private": true,
-      "status": "submitted",
+      "status": "eligible_registered_for_validation",
       "source_commit": "2ed8b09f852155b72f408f87daca028d9da72757",
       "receipt": "results/training/qwen38_batch_probe.json",
       "session_timeout_seconds": 2100,
       "purpose": "Registered batch-four throughput and memory probe on training states; no PnL.",
-      "hours_basis": "Pending downloaded runtime; cap is not measured usage."
+      "hours_basis": "Downloaded script runtime; exact allocation billing boundaries unavailable.",
+      "script_wall_seconds": 1065.2006814479828,
+      "script_started_at": "2026-10-31T08:13:34.013622+00:00",
+      "script_finished_at": "2026-10-31T08:31:19.213026+00:00",
+      "result_file": "results/kaggle/qwen38-batch-probe-v1/runtime.json"
     }
   ],
   "accounting_notes": [

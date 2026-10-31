@@ -38,7 +38,7 @@ def main():
     ap.add_argument("--label", required=True)
     ap.add_argument("--api", default="results/expansion")
     ap.add_argument("--out", default="results/final.json")
-    ap.add_argument("--candidates", type=int, default=9,
+    ap.add_argument("--candidates", type=int, default=11,
                     help="registered final candidates, including the two-adapter game router")
     args = ap.parse_args()
     assert args.candidates >= 1
