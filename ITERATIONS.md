@@ -2633,3 +2633,16 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - The full pre-push fallback passes 138 Python tests, native Release,
   ASan/UBSan and the Kaggle dry-run on commit 1292401. Exact output:
   `results/ci_local_round3_api_complete.json`. Hosted billing remains blocked.
+
+### T27 — registered Qwen3.8-27B saved batch submitted after reset
+
+- At 2026-10-31T00:00:01.770369Z, official quota confirms 108,000 seconds
+  available, zero used/reserved, next reset November 7. Submit the exact
+  registered source as private saved batch version 5 with T4 x2 requested.
+- Command: `kaggle kernels push -p runs/kaggle_qwen38_train --accelerator
+  NvidiaTeslaT4 --timeout 41400`. Receipt: `qwen38_round3_batch.json`;
+  measured billing remains separate in `kaggle_budget.json`.
+- The watcher polls every 610 seconds and retrieves terminal outputs. Submitted
+  status is not completed training or proof of allocated hardware. Periodic
+  adapter/optimizer/scheduler/RNG checkpoints persist under `/kaggle/working`.
+  Runtime, VRAM and policy claims await downloaded artifacts.

@@ -1,9 +1,10 @@
 # MakeMarketBench
 
 **TL;DR:** A fast matching engine and a hard, synthetic market-making benchmark.
-The newest model, Qwen3.8-27B, is prepared as a private saved batch for the
-next GPU allocation; its lost draft supplies no verified final policy result
-([registered rerun](results/training/qwen38_round3_batch_plan.json)).
+The newest model, Qwen3.8-27B, is submitted as a private saved batch after
+the GPU quota reset; its lost draft supplies no verified final policy result
+([registered rerun](results/training/qwen38_round3_batch_plan.json),
+[saved batch receipt](results/training/qwen38_round3_batch.json)).
 
 **Can language models quote profitable markets against an informed trader?**
 The C++20 engine now processes **24.61M events/s**, up from **20.21M** on the
@@ -245,9 +246,11 @@ The earlier weekly closure observed **29.9773 / 30 account-quota hours**, with
 **81.65 seconds** left ([stopping evidence](results/training/kaggle_budget_closure.json)).
 A later official snapshot reports **30.6564 hours used**, zero reserved, and no
 per-kernel attribution for the increase
-([both observations](results/training/kaggle_quota_revision.json)). The next
-allocation is explicitly authorized for the saved 27B rerun; submission waits
-for its actual refreshed quota.
+([both observations](results/training/kaggle_quota_revision.json)). The refreshed
+allocation provides **30 account-quota hours**; private saved batch version 5
+is submitted after that official confirmation
+([quota and submission](results/training/qwen38_round3_batch.json)). Actual
+runtime and VRAM will come from downloaded outputs, not the session cap.
 
 **NIM coverage:** the [fresh endpoint catalogue](results/expansion/models_20261030.json)
 lists **85 models**, with no Qwen. Sequential calls hold a shared NIM slot and cache responses.
