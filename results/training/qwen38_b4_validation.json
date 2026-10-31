@@ -1,0 +1,108 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/launch_qwen38_b4_validation.py",
+    "config": {
+      "purpose": "registered primary batch-four SFT/GRPO validation; fixed seed zero"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "7eeeabf0931e0a026daea30c3c97ea9d0911d16a",
+    "uncommitted_diff_sha256": "adc31508ecd9e7018aa0f0b10ac7a0e0e208c2857eebb1b2dc5d0bd8ab295963",
+    "started_at": "2026-10-31T08:36:17.458044+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport os\nimport re\nimport subprocess\nfrom datetime import datetime, timezone\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\npath=Path('results/training/qwen38_b4_validation.json');assert not path.exists()\nplan_path=Path('results/training/qwen38_b4_validation_plan.json');plan=json.loads(plan_path.read_text())\nfolder=Path('runs/kaggle_qwen38_b4_validation');meta=json.loads((folder/'kernel-metadata.json').read_text())\nassert meta==plan['metadata'] and meta['is_private'] and meta['enable_gpu'] and meta['enable_internet']\nassert file_sha256(folder/meta['code_file'])==plan['source_sha256']\nprotocol=json.loads(Path('results/protocol.json').read_text());assert protocol['evaluation']['final_candidates']==11\nassert json.loads(Path('results/training/qwen38_batch_probe_completion.json').read_text())['status']=='eligible_registered_for_validation'\nenv={**os.environ,'KAGGLE_CONFIG_DIR':str(Path('runs/kaggle_oauth_config').resolve())}\nfor name in ('KAGGLE_KEY','KAGGLE_API_TOKEN','KAGGLE_TOKEN_FILE'):env.pop(name,None)\nsubprocess.run(['/Users/nico/.local/share/uv/tools/kaggle/bin/python','scripts/kaggle_quota.py'],env=env,check=True)\nsnapshot=json.loads(Path('results/training/kaggle_account_budget_snapshot.json').read_text());quota=snapshot['quota']\navailable=quota['gpu_seconds_total']-quota['gpu_seconds_used']-quota['gpu_seconds_reserved']\nother=json.loads(Path('results/training/qwen38_primary_grpo_validation.json').read_text())\nremaining_other=max(0,other['session_timeout_seconds']-(datetime.now(timezone.utc)-datetime.fromisoformat(other['submitted_at'])).total_seconds()) if other['status']=='submitted' else 0\nreserve=plan['selected_test_reserve_seconds'];cap=plan['session_timeout_seconds']\nassert available>=remaining_other+reserve+cap,'Insufficient quota after the running native validation and complete selected-test reserve'\ncommand=['kaggle','kernels','push','-p',str(folder),'--accelerator','NvidiaTeslaT4','--timeout',str(cap)]\nrecord={'provenance':receipt({'purpose':'registered primary batch-four SFT/GRPO validation; fixed seed zero'},plan['provenance']['model_revision']),\n    'source':Path(__file__).read_text(),'plan_sha256':file_sha256(plan_path),'metadata':meta,'source_sha256':plan['source_sha256'],\n    'quota_snapshot':snapshot,'available_seconds':available,'remaining_native_grpo_cap_seconds':remaining_other,\n    'selected_test_reserve_seconds':reserve,'session_timeout_seconds':cap,'status':'submitting',\n    'submitted_at':datetime.now(timezone.utc).isoformat(),'polls':[]}\npath.write_text(json.dumps(record,indent=2)+'\\n')\nresult=subprocess.run(command,env=env,capture_output=True,text=True)\nrecord['push']={'command':command,'exit_code':result.returncode,'output':result.stdout,'error':result.stderr}\nversion=re.search(r'Kernel version (\\d+)',result.stdout);actual=re.search(r'https://www.kaggle.com/code/([^/\\s]+/[^/\\s]+)',result.stdout)\nif actual:record['requested_kernel']=meta['id'];meta['id']=actual[1]\nrecord.update(status='submitted' if result.returncode==0 and version else 'push_requires_inspection',version=int(version[1]) if version else None)\npath.write_text(json.dumps(record,indent=2)+'\\n');assert record['status']=='submitted','Inspect ambiguous submission before any retry'\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text())\nledger['sessions'].append({'kernel':meta['id'],'version':record['version'],'accelerator':'T4 x2 requested','start':None,'end':None,'hours':None,\n    'submitted_at':record['submitted_at'],'private':True,'status':'submitted','source_commit':record['provenance']['git_commit'],\n    'receipt':str(path),'session_timeout_seconds':cap,'purpose':'Primary batch-four SFT/GRPO validation pair, 100/game; distinct inference policies.',\n    'hours_basis':'Pending downloaded runtime; cap is not measured usage.'})\np.write_text(json.dumps(ledger,indent=2)+'\\n');print('Submitted',meta['id'],record['version'],flush=True)\nsubprocess.run(['.venv/bin/python','-u','scripts/watch_kaggle.py','--receipt',str(path),'--out',f\"results/kaggle/qwen38-b4-validation-v{record['version']}\"],check=True)\n",
+  "plan_sha256": "d2109eb9dffcc610e269e737fd6e61f9b3d8abf86913c22a6c1eee61ea59737f",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen38-batch4-validation",
+    "title": "MakeMarketBench Qwen38 batch4 validation",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "e2521cf12cd3f1bb266d687c0b96452a8e65ced3ed9355165a06c7957edd2299",
+  "quota_snapshot": {
+    "recorded_at": "2026-10-31T08:36:17.125299+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "7eeeabf0931e0a026daea30c3c97ea9d0911d16a",
+      "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
+    },
+    "quota": {
+      "refresh_at": "2026-11-07T00:00:00+00:00",
+      "gpu_seconds_used": 57601.485336,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "available_seconds": 50398.514664,
+  "remaining_native_grpo_cap_seconds": 17738.917377,
+  "selected_test_reserve_seconds": 15900,
+  "session_timeout_seconds": 15900,
+  "status": "submitted",
+  "submitted_at": "2026-10-31T08:36:17.469301+00:00",
+  "polls": [],
+  "push": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "push",
+      "-p",
+      "runs/kaggle_qwen38_b4_validation",
+      "--accelerator",
+      "NvidiaTeslaT4",
+      "--timeout",
+      "15900"
+    ],
+    "exit_code": 0,
+    "output": "Your kernel title does not resolve to the specified id. This may result in surprising behavior. We suggest making your title something that resolves to the specified id. See https://en.wikipedia.org/wiki/Clean_URL#Slug for more information on how slugs are determined.\nKernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/nicolascoquelet/makemarketbench-qwen38-batch4-validation\n",
+    "error": ""
+  },
+  "requested_kernel": "nicolascoquelet/makemarketbench-qwen38-b4-validation",
+  "version": 1,
+  "saved_source_verification": {
+    "provenance": {
+      "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+      "config": {
+        "command": "kaggle kernels pull nicolascoquelet/makemarketbench-qwen38-batch4-validation -p runs/verify_b4_validation -m"
+      },
+      "model_revision": null,
+      "git_commit": "7eeeabf0931e0a026daea30c3c97ea9d0911d16a",
+      "uncommitted_diff_sha256": "de27392f4e0dcde5583f06fde50013c0505a2479ec3919ef489c69901a77520d",
+      "started_at": "2026-10-31T08:36:41.205282+00:00",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.13.17",
+      "versions": {
+        "numpy": "2.5.4",
+        "openai": "3.40.0",
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2"
+      }
+    },
+    "private": true,
+    "matches_submitted_source": true,
+    "source_sha256": "e2521cf12cd3f1bb266d687c0b96452a8e65ced3ed9355165a06c7957edd2299"
+  }
+}

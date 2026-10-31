@@ -2991,3 +2991,13 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - Probe source/runtime: `results/training/qwen38_batch_probe_completion.json`.
   Exact validation build/config: `results/training/qwen38_b4_validation_plan.json`.
   Primary seed zero remains fixed; validation100/game; max-min choice, SFT ties.
+
+### Batch-four validation saved submission
+
+- Submit the registered SFT/GRPO pair as a private saved batch, with a shared
+  15,600-second script cap and 15,900-second session cap. Retain 15,900 seconds
+  for the selected held-out test, in addition to the running serial GRPO cap.
+- Admission uses the official 57,601.485336 / 108,000-second account snapshot.
+  No optional replication is admitted ahead of this reserve. The returned
+  canonical slug differs from the request and is retained with saved-source
+  and private-metadata checks: `results/training/qwen38_b4_validation.json`.
