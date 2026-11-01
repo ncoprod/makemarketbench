@@ -5,9 +5,9 @@
       "purpose": "Verify current hosted CI refusal after November 1"
     },
     "model_revision": null,
-    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
-    "uncommitted_diff_sha256": "507522ba8323969fb6676c67019bdd35dec2442b9f080ba1b4f1b843052169af",
-    "started_at": "2026-11-01T14:24:37.632223+00:00",
+    "git_commit": "4ed9423b3a1d374538bd9309bac19b84951dcbaa",
+    "uncommitted_diff_sha256": "e3b61636ce583543480f97b8d0c083d7c91fcfe1fc8b217f3801eee6db0eb896",
+    "started_at": "2026-11-01T14:32:18.294066+00:00",
     "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
     "python": "3.13.17",
     "versions": {
@@ -31,10 +31,17 @@
     [
       "gh",
       "api",
-      "repos/ncoprod/makemarketbench/commits/e83c64eb7a172b84e0ffb47dcdef2a4220d942c5/check-runs"
+      "repos/ncoprod/makemarketbench/commits/4ed9423b3a1d374538bd9309bac19b84951dcbaa/check-runs"
     ]
   ],
   "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 41316504862,
+      "headSha": "4ed9423b3a1d374538bd9309bac19b84951dcbaa",
+      "status": "completed",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41316504862"
+    },
     {
       "conclusion": "success",
       "databaseId": 41315821434,
@@ -48,25 +55,18 @@
       "headSha": "1b6135bfaab18f5666a01e8c13db1d702aae5a81",
       "status": "completed",
       "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315412017"
-    },
-    {
-      "conclusion": "failure",
-      "databaseId": 41315076609,
-      "headSha": "f6177b2923e3dceae76cad1278384321d13f66c4",
-      "status": "completed",
-      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315076609"
     }
   ],
-  "checked_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+  "checked_commit": "4ed9423b3a1d374538bd9309bac19b84951dcbaa",
   "checks": [
     {
       "name": "sanitizers",
       "conclusion": "success",
-      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434/job/124875512279",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41316504862/job/124877582940",
       "annotations_command": [
         "gh",
         "api",
-        "repos/ncoprod/makemarketbench/check-runs/124875512279/annotations"
+        "repos/ncoprod/makemarketbench/check-runs/124877582940/annotations"
       ],
       "annotations": [
         {
@@ -82,11 +82,11 @@
     {
       "name": "test (3.12)",
       "conclusion": "success",
-      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434/job/124875512225",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41316504862/job/124877582928",
       "annotations_command": [
         "gh",
         "api",
-        "repos/ncoprod/makemarketbench/check-runs/124875512225/annotations"
+        "repos/ncoprod/makemarketbench/check-runs/124877582928/annotations"
       ],
       "annotations": [
         {
@@ -102,11 +102,11 @@
     {
       "name": "test (3.10)",
       "conclusion": "success",
-      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434/job/124875512131",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41316504862/job/124877582803",
       "annotations_command": [
         "gh",
         "api",
-        "repos/ncoprod/makemarketbench/check-runs/124875512131/annotations"
+        "repos/ncoprod/makemarketbench/check-runs/124877582803/annotations"
       ],
       "annotations": [
         {

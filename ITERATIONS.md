@@ -3106,3 +3106,9 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - The fixed tenfold cards bootstrap audit runs on all six complete-card policies; no primary verdict changes, and the original SFT corrected cards bound remains borderline. `results/final/bootstrap_precision.json`.
 - README distinguishes TEST200 and VAL100, retains exploratory history, and leads with 27B dice90.4% [85.2,94.8] and explicit incomplete cards. Render and visually verify the final wide/narrow figure and both pages of a newly generated research note (no older paper source existed): `results/final/figure.json`, `results/final/paper.json`.
 - Local CI passes149 tests, lint, Release, ASan/UBSan and Kaggle CPU dry-run (`results/ci_local_final.json`). Hosted Linux3.10/3.12 and sanitizer jobs pass after the entrypoint fix (`results/ci_hosted_final.json`). Final weekly official GPU usage is107115.12/108000 seconds (29.7542 hours); unused884.88 seconds are retained rather than submitting beyond the one rerun authorized.
+
+### T38 terminal replay proof
+
+- First reproduction guard correctly rejects the original editable environment because its import hook resolves the old checkout despite PYTHONPATH. No scoring occurs in that failed attempt.
+- Use a fresh Python venv with only the installed NumPy dependency shared. The archived source resolves inside the clean tracked-file checkout; there are no model checkpoints and API credentials are removed. All seven policies reproduce every `games` and `targets` object exactly, including unknown newest-family cards targets; partial staged-SFT dice rows also match exactly.
+- Exact archive commit, source, commands, NumPy environment, model revisions and comparisons: `results/final/cached_replay_check.json`. Local CI149 and hosted Linux3.10/3.12 plus sanitizer checks pass on final-report commit4ed9423; retain current receipts. No model tuning or additional test inference is performed.

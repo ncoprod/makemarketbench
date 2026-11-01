@@ -1,0 +1,118 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/check_cached_replay.py",
+    "config": {
+      "purpose": "Replay final numeric scores from tracked files without model weights or API credentials"
+    },
+    "model_revision": null,
+    "git_commit": "4ed9423b3a1d374538bd9309bac19b84951dcbaa",
+    "uncommitted_diff_sha256": "1d27615efdf2031b366f6bc0590fc6a07b920de6ad987ee095ef423d66730d39",
+    "started_at": "2026-11-01T14:32:41.340047+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport os\nimport subprocess\nimport tarfile\nimport time\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nstarted=time.monotonic(); archive=Path('runs/final_replay_isolated_checkout').resolve(); assert not archive.exists()\narchive.mkdir(); tar=Path('runs/final_replay.tar')\ncommit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()\ncommand=['git','archive','--format=tar',f'--output={tar}','HEAD']; subprocess.run(command,check=True)\nwith tarfile.open(tar) as bundle: bundle.extractall(archive,filter='data')\nassert not list(archive.rglob('*.safetensors'))\nsubprocess.run(['.venv/bin/python','-m','venv',str(archive/'.venv')],check=True)\nimport numpy\noriginal_site=Path(numpy.__file__).parent.parent\nisolated_site=next((archive/'.venv/lib').glob('python*/site-packages'))\nfor dependency in original_site.glob('numpy*'):\n (isolated_site/dependency.name).symlink_to(dependency,target_is_directory=dependency.is_dir())\nenv={**os.environ,'PYTHONPATH':str(archive/'src'),'HF_HUB_OFFLINE':'1','TRANSFORMERS_OFFLINE':'1'}\nfor name in ('NVIDIA_API_KEY','KAGGLE_KEY','KAGGLE_API_TOKEN','KAGGLE_TOKEN_FILE'): env.pop(name,None)\nloaded=subprocess.check_output(['.venv/bin/python','-c','import makemarket; print(makemarket.__file__)'],cwd=archive,env=env,text=True).strip()\nassert Path(loaded).is_relative_to(archive)\nrun=['.venv/bin/python','scripts/score_frozen_candidates.py']\nwith Path('runs/final_replay.log').open('w') as log: subprocess.run(run,cwd=archive,env=env,stdout=log,stderr=subprocess.STDOUT,check=True)\nmanifest_path=Path('results/final/summary.json');manifest=json.loads(manifest_path.read_text());checks={}\nfor label,entry in manifest['results'].items():\n original=json.loads(Path(entry['file']).read_text()); replay=json.loads((archive/entry['file']).read_text())\n assert original['games']==replay['games'] and original['targets']==replay['targets'],label\n checks[label]={'score_file':entry['file'],'score_sha256':file_sha256(entry['file']),'games_and_targets_exact':True,\n 'model_revision':original['provenance']['model_revision'],'complete_games':list(original['games'])}\npartial=manifest['partial_result']['file'];assert json.loads(Path(partial).read_text())['rows']==json.loads((archive/partial).read_text())['rows']\nrecord={'provenance':receipt({'purpose':'Replay final numeric scores from tracked files without model weights or API credentials'}),\n 'source':Path(__file__).read_text(),'status':'PASS','archived_commit':commit,'archive_command':command,'archive_sha256':file_sha256(tar),\n 'replay_command':run,'manifest_sha256':file_sha256(manifest_path),'loaded_package':loaded,'private_model_weights_present':False,\n 'api_credentials_removed':True,'runtime_isolation':'Fresh Python venv, shared installed NumPy only; no original editable import hooks. Archived src resolves locally.','checks':checks,'partial_dice_rows_exact':True,'wall_seconds':time.monotonic()-started,\n 'prior_attempt':{'status':'guard_rejected','reason':'Reusing the editable venv loaded the original checkout despite PYTHONPATH; package-location assertion stopped before scoring. Replaced with fresh venv and shared NumPy only.'},\n 'scope':'Same committed episodes and installed arithmetic environment; exact games/targets equality. This is numeric reproduction, not fresh model inference or another test trial.'}\nPath('results/final/cached_replay_check.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint('Exact fresh-checkout replay PASS:',len(checks),'policies and partial dice; no weights/API credentials.')\n",
+  "status": "PASS",
+  "archived_commit": "4ed9423b3a1d374538bd9309bac19b84951dcbaa",
+  "archive_command": [
+    "git",
+    "archive",
+    "--format=tar",
+    "--output=runs/final_replay.tar",
+    "HEAD"
+  ],
+  "archive_sha256": "cca9b04887e5588c66fb555d17de654021725bc885bec1eae183f894070a2530",
+  "replay_command": [
+    ".venv/bin/python",
+    "scripts/score_frozen_candidates.py"
+  ],
+  "manifest_sha256": "b26705c4e22bd0e2bddc42452ccc616a2d33a7dd11cbdad702764119f2e45cc0",
+  "loaded_package": "/Users/nico/Documents/AI/makemarketbench/runs/final_replay_isolated_checkout/src/makemarket/__init__.py",
+  "private_model_weights_present": false,
+  "api_credentials_removed": true,
+  "runtime_isolation": "Fresh Python venv, shared installed NumPy only; no original editable import hooks. Archived src resolves locally.",
+  "checks": {
+    "qwen3-1.7b-sft800": {
+      "score_file": "results/final/scores/qwen3-1.7b-sft800.json",
+      "score_sha256": "eab262145986bd4e75bb8770cf8ba52d495183214317de75cae68a2e686d1b9f",
+      "games_and_targets_exact": true,
+      "model_revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+      "complete_games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "qwen3.5-4b-rloo192": {
+      "score_file": "results/final/scores/qwen3.5-4b-rloo192.json",
+      "score_sha256": "f199563f764661ddc5117049caff30123cb4d5314f9fda3f3d3e30c8ccd9fe5d",
+      "games_and_targets_exact": true,
+      "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "complete_games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "qwen3.5-4b-grpo-warmstart": {
+      "score_file": "results/final/scores/qwen3.5-4b-grpo-warmstart.json",
+      "score_sha256": "1c6cd3184bba96da2f03d162f9ca0cee31f6177508ca883ef04e453a4ee2fa66",
+      "games_and_targets_exact": true,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "complete_games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "qwen3.5-4b-grpo": {
+      "score_file": "results/final/scores/qwen3.5-4b-grpo.json",
+      "score_sha256": "b419304e5328b6a2f322854e6d24a03aec2d8fc7846cbe06f1d0bf0db847167a",
+      "games_and_targets_exact": true,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "complete_games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "qwen3.5-4b-staged-grpo": {
+      "score_file": "results/final/scores/qwen3.5-4b-staged-grpo.json",
+      "score_sha256": "7c570a628ad32f7ed6bda91d2ea89c7b719bef8c9236c24fe525e0669d946a4f",
+      "games_and_targets_exact": true,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "complete_games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "qwen3.5-4b-staged-routed": {
+      "score_file": "results/final/scores/qwen3.5-4b-staged-routed.json",
+      "score_sha256": "fd9f0ef9718def4ef6287f774855f0461df43de52130dfb0aca3892d83e0c94f",
+      "games_and_targets_exact": true,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "complete_games": [
+        "dice",
+        "cards"
+      ]
+    },
+    "qwen3.8-27b-batch4-sft": {
+      "score_file": "results/final/scores/qwen3.8-27b-batch4-sft.json",
+      "score_sha256": "7357fc5bd20191e4979896afa985158b0490b170349f7a9637adb5b1ebf5e640",
+      "games_and_targets_exact": true,
+      "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "complete_games": [
+        "dice"
+      ]
+    }
+  },
+  "partial_dice_rows_exact": true,
+  "wall_seconds": 27.12768624999444,
+  "prior_attempt": {
+    "status": "guard_rejected",
+    "reason": "Reusing the editable venv loaded the original checkout despite PYTHONPATH; package-location assertion stopped before scoring. Replaced with fresh venv and shared NumPy only."
+  },
+  "scope": "Same committed episodes and installed arithmetic environment; exact games/targets equality. This is numeric reproduction, not fresh model inference or another test trial."
+}

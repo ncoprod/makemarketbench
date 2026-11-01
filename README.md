@@ -202,6 +202,7 @@ local `python -m pytest` entrypoint
 
 | Evidence | Configuration / identity | Traceability |
 |---|---|---|
+| [Cached replay proof](results/final/cached_replay_check.json) | Fresh tracked-file checkout, clean Python environment, no weights or API credentials | Seven policies and partial dice reproduce games/target objects exactly |
 | [Fresh scores](results/final/summary.json) | Frozen selections, every scoring command, common test seeds and raw hashes | Producing commits and full score files; numerical replay needs no private weights |
 | [Selected 27B test](results/training/qwen38_test_finish_completion.json) | Exact adapter, source, canonical game checks and wrapper runtime | Original deadline-stopped download retained unchanged; hard-kill leaves only a stale worker VRAM snapshot |
 | [Historical game results](results/leaderboard_dice.json) | [raw episodes](results/raw), [API settings](results/llm_protocol.json), [training logs](results/training) | Original results predate full receipts; missing immutable revisions and exact commands are not reconstructed as facts |
