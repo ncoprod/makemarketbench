@@ -60,9 +60,21 @@
     }
   },
   "session_timeout_seconds": 840,
-  "status": "submitted",
+  "status": "outputs_retrieved",
   "submitted_at": "2026-11-01T14:12:18.677107+00:00",
-  "polls": [],
+  "polls": [
+    {
+      "at": "2026-11-01T14:22:30.066079+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-test-finish"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-test-finish has status \"KernelWorkerStatus.ERROR\""
+    }
+  ],
   "push": {
     "command": [
       "kaggle",
@@ -125,5 +137,21 @@
     },
     "local_verification_error": "Initial verifier assumed requested filename; Kaggle pulled canonical slug filename. Verified actual metadata code_file without resubmission.",
     "input_discrepancy": "Pulled metadata omits the ERROR test kernel input requested in submitted metadata. Keep the one authorized version; collect runtime to determine whether the prefix mount is available."
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen38-test-finish",
+      "-p",
+      "results/kaggle/qwen38-test-finish-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to results/kaggle/qwen38-test-finish-v1\n\nOutput file downloaded to results/kaggle/qwen38-test-finish-v1/evaluate_core.py\nKernel log downloaded to results/kaggle/qwen38-test-finish-v1/makemarketbench-qwen38-test-finish.log \n\n  0%|          | 0.00/68.1k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 68.1k/68.1k [00:00<00:00, 801kB/s]"
   }
 }

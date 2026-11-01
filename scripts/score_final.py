@@ -67,6 +67,9 @@ def main():
             if path.parent == Path(args.api) / "raw" / game:
                 api_names.append(name)
         assert args.label in players and "bayes" in players, f"missing complete {game} policy/reference"
+        source_provenance = players[args.label][0]["provenance"]
+        record["provenance"]["model_revision"] = source_provenance.get(
+            "model_revision", source_provenance["config"].get("revision"))
         local, bayes = epnl(players[args.label]), epnl(players["bayes"])
         sizes = {e["provenance"]["config"].get("eval_batch_size", 1) for e in players[args.label]}
         assert len(sizes) == 1, "Mixed inference group sizes require explicit grouping"

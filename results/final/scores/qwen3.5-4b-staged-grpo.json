@@ -1,0 +1,714 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/score_final.py --local results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results --label qwen3.5-4b-staged-grpo --candidates 11 --out results/final/scores/qwen3.5-4b-staged-grpo.json",
+    "config": {
+      "local": "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results",
+      "label": "qwen3.5-4b-staged-grpo",
+      "api": "results/expansion",
+      "out": "results/final/scores/qwen3.5-4b-staged-grpo.json",
+      "games": [
+        "dice",
+        "cards"
+      ],
+      "candidates": 11
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "ed11dd4ad2c0bca0f7e40f91bec02cb0c61e3ebdae3183c5fd48cfdbffbe135f",
+    "started_at": "2026-11-01T14:28:48.386312+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "2e6ef0b4ff1e3332213c7a48d2cd863e4c8a74e214c64911d2b8aa56c8062f59",
+  "seeds": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    226,
+    227,
+    228,
+    229,
+    230,
+    231,
+    232,
+    233,
+    234,
+    235,
+    236,
+    237,
+    238,
+    239,
+    240,
+    241,
+    242,
+    243,
+    244,
+    245,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322,
+    323,
+    324,
+    325,
+    326,
+    327,
+    328,
+    329,
+    330,
+    331,
+    332,
+    333,
+    334,
+    335,
+    336,
+    337,
+    338,
+    339,
+    340,
+    341,
+    342,
+    343,
+    344,
+    345,
+    346,
+    347,
+    348,
+    349,
+    350,
+    351,
+    352,
+    353,
+    354,
+    355,
+    356,
+    357,
+    358,
+    359,
+    360,
+    361,
+    362,
+    363,
+    364,
+    365,
+    366,
+    367,
+    368,
+    369,
+    370,
+    371,
+    372,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    384,
+    385,
+    386,
+    387,
+    388,
+    389,
+    390,
+    391,
+    392,
+    393,
+    394,
+    395,
+    396,
+    397,
+    398,
+    399
+  ],
+  "games": {
+    "dice": {
+      "rows": [
+        {
+          "player": "bayes",
+          "episodes": 200,
+          "pct_of_bayes": 100.0,
+          "pct_of_bayes_ci": [
+            100.0,
+            100.0
+          ],
+          "epnl": 13.533273636482608,
+          "epnl_ci": [
+            12.25078245106705,
+            14.709456300932452
+          ],
+          "realized_pnl": 11.020999999999999,
+          "realized_pnl_ci": [
+            8.596487499999999,
+            13.534025
+          ],
+          "realized_pnl_sd": 17.881538133789014,
+          "noise_edge": 17.595273636482606,
+          "adverse_cost": 4.062,
+          "spread": 8.298833333333333,
+          "coverage": 0.7716666666666666,
+          "mean_size": 4.580416666666666,
+          "abs_final_position": 2.845,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "qwen3.5-4b-staged-grpo",
+          "episodes": 200,
+          "pct_of_bayes": 71.97407176548955,
+          "pct_of_bayes_ci": [
+            59.810268857848065,
+            82.61977380254757
+          ],
+          "epnl": 9.740448079342071,
+          "epnl_ci": [
+            7.592761488018914,
+            11.73367526375781
+          ],
+          "realized_pnl": 8.559000000000001,
+          "realized_pnl_ci": [
+            5.694937500000001,
+            11.416062499999997
+          ],
+          "realized_pnl_sd": 20.99024944728615,
+          "noise_edge": 15.287298079342072,
+          "adverse_cost": 5.546849999999999,
+          "spread": 8.313666666666666,
+          "coverage": 0.725,
+          "mean_size": 4.664999999999999,
+          "abs_final_position": 3.495,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+          "episodes": 200,
+          "pct_of_bayes": -127.39652500797449,
+          "pct_of_bayes_ci": [
+            -167.14213740596864,
+            -95.3355228863637
+          ],
+          "epnl": -17.240920332699183,
+          "epnl_ci": [
+            -21.15339497331104,
+            -13.575679917037856
+          ],
+          "realized_pnl": -18.24,
+          "realized_pnl_ci": [
+            -23.265,
+            -13.384937500000001
+          ],
+          "realized_pnl_sd": 35.56514159232903,
+          "noise_edge": 4.395829667300821,
+          "adverse_cost": 21.636750000000003,
+          "spread": 2.4797083333333334,
+          "coverage": 0.2575,
+          "mean_size": 4.673333333333334,
+          "abs_final_position": 7.47,
+          "format_error_rate": 0.009166666666666667,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "openai/gpt-oss-20b",
+          "episodes": 200,
+          "pct_of_bayes": -183.74224156915398,
+          "pct_of_bayes_ci": [
+            -222.07243514868406,
+            -152.4019237558955
+          ],
+          "epnl": -24.8663403373605,
+          "epnl_ci": [
+            -28.265893664179213,
+            -21.660979888266734
+          ],
+          "realized_pnl": -26.403999999999996,
+          "realized_pnl_ci": [
+            -31.475625,
+            -21.6338125
+          ],
+          "realized_pnl_sd": 35.5656245869703,
+          "noise_edge": 1.2389096626394998,
+          "adverse_cost": 26.10525,
+          "spread": 1.159975,
+          "coverage": 0.11408333333333331,
+          "mean_size": 4.343333333333334,
+          "abs_final_position": 4.595,
+          "format_error_rate": 0.026666666666666665,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "nvidia/nemotron-3.5-bolt-e4b",
+          "episodes": 200,
+          "pct_of_bayes": -430.6101154288929,
+          "pct_of_bayes_ci": [
+            -485.6529970258906,
+            -386.86284649176736
+          ],
+          "epnl": -58.27564522736569,
+          "epnl_ci": [
+            -61.46953849745865,
+            -55.321900868049255
+          ],
+          "realized_pnl": -56.006499999999996,
+          "realized_pnl_ci": [
+            -63.2275625,
+            -49.2019875
+          ],
+          "realized_pnl_sd": 50.99563788370364,
+          "noise_edge": -11.6035952273657,
+          "adverse_cost": 46.67205,
+          "spread": 1.297383333333334,
+          "coverage": 0.09449999999999999,
+          "mean_size": 6.082916666666666,
+          "abs_final_position": 9.27,
+          "format_error_rate": 0.0008333333333333333,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+          "episodes": 200,
+          "pct_of_bayes": -3108.5192971272404,
+          "pct_of_bayes_ci": [
+            -3439.6368324940863,
+            -2843.2165097954185
+          ],
+          "epnl": -420.6844225230953,
+          "epnl_ci": [
+            -437.03572367776593,
+            -404.7434539429979
+          ],
+          "realized_pnl": -422.26199999999994,
+          "realized_pnl_ci": [
+            -456.705225,
+            -390.0887
+          ],
+          "realized_pnl_sd": 241.02796946896362,
+          "noise_edge": -136.71537252309537,
+          "adverse_cost": 283.96905,
+          "spread": 0.7949166666666667,
+          "coverage": 0.0,
+          "mean_size": 7.2325,
+          "abs_final_position": 19.305,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0
+        }
+      ],
+      "api_cohorts": [
+        "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+        "nvidia/nemotron-3.5-bolt-e4b",
+        "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+        "openai/gpt-oss-20b"
+      ],
+      "family_level": 0.9992424242424243,
+      "family_bootstrap_resamples": 264001,
+      "local_epnl_family_ci": [
+        5.808281220944685,
+        12.945095008039475
+      ],
+      "local_percent_family_ci": [
+        48.42752985533122,
+        88.62854599477728
+      ],
+      "inference_group_size": 4,
+      "inference_group_count": 50,
+      "local_epnl_inference_group_family_ci": [
+        5.498659815278607,
+        13.157881818406434
+      ],
+      "local_percent_inference_group_family_ci": [
+        45.89260114785257,
+        90.7472701122266
+      ],
+      "paired_api_differences": {
+        "nvidia/nemotron-3-ultra-550b-a55b (no-think)": {
+          "mean": 26.98136841204125,
+          "family_ci": [
+            22.327690059879448,
+            31.858059164635144
+          ],
+          "inference_group_family_ci": [
+            22.45687932178696,
+            31.566851878608272
+          ]
+        },
+        "nvidia/nemotron-3.5-bolt-e4b": {
+          "mean": 68.01609330670776,
+          "family_ci": [
+            63.35598741324032,
+            72.83668637652261
+          ],
+          "inference_group_family_ci": [
+            63.32394166397224,
+            72.9437767282091
+          ]
+        },
+        "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)": {
+          "mean": 430.42487060243747,
+          "family_ci": [
+            402.61193138455013,
+            458.5990062506714
+          ],
+          "inference_group_family_ci": [
+            402.17551229654185,
+            459.20297519088336
+          ]
+        },
+        "openai/gpt-oss-20b": {
+          "mean": 34.60678841670257,
+          "family_ci": [
+            29.284109777506853,
+            40.29360261372044
+          ],
+          "inference_group_family_ci": [
+            29.436711474692686,
+            40.05475184712649
+          ]
+        }
+      },
+      "lower_95_above_every_api_upper_95": true,
+      "lower_percent_95_above_every_api_upper_percent_95": true,
+      "all_paired_family_lower_bounds_positive": true
+    },
+    "cards": {
+      "rows": [
+        {
+          "player": "bayes",
+          "episodes": 200,
+          "pct_of_bayes": 100.0,
+          "pct_of_bayes_ci": [
+            99.99999999999999,
+            100.00000000000001
+          ],
+          "epnl": 20.519178190217858,
+          "epnl_ci": [
+            18.804348651281487,
+            22.076391313308587
+          ],
+          "realized_pnl": 19.505,
+          "realized_pnl_ci": [
+            16.295450000000002,
+            22.775162499999997
+          ],
+          "realized_pnl_sd": 23.693331228926382,
+          "noise_edge": 24.44392819021786,
+          "adverse_cost": 3.9247500000000004,
+          "spread": 12.152916666666664,
+          "coverage": 0.8325,
+          "mean_size": 4.41375,
+          "abs_final_position": 3.01,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "qwen3.5-4b-staged-grpo",
+          "episodes": 200,
+          "pct_of_bayes": 51.62087312561012,
+          "pct_of_bayes_ci": [
+            35.31059144316981,
+            65.49131258346948
+          ],
+          "epnl": 10.592178939990221,
+          "epnl_ci": [
+            6.848396611434229,
+            14.021625108213458
+          ],
+          "realized_pnl": 12.4685,
+          "realized_pnl_ci": [
+            8.414287500000002,
+            16.330049999999996
+          ],
+          "realized_pnl_sd": 28.85997659380504,
+          "noise_edge": 17.971578939990223,
+          "adverse_cost": 7.3793999999999995,
+          "spread": 12.314583333333335,
+          "coverage": 0.7366666666666666,
+          "mean_size": 4.48375,
+          "abs_final_position": 4.715,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "openai/gpt-oss-20b",
+          "episodes": 200,
+          "pct_of_bayes": -128.47719515662615,
+          "pct_of_bayes_ci": [
+            -160.55637180811038,
+            -101.94741954015835
+          ],
+          "epnl": -26.362464607982066,
+          "epnl_ci": [
+            -31.718117487270447,
+            -21.64816488519394
+          ],
+          "realized_pnl": -30.041,
+          "realized_pnl_ci": [
+            -39.6445125,
+            -22.182975000000003
+          ],
+          "realized_pnl_sd": 63.63155422007474,
+          "noise_edge": 2.526635392017934,
+          "adverse_cost": 28.8891,
+          "spread": 1.9695166666666668,
+          "coverage": 0.16866666666666666,
+          "mean_size": 3.9716666666666662,
+          "abs_final_position": 4.88,
+          "format_error_rate": 0.05416666666666667,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+          "episodes": 200,
+          "pct_of_bayes": -197.36892070559864,
+          "pct_of_bayes_ci": [
+            -246.37739325244684,
+            -154.74552058371955
+          ],
+          "epnl": -40.49848053169157,
+          "epnl_ci": [
+            -48.48907756343694,
+            -32.69575085619946
+          ],
+          "realized_pnl": -41.138000000000005,
+          "realized_pnl_ci": [
+            -50.2845125,
+            -32.25531250000001
+          ],
+          "realized_pnl_sd": 66.12305002586933,
+          "noise_edge": -2.4344805316915723,
+          "adverse_cost": 38.064,
+          "spread": 2.8753333333333337,
+          "coverage": 0.18116666666666667,
+          "mean_size": 4.834583333333334,
+          "abs_final_position": 9.365,
+          "format_error_rate": 0.0008333333333333333,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "nvidia/nemotron-3.5-bolt-e4b",
+          "episodes": 200,
+          "pct_of_bayes": -716.9830658590867,
+          "pct_of_bayes_ci": [
+            -800.6108924515845,
+            -649.805464469123
+          ],
+          "epnl": -147.11903287731303,
+          "epnl_ci": [
+            -155.42812560603534,
+            -139.13014623639006
+          ],
+          "realized_pnl": -151.92,
+          "realized_pnl_ci": [
+            -165.87257499999996,
+            -139.1333125
+          ],
+          "realized_pnl_sd": 96.62565698581149,
+          "noise_edge": -50.29928287731303,
+          "adverse_cost": 96.81974999999998,
+          "spread": 1.274933333333334,
+          "coverage": 0.07583333333333334,
+          "mean_size": 5.540416666666667,
+          "abs_final_position": 9.715,
+          "format_error_rate": 0.0008333333333333333,
+          "fail_rate": 0.0
+        },
+        {
+          "player": "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+          "episodes": 200,
+          "pct_of_bayes": -3047.8415995280643,
+          "pct_of_bayes_ci": [
+            -3320.422911858541,
+            -2824.482484817203
+          ],
+          "epnl": -625.3920487627497,
+          "epnl_ci": [
+            -651.8979268915392,
+            -599.6325411171932
+          ],
+          "realized_pnl": -632.2710000000001,
+          "realized_pnl_ci": [
+            -684.4590374999999,
+            -582.6158875000001
+          ],
+          "realized_pnl_sd": 367.7244595478369,
+          "noise_edge": -197.5360987627497,
+          "adverse_cost": 427.85595,
+          "spread": 0.9484999999999997,
+          "coverage": 0.0,
+          "mean_size": 7.466666666666666,
+          "abs_final_position": 19.68,
+          "format_error_rate": 0.0,
+          "fail_rate": 0.0
+        }
+      ],
+      "api_cohorts": [
+        "nvidia/nemotron-3-ultra-550b-a55b (no-think)",
+        "nvidia/nemotron-3.5-bolt-e4b",
+        "nvidia/nemotron-3.5-lightning-30b-a3b (no-think)",
+        "openai/gpt-oss-20b"
+      ],
+      "family_level": 0.9992424242424243,
+      "family_bootstrap_resamples": 264001,
+      "local_epnl_family_ci": [
+        3.912983240894179,
+        16.12498069871537
+      ],
+      "local_percent_family_ci": [
+        20.89865390587806,
+        73.96665390300315
+      ],
+      "inference_group_size": 4,
+      "inference_group_count": 50,
+      "local_epnl_inference_group_family_ci": [
+        4.598394479385753,
+        15.79574046781722
+      ],
+      "local_percent_inference_group_family_ci": [
+        24.135662547195363,
+        73.21679705312657
+      ],
+      "paired_api_differences": {},
+      "lower_95_above_every_api_upper_95": true,
+      "lower_percent_95_above_every_api_upper_percent_95": true,
+      "all_paired_family_lower_bounds_positive": true
+    }
+  },
+  "input_sha256": {
+    "results/expansion/raw/dice/meta_llama-3.2-11b-vision-instruct__text-only_.jsonl": "3c439d2b5602b234850de9d6fda14dd5f77d458883c68843892b168332778084",
+    "results/expansion/raw/dice/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl": "257eea2e095a2d392dad39cb140ee889406cc7e111a84b5c31055eaeeab84108",
+    "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl": "7fa324326209f79bd86d251ccdc650c6627704d1eb634b40fe9a72edc2b9b3fa",
+    "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl": "4646f88ee546e85c3f0696c9043c859b268138534f9a86000ed416bf10eaa268",
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-bolt-e4b.jsonl": "3d5d6be0034b37932998ed3c8f1c068e6d444c3fbce90e6378727910e90f4855",
+    "results/expansion/raw/dice/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl": "42b581fdafa0c1e7c7bf66ab51bb7603856adf6953b31ef2cdb22fe65d23b637",
+    "results/expansion/raw/dice/openai_gpt-oss-20b.jsonl": "b8edf08ef06cfb3933de570f646edda2c9eb78b2b28241385542830d5af16250",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/bayes.jsonl": "e6548e0c37b4f567d84f4ba2349dae33ce1a3224e75b2f7fd4a5e7e878d495a5",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/dice/qwen3.5-4b-staged-grpo.jsonl": "e0d7211b3eb35fcd0842da3026b251a175df089bc507ea4017158dde0fc621fc",
+    "results/expansion/raw/cards/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl": "d691cf268c7ad8f4f44e00ee9635dc364c439c1bf914c10e9be09899f88ce749",
+    "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__no-think_.jsonl": "66e0df44486cb4b347c6f1c18efae11f4ba01eb263a28538c558772f1bee70dc",
+    "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl": "9eff482d4b5ed27187f40a25525c839d6291e319b19b42519f5d78cd44ac628f",
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-bolt-e4b.jsonl": "a5aab040666a0374afe093ba7177528ed30d0a7b6be5b73605bcdc2d291b34cb",
+    "results/expansion/raw/cards/nvidia_nemotron-3.5-lightning-30b-a3b__no-think_.jsonl": "1b3790f492adfd210beb6f3de5774afc48e763a0384da4738b638ffc8f68d05e",
+    "results/expansion/raw/cards/openai_gpt-oss-20b.jsonl": "0e0e1bd8a870fbcc6d6d59d87c4ce1fb8fe4a69d11b21d48b6030b989ab82dee",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/bayes.jsonl": "3c869ac3372f13bca62567dd93d7a5984261d73115d66ec67c2abbcabc4b5365",
+    "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl": "46af35950fbc1f7960a84438aece21f3b2e5e1e3692f0764b7d5d5494c8e81c6"
+  },
+  "incomplete_cohorts": [
+    "results/expansion/raw/dice/meta_llama-3.2-11b-vision-instruct__text-only_.jsonl",
+    "results/expansion/raw/dice/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+    "results/expansion/raw/dice/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl",
+    "results/expansion/raw/cards/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+    "results/expansion/raw/cards/nvidia_nemotron-3-ultra-550b-a55b__thinking-medium_.jsonl"
+  ],
+  "targets": {
+    "dice_mean_at_least_80_percent": false,
+    "dice_above_api_intervals": true,
+    "cards_positive_with_family_lower_above_zero": true,
+    "at_least_four_complete_api_cohorts_per_game": true
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/score_frozen_candidates.py",
+    "config": {
+      "purpose": "report every complete registered frozen candidate",
+      "candidate_family": 11
+    },
+    "model_revision": null,
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "ed11dd4ad2c0bca0f7e40f91bec02cb0c61e3ebdae3183c5fd48cfdbffbe135f",
+    "started_at": "2026-11-01T14:28:36.696001+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "\"\"\"Score registered complete candidates after freezing local and 27B selections.\"\"\"\n\nimport json\nimport subprocess\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\nfrom makemarket.scoring import summarize\n\nselection_path = Path('results/training/selection.json')\nselection = json.loads(selection_path.read_text())\nnewest_path = Path('results/training/qwen38_selection.json')\nnewest = json.loads(newest_path.read_text())\nfamily = newest['final_candidate_family']\nassert newest['status'] == 'frozen' and family == (11 if newest['eval_batch_size'] == 4 else 9)\n# Reporting replays committed episodes; private weight files are not required.\nnewest_games = []\nfor frozen, root in [(selection, 'results/final/selected'), (newest, newest['test_root'])]:\n    for game in ('dice', 'cards'):\n        path = Path(root) / f\"raw/{game}/{frozen['label']}.jsonl\"\n        if frozen is newest and not path.exists():\n            continue\n        rows = [json.loads(line) for line in path.read_text().splitlines()]\n        assert len(rows) == 200\n        if frozen is newest:\n            newest_games.append(game)\n        for row in rows:\n            provenance = row['provenance']\n            adapter_hash = provenance.get('adapter_sha256', provenance['config'].get('adapter_sha256'))\n            assert adapter_hash == frozen['adapter_sha256'], 'Recorded adapter differs from frozen choice'\n            assert provenance['config']['revision'] == frozen['provenance']['model_revision']\nassert newest_games, 'At least one complete newest-family game must be retained'\n# Both validation decisions precede opening any new aggregate test score.\ncandidates = [\n    ('qwen3-1.7b-sft800', 'results/final/qwen17-sft800'),\n    (selection['label'], 'results/final/selected'),\n    ('qwen3.5-4b-grpo-warmstart', 'results/kaggle/original-v1/results'),\n    ('qwen3.5-4b-grpo', 'results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results'),\n    ('qwen3.5-4b-staged-grpo', 'results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results'),\n    ('qwen3.5-4b-staged-routed', 'results/final/staged-routed'),\n    (newest['label'], newest['test_root']),\n]\nrecord = {'provenance': receipt({'purpose': 'report every complete registered frozen candidate', 'candidate_family': family}),\n          'source': Path(__file__).read_text(), 'selection_sha256': file_sha256(selection_path),\n          'newest_selection_sha256': file_sha256(newest_path),\n          'identity_scope': 'Recorded episode adapter hashes and model revisions match both frozen choices; numerical replay does not load weights.',\n          'candidates_registered': family, 'commands': [], 'results': {}, 'unavailable': {\n              'qwen3.5-4b-staged-sft': 'Dice 200 complete; cards 100 saved, other worker failed its development batching gate. Cards not scored.',\n              'qwen3.8-27b-unselected': 'The other newest-family adapter remains validation-only under the registered selection rule; its trial still counts in the conservative family correction.'}}\nif family == 11:\n    record['unavailable'].pop('qwen3.8-27b-unselected')\n    record['unavailable'].update({\n        'qwen3.8-27b-sft': 'Original serial SFT trial retained on validation only; cards incomplete.',\n        'qwen3.8-27b-grpo': 'Original serial GRPO trial retained on validation only.',\n        'qwen3.8-27b-batch4-unselected': 'Unselected batch-four adapter remains validation-only; its trial counts.'})\nfor label, root in candidates:\n    out = f'results/final/scores/{label}.json'\n    command = ['.venv/bin/python', 'scripts/score_final.py', '--local', root, '--label', label,\n               '--candidates', str(family), '--out', out]\n    if label == newest['label']:\n        command += ['--games', *newest_games]\n    record['commands'].append(command)\n    subprocess.run(command, check=True)\n    record['results'][label] = {'file': out, 'sha256': file_sha256(out)}\nif len(newest_games) < 2:\n    record['unavailable'][newest['label'] + '-missing-games'] = {\n        'complete_games_scored': newest_games,\n        'scope': 'Only complete 200-episode games scored; missing-game targets unknown. Partial raw episodes remain in download receipts.'}\n\n# Preserve the complete dice-only candidate without scoring its partial cards.\nroot = Path('results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice')\nplayers, hashes = {}, {}\nfor path in root.glob('*.jsonl'):\n    rows = [json.loads(line) for line in path.read_text().splitlines()]\n    assert sorted(r['seed'] for r in rows) == list(range(200, 400))\n    players[rows[0]['player']] = rows\n    hashes[str(path)] = file_sha256(path)\npartial = {'provenance': receipt({'purpose': 'descriptive complete dice cohort only; partial cards deliberately unscored'},\n                                 players['qwen3.5-4b-staged-sft'][0]['provenance']['model_revision']),\n           'source': Path(__file__).read_text(), 'seeds': [200, 399], 'input_sha256': hashes,\n           'game': 'dice', 'rows': summarize(players), 'cards_episodes_saved': 100,\n           'limitation': 'Marginal descriptive intervals only; this partial candidate cannot satisfy both-game targets.'}\npath = Path('results/final/scores/qwen3.5-4b-staged-sft-dice-only.json')\npath.write_text(json.dumps(partial, indent=2) + '\\n')\nrecord['partial_result'] = {'file': str(path), 'sha256': file_sha256(path)}\nPath('results/final/summary.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint('Scored frozen candidates with all available complete API cohorts; partial cards remain unscored.')\n",
+  "selection_sha256": "e5efc224e1d0f6eb9df46e0805d2dc4e616609392e0782516207829dd0b309f9",
+  "newest_selection_sha256": "7c142845dda4760e05a5df2b312b43133e9258aecc447caedba3a4ec7cd1e8d9",
+  "identity_scope": "Recorded episode adapter hashes and model revisions match both frozen choices; numerical replay does not load weights.",
+  "candidates_registered": 11,
+  "commands": [
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/final/qwen17-sft800",
+      "--label",
+      "qwen3-1.7b-sft800",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3-1.7b-sft800.json"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/final/selected",
+      "--label",
+      "qwen3.5-4b-rloo192",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3.5-4b-rloo192.json"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/kaggle/original-v1/results",
+      "--label",
+      "qwen3.5-4b-grpo-warmstart",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3.5-4b-grpo-warmstart.json"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results",
+      "--label",
+      "qwen3.5-4b-grpo",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3.5-4b-grpo.json"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results",
+      "--label",
+      "qwen3.5-4b-staged-grpo",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3.5-4b-staged-grpo.json"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/final/staged-routed",
+      "--label",
+      "qwen3.5-4b-staged-routed",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3.5-4b-staged-routed.json"
+    ],
+    [
+      ".venv/bin/python",
+      "scripts/score_final.py",
+      "--local",
+      "results/final/qwen38-selected/qwen3.8-27b-batch4-sft/results",
+      "--label",
+      "qwen3.8-27b-batch4-sft",
+      "--candidates",
+      "11",
+      "--out",
+      "results/final/scores/qwen3.8-27b-batch4-sft.json",
+      "--games",
+      "dice"
+    ]
+  ],
+  "results": {
+    "qwen3-1.7b-sft800": {
+      "file": "results/final/scores/qwen3-1.7b-sft800.json",
+      "sha256": "eab262145986bd4e75bb8770cf8ba52d495183214317de75cae68a2e686d1b9f"
+    },
+    "qwen3.5-4b-rloo192": {
+      "file": "results/final/scores/qwen3.5-4b-rloo192.json",
+      "sha256": "f199563f764661ddc5117049caff30123cb4d5314f9fda3f3d3e30c8ccd9fe5d"
+    },
+    "qwen3.5-4b-grpo-warmstart": {
+      "file": "results/final/scores/qwen3.5-4b-grpo-warmstart.json",
+      "sha256": "1c6cd3184bba96da2f03d162f9ca0cee31f6177508ca883ef04e453a4ee2fa66"
+    },
+    "qwen3.5-4b-grpo": {
+      "file": "results/final/scores/qwen3.5-4b-grpo.json",
+      "sha256": "b419304e5328b6a2f322854e6d24a03aec2d8fc7846cbe06f1d0bf0db847167a"
+    },
+    "qwen3.5-4b-staged-grpo": {
+      "file": "results/final/scores/qwen3.5-4b-staged-grpo.json",
+      "sha256": "7c570a628ad32f7ed6bda91d2ea89c7b719bef8c9236c24fe525e0669d946a4f"
+    },
+    "qwen3.5-4b-staged-routed": {
+      "file": "results/final/scores/qwen3.5-4b-staged-routed.json",
+      "sha256": "fd9f0ef9718def4ef6287f774855f0461df43de52130dfb0aca3892d83e0c94f"
+    },
+    "qwen3.8-27b-batch4-sft": {
+      "file": "results/final/scores/qwen3.8-27b-batch4-sft.json",
+      "sha256": "7357fc5bd20191e4979896afa985158b0490b170349f7a9637adb5b1ebf5e640"
+    }
+  },
+  "unavailable": {
+    "qwen3.5-4b-staged-sft": "Dice 200 complete; cards 100 saved, other worker failed its development batching gate. Cards not scored.",
+    "qwen3.8-27b-sft": "Original serial SFT trial retained on validation only; cards incomplete.",
+    "qwen3.8-27b-grpo": "Original serial GRPO trial retained on validation only.",
+    "qwen3.8-27b-batch4-unselected": "Unselected batch-four adapter remains validation-only; its trial counts.",
+    "qwen3.8-27b-batch4-sft-missing-games": {
+      "complete_games_scored": [
+        "dice"
+      ],
+      "scope": "Only complete 200-episode games scored; missing-game targets unknown. Partial raw episodes remain in download receipts."
+    }
+  },
+  "partial_result": {
+    "file": "results/final/scores/qwen3.5-4b-staged-sft-dice-only.json",
+    "sha256": "8268e1e563afe9331076b51064080077f2acb57e950f9c687ccecadd89e1142b"
+  }
+}

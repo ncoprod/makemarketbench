@@ -3093,3 +3093,16 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 
 - Hosted minutes become available on November 1: ASan/UBSan succeeds, but the Python matrix fails collecting five tests with `ModuleNotFoundError` for repository `scripts` / `train`. The console `pytest` entrypoint omits the checkout root in this installed-package configuration; local fallback already uses `python -m pytest` and passes149.
 - Change only the hosted test command to `python -m pytest -q`, matching the verified local entrypoint. No package-layout workaround or extra dependency is needed. Retain the failed hosted transcript and verify the next matrix run rather than describing this as a current billing refusal.
+
+### T39 terminal outcome — missing prefix mount, stop after the one rerun
+
+- The sole private saved continuation returns ERROR before inference: `assert len(prefixes) == 1, prefixes` raises `AssertionError: []`. Kaggle's pulled saved metadata omits the requested ERROR test kernel input, and no raw-prefix directory is mounted. Source/private verification succeeds using Kaggle's canonical pulled filename. This is distinct from the three original deadline errors.
+- Retain exact log, submitted/pulled metadata, source hashes, absent worker/wrapper runtime and zero new episodes in `results/training/qwen38_test_finish_completion.json`. No runtime/VRAM is invented for the failed prefix lookup. Original test remains dice200/cards192; score dice only, not partial cards. No second rerun or optional validation job is submitted under the owner's finish-now instruction.
+- Registered final dice test: 90.40687568588558% of Bayes, 95% paired CI [85.18651133851911, 94.83265471219497], n200. Validation remains separately dice94.54247462218751% / cards77.52143757647197%, n100/game, with intervals in the frozen selection receipt. The incomplete test cannot establish the newest model's cards target.
+
+### Final reporting and verification
+
+- Report all seven available frozen candidates, including the complete dice-only 27B test, plus the original four API models. Retain the 4B staged-SFT partial separately. Every complete game uses200 common test seeds; no partially acquired cards or optional API cohort is scored. `results/final/summary.json` traces commands, revisions, eleven-trial family and raw hashes. Missing-game target verdicts remain unknown.
+- The fixed tenfold cards bootstrap audit runs on all six complete-card policies; no primary verdict changes, and the original SFT corrected cards bound remains borderline. `results/final/bootstrap_precision.json`.
+- README distinguishes TEST200 and VAL100, retains exploratory history, and leads with 27B dice90.4% [85.2,94.8] and explicit incomplete cards. Render and visually verify the final wide/narrow figure and both pages of a newly generated research note (no older paper source existed): `results/final/figure.json`, `results/final/paper.json`.
+- Local CI passes149 tests, lint, Release, ASan/UBSan and Kaggle CPU dry-run (`results/ci_local_final.json`). Hosted Linux3.10/3.12 and sanitizer jobs pass after the entrypoint fix (`results/ci_hosted_final.json`). Final weekly official GPU usage is107115.12/108000 seconds (29.7542 hours); unused884.88 seconds are retained rather than submitting beyond the one rerun authorized.

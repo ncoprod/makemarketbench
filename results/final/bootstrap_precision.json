@@ -1,0 +1,157 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/check_bootstrap_precision.py",
+    "config": {
+      "purpose": "fixed all-candidate Monte Carlo precision audit",
+      "draw_multiplier": 10,
+      "bootstrap_seed": 0
+    },
+    "model_revision": null,
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "ed11dd4ad2c0bca0f7e40f91bec02cb0c61e3ebdae3183c5fd48cfdbffbe135f",
+    "started_at": "2026-11-01T14:28:56.119784+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source_sha256": "f529403f4d101354ea8ea7ac888f7b6e274718c8f83395ecf9ba5dd954e3bd0f",
+  "manifest_sha256": "b26705c4e22bd0e2bddc42452ccc616a2d33a7dd11cbdad702764119f2e45cc0",
+  "candidates": {
+    "qwen3-1.7b-sft800": {
+      "score_file": "results/final/scores/qwen3-1.7b-sft800.json",
+      "score_sha256": "eab262145986bd4e75bb8770cf8ba52d495183214317de75cae68a2e686d1b9f",
+      "raw_file": "results/final/qwen17-sft800/raw/cards/qwen3-1.7b-sft800.jsonl",
+      "raw_sha256": "a81402fa88755ab27f2ab470bde3e8d409c9047d8305c859d2a9c568f6d742ed",
+      "draws": 2640010,
+      "model_revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+      "family_level": 0.9992424242424243,
+      "inference_group_size": 1,
+      "primary_cards_positive": false,
+      "higher_precision_epnl_ci": [
+        -5.1834299092790435,
+        10.445258893882853
+      ],
+      "higher_precision_group_epnl_ci": [
+        -5.1834299092790435,
+        10.445258893882853
+      ],
+      "higher_precision_cards_positive": false,
+      "positive_under_both": false
+    },
+    "qwen3.5-4b-rloo192": {
+      "score_file": "results/final/scores/qwen3.5-4b-rloo192.json",
+      "score_sha256": "f199563f764661ddc5117049caff30123cb4d5314f9fda3f3d3e30c8ccd9fe5d",
+      "raw_file": "results/final/selected/raw/cards/qwen3.5-4b-rloo192.jsonl",
+      "raw_sha256": "e16abab91959bd3188ea84ef708cf52e918f967e7caeabcc296845851fc3ece4",
+      "draws": 2640010,
+      "model_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+      "family_level": 0.9992424242424243,
+      "inference_group_size": 1,
+      "primary_cards_positive": true,
+      "higher_precision_epnl_ci": [
+        0.1407828903813145,
+        14.381767191625007
+      ],
+      "higher_precision_group_epnl_ci": [
+        0.1407828903813145,
+        14.381767191625007
+      ],
+      "higher_precision_cards_positive": true,
+      "positive_under_both": true
+    },
+    "qwen3.5-4b-grpo-warmstart": {
+      "score_file": "results/final/scores/qwen3.5-4b-grpo-warmstart.json",
+      "score_sha256": "1c6cd3184bba96da2f03d162f9ca0cee31f6177508ca883ef04e453a4ee2fa66",
+      "raw_file": "results/kaggle/original-v1/results/raw/cards/qwen3.5-4b-grpo-warmstart.jsonl",
+      "raw_sha256": "06259863a7481bd7a06935f82824b58d962bd5e7c2852519e7b8d7aedf8589de",
+      "draws": 2640010,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "family_level": 0.9992424242424243,
+      "inference_group_size": 1,
+      "primary_cards_positive": true,
+      "higher_precision_epnl_ci": [
+        0.00986531047405406,
+        12.471353220197367
+      ],
+      "higher_precision_group_epnl_ci": [
+        0.00986531047405406,
+        12.471353220197367
+      ],
+      "higher_precision_cards_positive": true,
+      "positive_under_both": true
+    },
+    "qwen3.5-4b-grpo": {
+      "score_file": "results/final/scores/qwen3.5-4b-grpo.json",
+      "score_sha256": "b419304e5328b6a2f322854e6d24a03aec2d8fc7846cbe06f1d0bf0db847167a",
+      "raw_file": "results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results/raw/cards/qwen3.5-4b-grpo.jsonl",
+      "raw_sha256": "0c8219c0f8a8e3eb38ae66befb70bd09543028fc1c0bc055c34ebe520e3f1c20",
+      "draws": 2640010,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "family_level": 0.9992424242424243,
+      "inference_group_size": 1,
+      "primary_cards_positive": true,
+      "higher_precision_epnl_ci": [
+        3.563858414392262,
+        15.36248987514015
+      ],
+      "higher_precision_group_epnl_ci": [
+        3.563858414392262,
+        15.36248987514015
+      ],
+      "higher_precision_cards_positive": true,
+      "positive_under_both": true
+    },
+    "qwen3.5-4b-staged-grpo": {
+      "score_file": "results/final/scores/qwen3.5-4b-staged-grpo.json",
+      "score_sha256": "7c570a628ad32f7ed6bda91d2ea89c7b719bef8c9236c24fe525e0669d946a4f",
+      "raw_file": "results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results/raw/cards/qwen3.5-4b-staged-grpo.jsonl",
+      "raw_sha256": "46af35950fbc1f7960a84438aece21f3b2e5e1e3692f0764b7d5d5494c8e81c6",
+      "draws": 2640010,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "family_level": 0.9992424242424243,
+      "inference_group_size": 4,
+      "primary_cards_positive": true,
+      "higher_precision_epnl_ci": [
+        3.9030815445748224,
+        16.133841417733606
+      ],
+      "higher_precision_group_epnl_ci": [
+        4.670233882777519,
+        15.854898476277558
+      ],
+      "higher_precision_cards_positive": true,
+      "positive_under_both": true
+    },
+    "qwen3.5-4b-staged-routed": {
+      "score_file": "results/final/scores/qwen3.5-4b-staged-routed.json",
+      "score_sha256": "fd9f0ef9718def4ef6287f774855f0461df43de52130dfb0aca3892d83e0c94f",
+      "raw_file": "results/final/staged-routed/raw/cards/qwen3.5-4b-staged-routed.jsonl",
+      "raw_sha256": "9061bd240b3053eefa24b4720c71e99c5da74066108efba08783e46c42d234bd",
+      "draws": 2640010,
+      "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+      "family_level": 0.9992424242424243,
+      "inference_group_size": 4,
+      "primary_cards_positive": true,
+      "higher_precision_epnl_ci": [
+        3.9030815445748224,
+        16.133841417733606
+      ],
+      "higher_precision_group_epnl_ci": [
+        4.670233882777519,
+        15.854898476277558
+      ],
+      "higher_precision_cards_positive": true,
+      "positive_under_both": true
+    }
+  },
+  "unavailable": [
+    "qwen3.8-27b-batch4-sft"
+  ],
+  "scope": "Numerical sensitivity only; retain the registered primary intervals and verdicts. Do not upgrade a failed primary claim on this audit.",
+  "wall_seconds": 12.815862832998391
+}

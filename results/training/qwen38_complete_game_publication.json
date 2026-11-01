@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/publish_qwen38_complete_games.py",
+    "config": {
+      "purpose": "Publish only complete canonically verified frozen-policy games for scoring"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "f6177b2923e3dceae76cad1278384321d13f66c4",
+    "uncommitted_diff_sha256": "335bf67eb7c591408b08855f173cf206bcfff4331618fd6aac0551322f956fd3",
+    "started_at": "2026-11-01T14:16:05.611908+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nselection_path=Path('results/training/qwen38_selection.json'); selection=json.loads(selection_path.read_text())\ncompletion_path=Path('results/training/qwen38_selected_test_completion.json'); completed=json.loads(completion_path.read_text())\nassert completed['selection_sha256']==file_sha256(selection_path)\ncanonical=Path(selection['test_root']); copied={}\nfor game, players in completed['cohorts'].items():\n if not all(c['complete'] for c in players.values()): continue\n for name,c in players.items():\n  source=Path(c['file']); assert file_sha256(source)==c['sha256'] and c['episodes']==200\n  target=canonical/f'raw/{game}/{name}.jsonl'; target.parent.mkdir(parents=True,exist_ok=True)\n  if target.exists(): assert file_sha256(target)==file_sha256(source)\n  else: shutil.copyfile(source,target)\n  copied[str(target)]=file_sha256(target)\nr={'provenance':receipt({'purpose':'Publish only complete canonically verified frozen-policy games for scoring'},selection['provenance']['model_revision']),\n 'source':Path(__file__).read_text(),'selection_sha256':file_sha256(selection_path),'completion_receipt':str(completion_path),\n 'completion_receipt_sha256':file_sha256(completion_path),'canonical_copies':copied,\n 'scope':'Dice complete n200; partial cards192 remain only in original downloads until the one authorized continuation finishes. No partial cohort score or extrapolation.'}\nPath('results/training/qwen38_complete_game_publication.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint('Published',len(copied),'complete raw cohorts')\n",
+  "selection_sha256": "7c142845dda4760e05a5df2b312b43133e9258aecc447caedba3a4ec7cd1e8d9",
+  "completion_receipt": "results/training/qwen38_selected_test_completion.json",
+  "completion_receipt_sha256": "88fcf2b7a2e88a1f0f2d279d29864d5c95c7a3c9a63c38085aefc942b54762d1",
+  "canonical_copies": {
+    "results/final/qwen38-selected/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl": "4f2063c90db865c955fbbac70d811f0743b78c7ee4c41b623cf8e4aa08f0aa05",
+    "results/final/qwen38-selected/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl": "3f7772c242607c7d703030f08be57b7d75c94bf993e057a69e37f880ba9734df"
+  },
+  "scope": "Dice complete n200; partial cards192 remain only in original downloads until the one authorized continuation finishes. No partial cohort score or extrapolation."
+}

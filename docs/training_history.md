@@ -229,3 +229,36 @@ and 25.09% to matrix multiplication; those shares include profiling overhead.
 The [registered batch-four probe](../results/training/qwen38_batch_probe_plan.json)
 tests throughput and valid quotes on training states only. Any promoted batching
 is a separate inference policy, even if its small probe agrees with serial.
+
+
+## Original exploratory leaderboard
+
+These results use the original exploratory split. The figure and table retain
+negative results and the mixed DAgger outcome; the fresh final evaluation is a
+separate experiment. All intervals below are descriptive 95% intervals
+([dice source](../results/leaderboard_dice.json),
+[cards source](../results/leaderboard_cards.json)).
+
+| Dealer | Dice: % Bayes [95% CI] | Cards: % Bayes [95% CI] |
+|---|---:|---:|
+| Bayes reference | 100 [100, 100] | 100 [100, 100] |
+| Public-posterior Bayes | 64 [44, 83] | 80 [62, 96] |
+| Mean ± standard deviation | 57 [42, 72] | 63 [49, 75] |
+| Qwen3-1.7B base | −1728 [−2151, −1455] | −648 [−781, −558] |
+| Qwen3-1.7B LoRA BC | 68 [38, 89] | −80 [−161, −15] |
+| Qwen3-1.7B BC + DAgger | 16 [−37, 61] | −30 [−98, 26] |
+| Nemotron-3-Ultra, thinking off | −41 [−107, 9] | −186 [−280, −116] |
+| GPT-OSS-20B, low reasoning effort | −146 [−221, −91] | −85 [−132, −50] |
+| Nemotron-3.5-Bolt | −459 [−612, −368] | −719 [−888, −603] |
+| Nemotron-3.5-Lightning, thinking off | −3017 [−3759, −2550] | −2592 [−3146, −2194] |
+
+![Historical dice leaderboard, including negative results and confidence intervals](figures/leaderboard_dice.png)
+
+Figure source: [leaderboard_dice.json](../results/leaderboard_dice.json).
+The [cards figure](figures/leaderboard_cards.png) and
+[complete metric tables](../results/leaderboard_cards.md) show the harder inference
+problem. The original API models generally quote too tightly and lose to
+informed flow; behaviour cloning learns appropriate spreads but still makes
+posterior errors after card hints. These are diagnoses of this environment,
+not claims about financial-market profitability.
+

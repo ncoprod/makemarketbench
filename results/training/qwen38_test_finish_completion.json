@@ -1,0 +1,65 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_qwen38_test_finish.py",
+    "config": {
+      "purpose": "Retain the ONE missing-only 27B test continuation and close GPU submissions"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "d97db414efe4ec09ff936413bf3f24ca23563798c5d4b7e087e83e4402720153",
+    "started_at": "2026-11-01T14:23:02.942494+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import file_sha256, receipt\n\npath=Path('results/training/qwen38_test_finish_completion.json'); assert not path.exists()\nlaunch_path=Path('results/training/qwen38_test_finish.json'); launch=json.loads(launch_path.read_text());assert launch['status']=='outputs_retrieved'\nselection_path=Path('results/training/qwen38_selection.json'); selection=json.loads(selection_path.read_text());assert file_sha256(selection_path)==launch['selection_sha256']\nroot=Path('results/kaggle/qwen38-test-finish-v1'); label=selection['label']; work=root/label\noriginal=Path('results/kaggle/qwen38-selected-test-v1')/label/'results'\nsource=Path('runs/kaggle_qwen38_test_finish/grpo_unsloth_kaggle.py');assert file_sha256(source)==launch['source_sha256']\ncore=next(n.args[0].value for n in ast.walk(ast.parse(source.read_text())) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='write_text' and isinstance(n.args[0],ast.Constant))\nassert (root/'evaluate_core.py').read_text()==core\npair_path=root/'pair_runtime.json'\npair=json.loads(pair_path.read_text()) if pair_path.exists() else None\nruntime_path=work/'runtime.json'\nruntime=json.loads(runtime_path.read_text()) if runtime_path.exists() else None\ncohorts={}; copied={}\nfor game in ('dice','cards'):\n raw=work/f'results/raw/{game}/{label}.jsonl'\n rows=[json.loads(line) for line in raw.read_text().splitlines()] if raw.exists() else []\n prefix=original/f'raw/{game}/{label}.jsonl'\n if rows:\n  assert raw.read_bytes().startswith(prefix.read_bytes()), 'Original acquired bytes must remain unchanged'\n  assert [r['seed'] for r in rows]==list(range(200,200+len(rows))) and len(rows)%4==0\n for row in rows:\n  ep=make_game(game).episode(row['seed']);cfg=row['provenance']['config']\n  assert row['value']==ep.value and len(row['rounds'])==6 and [r['reveal'] for r in row['rounds']]==ep.reveals\n  assert cfg['seed']==0 and cfg['eval_batch_size']==4 and cfg['adapter_sha256']==selection['adapter_sha256']\n  assert cfg['revision']==selection['provenance']['model_revision']\n reference=raw.with_name('bayes.jsonl');refs=[json.loads(line) for line in reference.read_text().splitlines()] if reference.exists() else []\n complete=len(rows)==200 and len(refs)==200\n if complete:\n  assert [r['seed'] for r in refs]==list(range(200,400))\n  for source_raw in (raw,reference):\n   target=Path(selection['test_root'])/f'raw/{game}'/source_raw.name;target.parent.mkdir(parents=True,exist_ok=True)\n   if target.exists(): assert file_sha256(target)==file_sha256(source_raw)\n   else: shutil.copyfile(source_raw,target)\n   copied[str(target)]=file_sha256(target)\n cohorts[game]={'episodes_in_rerun_output':len(rows),'reference_episodes':len(refs),'original_episodes_retained':len(prefix.read_text().splitlines()),'complete':complete,\n  'file':str(raw) if raw.exists() else None,'sha256':file_sha256(raw) if raw.exists() else None,'original_file':str(prefix),'original_sha256':file_sha256(prefix),\n  'effective_episodes':max(len(rows),len(prefix.read_text().splitlines()))}\nlog=next(root.glob('*.log')); log_text=log.read_text()\nrecord={'provenance':receipt({'purpose':'Retain the ONE missing-only 27B test continuation and close GPU submissions'},selection['provenance']['model_revision']),\n 'source':Path(__file__).read_text(),'status':'complete' if all(c['complete'] for c in cohorts.values()) else 'closed_partial_retained',\n 'launch_sha256':file_sha256(launch_path),'selection_sha256':file_sha256(selection_path),'cohorts':cohorts,'runtime':runtime,'pair_runtime':pair,\n 'canonical_copies':copied,'downloaded_files':{str(p):{'sha256':file_sha256(p),'bytes':p.stat().st_size} for p in root.rglob('*') if p.is_file()},\n 'terminal_status':launch['polls'][-1]['output'],'no_more_reruns':True,\n 'scope':'Original version remains immutable. Only complete games scored, no partial extrapolation. This closes the one rerun authorized by the finish-now directive.'}\nif 'AssertionError: []' in log_text and 'prefixes' in log_text:\n record['cause']='Kaggle omitted the ERROR test kernel from the saved input mounts; evaluation-prefix lookup found no raw prefix and failed before new inference. Requested and pulled metadata discrepancy is retained in the launch receipt.'\nelse: record['cause']='See exact downloaded log and worker runtime; do not infer an error cause from a terminal status alone.'\npath.write_text(json.dumps(record,indent=2)+'\\n')\np=Path('results/training/kaggle_budget.json');ledger=json.loads(p.read_text());session=next(s for s in ledger['sessions'] if s['kernel']==launch['metadata']['id'] and s['version']==launch['version'])\nsession.update(status=record['status'],hours=pair['wall_seconds']/3600 if pair else None,script_wall_seconds=pair['wall_seconds'] if pair else None,\n result_file=str(pair_path) if pair else str(log),hours_basis='No wrapper runtime was flushed before prefix lookup failed; measured script hours unavailable. Official account billing is retained separately.')\nledger['final_submission_closure']={'status':'closed','reason':'Owner authorized one final bounded missing-only test continuation; terminal outputs retained. No further reruns or optional validation submissions.', 'completion_receipt':str(path)}\np.write_text(json.dumps(ledger,indent=2)+'\\n')\nprint('Final 27B retained counts',{g:c['effective_episodes'] for g,c in cohorts.items()},record['status'])\n",
+  "status": "closed_partial_retained",
+  "launch_sha256": "233065e0b6902ae8b28eab7cb97183a10452f585fba90233ccbc67f9a450bc99",
+  "selection_sha256": "7c142845dda4760e05a5df2b312b43133e9258aecc447caedba3a4ec7cd1e8d9",
+  "cohorts": {
+    "dice": {
+      "episodes_in_rerun_output": 0,
+      "reference_episodes": 0,
+      "original_episodes_retained": 200,
+      "complete": false,
+      "file": null,
+      "sha256": null,
+      "original_file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl",
+      "original_sha256": "4f2063c90db865c955fbbac70d811f0743b78c7ee4c41b623cf8e4aa08f0aa05",
+      "effective_episodes": 200
+    },
+    "cards": {
+      "episodes_in_rerun_output": 0,
+      "reference_episodes": 0,
+      "original_episodes_retained": 192,
+      "complete": false,
+      "file": null,
+      "sha256": null,
+      "original_file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl",
+      "original_sha256": "c29a0478499ad9386c2ad05f74e36cd031d91785521889007291527a06cf987f",
+      "effective_episodes": 192
+    }
+  },
+  "runtime": null,
+  "pair_runtime": null,
+  "canonical_copies": {},
+  "downloaded_files": {
+    "results/kaggle/qwen38-test-finish-v1/evaluate_core.py": {
+      "sha256": "7be9c598c450e5585e926be0b32e716ef0e20fa0d3f1de7c41f9d544135d7121",
+      "bytes": 69739
+    },
+    "results/kaggle/qwen38-test-finish-v1/makemarketbench-qwen38-test-finish.log": {
+      "sha256": "2de448d9cc8e068a81dd8685dead0b2d491b8b3d9e59a55a858e94bbca00716e",
+      "bytes": 1275
+    }
+  },
+  "terminal_status": "nicolascoquelet/makemarketbench-qwen38-test-finish has status \"KernelWorkerStatus.ERROR\"",
+  "no_more_reruns": true,
+  "scope": "Original version remains immutable. Only complete games scored, no partial extrapolation. This closes the one rerun authorized by the finish-now directive.",
+  "cause": "Kaggle omitted the ERROR test kernel from the saved input mounts; evaluation-prefix lookup found no raw prefix and failed before new inference. Requested and pulled metadata discrepancy is retained in the launch receipt."
+}

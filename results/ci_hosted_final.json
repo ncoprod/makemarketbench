@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_hosted_ci.py",
+    "config": {
+      "purpose": "Verify current hosted CI refusal after November 1"
+    },
+    "model_revision": null,
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "507522ba8323969fb6676c67019bdd35dec2442b9f080ba1b4f1b843052169af",
+    "started_at": "2026-11-01T14:24:37.632223+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nimport subprocess\nfrom pathlib import Path\nfrom makemarket.provenance import receipt\n\ncommand=['gh','run','list','-L','3','--json','conclusion,status,databaseId,headSha,url']\nruns=json.loads(subprocess.check_output(command,text=True))\nhead=runs[0]['headSha']; checks_cmd=['gh','api',f'repos/ncoprod/makemarketbench/commits/{head}/check-runs']\nchecks=json.loads(subprocess.check_output(checks_cmd,text=True))\nrecords=[]\nfor check in checks['check_runs']:\n cmd=['gh','api',f\"repos/ncoprod/makemarketbench/check-runs/{check['id']}/annotations\"]\n annotations=json.loads(subprocess.check_output(cmd,text=True))\n records.append({'name':check['name'],'conclusion':check['conclusion'],'url':check['html_url'],\n  'annotations_command':cmd,'annotations':[{k:a[k] for k in ('annotation_level','message')} for a in annotations]})\nrecord={'provenance':receipt({'purpose':'Verify current hosted CI refusal after November 1'}),\n 'source':Path(__file__).read_text(),'commands':[command,checks_cmd],'runs':runs,'checked_commit':head,\n 'checks':records,'status':'passed' if records and all(c['conclusion']=='success' for c in records) else 'failed',\n 'scope':'Actual hosted Linux Python3.10/3.12 matrix and ASan/UBSan statuses; prior billing refusals retained separately. Local fallback is recorded separately.'}\nPath('results/ci_hosted_final.json').write_text(json.dumps(record,indent=2)+'\\n')\nprint([(r['name'],r['conclusion']) for r in records])\n",
+  "commands": [
+    [
+      "gh",
+      "run",
+      "list",
+      "-L",
+      "3",
+      "--json",
+      "conclusion,status,databaseId,headSha,url"
+    ],
+    [
+      "gh",
+      "api",
+      "repos/ncoprod/makemarketbench/commits/e83c64eb7a172b84e0ffb47dcdef2a4220d942c5/check-runs"
+    ]
+  ],
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 41315821434,
+      "headSha": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+      "status": "completed",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41315412017,
+      "headSha": "1b6135bfaab18f5666a01e8c13db1d702aae5a81",
+      "status": "completed",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315412017"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41315076609,
+      "headSha": "f6177b2923e3dceae76cad1278384321d13f66c4",
+      "status": "completed",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315076609"
+    }
+  ],
+  "checked_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+  "checks": [
+    {
+      "name": "sanitizers",
+      "conclusion": "success",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434/job/124875512279",
+      "annotations_command": [
+        "gh",
+        "api",
+        "repos/ncoprod/makemarketbench/check-runs/124875512279/annotations"
+      ],
+      "annotations": [
+        {
+          "annotation_level": "warning",
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        },
+        {
+          "annotation_level": "notice",
+          "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+        }
+      ]
+    },
+    {
+      "name": "test (3.12)",
+      "conclusion": "success",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434/job/124875512225",
+      "annotations_command": [
+        "gh",
+        "api",
+        "repos/ncoprod/makemarketbench/check-runs/124875512225/annotations"
+      ],
+      "annotations": [
+        {
+          "annotation_level": "warning",
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        },
+        {
+          "annotation_level": "notice",
+          "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+        }
+      ]
+    },
+    {
+      "name": "test (3.10)",
+      "conclusion": "success",
+      "url": "https://github.com/ncoprod/makemarketbench/actions/runs/41315821434/job/124875512131",
+      "annotations_command": [
+        "gh",
+        "api",
+        "repos/ncoprod/makemarketbench/check-runs/124875512131/annotations"
+      ],
+      "annotations": [
+        {
+          "annotation_level": "warning",
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        },
+        {
+          "annotation_level": "notice",
+          "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+        }
+      ]
+    }
+  ],
+  "status": "passed",
+  "scope": "Actual hosted Linux Python3.10/3.12 matrix and ASan/UBSan statuses; prior billing refusals retained separately. Local fallback is recorded separately."
+}

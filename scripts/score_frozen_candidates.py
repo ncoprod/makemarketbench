@@ -75,7 +75,8 @@ for path in root.glob('*.jsonl'):
     assert sorted(r['seed'] for r in rows) == list(range(200, 400))
     players[rows[0]['player']] = rows
     hashes[str(path)] = file_sha256(path)
-partial = {'provenance': receipt({'purpose': 'descriptive complete dice cohort only; partial cards deliberately unscored'}),
+partial = {'provenance': receipt({'purpose': 'descriptive complete dice cohort only; partial cards deliberately unscored'},
+                                 players['qwen3.5-4b-staged-sft'][0]['provenance']['model_revision']),
            'source': Path(__file__).read_text(), 'seeds': [200, 399], 'input_sha256': hashes,
            'game': 'dice', 'rows': summarize(players), 'cards_episodes_saved': 100,
            'limitation': 'Marginal descriptive intervals only; this partial candidate cannot satisfy both-game targets.'}

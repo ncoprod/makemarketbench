@@ -1,0 +1,55 @@
++ date -u
+Sun Nov  1 14:26:57 UTC 2026
++ git rev-parse HEAD
+e83c64eb7a172b84e0ffb47dcdef2a4220d942c5
++ .venv/bin/python --version
+Python 3.13.17
++ .venv/bin/ruff check src tests scripts train
+All checks passed!
++ .venv/bin/python -c 'from makemarket.engine import cpp_available; assert cpp_available()'
++ .venv/bin/python -m pytest -q
+........................................................................ [ 48%]
+........................................................................ [ 96%]
+.....                                                                    [100%]
+149 passed in 12.76s
++ cmake -S . -B build/native -DMMB_BUILD_NATIVE=ON -DCMAKE_BUILD_TYPE=Release
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/nico/Documents/AI/makemarketbench/build/native
++ cmake --build build/native -j 2
+[ 33%] Built target mmb_core
+[ 66%] Built target test_book
+[100%] Built target bench_book
++ ctest --test-dir build/native --output-on-failure
+Test project /Users/nico/Documents/AI/makemarketbench/build/native
+    Start 1: test_book
+1/1 Test #1: test_book ........................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec
++ cmake -S . -B build/sanitize -DMMB_BUILD_NATIVE=ON -DMMB_SANITIZE=ON -DCMAKE_BUILD_TYPE=Debug
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/nico/Documents/AI/makemarketbench/build/sanitize
++ cmake --build build/sanitize -j 2
+[ 33%] Built target mmb_core
+[ 66%] Built target test_book
+[100%] Built target bench_book
++ ctest --test-dir build/sanitize --output-on-failure
+Test project /Users/nico/Documents/AI/makemarketbench/build/sanitize
+    Start 1: test_book
+1/1 Test #1: test_book ........................   Passed    0.41 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.41 sec
++ .venv/bin/python train/build_kaggle_kernel.py --out build/kaggle_ci
+wrote build/kaggle_ci/grpo_unsloth_kaggle.py and kernel-metadata.json
++ MMB_WORK=build/kaggle_dry
++ .venv/bin/python build/kaggle_ci/grpo_unsloth_kaggle.py --dry-run
+states: 36
+format: [0.5, -1.0, 0.5, 0.5]
+edge:   [0.0, -2.0, -1.0, 0.0]
++ date -u
+Sun Nov  1 14:27:13 UTC 2026

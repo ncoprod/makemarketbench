@@ -1,27 +1,23 @@
 # MakeMarketBench
 
-**TL;DR:** A fast matching engine and a hard, synthetic market-making benchmark.
-The newest model, Qwen3.8-27B, completes **800 SFT + 96 GRPO updates** in
-**17,901.346 seconds** as a private saved batch. A second training seed also
-completes. Validation selects SFT; its held-out acquisition is running
-([primary receipt](results/training/qwen38_seed0_completion.json),
-[replication](results/training/qwen38_seed1_completion.json),
-[frozen selection](results/training/qwen38_selection.json)).
+**TL;DR:** **Qwen3.8-27B SFT** reaches **90.4% [85.2, 94.8]** of Bayes
+expected PnL on the fresh **dice test, n=200**
+([score](results/final/scores/qwen3.8-27b-batch4-sft.json)). Its cards test
+stops at **192/200 episodes, unscored**; cards validation is
+**77.5% [61.0, 91.1], n=100**
+([validation](results/training/qwen38_selection.json),
+[terminal continuation receipt](results/training/qwen38_test_finish_completion.json)).
+A validation-selected **Qwen3.5-4B SFT/GRPO game router** reaches
+**80.2% [72.5, 87.2]** of Bayes expected PnL on dice and
+**51.6% [35.3, 65.5]** on cards in the fresh **test, n=200/game**.
+All four original API LLMs lose in both games
+([frozen test scores](results/final/summary.json)). These are synthetic
+market-making results, conditional on frozen weights and recorded responses.
 
-**Can language models quote profitable markets against an informed trader?**
-The C++20 engine now processes **24.61M events/s**, up from **20.21M** on the
-same seeded benchmark ([before](results/engine_bench.json),
-[after](results/engine_bench_optimised.json)). A controlled, alternating comparison
-confirms **20.14M → 20.81M events/s**, with an unchanged checksum and a
-trial-corrected speedup interval above one
+The C++20 matching engine improves from **20.14M to 20.81M events/s** in a
+controlled alternating comparison, with identical checksums; median paired
+speedup is **1.0511 [1.0318, 1.0694]** after trial correction
 ([200 paired measurements](results/engine_trials/inline_matching_confirmation.json)).
-
-The research result is harder: **all four original NIM API models have negative
-mean expected PnL in both games**. Qwen3-1.7B LoRA behaviour cloning reaches
-**68% [38, 89]** of the Bayes dealer on dice, but **−80% [−161, −15]** on cards.
-These are exploratory results on **50 episodes per player per game**,
-not evidence of general trading ability
-([dice](results/leaderboard_dice.json), [cards](results/leaderboard_cards.json)).
 
 MakeMarketBench combines exact Bayesian posteriors, informed and noise flow,
 a Python reference book, a C++ book with pybind11, cached LLM calls, and local
@@ -43,140 +39,132 @@ flowchart TD
 
 ## What is measured
 
-A dealer posts a bid, ask and sizes for a hidden terminal value. Public reveals
-arrive between rounds; the dealer also observes its own fills. The informed
-counterparty knows the value and trades against mispriced quotes. Noise traders
-provide spread revenue. Dice uses sums of independent dice; cards uses sampling
-without replacement and true hints about the hand. Exact rules and numerical
-settings are in [protocol.json](results/protocol.json) and
-[the game implementations](src/makemarket/games).
+A dealer quotes a hidden terminal value, observes public reveals and its own
+fills, and faces an informed trader who knows that value. Noise flow supplies
+spread revenue. Dice uses sums of dice; cards uses sampling without replacement
+and true hints ([rules and settings](results/protocol.json),
+[implementations](src/makemarket/games)).
 
-The reference dealer updates its exact posterior using public information and
-fill likelihoods, then searches the price/size grid for the one-round optimum.
-It is myopically optimal, not a proven upper bound on a full sequential policy.
-`bayes-public` ignores fill information; `mean-sd`, `fixed-prior` and `random`
-are simpler baselines. Figgie-lite provides an additional multi-agent sandbox;
-its [historical results](results/leaderboard_figgie_seeds0-199.json) are noisy
-and have no exact optimal-policy reference.
+The Bayes dealer updates its exact posterior from public information and fill
+likelihoods, then searches the price/size grid. It is myopically optimal, rather
+than a proven upper bound on a full sequential policy. The headline score is
+`100 × mean expected PnL / mean Bayes expected PnL` on common episode seeds.
+Expected PnL integrates out the arriving counterparty; realised PnL is also saved.
+Invalid answers receive one repair attempt, then no quote. Bootstrap sampling
+uses episodes, with a separate whole-inference-group check for batched policies.
 
-The headline score is `100 × mean expected PnL / mean Bayes expected PnL` on
-common episode seeds. Expected PnL integrates out the arriving counterparty
-conditional on the true value and quote: it is a lower-variance estimator of
-realised PnL, which is also retained. CIs use episode-level paired bootstrap;
-rounds from one episode are not independent observations. Invalid answers get
-one repair attempt, then no quote. Regret, noise edge, adverse-selection cost,
-spread calibration and inventory are retained in the result files.
+## Fresh held-out results
 
-## Historical leaderboard
+Every **TEST** cohort uses common held-out seeds 200–399, **n=200/game** when
+complete. The explicitly labelled **VAL** row uses seeds 80000–80099,
+**n=100/game** and selected the frozen 27B policy. Partial games remain unscored.
+The table shows percentage of Bayes expected PnL and marginal 95% paired
+bootstrap intervals. Every dealer links to its complete score JSON; the
+eleven-candidate correction and inference-group checks are retained in the
+[report manifest](results/final/summary.json) and [protocol](results/protocol.json).
 
-These results use the original exploratory split. The figure and table retain
-negative results and the mixed DAgger outcome; the fresh final evaluation is a
-separate experiment. All intervals below are descriptive 95% intervals
-([dice source](results/leaderboard_dice.json),
-[cards source](results/leaderboard_cards.json)).
+| Dealer / source | Split (n/game) | Dice: % Bayes [95% CI] | Cards: % Bayes [95% CI] |
+|---|---|---:|---:|
+| [Bayes reference](results/final/scores/qwen3-1.7b-sft800.json) | TEST (200) | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] |
+| [Qwen3-1.7B · SFT800](results/final/scores/qwen3-1.7b-sft800.json) | TEST (200) | 55.1 [36.1, 71.5] | 16.0 [-7.9, 36.2] |
+| [Qwen3.5-4B · original SFT](results/final/scores/qwen3.5-4b-grpo-warmstart.json) | TEST (200) | 80.2 [72.3, 87.3] | 32.6 [14.7, 48.5] |
+| [Qwen3.5-4B · original GRPO](results/final/scores/qwen3.5-4b-grpo.json) | TEST (200) | 64.5 [50.1, 76.6] | 48.4 [32.0, 62.8] |
+| [Qwen3.5-4B · local RLOO192](results/final/scores/qwen3.5-4b-rloo192.json) | TEST (200) | 48.4 [30.9, 63.6] | 38.5 [17.8, 56.4] |
+| [Qwen3.5-4B · staged SFT](results/final/scores/qwen3.5-4b-staged-sft-dice-only.json) | TEST (200 dice; 100 cards) | 80.2 [72.5, 87.2] | incomplete; unscored |
+| [Qwen3.5-4B · staged GRPO](results/final/scores/qwen3.5-4b-staged-grpo.json) | TEST (200) | 72.0 [59.8, 82.6] | 51.6 [35.3, 65.5] |
+| [Qwen3.5-4B · game router (two adapters)](results/final/scores/qwen3.5-4b-staged-routed.json) | TEST (200) | 80.2 [72.5, 87.2] | 51.6 [35.3, 65.5] |
+| [Qwen3.8-27B · selected SFT, batch four](results/final/scores/qwen3.8-27b-batch4-sft.json) | TEST (200 dice; 192 cards) | 90.4 [85.2, 94.8] | 192/200; unscored |
+| [Qwen3.8-27B · selected SFT, batch four](results/training/qwen38_selection.json) | VAL (100) | 94.5 [87.3, 101.0] | 77.5 [61.0, 91.1] |
+| [Nemotron-3-Ultra · thinking off](results/final/scores/qwen3-1.7b-sft800.json) | TEST (200) | -127.4 [-167.1, -95.3] | -197.4 [-246.4, -154.7] |
+| [GPT-OSS-20B · low reasoning](results/final/scores/qwen3-1.7b-sft800.json) | TEST (200) | -183.7 [-222.1, -152.4] | -128.5 [-160.6, -101.9] |
+| [Nemotron-3.5-Bolt](results/final/scores/qwen3-1.7b-sft800.json) | TEST (200) | -430.6 [-485.7, -386.9] | -717.0 [-800.6, -649.8] |
+| [Nemotron-3.5-Lightning · thinking off](results/final/scores/qwen3-1.7b-sft800.json) | TEST (200) | -3108.5 [-3439.6, -2843.2] | -3047.8 [-3320.4, -2824.5] |
 
-| Dealer | Dice: % Bayes [95% CI] | Cards: % Bayes [95% CI] |
-|---|---:|---:|
-| Bayes reference | 100 [100, 100] | 100 [100, 100] |
-| Public-posterior Bayes | 64 [44, 83] | 80 [62, 96] |
-| Mean ± standard deviation | 57 [42, 72] | 63 [49, 75] |
-| Qwen3-1.7B base | −1728 [−2151, −1455] | −648 [−781, −558] |
-| Qwen3-1.7B LoRA BC | 68 [38, 89] | −80 [−161, −15] |
-| Qwen3-1.7B BC + DAgger | 16 [−37, 61] | −30 [−98, 26] |
-| Nemotron-3-Ultra, thinking off | −41 [−107, 9] | −186 [−280, −116] |
-| GPT-OSS-20B, low reasoning effort | −146 [−221, −91] | −85 [−132, −50] |
-| Nemotron-3.5-Bolt | −459 [−612, −368] | −719 [−888, −603] |
-| Nemotron-3.5-Lightning, thinking off | −3017 [−3759, −2550] | −2592 [−3146, −2194] |
+![Fresh test cohorts, including negative results and missing cards](docs/figures/leaderboard_final.png)
 
-![Historical dice leaderboard, including negative results and confidence intervals](docs/figures/leaderboard_dice.png)
+The game router uses one base model and two frozen adapters, selected on
+validation before inspecting test scores. It is a separate candidate from a
+single checkpoint. Partial staged-SFT cards and optional API acquisitions stay
+unscored. The three reported 27B ERROR jobs reached their registered script
+wall deadlines; logs and recovered episode counts are retained
+([error receipts](results/training/qwen38_terminal_errors.json)). The single bounded continuation fails before inference because Kaggle omits the
+ERROR source kernel from its saved input mounts; prefix lookup raises
+`AssertionError: []`. No new episodes are acquired. The original 192 cards
+remain unscored, and no second rerun is submitted
+([plan](results/training/qwen38_test_finish_plan.json),
+[downloaded failure](results/training/qwen38_test_finish_completion.json)). All original API models have negative mean expected PnL in both games,
+with each marginal 95% interval below zero. This concerns the synthetic informed
+trader in this benchmark.
 
-Figure source: [leaderboard_dice.json](results/leaderboard_dice.json).
-The [cards figure](docs/figures/leaderboard_cards.png) and
-[complete metric tables](results/leaderboard_cards.md) show the harder inference
-problem. The original API models generally quote too tightly and lose to
-informed flow; behaviour cloning learns appropriate spreads but still makes
-posterior errors after card hints. These are diagnoses of this environment,
-not claims about financial-market profitability.
+The [original exploratory results](docs/training_history.md#original-exploratory-leaderboard)
+used 50 episodes and influenced development. They are retained separately;
+differences from the fresh test are not estimates of a causal training gain.
 
-## Training and evaluation
+## Training and selection
 
-Fresh experiments keep training, validation and test seeds separate. Checkpoint
-selection uses validation only; all new test aggregates remain sealed until
-both the local and newest-family decisions are frozen
-([protocol](results/protocol.json)).
+Training seeds, validation seeds and test seeds are disjoint. Both the local
+and newest-family policy choices freeze before opening any new aggregate test
+score ([protocol](results/protocol.json)). The final family counts eleven
+candidates, including unavailable and unselected trials. Every complete cohort
+is reported; partial games stay unscored. The router meets the registered mean
+dice threshold and both episode and inference-group corrected cards positivity
+checks. The original SFT cards corrected bound is close to zero; the uniform
+[tenfold bootstrap precision audit](results/final/bootstrap_precision.json)
+retains primary verdicts and exposes that numerical sensitivity.
 
-- **Qwen3-1.7B:** the earlier baseline now completes the full behaviour-cloning
-  budget and its fresh test acquisition
-  ([training receipt](results/training/qwen17_sft800.json)).
-- **Local Qwen3.5-4B:** full SFT, larger DAgger and four fixed RLOO budgets are
-  complete. The registered max-min rule selects RLOO192 across seven trials;
-  two successive nonimproving iterations stop this recipe
+- **Qwen3-1.7B:** the earlier behaviour-cloning baseline reaches 800 total
+  iterations through a 500-iteration continuation with restarted optimizer
+  ([receipt](results/training/qwen17_sft800.json)). Its fresh cards interval
+  includes zero; the historical negative result remains in the training history.
+- **Local Qwen3.5-4B:** full SFT, a larger on-policy DAgger round and four RLOO
+  budgets are complete. Seven validation trials select RLOO192. Two successive
+  extensions fail the registered improvement rule, ending that recipe
   ([selection](results/training/selection.json),
-  [stopping assessment](results/training/qwen35_rloo384_iteration.json)). Its
-  validation is **70.4% [55.8, 83.2]** of Bayes on dice and
-  **16.1% [−27.8, 48.8]** on cards
-  ([100 episodes/game](results/validation/qwen35-rloo192/cohorts.json)). The
-  **200-episode/game test is acquired and sealed**
-  ([identity and canonical checks](results/final/selected/cohorts.json)).
-- **CUDA Qwen3.5-4B:** **150 SFT + 300 GRPO updates** complete in
-  **17,983.032 seconds**, with **6.327 GB** peak allocated VRAM
-  ([downloaded runtime](results/kaggle/staged-v1/runtime.json)). Validation
-  selects SFT on dice and GRPO on cards; both routed test cohorts are complete
-  ([registered router](results/training/staged_routing_plan.json),
-  [acquisition](results/final/staged-routed/cohorts.json)). GRPO's validation
-  change is **−1.37 [−2.29, −0.53]** expected PnL on dice and
-  **+4.96 [2.05, 8.04]** on cards
-  ([paired ablation](results/validation/staged_ablation.json)). These are
-  validation diagnostics conditional on one training pipeline.
-- **Qwen3.8-27B:** the newest general-purpose Qwen family is permissively
-  licensed, and its smallest model fits measured T4 x2 QLoRA
-  ([official catalogue](results/training/qwen_latest_recheck_20261031.json),
-  [ungated Apache-2.0 revisions](results/training/qwen38_before_batch_access.json)).
-  The quantized checkpoint occupies **20.81 GiB** against **29.12 GiB** across
-  both GPUs, before other allocations
-  ([memory arithmetic](results/training/qwen38_quantized.json)). The fit probe
-  completes SFT and GRPO updates with **11.994 / 12.018 GB** peak allocations
-  ([measured runtime](results/kaggle/qwen38-fit-v3/runtime.json)). The lost
-  interactive draft supplies no recovered adapter. Its registered rerun is now
-  private saved batch version 5, completing **800 SFT + 96 GRPO updates** with
-  verified periodic optimizer checkpoints and **12.238 / 12.261 GB** peak
-  allocations ([downloaded receipt](results/training/qwen38_seed0_completion.json)).
-  The separate seed-1
-  replication completes **250 SFT + 96 GRPO updates**, restoring the best SFT
-  checkpoint at step 150. Peak allocations are **12.228 / 12.251 GB** on two
-  T4s ([downloaded receipt](results/training/qwen38_seed1_completion.json)).
-  It remains validation-only and cannot replace the primary test candidate
-  ([controls](results/training/qwen38_seed1_plan.json)).
-  A training-state inference probe reduces warm time from **205.96 to 74.51
-  seconds** (2.764x), with eight valid agreeing quotes. Batch four therefore
-  enters fresh validation as a separate policy; this is a small latency probe,
-  not an equivalence proof or a held-out score
-  ([probe receipt](results/training/qwen38_batch_probe_completion.json)).
-  Batch-four SFT validation reaches **94.54% [87.30, 101.02]** on dice and
-  **77.52% [61.00, 91.06]** on cards, on 100 episodes/game
-  ([downloaded validation](results/training/qwen38_b4_validation_completion.json)).
-  GRPO completes dice but only 76 cards episodes. Its complete dice score
-  mathematically caps its max-min selection score below SFT's, whatever the
-  missing cards would score. SFT is therefore frozen under the unchanged rule.
+  [stopping assessment](results/training/qwen35_rloo384_iteration.json)). It
+  scores 48.4% [30.9, 63.6] on fresh dice, below target
+  ([test](results/final/scores/qwen3.5-4b-rloo192.json)).
+- **CUDA Qwen3.5-4B:** the staged pipeline completes 150 SFT and 300 GRPO
+  updates in 17,983.032 seconds, peaking at 6.327 GB allocated VRAM
+  ([runtime](results/kaggle/staged-v1/runtime.json)). Validation selects SFT
+  for dice and GRPO for cards; that two-adapter router is frozen before test
+  ([rule](results/training/staged_routing_plan.json)). The original single-SFT,
+  original-GRPO and staged-GRPO results are retained as separate rows.
+- **Newest Qwen:** the official catalogue checked on October 31 identifies Qwen3.8
+  as the newest general-purpose family; its smallest model is 27B and Apache-2.0
+  ([catalogue](results/training/qwen_latest_recheck_20261031.json),
+  [pinned licences](results/training/qwen38_before_batch_access.json)). Its
+  4-bit checkpoint occupies 20.81 GiB before activations, against 29.12 GiB
+  across two T4s. It exceeds one T4's capacity; measured model-parallel QLoRA
+  fits two ([memory arithmetic](results/training/qwen38_quantized.json)).
+  A private saved batch completes 800 SFT + 96 GRPO updates in 17,901.346
+  seconds, peaking at 12.238 / 12.261 GB allocated VRAM
+  ([primary](results/training/qwen38_seed0_completion.json)). Periodic saved
+  checkpoints include optimizer and RNG state. Seed one also completes;
+  its poorer SFT validation is retained and cannot replace the preregistered
+  primary seed ([replication](results/training/qwen38_seed1_completion.json),
+  [paired validation contrast](results/validation/qwen38_sft_seed_dice.json)).
+  Batch-four SFT is selected with an exact max-min bound: GRPO's complete dice
+  score caps its selection score below SFT's, regardless of its missing cards.
   This explicitly departs from the planned both-cards completion gate;
-  partial cards remain unscored, and the bound proves the selection outcome,
-  not statistical superiority
-  ([certificate and deviation](results/training/qwen38_selection_bound_plan.json)).
-  The sole selected 200-episode/game test is a private saved batch
-  ([submission](results/training/qwen38_selected_test.json)).
-- **API baselines:** all four original NIM models now have **200 episodes/game**,
-  with canonical seeds and states verified
-  ([eight cohorts](results/expansion/primary_api_canonical.json)). GLM/DeepSeek
-  retries fail with HTTP 504; Llama/Mistral coverage also retains unavailable
-  endpoints, partial cohorts and reasoning-budget failures
-  ([all attempts](results/expansion), [failure receipts](results/expansion/round3_api_failures.json)).
-  Partial cohorts remain unscored. Every sequential batch holds one shared NIM
-  slot and caches responses for exact replay.
+  partial cards remain unscored, and the certificate proves the selection
+  outcome rather than statistical superiority
+  ([certificate](results/training/qwen38_selection_bound_plan.json),
+  [frozen choice](results/training/qwen38_selection.json)).
+- **NIM APIs:** all four original models complete 200 episodes/game
+  ([canonical checks](results/expansion/primary_api_canonical.json)). Longer
+  GLM/DeepSeek retries, thinking-enabled Ultra and extra Llama/Mistral/Gemma
+  coverage retain endpoint failures, timeouts, reasoning-budget failures and
+  partial cohorts ([receipts](results/expansion)). Sequential clients hold one
+  of two shared slots and cache every response.
 
-See the [full training and ablation history](docs/training_history.md) for all
-budgets, losses, batch-composition sensitivity, failed attempts and GPU-account
-reconciliation. The [GPU ledger](results/training/kaggle_budget.json) separates
-account billing, session caps and downloaded script runtimes.
+The [full training history](docs/training_history.md) retains all budgets,
+losses, failed experiments, batching sensitivity and negative outcomes.
+The [GPU ledger](results/training/kaggle_budget.json) distinguishes official
+account billing from measured script runtime and session caps. The actual weekly
+reset reported by Kaggle is November 7; assumed calendar resets are not used to
+allocate runs. Final API acquisition closes at the registered cutoff; Llama-90B
+retains 173 dice / 92 cards episodes, unscored
+([receipt](results/expansion/llama_duplicate_retry_completion.json)).
 
 ## Engine performance and correctness
 
@@ -202,18 +190,20 @@ after correcting for the engine variants and block lengths
 The benchmark measures an in-memory synthetic stream, not network or
 exchange latency.
 
-Current local verification passes **148 Python tests**
-([local CI receipt](results/ci_local_round3_reporting.json)), native Release and
+Current local verification passes **149 Python tests**
+([local CI receipt](results/ci_local_final.json)), native Release and
 ASan/UBSan checks. Run `bash scripts/ci_local.sh`; the installed pre-push hook
-requires these checks. Hosted Actions minutes are exhausted until about
-November 1 according to the owner; jobs refuse before any steps with the
-account-billing annotation ([exact receipt](results/ci_billing_block_20261030.json)).
-Local macOS verification does not establish a passing hosted Linux matrix.
+requires these checks. Hosted Linux CI passes on Python 3.10 and 3.12, including native ASan/UBSan.
+The resumed workflow revealed an import-path issue, fixed by matching the
+local `python -m pytest` entrypoint
+([hosted receipt](results/ci_hosted_final.json)).
 
 ## Provenance
 
 | Evidence | Configuration / identity | Traceability |
 |---|---|---|
+| [Fresh scores](results/final/summary.json) | Frozen selections, every scoring command, common test seeds and raw hashes | Producing commits and full score files; numerical replay needs no private weights |
+| [Selected 27B test](results/training/qwen38_test_finish_completion.json) | Exact adapter, source, canonical game checks and wrapper runtime | Original deadline-stopped download retained unchanged; hard-kill leaves only a stale worker VRAM snapshot |
 | [Historical game results](results/leaderboard_dice.json) | [raw episodes](results/raw), [API settings](results/llm_protocol.json), [training logs](results/training) | Original results predate full receipts; missing immutable revisions and exact commands are not reconstructed as facts |
 | [Engine confirmation](results/engine_trials/inline_matching_confirmation.json) | Event-stream hash, old/new source hashes, compiler command, all timings, checksum | Producing commit and exact candidate patch retained |
 | [Engine rerun](results/engine_bench_optimised.json) | Exact command, seed, source/binary hashes, environment | `provenance.git_commit` and working-diff hash |
@@ -241,6 +231,12 @@ git config core.hooksPath .githooks
 python scripts/bench_engine.py --out runs/engine_reproduction.json
 python scripts/compare_engine.py --pairs 200 --out runs/engine_comparison.json
 mmb eval --game dice --player bayes bayes-public mean-sd fixed-prior random
+# Rebuild the numeric report and figure from committed episodes, without weights:
+python scripts/score_frozen_candidates.py
+python scripts/check_bootstrap_precision.py
+python scripts/plot_final.py
+# Optional paper build (requires pandoc and tectonic):
+python scripts/build_paper.py
 ```
 
 Load `NVIDIA_API_KEY` through your environment; never put it in commands or files.
@@ -251,9 +247,6 @@ For the shared resource limits, use the lock wrapper:
 mmb eval --game cards --seeds 200-399 --player bayes bayes-public mean-sd fixed-prior random \
   --results-dir runs/final
 bash scripts/with_resource.sh nim python scripts/expand_nim.py
-bash scripts/with_resource.sh nim python scripts/expand_nim.py --models \
-  mistralai/mistral-7b-instruct-v0.3 nv-mistralai/mistral-nemo-12b-instruct \
-  meta/llama-3.2-11b-vision-instruct
 pip install mlx-lm transformers
 python train/make_sft_data.py
 bash scripts/with_resource.sh heavy-ml python train/with_memory_guard.py \
@@ -262,11 +255,6 @@ bash scripts/with_resource.sh heavy-ml python train/with_memory_guard.py \
   --revision 32f3e8ecf65426fc3306969496342d504bfa13f3 \
   --out train/runs/qwen35-sft --result runs/qwen35-sft.json \
   --answer-head-tokens 128 --pad-training-to 1025
-python train/build_kaggle_kernel.py
-kaggle kernels push -p train/kaggle --accelerator NvidiaTeslaT4
-# Poll status no more often than every ten minutes, then pull completed outputs:
-kaggle kernels status nicolascoquelet/makemarketbench-grpo-qwen3
-kaggle kernels output nicolascoquelet/makemarketbench-grpo-qwen3 -p runs/kaggle_output
 ```
 
 For the newest-family saved batch, checkpoint resume and sealed evaluation, see
@@ -323,5 +311,10 @@ code licence does not relicense model weights or endpoint outputs.
   imitation; [DeepSeekMath](https://arxiv.org/abs/2402.03300) introduces GRPO.
 - The unrelated [quoteBench](https://github.com/LeonardNJU/quoteBench) evaluates
   shell quoting. The repository uses MakeMarketBench to avoid that name collision.
+
+The [research note](paper/main.pdf) is generated from the final result files;
+its [source](paper/main.md), [builder](scripts/build_paper.py) and
+[build receipt](results/final/paper.json) are retained. No earlier paper source
+was present in this checkout.
 
 Cite this software using [CITATION.cff](CITATION.cff).

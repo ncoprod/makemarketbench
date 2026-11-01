@@ -1,0 +1,90 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python scripts/score_frozen_candidates.py",
+    "config": {
+      "purpose": "descriptive complete dice cohort only; partial cards deliberately unscored"
+    },
+    "model_revision": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "ed11dd4ad2c0bca0f7e40f91bec02cb0c61e3ebdae3183c5fd48cfdbffbe135f",
+    "started_at": "2026-11-01T14:28:55.874885+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "\"\"\"Score registered complete candidates after freezing local and 27B selections.\"\"\"\n\nimport json\nimport subprocess\nfrom pathlib import Path\n\nfrom makemarket.provenance import file_sha256, receipt\nfrom makemarket.scoring import summarize\n\nselection_path = Path('results/training/selection.json')\nselection = json.loads(selection_path.read_text())\nnewest_path = Path('results/training/qwen38_selection.json')\nnewest = json.loads(newest_path.read_text())\nfamily = newest['final_candidate_family']\nassert newest['status'] == 'frozen' and family == (11 if newest['eval_batch_size'] == 4 else 9)\n# Reporting replays committed episodes; private weight files are not required.\nnewest_games = []\nfor frozen, root in [(selection, 'results/final/selected'), (newest, newest['test_root'])]:\n    for game in ('dice', 'cards'):\n        path = Path(root) / f\"raw/{game}/{frozen['label']}.jsonl\"\n        if frozen is newest and not path.exists():\n            continue\n        rows = [json.loads(line) for line in path.read_text().splitlines()]\n        assert len(rows) == 200\n        if frozen is newest:\n            newest_games.append(game)\n        for row in rows:\n            provenance = row['provenance']\n            adapter_hash = provenance.get('adapter_sha256', provenance['config'].get('adapter_sha256'))\n            assert adapter_hash == frozen['adapter_sha256'], 'Recorded adapter differs from frozen choice'\n            assert provenance['config']['revision'] == frozen['provenance']['model_revision']\nassert newest_games, 'At least one complete newest-family game must be retained'\n# Both validation decisions precede opening any new aggregate test score.\ncandidates = [\n    ('qwen3-1.7b-sft800', 'results/final/qwen17-sft800'),\n    (selection['label'], 'results/final/selected'),\n    ('qwen3.5-4b-grpo-warmstart', 'results/kaggle/original-v1/results'),\n    ('qwen3.5-4b-grpo', 'results/kaggle/original-resume-v2/qwen3.5-4b-grpo/results'),\n    ('qwen3.5-4b-staged-grpo', 'results/kaggle/staged-final-v1/qwen3.5-4b-staged-grpo/results'),\n    ('qwen3.5-4b-staged-routed', 'results/final/staged-routed'),\n    (newest['label'], newest['test_root']),\n]\nrecord = {'provenance': receipt({'purpose': 'report every complete registered frozen candidate', 'candidate_family': family}),\n          'source': Path(__file__).read_text(), 'selection_sha256': file_sha256(selection_path),\n          'newest_selection_sha256': file_sha256(newest_path),\n          'identity_scope': 'Recorded episode adapter hashes and model revisions match both frozen choices; numerical replay does not load weights.',\n          'candidates_registered': family, 'commands': [], 'results': {}, 'unavailable': {\n              'qwen3.5-4b-staged-sft': 'Dice 200 complete; cards 100 saved, other worker failed its development batching gate. Cards not scored.',\n              'qwen3.8-27b-unselected': 'The other newest-family adapter remains validation-only under the registered selection rule; its trial still counts in the conservative family correction.'}}\nif family == 11:\n    record['unavailable'].pop('qwen3.8-27b-unselected')\n    record['unavailable'].update({\n        'qwen3.8-27b-sft': 'Original serial SFT trial retained on validation only; cards incomplete.',\n        'qwen3.8-27b-grpo': 'Original serial GRPO trial retained on validation only.',\n        'qwen3.8-27b-batch4-unselected': 'Unselected batch-four adapter remains validation-only; its trial counts.'})\nfor label, root in candidates:\n    out = f'results/final/scores/{label}.json'\n    command = ['.venv/bin/python', 'scripts/score_final.py', '--local', root, '--label', label,\n               '--candidates', str(family), '--out', out]\n    if label == newest['label']:\n        command += ['--games', *newest_games]\n    record['commands'].append(command)\n    subprocess.run(command, check=True)\n    record['results'][label] = {'file': out, 'sha256': file_sha256(out)}\nif len(newest_games) < 2:\n    record['unavailable'][newest['label'] + '-missing-games'] = {\n        'complete_games_scored': newest_games,\n        'scope': 'Only complete 200-episode games scored; missing-game targets unknown. Partial raw episodes remain in download receipts.'}\n\n# Preserve the complete dice-only candidate without scoring its partial cards.\nroot = Path('results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice')\nplayers, hashes = {}, {}\nfor path in root.glob('*.jsonl'):\n    rows = [json.loads(line) for line in path.read_text().splitlines()]\n    assert sorted(r['seed'] for r in rows) == list(range(200, 400))\n    players[rows[0]['player']] = rows\n    hashes[str(path)] = file_sha256(path)\npartial = {'provenance': receipt({'purpose': 'descriptive complete dice cohort only; partial cards deliberately unscored'},\n                                 players['qwen3.5-4b-staged-sft'][0]['provenance']['model_revision']),\n           'source': Path(__file__).read_text(), 'seeds': [200, 399], 'input_sha256': hashes,\n           'game': 'dice', 'rows': summarize(players), 'cards_episodes_saved': 100,\n           'limitation': 'Marginal descriptive intervals only; this partial candidate cannot satisfy both-game targets.'}\npath = Path('results/final/scores/qwen3.5-4b-staged-sft-dice-only.json')\npath.write_text(json.dumps(partial, indent=2) + '\\n')\nrecord['partial_result'] = {'file': str(path), 'sha256': file_sha256(path)}\nPath('results/final/summary.json').write_text(json.dumps(record, indent=2) + '\\n')\nprint('Scored frozen candidates with all available complete API cohorts; partial cards remain unscored.')\n",
+  "seeds": [
+    200,
+    399
+  ],
+  "input_sha256": {
+    "results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice/qwen3.5-4b-staged-sft.jsonl": "5f2ac64a519e00c329e37c263c13c28c90848f40b89960e59d39a35c6c54eb41",
+    "results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice/bayes.jsonl": "41768d609d6d895518aafbc8d902c8a02dabbc26c92a26a675fd20d9ef90216e"
+  },
+  "game": "dice",
+  "rows": [
+    {
+      "player": "bayes",
+      "episodes": 200,
+      "pct_of_bayes": 100.0,
+      "pct_of_bayes_ci": [
+        100.0,
+        100.0
+      ],
+      "epnl": 13.533273636482608,
+      "epnl_ci": [
+        12.25078245106705,
+        14.709456300932452
+      ],
+      "realized_pnl": 11.020999999999999,
+      "realized_pnl_ci": [
+        8.596487499999999,
+        13.534025
+      ],
+      "realized_pnl_sd": 17.881538133789014,
+      "noise_edge": 17.595273636482606,
+      "adverse_cost": 4.062,
+      "spread": 8.298833333333333,
+      "coverage": 0.7716666666666666,
+      "mean_size": 4.580416666666666,
+      "abs_final_position": 2.845,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0
+    },
+    {
+      "player": "qwen3.5-4b-staged-sft",
+      "episodes": 200,
+      "pct_of_bayes": 80.24592746957195,
+      "pct_of_bayes_ci": [
+        72.4565398912231,
+        87.19771788462879
+      ],
+      "epnl": 10.859900946590537,
+      "epnl_ci": [
+        9.263985469280467,
+        12.360466847738417
+      ],
+      "realized_pnl": 8.0845,
+      "realized_pnl_ci": [
+        5.438375000000002,
+        10.767012500000002
+      ],
+      "realized_pnl_sd": 19.51425222625117,
+      "noise_edge": 16.218200946590535,
+      "adverse_cost": 5.358299999999999,
+      "spread": 7.949666666666667,
+      "coverage": 0.73,
+      "mean_size": 4.666666666666666,
+      "abs_final_position": 3.615,
+      "format_error_rate": 0.0,
+      "fail_rate": 0.0
+    }
+  ],
+  "cards_episodes_saved": 100,
+  "limitation": "Marginal descriptive intervals only; this partial candidate cannot satisfy both-game targets."
+}

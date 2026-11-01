@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python -",
+    "config": {
+      "purpose": "Verify final source locally including newly available partial-game reporting and paper builder"
+    },
+    "model_revision": null,
+    "git_commit": "e83c64eb7a172b84e0ffb47dcdef2a4220d942c5",
+    "uncommitted_diff_sha256": "bd2efb7ad5bcbaad9fb36faf3bf0179fa4c4b50bb95dbb7b0ffc3fc8acd906dd",
+    "started_at": "2026-11-01T14:28:11.722571+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "command": [
+    "bash",
+    "scripts/ci_local.sh"
+  ],
+  "exit_code": 0,
+  "python_tests_passed": 149,
+  "checks": {
+    "ruff": "PASS",
+    "python": "PASS",
+    "native_release_ctest": "PASS",
+    "native_asan_ubsan_ctest": "PASS",
+    "kaggle_cpu_dry_run": "PASS"
+  },
+  "source_sha256": {
+    "scripts/ci_local.sh": "9434b584799f75a968e0269b32c29e14cee129a472a43921317bc9595611e855",
+    "scripts/score_final.py": "2e6ef0b4ff1e3332213c7a48d2cd863e4c8a74e214c64911d2b8aa56c8062f59",
+    "scripts/score_frozen_candidates.py": "ce48343efc4856b186b153efc0897a73fa058e3f87b48faf6e0ff21f60ad2115",
+    "scripts/check_bootstrap_precision.py": "f529403f4d101354ea8ea7ac888f7b6e274718c8f83395ecf9ba5dd954e3bd0f",
+    "scripts/build_paper.py": "856f20b754a98101415c51412342e3689fffa1a6dbd71c17677ff6a189fa264b",
+    ".github/workflows/ci.yml": "99d8e6978d305295dbb0b6fa533ef54d5709ae6414cb396af6a055d6fa316042"
+  },
+  "log_file": "results/ci_local_final.log",
+  "log_sha256": "513e44f2955dc9980f43de679437ff5dd11b34284db998acdd5ee13da52202b4",
+  "scope": "Installed macOS/Python3.13.17. Separate hosted Linux3.10/3.12 matrix passes in results/ci_hosted_final.json."
+}
