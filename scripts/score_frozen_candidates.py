@@ -14,16 +14,22 @@ newest = json.loads(newest_path.read_text())
 family = newest['final_candidate_family']
 assert newest['status'] == 'frozen' and family == (11 if newest['eval_batch_size'] == 4 else 9)
 # Reporting replays committed episodes; private weight files are not required.
+newest_games = []
 for frozen, root in [(selection, 'results/final/selected'), (newest, newest['test_root'])]:
     for game in ('dice', 'cards'):
         path = Path(root) / f"raw/{game}/{frozen['label']}.jsonl"
+        if frozen is newest and not path.exists():
+            continue
         rows = [json.loads(line) for line in path.read_text().splitlines()]
         assert len(rows) == 200
+        if frozen is newest:
+            newest_games.append(game)
         for row in rows:
             provenance = row['provenance']
             adapter_hash = provenance.get('adapter_sha256', provenance['config'].get('adapter_sha256'))
             assert adapter_hash == frozen['adapter_sha256'], 'Recorded adapter differs from frozen choice'
             assert provenance['config']['revision'] == frozen['provenance']['model_revision']
+assert newest_games, 'At least one complete newest-family game must be retained'
 # Both validation decisions precede opening any new aggregate test score.
 candidates = [
     ('qwen3-1.7b-sft800', 'results/final/qwen17-sft800'),
@@ -51,9 +57,15 @@ for label, root in candidates:
     out = f'results/final/scores/{label}.json'
     command = ['.venv/bin/python', 'scripts/score_final.py', '--local', root, '--label', label,
                '--candidates', str(family), '--out', out]
+    if label == newest['label']:
+        command += ['--games', *newest_games]
     record['commands'].append(command)
     subprocess.run(command, check=True)
     record['results'][label] = {'file': out, 'sha256': file_sha256(out)}
+if len(newest_games) < 2:
+    record['unavailable'][newest['label'] + '-missing-games'] = {
+        'complete_games_scored': newest_games,
+        'scope': 'Only complete 200-episode games scored; missing-game targets unknown. Partial raw episodes remain in download receipts.'}
 
 # Preserve the complete dice-only candidate without scoring its partial cards.
 root = Path('results/kaggle/staged-sft-complete-v1/qwen3.5-4b-staged-sft/results/raw/dice')

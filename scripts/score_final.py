@@ -38,6 +38,8 @@ def main():
     ap.add_argument("--label", required=True)
     ap.add_argument("--api", default="results/expansion")
     ap.add_argument("--out", default="results/final.json")
+    ap.add_argument("--games", nargs="+", choices=["dice", "cards"], default=["dice", "cards"],
+                    help="score only explicitly complete games; missing-game targets stay unknown")
     ap.add_argument("--candidates", type=int, default=11,
                     help="registered final candidates, including the two-adapter game router")
     args = ap.parse_args()
@@ -49,7 +51,7 @@ def main():
     family_resamples = max(10_000, math.ceil(200 / (1 - level)))
     record = {"provenance": receipt(vars(args)), "source_sha256": file_sha256(__file__),
               "seeds": SEEDS, "games": {}, "input_sha256": {}, "incomplete_cohorts": []}
-    for game in ("dice", "cards"):
+    for game in args.games:
         raw = Path(args.local) / "raw" / game
         paths = list(raw.glob("*.jsonl")) + list((Path(args.api) / "raw" / game).glob("*.jsonl"))
         players, api_names = {}, []
@@ -102,17 +104,17 @@ def main():
             "all_paired_family_lower_bounds_positive": bool(api_names) and all(
                 d["family_ci"][0] > 0 and d["inference_group_family_ci"][0] > 0
                 for d in differences.values())}
-    dice, cards = (record["games"][g] for g in ("dice", "cards"))
-    local_dice = next(r for r in dice["rows"] if r["player"] == args.label)
+    dice, cards = (record["games"].get(g) for g in ("dice", "cards"))
+    local_dice = next(r for r in dice["rows"] if r["player"] == args.label) if dice else None
     record["targets"] = {
-        "dice_mean_at_least_80_percent": bool(local_dice["pct_of_bayes"] >= 80),
+        "dice_mean_at_least_80_percent": bool(local_dice["pct_of_bayes"] >= 80) if dice else None,
         "dice_above_api_intervals": dice["lower_95_above_every_api_upper_95"] and
                                     dice["lower_percent_95_above_every_api_upper_percent_95"] and
-                                    dice["all_paired_family_lower_bounds_positive"],
+                                    dice["all_paired_family_lower_bounds_positive"] if dice else None,
         "cards_positive_with_family_lower_above_zero": cards["local_epnl_family_ci"][0] > 0 and
-            cards["local_epnl_inference_group_family_ci"][0] > 0,
+            cards["local_epnl_inference_group_family_ci"][0] > 0 if cards else None,
         "at_least_four_complete_api_cohorts_per_game": all(
-            len(g["api_cohorts"]) >= 4 for g in (dice, cards))}
+            len(g["api_cohorts"]) >= 4 for g in (dice, cards)) if dice and cards else None}
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(record, indent=2) + "\n")
     print(json.dumps(record["targets"], indent=2))

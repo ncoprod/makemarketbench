@@ -16,12 +16,15 @@ manifest = json.loads(manifest_path.read_text())
 record = {'provenance': receipt({'purpose': 'fixed all-candidate Monte Carlo precision audit',
                                  'draw_multiplier': 10, 'bootstrap_seed': 0}),
           'source_sha256': file_sha256(__file__), 'manifest_sha256': file_sha256(manifest_path),
-          'candidates': {}, 'scope': 'Numerical sensitivity only; retain the registered primary intervals and verdicts. '
+          'candidates': {}, 'unavailable': [], 'scope': 'Numerical sensitivity only; retain the registered primary intervals and verdicts. '
                                     'Do not upgrade a failed primary claim on this audit.'}
 for label, entry in manifest['results'].items():
     path = Path(entry['file'])
     assert file_sha256(path) == entry['sha256']
     data = json.loads(path.read_text())
+    if 'cards' not in data['games']:
+        record['unavailable'].append(label)
+        continue
     raw = Path(data['provenance']['config']['local']) / f'raw/cards/{label}.jsonl'
     assert file_sha256(raw) == data['input_sha256'][str(raw)]
     episodes = sorted(load_results(raw), key=lambda row: row['seed'])

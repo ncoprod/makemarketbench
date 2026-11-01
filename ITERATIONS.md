@@ -3081,3 +3081,10 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - The official November 1 quota query reports 107102.574 of 108000 GPU seconds used, 897.426 seconds free, reset November 7. This is the current weekly account receipt, superseding assumed calendar resets.
 - Hypothesis: restoring acquired groups and cached responses can finish the final eight cards episodes with the frozen adapter/greedy batch-four policy in one 780-second script / 840-second private saved session. Estimated loading 301 seconds plus two observed roughly 155–173-second groups. Exact source, quota, seed prefix and selection hashes: `results/training/qwen38_test_finish_plan.json`.
 - Change only execution continuity: no training, seed selection, decoder change or new candidate. Atomically checkpoint complete raw groups. Run once; retain any remaining partial and stop. Skip both optional validation continuations under the owner's finish-now priority.
+
+### T40 — score complete games without extrapolating missing games
+
+- The final selected test has one complete game while the original reporting entrypoint requires both. Add an explicit `--games` option; retain the full 200-seed cohort requirement and eleven-trial correction for every scored game. Missing-game target verdicts are JSON null, never silently passed or scored on partial n.
+- The frozen report verifies adapter/revision identity for each available complete newest-family game. The cards precision audit explicitly records an unavailable cards cohort. No model inference, selection change or additional trial is introduced.
+- Verify `python -m pytest -q tests/test_final_report.py`: three cases, including complete dice with absent cards and unknown cards target. Recompute only cached test arithmetic; complete-game canonical copies and hashes are in `results/training/qwen38_complete_game_publication.json`.
+- Optional API acquisition reaches its registered cutoff, retaining Llama90 dice173/cards92 unscored; four original API models remain complete200/game. `results/expansion/llama_duplicate_retry_completion.json` records canonical checks and exact terminal cutoff errors.

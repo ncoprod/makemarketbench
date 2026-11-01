@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/close_api_acquisition.py",
+    "config": {
+      "purpose": "Close optional Llama90 acquisition at preregistered cutoff without scoring partial cohorts"
+    },
+    "model_revision": null,
+    "git_commit": "f6177b2923e3dceae76cad1278384321d13f66c4",
+    "uncommitted_diff_sha256": "65ac024cd32d40303865d19e87fe41a2a63d9d54a8e1a3a956c6ede6baca107c",
+    "started_at": "2026-11-01T14:14:41.618412+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import receipt, file_sha256\n\nroot=Path('results/expansion'); label='meta/llama-3.2-90b-vision-instruct (text-only)'\nplan_path=root/'llama_duplicate_retry_plan.json'; plan=json.loads(plan_path.read_text());assert plan['status']=='finished'\ncohorts={}\nfor game in ('dice','cards'):\n p=root/f'raw/{game}/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl'\n rows=[json.loads(line) for line in p.read_text().splitlines()]\n assert sorted(r['seed'] for r in rows)==list(range(200,200+len(rows)))\n for row in rows:\n  ep=make_game(game).episode(row['seed'])\n  assert row['player']==label and row['value']==ep.value and len(row['rounds'])==6\n  assert [r['reveal'] for r in row['rounds']]==ep.reveals\n protocol_path=root/f'protocol-llama90-{game}-duplicate-retry.json'; protocol=json.loads(protocol_path.read_text())[label][game]\n cohorts[game]={'episodes':len(rows),'planned_episodes':200,'scored':False,'file':str(p),'sha256':file_sha256(p),\n  'canonical_games_verified':True,'terminal_error':protocol['error'],'protocol':str(protocol_path),'protocol_sha256':file_sha256(protocol_path)}\nr={'provenance':receipt({'purpose':'Close optional Llama90 acquisition at preregistered cutoff without scoring partial cohorts'}),\n 'source':Path(__file__).read_text(),'status':'closed_partial_unscored','cutoff':plan['cutoff'],'finished_at':plan['finished_at'],\n 'launch_receipt':str(plan_path),'launch_receipt_sha256':file_sha256(plan_path),'cohorts':cohorts,\n 'scope':'All four original APIs have 200/game and are scored. Llama90 dice173/cards92 and other optional partials do not enter any headline or API family comparison. No new calls after cutoff.'}\n(root/'llama_duplicate_retry_completion.json').write_text(json.dumps(r,indent=2)+'\\n')\nprint({g:c['episodes'] for g,c in cohorts.items()})\n",
+  "status": "closed_partial_unscored",
+  "cutoff": "primary newest-family test acquisition completion or 2026-11-01T00:00:00Z, whichever is earlier",
+  "finished_at": "2026-11-01T00:04:48.971866+00:00",
+  "launch_receipt": "results/expansion/llama_duplicate_retry_plan.json",
+  "launch_receipt_sha256": "c5dc1453527db105beca0b64fb9b4affe13ac420df72ee8b3d3558d5d7830c4f",
+  "cohorts": {
+    "dice": {
+      "episodes": 173,
+      "planned_episodes": 200,
+      "scored": false,
+      "file": "results/expansion/raw/dice/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+      "sha256": "257eea2e095a2d392dad39cb140ee889406cc7e111a84b5c31055eaeeab84108",
+      "canonical_games_verified": true,
+      "terminal_error": "TimeoutError: Registered optional API acquisition cutoff",
+      "protocol": "results/expansion/protocol-llama90-dice-duplicate-retry.json",
+      "protocol_sha256": "1d36d490cf45aab5ba06449da3e327641628967aa4435c8fd9be8821474b90c1"
+    },
+    "cards": {
+      "episodes": 92,
+      "planned_episodes": 200,
+      "scored": false,
+      "file": "results/expansion/raw/cards/meta_llama-3.2-90b-vision-instruct__text-only_.jsonl",
+      "sha256": "d691cf268c7ad8f4f44e00ee9635dc364c439c1bf914c10e9be09899f88ce749",
+      "canonical_games_verified": true,
+      "terminal_error": "TimeoutError: Registered optional API acquisition cutoff",
+      "protocol": "results/expansion/protocol-llama90-cards-duplicate-retry.json",
+      "protocol_sha256": "848aa0b508f82e1aad3515a746c0e8daf581532402d4dbaacec0cdd148b422f8"
+    }
+  },
+  "scope": "All four original APIs have 200/game and are scored. Llama90 dice173/cards92 and other optional partials do not enter any headline or API family comparison. No new calls after cutoff."
+}
