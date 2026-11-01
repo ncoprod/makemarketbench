@@ -1,0 +1,107 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/prepare_finish.py",
+    "config": {
+      "purpose": "ONE bounded missing-only continuation authorized by finish-now directive"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "97fbe259a028fa796e33ed4495fbbf4959056b41",
+    "uncommitted_diff_sha256": "03c2d8af22d231f9bed6180275d2e5572818e670f60fe0d0a70cced64dd9805e",
+    "started_at": "2026-11-01T14:11:37.317126+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "status": "registered_before_submission",
+  "selection_file": "results/training/qwen38_selection.json",
+  "selection_sha256": "7c142845dda4760e05a5df2b312b43133e9258aecc447caedba3a4ec7cd1e8d9",
+  "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e",
+  "metadata": {
+    "id": "nicolascoquelet/makemarketbench-qwen38-test-finish",
+    "title": "MakeMarketBench Qwen38 test finish",
+    "code_file": "grpo_unsloth_kaggle.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "nicolascoquelet/makemarketbench-qwen3-8-27b-training",
+      "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+    ],
+    "model_sources": []
+  },
+  "source_sha256": "f331381012adfe4002b931cff2048675555175109e77358371c4bc748b6a451c",
+  "session_timeout_seconds": 840,
+  "script_budget_seconds": 780,
+  "quota_snapshot": {
+    "recorded_at": "2026-11-01T14:10:16.512709+00:00",
+    "quota_method": "official SDK GetAcceleratorQuotaStatistics",
+    "provenance": {
+      "command": [
+        "/Users/nico/.local/share/uv/tools/kaggle/bin/python",
+        "scripts/kaggle_quota.py"
+      ],
+      "seed": null,
+      "model_revision": null,
+      "git_commit": "97fbe259a028fa796e33ed4495fbbf4959056b41",
+      "source_sha256": "97824704a317080d45a015908575cc4a90158f713ca3348666c6e6b255917572"
+    },
+    "quota": {
+      "refresh_at": "2026-11-07T00:00:00+00:00",
+      "gpu_seconds_used": 107102.574,
+      "gpu_seconds_reserved": 0.0,
+      "gpu_seconds_total": 108000.0
+    }
+  },
+  "available_seconds": 897.4260000000068,
+  "fixed_policy": {
+    "label": "qwen3.8-27b-batch4-sft",
+    "training_seed": 0,
+    "evaluation_seed": 200,
+    "episodes_per_game": 200,
+    "batch_size": 4,
+    "decoder": "greedy"
+  },
+  "prefix_sha256": {
+    "dice": "4f2063c90db865c955fbbac70d811f0743b78c7ee4c41b623cf8e4aa08f0aa05",
+    "cards": "c29a0478499ad9386c2ad05f74e36cd031d91785521889007291527a06cf987f"
+  },
+  "episodes_saved": {
+    "dice": 200,
+    "cards": 192
+  },
+  "only_missing_seeds": {
+    "dice": [],
+    "cards": [
+      392,
+      393,
+      394,
+      395,
+      396,
+      397,
+      398,
+      399
+    ]
+  },
+  "runtime_estimate": {
+    "loading_seconds_observed": 300.52679109573364,
+    "last_two_complete_groups_seconds": [
+      155.327,
+      173.154
+    ],
+    "expected_missing_groups": 2,
+    "basis": "Downloaded test loading snapshot and final complete group timestamps. Reference evaluation and reporting add seconds; 780-second script cap is a bound, not a completion guarantee."
+  },
+  "checkpointing": "Existing runner atomically persists every complete four-episode group in /kaggle/working. Prefix and cached greedy responses restored; only missing groups acquired.",
+  "stop_rule": "No second rerun. If incomplete, retain exact partial n, score only complete games, and stop. Optional validation finish jobs are skipped.",
+  "build_command": ".venv/bin/python train/build_kaggle_kernel.py --qwen38-evaluate --evaluation-split test --evaluate-adapter sft --newest-batch-size 4 --evaluation-budget-seconds 780 --evaluation-resume-kernel nicolascoquelet/makemarketbench-qwen38-batch4-test --out runs/kaggle_qwen38_test_finish"
+}

@@ -3074,3 +3074,10 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 
 - The mandatory pre-push local fallback passes 148 Python tests, native Release and ASan/UBSan checks, lint and the Kaggle CPU dry run on commit b89aa0c. Preserve the complete transcript and exact source/command in `results/ci_local_round3_reporting.json`. Hosted account-billing refusal remains a separate limitation.
 - Update the README pipeline to show the current Qwen families and direct quote-game evaluation → raw episodes → bootstrap/results. Remove the misleading implication that the independent C++ book timing benchmark sits inside every quote-game policy evaluation. Main fresh model table will land when the selected 27B acquisition is retained.
+
+### T39 — terminal artifact recovery and one bounded test continuation
+
+- Diagnose all three reported Kaggle ERROR versions using saved logs, raw episodes, wrapper deadlines and hashes: `results/training/qwen38_terminal_errors.json`. Each worker reaches its registered script deadline, rather than reporting GPU OOM. The selected test retains all 200 dice and 192 cards episodes; do not score partial cards.
+- The official November 1 quota query reports 107102.574 of 108000 GPU seconds used, 897.426 seconds free, reset November 7. This is the current weekly account receipt, superseding assumed calendar resets.
+- Hypothesis: restoring acquired groups and cached responses can finish the final eight cards episodes with the frozen adapter/greedy batch-four policy in one 780-second script / 840-second private saved session. Estimated loading 301 seconds plus two observed roughly 155–173-second groups. Exact source, quota, seed prefix and selection hashes: `results/training/qwen38_test_finish_plan.json`.
+- Change only execution continuity: no training, seed selection, decoder change or new candidate. Atomically checkpoint complete raw groups. Run once; retain any remaining partial and stop. Skip both optional validation continuations under the owner's finish-now priority.

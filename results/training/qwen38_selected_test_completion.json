@@ -1,0 +1,230 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/retain_qwen38_selected_test.py",
+    "config": {
+      "purpose": "retain the sole frozen 27B test and publish only verified complete cohorts"
+    },
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "git_commit": "97fbe259a028fa796e33ed4495fbbf4959056b41",
+    "uncommitted_diff_sha256": "21f9b172bd5641c7a2f9f4aa577d82bae61ac5bcdfeadb947b24401457a4d77b",
+    "started_at": "2026-11-01T14:10:02.337028+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import ast\nimport json\nimport shutil\nfrom pathlib import Path\nfrom makemarket.games import make_game\nfrom makemarket.provenance import file_sha256, receipt\n\npath = Path('results/training/qwen38_selected_test_completion.json')\nassert not path.exists()\nlaunch_path = Path('results/training/qwen38_selected_test.json')\nlaunch = json.loads(launch_path.read_text())\nassert launch['status'] == 'outputs_retrieved'\nselection_path = Path('results/training/qwen38_selection.json')\nassert file_sha256(selection_path) == launch['selection_sha256']\nselection = json.loads(selection_path.read_text())\nassert selection['status'] == 'frozen' and selection['eval_batch_size'] == 4\nassert file_sha256(selection['adapter_file']) == selection['adapter_sha256']\nroot = Path(f\"results/kaggle/qwen38-selected-test-v{launch['version']}\")\nsource = Path('runs/kaggle_qwen38_selected_test/grpo_unsloth_kaggle.py')\nassert file_sha256(source) == launch['source_sha256']\ncore = next(n.args[0].value for n in ast.walk(ast.parse(source.read_text())) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == 'write_text' and isinstance(n.args[0], ast.Constant))\nassert (root / 'evaluate_core.py').read_text() == core\nlabel = selection['label']\nwork = root / label\npair = json.loads((root / 'pair_runtime.json').read_text())\nassert pair['evaluation_seed'] == 200 and pair['episodes_per_game'] == 200 and pair['batch_size'] == 4\nruntime = json.loads((work / 'runtime.json').read_text())\ncohorts = {}\nfor game in ('dice', 'cards'):\n    cohorts[game] = {}\n    for player in (label, 'bayes'):\n        raw = work / f'results/raw/{game}/{player}.jsonl'\n        rows = [json.loads(line) for line in raw.read_text().splitlines()] if raw.exists() else []\n        assert [r['seed'] for r in rows] == list(range(200, 200 + len(rows)))\n        if player == label:\n            assert len(rows) % 4 == 0\n        for row in rows:\n            canonical = make_game(game).episode(row['seed'])\n            assert row['player'] == player and row['game'] == game\n            assert row['value'] == canonical.value and len(row['rounds']) == 6\n            assert [r['reveal'] for r in row['rounds']] == canonical.reveals\n            if player == label:\n                cfg = row['provenance']['config']\n                assert cfg['seed'] == 0 and cfg['eval_batch_size'] == 4\n                assert cfg['adapter_sha256'] == selection['adapter_sha256']\n                assert cfg['revision'] == selection['provenance']['model_revision']\n        cohorts[game][player] = {'file': str(raw), 'sha256': file_sha256(raw) if raw.exists() else None,\n                                'episodes': len(rows), 'complete': len(rows) == 200, 'canonical_games_verified': True}\ncomplete = all(c['complete'] for players in cohorts.values() for c in players.values())\ncopied = {}\nif complete:\n    canonical = Path(selection['test_root'])\n    assert not canonical.exists(), 'Keep any prior canonical acquisition immutable'\n    shutil.copytree(work / 'results', canonical)\n    for original in (work / 'results').rglob('*'):\n        if original.is_file():\n            copy = canonical / original.relative_to(work / 'results')\n            assert file_sha256(copy) == file_sha256(original)\n            copied[str(copy)] = file_sha256(copy)\nrecord = {'provenance': receipt({'purpose': 'retain the sole frozen 27B test and publish only verified complete cohorts'}, runtime['model_revision']),\n          'source': Path(__file__).read_text(), 'status': 'complete' if complete else 'partial_test_retained',\n          'selection_sha256': file_sha256(selection_path), 'launch_sha256': file_sha256(launch_path),\n          'cohorts': cohorts, 'runtime': runtime, 'pair_runtime': pair, 'canonical_copies': copied,\n          'downloaded_files': {str(p): {'sha256': file_sha256(p), 'bytes': p.stat().st_size} for p in root.rglob('*') if p.is_file()},\n          'scope': 'One frozen policy, 200/game. Original downloaded version unchanged; partial cohorts are not scored.'}\npath.write_text(json.dumps(record, indent=2) + '\\n')\np = Path('results/training/kaggle_budget.json')\nledger = json.loads(p.read_text())\nsession = next(s for s in ledger['sessions'] if s['kernel'] == launch['metadata']['id'] and s['version'] == launch['version'])\nsession.update(status=record['status'], hours=pair['wall_seconds'] / 3600, script_wall_seconds=pair['wall_seconds'],\n               script_started_at=runtime['execution_started_at'], script_finished_at=runtime.get('execution_finished_at'),\n               result_file=str(root / 'pair_runtime.json'), hours_basis='Downloaded complete wrapper runtime; exact allocation billing boundaries unavailable.')\np.write_text(json.dumps(ledger, indent=2) + '\\n')\nprint('Retained selected 27B test', {g: {n: c['episodes'] for n, c in players.items()} for g, players in cohorts.items()}, flush=True)\n",
+  "status": "partial_test_retained",
+  "selection_sha256": "7c142845dda4760e05a5df2b312b43133e9258aecc447caedba3a4ec7cd1e8d9",
+  "launch_sha256": "329c46bbf73a38b4573e7f57c1b93774d4c94bdf31ceadef2effc59c4041fefd",
+  "cohorts": {
+    "dice": {
+      "qwen3.8-27b-batch4-sft": {
+        "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl",
+        "sha256": "4f2063c90db865c955fbbac70d811f0743b78c7ee4c41b623cf8e4aa08f0aa05",
+        "episodes": 200,
+        "complete": true,
+        "canonical_games_verified": true
+      },
+      "bayes": {
+        "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl",
+        "sha256": "3f7772c242607c7d703030f08be57b7d75c94bf993e057a69e37f880ba9734df",
+        "episodes": 200,
+        "complete": true,
+        "canonical_games_verified": true
+      }
+    },
+    "cards": {
+      "qwen3.8-27b-batch4-sft": {
+        "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl",
+        "sha256": "c29a0478499ad9386c2ad05f74e36cd031d91785521889007291527a06cf987f",
+        "episodes": 192,
+        "complete": false,
+        "canonical_games_verified": true
+      },
+      "bayes": {
+        "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/bayes.jsonl",
+        "sha256": null,
+        "episodes": 0,
+        "complete": false,
+        "canonical_games_verified": true
+      }
+    }
+  },
+  "runtime": {
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/working/evaluate_core.py",
+      "--eval-only",
+      "--adapter",
+      "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter",
+      "--label",
+      "qwen3.8-27b-batch4-sft",
+      "--eval-seed",
+      "200",
+      "--eval-episodes",
+      "200",
+      "--eval-batch-size",
+      "4",
+      "--budget-seconds",
+      "16438",
+      "--model",
+      "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "--base-model",
+      "Qwen/Qwen3.8-27B",
+      "--revision",
+      "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "--device-map",
+      "unsloth_balanced",
+      "--lora-rank",
+      "8"
+    ],
+    "config": {
+      "model": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+      "base_model": "Qwen/Qwen3.8-27B",
+      "revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+      "label": "qwen3.8-27b-batch4-sft",
+      "games": [
+        "dice",
+        "cards"
+      ],
+      "episodes": 400,
+      "sft_steps": 150,
+      "sft_batch": 8,
+      "sft_accumulation": 2,
+      "sft_validation_episodes": 0,
+      "save_steps": 100,
+      "grpo_save_steps": null,
+      "budget_seconds": 16438,
+      "seed": 0,
+      "device_map": "unsloth_balanced",
+      "offload_layers": null,
+      "grpo_steps": 300,
+      "num_generations": 8,
+      "max_completion": 96,
+      "max_seq_len": 1280,
+      "lora_rank": 8,
+      "lr": 5e-06,
+      "eval_episodes": 200,
+      "eval_batch_size": 4,
+      "check_batching": false,
+      "eval_seed": 200,
+      "evaluation_prefix": null,
+      "resume": null,
+      "sft_resume": null,
+      "adapter": "/kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter",
+      "train_only": false,
+      "eval_only": true,
+      "dry_run": false,
+      "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+    },
+    "seed": 0,
+    "source_commit": "99a747a0f77cfb436b61ef0e55b513eec0525b75",
+    "cuda_visible_devices": null,
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "source_file_sha256": "aba9fe6a04060e69d82f8f4c77eb2d8014701d7c69a5c80a63213d46f8fe38a2",
+    "embedded_package_sha256": "cd162c6954fe7290db366f1161d8626745ec519bb824b7dd0f1a2e32983bb307",
+    "status": "running",
+    "execution_started_at": "2026-10-31T13:07:48.728064+00:00",
+    "recorded_at": "2026-10-31T13:12:49.253513+00:00",
+    "wall_seconds": 300.52679109573364,
+    "gpus": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "gpu_capacity_bytes": [
+      15636037632,
+      15636037632
+    ],
+    "cuda_version": "12.8",
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "unsloth": "2026.10.10",
+      "unsloth_zoo": "2026.10.10",
+      "trl": "1.15.0",
+      "transformers": "5.16.1",
+      "peft": "0.20.0",
+      "bitsandbytes": "0.50.2",
+      "datasets": "4.8.5",
+      "accelerate": "1.14.0",
+      "triton": "3.6.0"
+    },
+    "phase": "evaluation",
+    "phase_step": 0,
+    "peak_allocated_bytes": 11409069568,
+    "peak_reserved_bytes": 11555307520,
+    "memory_by_gpu": [
+      {
+        "device": 0,
+        "peak_allocated_bytes": 11409069568,
+        "peak_reserved_bytes": 11555307520
+      },
+      {
+        "device": 1,
+        "peak_allocated_bytes": 11286038528,
+        "peak_reserved_bytes": 11387535360
+      }
+    ]
+  },
+  "pair_runtime": {
+    "wall_seconds": 16440.425824233,
+    "budget_seconds": 16440,
+    "exit_codes": [
+      -9
+    ],
+    "command": [
+      "/usr/bin/python3",
+      "/kaggle/src/script.py"
+    ],
+    "source_commit": "99a747a0f77cfb436b61ef0e55b513eec0525b75",
+    "seed": 0,
+    "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+    "evaluation_seed": 200,
+    "episodes_per_game": 200,
+    "batch_size": 4
+  },
+  "canonical_copies": {},
+  "downloaded_files": {
+    "results/kaggle/qwen38-selected-test-v1/evaluate_core.py": {
+      "sha256": "aba9fe6a04060e69d82f8f4c77eb2d8014701d7c69a5c80a63213d46f8fe38a2",
+      "bytes": 69739
+    },
+    "results/kaggle/qwen38-selected-test-v1/makemarketbench-qwen38-batch4-test.log": {
+      "sha256": "e1b1bc21bf78a7dc2487da9fc320e8cc620b5b3662938c3d2fa4f1b367c9318d",
+      "bytes": 35596
+    },
+    "results/kaggle/qwen38-selected-test-v1/pair_runtime.json": {
+      "sha256": "1c896ef1a1c904705e02100e3d17c51fc4c5e1647cbd05787615506e41c618c2",
+      "bytes": 380
+    },
+    "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/runtime.json": {
+      "sha256": "2a3a65f52cc7c2f0e0ee4818e7e72e2019575ccd2bd1f898375a605bf2e202e1",
+      "bytes": 3120
+    },
+    "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.json": {
+      "sha256": "b452f8b03c70f9ce7b287556aa2ab148f0695fb028a68db1f04d15eb89c5fef7",
+      "bytes": 6496
+    },
+    "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.md": {
+      "sha256": "34b06666340f0c233ea814de1cccac0db4c0c8ce6792506b205291dcc6b6f4c7",
+      "bytes": 585
+    },
+    "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl": {
+      "sha256": "c29a0478499ad9386c2ad05f74e36cd031d91785521889007291527a06cf987f",
+      "bytes": 993933
+    },
+    "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl": {
+      "sha256": "4f2063c90db865c955fbbac70d811f0743b78c7ee4c41b623cf8e4aa08f0aa05",
+      "bytes": 1011646
+    },
+    "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl": {
+      "sha256": "3f7772c242607c7d703030f08be57b7d75c94bf993e057a69e37f880ba9734df",
+      "bytes": 845018
+    }
+  },
+  "scope": "One frozen policy, 200/game. Original downloaded version unchanged; partial cohorts are not scored."
+}

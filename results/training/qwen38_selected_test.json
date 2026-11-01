@@ -61,7 +61,7 @@
   "available_seconds": 18564.719761,
   "remaining_native_grpo_cap_seconds": 1511.1867459999994,
   "session_timeout_seconds": 16740,
-  "status": "submitted",
+  "status": "outputs_retrieved",
   "submitted_at": "2026-10-31T13:06:45.202385+00:00",
   "polls": [
     {
@@ -107,6 +107,270 @@
       ],
       "exit_code": 0,
       "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T13:57:39.752566+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T14:07:50.608390+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T14:18:01.566573+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T14:28:12.645319+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T14:38:23.562401+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T14:48:34.958266+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T14:58:45.942741+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T15:08:57.153788+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T15:19:08.041611+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T15:29:19.007847+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T15:39:30.559911+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T15:49:41.511746+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T15:59:52.680685+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T16:10:03.602707+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T16:20:15.034500+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T16:30:26.241626+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T16:40:37.117669+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T16:50:48.036268+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T17:00:58.958480+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T17:11:10.073673+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T17:21:21.116145+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T17:31:32.175117+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T17:41:43.168520+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.RUNNING\""
+    },
+    {
+      "at": "2026-10-31T17:51:54.338365+00:00",
+      "command": [
+        "kaggle",
+        "kernels",
+        "status",
+        "nicolascoquelet/makemarketbench-qwen38-batch4-test"
+      ],
+      "exit_code": 0,
+      "output": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.ERROR\""
     }
   ],
   "push": {
@@ -149,5 +413,21 @@
     "private": true,
     "matches_submitted_source": true,
     "source_sha256": "e4cca8db900b6296c4e8148203eaa036e3faf64f266de4d8999f5e51c6cbd2c7"
+  },
+  "output_pull": {
+    "command": [
+      "kaggle",
+      "kernels",
+      "output",
+      "nicolascoquelet/makemarketbench-qwen38-batch4-test",
+      "-p",
+      "results/kaggle/qwen38-selected-test-v1",
+      "--page-size",
+      "200",
+      "--file-pattern",
+      "^(?!.*(?:mmb_src|unsloth_compiled_cache|\\.virtual_documents)/).*"
+    ],
+    "exit_code": 0,
+    "output": "Downloading evaluate_core.py to results/kaggle/qwen38-selected-test-v1\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/evaluate_core.py\nDownloading pair_runtime.json to results/kaggle/qwen38-selected-test-v1\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/pair_runtime.json\nDownloading leaderboard_dice.json to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.json\nDownloading leaderboard_dice.md to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/leaderboard_dice.md\nDownloading qwen3.8-27b-batch4-sft.jsonl to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl\nDownloading bayes.jsonl to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl\nDownloading qwen3.8-27b-batch4-sft.jsonl to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl\nDownloading runtime.json to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft\n\nOutput file downloaded to results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/runtime.json\nKernel log downloaded to results/kaggle/qwen38-selected-test-v1/makemarketbench-qwen38-batch4-test.log \n\n  0%|          | 0.00/68.1k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 68.1k/68.1k [00:00<00:00, 845kB/s]\n\n  0%|          | 0.00/380 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 380/380 [00:00<00:00, 590kB/s]\n\n  0%|          | 0.00/6.34k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 6.34k/6.34k [00:00<00:00, 1.79MB/s]\n\n  0%|          | 0.00/585 [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 585/585 [00:00<00:00, 300kB/s]\n\n  0%|          | 0.00/971k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 971k/971k [00:00<00:00, 7.50MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 971k/971k [00:00<00:00, 7.41MB/s]\n\n  0%|          | 0.00/825k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 825k/825k [00:00<00:00, 2.11MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 825k/825k [00:00<00:00, 2.11MB/s]\n\n  0%|          | 0.00/988k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 988k/988k [00:00<00:00, 2.00MB/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 988k/988k [00:00<00:00, 1.99MB/s]\n\n  0%|          | 0.00/3.05k [00:00<?, ?B/s]\n100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 3.05k/3.05k [00:00<00:00, 608kB/s]"
   }
 }

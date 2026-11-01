@@ -1,0 +1,176 @@
+[{"stream_name":"stderr","time":2.425732297,"data":"/kaggle/working/evaluate_core.py:59: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.\n"}
+,{"stream_name":"stderr","time":2.425778552,"data":"  tf.extractall(dest)\n"}
+,{"stream_name":"stdout","time":83.847874658,"data":"🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.\n"}
+,{"stream_name":"stdout","time":83.847931235,"data":"🦥 Unsloth Zoo will now patch everything to make training faster!\n"}
+,{"stream_name":"stdout","time":83.847938627,"data":"==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.16.1.\n"}
+,{"stream_name":"stdout","time":83.847944471,"data":"   \\\\   /|    Tesla T4. Num GPUs = 2. Max memory: 14.562 GB. Platform: Linux.\n"}
+,{"stream_name":"stdout","time":83.847949476,"data":"O^O/ \\_/ \\    Torch: 2.11.0+cu128. CUDA: 7.5. CUDA Toolkit: 12.8. Triton: 3.6.0\n"}
+,{"stream_name":"stdout","time":83.847954177,"data":"\\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.35. FA2 = False]\n"}
+,{"stream_name":"stdout","time":83.847963117,"data":" \"-____-\"     Free license: http://github.com/unslothai/unsloth\n"}
+,{"stream_name":"stdout","time":83.847968181,"data":"Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!\n"}
+,{"stream_name":"stdout","time":86.118663951,"data":"Unsloth: Using float16 precision for qwen3_5 won't work! Using float32.\n"}
+,{"stream_name":"stdout","time":86.118713977,"data":"total weights      : 20.487 GiB\n"}
+,{"stream_name":"stdout","time":86.118721521,"data":"no_split classes   : ['Qwen3_5DecoderLayer', 'Qwen3_5VisionBlock']\n"}
+,{"stream_name":"stdout","time":86.118728581,"data":"output head        : lm_head -\u003e cuda:1\n"}
+,{"stream_name":"stdout","time":86.11873431,"data":"head headroom      : 0.428 GiB\n"}
+,{"stream_name":"stdout","time":86.118753606,"data":"activation reserve : 2.534 GiB requested\n"}
+,{"stream_name":"stdout","time":86.118759173,"data":"  cuda:0  budget  12.97 GiB  weights 10.247 GiB  free  2.723 GiB  reserve  2.534 GiB\n"}
+,{"stream_name":"stdout","time":86.118764306,"data":"  cuda:1  budget  13.01 GiB  weights 10.240 GiB  free  2.773 GiB  reserve  2.343 GiB   \u003c- output head\n"}
+,{"stream_name":"stdout","time":86.118769809,"data":"note: Bnb4BitHfQuantizer.adjust_max_memory lowered the budget on cuda:0 14.411 -\u003e 12.970 GiB, cuda:1 14.460 -\u003e 13.014 GiB (memory the quantiser keeps for its own load-time buffers)\n"}
+,{"stream_name":"stdout","time":86.118777661,"data":"note: sub-model towers ['model.visual']: placed whole on one device\n"}
+,{"stream_name":"stderr","time":86.408430223,"data":"/usr/local/lib/python3.13/dist-packages/huggingface_hub/constants.py:299: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.\n"}
+,{"stream_name":"stderr","time":86.408467361,"data":"  warnings.warn(\n"}
+,{"stream_name":"stderr","time":86.800163987,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":293.010845121,"data":"\rLoading weights:   0%|          | 0/1184 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/1184 [00:28\u003c9:25:05, 28.66s/it]\rLoading weights:   1%|          | 13/1184 [00:28\u003c30:59,  1.59s/it] \rLoading weights:   2%|▏         | 25/1184 [00:28\u003c13:11,  1.46it/s]\rLoading weights:   3%|▎         | 35/1184 [00:29\u003c07:54,  2.42it/s]\rLoading weights:   4%|▎         | 43/1184 [00:29\u003c06:02,  3.15it/s]\rLoading weights:   4%|▍         | 49/1184 [00:30\u003c04:37,  4.09it/s]\rLoading weights:   5%|▍         | 54/1184 [00:30\u003c03:42,  5.07it/s]\rLoading weights:   5%|▍         | 58/1184 [00:30\u003c03:18,  5.68it/s]\rLoading weights:   5%|▌         | 63/1184 [00:30\u003c02:32,  7.35it/s]\rLoading weights:   6%|▌         | 67/1184 [00:31\u003c02:07,  8.73it/s]\rLoading weights:   7%|▋         | 77/1184 [00:31\u003c01:17, 14.21it/s]\rLoading weights:   7%|▋         | 81/1184 [00:31\u003c01:12, 15.19it/s]\rLoading weights:   7%|▋         | 85/1184 [00:31\u003c01:17, 14.12it/s]\rLoading weights:   8%|▊         | 93/1184 [00:31\u003c00:55, 19.59it/s]\rLoading weights:   8%|▊         | 97/1184 [00:32\u003c01:13, 14.77it/s]\rLoading weights:   8%|▊         | 100/1184 [00:32\u003c01:11, 15.08it/s]\rLoading weights:   9%|▉         | 105/1184 [00:32\u003c01:01, 17.45it/s]\rLoading weights:  10%|█         | 119/1184 [00:33\u003c00:33, 31.62it/s]\rLoading weights:  10%|█         | 124/1184 [00:33\u003c00:34, 30.74it/s]\rLoading weights:  11%|█         | 132/1184 [00:33\u003c00:40, 25.93it/s]\rLoading weights:  11%|█▏        | 136/1184 [00:33\u003c00:49, 20.97it/s]\rLoading weights:  13%|█▎        | 149/1184 [00:34\u003c00:35, 28.87it/s]\rLoading weights:  13%|█▎        | 153/1184 [00:34\u003c00:51, 20.18it/s]\rLoading weights:  13%|█▎        | 156/1184 [00:34\u003c00:51, 19.90it/s]\rLoading weights:  13%|█▎        | 159/1184 [00:35\u003c00:53, 19.10it/s]\rLoading weights:  15%|█▍        | 172/1184 [00:35\u003c00:30, 32.80it/s]\rLoading weights:  15%|█▌        | 183/1184 [00:35\u003c00:25, 38.84it/s]\rLoading weights:  16%|█▌        | 188/1184 [00:36\u003c00:46, 21.64it/s]\rLoading weights:  17%|█▋        | 199/1184 [00:36\u003c00:33, 29.07it/s]\rLoading weights:  17%|█▋        | 204/1184 [00:36\u003c00:40, 24.35it/s]\rLoading weights:  18%|█▊        | 210/1184 [00:36\u003c00:37, 25.64it/s]\rLoading weights:  18%|█▊        | 214/1184 [00:37\u003c00:48, 20.14it/s]\rLoading weights:  19%|█▉        | 224/1184 [00:37\u003c00:42, 22.42it/s]\rLoading weights:  19%|█▉        | 227/1184 [00:37\u003c00:52, 18.25it/s]\rLoading weights:  20%|█▉        | 236/1184 [00:37\u003c00:38, 24.88it/s]\rLoading weights:  20%|██        | 240/1184 [00:38\u003c00:39, 23.86it/s]\rLoading weights:  21%|██        | 243/1184 [00:38\u003c00:54, 17.41it/s]\rLoading weights:  21%|██▏       | 252/1184 [00:38\u003c00:37, 25.01it/s]\rLoading weights:  22%|██▏       | 256/1184 [00:38\u003c00:38, 24.16it/s]\rLoading weights:  22%|██▏       | 259/1184 [00:39\u003c00:45, 20.28it/s]\rLoading weights:  22%|██▏       | 263/1184 [00:39\u003c01:02, 14.70it/s]\rLoading weights:  22%|██▏       | 266/1184 [00:39\u003c00:59, 15.40it/s]\rLoading weights:  23%|██▎       | 268/1184 [00:39\u003c01:02, 14.57it/s]\rLoading weights:  23%|██▎       | 277/1184 [00:40\u003c00:38, 23.32it/s]\rLoading weights:  24%|██▎       | 280/1184 [00:40\u003c00:51, 17.56it/s]\rLoading weights:  25%|██▍       | 293/1184 [00:40\u003c00:30, 29.31it/s]\rLoading weights:  26%|██▌       | 305/1184 [00:40\u003c00:22, 38.66it/s]\rLoading weights:  26%|██▌       | 310/1184 [00:41\u003c00:24, 35.62it/s]\rLoading weights:  27%|██▋       | 314/1184 [00:41\u003c00:34, 24.97it/s]\rLoading weights:  27%|██▋       | 318/1184 [00:41\u003c00:35, 24.16it/s]\rLoading weights:  27%|██▋       | 321/1184 [00:41\u003c00:38, 22.42it/s]\rLoading weights:  28%|██▊       | 330/1184 [00:41\u003c00:28, 30.00it/s]\rLoading weights:  28%|██▊       | 334/1184 [00:42\u003c00:49, 17.34it/s]\rLoading weights:  29%|██▉       | 342/1184 [00:42\u003c00:36, 23.10it/s]\rLoading weights:  29%|██▉       | 346/1184 [00:42\u003c00:36, 22.77it/s]\rLoading weights:  34%|███▍      | 408/1184 [00:43\u003c00:13, 56.77it/s]\rLoading weights:  35%|███▍      | 413/1184 [00:44\u003c00:21, 35.12it/s]\rLoading weights:  35%|███▌      | 417/1184 [00:44\u003c00:23, 33.13it/s]\rLoading weights:  36%|███▌      | 422/1184 [00:44\u003c00:23, 31.83it/s]\rLoading weights:  36%|███▌      | 426/1184 [00:44\u003c00:25, 29.43it/s]\rLoading weights:  37%|███▋      | 433/1184 [00:45\u003c00:34, 21.64it/s]\rLoading weights:  37%|███▋      | 436/1184 [00:45\u003c00:41, 18.18it/s]\rLoading weights:  38%|███▊      | 447/1184 [00:46\u003c00:44, 16.44it/s]\rLoading weights:  38%|███▊      | 449/1184 [00:46\u003c00:45, 15.99it/s]\rLoading weights:  38%|███▊      | 451/1184 [00:46\u003c00:48, 15.10it/s]\rLoading weights:  38%|███▊      | 453/1184 [00:47\u003c01:00, 12.07it/s]\rLoading weights:  39%|███▉      | 461/1184 [00:47\u003c00:48, 14.76it/s]\rLoading weights:  39%|███▉      | 463/1184 [00:47\u003c00:49, 14.47it/s]\rLoading weights:  39%|███▉      | 465/1184 [00:48\u003c01:02, 11.42it/s]\rLoading weights:  39%|███▉      | 467/1184 [00:48\u003c01:16,  9.43it/s]\rLoading weights:  40%|████      | 475/1184 [00:48\u003c00:45, 15.57it/s]\rLoading weights:  41%|████      | 484/1184 [00:48\u003c00:31, 22.28it/s]\rLoading weights:  41%|████      | 487/1184 [00:49\u003c00:56, 12.42it/s]\rLoading weights:  41%|████▏     | 489/1184 [00:49\u003c00:56, 12.22it/s]\rLoading weights:  41%|████▏     | 491/1184 [00:50\u003c00:56, 12.31it/s]\rLoading weights:  42%|████▏     | 500/1184 [00:50\u003c00:50, 13.56it/s]\rLoading weights:  42%|████▏     | 502/1184 [00:50\u003c00:50, 13.46it/s]\rLoading weights:  43%|████▎     | 504/1184 [00:50\u003c00:52, 12.95it/s]\rLoading weights:  43%|████▎     | 506/1184 [00:51\u003c00:53, 12.60it/s]\rLoading weights:  43%|████▎     | 514/1184 [00:51\u003c00:50, 13.18it/s]\rLoading weights:  44%|████▎     | 516/1184 [00:51\u003c00:50, 13.16it/s]\rLoading weights:  44%|████▍     | 518/1184 [00:52\u003c01:03, 10.42it/s]\rLoading weights:  44%|████▍     | 520/1184 [00:52\u003c01:15,  8.77it/s]\rLoading weights:  45%|████▍     | 528/1184 [00:52\u003c00:43, 15.23it/s]\rLoading weights:  45%|████▍     | 532/1184 [00:52\u003c00:39, 16.57it/s]\rLoading weights:  46%|████▌     | 539/1184 [00:53\u003c00:44, 14.34it/s]\rLoading weights:  46%|████▌     | 541/1184 [00:53\u003c00:45, 14.14it/s]\rLoading weights:  46%|████▌     | 543/1184 [00:53\u003c00:47, 13.42it/s]\rLoading weights:  46%|████▌     | 545/1184 [00:54\u003c00:48, 13.08it/s]\rLoading weights:  47%|████▋     | 553/1184 [00:54\u003c00:47, 13.34it/s]\rLoading weights:  47%|████▋     | 555/1184 [00:54\u003c00:47, 13.25it/s]\rLoading weights:  47%|████▋     | 557/1184 [00:55\u003c00:49, 12.75it/s]\rLoading weights:  47%|████▋     | 559/1184 [00:55\u003c00:50, 12.35it/s]\rLoading weights:  48%|████▊     | 567/1184 [00:55\u003c00:47, 13.08it/s]\rLoading weights:  48%|████▊     | 569/1184 [00:56\u003c00:55, 11.06it/s]\rLoading weights:  48%|████▊     | 572/1184 [00:56\u003c00:58, 10.43it/s]\rLoading weights:  49%|████▊     | 577/1184 [00:56\u003c00:43, 13.83it/s]\rLoading weights:  49%|████▉     | 582/1184 [00:56\u003c00:35, 16.84it/s]\rLoading weights:  50%|█████     | 592/1184 [00:57\u003c00:39, 14.87it/s]\rLoading weights:  50%|█████     | 594/1184 [00:57\u003c00:45, 12.94it/s]\rLoading weights:  50%|█████     | 597/1184 [00:58\u003c00:42, 13.68it/s]\rLoading weights:  51%|█████     | 606/1184 [00:58\u003c00:39, 14.63it/s]\rLoading weights:  51%|█████▏    | 608/1184 [00:58\u003c00:40, 14.39it/s]\rLoading weights:  52%|█████▏    | 610/1184 [00:58\u003c00:41, 13.99it/s]\rLoading weights:  52%|█████▏    | 612/1184 [00:59\u003c00:42, 13.48it/s]\rLoading weights:  52%|█████▏    | 620/1184 [00:59\u003c00:40, 13.79it/s]\rLoading weights:  53%|█████▎    | 622/1184 [00:59\u003c00:40, 13.83it/s]\rLoading weights:  53%|█████▎    | 624/1184 [01:00\u003c00:48, 11.45it/s]\rLoading weights:  53%|█████▎    | 626/1184 [01:00\u003c00:48, 11.52it/s]\rLoading weights:  53%|█████▎    | 629/1184 [01:00\u003c00:43, 12.64it/s]\rLoading weights:  54%|█████▎    | 635/1184 [01:00\u003c00:31, 17.30it/s]\rLoading weights:  54%|█████▍    | 645/1184 [01:01\u003c00:36, 14.96it/s]\rLoading weights:  55%|█████▍    | 647/1184 [01:01\u003c00:36, 14.83it/s]\rLoading weights:  55%|█████▍    | 649/1184 [01:01\u003c00:37, 14.15it/s]\rLoading weights:  55%|█████▍    | 651/1184 [01:01\u003c00:39, 13.35it/s]\rLoading weights:  56%|█████▌    | 659/1184 [01:02\u003c00:37, 14.03it/s]\rLoading weights:  56%|█████▌    | 661/1184 [01:02\u003c00:37, 14.05it/s]\rLoading weights:  56%|█████▌    | 663/1184 [01:02\u003c00:39, 13.32it/s]\rLoading weights:  56%|█████▌    | 665/1184 [01:02\u003c00:39, 13.02it/s]\rLoading weights:  57%|█████▋    | 673/1184 [01:03\u003c00:36, 14.03it/s]\rLoading weights:  57%|█████▋    | 675/1184 [01:03\u003c00:35, 14.31it/s]\rLoading weights:  57%|█████▋    | 677/1184 [01:03\u003c00:43, 11.73it/s]\rLoading weights:  57%|█████▋    | 679/1184 [01:04\u003c00:50, 10.03it/s]\rLoading weights:  58%|█████▊    | 684/1184 [01:04\u003c00:36, 13.85it/s]\rLoading weights:  59%|█████▉    | 698/1184 [01:05\u003c00:29, 16.70it/s]\rLoading weights:  59%|█████▉    | 700/1184 [01:05\u003c00:28, 16.94it/s]\rLoading weights:  59%|█████▉    | 702/1184 [01:05\u003c00:30, 15.84it/s]\rLoading weights:  59%|█████▉    | 704/1184 [01:05\u003c00:31, 15.18it/s]\rLoading weights:  60%|██████    | 712/1184 [01:06\u003c00:32, 14.59it/s]\rLoading weights:  60%|██████    | 714/1184 [01:06\u003c00:32, 14.46it/s]\rLoading weights:  60%|██████    | 716/1184 [01:06\u003c00:33, 13.83it/s]\rLoading weights:  61%|██████▏   | 726/1184 [01:07\u003c00:33, 13.70it/s]\rLoading weights:  61%|██████▏   | 728/1184 [01:07\u003c00:33, 13.59it/s]\rLoading weights:  62%|██████▏   | 730/1184 [01:07\u003c00:41, 11.03it/s]\rLoading weights:  62%|██████▏   | 732/1184 [01:07\u003c00:41, 10.90it/s]\rLoading weights:  62%|██████▏   | 735/1184 [01:08\u003c00:37, 11.96it/s]\rLoading weights:  62%|██████▏   | 737/1184 [01:08\u003c00:38, 11.61it/s]\rLoading weights:  63%|██████▎   | 744/1184 [01:08\u003c00:24, 17.69it/s]\rLoading weights:  63%|██████▎   | 751/1184 [01:09\u003c00:28, 14.94it/s]\rLoading weights:  64%|██████▎   | 753/1184 [01:09\u003c00:29, 14.63it/s]\rLoading weights:  64%|██████▍   | 755/1184 [01:09\u003c00:31, 13.78it/s]\rLoading weights:  65%|██████▍   | 765/1184 [01:10\u003c00:31, 13.44it/s]\rLoading weights:  65%|██████▍   | 767/1184 [01:10\u003c00:31, 13.34it/s]\rLoading weights:  65%|██████▍   | 769/1184 [01:10\u003c00:32, 12.90it/s]\rLoading weights:  65%|██████▌   | 771/1184 [01:10\u003c00:33, 12.47it/s]\rLoading weights:  66%|██████▌   | 779/1184 [01:11\u003c00:30, 13.15it/s]\rLoading weights:  66%|██████▌   | 781/1184 [01:11\u003c00:36, 11.18it/s]\rLoading weights:  66%|██████▌   | 783/1184 [01:11\u003c00:36, 11.01it/s]\rLoading weights:  66%|██████▋   | 785/1184 [01:12\u003c00:43,  9.20it/s]\rLoading weights:  67%|██████▋   | 790/1184 [01:12\u003c00:31, 12.51it/s]\rLoading weights:  67%|██████▋   | 797/1184 [01:12\u003c00:21, 17.61it/s]\rLoading weights:  68%|██████▊   | 804/1184 [01:13\u003c00:25, 15.12it/s]\rLoading weights:  68%|██████▊   | 806/1184 [01:13\u003c00:25, 14.82it/s]\rLoading weights:  68%|██████▊   | 808/1184 [01:13\u003c00:32, 11.49it/s]\rLoading weights:  68%|██████▊   | 810/1184 [01:13\u003c00:33, 11.23it/s]\rLoading weights:  69%|██████▉   | 818/1184 [01:14\u003c00:24, 14.84it/s]\rLoading weights:  69%|██████▉   | 820/1184 [01:14\u003c00:30, 12.04it/s]\rLoading weights:  70%|██████▉   | 824/1184 [01:14\u003c00:25, 13.94it/s]\rLoading weights:  70%|███████   | 832/1184 [01:15\u003c00:25, 13.91it/s]\rLoading weights:  70%|███████   | 834/1184 [01:15\u003c00:25, 13.78it/s]\rLoading weights:  71%|███████   | 836/1184 [01:15\u003c00:31, 10.95it/s]\rLoading weights:  71%|███████   | 838/1184 [01:16\u003c00:37,  9.22it/s]\rLoading weights:  72%|███████▏  | 847/1184 [01:16\u003c00:20, 16.37it/s]\rLoading weights:  72%|███████▏  | 855/1184 [01:16\u003c00:14, 22.72it/s]\rLoading weights:  73%|███████▎  | 869/1184 [01:16\u003c00:08, 36.64it/s]\rLoading weights:  75%|███████▍  | 883/1184 [01:16\u003c00:06, 49.02it/s]\rLoading weights:  76%|███████▋  | 903/1184 [01:16\u003c00:03, 70.45it/s]\rLoading weights:  77%|███████▋  | 915/1184 [01:17\u003c00:03, 78.59it/s]\rLoading weights:  78%|███████▊  | 925/1184 [01:17\u003c00:03, 80.77it/s]\rLoading weights:  79%|███████▉  | 939/1184 [01:17\u003c00:02, 86.85it/s]\rLoading weights:  80%|████████  | 951/1184 [01:17\u003c00:02, 89.84it/s]\rLoading weights:  81%|████████▏ | 963/1184 [01:17\u003c00:02, 94.27it/s]\rLoading weights:  82%|████████▏ | 975/1184 [01:17\u003c00:02, 94.86it/s]\rLoading weights:  83%|████████▎ | 987/1184 [01:17\u003c00:02, 95.51it/s]\rLoading weights:  84%|████████▍ | 999/1184 [01:17\u003c00:01, 96.10it/s]\rLoading weights:  85%|████████▌ | 1009/1184 [01:18\u003c00:01, 96.98it/s]\rLoading weights:  86%|████████▋ | 1023/1184 [01:18\u003c00:01, 92.54it/s]\rLoading weights:  88%|████████▊ | 1037/1184 [01:18\u003c00:01, 98.45it/s]\rLoading weights:  89%|████████▊ | 1049/1184 [01:18\u003c00:01, 91.59it/s]\rLoading weights:  90%|████████▉ | 1061/1184 [01:18\u003c00:01, 92.63it/s]\rLoading weights:  91%|█████████ | 1075/1184 [01:18\u003c00:01, 94.10it/s]\rLoading weights:  92%|█████████▏| 1095/1184 [01:18\u003c00:00, 109.09it/s]\rLoading weights:  93%|█████████▎| 1106/1184 [01:18\u003c00:00, 109.13it/s]\rLoading weights:  94%|█████████▍| 1117/1184 [01:19\u003c00:00, 99.08it/s] \rLoading weights:  96%|█████████▌| 1131/1184 [01:19\u003c00:00, 101.55it/s]\rLoading weights:  97%|█████████▋| 1143/1184 [01:19\u003c00:00, 102.36it/s]\rLoading weights:  97%|█████████▋| 1154/1184 [01:19\u003c00:00, 96.58it/s] \rLoading weights:  99%|█████████▊| 1167/1184 [01:19\u003c00:00, 94.44it/s]\rLoading weights:  99%|█████████▉| 1177/1184 [01:20\u003c00:00, 57.62it/s]\rLoading weights: 100%|██████████| 1184/1184 [01:20\u003c00:00, 14.79it/s]\n"}
+,{"stream_name":"stdout","time":302.943776386,"data":"Unsloth: the model has bfloat16 layers on GPU 0 (Tesla T4), GPU 1 (Tesla T4), which has no native bfloat16, so they run slowly. Load with dtype = torch.float16, or keep the model on bfloat16 GPUs with CUDA_VISIBLE_DEVICES.\n"}
+,{"stream_name":"stdout","time":302.943819124,"data":"[warm start] PEFT adapter: /kaggle/input/notebooks/nicolascoquelet/makemarketbench-qwen3-8-27b-training/warmstart_adapter/adapter_model.safetensors\n"}
+,{"stream_name":"stdout","time":682.632214045,"data":"[qwen3.8-27b-batch4-sft] 4/200 episodes, 380s\n"}
+,{"stream_name":"stdout","time":855.897884071,"data":"[qwen3.8-27b-batch4-sft] 8/200 episodes, 553s\n"}
+,{"stream_name":"stdout","time":1036.532041451,"data":"[qwen3.8-27b-batch4-sft] 12/200 episodes, 734s\n"}
+,{"stream_name":"stdout","time":1218.769057399,"data":"[qwen3.8-27b-batch4-sft] 16/200 episodes, 916s\n"}
+,{"stream_name":"stdout","time":1394.979583295,"data":"[qwen3.8-27b-batch4-sft] 20/200 episodes, 1092s\n"}
+,{"stream_name":"stdout","time":1567.364725474,"data":"[qwen3.8-27b-batch4-sft] 24/200 episodes, 1264s\n"}
+,{"stream_name":"stdout","time":1739.006552349,"data":"[qwen3.8-27b-batch4-sft] 28/200 episodes, 1436s\n"}
+,{"stream_name":"stdout","time":1913.698751787,"data":"[qwen3.8-27b-batch4-sft] 32/200 episodes, 1611s\n"}
+,{"stream_name":"stdout","time":2088.809407362,"data":"[qwen3.8-27b-batch4-sft] 36/200 episodes, 1786s\n"}
+,{"stream_name":"stdout","time":2267.629226582,"data":"[qwen3.8-27b-batch4-sft] 40/200 episodes, 1965s\n"}
+,{"stream_name":"stdout","time":2417.261970275,"data":"[qwen3.8-27b-batch4-sft] 44/200 episodes, 2114s\n"}
+,{"stream_name":"stdout","time":2589.513498024,"data":"[qwen3.8-27b-batch4-sft] 48/200 episodes, 2287s\n"}
+,{"stream_name":"stdout","time":2738.230759915,"data":"[qwen3.8-27b-batch4-sft] 52/200 episodes, 2435s\n"}
+,{"stream_name":"stdout","time":2884.022330462,"data":"[qwen3.8-27b-batch4-sft] 56/200 episodes, 2581s\n"}
+,{"stream_name":"stdout","time":3053.935597842,"data":"[qwen3.8-27b-batch4-sft] 60/200 episodes, 2751s\n"}
+,{"stream_name":"stdout","time":3220.667187637,"data":"[qwen3.8-27b-batch4-sft] 64/200 episodes, 2918s\n"}
+,{"stream_name":"stdout","time":3392.103282986,"data":"[qwen3.8-27b-batch4-sft] 68/200 episodes, 3089s\n"}
+,{"stream_name":"stdout","time":3539.867682253,"data":"[qwen3.8-27b-batch4-sft] 72/200 episodes, 3237s\n"}
+,{"stream_name":"stdout","time":3708.278370443,"data":"[qwen3.8-27b-batch4-sft] 76/200 episodes, 3405s\n"}
+,{"stream_name":"stdout","time":3879.016980002,"data":"[qwen3.8-27b-batch4-sft] 80/200 episodes, 3576s\n"}
+,{"stream_name":"stdout","time":4017.541043523,"data":"[qwen3.8-27b-batch4-sft] 84/200 episodes, 3715s\n"}
+,{"stream_name":"stdout","time":4162.365771716,"data":"[qwen3.8-27b-batch4-sft] 88/200 episodes, 3859s\n"}
+,{"stream_name":"stdout","time":4302.074479793,"data":"[qwen3.8-27b-batch4-sft] 92/200 episodes, 3999s\n"}
+,{"stream_name":"stdout","time":4443.852275724,"data":"[qwen3.8-27b-batch4-sft] 96/200 episodes, 4141s\n"}
+,{"stream_name":"stdout","time":4615.456915761,"data":"[qwen3.8-27b-batch4-sft] 100/200 episodes, 4312s\n"}
+,{"stream_name":"stdout","time":4791.240682044,"data":"[qwen3.8-27b-batch4-sft] 104/200 episodes, 4488s\n"}
+,{"stream_name":"stdout","time":4958.77859901,"data":"[qwen3.8-27b-batch4-sft] 108/200 episodes, 4656s\n"}
+,{"stream_name":"stdout","time":5089.346889876,"data":"[qwen3.8-27b-batch4-sft] 112/200 episodes, 4786s\n"}
+,{"stream_name":"stdout","time":5257.006365865,"data":"[qwen3.8-27b-batch4-sft] 116/200 episodes, 4954s\n"}
+,{"stream_name":"stdout","time":5394.733502264,"data":"[qwen3.8-27b-batch4-sft] 120/200 episodes, 5092s\n"}
+,{"stream_name":"stdout","time":5562.082424843,"data":"[qwen3.8-27b-batch4-sft] 124/200 episodes, 5259s\n"}
+,{"stream_name":"stdout","time":5666.445366769,"data":"[qwen3.8-27b-batch4-sft] 128/200 episodes, 5363s\n"}
+,{"stream_name":"stdout","time":5770.956638513,"data":"[qwen3.8-27b-batch4-sft] 132/200 episodes, 5468s\n"}
+,{"stream_name":"stdout","time":5936.158879595,"data":"[qwen3.8-27b-batch4-sft] 136/200 episodes, 5633s\n"}
+,{"stream_name":"stdout","time":6102.68962546,"data":"[qwen3.8-27b-batch4-sft] 140/200 episodes, 5800s\n"}
+,{"stream_name":"stdout","time":6243.225157625,"data":"[qwen3.8-27b-batch4-sft] 144/200 episodes, 5940s\n"}
+,{"stream_name":"stdout","time":6391.055060324,"data":"[qwen3.8-27b-batch4-sft] 148/200 episodes, 6088s\n"}
+,{"stream_name":"stdout","time":6533.578413268,"data":"[qwen3.8-27b-batch4-sft] 152/200 episodes, 6231s\n"}
+,{"stream_name":"stdout","time":6675.705753421,"data":"[qwen3.8-27b-batch4-sft] 156/200 episodes, 6373s\n"}
+,{"stream_name":"stdout","time":6843.634418712,"data":"[qwen3.8-27b-batch4-sft] 160/200 episodes, 6541s\n"}
+,{"stream_name":"stdout","time":6985.771964198,"data":"[qwen3.8-27b-batch4-sft] 164/200 episodes, 6683s\n"}
+,{"stream_name":"stdout","time":7125.094401352,"data":"[qwen3.8-27b-batch4-sft] 168/200 episodes, 6822s\n"}
+,{"stream_name":"stdout","time":7293.717233271,"data":"[qwen3.8-27b-batch4-sft] 172/200 episodes, 6991s\n"}
+,{"stream_name":"stdout","time":7432.307402529,"data":"[qwen3.8-27b-batch4-sft] 176/200 episodes, 7129s\n"}
+,{"stream_name":"stdout","time":7571.38269191,"data":"[qwen3.8-27b-batch4-sft] 180/200 episodes, 7268s\n"}
+,{"stream_name":"stdout","time":7742.24711037,"data":"[qwen3.8-27b-batch4-sft] 184/200 episodes, 7439s\n"}
+,{"stream_name":"stdout","time":7883.46752236,"data":"[qwen3.8-27b-batch4-sft] 188/200 episodes, 7580s\n"}
+,{"stream_name":"stdout","time":8027.409559688,"data":"[qwen3.8-27b-batch4-sft] 192/200 episodes, 7724s\n"}
+,{"stream_name":"stdout","time":8169.784893574,"data":"[qwen3.8-27b-batch4-sft] 196/200 episodes, 7867s\n"}
+,{"stream_name":"stdout","time":8307.435641227,"data":"[qwen3.8-27b-batch4-sft] 200/200 episodes, 8004s\n"}
+,{"stream_name":"stdout","time":8307.478331076,"data":"[eval] dice: 200 episodes, mean E[PnL]=12.24 (8004s) -\u003e /kaggle/working/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl\n"}
+,{"stream_name":"stdout","time":8307.478361532,"data":"[bayes] 5/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.512131593,"data":"[bayes] 10/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.543645316,"data":"[bayes] 15/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.574533761,"data":"[bayes] 20/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.604864102,"data":"[bayes] 25/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.633516523,"data":"[bayes] 30/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.663290788,"data":"[bayes] 35/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.693756815,"data":"[bayes] 40/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.722618287,"data":"[bayes] 45/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.753455476,"data":"[bayes] 50/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.785268791,"data":"[bayes] 55/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.816337474,"data":"[bayes] 60/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.845490656,"data":"[bayes] 65/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.874489393,"data":"[bayes] 70/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.903580634,"data":"[bayes] 75/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.934437728,"data":"[bayes] 80/200 episodes, 0s\n"}
+,{"stream_name":"stdout","time":8307.963490368,"data":"[bayes] 85/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8307.992967872,"data":"[bayes] 90/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.022947721,"data":"[bayes] 95/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.053884268,"data":"[bayes] 100/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.082476069,"data":"[bayes] 105/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.113611793,"data":"[bayes] 110/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.143259756,"data":"[bayes] 115/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.172346198,"data":"[bayes] 120/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.201518533,"data":"[bayes] 125/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.230526799,"data":"[bayes] 130/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.260285465,"data":"[bayes] 135/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.29079028,"data":"[bayes] 140/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.319732756,"data":"[bayes] 145/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.348352386,"data":"[bayes] 150/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.377385481,"data":"[bayes] 155/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.40809262,"data":"[bayes] 160/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.436611981,"data":"[bayes] 165/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.464553554,"data":"[bayes] 170/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.492666386,"data":"[bayes] 175/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.520938569,"data":"[bayes] 180/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.550610619,"data":"[bayes] 185/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.579297955,"data":"[bayes] 190/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.607856121,"data":"[bayes] 195/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8308.637354177,"data":"[bayes] 200/200 episodes, 1s\n"}
+,{"stream_name":"stdout","time":8530.739717561,"data":"[qwen3.8-27b-batch4-sft] 4/200 episodes, 219s\n"}
+,{"stream_name":"stdout","time":8712.517955481,"data":"[qwen3.8-27b-batch4-sft] 8/200 episodes, 401s\n"}
+,{"stream_name":"stdout","time":8904.542851488,"data":"[qwen3.8-27b-batch4-sft] 12/200 episodes, 593s\n"}
+,{"stream_name":"stdout","time":9093.906124911,"data":"[qwen3.8-27b-batch4-sft] 16/200 episodes, 783s\n"}
+,{"stream_name":"stdout","time":9279.451014452,"data":"[qwen3.8-27b-batch4-sft] 20/200 episodes, 968s\n"}
+,{"stream_name":"stdout","time":9466.521790519,"data":"[qwen3.8-27b-batch4-sft] 24/200 episodes, 1155s\n"}
+,{"stream_name":"stdout","time":9655.594789342,"data":"[qwen3.8-27b-batch4-sft] 28/200 episodes, 1344s\n"}
+,{"stream_name":"stdout","time":9837.176133285,"data":"[qwen3.8-27b-batch4-sft] 32/200 episodes, 1526s\n"}
+,{"stream_name":"stdout","time":10020.108542832,"data":"[qwen3.8-27b-batch4-sft] 36/200 episodes, 1709s\n"}
+,{"stream_name":"stdout","time":10172.868273316,"data":"[qwen3.8-27b-batch4-sft] 40/200 episodes, 1861s\n"}
+,{"stream_name":"stdout","time":10350.89459899,"data":"[qwen3.8-27b-batch4-sft] 44/200 episodes, 2040s\n"}
+,{"stream_name":"stdout","time":10527.956204228,"data":"[qwen3.8-27b-batch4-sft] 48/200 episodes, 2217s\n"}
+,{"stream_name":"stdout","time":10709.03687154,"data":"[qwen3.8-27b-batch4-sft] 52/200 episodes, 2398s\n"}
+,{"stream_name":"stdout","time":10889.185217923,"data":"[qwen3.8-27b-batch4-sft] 56/200 episodes, 2578s\n"}
+,{"stream_name":"stdout","time":11043.288178716,"data":"[qwen3.8-27b-batch4-sft] 60/200 episodes, 2732s\n"}
+,{"stream_name":"stdout","time":11222.428271771,"data":"[qwen3.8-27b-batch4-sft] 64/200 episodes, 2911s\n"}
+,{"stream_name":"stdout","time":11369.699239481,"data":"[qwen3.8-27b-batch4-sft] 68/200 episodes, 3058s\n"}
+,{"stream_name":"stdout","time":11542.947165638,"data":"[qwen3.8-27b-batch4-sft] 72/200 episodes, 3232s\n"}
+,{"stream_name":"stdout","time":11694.382621482,"data":"[qwen3.8-27b-batch4-sft] 76/200 episodes, 3383s\n"}
+,{"stream_name":"stdout","time":11842.956938097,"data":"[qwen3.8-27b-batch4-sft] 80/200 episodes, 3532s\n"}
+,{"stream_name":"stdout","time":12029.474530868,"data":"[qwen3.8-27b-batch4-sft] 84/200 episodes, 3718s\n"}
+,{"stream_name":"stdout","time":12211.561763807,"data":"[qwen3.8-27b-batch4-sft] 88/200 episodes, 3900s\n"}
+,{"stream_name":"stdout","time":12388.575209304,"data":"[qwen3.8-27b-batch4-sft] 92/200 episodes, 4077s\n"}
+,{"stream_name":"stdout","time":12569.498560709,"data":"[qwen3.8-27b-batch4-sft] 96/200 episodes, 4258s\n"}
+,{"stream_name":"stdout","time":12713.139447736,"data":"[qwen3.8-27b-batch4-sft] 100/200 episodes, 4402s\n"}
+,{"stream_name":"stdout","time":12866.83714441,"data":"[qwen3.8-27b-batch4-sft] 104/200 episodes, 4555s\n"}
+,{"stream_name":"stdout","time":13017.656640827,"data":"[qwen3.8-27b-batch4-sft] 108/200 episodes, 4706s\n"}
+,{"stream_name":"stdout","time":13169.008447117,"data":"[qwen3.8-27b-batch4-sft] 112/200 episodes, 4858s\n"}
+,{"stream_name":"stdout","time":13322.06797596,"data":"[qwen3.8-27b-batch4-sft] 116/200 episodes, 5011s\n"}
+,{"stream_name":"stdout","time":13502.381792609,"data":"[qwen3.8-27b-batch4-sft] 120/200 episodes, 5191s\n"}
+,{"stream_name":"stdout","time":13688.019420351,"data":"[qwen3.8-27b-batch4-sft] 124/200 episodes, 5377s\n"}
+,{"stream_name":"stdout","time":13837.329330291,"data":"[qwen3.8-27b-batch4-sft] 128/200 episodes, 5526s\n"}
+,{"stream_name":"stdout","time":14017.939898718,"data":"[qwen3.8-27b-batch4-sft] 132/200 episodes, 5707s\n"}
+,{"stream_name":"stdout","time":14171.665887886,"data":"[qwen3.8-27b-batch4-sft] 136/200 episodes, 5860s\n"}
+,{"stream_name":"stdout","time":14321.497572244,"data":"[qwen3.8-27b-batch4-sft] 140/200 episodes, 6010s\n"}
+,{"stream_name":"stdout","time":14471.718949825,"data":"[qwen3.8-27b-batch4-sft] 144/200 episodes, 6160s\n"}
+,{"stream_name":"stdout","time":14627.516038591,"data":"[qwen3.8-27b-batch4-sft] 148/200 episodes, 6316s\n"}
+,{"stream_name":"stdout","time":14806.224994173,"data":"[qwen3.8-27b-batch4-sft] 152/200 episodes, 6495s\n"}
+,{"stream_name":"stdout","time":14960.450537739,"data":"[qwen3.8-27b-batch4-sft] 156/200 episodes, 6649s\n"}
+,{"stream_name":"stdout","time":15107.695227314,"data":"[qwen3.8-27b-batch4-sft] 160/200 episodes, 6796s\n"}
+,{"stream_name":"stdout","time":15258.457419653,"data":"[qwen3.8-27b-batch4-sft] 164/200 episodes, 6947s\n"}
+,{"stream_name":"stdout","time":15440.012239661,"data":"[qwen3.8-27b-batch4-sft] 168/200 episodes, 7129s\n"}
+,{"stream_name":"stdout","time":15590.458351845,"data":"[qwen3.8-27b-batch4-sft] 172/200 episodes, 7279s\n"}
+,{"stream_name":"stdout","time":15740.936786014,"data":"[qwen3.8-27b-batch4-sft] 176/200 episodes, 7430s\n"}
+,{"stream_name":"stdout","time":15894.558852673,"data":"[qwen3.8-27b-batch4-sft] 180/200 episodes, 7583s\n"}
+,{"stream_name":"stdout","time":16045.759162916,"data":"[qwen3.8-27b-batch4-sft] 184/200 episodes, 7734s\n"}
+,{"stream_name":"stdout","time":16200.328038307,"data":"[qwen3.8-27b-batch4-sft] 188/200 episodes, 7889s\n"}
+,{"stream_name":"stdout","time":16373.482124461,"data":"[qwen3.8-27b-batch4-sft] 192/200 episodes, 8062s\n"}
+,{"stream_name":"stderr","time":16441.248196769,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":16441.248253446,"data":"  File \"/kaggle/src/script.py\", line 49, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":16441.248261758,"data":"    raise RuntimeError(f\"Evaluation worker exit codes: {codes}\")\n"}
+,{"stream_name":"stderr","time":16441.248267699,"data":"RuntimeError: Evaluation worker exit codes: [-9]\n"}
+,{"stream_name":"stderr","time":16443.585011534,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":16443.585053526,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":16443.889545242,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":16443.889584159,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":16444.875581071,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":16445.563425935,"data":"[NbConvertApp] Writing 384819 bytes to __results__.html\n"}
+]

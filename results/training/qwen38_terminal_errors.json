@@ -1,0 +1,202 @@
+{
+  "provenance": {
+    "command": "/Users/nico/Documents/AI/makemarketbench/.venv/bin/python runs/prepare_finish.py",
+    "config": {
+      "purpose": "Diagnose all three reported Kaggle ERROR versions from downloaded terminal artifacts"
+    },
+    "model_revision": null,
+    "git_commit": "97fbe259a028fa796e33ed4495fbbf4959056b41",
+    "uncommitted_diff_sha256": "03c2d8af22d231f9bed6180275d2e5572818e670f60fe0d0a70cced64dd9805e",
+    "started_at": "2026-11-01T14:11:36.880119+00:00",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.13.17",
+    "versions": {
+      "numpy": "2.5.4",
+      "openai": "3.40.0",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2"
+    }
+  },
+  "source": "import json\nfrom pathlib import Path\nfrom makemarket.provenance import file_sha256, receipt\n\nentries=[]\nfor launch_file, completion_file, root in [\n ('qwen38_selected_test.json','qwen38_selected_test_completion.json','qwen38-selected-test-v1'),\n ('qwen38_b4_validation.json','qwen38_b4_validation_completion.json','qwen38-b4-validation-v1'),\n ('qwen38_primary_grpo_validation.json','qwen38_primary_grpo_validation_completion.json','qwen38-primary-grpo-validation-v1')]:\n    launch_path=Path('results/training')/launch_file\n    completion_path=Path('results/training')/completion_file\n    launch=json.loads(launch_path.read_text()); completed=json.loads(completion_path.read_text())\n    assert launch['status']=='outputs_retrieved'\n    log=next((Path('results/kaggle')/root).glob('*.log'))\n    assert 'Evaluation worker exit codes:' in log.read_text()\n    for p, h in completed['downloaded_files'].items():\n        assert file_sha256(p)==h['sha256']\n    entries.append({'kernel':launch['metadata']['id'],'version':launch['version'],\n      'terminal_status':launch['polls'][-1]['output'],'download_receipt':str(launch_path),\n      'download_receipt_sha256':file_sha256(launch_path),'completion_receipt':str(completion_path),\n      'completion_receipt_sha256':file_sha256(completion_path),'log':str(log),'log_sha256':file_sha256(log),\n      'cause':'Registered script wall deadline exhausted; wrapper killed evaluation worker. No out-of-memory error appears in the downloaded log.',\n      'pair_runtime':completed['pair_runtime'], 'cohorts':completed['cohorts'],\n      'runtime_caution':'A hard-killed worker cannot flush its final runtime/VRAM; use complete wrapper wall time, not its stale loading snapshot.'})\nrecord={'provenance':receipt({'purpose':'Diagnose all three reported Kaggle ERROR versions from downloaded terminal artifacts'}),\n        'source':Path(__file__).read_text(),'kernels':entries}\nPath('results/training/qwen38_terminal_errors.json').write_text(json.dumps(record,indent=2)+'\\n')\nfolder=Path('runs/kaggle_qwen38_test_finish')\nmeta=json.loads((folder/'kernel-metadata.json').read_text())\nmeta.update(id='nicolascoquelet/makemarketbench-qwen38-test-finish',title='MakeMarketBench Qwen38 test finish')\n(folder/'kernel-metadata.json').write_text(json.dumps(meta,indent=2)+'\\n')\nselection_path=Path('results/training/qwen38_selection.json')\nselection=json.loads(selection_path.read_text())\nsnapshot=json.loads(Path('results/training/kaggle_account_budget_snapshot.json').read_text())\nq=snapshot['quota']; available=q['gpu_seconds_total']-q['gpu_seconds_used']-q['gpu_seconds_reserved']\nassert available>=840\nprefix_root=Path('results/kaggle/qwen38-selected-test-v1')/selection['label']/'results/raw'\nplan={'provenance':receipt({'purpose':'ONE bounded missing-only continuation authorized by finish-now directive'},selection['provenance']['model_revision']),\n      'status':'registered_before_submission','selection_file':str(selection_path),'selection_sha256':file_sha256(selection_path),\n      'adapter_sha256':selection['adapter_sha256'],'metadata':meta,'source_sha256':file_sha256(folder/meta['code_file']),\n      'session_timeout_seconds':840,'script_budget_seconds':780,'quota_snapshot':snapshot,'available_seconds':available,\n      'fixed_policy':{'label':selection['label'],'training_seed':0,'evaluation_seed':200,'episodes_per_game':200,'batch_size':4,'decoder':'greedy'},\n      'prefix_sha256':{g:file_sha256(prefix_root/g/f\"{selection['label']}.jsonl\") for g in ('dice','cards')},\n      'episodes_saved':{'dice':200,'cards':192},'only_missing_seeds':{'dice':[],'cards':list(range(392,400))},\n      'runtime_estimate':{'loading_seconds_observed':300.52679109573364,'last_two_complete_groups_seconds':[155.327,173.154],'expected_missing_groups':2,\n        'basis':'Downloaded test loading snapshot and final complete group timestamps. Reference evaluation and reporting add seconds; 780-second script cap is a bound, not a completion guarantee.'},\n      'checkpointing':'Existing runner atomically persists every complete four-episode group in /kaggle/working. Prefix and cached greedy responses restored; only missing groups acquired.',\n      'stop_rule':'No second rerun. If incomplete, retain exact partial n, score only complete games, and stop. Optional validation finish jobs are skipped.',\n      'build_command':'.venv/bin/python train/build_kaggle_kernel.py --qwen38-evaluate --evaluation-split test --evaluate-adapter sft --newest-batch-size 4 --evaluation-budget-seconds 780 --evaluation-resume-kernel nicolascoquelet/makemarketbench-qwen38-batch4-test --out runs/kaggle_qwen38_test_finish'}\nPath('results/training/qwen38_test_finish_plan.json').write_text(json.dumps(plan,indent=2)+'\\n')\np=Path('ITERATIONS.md')\np.write_text(p.read_text()+'''\\n### T39 \u2014 terminal artifact recovery and one bounded test continuation\\n\\n- Diagnose all three reported Kaggle ERROR versions using saved logs, raw episodes, wrapper deadlines and hashes: `results/training/qwen38_terminal_errors.json`. Each worker reaches its registered script deadline, rather than reporting GPU OOM. The selected test retains all 200 dice and 192 cards episodes; do not score partial cards.\\n- The official November 1 quota query reports 107102.574 of 108000 GPU seconds used, 897.426 seconds free, reset November 7. This is the current weekly account receipt, superseding assumed calendar resets.\\n- Hypothesis: restoring acquired groups and cached responses can finish the final eight cards episodes with the frozen adapter/greedy batch-four policy in one 780-second script / 840-second private saved session. Estimated loading 301 seconds plus two observed roughly 155\u2013173-second groups. Exact source, quota, seed prefix and selection hashes: `results/training/qwen38_test_finish_plan.json`.\\n- Change only execution continuity: no training, seed selection, decoder change or new candidate. Atomically checkpoint complete raw groups. Run once; retain any remaining partial and stop. Skip both optional validation continuations under the owner's finish-now priority.\\n''')\nprint('Verified all downloaded error artifacts; registered one 840-second continuation.')\n",
+  "kernels": [
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen38-batch4-test",
+      "version": 1,
+      "terminal_status": "nicolascoquelet/makemarketbench-qwen38-batch4-test has status \"KernelWorkerStatus.ERROR\"",
+      "download_receipt": "results/training/qwen38_selected_test.json",
+      "download_receipt_sha256": "329c46bbf73a38b4573e7f57c1b93774d4c94bdf31ceadef2effc59c4041fefd",
+      "completion_receipt": "results/training/qwen38_selected_test_completion.json",
+      "completion_receipt_sha256": "88fcf2b7a2e88a1f0f2d279d29864d5c95c7a3c9a63c38085aefc942b54762d1",
+      "log": "results/kaggle/qwen38-selected-test-v1/makemarketbench-qwen38-batch4-test.log",
+      "log_sha256": "e1b1bc21bf78a7dc2487da9fc320e8cc620b5b3662938c3d2fa4f1b367c9318d",
+      "cause": "Registered script wall deadline exhausted; wrapper killed evaluation worker. No out-of-memory error appears in the downloaded log.",
+      "pair_runtime": {
+        "wall_seconds": 16440.425824233,
+        "budget_seconds": 16440,
+        "exit_codes": [
+          -9
+        ],
+        "command": [
+          "/usr/bin/python3",
+          "/kaggle/src/script.py"
+        ],
+        "source_commit": "99a747a0f77cfb436b61ef0e55b513eec0525b75",
+        "seed": 0,
+        "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "evaluation_seed": 200,
+        "episodes_per_game": 200,
+        "batch_size": 4
+      },
+      "cohorts": {
+        "dice": {
+          "qwen3.8-27b-batch4-sft": {
+            "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl",
+            "sha256": "4f2063c90db865c955fbbac70d811f0743b78c7ee4c41b623cf8e4aa08f0aa05",
+            "episodes": 200,
+            "complete": true,
+            "canonical_games_verified": true
+          },
+          "bayes": {
+            "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/dice/bayes.jsonl",
+            "sha256": "3f7772c242607c7d703030f08be57b7d75c94bf993e057a69e37f880ba9734df",
+            "episodes": 200,
+            "complete": true,
+            "canonical_games_verified": true
+          }
+        },
+        "cards": {
+          "qwen3.8-27b-batch4-sft": {
+            "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl",
+            "sha256": "c29a0478499ad9386c2ad05f74e36cd031d91785521889007291527a06cf987f",
+            "episodes": 192,
+            "complete": false,
+            "canonical_games_verified": true
+          },
+          "bayes": {
+            "file": "results/kaggle/qwen38-selected-test-v1/qwen3.8-27b-batch4-sft/results/raw/cards/bayes.jsonl",
+            "sha256": null,
+            "episodes": 0,
+            "complete": false,
+            "canonical_games_verified": true
+          }
+        }
+      },
+      "runtime_caution": "A hard-killed worker cannot flush its final runtime/VRAM; use complete wrapper wall time, not its stale loading snapshot."
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen38-batch4-validation",
+      "version": 1,
+      "terminal_status": "nicolascoquelet/makemarketbench-qwen38-batch4-validation has status \"KernelWorkerStatus.ERROR\"",
+      "download_receipt": "results/training/qwen38_b4_validation.json",
+      "download_receipt_sha256": "fbbb407e5a1587df625b5b3d11660107d23094ad5e7c92648208de3c24e4fdd9",
+      "completion_receipt": "results/training/qwen38_b4_validation_completion.json",
+      "completion_receipt_sha256": "61dff1721a05c048330b86a36f363ca932f3bba49b63adc11f50f13833ed0e33",
+      "log": "results/kaggle/qwen38-b4-validation-v1/makemarketbench-qwen38-batch4-validation.log",
+      "log_sha256": "494d5ec6be3e184cdbfce68a974e46c769eff29c90f25bf65c4525c7d5a98f2c",
+      "cause": "Registered script wall deadline exhausted; wrapper killed evaluation worker. No out-of-memory error appears in the downloaded log.",
+      "pair_runtime": {
+        "wall_seconds": 15600.364735142999,
+        "budget_seconds": 15600,
+        "exit_codes": [
+          0,
+          -9
+        ],
+        "command": [
+          "/usr/bin/python3",
+          "/kaggle/src/script.py"
+        ],
+        "source_commit": "d6fb004b997c776ae07c89b043ebebbb93a67c3b",
+        "seed": 0,
+        "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "evaluation_seed": 80000,
+        "episodes_per_game": 100,
+        "batch_size": 4
+      },
+      "cohorts": {
+        "sft": {
+          "dice": {
+            "episodes": 100,
+            "complete": true,
+            "canonical_games_verified": true,
+            "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/dice/qwen3.8-27b-batch4-sft.jsonl",
+            "sha256": "0f3292d317e1eb7afb29b3379ebab77754a05266c546d393080a2a2db5578bc3",
+            "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+          },
+          "cards": {
+            "episodes": 100,
+            "complete": true,
+            "canonical_games_verified": true,
+            "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-sft/results/raw/cards/qwen3.8-27b-batch4-sft.jsonl",
+            "sha256": "cd8de6d6614592eae370fb04aaee5b0c62ff7aada41fcd9ca96ffaefbfda8ab3",
+            "adapter_sha256": "96e3d63d4207fe8154c518bcced2530119fdc863a2c40527234dbfadb73a768e"
+          }
+        },
+        "grpo": {
+          "dice": {
+            "episodes": 100,
+            "complete": true,
+            "canonical_games_verified": true,
+            "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/dice/qwen3.8-27b-batch4-grpo.jsonl",
+            "sha256": "d74f44e4f22964772ec145d17bd593917eaf80bb7dcc73d4e51bd639e3526c15",
+            "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04"
+          },
+          "cards": {
+            "episodes": 76,
+            "complete": false,
+            "canonical_games_verified": true,
+            "file": "results/kaggle/qwen38-b4-validation-v1/qwen3.8-27b-batch4-grpo/results/raw/cards/qwen3.8-27b-batch4-grpo.jsonl",
+            "sha256": "92948c32aa2a171a651979ffd8ddca399e76d0d5938c65ff37c08d4e50433f19",
+            "adapter_sha256": "cc0766d0c55713b6c9b9a96bc6195f00260e2e315c764a0b05f28bc757d37b04"
+          }
+        }
+      },
+      "runtime_caution": "A hard-killed worker cannot flush its final runtime/VRAM; use complete wrapper wall time, not its stale loading snapshot."
+    },
+    {
+      "kernel": "nicolascoquelet/makemarketbench-qwen38-grpo-validation",
+      "version": 1,
+      "terminal_status": "nicolascoquelet/makemarketbench-qwen38-grpo-validation has status \"KernelWorkerStatus.ERROR\"",
+      "download_receipt": "results/training/qwen38_primary_grpo_validation.json",
+      "download_receipt_sha256": "db2148e3a420055b60f8c24f0e4f6e5dee6e95ad1ef255f1082614a6360b9be7",
+      "completion_receipt": "results/training/qwen38_primary_grpo_validation_completion.json",
+      "completion_receipt_sha256": "a0551297587488e2821a72641932762e5ed75f06e948ed11c7d0485a20f7d533",
+      "log": "results/kaggle/qwen38-primary-grpo-validation-v1/makemarketbench-qwen38-grpo-validation.log",
+      "log_sha256": "286fe5fe6cd5b5f88f6477dbb943eb5e34f924e6f7cfa418c1e70167769dd7d4",
+      "cause": "Registered script wall deadline exhausted; wrapper killed evaluation worker. No out-of-memory error appears in the downloaded log.",
+      "pair_runtime": {
+        "wall_seconds": 21300.426814741,
+        "budget_seconds": 21300,
+        "exit_codes": [
+          -9
+        ],
+        "command": [
+          "/usr/bin/python3",
+          "/kaggle/src/script.py"
+        ],
+        "source_commit": "3c0d8298c2047ded3fc19d349a0177c1d286a4d7",
+        "seed": 0,
+        "model_revision": "8aa5f05d26b7205477066e1449e0af13f762a299",
+        "evaluation_seed": 80000,
+        "episodes_per_game": 100,
+        "batch_size": 1
+      },
+      "cohorts": {
+        "dice": {
+          "episodes": 100,
+          "complete": true,
+          "canonical_games_verified": true,
+          "file": "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/dice/qwen3.8-27b-grpo.jsonl",
+          "sha256": "a160160e75a63e036144671a57f56ba235bb4ba8aad47cd287ccfcb48182d370"
+        },
+        "cards": {
+          "episodes": 97,
+          "complete": false,
+          "canonical_games_verified": true,
+          "file": "results/kaggle/qwen38-primary-grpo-validation-v1/qwen3.8-27b-grpo/results/raw/cards/qwen3.8-27b-grpo.jsonl",
+          "sha256": "e2f0cce4a33df99df043f619e1a3af3b81a9071eea172373b5123805fd5a24ba"
+        }
+      },
+      "runtime_caution": "A hard-killed worker cannot flush its final runtime/VRAM; use complete wrapper wall time, not its stale loading snapshot."
+    }
+  ]
+}
