@@ -37,7 +37,7 @@ jobs:
       - name: Check the C++ extension is used
         run: python -c "from makemarket.engine import cpp_available; assert cpp_available()"
       - name: Python tests (incl. C++/Python parity)
-        run: pytest -q
+        run: python -m pytest -q
       - name: Native C++ tests
         run: |
           cmake -S . -B build/native -DMMB_BUILD_NATIVE=ON -DCMAKE_BUILD_TYPE=Release

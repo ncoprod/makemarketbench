@@ -1,0 +1,72 @@
+test (3.12)	Python tests (incl. C++/Python parity)	﻿2026-11-01T14:17:27.4488282Z ##[group]Run pytest -q
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4488556Z [36;1mpytest -q[0m
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4519462Z shell: /usr/bin/bash -e {0}
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4519711Z env:
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4519970Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4520420Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4520847Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4521226Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4521791Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4522168Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:27.4522493Z ##[endgroup]
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4376810Z 
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4377659Z ==================================== ERRORS ====================================
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4378783Z _________________ ERROR collecting tests/test_cohort_inputs.py _________________
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4380136Z ImportError while importing test module '/home/runner/work/makemarketbench/makemarketbench/tests/test_cohort_inputs.py'.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4381420Z Hint: make sure your test modules/packages have valid Python names.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4382280Z Traceback:
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4383370Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/importlib/__init__.py:90: in import_module
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4384594Z     return _bootstrap._gcd_import(name[level:], package, level)
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4385425Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4386182Z tests/test_cohort_inputs.py:5: in <module>
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4386919Z     from scripts.check_cohort_games import main
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4387699Z E   ModuleNotFoundError: No module named 'scripts'
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4388611Z _________________ ERROR collecting tests/test_final_report.py __________________
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4390006Z ImportError while importing test module '/home/runner/work/makemarketbench/makemarketbench/tests/test_final_report.py'.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4391335Z Hint: make sure your test modules/packages have valid Python names.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4392124Z Traceback:
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4393144Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/importlib/__init__.py:90: in import_module
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4394278Z     return _bootstrap._gcd_import(name[level:], package, level)
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4395080Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4395788Z tests/test_final_report.py:6: in <module>
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4396476Z     from scripts import score_final
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4397180Z E   ModuleNotFoundError: No module named 'scripts'
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4398071Z _________________ ERROR collecting tests/test_mlx_evaluate.py __________________
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4399404Z ImportError while importing test module '/home/runner/work/makemarketbench/makemarketbench/tests/test_mlx_evaluate.py'.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4400702Z Hint: make sure your test modules/packages have valid Python names.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4401497Z Traceback:
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4402332Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/importlib/__init__.py:90: in import_module
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4403656Z     return _bootstrap._gcd_import(name[level:], package, level)
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4404470Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4405192Z tests/test_mlx_evaluate.py:7: in <module>
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4405873Z     from train import mlx_evaluate
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4406556Z E   ModuleNotFoundError: No module named 'train'
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4407441Z _______________ ERROR collecting tests/test_qwen38_selection.py ________________
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4408829Z ImportError while importing test module '/home/runner/work/makemarketbench/makemarketbench/tests/test_qwen38_selection.py'.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4410159Z Hint: make sure your test modules/packages have valid Python names.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4410940Z Traceback:
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4412244Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/importlib/__init__.py:90: in import_module
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4413614Z     return _bootstrap._gcd_import(name[level:], package, level)
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4414420Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4415146Z tests/test_qwen38_selection.py:7: in <module>
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4415848Z     from scripts import select_qwen38
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4416561Z E   ModuleNotFoundError: No module named 'scripts'
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4417698Z ______________ ERROR collecting tests/test_retained_validation.py ______________
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4419081Z ImportError while importing test module '/home/runner/work/makemarketbench/makemarketbench/tests/test_retained_validation.py'.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4420429Z Hint: make sure your test modules/packages have valid Python names.
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4421230Z Traceback:
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4422056Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/importlib/__init__.py:90: in import_module
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4423338Z     return _bootstrap._gcd_import(name[level:], package, level)
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4424116Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4424826Z tests/test_retained_validation.py:7: in <module>
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4425578Z     from train.final_candidate import evaluate_last_dagger
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4426336Z E   ModuleNotFoundError: No module named 'train'
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4427067Z =========================== short test summary info ============================
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4427833Z ERROR tests/test_cohort_inputs.py
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4428443Z ERROR tests/test_final_report.py
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4429042Z ERROR tests/test_mlx_evaluate.py
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4429647Z ERROR tests/test_qwen38_selection.py
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4430280Z ERROR tests/test_retained_validation.py
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4431139Z !!!!!!!!!!!!!!!!!!! Interrupted: 5 errors during collection !!!!!!!!!!!!!!!!!!!!
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4431914Z 5 errors in 0.64s
+test (3.12)	Python tests (incl. C++/Python parity)	2026-11-01T14:17:28.4727544Z ##[error]Process completed with exit code 2.

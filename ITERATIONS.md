@@ -3088,3 +3088,8 @@ The owner reopens GPU work for the 30-hour allocation resetting at
 - The frozen report verifies adapter/revision identity for each available complete newest-family game. The cards precision audit explicitly records an unavailable cards cohort. No model inference, selection change or additional trial is introduced.
 - Verify `python -m pytest -q tests/test_final_report.py`: three cases, including complete dice with absent cards and unknown cards target. Recompute only cached test arithmetic; complete-game canonical copies and hashes are in `results/training/qwen38_complete_game_publication.json`.
 - Optional API acquisition reaches its registered cutoff, retaining Llama90 dice173/cards92 unscored; four original API models remain complete200/game. `results/expansion/llama_duplicate_retry_completion.json` records canonical checks and exact terminal cutoff errors.
+
+### T41 — hosted CI resumes and reveals test-entrypoint drift
+
+- Hosted minutes become available on November 1: ASan/UBSan succeeds, but the Python matrix fails collecting five tests with `ModuleNotFoundError` for repository `scripts` / `train`. The console `pytest` entrypoint omits the checkout root in this installed-package configuration; local fallback already uses `python -m pytest` and passes149.
+- Change only the hosted test command to `python -m pytest -q`, matching the verified local entrypoint. No package-layout workaround or extra dependency is needed. Retain the failed hosted transcript and verify the next matrix run rather than describing this as a current billing refusal.
